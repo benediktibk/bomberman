@@ -37,3 +37,6 @@ physic/src/physicsimulatortest.cpp
 threading/incl/threadtest.h
 threading/src/threadtest.cpp
 main/src/testregistration.cpp
+main/incl/mainwindow.h
+main/src/mainwindow.cpp
+main/gui/mainwindow.ui
