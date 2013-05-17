@@ -1,0 +1,8 @@
+/usr/include
+common/incl
+gameengine/incl
+graphic/incl
+main/incl
+physic/incl
+sound/incl
+threading/incl

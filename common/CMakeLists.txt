@@ -1,0 +1,16 @@
+set(COMMON_SRC
+	src/gamestate.cpp
+	src/inputstate.cpp
+)
+
+set(COMMON_TEST_SRC
+	src/gamestatetest.cpp
+	src/inputstatetest.cpp
+)
+
+include_directories(
+	incl
+)
+
+add_library(common ${COMMON_SRC})
+add_library(commontest ${COMMON_TEST_SRC})
