@@ -26,6 +26,7 @@ set(LIBRARIES
 )
 
 set(LIBRARIES_TEST
+	maintest
 	commontest
 	gameenginetest
 	physictest
@@ -39,4 +40,4 @@ add_library(maintest ${MAIN_TEST_SRC})
 add_executable(game src/main.cpp)
 add_executable(testrunner src/testrunner.cpp)
 target_link_libraries(game ${LIBRARIES})
-target_link_libraries(testrunner ${LIBRARIES} ${LIBRARIESTEST} ${CPPUNIT_LIBRARY})
+target_link_libraries(testrunner ${LIBRARIES} ${LIBRARIES_TEST} ${CPPUNIT_LIBRARY})
