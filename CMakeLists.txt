@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 2.8)
 project(game)
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY bin)
-
 if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE debug)
 endif()

@@ -4,6 +4,7 @@
 #include <cppunit/TestResultCollector.h>
 #include <cppunit/TestRunner.h>
 #include <cppunit/BriefTestProgressListener.h>
+#include <cppunit/extensions/HelperMacros.h>
 
 using namespace CPPUNIT_NS;
 using namespace std;

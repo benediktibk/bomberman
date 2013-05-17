@@ -1,8 +1,6 @@
 #include "inputstatetest.h"
 #include "inputstate.h"
 
-CPPUNIT_TEST_SUITE_REGISTRATION(InputStateTest);
-
 void InputStateTest::constructor_empty_upKeyIsNotPressed()
 {
 	InputState inputState;
