@@ -1,5 +1,7 @@
 #include "inputstate.h"
 
+using namespace Common;
+
 InputState::InputState() :
 	m_upKeyPressed(false)
 { }

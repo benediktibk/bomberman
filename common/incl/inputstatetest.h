@@ -4,6 +4,8 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
+namespace Common
+{
 class InputStateTest :
 		public CPPUNIT_NS::TestFixture
 {
@@ -18,5 +20,6 @@ private:
 	 void setUpKeyPressed_empty_upKeyIsPressed();
 	 void setUpKeyNotPressed_previouslyPressed_upKeyIsNotPressed();
 };
+}
 
 #endif

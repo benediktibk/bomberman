@@ -4,6 +4,8 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
+namespace GameEngine
+{
 class GameEngineTest :
 		public CPPUNIT_NS::TestFixture
 {
@@ -12,5 +14,6 @@ class GameEngineTest :
 
 private:
 };
+}
 
 #endif

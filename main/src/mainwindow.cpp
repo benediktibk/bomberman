@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include <assert.h>
 
+using namespace Main;
+
 MainWindow::MainWindow() :
 	QMainWindow(0),
 	m_ui(new Ui::MainWindow)

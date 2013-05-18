@@ -1,6 +1,8 @@
 #ifndef INPUTSTATE_H
 #define INPUTSTATE_H
 
+namespace Common
+{
 class InputState
 {
 public:
@@ -13,5 +15,6 @@ public:
 private:
 	bool m_upKeyPressed;
 };
+}
 
 #endif

@@ -8,6 +8,8 @@ namespace Ui
 	class MainWindow;
 }
 
+namespace Main
+{
 class MainWindow :
 		public QMainWindow
 {
@@ -24,5 +26,6 @@ private:
 private:
 	Ui::MainWindow* m_ui;
 };
+}
 
 #endif

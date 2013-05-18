@@ -1,6 +1,8 @@
 #include "inputstatetest.h"
 #include "inputstate.h"
 
+using namespace Common;
+
 void InputStateTest::constructor_empty_upKeyIsNotPressed()
 {
 	InputState inputState;
