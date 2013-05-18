@@ -3,11 +3,11 @@
 
 using namespace Threading;
 
-class ThreadImpl :
+class ThreadTestImplementation :
 		public Thread
 {
 public:
-	ThreadImpl() :
+	ThreadTestImplementation() :
 		m_value(0)
 	{ }
 
@@ -28,7 +28,7 @@ private:
 
 void ThreadTest::constructor_setValueTo5DuringExecution_valueIs5()
 {
-	ThreadImpl thread;
+	ThreadTestImplementation thread;
 
 	thread.waitTillFinished();
 

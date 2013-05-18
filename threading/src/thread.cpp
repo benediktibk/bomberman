@@ -1,25 +1,35 @@
 #include "thread.h"
-#include <pthread.h>
 #include <assert.h>
 
 using namespace Threading;
 
 Thread::Thread() :
-	m_id(0)
+	m_id(0),
+	m_running(true)
 {
-	pthread_create(&m_id, 0, &threadFunction, this);
+	int errorCode = pthread_create(&m_id, 0, &threadFunction, this);
+	assert(errorCode == 0);
 }
 
 Thread::~Thread()
 {
-	pthread_cancel(m_id);
+	if (m_running)
+		pthread_cancel(m_id);
+	waitTillFinished();
 	m_id = 0;
+	m_running = false;
 }
 
 void Thread::waitTillFinished() const
 {
 	void *exitStatus;
-	pthread_join(m_id, &exitStatus);
+	if (m_running)
+		pthread_join(m_id, &exitStatus);
+}
+
+void Thread::markAsFinished()
+{
+	m_running = false;
 }
 
 void *Thread::threadFunction(void *threadAsVoid)
@@ -27,5 +37,6 @@ void *Thread::threadFunction(void *threadAsVoid)
 	Thread *thread = reinterpret_cast<Thread*>(threadAsVoid);
 	assert(thread != 0);
 	thread->execute();
+	thread->markAsFinished();
 	return 0;
 }

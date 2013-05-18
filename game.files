@@ -40,3 +40,7 @@ main/src/testregistration.cpp
 main/incl/mainwindow.h
 main/src/mainwindow.cpp
 main/gui/mainwindow.ui
+threading/incl/mutex.h
+threading/src/mutex.cpp
+threading/incl/mutextest.h
+threading/src/mutextest.cpp
