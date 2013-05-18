@@ -1,3 +1,9 @@
+find_library(CPPUNIT_LIBRARY cppunit)
+find_package(Threads)
+find_package(Qt4 REQUIRED)
+include(${QT_USE_FILE})
+add_definitions(${QT_DEFINITIONS})
+
 set(MAIN_SRC
 	src/gameloop.cpp
 )
@@ -49,14 +55,9 @@ set(LIBRARIES_TEST
 qt4_wrap_ui(MAIN_FORMS_MOC ${MAIN_FORMS})
 qt4_wrap_cpp(MAIN_QT_INCL_MOC ${MAIN_QT_INCL})
 
-find_library(CPPUNIT_LIBRARY cppunit)
-find_package(Qt4 REQUIRED)
-include(${QT_USE_FILE})
-add_definitions(${QT_DEFINITIONS})
-
 add_library(main ${MAIN_SRC})
 add_library(maintest ${MAIN_TEST_SRC})
 add_executable(game src/main.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
 add_executable(testrunner src/testrunner.cpp src/testregistration.cpp)
-target_link_libraries(game ${LIBRARIES} ${QT_LIBRARIES})
-target_link_libraries(testrunner ${LIBRARIES_TEST} ${LIBRARIES} ${CPPUNIT_LIBRARY})
+target_link_libraries(game ${LIBRARIES} ${QT_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(testrunner ${LIBRARIES_TEST} ${LIBRARIES} ${CPPUNIT_LIBRARY} ${CMAKE_THREAD_LIBS_INIT})
