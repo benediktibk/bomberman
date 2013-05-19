@@ -1,7 +1,10 @@
 #ifndef MUTEX_H
 #define MUTEX_H
 
-#include <pthread.h>
+namespace boost
+{
+	class mutex;
+}
 
 namespace Threading
 {
@@ -12,10 +15,10 @@ public:
 	~Mutex();
 
 	void lock();
-	void free();
+	void unlock();
 
 private:
-	pthread_mutex_t m_mutex;
+	boost::mutex *m_mutex;
 };
 }
 

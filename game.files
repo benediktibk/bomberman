@@ -44,3 +44,7 @@ threading/incl/mutex.h
 threading/src/mutex.cpp
 threading/incl/mutextest.h
 threading/src/mutextest.cpp
+threading/incl/signal.h
+threading/src/signal.cpp
+threading/incl/signaltest.h
+threading/src/signaltest.cpp

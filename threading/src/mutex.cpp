@@ -1,23 +1,24 @@
 #include "mutex.h"
+#include <boost/thread/mutex.hpp>
 
 using namespace Threading;
+using namespace boost;
 
-Mutex::Mutex()
-{
-	pthread_mutex_init(&m_mutex, 0);
-}
+Mutex::Mutex() :
+	m_mutex(new mutex)
+{ }
 
 Mutex::~Mutex()
 {
-	pthread_mutex_destroy(&m_mutex);
+	delete m_mutex;
 }
 
 void Mutex::lock()
 {
-	pthread_mutex_lock(&m_mutex);
+	m_mutex->lock();
 }
 
-void Mutex::free()
+void Mutex::unlock()
 {
-	pthread_mutex_unlock(&m_mutex);
+	m_mutex->unlock();
 }

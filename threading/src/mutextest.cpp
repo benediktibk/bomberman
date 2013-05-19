@@ -22,7 +22,7 @@ private:
 		{
 			m_mutex.lock();
 			++m_value;
-			m_mutex.free();
+			m_mutex.unlock();
 		}
 	}
 

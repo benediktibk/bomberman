@@ -17,4 +17,5 @@ private:
 	 void lock_100ThreadsWhichEachIncreaseDoubleVariable1000Times_variablesIs100000();
 };
 }
+
 #endif

@@ -1,7 +1,10 @@
 #ifndef THREAD_H
 #define THREAD_H
 
-#include <pthread.h>
+namespace boost
+{
+	class thread;
+}
 
 namespace Threading
 {
@@ -15,14 +18,12 @@ public:
 
 private:
 	virtual void execute() = 0;
-	void markAsFinished();
 
 private:
-	static void* threadFunction(void *threadAsVoid);
+	static void threadFunction(Thread *thread);
 
 private:
-	pthread_t m_id;
-	bool m_running;
+	boost::thread *m_thread;
 };
 }
 

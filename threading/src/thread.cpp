@@ -1,42 +1,25 @@
 #include "thread.h"
-#include <assert.h>
+#include <boost/thread.hpp>
 
 using namespace Threading;
 
 Thread::Thread() :
-	m_id(0),
-	m_running(true)
-{
-	int errorCode = pthread_create(&m_id, 0, &threadFunction, this);
-	assert(errorCode == 0);
-}
+	m_thread(new boost::thread(threadFunction, this))
+{ }
 
 Thread::~Thread()
 {
-	if (m_running)
-		pthread_cancel(m_id);
+	m_thread->interrupt();
 	waitTillFinished();
-	m_id = 0;
-	m_running = false;
+	delete m_thread;
 }
 
 void Thread::waitTillFinished() const
 {
-	void *exitStatus;
-	if (m_running)
-		pthread_join(m_id, &exitStatus);
+	m_thread->join();
 }
 
-void Thread::markAsFinished()
+void Thread::threadFunction(Thread *thread)
 {
-	m_running = false;
-}
-
-void *Thread::threadFunction(void *threadAsVoid)
-{
-	Thread *thread = reinterpret_cast<Thread*>(threadAsVoid);
-	assert(thread != 0);
 	thread->execute();
-	thread->markAsFinished();
-	return 0;
 }
