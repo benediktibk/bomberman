@@ -1,9 +1,9 @@
 set(GAMEENGINE_SRC
-	src/gameengine.cpp
+	src/gameengineimpl.cpp
 )
 
 set(GAMEENGINE_TEST_SRC
-	src/gameenginetest.cpp
+	src/gameengineimpltest.cpp
 )
 
 include_directories(
