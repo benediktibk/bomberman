@@ -16,7 +16,7 @@ public:
 
 	void waitTillFinished() const;
 
-private:
+protected:
 	virtual void execute() = 0;
 
 private:
