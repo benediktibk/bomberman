@@ -12,7 +12,7 @@ int main(int argc, char **argv)
 	MainWindow mainWindow;
 	Graphic::GraphicDrawerQt graphicDrawer;
 	GameEngine::GameEngineImpl gameEngine;
-	GameLoop gameLoop();
+	GameLoop gameLoop(mainWindow, gameEngine, graphicDrawer);
 	mainWindow.show();
 	return a.exec();
 }

@@ -1,4 +1,4 @@
-#include "signal.h"
+#include "signalcustom.h"
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/condition.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>

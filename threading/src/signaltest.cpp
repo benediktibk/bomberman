@@ -1,6 +1,6 @@
 #include "signaltest.h"
-#include "signal.h"
-#include "thread.h"
+#include "signalcustom.h"
+#include "threadcustom.h"
 
 using namespace Threading;
 

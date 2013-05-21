@@ -20,7 +20,7 @@ physic/incl/physicsimulator.h
 physic/src/physicsimulator.cpp
 sound/incl/soundplayer.h
 sound/src/soundplayer.cpp
-threading/incl/thread.h
+threading/incl/threadcustom.h
 threading/src/thread.cpp
 main/incl/gameloop.h
 main/src/gameloop.cpp
@@ -44,7 +44,7 @@ threading/incl/mutex.h
 threading/src/mutex.cpp
 threading/incl/mutextest.h
 threading/src/mutextest.cpp
-threading/incl/signal.h
+threading/incl/signalcustom.h
 threading/src/signal.cpp
 threading/incl/signaltest.h
 threading/src/signaltest.cpp

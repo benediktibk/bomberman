@@ -40,6 +40,7 @@ set(LIBRARIES
 	graphic
 	physic
 	sound
+	main
 	threading
 )
 

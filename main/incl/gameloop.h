@@ -1,7 +1,7 @@
 #ifndef GAMELOOP_H
 #define GAMELOOP_H
 
-#include "thread.h"
+#include "threadcustom.h"
 #include "mutex.h"
 
 namespace Common

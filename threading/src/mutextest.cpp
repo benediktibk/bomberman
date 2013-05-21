@@ -1,6 +1,6 @@
 #include "mutextest.h"
 #include "mutex.h"
-#include "thread.h"
+#include "threadcustom.h"
 #include <vector>
 
 using namespace Threading;

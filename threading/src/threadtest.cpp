@@ -1,5 +1,5 @@
 #include "threadtest.h"
-#include "thread.h"
+#include "threadcustom.h"
 
 using namespace Threading;
 
