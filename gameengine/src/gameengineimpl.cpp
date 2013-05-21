@@ -15,6 +15,15 @@ void GameEngineImpl::updateGameState(const InputState &inputState)
 		playerState.setPosition(oldPosition + additionalPosition);
 		m_gameState.setPlayerState(playerState);
 	}
+
+	if(m_inputState.isDownKeyPressed())
+	{
+		double additionalPosition = 5;
+		PlayerState playerState = m_gameState.getPlayerState();
+		double oldPosition = playerState.getPosition();
+		playerState.setPosition(oldPosition - additionalPosition);
+		m_gameState.setPlayerState(playerState);
+	}
 }
 
 const Common::GameState &GameEngineImpl::getGameState()

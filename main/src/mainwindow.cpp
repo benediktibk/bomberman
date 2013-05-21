@@ -31,6 +31,9 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 	case Key_Up:
 		m_inputState.setUpKeyPressed();
 		break;
+	case Key_Down:
+		m_inputState.setDownKeyPressed();
+		break;
 	default:
 		QMainWindow::keyPressEvent(event);
 		break;
@@ -45,6 +48,9 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
 	{
 	case Key_Up:
 		m_inputState.setUpKeyNotPressed();
+		break;
+	case Key_Down:
+		m_inputState.setDownKeyNotPressed();
 		break;
 	default:
 		QMainWindow::keyPressEvent(event);

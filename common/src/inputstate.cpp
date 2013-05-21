@@ -3,7 +3,8 @@
 using namespace Common;
 
 InputState::InputState() :
-	m_upKeyPressed(false)
+	m_upKeyPressed(false),
+	m_downKeyPressed(false)
 { }
 
 void InputState::setUpKeyPressed()
@@ -19,4 +20,19 @@ void InputState::setUpKeyNotPressed()
 bool InputState::isUpKeyPressed() const
 {
 	return m_upKeyPressed;
+}
+
+void InputState::setDownKeyPressed()
+{
+	m_downKeyPressed = true;
+}
+
+void InputState::setDownKeyNotPressed()
+{
+	m_downKeyPressed = false;
+}
+
+bool InputState::isDownKeyPressed() const
+{
+	return m_downKeyPressed;
 }
