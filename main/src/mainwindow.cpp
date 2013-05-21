@@ -7,11 +7,12 @@ using namespace Common;
 using namespace Main;
 using namespace Qt;
 
-MainWindow::MainWindow() :
+MainWindow::MainWindow(QGraphicsScene &scene) :
 	QMainWindow(0),
 	m_ui(new Ui::MainWindow)
 {
 	m_ui->setupUi(this);
+	m_ui->graphicsView->setScene(&scene);
 }
 
 InputState MainWindow::getInputState()

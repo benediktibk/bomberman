@@ -2,6 +2,7 @@
 #define MAINWINDOWCONTROLLER_H
 
 #include <QMainWindow>
+#include <QGraphicsScene>
 #include "inputfetcher.h"
 #include "inputstate.h"
 #include "mutex.h"
@@ -20,7 +21,7 @@ class MainWindow :
 	Q_OBJECT
 
 public:
-	MainWindow();
+	MainWindow(QGraphicsScene &scene);
 
 	virtual Common::InputState getInputState();
 

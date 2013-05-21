@@ -8,3 +8,4 @@ threading/incl
 /usr/include
 /usr/include/qt4/
 /usr/include/qt4/QtGui/
+build/debug/main

@@ -9,10 +9,14 @@ using namespace Main;
 int main(int argc, char **argv)
 {
 	QApplication a(argc, argv);
-	MainWindow mainWindow;
 	Graphic::GraphicDrawerQt graphicDrawer;
 	GameEngine::GameEngineImpl gameEngine;
+	MainWindow mainWindow(graphicDrawer.getScene());
 	GameLoop gameLoop(mainWindow, gameEngine, graphicDrawer);
+
 	mainWindow.show();
-	return a.exec();
+	int result = a.exec();
+	gameLoop.waitTillFinished();
+
+	return result;
 }

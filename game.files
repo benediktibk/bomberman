@@ -51,3 +51,5 @@ threading/src/signaltest.cpp
 common/incl/inputfetcher.h
 common/incl/graphicdrawer.h
 common/incl/gameengine.h
+graphic/incl/player.h
+graphic/src/player.cpp

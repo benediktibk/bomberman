@@ -1,5 +1,6 @@
 set(GRAPHIC_SRC
 	src/graphicdrawerqt.cpp
+	src/player.cpp
 )
 
 include_directories(
