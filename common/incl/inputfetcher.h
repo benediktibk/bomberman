@@ -8,7 +8,7 @@ namespace Common
 class InputFetcher
 {
 public:
-	virtual InputState getInputState() const = 0;
+	virtual InputState getInputState() = 0;
 
 	virtual ~InputFetcher() { }
 };

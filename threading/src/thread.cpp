@@ -1,4 +1,5 @@
 #include "thread.h"
+#include <signal.h>
 #include <boost/thread.hpp>
 
 using namespace Threading;

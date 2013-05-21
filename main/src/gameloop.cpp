@@ -6,27 +6,39 @@
 using namespace Common;
 using namespace Main;
 
-GameLoop::GameLoop(InputFetcher *inputFetcher, GameEngine *gameEngine, GraphicDrawer *graphicDrawer) :
+GameLoop::GameLoop(InputFetcher &inputFetcher, GameEngine &gameEngine, GraphicDrawer &graphicDrawer) :
 	m_inputFetcher(inputFetcher),
 	m_gameEngine(gameEngine),
-	m_graphicDrawer(graphicDrawer)
+	m_graphicDrawer(graphicDrawer),
+	m_stopped(false)
 { }
 
 GameLoop::~GameLoop()
 {
-	delete m_inputFetcher;
-	delete m_gameEngine;
-	delete m_graphicDrawer;
+	stop();
+	waitTillFinished();
+}
+
+void GameLoop::stop()
+{
+	m_stoppedMutex.lock();
+	m_stopped = true;
+	m_stoppedMutex.unlock();
 }
 
 void GameLoop::execute()
 {
-	while (true)
+	bool run = true;
+
+	while (run)
 	{
-		InputState inputState = m_inputFetcher->getInputState();
+		m_gameEngine.updateGameState(m_inputFetcher.getInputState());
 
-		m_gameEngine->updateGameState(inputState);
+		m_graphicDrawer.draw(m_gameEngine.getGameState());
 
-		m_graphicDrawer->draw(m_gameEngine->getGameState());
+		m_stoppedMutex.lock();
+		if (m_stopped)
+			run = false;
+		m_stoppedMutex.unlock();
 	}
 }
