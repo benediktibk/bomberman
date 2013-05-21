@@ -55,3 +55,5 @@ graphic/incl/player.h
 graphic/src/player.cpp
 common/incl/stopwatch.h
 common/src/stopwatch.cpp
+common/incl/playerstate.h
+common/src/playerstate.cpp

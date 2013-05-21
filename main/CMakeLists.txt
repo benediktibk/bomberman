@@ -35,13 +35,13 @@ include_directories(
 )
 
 set(LIBRARIES
-	common
 	gameengine
 	graphic
 	physic
 	sound
 	main
 	threading
+	common
 )
 
 set(LIBRARIES_TEST

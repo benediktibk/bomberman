@@ -29,6 +29,7 @@ void GameLoop::stop()
 void GameLoop::execute()
 {
 	bool run = true;
+	m_gameEngine.resetTime();
 
 	while (run)
 	{

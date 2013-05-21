@@ -18,8 +18,10 @@ GraphicDrawerQt::~GraphicDrawerQt()
 	delete m_player;
 }
 
-void GraphicDrawerQt::draw(const GameState &/*gameState*/)
+void GraphicDrawerQt::draw(const GameState &gameState)
 {
+	PlayerState playerState = gameState.getPlayerState();
+	m_player->update(playerState);
 }
 
 QGraphicsScene &GraphicDrawerQt::getScene()

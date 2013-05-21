@@ -1,7 +1,9 @@
 #include "player.h"
+#include "playerstate.h"
 #include <QGraphicsRectItem>
 
 using namespace Graphic;
+using namespace Common;
 
 Player::Player(QGraphicsScene &scene) :
 	m_item(new QGraphicsRectItem(0, &scene))
@@ -12,4 +14,9 @@ Player::Player(QGraphicsScene &scene) :
 Player::~Player()
 {
 	delete m_item;
+}
+
+void Player::update(const PlayerState &state)
+{
+	m_item->setPos(-10, state.getPosition() - 10);
 }

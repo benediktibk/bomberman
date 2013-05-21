@@ -10,6 +10,7 @@ class GameEngine
 {
 public:
 	virtual void updateGameState(const InputState &inputState) = 0;
+	virtual void resetTime() = 0;
 	virtual const GameState& getGameState() = 0;
 
 	virtual ~GameEngine() { }
