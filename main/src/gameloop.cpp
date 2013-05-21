@@ -2,6 +2,7 @@
 #include "inputfetcher.h"
 #include "gameengine.h"
 #include "graphicdrawer.h"
+#include <unistd.h>
 
 using namespace Common;
 using namespace Main;
@@ -29,7 +30,6 @@ void GameLoop::stop()
 void GameLoop::execute()
 {
 	bool run = true;
-	m_gameEngine.resetTime();
 
 	while (run)
 	{
@@ -41,5 +41,8 @@ void GameLoop::execute()
 		if (m_stopped)
 			run = false;
 		m_stoppedMutex.unlock();
+
+		// @todo remove this and run as fast as possible
+		usleep(100000);
 	}
 }

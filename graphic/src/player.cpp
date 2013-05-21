@@ -18,5 +18,5 @@ Player::~Player()
 
 void Player::update(const PlayerState &state)
 {
-	m_item->setPos(-10, state.getPosition() - 10);
+	m_item->setPos(-10, (-1)*state.getPosition() - 10);
 }
