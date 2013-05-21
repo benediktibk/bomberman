@@ -53,3 +53,5 @@ common/incl/graphicdrawer.h
 common/incl/gameengine.h
 graphic/incl/player.h
 graphic/src/player.cpp
+common/incl/stopwatch.h
+common/src/stopwatch.cpp

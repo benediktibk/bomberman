@@ -1,6 +1,7 @@
 set(COMMON_SRC
 	src/gamestate.cpp
 	src/inputstate.cpp
+	src/stopwatch.cpp
 )
 
 set(COMMON_TEST_SRC
