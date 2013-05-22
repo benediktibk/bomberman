@@ -14,7 +14,7 @@ public:
 	void restart();
 
 private:
-	clock_t m_start;
+	timeval m_start;
 };
 }
 

@@ -1,21 +1,24 @@
 #include "stopwatch.h"
-#include <time.h>
+#include <sys/time.h>
 
 using namespace Common;
 
-StopWatch::StopWatch() :
-	m_start(clock())
-{ }
+StopWatch::StopWatch()
+{
+	restart();
+}
 
 double StopWatch::getTimeAndRestart()
 {
-	clock_t end = clock();
-	double result = (end - m_start)/CLOCKS_PER_SEC;
-	restart();
-	return result;
+	double micro = 1000000;
+	timeval end;
+	gettimeofday(&end, 0);
+	double result = (end.tv_sec - m_start.tv_sec)*micro + (end.tv_usec  - m_start.tv_usec);
+	m_start = end;
+	return result/micro;
 }
 
 void StopWatch::restart()
 {
-	m_start = clock();
+	gettimeofday(&m_start, 0);
 }
