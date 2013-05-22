@@ -19,18 +19,25 @@ GameEngineImpl::~GameEngineImpl()
 
 void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 {
+    PlayerState playerState = m_gameState.getPlayerState();
 	m_inputState = inputState;
 
 	if (m_inputState.isUpKeyPressed())
+    {
+        playerState.setDirectionUp();
 		m_player->applyForce(1000);
-	else
-		m_player->applyForce(0);
-
-	PlayerState playerState = m_gameState.getPlayerState();
+    }
+    else if(m_inputState.isDownKeyPressed())
+    {
+        playerState.setDirectionDown();
+        m_player->applyForce(-1000);
+    } else
+    {
+        m_player->applyForce(0);
+    }
+    m_simulator->simulateStep(time);
 	playerState.setPosition(m_player->getPosition());
 	m_gameState.setPlayerState(playerState);
-
-	m_simulator->simulateStep(time);
 }
 
 const Common::GameState &GameEngineImpl::getGameState()
