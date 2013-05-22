@@ -10,3 +10,4 @@ physic
 /usr/include/qt4/
 /usr/include/qt4/QtGui/
 build/debug/main
+build/main

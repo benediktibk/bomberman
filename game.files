@@ -156,3 +156,7 @@ common/incl/stopwatchtest.h
 common/src/stopwatchtest.cpp
 main/src/mainwindowinputfetcher.cpp
 main/incl/mainwindowinputfetcher.h
+main/incl/mainwindowinputtest.h
+main/src/mainwindowinputtest.cpp
+main/gui/mainwindowinputtest.ui
+main/src/maininputtest.cpp
