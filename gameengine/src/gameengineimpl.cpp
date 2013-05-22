@@ -21,23 +21,9 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 {
 	m_inputState = inputState;
 
-	if(m_inputState.isUpKeyPressed())
-	{
-		double additionalPosition = 5;
-		PlayerState playerState = m_gameState.getPlayerState();
-		double oldPosition = playerState.getPosition();
-		playerState.setPosition(oldPosition + additionalPosition);
-		m_gameState.setPlayerState(playerState);
-	}
-
-	if(m_inputState.isDownKeyPressed())
-	{
-		double additionalPosition = 5;
-		PlayerState playerState = m_gameState.getPlayerState();
-		double oldPosition = playerState.getPosition();
-		playerState.setPosition(oldPosition - additionalPosition);
-		m_gameState.setPlayerState(playerState);
-	}
+	PlayerState playerState = m_gameState.getPlayerState();
+	playerState.setPosition(m_player->getPosition());
+	m_gameState.setPlayerState(playerState);
 
 	m_simulator->simulateStep(time);
 }
