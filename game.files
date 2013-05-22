@@ -152,3 +152,5 @@ physic/Box2D/Box2DConfig.cmake
 physic/Box2D/Box2D.h
 physic/incl/dynamicobject.h
 physic/src/dynamicobject.cpp
+common/incl/stopwatchtest.h
+common/src/stopwatchtest.cpp

@@ -8,6 +8,7 @@ set(COMMON_SRC
 set(COMMON_TEST_SRC
 	src/gamestatetest.cpp
 	src/inputstatetest.cpp
+	src/stopwatchtest.cpp
 )
 
 include_directories(

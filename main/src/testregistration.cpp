@@ -6,9 +6,11 @@
 #include "threadtest.h"
 #include "mutextest.h"
 #include "signaltest.h"
+#include "stopwatchtest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::GameStateTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::StopWatchTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GameEngineImplTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Main::GameLoopTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::PhysicSimulatorTest);
