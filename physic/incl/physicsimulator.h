@@ -15,10 +15,13 @@ public:
 	~PhysicSimulator();
 
 	b2Body* createBody(const b2BodyDef &definition);
+	void simulateStep(double time);
 
 private:
 	b2Vec2 *m_gravity;
 	b2World *m_world;
+	int m_velocityIterations;
+	int m_positionIterations;
 };
 }
 
