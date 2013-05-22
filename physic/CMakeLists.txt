@@ -9,6 +9,7 @@ set(PHYSIC_TEST_SRC
 include_directories(
 	incl
 	../common/incl
+	.
 )
 
 add_library(physic ${PHYSIC_SRC})

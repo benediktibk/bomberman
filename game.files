@@ -148,3 +148,5 @@ physic/Box2D/Dynamics/Joints/b2FrictionJoint.cpp
 physic/Box2D/Dynamics/Joints/b2DistanceJoint.cpp
 physic/Box2D/Rope/b2Rope.h
 physic/Box2D/Rope/b2Rope.cpp
+physic/Box2D/Box2DConfig.cmake
+physic/Box2D/Box2D.h

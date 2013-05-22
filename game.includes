@@ -5,6 +5,7 @@ main/incl
 physic/incl
 sound/incl
 threading/incl
+physic
 /usr/include
 /usr/include/qt4/
 /usr/include/qt4/QtGui/
