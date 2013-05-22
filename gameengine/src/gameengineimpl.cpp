@@ -21,6 +21,11 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 {
 	m_inputState = inputState;
 
+	if (m_inputState.isUpKeyPressed())
+		m_player->applyForce(1000);
+	else
+		m_player->applyForce(0);
+
 	PlayerState playerState = m_gameState.getPlayerState();
 	playerState.setPosition(m_player->getPosition());
 	m_gameState.setPlayerState(playerState);

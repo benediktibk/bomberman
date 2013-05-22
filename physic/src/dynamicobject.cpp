@@ -32,3 +32,8 @@ double DynamicObject::getPosition() const
 	b2Vec2 position = m_body->GetPosition();
 	return position.y;
 }
+
+void DynamicObject::applyForce(double force)
+{
+	m_body->ApplyForceToCenter(b2Vec2(0, force));
+}

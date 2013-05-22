@@ -18,6 +18,7 @@ public:
 	~DynamicObject();
 
 	double getPosition() const;
+	void applyForce(double force);
 
 private:
 	b2BodyDef *m_bodyDefinition;
