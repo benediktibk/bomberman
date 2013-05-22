@@ -1,6 +1,7 @@
 #include "stopwatchtest.h"
 #include "stopwatch.h"
 #include "time.h"
+#include <unistd.h>
 
 using namespace Common;
 
