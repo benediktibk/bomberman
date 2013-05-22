@@ -13,3 +13,4 @@ include_directories(
 
 add_library(physic ${PHYSIC_SRC})
 add_library(physictest ${PHYSIC_TEST_SRC})
+add_subdirectory(Box2D)

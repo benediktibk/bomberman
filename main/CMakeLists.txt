@@ -42,6 +42,7 @@ set(LIBRARIES
 	main
 	threading
 	common
+	Box2D
 )
 
 set(LIBRARIES_TEST
