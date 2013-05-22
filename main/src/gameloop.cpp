@@ -2,6 +2,7 @@
 #include "inputfetcher.h"
 #include "gameengine.h"
 #include "graphicdrawer.h"
+#include "stopwatch.h"
 #include <unistd.h>
 
 using namespace Common;
@@ -30,10 +31,11 @@ void GameLoop::stop()
 void GameLoop::execute()
 {
 	bool run = true;
+	StopWatch watch;
 
 	while (run)
 	{
-		m_gameEngine.updateGameState(m_inputFetcher.getInputState(), 0.1);
+		m_gameEngine.updateGameState(m_inputFetcher.getInputState(), watch.getTimeAndRestart());
 
 		m_graphicDrawer.draw(m_gameEngine.getGameState());
 
@@ -43,6 +45,6 @@ void GameLoop::execute()
 		m_stoppedMutex.unlock();
 
 		// @todo remove this and run as fast as possible
-		usleep(100000);
+		usleep(50000);
 	}
 }
