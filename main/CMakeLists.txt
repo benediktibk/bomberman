@@ -13,6 +13,7 @@ set(MAIN_TEST_SRC
 
 set(MAIN_QT_SRC
 	src/mainwindow.cpp
+	src/mainwindowinputfetcher.cpp
 )
 
 set(MAIN_FORMS
@@ -21,6 +22,7 @@ set(MAIN_FORMS
 
 set(MAIN_QT_INCL
 	incl/mainwindow.h
+	incl/mainwindowinputfetcher.h
 )
 
 include_directories(

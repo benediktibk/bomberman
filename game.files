@@ -154,3 +154,5 @@ physic/incl/dynamicobject.h
 physic/src/dynamicobject.cpp
 common/incl/stopwatchtest.h
 common/src/stopwatchtest.cpp
+main/src/mainwindowinputfetcher.cpp
+main/incl/mainwindowinputfetcher.h
