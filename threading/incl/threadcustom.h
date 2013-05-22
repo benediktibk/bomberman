@@ -21,9 +21,11 @@ protected:
 
 private:
 	static void threadFunction(Thread *thread);
+	void setFinished();
 
 private:
 	boost::thread *m_thread;
+	bool m_finished;
 };
 }
 

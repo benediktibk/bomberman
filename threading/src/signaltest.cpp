@@ -29,7 +29,6 @@ private:
 
 void SignalTest::send_threadWaitingOnSignalAndThenCopiesValue_destinationHasValueSetAfterCreationOfThread()
 {
-    CPPUNIT_ASSERT(false);
 	double source = 0;
 	double destination = 0;
 	Signal signalValueSet;
