@@ -1,15 +1,18 @@
 #include "graphicdrawerqt.h"
 #include "player.h"
 #include <QGraphicsScene>
+#include <QGraphicsView>
 
 using namespace Graphic;
 using namespace Common;
 
-GraphicDrawerQt::GraphicDrawerQt() :
+GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view) :
+	m_view(view),
 	m_scene(new QGraphicsScene()),
 	m_player(new Player(*m_scene))
 {
 	m_scene->setSceneRect(-100, -100, 200, 200);
+	m_view.setScene(m_scene);
 }
 
 GraphicDrawerQt::~GraphicDrawerQt()

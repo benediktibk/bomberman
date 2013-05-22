@@ -1,5 +1,6 @@
 find_library(CPPUNIT_LIBRARY cppunit)
 find_package(Qt4 REQUIRED)
+set(QT_USE_QTOPENGL TRUE)
 include(${QT_USE_FILE})
 add_definitions(${QT_DEFINITIONS})
 

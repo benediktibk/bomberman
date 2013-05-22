@@ -4,6 +4,7 @@
 #include "graphicdrawer.h"
 
 class QGraphicsScene;
+class QGraphicsView;
 
 namespace Graphic
 {
@@ -13,13 +14,14 @@ class GraphicDrawerQt :
 		public Common::GraphicDrawer
 {
 public:
-	GraphicDrawerQt();
+	GraphicDrawerQt(QGraphicsView &view);
 	virtual ~GraphicDrawerQt();
 
 	virtual void draw(const Common::GameState &gameState);
 	QGraphicsScene& getScene();
 
 private:
+	QGraphicsView &m_view;
 	QGraphicsScene *m_scene;
 	Player *m_player;
 };

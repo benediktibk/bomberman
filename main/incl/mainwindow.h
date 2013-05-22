@@ -1,8 +1,9 @@
 #ifndef MAINWINDOWCONTROLLER_H
 #define MAINWINDOWCONTROLLER_H
 
-#include <QGraphicsScene>
 #include "mainwindowinputfetcher.h"
+
+class QGraphicsView;
 
 namespace Ui
 {
@@ -16,7 +17,9 @@ class MainWindow : public MainWindowInputFetcher
 	Q_OBJECT
 
 public:
-	MainWindow(QGraphicsScene &scene);
+	MainWindow();
+
+	QGraphicsView& getGraphicsView();
 
 private:
 	Ui::MainWindow* m_ui;

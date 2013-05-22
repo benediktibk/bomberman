@@ -9,9 +9,9 @@ using namespace Main;
 int main(int argc, char **argv)
 {
 	QApplication a(argc, argv);
-	Graphic::GraphicDrawerQt graphicDrawer;
+	MainWindow mainWindow;
+	Graphic::GraphicDrawerQt graphicDrawer(mainWindow.getGraphicsView());
 	GameEngine::GameEngineImpl gameEngine;
-	MainWindow mainWindow(graphicDrawer.getScene());
 	GameLoop gameLoop(mainWindow, gameEngine, graphicDrawer);
 
 	mainWindow.show();
