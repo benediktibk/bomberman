@@ -4,7 +4,9 @@ using namespace Common;
 
 InputState::InputState() :
 	m_upKeyPressed(false),
-	m_downKeyPressed(false)
+    m_downKeyPressed(false),
+    m_leftKeyPressed(false),
+    m_rightKeyPressed(false)
 { }
 
 void InputState::setUpKeyPressed()
@@ -35,4 +37,34 @@ void InputState::setDownKeyNotPressed()
 bool InputState::isDownKeyPressed() const
 {
 	return m_downKeyPressed;
+}
+
+void InputState::setLeftKeyPressed()
+{
+    m_leftKeyPressed = true;
+}
+
+void InputState::setLeftKeyNotPressed()
+{
+    m_leftKeyPressed = false;
+}
+
+bool InputState::isLeftKeyPressed() const
+{
+    return m_leftKeyPressed;
+}
+
+void InputState::setRightKeyPressed()
+{
+    m_rightKeyPressed = true;
+}
+
+void InputState::setRightKeyNotPressed()
+{
+    m_rightKeyPressed = false;
+}
+
+bool InputState::isRightKeyPressed() const
+{
+    return m_rightKeyPressed;
 }

@@ -33,6 +33,7 @@ private:
 
 void MutexTest::lock_100ThreadsWhichEachIncreaseDoubleVariable1000Times_variablesIs100000()
 {
+    CPPUNIT_ASSERT(false);
 	vector<Thread*> threads;
 	threads.reserve(100);
 	double value = 0;

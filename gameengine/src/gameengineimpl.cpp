@@ -27,9 +27,17 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
         playerState.setDirectionUp();
 		m_player->applyForce(1000);
     }
-    else if(m_inputState.isDownKeyPressed())
+    else if (m_inputState.isDownKeyPressed())
     {
         playerState.setDirectionDown();
+        m_player->applyForce(-1000);
+    } else if (m_inputState.isLeftKeyPressed())
+    {
+        playerState.setDirectionLeft();
+        m_player->applyForce(1000);
+    } else if (m_inputState.isRightKeyPressed())
+    {
+        playerState.setDirectionRight();
         m_player->applyForce(-1000);
     } else
     {
