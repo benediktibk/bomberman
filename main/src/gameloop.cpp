@@ -33,7 +33,7 @@ void GameLoop::execute()
 
 	while (run)
 	{
-		m_gameEngine.updateGameState(m_inputFetcher.getInputState());
+		m_gameEngine.updateGameState(m_inputFetcher.getInputState(), 0.1);
 
 		m_graphicDrawer.draw(m_gameEngine.getGameState());
 

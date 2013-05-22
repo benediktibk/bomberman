@@ -9,6 +9,7 @@ set(GAMEENGINE_TEST_SRC
 include_directories(
 	incl
 	../common/incl
+	../physic/incl
 )
 
 add_library(gameengine ${GAMEENGINE_SRC})

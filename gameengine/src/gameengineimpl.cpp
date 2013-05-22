@@ -1,9 +1,23 @@
 #include "gameengineimpl.h"
+#include "physicsimulator.h"
+#include "dynamicobject.h"
 
 using namespace GameEngine;
 using namespace Common;
+using namespace Physic;
 
-void GameEngineImpl::updateGameState(const InputState &inputState)
+GameEngineImpl::GameEngineImpl() :
+	m_simulator(new PhysicSimulator),
+	m_player(new DynamicObject(*m_simulator))
+{ }
+
+GameEngineImpl::~GameEngineImpl()
+{
+	delete m_player;
+	delete m_simulator;
+}
+
+void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 {
 	m_inputState = inputState;
 
@@ -24,6 +38,8 @@ void GameEngineImpl::updateGameState(const InputState &inputState)
 		playerState.setPosition(oldPosition - additionalPosition);
 		m_gameState.setPlayerState(playerState);
 	}
+
+	m_simulator->simulateStep(time);
 }
 
 const Common::GameState &GameEngineImpl::getGameState()
