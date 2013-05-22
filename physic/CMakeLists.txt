@@ -1,5 +1,6 @@
 set(PHYSIC_SRC
 	src/physicsimulator.cpp
+	src/dynamicobject.cpp
 )
 
 set(PHYSIC_TEST_SRC

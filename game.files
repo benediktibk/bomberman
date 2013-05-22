@@ -150,3 +150,5 @@ physic/Box2D/Rope/b2Rope.h
 physic/Box2D/Rope/b2Rope.cpp
 physic/Box2D/Box2DConfig.cmake
 physic/Box2D/Box2D.h
+physic/incl/dynamicobject.h
+physic/src/dynamicobject.cpp

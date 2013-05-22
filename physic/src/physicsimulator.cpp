@@ -15,3 +15,8 @@ PhysicSimulator::~PhysicSimulator()
 	delete m_world;
 	delete m_gravity;
 }
+
+b2Body* PhysicSimulator::createBody(const b2BodyDef &definition)
+{
+	return m_world->CreateBody(&definition);
+}
