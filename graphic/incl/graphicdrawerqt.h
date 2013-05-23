@@ -35,6 +35,7 @@ private:
 	Player *m_player;
 	std::vector<Wall*> m_walls;
 	std::vector<Bomb*> m_bombs;
+	const double m_pixelPerMeter;
 };
 }
 

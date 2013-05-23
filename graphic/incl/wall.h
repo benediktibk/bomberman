@@ -17,7 +17,7 @@ public:
 	Wall(QGraphicsScene &scene);
 	~Wall();
 
-	void update(const Common::WallState &state);
+	void update(const Common::WallState &state, double pixelPerMeter);
 
 private:
 	QGraphicsRectItem *m_item;

@@ -17,7 +17,7 @@ public:
 	Player(QGraphicsScene &scene);
 	~Player();
 
-	void update(const Common::PlayerState &state);
+	void update(const Common::PlayerState &state, double pixelPerMeter);
 
 private:
 	QGraphicsRectItem *m_item;

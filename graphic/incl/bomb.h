@@ -17,7 +17,7 @@ public:
 	Bomb(QGraphicsScene &scene);
 	~Bomb();
 
-	void update(const Common::BombState &state);
+	void update(const Common::BombState &state, double pixelPerMeter);
 
 private:
 	QGraphicsRectItem *m_item;

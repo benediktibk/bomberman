@@ -21,8 +21,8 @@ Wall::~Wall()
 	delete m_item;
 }
 
-void Wall::update(const Common::WallState &state)
+void Wall::update(const Common::WallState &state, double pixelPerMeter)
 {
-	Point position(state.getPosition());
+	Point position(state.getPosition()*pixelPerMeter);
 	m_item->setPos(position.toQPoint());
 }

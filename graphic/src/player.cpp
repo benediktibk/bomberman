@@ -21,7 +21,7 @@ Player::~Player()
 	delete m_item;
 }
 
-void Player::update(const PlayerState &state)
+void Player::update(const PlayerState &state, double /*pixelPerMeter*/)
 {
 	m_item->setPos(-10, (-1)*state.getPosition() - 10);
 }

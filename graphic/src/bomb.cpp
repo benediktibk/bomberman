@@ -21,8 +21,8 @@ Bomb::~Bomb()
 	delete m_item;
 }
 
-void Bomb::update(const Common::BombState &state)
+void Bomb::update(const Common::BombState &state, double pixelPerMeter)
 {
-	Point position(state.getPosition());
+	Point position(state.getPosition()*pixelPerMeter);
 	m_item->setPos(position.toQPoint());
 }

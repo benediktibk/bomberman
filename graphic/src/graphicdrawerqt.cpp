@@ -12,7 +12,8 @@ using namespace std;
 GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view) :
 	m_view(view),
 	m_scene(new QGraphicsScene()),
-	m_player(new Player(*m_scene))
+	m_player(new Player(*m_scene)),
+	m_pixelPerMeter(10)
 {
 	m_scene->setSceneRect(-100, -100, 200, 200);
 	m_view.setBackgroundBrush(QBrush(QColor(255, 255, 255)));
@@ -45,7 +46,7 @@ QGraphicsScene &GraphicDrawerQt::getScene()
 
 void GraphicDrawerQt::drawPlayer(const PlayerState &playerState)
 {
-	m_player->update(playerState);
+	m_player->update(playerState, m_pixelPerMeter);
 }
 
 void GraphicDrawerQt::drawWalls(const vector<WallState> &walls)
@@ -56,7 +57,7 @@ void GraphicDrawerQt::drawWalls(const vector<WallState> &walls)
 	{
 		Wall* wall = new Wall(*m_scene);
 		const WallState &state = *i;
-		wall->update(state);
+		wall->update(state, m_pixelPerMeter);
 		m_walls.push_back(wall);
 	}
 }
@@ -69,7 +70,7 @@ void GraphicDrawerQt::drawBombs(const vector<BombState> &bombs)
 	{
 		Bomb* bomb = new Bomb(*m_scene);
 		const BombState &state = *i;
-		bomb->update(state);
+		bomb->update(state, m_pixelPerMeter);
 		m_bombs.push_back(bomb);
 	}
 }
