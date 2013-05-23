@@ -15,6 +15,7 @@ public:
 	Point(const Common::Point &point);
 
 	QPointF toQPoint() const;
+	void switchIntoQtCoordinates();
 };
 }
 

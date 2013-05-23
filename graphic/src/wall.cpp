@@ -24,5 +24,6 @@ void Wall::update(const Common::WallState &state, double pixelPerMeter)
 {
 	m_item->setRect(0, 0, 1*pixelPerMeter, 1*pixelPerMeter);
 	Point position(state.getPosition()*pixelPerMeter);
+	position.switchIntoQtCoordinates();
 	m_item->setPos(position.toQPoint());
 }

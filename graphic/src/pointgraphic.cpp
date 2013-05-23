@@ -17,3 +17,8 @@ QPointF Point::toQPoint() const
 {
 	return QPointF(getX(), getY());
 }
+
+void Point::switchIntoQtCoordinates()
+{
+	setY((-1)*getY());
+}
