@@ -1,6 +1,7 @@
 #include "point.h"
 
 using namespace Common;
+using namespace std;
 
 Point::Point() :
 	m_x(0),
@@ -30,4 +31,16 @@ void Point::setY(double value)
 double Point::getY() const
 {
 	return m_y;
+}
+
+bool Point::operator ==(const Point &point) const
+{
+	return	getX() == point.getX() &&
+			getY() == point.getY();
+}
+
+ostream& operator<<(ostream &stream, const Point &point)
+{
+	stream << "(" << point.getX() << ", " << point.getY() << ")";
+	return stream;
 }

@@ -8,11 +8,13 @@
 #include "signaltest.h"
 #include "stopwatchtest.h"
 #include "pointtest.h"
+#include "enemystatetest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::GameStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::StopWatchTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PointTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::EnemyStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GameEngineImplTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Main::GameLoopTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::PhysicSimulatorTest);

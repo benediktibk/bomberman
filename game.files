@@ -170,3 +170,6 @@ common/incl/point.h
 common/src/point.cpp
 common/incl/pointtest.h
 common/src/pointtest.cpp
+common/src/enemystate.cpp
+common/incl/enemystatetest.h
+common/src/enemystatetest.cpp

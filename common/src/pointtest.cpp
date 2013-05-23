@@ -1,5 +1,6 @@
 #include "pointtest.h"
 #include "point.h"
+#include <sstream>
 
 using namespace Common;
 
@@ -47,4 +48,14 @@ void PointTest::setY_4_yIs4()
 	point.setY(4);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(4, point.getY(), 0.0001);
+}
+
+void PointTest::streamOperator_3And2_32()
+{
+	Point point(3, 2);
+	std::stringstream stream;
+
+	stream << point;
+
+	CPPUNIT_ASSERT_EQUAL(std::string("(3, 2)"), stream.str());
 }
