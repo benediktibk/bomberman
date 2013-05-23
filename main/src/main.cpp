@@ -10,13 +10,14 @@ int main(int argc, char **argv)
 {
 	QApplication a(argc, argv);
 	MainWindow mainWindow;
-	Graphic::GraphicDrawerQt graphicDrawer(mainWindow.getGraphicsView());
 	GameEngine::GameEngineImpl gameEngine;
-	GameLoop gameLoop(mainWindow, gameEngine, graphicDrawer);
+	GameLoop gameLoop(mainWindow, gameEngine);
 
 	mainWindow.show();
+	QObject::connect(	&gameLoop, SIGNAL(guiUpdateNecessary(const Common::GameState*)),
+						&mainWindow, SLOT(updateGui(const Common::GameState*)));
 	int result = a.exec();
-	gameLoop.stop();
 
+	gameLoop.stop();
 	return result;
 }

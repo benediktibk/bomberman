@@ -1,17 +1,15 @@
 #include "gameloop.h"
 #include "inputfetcher.h"
 #include "gameengine.h"
-#include "graphicdrawer.h"
 #include "stopwatch.h"
 #include <unistd.h>
 
 using namespace Common;
 using namespace Main;
 
-GameLoop::GameLoop(InputFetcher &inputFetcher, GameEngine &gameEngine, GraphicDrawer &graphicDrawer) :
+GameLoop::GameLoop(InputFetcher &inputFetcher, GameEngine &gameEngine) :
 	m_inputFetcher(inputFetcher),
 	m_gameEngine(gameEngine),
-	m_graphicDrawer(graphicDrawer),
 	m_stopped(false),
 	m_maximumFramesPerSecond(1000),
 	m_minimumTimeStep(1.0/m_maximumFramesPerSecond),
@@ -64,7 +62,7 @@ void GameLoop::execute()
 
 		m_gameEngine.updateGameState(m_inputFetcher.getInputState(), time);
 
-		m_graphicDrawer.draw(m_gameEngine.getGameState());
+		emit guiUpdateNecessary(&(m_gameEngine.getGameState()));
 
 		m_stoppedMutex.lock();
 		if (m_stopped)

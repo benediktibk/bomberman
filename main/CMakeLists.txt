@@ -5,7 +5,6 @@ include(${QT_USE_FILE})
 add_definitions(${QT_DEFINITIONS})
 
 set(MAIN_SRC
-	src/gameloop.cpp
 )
 
 set(MAIN_TEST_SRC
@@ -17,6 +16,7 @@ set(MAIN_QT_SRC
 	src/mainwindowinputfetcher.cpp
 	src/mainwindowinputtest.cpp
 	src/mainwindowgraphictest.cpp
+	src/gameloop.cpp
 )
 
 set(MAIN_FORMS
@@ -30,6 +30,7 @@ set(MAIN_QT_INCL
 	incl/mainwindowinputfetcher.h
 	incl/mainwindowinputtest.h
 	incl/mainwindowgraphictest.h
+	incl/gameloop.h
 )
 
 include_directories(
@@ -48,7 +49,7 @@ set(LIBRARIES
 	graphic
 	physic
 	sound
-	main
+	#main
 	threading
 	common
 	Box2D
@@ -65,7 +66,7 @@ set(LIBRARIES_TEST
 qt4_wrap_ui(MAIN_FORMS_MOC ${MAIN_FORMS})
 qt4_wrap_cpp(MAIN_QT_INCL_MOC ${MAIN_QT_INCL})
 
-add_library(main ${MAIN_SRC})
+#add_library(main ${MAIN_SRC})
 add_library(maintest ${MAIN_TEST_SRC})
 add_executable(game src/main.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
 add_executable(inputtest src/maininputtest.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})

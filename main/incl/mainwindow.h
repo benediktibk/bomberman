@@ -5,6 +5,12 @@
 
 class QGraphicsView;
 
+namespace Common
+{
+	class GraphicDrawer;
+	class GameState;
+}
+
 namespace Ui
 {
 	class MainWindow;
@@ -18,11 +24,16 @@ class MainWindow : public MainWindowInputFetcher
 
 public:
 	MainWindow();
+	~MainWindow();
 
 	QGraphicsView& getGraphicsView();
 
+public slots:
+	void updateGui(const Common::GameState *gameState);
+
 private:
-	Ui::MainWindow* m_ui;
+	Ui::MainWindow *m_ui;
+	Common::GraphicDrawer *m_drawer;
 };
 }
 
