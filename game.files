@@ -173,3 +173,7 @@ common/src/pointtest.cpp
 common/src/enemystate.cpp
 common/incl/enemystatetest.h
 common/src/enemystatetest.cpp
+common/incl/bombstate.h
+common/incl/bombstatetest.h
+common/src/bombstate.cpp
+common/src/bombstatetest.cpp

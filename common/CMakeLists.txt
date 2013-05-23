@@ -5,6 +5,7 @@ set(COMMON_SRC
 	src/playerstate.cpp
 	src/point.cpp
 	src/enemystate.cpp
+	src/bombstate.cpp
 )
 
 set(COMMON_TEST_SRC
@@ -13,6 +14,7 @@ set(COMMON_TEST_SRC
 	src/stopwatchtest.cpp
 	src/pointtest.cpp
 	src/enemystatetest.cpp
+	src/bombstatetest.cpp
 )
 
 include_directories(
