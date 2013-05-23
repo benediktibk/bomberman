@@ -9,6 +9,8 @@ namespace Ui
     class MainWindowInputTest;
 }
 
+class QLineEdit;
+
 namespace Main
 {
 class MainWindowInputTest : public MainWindowInputFetcher
@@ -18,8 +20,15 @@ class MainWindowInputTest : public MainWindowInputFetcher
 public:
     MainWindowInputTest();
 
+private slots:
+    void inputStateClicked();
+
+private:
+    void connectButtons();
+
 private:
     Ui::MainWindowInputTest* m_ui;
+    QLineEdit *display;
 };
 }
 
