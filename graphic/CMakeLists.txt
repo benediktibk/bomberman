@@ -2,6 +2,7 @@ set(GRAPHIC_SRC
 	src/graphicdrawerqt.cpp
 	src/player.cpp
 	src/bomb.cpp
+	src/wall.cpp
 	src/pointgraphic.cpp
 )
 

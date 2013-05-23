@@ -185,3 +185,5 @@ graphic/incl/bomb.h
 graphic/src/bomb.cpp
 graphic/incl/pointgraphic.h
 graphic/src/pointgraphic.cpp
+graphic/incl/wall.h
+graphic/src/wall.cpp
