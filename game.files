@@ -181,3 +181,7 @@ common/incl/wallstate.h
 common/incl/wallstatetest.h
 common/src/wallstate.cpp
 common/src/wallstatetest.cpp
+graphic/incl/bomb.h
+graphic/src/bomb.cpp
+graphic/incl/pointgraphic.h
+graphic/src/pointgraphic.cpp

@@ -1,6 +1,8 @@
 set(GRAPHIC_SRC
 	src/graphicdrawerqt.cpp
 	src/player.cpp
+	src/bomb.cpp
+	src/pointgraphic.cpp
 )
 
 include_directories(
