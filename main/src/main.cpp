@@ -16,7 +16,7 @@ int main(int argc, char **argv)
 
 	mainWindow.show();
 	int result = a.exec();
-	gameLoop.waitTillFinished();
+	gameLoop.stop();
 
 	return result;
 }
