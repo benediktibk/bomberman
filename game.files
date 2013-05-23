@@ -177,3 +177,7 @@ common/incl/bombstate.h
 common/incl/bombstatetest.h
 common/src/bombstate.cpp
 common/src/bombstatetest.cpp
+common/incl/wallstate.h
+common/incl/wallstatetest.h
+common/src/wallstate.cpp
+common/src/wallstatetest.cpp
