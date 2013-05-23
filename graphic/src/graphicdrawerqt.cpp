@@ -25,6 +25,8 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 {
 	PlayerState playerState = gameState.getPlayerState();
 	m_player->update(playerState);
+
+	m_view.setBackgroundBrush(QBrush(QColor(255, 255, 255)));
 }
 
 QGraphicsScene &GraphicDrawerQt::getScene()

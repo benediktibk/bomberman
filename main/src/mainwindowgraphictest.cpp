@@ -10,6 +10,7 @@ MainWindowGraphicTest::MainWindowGraphicTest() :
 {
 	m_ui->setupUi(this);
 	m_drawer = new Graphic::GraphicDrawerQt(*(m_ui->graphicsView));
+	m_drawer->draw(Common::GameState());
 }
 
 MainWindowGraphicTest::~MainWindowGraphicTest()
