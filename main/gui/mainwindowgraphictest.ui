@@ -26,7 +26,13 @@
      </widget>
     </item>
     <item row="0" column="0">
-     <widget class="QComboBox" name="comboBox"/>
+     <widget class="QComboBox" name="comboBox">
+      <item>
+       <property name="text">
+        <string>the player, two bombs and three walls placed somewhere</string>
+       </property>
+      </item>
+     </widget>
     </item>
    </layout>
   </widget>

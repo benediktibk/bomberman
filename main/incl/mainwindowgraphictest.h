@@ -27,6 +27,13 @@ public:
 	MainWindowGraphicTest();
 	~MainWindowGraphicTest();
 
+private slots:
+	void selectGameState(int index);
+
+private:
+	void connectSlots();
+	void drawState1();
+
 private:
 	Ui::MainWindowGraphicTest *m_ui;
 	Graphic::GraphicDrawerQt *m_drawer;

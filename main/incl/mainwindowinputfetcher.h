@@ -9,25 +9,23 @@
 namespace Main
 {
 class MainWindowInputFetcher :
-    public QMainWindow,
-    public Common::InputFetcher
+	public QMainWindow,
+	public Common::InputFetcher
 {
 Q_OBJECT
 
 public:
-    MainWindowInputFetcher();
+	MainWindowInputFetcher();
 
-    virtual Common::InputState getInputState();
+	virtual Common::InputState getInputState();
 
 protected:
-    virtual void keyPressEvent(QKeyEvent *event);
-    virtual void keyReleaseEvent(QKeyEvent *event);
-
-private slots:
+	virtual void keyPressEvent(QKeyEvent *event);
+	virtual void keyReleaseEvent(QKeyEvent *event);
 
 private:
-    Common::InputState m_inputState;
-    Threading::Mutex m_inputStateMutex;
+	Common::InputState m_inputState;
+	Threading::Mutex m_inputStateMutex;
 };
 }
 
