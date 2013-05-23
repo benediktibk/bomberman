@@ -9,6 +9,8 @@ class QGraphicsView;
 namespace Graphic
 {
 class Player;
+class Wall;
+class Bomb;
 
 class GraphicDrawerQt :
 		public Common::GraphicDrawer
@@ -21,9 +23,18 @@ public:
 	QGraphicsScene& getScene();
 
 private:
+	void drawPlayer(const Common::PlayerState &playerState);
+	void drawWalls(const std::vector<Common::WallState> &walls);
+	void drawBombs(const std::vector<Common::BombState> &bombs);
+	void deleteWalls();
+	void deleteBombs();
+
+private:
 	QGraphicsView &m_view;
 	QGraphicsScene *m_scene;
 	Player *m_player;
+	std::vector<Wall*> m_walls;
+	std::vector<Bomb*> m_bombs;
 };
 }
 
