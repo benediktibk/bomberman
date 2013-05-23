@@ -3,6 +3,7 @@
 
 #include "threadcustom.h"
 #include "mutex.h"
+#include "signalcustom.h"
 #include <QtCore/QObject>
 
 namespace Common
@@ -26,6 +27,7 @@ public:
 
 	void stop();
 	unsigned int getFramesPerSecond();
+	Threading::Signal& getSignalGuiUpdateFinished();
 
 signals:
 	void guiUpdateNecessary(const Common::GameState *gameState);
@@ -43,6 +45,7 @@ private:
 	const double m_minimumTimeStep;
 	unsigned int m_framesPerSecond;
 	Threading::Mutex m_framesPerSecondMutex;
+	Threading::Signal m_guiUpdateFinished;
 };
 }
 

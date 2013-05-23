@@ -9,9 +9,10 @@ using namespace Main;
 int main(int argc, char **argv)
 {
 	QApplication a(argc, argv);
-	MainWindow mainWindow;
 	GameEngine::GameEngineImpl gameEngine;
+	MainWindow mainWindow;
 	GameLoop gameLoop(mainWindow, gameEngine);
+	mainWindow.setSignalGuiUpdateFinished(gameLoop.getSignalGuiUpdateFinished());
 
 	mainWindow.show();
 	QObject::connect(	&gameLoop, SIGNAL(guiUpdateNecessary(const Common::GameState*)),

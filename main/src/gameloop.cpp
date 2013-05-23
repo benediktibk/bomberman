@@ -38,6 +38,11 @@ unsigned int GameLoop::getFramesPerSecond()
 	return result;
 }
 
+Threading::Signal& GameLoop::getSignalGuiUpdateFinished()
+{
+	return m_guiUpdateFinished;
+}
+
 void GameLoop::execute()
 {
 	bool run = true;
@@ -63,6 +68,8 @@ void GameLoop::execute()
 		m_gameEngine.updateGameState(m_inputFetcher.getInputState(), time);
 
 		emit guiUpdateNecessary(&(m_gameEngine.getGameState()));
+		m_guiUpdateFinished.wait();
+		m_guiUpdateFinished.reset();
 
 		m_stoppedMutex.lock();
 		if (m_stopped)

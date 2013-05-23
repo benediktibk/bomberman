@@ -11,6 +11,11 @@ namespace Common
 	class GameState;
 }
 
+namespace Threading
+{
+	class Signal;
+}
+
 namespace Ui
 {
 	class MainWindow;
@@ -18,7 +23,8 @@ namespace Ui
 
 namespace Main
 {
-class MainWindow : public MainWindowInputFetcher
+class MainWindow :
+		public MainWindowInputFetcher
 {
 	Q_OBJECT
 
@@ -27,6 +33,7 @@ public:
 	~MainWindow();
 
 	QGraphicsView& getGraphicsView();
+	void setSignalGuiUpdateFinished(Threading::Signal &signal);
 
 public slots:
 	void updateGui(const Common::GameState *gameState);
@@ -34,6 +41,7 @@ public slots:
 private:
 	Ui::MainWindow *m_ui;
 	Common::GraphicDrawer *m_drawer;
+	Threading::Signal *m_signalGuiUpdateFinished;
 };
 }
 
