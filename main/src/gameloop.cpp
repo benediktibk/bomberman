@@ -35,7 +35,8 @@ void GameLoop::execute()
 
 	while (run)
 	{
-		m_gameEngine.updateGameState(m_inputFetcher.getInputState(), watch.getTimeAndRestart());
+		double time = watch.getTimeAndRestart();
+		m_gameEngine.updateGameState(m_inputFetcher.getInputState(), time);
 
 		m_graphicDrawer.draw(m_gameEngine.getGameState());
 
@@ -45,6 +46,6 @@ void GameLoop::execute()
 		m_stoppedMutex.unlock();
 
 		// @todo remove this and run as fast as possible
-		usleep(50000);
+		usleep(1000);
 	}
 }
