@@ -165,3 +165,8 @@ main/incl/mainwindowgraphictest.h
 main/src/mainwindowgraphictest.cpp
 main/gui/mainwindowinputtest.ui
 main/gui/mainwindowgraphictest.ui
+common/incl/enemystate.h
+common/incl/point.h
+common/src/point.cpp
+common/incl/pointtest.h
+common/src/pointtest.cpp

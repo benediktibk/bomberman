@@ -1,0 +1,50 @@
+#include "pointtest.h"
+#include "point.h"
+
+using namespace Common;
+
+void PointTest::constructor_empty_xIs0()
+{
+	Point point;
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, point.getX(), 0.0001);
+}
+
+void PointTest::constructor_empty_yIs0()
+{
+	Point point;
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, point.getY(), 0.0001);
+}
+
+void PointTest::constructor_xIs4_xIs4()
+{
+	Point point(4, 6);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(4, point.getX(), 0.0001);
+}
+
+void PointTest::constructor_yIs6_yIs6()
+{
+	Point point(4, 6);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(6, point.getY(), 0.0001);
+}
+
+void PointTest::setX_5_xIs5()
+{
+	Point point;
+
+	point.setX(5);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(5, point.getX(), 0.0001);
+}
+
+void PointTest::setY_4_yIs4()
+{
+	Point point;
+
+	point.setY(4);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(4, point.getY(), 0.0001);
+}
