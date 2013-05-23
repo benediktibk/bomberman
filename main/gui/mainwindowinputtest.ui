@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="inputstate">
+   <widget class="QPushButton" name="inputStateButton">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -24,7 +24,17 @@
      </rect>
     </property>
     <property name="text">
-     <string>PushButton</string>
+     <string>InputState</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="displayLineEdit">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>230</y>
+      <width>113</width>
+      <height>27</height>
+     </rect>
     </property>
    </widget>
   </widget>
