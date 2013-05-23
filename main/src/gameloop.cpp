@@ -12,7 +12,10 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, GameEngine &gameEngine, GraphicDr
 	m_inputFetcher(inputFetcher),
 	m_gameEngine(gameEngine),
 	m_graphicDrawer(graphicDrawer),
-	m_stopped(false)
+	m_stopped(false),
+	m_maximumFramesPerSecond(1000),
+	m_minimumTimeStep(1.0/m_maximumFramesPerSecond),
+	m_framesPerSecond(0)
 { }
 
 GameLoop::~GameLoop()
@@ -28,6 +31,15 @@ void GameLoop::stop()
 	m_stoppedMutex.unlock();
 }
 
+unsigned int GameLoop::getFramesPerSecond()
+{
+	unsigned int result;
+	m_framesPerSecondMutex.lock();
+	result = m_framesPerSecond;
+	m_framesPerSecondMutex.unlock();
+	return result;
+}
+
 void GameLoop::execute()
 {
 	bool run = true;
@@ -35,7 +47,22 @@ void GameLoop::execute()
 
 	while (run)
 	{
-		m_gameEngine.updateGameState(m_inputFetcher.getInputState(), watch.getTimeAndRestart());
+		double timeWithoutWait = watch.getTimeAndRestart();
+		double time = 0;
+
+		if (timeWithoutWait < m_minimumTimeStep)
+		{
+			usleep((m_minimumTimeStep - timeWithoutWait)*1000000);
+			time = watch.getTimeAndRestart() + timeWithoutWait;
+		}
+		else
+			time = timeWithoutWait;
+
+		m_framesPerSecondMutex.lock();
+		m_framesPerSecond = static_cast<unsigned int>(1/time);
+		m_framesPerSecondMutex.unlock();
+
+		m_gameEngine.updateGameState(m_inputFetcher.getInputState(), time);
 
 		m_graphicDrawer.draw(m_gameEngine.getGameState());
 
@@ -43,8 +70,5 @@ void GameLoop::execute()
 		if (m_stopped)
 			run = false;
 		m_stoppedMutex.unlock();
-
-		// @todo remove this and run as fast as possible
-		usleep(50000);
 	}
 }
