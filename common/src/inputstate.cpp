@@ -6,7 +6,8 @@ InputState::InputState() :
 	m_upKeyPressed(false),
     m_downKeyPressed(false),
     m_leftKeyPressed(false),
-    m_rightKeyPressed(false)
+    m_rightKeyPressed(false),
+    m_spaceKeyPressed(false)
 { }
 
 void InputState::setUpKeyPressed()
@@ -67,4 +68,19 @@ void InputState::setRightKeyNotPressed()
 bool InputState::isRightKeyPressed() const
 {
     return m_rightKeyPressed;
+}
+
+void InputState::setSpaceKeyPressed()
+{
+    m_spaceKeyPressed = true;
+}
+
+void InputState::setSpaceKeyNotPressed()
+{
+    m_spaceKeyPressed = false;
+}
+
+bool InputState::isSpaceKeyPressed() const
+{
+    return m_spaceKeyPressed;
 }

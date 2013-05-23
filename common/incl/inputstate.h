@@ -20,12 +20,16 @@ public:
     void setRightKeyPressed();
     void setRightKeyNotPressed();
     bool isRightKeyPressed() const;
+    void setSpaceKeyPressed();
+    void setSpaceKeyNotPressed();
+    bool isSpaceKeyPressed() const;
 
 private:
 	bool m_upKeyPressed;
 	bool m_downKeyPressed;
     bool m_leftKeyPressed;
     bool m_rightKeyPressed;
+    bool m_spaceKeyPressed;
 };
 }
 

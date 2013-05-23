@@ -28,6 +28,15 @@ void MainWindowInputFetcher::keyPressEvent(QKeyEvent *event)
     case Key_Down:
         m_inputState.setDownKeyPressed();
         break;
+    case Key_Left:
+        m_inputState.setLeftKeyPressed();
+        break;
+    case Key_Right:
+        m_inputState.setRightKeyPressed();
+        break;
+    case Key_Space:
+        m_inputState.setSpaceKeyPressed();
+        break;
     default:
         QMainWindow::keyPressEvent(event);
         break;
@@ -45,6 +54,15 @@ void MainWindowInputFetcher::keyReleaseEvent(QKeyEvent *event)
         break;
     case Key_Down:
         m_inputState.setDownKeyNotPressed();
+        break;
+    case Key_Left:
+        m_inputState.setLeftKeyNotPressed();
+        break;
+    case Key_Right:
+        m_inputState.setRightKeyNotPressed();
+        break;
+    case Key_Space:
+        m_inputState.setSpaceKeyNotPressed();
         break;
     default:
         QMainWindow::keyPressEvent(event);
