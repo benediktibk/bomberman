@@ -33,6 +33,7 @@ private:
 	Threading::Mutex m_stoppedMutex;
 	bool m_stopped;
 	const unsigned int m_maximumFramesPerSecond;
+	//! we need a minimum time step, otherwise the physic simulator has problems
 	const double m_minimumTimeStep;
 	unsigned int m_framesPerSecond;
 	Threading::Mutex m_framesPerSecondMutex;
