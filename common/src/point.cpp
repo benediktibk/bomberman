@@ -39,6 +39,16 @@ bool Point::operator ==(const Point &point) const
 			getY() == point.getY();
 }
 
+Point Point::operator *(double value) const
+{
+	return Point(m_x*value, m_y*value);
+}
+
+Point Point::operator /(double value) const
+{
+	return Point(m_x/value, m_y/value);
+}
+
 ostream& operator<<(ostream &stream, const Point &point)
 {
 	stream << "(" << point.getX() << ", " << point.getY() << ")";

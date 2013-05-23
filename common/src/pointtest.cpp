@@ -59,3 +59,17 @@ void PointTest::streamOperator_3And2_32()
 
 	CPPUNIT_ASSERT_EQUAL(std::string("(3, 2)"), stream.str());
 }
+
+void PointTest::operatorMultiply_3And6With2_6And12()
+{
+	Point point(3, 6);
+
+	CPPUNIT_ASSERT_EQUAL(Point(6, 12), point*2);
+}
+
+void PointTest::operatorDivide_3And6With3_1And2()
+{
+	Point point(3, 6);
+
+	CPPUNIT_ASSERT_EQUAL(Point(1, 2), point/3);
+}

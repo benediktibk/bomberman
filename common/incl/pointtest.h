@@ -17,6 +17,8 @@ class PointTest :
 	 CPPUNIT_TEST(setX_5_xIs5);
 	 CPPUNIT_TEST(setY_4_yIs4);
 	 CPPUNIT_TEST(streamOperator_3And2_32);
+	 CPPUNIT_TEST(operatorMultiply_3And6With2_6And12);
+	 CPPUNIT_TEST(operatorDivide_3And6With3_1And2);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -27,6 +29,8 @@ private:
 	 void setX_5_xIs5();
 	 void setY_4_yIs4();
 	 void streamOperator_3And2_32();
+	 void operatorMultiply_3And6With2_6And12();
+	 void operatorDivide_3And6With3_1And2();
 };
 }
 
