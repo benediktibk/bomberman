@@ -9,8 +9,8 @@ using namespace Graphic;
 Wall::Wall(QGraphicsScene &scene) :
 	m_item(new QGraphicsRectItem(0))
 {
-	m_item->setBrush(QBrush(QColor(0, 0, 0)));
-	m_item->setPen(QPen(QColor(0, 0, 0)));
+	m_item->setBrush(QBrush(QColor(105, 105, 105)));
+	m_item->setPen(QPen(QColor(105, 105, 105)));
 
 	scene.addItem(m_item);
 }

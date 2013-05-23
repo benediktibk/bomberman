@@ -9,8 +9,8 @@ using namespace Graphic;
 Bomb::Bomb(QGraphicsScene &scene) :
 	m_item(new QGraphicsRectItem(0))
 {
-	m_item->setBrush(QBrush(QColor(0, 0, 0)));
-	m_item->setPen(QPen(QColor(0, 0, 0)));
+	m_item->setBrush(QBrush(QColor(255, 0, 0)));
+	m_item->setPen(QPen(QColor(255, 0, 0)));
 
 	scene.addItem(m_item);
 }
