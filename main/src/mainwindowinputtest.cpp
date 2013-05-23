@@ -11,7 +11,7 @@ MainWindowInputTest::MainWindowInputTest() :
     m_ui->setupUi(this);
     display = m_ui->displayLineEdit;
 
-    display->setText(tr("0"));
+    display->setText(tr(" "));
 
     connectButtons();
 }
@@ -23,5 +23,10 @@ void MainWindowInputTest::connectButtons()
 
 void MainWindowInputTest::inputStateClicked()
 {
+    InputState myInputState;
 
+    if (myInputState.isDownKeyPressed() == true)
+    {
+        display->setText(tr("Down"));
+    }
 }
