@@ -160,3 +160,8 @@ main/incl/mainwindowinputtest.h
 main/src/mainwindowinputtest.cpp
 main/gui/mainwindowinputtest.ui
 main/src/maininputtest.cpp
+main/src/maingraphictest.cpp
+main/incl/mainwindowgraphictest.h
+main/src/mainwindowgraphictest.cpp
+main/gui/mainwindowinputtest.ui
+main/gui/mainwindowgraphictest.ui

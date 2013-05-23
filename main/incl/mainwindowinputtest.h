@@ -1,28 +1,26 @@
 #ifndef MAINWINDOWINPUTTEST_H
 #define MAINWINDOWINPUTTEST_H
 
-#include <QGraphicsScene>
 #include "mainwindowinputfetcher.h"
 
 namespace Ui
 {
-    class MainWindowInputTest;
+	class MainWindowInputTest;
 }
 
 namespace Main
 {
-class MainWindowInputTest : public MainWindowInputFetcher
+class MainWindowInputTest :
+		public MainWindowInputFetcher
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    MainWindowInputTest();
+	MainWindowInputTest();
 
 private:
-    Ui::MainWindowInputTest* m_ui;
+	Ui::MainWindowInputTest* m_ui;
 };
 }
 
-
-
-#endif // MAINWINDOWINPUTTEST_H
+#endif

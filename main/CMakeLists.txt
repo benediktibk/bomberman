@@ -16,17 +16,20 @@ set(MAIN_QT_SRC
 	src/mainwindow.cpp
 	src/mainwindowinputfetcher.cpp
 	src/mainwindowinputtest.cpp
+	src/mainwindowgraphictest.cpp
 )
 
 set(MAIN_FORMS
 	gui/mainwindow.ui
 	gui/mainwindowinputtest.ui
+	gui/mainwindowgraphictest.ui
 )
 
 set(MAIN_QT_INCL
 	incl/mainwindow.h
 	incl/mainwindowinputfetcher.h
 	incl/mainwindowinputtest.h
+	incl/mainwindowgraphictest.h
 )
 
 include_directories(
@@ -66,7 +69,9 @@ add_library(main ${MAIN_SRC})
 add_library(maintest ${MAIN_TEST_SRC})
 add_executable(game src/main.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
 add_executable(inputtest src/maininputtest.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
+add_executable(graphictest src/maingraphictest.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
 add_executable(testrunner src/testrunner.cpp src/testregistration.cpp)
 target_link_libraries(game ${LIBRARIES} ${QT_LIBRARIES} boost_thread-mt)
 target_link_libraries(inputtest ${LIBRARIES} ${QT_LIBRARIES} boost_thread-mt)
+target_link_libraries(graphictest ${LIBRARIES} ${QT_LIBRARIES} boost_thread-mt)
 target_link_libraries(testrunner ${LIBRARIES_TEST} ${LIBRARIES} ${CPPUNIT_LIBRARY} boost_thread-mt)
