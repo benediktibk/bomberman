@@ -63,8 +63,10 @@ void GameLoop::execute()
 
 		if (timeWithoutWait < m_minimumTimeStep)
 		{
+			StopWatch watchForWait;
+			watchForWait.restart();
 			usleep((m_minimumTimeStep - timeWithoutWait)*1000000);
-			time = watch.getTimeAndRestart() + timeWithoutWait;
+			time = watchForWait.getTimeAndRestart() + timeWithoutWait;
 		}
 		else
 			time = timeWithoutWait;
