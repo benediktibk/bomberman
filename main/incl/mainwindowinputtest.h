@@ -8,7 +8,7 @@ namespace Ui
 	class MainWindowInputTest;
 }
 
-class QLineEdit;
+class QTimer;
 
 namespace Main
 {
@@ -28,7 +28,7 @@ private:
 
 private:
 	Ui::MainWindowInputTest* m_ui;
-    QLineEdit *m_inputTest;
+    QTimer *m_timer;
 };
 }
 
