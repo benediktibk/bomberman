@@ -25,9 +25,10 @@ public:
 	GameLoop(Common::InputFetcher &inputFetcher, Common::GameEngine &gameEngine);
 	virtual ~GameLoop();
 
+	void start();
 	void stop();
 	unsigned int getFramesPerSecond();
-	Threading::Signal& getSignalGuiUpdateFinished();
+	void setGuiUpdateFinished();
 
 signals:
 	void guiUpdateNecessary(const Common::GameState *gameState);
@@ -46,6 +47,7 @@ private:
 	unsigned int m_framesPerSecond;
 	Threading::Mutex m_framesPerSecondMutex;
 	Threading::Signal m_guiUpdateFinished;
+	Threading::Signal m_start;
 };
 }
 

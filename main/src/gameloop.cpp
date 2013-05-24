@@ -18,8 +18,14 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, GameEngine &gameEngine) :
 
 GameLoop::~GameLoop()
 {
+	setGuiUpdateFinished();
 	stop();
 	waitTillFinished();
+}
+
+void GameLoop::start()
+{
+	m_start.send();
 }
 
 void GameLoop::stop()
@@ -38,14 +44,16 @@ unsigned int GameLoop::getFramesPerSecond()
 	return result;
 }
 
-Threading::Signal& GameLoop::getSignalGuiUpdateFinished()
+void GameLoop::setGuiUpdateFinished()
 {
-	return m_guiUpdateFinished;
+	m_guiUpdateFinished.send();
 }
 
 void GameLoop::execute()
 {
 	bool run = true;
+
+	m_start.wait();
 	StopWatch watch;
 
 	while (run)
