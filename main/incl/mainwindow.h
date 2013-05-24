@@ -4,6 +4,7 @@
 #include "mainwindowinputfetcher.h"
 
 class QGraphicsView;
+class QTimer;
 
 namespace Common
 {
@@ -32,12 +33,15 @@ public:
 
 public slots:
 	void updateGui(const Common::GameState *gameState);
+	void updateFPS();
 
 private:
+	const unsigned int m_fpsUpdateTimeStep;
 	Ui::MainWindow *m_ui;
 	Common::GraphicDrawer *m_drawer;
 	Common::GameEngine *m_gameEngine;
 	GameLoop *m_gameLoop;
+	QTimer *m_timer;
 };
 }
 
