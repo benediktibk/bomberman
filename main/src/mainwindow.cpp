@@ -23,6 +23,7 @@ MainWindow::MainWindow() :
 	m_ui->setupUi(this);
 	m_ui->graphicsView->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
 	m_ui->graphicsView->setFocusPolicy(NoFocus);
+	m_ui->graphicsView->setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
 	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView));
 	connect(	m_gameLoop, SIGNAL(guiUpdateNecessary(const Common::GameState*)),
 				this, SLOT(updateGui(const Common::GameState*)));
@@ -41,9 +42,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::updateGui(const GameState *gameState)
 {
-	m_ui->graphicsView->setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
 	m_drawer->draw(*gameState);
-	m_ui->graphicsView->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
+	m_ui->graphicsView->viewport()->update();
 	m_gameLoop->setGuiUpdateFinished();
 }
 
