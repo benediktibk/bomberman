@@ -41,7 +41,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::updateGui(const GameState *gameState)
 {
+	m_ui->graphicsView->setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
 	m_drawer->draw(*gameState);
+	m_ui->graphicsView->setViewportUpdateMode(QGraphicsView::FullViewportUpdate);
 	m_gameLoop->setGuiUpdateFinished();
 }
 
