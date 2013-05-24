@@ -28,7 +28,7 @@ private:
 
 private:
 	Ui::MainWindowInputTest* m_ui;
-    QLineEdit *display;
+    QLineEdit *m_inputTest;
 };
 }
 

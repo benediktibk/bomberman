@@ -9,9 +9,9 @@ MainWindowInputTest::MainWindowInputTest() :
     m_ui(new Ui::MainWindowInputTest)
 {
     m_ui->setupUi(this);
-    display = m_ui->displayLineEdit;
+    m_inputTest = m_ui->displayLineEdit;
 
-    display->setText(tr(" "));
+    m_inputTest->setText(tr(""));
 
     connectButtons();
 }
@@ -23,10 +23,11 @@ void MainWindowInputTest::connectButtons()
 
 void MainWindowInputTest::inputStateClicked()
 {
-    InputState myInputState;
+    InputState currentInputState;
+    currentInputState = getInputState();
 
-    if (myInputState.isDownKeyPressed() == true)
-    {
-        display->setText(tr("Down"));
-    }
+    if (currentInputState.isDownKeyPressed())
+        m_inputTest->setText(tr("Down"));
+    else
+        m_inputTest->setText(tr("Nothing"));
 }
