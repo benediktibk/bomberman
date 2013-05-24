@@ -38,4 +38,5 @@ void MainWindow::updateGui(const GameState *gameState)
 {
 	m_drawer->draw(*gameState);
 	m_gameLoop->setGuiUpdateFinished();
+	m_ui->statusBar->showMessage(QString("%1 fps").arg(m_gameLoop->getFramesPerSecond()));
 }
