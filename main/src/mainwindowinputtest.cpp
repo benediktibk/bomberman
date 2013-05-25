@@ -12,11 +12,11 @@ MainWindowInputTest::MainWindowInputTest() :
     m_ui->setupUi(this);
 
     m_timer = new QTimer(this);
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(inputStateClicked()));
+    connect(m_timer, SIGNAL(timeout()), this, SLOT(inputStateCalled()));
     m_timer->start(100);
 }
 
-void MainWindowInputTest::inputStateClicked()
+void MainWindowInputTest::inputStateCalled()
 {
     InputState currentInputState;
     currentInputState = getInputState();

@@ -21,7 +21,7 @@ public:
 	MainWindowInputTest();
 
 private slots:
-    void inputStateClicked();
+    void inputStateCalled();
 
 private:
     void connectButtons();

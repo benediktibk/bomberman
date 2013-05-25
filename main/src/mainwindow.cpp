@@ -7,7 +7,6 @@
 #include "gameloop.h"
 #include "gameengineimpl.h"
 
-using namespace Common;
 using namespace Main;
 using namespace Qt;
 using namespace Graphic;
@@ -40,7 +39,7 @@ MainWindow::~MainWindow()
 	delete m_gameEngine;
 }
 
-void MainWindow::updateGui(const GameState *gameState)
+void MainWindow::updateGui(const Common::GameState *gameState)
 {
 	m_drawer->draw(*gameState);
 	m_ui->graphicsView->viewport()->update();
