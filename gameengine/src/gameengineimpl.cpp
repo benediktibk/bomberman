@@ -20,6 +20,7 @@ GameEngineImpl::~GameEngineImpl()
 void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 {
 	PlayerState playerState = m_gameState.getPlayerState();
+//    BombState bombPlaced;
 	m_inputState = inputState;
 
 	if (m_inputState.isUpKeyPressed())
@@ -45,6 +46,13 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 	}
 	m_simulator->simulateStep(time);
 	playerState.setPosition(m_player->getPosition());
+
+/*    if (m_inputState.isSpaceKeyPressed())
+    {
+        bombPlaced.setPosition(m_player->getPosition());
+        m_gameState.addBomb(bombPlaced);
+    }
+*/
 	m_gameState.setPlayerState(playerState);
 }
 

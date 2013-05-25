@@ -10,9 +10,12 @@ class BombState
 public:
 	void setPosition(const Point &value);
 	const Point& getPosition() const;
+    void setLifeTime(double time);
+    double getLifeTime();
 
 private:
 	Point m_position;
+    double m_lifeTime;
 };
 }
 
