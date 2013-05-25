@@ -20,7 +20,8 @@ MainWindow::MainWindow() :
 	m_timer(new QTimer(this))
 {
 	m_ui->setupUi(this);
-	m_ui->graphicsView->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
+    // Does not work so far results in severe graphical problems
+    //m_ui->graphicsView->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
 	m_ui->graphicsView->setFocusPolicy(NoFocus);
 	m_ui->graphicsView->setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
 	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView));
