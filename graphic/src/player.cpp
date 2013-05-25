@@ -1,7 +1,9 @@
 #include "player.h"
+#include "pointgraphic.h"
 #include "playerstate.h"
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
+
 
 using namespace Graphic;
 using namespace Common;
@@ -23,5 +25,7 @@ Player::~Player()
 void Player::update(const PlayerState &state, double pixelPerMeter)
 {
 	m_item->setRect(0, 0, 1*pixelPerMeter, 1*pixelPerMeter);
-	m_item->setPos(0, (-1)*state.getPosition()*pixelPerMeter);
+    Point position(state.getPosition()*pixelPerMeter);
+    position.switchIntoQtCoordinates();
+    m_item->setPos(position.toQPoint());
 }

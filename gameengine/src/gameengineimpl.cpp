@@ -26,23 +26,23 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 	if (m_inputState.isUpKeyPressed())
 	{
 		playerState.setDirectionUp();
-		m_player->applyForce(5000);
+        m_player->applyLinearVelocity(0,5);
 	}
 	else if (m_inputState.isDownKeyPressed())
 	{
 		playerState.setDirectionDown();
-		m_player->applyForce(-1000);
+        m_player->applyLinearVelocity(0,-5);
 	} else if (m_inputState.isLeftKeyPressed())
 	{
 		playerState.setDirectionLeft();
-		m_player->applyForce(1000);
+        m_player->applyLinearVelocity(-5,0);
 	} else if (m_inputState.isRightKeyPressed())
 	{
 		playerState.setDirectionRight();
-		m_player->applyForce(-1000);
+        m_player->applyLinearVelocity(5,0);
 	} else
 	{
-		m_player->applyForce(0);
+        m_player->applyLinearVelocity(0,0);
 	}
 	m_simulator->simulateStep(time);
 	playerState.setPosition(m_player->getPosition());

@@ -3,6 +3,7 @@
 #include "Box2D/Box2D.h"
 
 using namespace Physic;
+using namespace Common;
 
 DynamicObject::DynamicObject(PhysicSimulator &simulator) :
 	m_bodyDefinition(new b2BodyDef),
@@ -27,13 +28,17 @@ DynamicObject::~DynamicObject()
 	delete m_bodyDefinition;
 }
 
-double DynamicObject::getPosition() const
+Point DynamicObject::getPosition() const
 {
-	b2Vec2 position = m_body->GetPosition();
-	return position.y;
+    b2Vec2 position = m_body->GetPosition();
+    Point pointposition(position.x,position.y);
+    return pointposition;
 }
 
-void DynamicObject::applyForce(double force)
+void DynamicObject::applyLinearVelocity(double velocityx, double velocityy)
 {
-	m_body->ApplyForceToCenter(b2Vec2(0, force));
+    b2Vec2 vel;
+    vel.x=velocityx;
+    vel.y=velocityy;
+    m_body->SetLinearVelocity(vel);
 }

@@ -1,6 +1,8 @@
 #ifndef PLAYERSTATE_H
 #define PLAYERSTATE_H
 
+#include "point.h"
+
 namespace Common
 {
 class PlayerState
@@ -16,8 +18,8 @@ public:
 
 	PlayerState();
 
-	void setPosition(double value);
-	double getPosition() const;
+    void setPosition(Point value);
+    Point getPosition() const;
     PlayerDirection getDirection() const;
     void setDirectionUp();
     void setDirectionDown();
@@ -25,7 +27,7 @@ public:
     void setDirectionRight();
 
 private:
-	double m_position;
+    Point m_position;
     PlayerDirection m_PlayerDirection;
 };
 }

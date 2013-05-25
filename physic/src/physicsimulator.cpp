@@ -4,7 +4,7 @@
 using namespace Physic;
 
 PhysicSimulator::PhysicSimulator() :
-	m_gravity(new b2Vec2(0, -9.81)),
+    m_gravity(new b2Vec2(0, 0)),
 	m_world(new b2World(*m_gravity)),
 	m_velocityIterations(6),
 	m_positionIterations(2)

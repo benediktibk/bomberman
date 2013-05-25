@@ -1,5 +1,6 @@
 #ifndef DYNAMICOBJECT_H
 #define DYNAMICOBJECT_H
+#include "point.h"
 
 class b2Body;
 class b2BodyDef;
@@ -17,9 +18,8 @@ public:
 	DynamicObject(PhysicSimulator &simulator);
 	~DynamicObject();
 
-	double getPosition() const;
-	void applyForce(double force);
-
+    Common::Point getPosition() const;
+    void applyLinearVelocity(double velocityx,double velocityy);
 private:
 	b2BodyDef *m_bodyDefinition;
 	b2Body *m_body;
