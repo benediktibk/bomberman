@@ -8,6 +8,8 @@ namespace Common
 class BombState
 {
 public:
+    BombState();
+
 	void setPosition(const Point &value);
 	const Point& getPosition() const;
     void setLifeTime(double time);

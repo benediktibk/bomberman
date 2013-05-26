@@ -2,6 +2,10 @@
 
 using namespace Common;
 
+BombState::BombState() :
+    m_lifeTime(3000)
+{ }
+
 void BombState::setPosition(const Point &value)
 {
 	m_position = value;

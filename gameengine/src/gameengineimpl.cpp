@@ -22,8 +22,20 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 {
 	PlayerState playerState = m_gameState.getPlayerState();
     std::vector<BombState> allBombs = m_gameState.getAllBombs();
-    BombState bombPlaced;
+    BombState bombPlaced, currentBomb;
 	m_inputState = inputState;
+
+    for(unsigned int i=0;i<allBombs.size();i++)
+    {
+        currentBomb = allBombs[i];
+        if (currentBomb.getLifeTime()<0)
+        {
+            m_gameState.eraseBomb(i);
+        } else {
+
+        }
+
+    }
 
 	if (m_inputState.isUpKeyPressed())
 	{

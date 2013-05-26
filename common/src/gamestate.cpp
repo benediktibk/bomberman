@@ -30,7 +30,7 @@ const vector<BombState> &GameState::getAllBombs() const
 
 void GameState::addBomb(const BombState &bomb)
 {
-	m_bombs.push_back(bomb);
+    m_bombs.push_back(bomb);
 }
 
 void GameState::eraseBomb(int position)
