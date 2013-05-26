@@ -21,6 +21,7 @@ GameEngineImpl::~GameEngineImpl()
 void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 {
 	PlayerState playerState = m_gameState.getPlayerState();
+    std::vector<BombState> allBombs = m_gameState.getAllBombs();
     BombState bombPlaced;
 	m_inputState = inputState;
 

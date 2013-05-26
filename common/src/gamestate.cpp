@@ -32,3 +32,8 @@ void GameState::addBomb(const BombState &bomb)
 {
 	m_bombs.push_back(bomb);
 }
+
+void GameState::eraseBomb(int position)
+{
+    m_bombs.erase(m_bombs.begin()+position);
+}
