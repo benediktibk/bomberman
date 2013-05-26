@@ -64,18 +64,21 @@ void GameEngineImplTest::updateGameState_RightKeyPressed_PlayerDirectionRight()
     CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionRight, player.getDirection());
 }
 
-/*void GameEngineImplTest::updateGameState_SpaceKeyPressed_BombPlaced()
+void GameEngineImplTest::updateGameState_SpaceKeyPressed_BombPlaced()
 {
     GameEngineImpl gameEngine;
     InputState input;
     GameState game;
     PlayerState player;
-    std::vector<BombState> bomb;
+    BombState bomb;
+    BombState setBomb;
 
     input.setSpaceKeyPressed();
     gameEngine.updateGameState(input,0);
     game=gameEngine.getGameState();
-    bomb=game.getAllBombs();
+    player=game.getPlayerState();
+    bomb=game.getAllBombs().front();
+    setBomb.setPosition(player.getPosition());
 
-    CPPUNIT_ASSERT_EQUAL(BombState::getPosition(), bomb.getPosition());
-}*/
+    CPPUNIT_ASSERT_EQUAL(setBomb.getPosition(), bomb.getPosition());
+}
