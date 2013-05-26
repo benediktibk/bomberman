@@ -13,7 +13,7 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view) :
 	m_view(view),
 	m_scene(new QGraphicsScene()),
 	m_player(new Player(*m_scene)),
-	m_pixelPerMeter(10)
+    m_pixelPerMeter(40)
 {
 	m_scene->setSceneRect(-100, -100, 200, 200);
 	m_view.setBackgroundBrush(QBrush(QColor(255, 255, 255)));
