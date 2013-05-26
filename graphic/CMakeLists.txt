@@ -9,6 +9,7 @@ set(GRAPHIC_SRC
 include_directories(
 	incl
 	../common/incl
+	../resources/objects
 )
 
 find_package(Qt4 REQUIRED)

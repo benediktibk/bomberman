@@ -187,3 +187,8 @@ graphic/incl/pointgraphic.h
 graphic/src/pointgraphic.cpp
 graphic/incl/wall.h
 graphic/src/wall.cpp
+resources/objects/wall_solid.svg
+resources/objects/wall_loose.svg
+resources/objects/player_standing.svg
+resources/objects/bomb_planted.svg
+resources/backgrounds/basic_gradient.svg

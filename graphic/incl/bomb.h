@@ -2,7 +2,7 @@
 #define BOMB_H
 
 class QGraphicsScene;
-class QGraphicsRectItem;
+class QGraphicsSvgItem;
 
 namespace Common
 {
@@ -20,7 +20,7 @@ public:
 	void update(const Common::BombState &state, double pixelPerMeter);
 
 private:
-	QGraphicsRectItem *m_item;
+    QGraphicsSvgItem *m_svgItem;
 };
 }
 
