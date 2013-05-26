@@ -32,7 +32,7 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
         {
             m_gameState.eraseBomb(i);
         } else {
-
+            currentBomb.setLifeTime(currentBomb.getLifeTime() - time);
         }
 
     }
