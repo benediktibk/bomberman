@@ -11,9 +11,8 @@ using namespace Common;
 Player::Player(QGraphicsScene &scene) :
     m_svgItem(new QGraphicsSvgItem(QString("../../resources/objects/player_standing.svg")))
 {
-
+    m_svgItem->setZValue(10);
     scene.addItem(m_svgItem);
-
 }
 
 Player::~Player()
