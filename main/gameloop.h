@@ -3,7 +3,7 @@
 
 #include "threading/threadcustom.h"
 #include "threading/mutex.h"
-#include "threading/signalcustom.h"
+#include "threading/signal.h"
 #include <QtCore/QObject>
 
 namespace Common

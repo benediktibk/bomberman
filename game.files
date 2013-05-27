@@ -44,7 +44,7 @@ threading/mutex.h
 threading/mutex.cpp
 threading/mutextest.h
 threading/mutextest.cpp
-threading/signalcustom.h
+threading/signal.h
 threading/signal.cpp
 threading/signaltest.h
 threading/signaltest.cpp

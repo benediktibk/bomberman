@@ -1,4 +1,4 @@
-#include "mutex.h"
+#include "threading/mutex.h"
 #include <boost/thread/mutex.hpp>
 
 using namespace Threading;
