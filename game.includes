@@ -4,3 +4,10 @@
 build/debug/main
 build/main
 .
+common
+gameengine
+graphic
+main
+physic
+sound
+threading
