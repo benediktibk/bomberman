@@ -1,13 +1,12 @@
 set(GAMEENGINE_SRC
-	src/gameengineimpl.cpp
+	gameengineimpl.cpp
 )
 
 set(GAMEENGINE_TEST_SRC
-	src/gameengineimpltest.cpp
+	gameengineimpltest.cpp
 )
 
 include_directories(
-	incl
 	../common
 	../physic/incl
 )

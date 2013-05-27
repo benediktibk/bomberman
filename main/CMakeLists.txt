@@ -37,7 +37,7 @@ set(MAIN_QT_INCL
 include_directories(
 	incl
 	../common
-	../gameengine/incl
+	../gameengine
 	../graphic/incl
 	../physic/incl
 	../sound/incl

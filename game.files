@@ -12,8 +12,8 @@ common/inputstate.h
 common/inputstate.cpp
 common/gamestate.h
 common/gamestate.cpp
-gameengine/incl/gameengineimpl.h
-gameengine/src/gameengineimpl.cpp
+gameengine/gameengineimpl.h
+gameengine/gameengineimpl.cpp
 graphic/incl/graphicdrawerqt.h
 graphic/src/graphicdrawerqt.cpp
 physic/incl/physicsimulator.h
@@ -25,11 +25,11 @@ threading/thread.cpp
 main/incl/gameloop.h
 main/src/gameloop.cpp
 common/gamestatetest.h
-gameengine/incl/gameengineimpltest.h
+gameengine/gameengineimpltest.h
 common/gamestatetest.cpp
 common/inputstatetest.h
 common/inputstatetest.cpp
-gameengine/src/gameengineimpltest.cpp
+gameengine/gameengineimpltest.cpp
 main/incl/gamelooptest.h
 main/src/gamelooptest.cpp
 physic/incl/physicsimulatortest.h
