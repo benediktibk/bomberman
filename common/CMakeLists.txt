@@ -7,6 +7,7 @@ set(COMMON_SRC
 	src/enemystate.cpp
 	src/bombstate.cpp
 	src/wallstate.cpp
+    src/uniqueidcreator.cpp
 )
 
 set(COMMON_TEST_SRC
@@ -17,6 +18,7 @@ set(COMMON_TEST_SRC
 	src/enemystatetest.cpp
 	src/bombstatetest.cpp
 	src/wallstatetest.cpp
+    src/uniqueidcreatortest.cpp
 )
 
 include_directories(

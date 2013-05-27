@@ -11,6 +11,7 @@
 #include "enemystatetest.h"
 #include "bombstatetest.h"
 #include "wallstatetest.h"
+#include "uniqueidcreatortest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::GameStateTest);
@@ -25,3 +26,4 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Physic::PhysicSimulatorTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Threading::ThreadTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Threading::MutexTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Threading::SignalTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::UniqueIdCreatorTest);

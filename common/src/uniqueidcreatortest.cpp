@@ -1,4 +1,4 @@
-#include "uniqueidcreatortest.h".h"
+#include "uniqueidcreatortest.h"
 #include "uniqueidcreator.h"
 #include <sstream>
 
@@ -11,7 +11,7 @@ void UniqueIdCreatorTest::getId_when_first()
     unsigned int uniqueid;
     uniqueid = id.getId();
 
-    CPPUNIT_ASSERT_EQUAL(0, uniqueid);
+    CPPUNIT_ASSERT_EQUAL((unsigned int)0, uniqueid);
 }
 
 void UniqueIdCreatorTest::getId_when_third()
@@ -21,7 +21,7 @@ void UniqueIdCreatorTest::getId_when_third()
         uniqueid = id.getId();
         uniqueid = id.getId();
         uniqueid = id.getId();
-    CPPUNIT_ASSERT_EQUAL(2, uniqueid);
+    CPPUNIT_ASSERT_EQUAL((unsigned int)2, uniqueid);
 }
 
 void UniqueIdCreatorTest::getId_when_third_deleted()
@@ -33,5 +33,5 @@ void UniqueIdCreatorTest::getId_when_third_deleted()
         uniqueid = id.getId();
         id.removeId(uniqueid);
         uniqueid = id.getId();
-    CPPUNIT_ASSERT_EQUAL(2, uniqueid);
+    CPPUNIT_ASSERT_EQUAL((unsigned int)2, uniqueid);
 }

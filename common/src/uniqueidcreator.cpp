@@ -10,9 +10,9 @@ UniqueIdCreator::UniqueIdCreator()
 void UniqueIdCreator::removeId(unsigned int id)
 {
     assert(count(m_idList.begin(), m_idList.end(), id) == 1);
-    List::<iterator> index;
+    std::list<unsigned int>::iterator index;
     index=std::find(m_idList.begin(),m_idList.end(),id);
-    m_idList.remove(index);
+    m_idList.erase(index);
 }
 
 unsigned int UniqueIdCreator::getId()
@@ -27,6 +27,6 @@ unsigned int UniqueIdCreator::getId()
     {   id=m_idList.back()+1;
         m_idList.push_back(id);
     }
-    sort(m_idList.begin(),m_idList.end());
+    m_idList.sort();
     return id;
 }
