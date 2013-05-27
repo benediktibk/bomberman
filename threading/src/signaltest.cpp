@@ -1,6 +1,7 @@
 #include "signaltest.h"
 #include "signalcustom.h"
 #include "threadcustom.h"
+#include <unistd.h>
 
 using namespace Threading;
 
