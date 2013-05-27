@@ -1,13 +1,13 @@
 set(THREADING_SRC
-	src/thread.cpp
-	src/mutex.cpp
-	src/signal.cpp
+	thread.cpp
+	mutex.cpp
+	signal.cpp
 )
 
 set(THREADING_TEST_SRC
-	src/threadtest.cpp
-	src/mutextest.cpp
-	src/signaltest.cpp
+	threadtest.cpp
+	mutextest.cpp
+	signaltest.cpp
 )
 
 include_directories(

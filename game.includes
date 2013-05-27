@@ -1,10 +1,10 @@
-common/incl
-gameengine/incl
-graphic/incl
-main/incl
-physic/incl
-sound/incl
-threading/incl
+common
+gameengine
+graphic
+main
+physic
+sound
+threading
 physic
 /usr/include
 /usr/include/qt4/

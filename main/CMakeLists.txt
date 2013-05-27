@@ -41,7 +41,7 @@ include_directories(
 	../graphic/incl
 	../physic/incl
 	../sound/incl
-	../threading/incl
+	../threading
 	${CMAKE_CURRENT_BINARY_DIR}
 )
 
