@@ -39,7 +39,7 @@ include_directories(
 	../common
 	../gameengine
 	../graphic/incl
-	../physic/incl
+	../physic
 	../sound/incl
 	../threading
 	${CMAKE_CURRENT_BINARY_DIR}
