@@ -1,7 +1,7 @@
 #ifndef GAMEENGINE_GAMEENGINEIMPL_H
 #define GAMEENGINE_GAMEENGINEIMPL_H
 
-#include "gameengine.h"
+#include "common/gameengine.h"
 
 namespace Physic
 {

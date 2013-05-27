@@ -35,12 +35,6 @@ set(MAIN_QT_INCL
 )
 
 include_directories(
-	../common
-	../gameengine
-	../graphic
-	../physic
-	../sound
-	../threading
 	${CMAKE_CURRENT_BINARY_DIR}
 )
 

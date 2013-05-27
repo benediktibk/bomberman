@@ -1,7 +1,7 @@
 #ifndef GRAPHIC_POINTGRAPHIC_H
 #define GRAPHIC_POINTGRAPHIC_H
 
-#include "point.h"
+#include "common/point.h"
 #include <QPointF>
 
 namespace Graphic

@@ -1,7 +1,7 @@
 #include "gameloop.h"
-#include "inputfetcher.h"
-#include "gameengine.h"
-#include "stopwatch.h"
+#include "common/inputfetcher.h"
+#include "common/gameengine.h"
+#include "common/stopwatch.h"
 #include <unistd.h>
 
 using namespace Common;

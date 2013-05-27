@@ -2,9 +2,9 @@
 #define MAIN_MAINWINDOWINPUTFETCHER_H
 
 #include <QMainWindow>
-#include "inputfetcher.h"
-#include "inputstate.h"
-#include "mutex.h"
+#include "common/inputfetcher.h"
+#include "common/inputstate.h"
+#include "threading/mutex.h"
 
 namespace Main
 {

@@ -2,10 +2,10 @@
 #include "ui_mainwindow.h"
 #include <QtOpenGL/QGLWidget>
 #include <QtCore/QTimer>
-#include "graphicdrawerqt.h"
-#include "gamestate.h"
+#include "graphic/graphicdrawerqt.h"
+#include "common/gamestate.h"
 #include "gameloop.h"
-#include "gameengineimpl.h"
+#include "gameengine/gameengineimpl.h"
 
 using namespace Main;
 using namespace Qt;

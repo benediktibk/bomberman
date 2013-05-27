@@ -8,7 +8,6 @@ set(PHYSIC_TEST_SRC
 )
 
 include_directories(
-	../common
 	.
 )
 

@@ -6,11 +6,6 @@ set(GRAPHIC_SRC
 	pointgraphic.cpp
 )
 
-include_directories(
-	../common
-	../resources/objects
-)
-
 find_package(Qt4 REQUIRED)
 include(${QT_USE_FILE})
 add_definitions(${QT_DEFINITIONS})

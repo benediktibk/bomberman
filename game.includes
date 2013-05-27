@@ -1,13 +1,6 @@
-common
-gameengine
-graphic
-main
-physic
-sound
-threading
-physic
 /usr/include
 /usr/include/qt4/
 /usr/include/qt4/QtGui/
 build/debug/main
 build/main
+.

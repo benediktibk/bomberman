@@ -1,6 +1,7 @@
 #ifndef PHYSIC_DYNAMICOBJECT_H
 #define PHYSIC_DYNAMICOBJECT_H
-#include "point.h"
+
+#include "common/point.h"
 
 class b2Body;
 class b2BodyDef;

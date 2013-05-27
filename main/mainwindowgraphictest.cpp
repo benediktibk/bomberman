@@ -1,6 +1,6 @@
 #include "mainwindowgraphictest.h"
 #include "ui_mainwindowgraphictest.h"
-#include "graphicdrawerqt.h"
+#include "graphic/graphicdrawerqt.h"
 
 using namespace Main;
 using namespace Common;

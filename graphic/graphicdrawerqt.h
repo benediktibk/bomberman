@@ -1,7 +1,7 @@
 #ifndef GRAPHIC_GRAPHICDRAWERQT_H
 #define GRAPHIC_GRAPHICDRAWERQT_H
 
-#include "graphicdrawer.h"
+#include "common/graphicdrawer.h"
 
 class QGraphicsScene;
 class QGraphicsView;

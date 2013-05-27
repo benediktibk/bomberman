@@ -11,6 +11,10 @@ set(CMAKE_CXX_FLAGS_COMMON "-Wall -Wextra -Werror -ansi")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_COMMON} -O3 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_COMMON} -g")
 
+include_directories(
+	.
+)
+
 add_subdirectory(common)
 add_subdirectory(gameengine)
 add_subdirectory(graphic)
