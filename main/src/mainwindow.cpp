@@ -11,7 +11,7 @@ using namespace Main;
 using namespace Qt;
 using namespace Graphic;
 
-MainWindow::MainWindow() :
+MainWindow::MainWindow(bool enableOpenGL) :
 	m_fpsUpdateTimeStep(250),
 	m_ui(new Ui::MainWindow),
 	m_drawer(0),
@@ -20,8 +20,10 @@ MainWindow::MainWindow() :
 	m_timer(new QTimer(this))
 {
 	m_ui->setupUi(this);
-    // Does not work so far results in severe graphical problems
-    //m_ui->graphicsView->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
+
+	if (enableOpenGL)
+		m_ui->graphicsView->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
+
 	m_ui->graphicsView->setFocusPolicy(NoFocus);
 	m_ui->graphicsView->setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
 	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView));
