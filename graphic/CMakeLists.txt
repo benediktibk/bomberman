@@ -3,7 +3,7 @@ set(GRAPHIC_SRC
 	player.cpp
 	bomb.cpp
 	wall.cpp
-	pointgraphic.cpp
+	point.cpp
 )
 
 find_package(Qt4 REQUIRED)

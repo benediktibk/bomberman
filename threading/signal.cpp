@@ -1,4 +1,4 @@
-#include "signalcustom.h"
+#include "threading/signal.h"
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/condition.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>
@@ -16,12 +16,12 @@ Signal::Signal() :
 
 Signal::~Signal()
 {
-    bool mutexLocked = m_conditionMutex->try_lock();
-    m_conditionMutex->unlock();
-    assert(mutexLocked);
-    mutexLocked = m_sendingMutex->try_lock();
-    m_sendingMutex->unlock();
-    assert(mutexLocked);
+	bool mutexLocked = m_conditionMutex->try_lock();
+	m_conditionMutex->unlock();
+	assert(mutexLocked);
+	mutexLocked = m_sendingMutex->try_lock();
+	m_sendingMutex->unlock();
+	assert(mutexLocked);
 
 	delete m_condition;
 	delete m_conditionMutex;

@@ -1,4 +1,4 @@
-#include "threadcustom.h"
+#include "threading/thread.h"
 #include <boost/thread.hpp>
 
 using namespace Threading;

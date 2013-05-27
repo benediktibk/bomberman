@@ -1,4 +1,4 @@
-#include "pointgraphic.h"
+#include "point.h"
 
 using namespace Graphic;
 

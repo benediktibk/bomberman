@@ -1,9 +1,9 @@
 #ifndef MAIN_GAMELOOP_H
 #define MAIN_GAMELOOP_H
 
-#include "threading/threadcustom.h"
+#include "threading/thread.h"
 #include "threading/mutex.h"
-#include "threading/signalcustom.h"
+#include "threading/signal.h"
 #include <QtCore/QObject>
 
 namespace Common
