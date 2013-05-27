@@ -1,9 +1,8 @@
 set(SOUND_SRC
-	src/soundplayer.cpp
+	soundplayer.cpp
 )
 
 include_directories(
-	incl
 	../common
 )
 

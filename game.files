@@ -18,8 +18,8 @@ graphic/incl/graphicdrawerqt.h
 graphic/src/graphicdrawerqt.cpp
 physic/incl/physicsimulator.h
 physic/src/physicsimulator.cpp
-sound/incl/soundplayer.h
-sound/src/soundplayer.cpp
+sound/soundplayer.h
+sound/soundplayer.cpp
 threading/threadcustom.h
 threading/thread.cpp
 main/incl/gameloop.h

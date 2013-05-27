@@ -10,9 +10,5 @@ set(THREADING_TEST_SRC
 	signaltest.cpp
 )
 
-include_directories(
-	incl
-)
-
 add_library(threading ${THREADING_SRC})
 add_library(threadingtest ${THREADING_TEST_SRC})
