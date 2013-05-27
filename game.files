@@ -193,3 +193,5 @@ resources/objects/bomb_planted.svg
 resources/backgrounds/basic_gradient.svg
 common/incl/uniqueidcreator.h
 common/src/uniqueidcreator.cpp
+common/incl/uniqueidcreatortest.h
+common/src/uniqueidcreatortest.cpp
