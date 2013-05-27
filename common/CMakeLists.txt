@@ -7,6 +7,7 @@ set(COMMON_SRC
 	enemystate.cpp
 	bombstate.cpp
 	wallstate.cpp
+	uniqueidcreator.cpp
 )
 
 set(COMMON_TEST_SRC
@@ -17,6 +18,7 @@ set(COMMON_TEST_SRC
 	enemystatetest.cpp
 	bombstatetest.cpp
 	wallstatetest.cpp
+	uniqueidcreatortest.cpp
 )
 
 add_library(common ${COMMON_SRC})

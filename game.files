@@ -163,7 +163,6 @@ main/maininputtest.cpp
 main/maingraphictest.cpp
 main/mainwindowgraphictest.h
 main/mainwindowgraphictest.cpp
-main/gui/mainwindowinputtest.ui
 main/gui/mainwindowgraphictest.ui
 common/enemystate.h
 common/point.h
@@ -192,3 +191,7 @@ resources/objects/wall_loose.svg
 resources/objects/player_standing.svg
 resources/objects/bomb_planted.svg
 resources/backgrounds/basic_gradient.svg
+common/uniqueidcreator.h
+common/uniqueidcreator.cpp
+common/uniqueidcreatortest.h
+common/uniqueidcreatortest.cpp
