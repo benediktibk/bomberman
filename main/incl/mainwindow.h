@@ -28,7 +28,7 @@ class MainWindow :
 	Q_OBJECT
 
 public:
-	MainWindow();
+	MainWindow(bool enableOpenGL);
 	~MainWindow();
 
 public slots:
