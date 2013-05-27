@@ -20,7 +20,7 @@ physic/physicsimulator.h
 physic/physicsimulator.cpp
 sound/soundplayer.h
 sound/soundplayer.cpp
-threading/threadcustom.h
+threading/thread.h
 threading/thread.cpp
 main/gameloop.h
 main/gameloop.cpp
