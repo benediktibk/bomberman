@@ -1,5 +1,5 @@
-#ifndef GRAPHIC_POINTGRAPHIC_H
-#define GRAPHIC_POINTGRAPHIC_H
+#ifndef GRAPHIC_POINT_H
+#define GRAPHIC_POINT_H
 
 #include "common/point.h"
 #include <QPointF>

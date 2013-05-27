@@ -1,6 +1,6 @@
 #include "bomb.h"
 #include "common/bombstate.h"
-#include "pointgraphic.h"
+#include "graphic/point.h"
 #include <QGraphicsScene>
 #include <QtSvg/QtSvg>
 

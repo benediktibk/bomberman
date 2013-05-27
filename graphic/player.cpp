@@ -1,5 +1,5 @@
 #include "player.h"
-#include "pointgraphic.h"
+#include "graphic/point.h"
 #include "common/playerstate.h"
 #include <QGraphicsScene>
 #include <QtSvg/QtSvg>

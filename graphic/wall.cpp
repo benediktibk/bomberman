@@ -1,6 +1,6 @@
 #include "wall.h"
 #include "common/wallstate.h"
-#include "pointgraphic.h"
+#include "graphic/point.h"
 #include <QGraphicsScene>
 #include <QtSvg/QGraphicsSvgItem>
 

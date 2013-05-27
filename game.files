@@ -182,8 +182,8 @@ common/wallstate.cpp
 common/wallstatetest.cpp
 graphic/bomb.h
 graphic/bomb.cpp
-graphic/pointgraphic.h
-graphic/pointgraphic.cpp
+graphic/point.h
+graphic/point.cpp
 graphic/wall.h
 graphic/wall.cpp
 resources/objects/wall_solid.svg
