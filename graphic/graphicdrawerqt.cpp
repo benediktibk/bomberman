@@ -32,7 +32,7 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 {
 	const PlayerState &playerState = gameState.getPlayerState();
 	const vector<WallState> &walls = gameState.getAllWalls();
-	const vector<BombState> &bombs = gameState.getAllBombs();
+    const vector<BombState*> &bombs = gameState.getAllBombs();
 
 	drawWalls(walls);
 	drawBombs(bombs);
@@ -62,14 +62,14 @@ void GraphicDrawerQt::drawWalls(const vector<WallState> &walls)
 	}
 }
 
-void GraphicDrawerQt::drawBombs(const vector<BombState> &bombs)
+void GraphicDrawerQt::drawBombs(const vector<BombState*> &bombs)
 {
 	deleteBombs();
 
-	for (vector<BombState>::const_iterator i = bombs.begin(); i != bombs.end(); ++i)
+    for (vector<BombState*>::const_iterator i = bombs.begin(); i != bombs.end(); ++i)
 	{
 		Bomb* bomb = new Bomb(*m_scene);
-		const BombState &state = *i;
+        const BombState &state = **i;
 		bomb->update(state, m_pixelPerMeter);
 		m_bombs.push_back(bomb);
 	}

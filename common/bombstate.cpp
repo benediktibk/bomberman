@@ -2,10 +2,16 @@
 
 using namespace Common;
 
-BombState::BombState() :
+BombState::BombState(UniqueIdCreator &creator) :
     m_lifeTime(3000),
-    m_destructionRange(1)
+    m_destructionRange(1),
+    m_bombid(creator.getId()),
+    m_creatorid(creator)
 { }
+BombState::~BombState()
+{
+    m_creatorid.removeId(m_bombid);
+}
 
 void BombState::setPosition(const Point &value)
 {

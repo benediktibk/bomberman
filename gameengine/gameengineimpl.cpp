@@ -21,18 +21,17 @@ GameEngineImpl::~GameEngineImpl()
 void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 {
 	PlayerState playerState = m_gameState.getPlayerState();
-	std::vector<BombState> allBombs = m_gameState.getAllBombs();
-	BombState bombPlaced, currentBomb;
+    std::vector<BombState*> allBombs = m_gameState.getAllBombs();
 	m_inputState = inputState;
 
 	for(unsigned int i=0;i<allBombs.size();i++)
-	{
-		currentBomb = allBombs[i];
-		if (currentBomb.getLifeTime()<0)
+    {
+        BombState *currentBomb = allBombs[i];
+        if (currentBomb->getLifeTime()<0)
 		{
 			m_gameState.eraseBomb(i);
 		} else {
-			currentBomb.setLifeTime(currentBomb.getLifeTime() - time);
+            currentBomb->setLifeTime(currentBomb->getLifeTime() - time);
 		}
 
 	}
@@ -82,15 +81,16 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 	playerState.setPosition(m_player->getPosition());
 
 	if (m_inputState.isSpaceKeyPressed())
-	{
-		bombPlaced.setPosition(m_player->getPosition());
+    {
+        BombState *bombPlaced=new BombState(m_bombids);
+        bombPlaced->setPosition(m_player->getPosition());
 		m_gameState.addBomb(bombPlaced);
 	}
 
 	m_gameState.setPlayerState(playerState);
 }
 
-const Common::GameState &GameEngineImpl::getGameState()
+const Common::GameState &GameEngineImpl::getGameState() const
 {
 	return m_gameState;
 }

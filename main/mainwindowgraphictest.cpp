@@ -1,6 +1,7 @@
 #include "mainwindowgraphictest.h"
 #include "ui_mainwindowgraphictest.h"
 #include "graphic/graphicdrawerqt.h"
+#include "common/uniqueidcreator.h"
 
 using namespace Main;
 using namespace Common;
@@ -41,22 +42,23 @@ void MainWindowGraphicTest::connectSlots()
 
 void MainWindowGraphicTest::drawState1()
 {
+    UniqueIdCreator id;
 	GameState gameState;
 	WallState wallOne;
 	WallState wallTwo;
 	WallState wallThree;
-	BombState bombOne;
-	BombState bombTwo;
+    BombState *bombOne = new BombState(id);
+    BombState *bombTwo = new BombState(id);
 
 	wallOne.setPosition(Point(-3, 4));
 	wallTwo.setPosition(Point(2, 3));
 	wallThree.setPosition(Point(1, 5));
-	bombOne.setPosition(Point(0, 2));
-	bombTwo.setPosition(Point(-4, -1));
+    bombOne->setPosition(Point(0, 2));
+    bombTwo->setPosition(Point(-4, -1));
 	gameState.addWall(wallOne);
 	gameState.addWall(wallTwo);
 	gameState.addWall(wallThree);
-	gameState.addBomb(bombOne);
+    gameState.addBomb(bombOne);
 	gameState.addBomb(bombTwo);
 
 	m_drawer->draw(gameState);

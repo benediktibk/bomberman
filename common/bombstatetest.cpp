@@ -1,11 +1,12 @@
 #include "bombstatetest.h"
 #include "bombstate.h"
-
+#include "uniqueidcreator.h"
 using namespace Common;
 
 void BombStateTest::setPosition_5And4_positionIs5And4()
 {
-	BombState bomb;
+    UniqueIdCreator id;
+    BombState bomb(id);
 
 	bomb.setPosition(Point(5, 4));
 
@@ -14,7 +15,8 @@ void BombStateTest::setPosition_5And4_positionIs5And4()
 
 void BombStateTest::setLifeTime_3_lifeTimeIs3()
 {
-    BombState bomb;
+    UniqueIdCreator id;
+    BombState bomb(id);
 
     bomb.setLifeTime(3);
 
@@ -22,7 +24,8 @@ void BombStateTest::setLifeTime_3_lifeTimeIs3()
 }
 void BombStateTest::setDestructionRange_5_DestructionRangeIs5()
 {
-    BombState bomb;
+    UniqueIdCreator id;
+    BombState bomb(id);
 
     bomb.setDestructionRange(5);
 
