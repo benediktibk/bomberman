@@ -4,7 +4,7 @@ set(SOUND_SRC
 
 include_directories(
 	incl
-	../common/incl
+	../common
 )
 
 add_library(sound ${SOUND_SRC})

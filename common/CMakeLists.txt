@@ -1,26 +1,22 @@
 set(COMMON_SRC
-	src/gamestate.cpp
-	src/inputstate.cpp
-	src/stopwatch.cpp
-	src/playerstate.cpp
-	src/point.cpp
-	src/enemystate.cpp
-	src/bombstate.cpp
-	src/wallstate.cpp
+	gamestate.cpp
+	inputstate.cpp
+	stopwatch.cpp
+	playerstate.cpp
+	point.cpp
+	enemystate.cpp
+	bombstate.cpp
+	wallstate.cpp
 )
 
 set(COMMON_TEST_SRC
-	src/gamestatetest.cpp
-	src/inputstatetest.cpp
-	src/stopwatchtest.cpp
-	src/pointtest.cpp
-	src/enemystatetest.cpp
-	src/bombstatetest.cpp
-	src/wallstatetest.cpp
-)
-
-include_directories(
-	incl
+	gamestatetest.cpp
+	inputstatetest.cpp
+	stopwatchtest.cpp
+	pointtest.cpp
+	enemystatetest.cpp
+	bombstatetest.cpp
+	wallstatetest.cpp
 )
 
 add_library(common ${COMMON_SRC})

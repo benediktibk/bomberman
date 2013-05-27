@@ -8,7 +8,7 @@ set(GAMEENGINE_TEST_SRC
 
 include_directories(
 	incl
-	../common/incl
+	../common
 	../physic/incl
 )
 

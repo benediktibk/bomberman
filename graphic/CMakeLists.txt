@@ -8,7 +8,7 @@ set(GRAPHIC_SRC
 
 include_directories(
 	incl
-	../common/incl
+	../common
 	../resources/objects
 )
 
