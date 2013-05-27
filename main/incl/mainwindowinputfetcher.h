@@ -1,5 +1,5 @@
-#ifndef MAINWINDOWINPUTFETCHER_H
-#define MAINWINDOWINPUTFETCHER_H
+#ifndef MAIN_MAINWINDOWINPUTFETCHER_H
+#define MAIN_MAINWINDOWINPUTFETCHER_H
 
 #include <QMainWindow>
 #include "inputfetcher.h"

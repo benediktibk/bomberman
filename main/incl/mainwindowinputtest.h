@@ -1,5 +1,5 @@
-#ifndef MAINWINDOWINPUTTEST_H
-#define MAINWINDOWINPUTTEST_H
+#ifndef MAIN_MAINWINDOWINPUTTEST_H
+#define MAIN_MAINWINDOWINPUTTEST_H
 
 #include "mainwindowinputfetcher.h"
 
@@ -21,14 +21,14 @@ public:
 	MainWindowInputTest();
 
 private slots:
-    void inputStateCalled();
+	void inputStateCalled();
 
 private:
-    void connectButtons();
+	void connectButtons();
 
 private:
 	Ui::MainWindowInputTest* m_ui;
-    QTimer *m_timer;
+	QTimer *m_timer;
 };
 }
 

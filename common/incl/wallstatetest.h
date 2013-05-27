@@ -1,5 +1,5 @@
-#ifndef WALLSTATETEST_H
-#define WALLSTATETEST_H
+#ifndef COMMON_WALLSTATETEST_H
+#define COMMON_WALLSTATETEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>

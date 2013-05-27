@@ -1,5 +1,5 @@
-#ifndef PLAYER_H
-#define PLAYER_H
+#ifndef GRAPHIC_PLAYER_H
+#define GRAPHIC_PLAYER_H
 
 class QGraphicsScene;
 class QGraphicsSvgItem;
@@ -20,7 +20,7 @@ public:
 	void update(const Common::PlayerState &state, double pixelPerMeter);
 
 private:
-    QGraphicsSvgItem *m_svgItem;
+	QGraphicsSvgItem *m_svgItem;
 };
 }
 

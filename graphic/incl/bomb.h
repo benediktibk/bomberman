@@ -1,5 +1,5 @@
-#ifndef BOMB_H
-#define BOMB_H
+#ifndef GRAPHIC_BOMB_H
+#define GRAPHIC_BOMB_H
 
 class QGraphicsScene;
 class QGraphicsSvgItem;
@@ -20,7 +20,7 @@ public:
 	void update(const Common::BombState &state, double pixelPerMeter);
 
 private:
-    QGraphicsSvgItem *m_svgItem;
+	QGraphicsSvgItem *m_svgItem;
 };
 }
 

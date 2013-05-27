@@ -1,5 +1,5 @@
-#ifndef GAMEENGINE_H
-#define GAMEENGINE_H
+#ifndef COMMON_GAMEENGINE_H
+#define COMMON_GAMEENGINE_H
 
 #include "inputstate.h"
 #include "gamestate.h"

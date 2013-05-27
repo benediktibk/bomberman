@@ -1,5 +1,5 @@
-#ifndef WALLSTATE_H
-#define WALLSTATE_H
+#ifndef COMMON_WALLSTATE_H
+#define COMMON_WALLSTATE_H
 
 #include "point.h"
 

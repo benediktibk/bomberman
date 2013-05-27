@@ -1,5 +1,5 @@
-#ifndef SOUNDPLAYER_H
-#define SOUNDPLAYER_H
+#ifndef SOUND_SOUNDPLAYER_H
+#define SOUND_SOUNDPLAYER_H
 
 namespace Sound
 {

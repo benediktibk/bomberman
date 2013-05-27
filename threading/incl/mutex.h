@@ -1,5 +1,5 @@
-#ifndef MUTEX_H
-#define MUTEX_H
+#ifndef THREADING_MUTEX_H
+#define THREADING_MUTEX_H
 
 namespace boost
 {

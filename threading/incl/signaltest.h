@@ -1,5 +1,5 @@
-#ifndef SIGNALTEST_H
-#define SIGNALTEST_H
+#ifndef THREADING_SIGNALTEST_H
+#define THREADING_SIGNALTEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>

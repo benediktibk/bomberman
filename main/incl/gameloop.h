@@ -1,5 +1,5 @@
-#ifndef GAMELOOP_H
-#define GAMELOOP_H
+#ifndef MAIN_GAMELOOP_H
+#define MAIN_GAMELOOP_H
 
 #include "threadcustom.h"
 #include "mutex.h"

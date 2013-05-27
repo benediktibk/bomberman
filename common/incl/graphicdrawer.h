@@ -1,5 +1,5 @@
-#ifndef GRAPHICDRAWER_H
-#define GRAPHICDRAWER_H
+#ifndef COMMON_GRAPHICDRAWER_H
+#define COMMON_GRAPHICDRAWER_H
 
 #include "gamestate.h"
 

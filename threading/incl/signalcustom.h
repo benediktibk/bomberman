@@ -1,5 +1,5 @@
-#ifndef SIGNAL_H
-#define SIGNAL_H
+#ifndef THREADING_SIGNAL_H
+#define THREADING_SIGNAL_H
 
 namespace boost
 {

@@ -1,5 +1,5 @@
-#ifndef GAMELOOPTEST_H
-#define GAMELOOPTEST_H
+#ifndef MAIN_GAMELOOPTEST_H
+#define MAIN_GAMELOOPTEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>

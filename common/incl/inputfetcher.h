@@ -1,5 +1,5 @@
-#ifndef INPUTFETCHER_H
-#define INPUTFETCHER_H
+#ifndef COMMON_INPUTFETCHER_H
+#define COMMON_INPUTFETCHER_H
 
 #include "inputstate.h"
 

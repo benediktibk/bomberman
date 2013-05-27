@@ -1,5 +1,5 @@
-#ifndef PHYSICSIMULATORTEST_H
-#define PHYSICSIMULATORTEST_H
+#ifndef PHYSIC_PHYSICSIMULATORTEST_H
+#define PHYSIC_PHYSICSIMULATORTEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>

@@ -1,5 +1,5 @@
-#ifndef THREADTEST_H
-#define THREADTEST_H
+#ifndef THREADING_THREADTEST_H
+#define THREADING_THREADTEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>

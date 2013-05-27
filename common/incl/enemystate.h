@@ -1,5 +1,5 @@
-#ifndef ENEMYSTATE_H
-#define ENEMYSTATE_H
+#ifndef COMMON_ENEMYSTATE_H
+#define COMMON_ENEMYSTATE_H
 
 #include "point.h"
 

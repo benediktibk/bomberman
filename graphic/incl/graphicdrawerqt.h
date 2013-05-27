@@ -1,5 +1,5 @@
-#ifndef GRAPHICDRAWERQT_H
-#define GRAPHICDRAWERQT_H
+#ifndef GRAPHIC_GRAPHICDRAWERQT_H
+#define GRAPHIC_GRAPHICDRAWERQT_H
 
 #include "graphicdrawer.h"
 

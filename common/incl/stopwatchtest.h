@@ -1,5 +1,5 @@
-#ifndef STOPWATCHTEST_H
-#define STOPWATCHTEST_H
+#ifndef COMMON_STOPWATCHTEST_H
+#define COMMON_STOPWATCHTEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>

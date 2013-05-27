@@ -1,5 +1,5 @@
-#ifndef STOPWATCH_H
-#define STOPWATCH_H
+#ifndef COMMON_STOPWATCH_H
+#define COMMON_STOPWATCH_H
 
 #include <sys/types.h>
 

@@ -1,5 +1,5 @@
-#ifndef POINT_H
-#define POINT_H
+#ifndef COMMON_POINT_H
+#define COMMON_POINT_H
 
 #include <ostream>
 

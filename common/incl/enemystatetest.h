@@ -1,5 +1,5 @@
-#ifndef ENEMYSTATETEST_H
-#define ENEMYSTATETEST_H
+#ifndef COMMON_ENEMYSTATETEST_H
+#define COMMON_ENEMYSTATETEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>

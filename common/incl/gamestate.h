@@ -1,5 +1,5 @@
-#ifndef GAMESTATE_H
-#define GAMESTATE_H
+#ifndef COMMON_GAMESTATE_H
+#define COMMON_GAMESTATE_H
 
 #include "playerstate.h"
 #include "wallstate.h"
@@ -17,7 +17,7 @@ public:
 	void addWall(const WallState &wall);
 	const std::vector<BombState> &getAllBombs() const;
 	void addBomb(const BombState &bomb);
-    void eraseBomb(int position);
+	void eraseBomb(int position);
 
 private:
 	PlayerState m_playerState;

@@ -1,5 +1,5 @@
-#ifndef WALL_H
-#define WALL_H
+#ifndef GRAPHIC_WALL_H
+#define GRAPHIC_WALL_H
 
 class QGraphicsScene;
 class QGraphicsSvgItem;
@@ -20,7 +20,7 @@ public:
 	void update(const Common::WallState &state, double pixelPerMeter);
 
 private:
-    QGraphicsSvgItem *m_svgItem;
+	QGraphicsSvgItem *m_svgItem;
 };
 }
 

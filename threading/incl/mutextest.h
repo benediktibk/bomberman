@@ -1,5 +1,5 @@
-#ifndef MUTEXTEST_H
-#define MUTEXTEST_H
+#ifndef THREADING_MUTEXTEST_H
+#define THREADING_MUTEXTEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>

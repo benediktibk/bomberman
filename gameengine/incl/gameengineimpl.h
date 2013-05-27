@@ -1,5 +1,5 @@
-#ifndef GAMEENGINEIMPL_H
-#define GAMEENGINEIMPL_H
+#ifndef GAMEENGINE_GAMEENGINEIMPL_H
+#define GAMEENGINE_GAMEENGINEIMPL_H
 
 #include "gameengine.h"
 

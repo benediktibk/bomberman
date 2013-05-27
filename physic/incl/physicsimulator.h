@@ -1,5 +1,5 @@
-#ifndef PHYSICSIMULATOR_H
-#define PHYSICSIMULATOR_H
+#ifndef PHYSIC_PHYSICSIMULATOR_H
+#define PHYSIC_PHYSICSIMULATOR_H
 
 class b2World;
 class b2Vec2;

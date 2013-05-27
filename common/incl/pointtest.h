@@ -1,5 +1,5 @@
-#ifndef POINTTEST_H
-#define POINTTEST_H
+#ifndef COMMON_POINTTEST_H
+#define COMMON_POINTTEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>

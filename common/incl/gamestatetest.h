@@ -1,5 +1,5 @@
-#ifndef GAMESTATETEST_H
-#define GAMESTATETEST_H
+#ifndef COMMON_GAMESTATETEST_H
+#define COMMON_GAMESTATETEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>

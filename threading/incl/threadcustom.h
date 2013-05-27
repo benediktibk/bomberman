@@ -1,5 +1,5 @@
-#ifndef THREAD_H
-#define THREAD_H
+#ifndef THREADING_THREAD_H
+#define THREADING_THREAD_H
 
 namespace boost
 {
