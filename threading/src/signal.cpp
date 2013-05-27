@@ -2,6 +2,7 @@
 #include <boost/thread/mutex.hpp>
 #include <boost/thread/condition.hpp>
 #include <boost/interprocess/sync/scoped_lock.hpp>
+#include <assert.h>
 
 using namespace Threading;
 using namespace boost;
@@ -15,6 +16,13 @@ Signal::Signal() :
 
 Signal::~Signal()
 {
+    bool mutexLocked = m_conditionMutex->try_lock();
+    m_conditionMutex->unlock();
+    assert(mutexLocked);
+    mutexLocked = m_sendingMutex->try_lock();
+    m_sendingMutex->unlock();
+    assert(mutexLocked);
+
 	delete m_condition;
 	delete m_conditionMutex;
 	delete m_sendingMutex;
@@ -28,8 +36,6 @@ void Signal::send()
 	m_sent = true;
 	m_condition->notify_all();
 	m_conditionMutex->unlock();
-
-	m_sendingMutex->unlock();
 }
 
 void Signal::reset()

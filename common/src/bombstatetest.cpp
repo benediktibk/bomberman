@@ -20,3 +20,11 @@ void BombStateTest::setLifeTime_3_lifeTimeIs3()
 
     CPPUNIT_ASSERT_EQUAL(3.0, bomb.getLifeTime());
 }
+void BombStateTest::setDestructionRange_5_DestructionRangeIs5()
+{
+    BombState bomb;
+
+    bomb.setDestructionRange(5);
+
+    CPPUNIT_ASSERT_EQUAL(5, bomb.getDestructionRange());
+}

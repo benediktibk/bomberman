@@ -37,7 +37,23 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 
     }
 
-	if (m_inputState.isUpKeyPressed())
+    if (m_inputState.isUpKeyPressed() && playerState.getDirection() == PlayerState::PlayerDirectionUp)
+    {
+        m_player->applyLinearVelocity(0,5);
+    }
+    else if (m_inputState.isDownKeyPressed() && playerState.getDirection() == PlayerState::PlayerDirectionDown)
+    {
+        m_player->applyLinearVelocity(0,-5);
+    }
+    else if (m_inputState.isLeftKeyPressed() && playerState.getDirection() == PlayerState::PlayerDirectionLeft)
+    {
+        m_player->applyLinearVelocity(-5,0);
+    }
+    else if (m_inputState.isRightKeyPressed() && playerState.getDirection() == PlayerState::PlayerDirectionRight)
+    {
+        m_player->applyLinearVelocity(5,0);
+    }
+    else if (m_inputState.isUpKeyPressed())
 	{
 		playerState.setDirectionUp();
         m_player->applyLinearVelocity(0,5);
@@ -46,18 +62,22 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 	{
 		playerState.setDirectionDown();
         m_player->applyLinearVelocity(0,-5);
-	} else if (m_inputState.isLeftKeyPressed())
+    }
+    else if (m_inputState.isLeftKeyPressed())
 	{
 		playerState.setDirectionLeft();
         m_player->applyLinearVelocity(-5,0);
-	} else if (m_inputState.isRightKeyPressed())
+    }
+    else if (m_inputState.isRightKeyPressed())
 	{
 		playerState.setDirectionRight();
         m_player->applyLinearVelocity(5,0);
-	} else
-	{
+    }
+    else
+    {
         m_player->applyLinearVelocity(0,0);
-	}
+    }
+
 	m_simulator->simulateStep(time);
 	playerState.setPosition(m_player->getPosition());
 
