@@ -3,7 +3,8 @@
 using namespace Common;
 
 BombState::BombState() :
-    m_lifeTime(3000)
+    m_lifeTime(3000),
+    m_destructionRange(1)
 { }
 
 void BombState::setPosition(const Point &value)
@@ -24,4 +25,13 @@ void BombState::setLifeTime(double time)
 double BombState::getLifeTime()
 {
     return m_lifeTime;
+}
+void BombState::setDestructionRange(int range)
+{
+    m_destructionRange = range;
+}
+
+int BombState::getDestructionRange() const
+{
+    return m_destructionRange;
 }
