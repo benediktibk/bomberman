@@ -9,15 +9,15 @@ set(MAIN_SRC
 )
 
 set(MAIN_TEST_SRC
-	src/gamelooptest.cpp
+	gamelooptest.cpp
 )
 
 set(MAIN_QT_SRC
-	src/mainwindow.cpp
-	src/mainwindowinputfetcher.cpp
-	src/mainwindowinputtest.cpp
-	src/mainwindowgraphictest.cpp
-	src/gameloop.cpp
+	mainwindow.cpp
+	mainwindowinputfetcher.cpp
+	mainwindowinputtest.cpp
+	mainwindowgraphictest.cpp
+	gameloop.cpp
 )
 
 set(MAIN_FORMS
@@ -27,20 +27,19 @@ set(MAIN_FORMS
 )
 
 set(MAIN_QT_INCL
-	incl/mainwindow.h
-	incl/mainwindowinputfetcher.h
-	incl/mainwindowinputtest.h
-	incl/mainwindowgraphictest.h
-	incl/gameloop.h
+	mainwindow.h
+	mainwindowinputfetcher.h
+	mainwindowinputtest.h
+	mainwindowgraphictest.h
+	gameloop.h
 )
 
 include_directories(
-	incl
 	../common
 	../gameengine
 	../graphic
 	../physic
-	../sound/incl
+	../sound
 	../threading
 	${CMAKE_CURRENT_BINARY_DIR}
 )
@@ -50,7 +49,6 @@ set(LIBRARIES
 	graphic
 	physic
 	sound
-	#main
 	threading
 	common
 	Box2D
@@ -69,10 +67,10 @@ qt4_wrap_cpp(MAIN_QT_INCL_MOC ${MAIN_QT_INCL})
 
 #add_library(main ${MAIN_SRC})
 add_library(maintest ${MAIN_TEST_SRC})
-add_executable(game src/main.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
-add_executable(inputtest src/maininputtest.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
-add_executable(graphictest src/maingraphictest.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
-add_executable(testrunner src/testrunner.cpp src/testregistration.cpp)
+add_executable(game main.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
+add_executable(inputtest maininputtest.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
+add_executable(graphictest maingraphictest.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
+add_executable(testrunner testrunner.cpp testregistration.cpp)
 target_link_libraries(game ${LIBRARIES} ${QT_LIBRARIES} boost_thread-mt)
 target_link_libraries(inputtest ${LIBRARIES} ${QT_LIBRARIES} boost_thread-mt)
 target_link_libraries(graphictest ${LIBRARIES} ${QT_LIBRARIES} boost_thread-mt)
