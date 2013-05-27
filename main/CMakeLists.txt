@@ -38,7 +38,7 @@ include_directories(
 	incl
 	../common
 	../gameengine
-	../graphic/incl
+	../graphic
 	../physic
 	../sound/incl
 	../threading

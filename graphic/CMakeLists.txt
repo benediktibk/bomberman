@@ -1,13 +1,12 @@
 set(GRAPHIC_SRC
-	src/graphicdrawerqt.cpp
-	src/player.cpp
-	src/bomb.cpp
-	src/wall.cpp
-	src/pointgraphic.cpp
+	graphicdrawerqt.cpp
+	player.cpp
+	bomb.cpp
+	wall.cpp
+	pointgraphic.cpp
 )
 
 include_directories(
-	incl
 	../common
 	../resources/objects
 )
