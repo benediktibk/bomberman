@@ -22,7 +22,7 @@ void BombState::setLifeTime(double time)
     m_lifeTime = time;
 }
 
-double BombState::getLifeTime()
+double BombState::getLifeTime() const
 {
     return m_lifeTime;
 }
