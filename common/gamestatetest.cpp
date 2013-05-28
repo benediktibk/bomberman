@@ -7,11 +7,11 @@ using namespace std;
 
 void GameStateTest::addWall_defaultWall_wallCountIs1()
 {
+    UniqueIdCreator id;
 	GameState m_state;
+    m_state.addWall(new WallState(id));
 
-	m_state.addWall(WallState());
-
-	vector<WallState> walls = m_state.getAllWalls();
+    vector<WallState*> walls = m_state.getAllWalls();
 	CPPUNIT_ASSERT_EQUAL((size_t)1, walls.size());
 }
 

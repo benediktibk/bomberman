@@ -1,11 +1,13 @@
 #include "wallstatetest.h"
 #include "wallstate.h"
+#include "uniqueidcreator.h"
 
 using namespace Common;
 
 void WallStateTest::setPosition_5And4_positionIs5And4()
 {
-	WallState wall;
+    UniqueIdCreator id;
+    WallState wall(id);
 
 	wall.setPosition(Point(5, 4));
 

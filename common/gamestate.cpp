@@ -12,6 +12,10 @@ GameState::~GameState()
     {
         delete *i;
     }
+    for(std::vector<WallState*>::iterator i = m_walls.begin();i != m_walls.end(); ++i)
+    {
+        delete *i;
+    }
 }
 
 void GameState::setPlayerState(const PlayerState &state)
@@ -24,12 +28,12 @@ const PlayerState &GameState::getPlayerState() const
 	return m_playerState;
 }
 
-const vector<WallState> &GameState::getAllWalls() const
+const vector<WallState*> &GameState::getAllWalls() const
 {
 	return m_walls;
 }
 
-void GameState::addWall(const WallState &wall)
+void GameState::addWall(WallState* wall)
 {
 	m_walls.push_back(wall);
 }

@@ -16,8 +16,8 @@ public:
 
 	void setPlayerState(const PlayerState &state);
 	const PlayerState& getPlayerState() const;
-	const std::vector<WallState>& getAllWalls() const;
-	void addWall(const WallState &wall);
+    const std::vector<WallState*> &getAllWalls() const;
+    void addWall(WallState* wall);
     const std::vector<BombState*> &getAllBombs() const;
     void addBomb(BombState* bomb);
 	void eraseBomb(int position);
@@ -29,7 +29,7 @@ private:
 
 private:
 	PlayerState m_playerState;
-	std::vector<WallState> m_walls;
+    std::vector<WallState*> m_walls;
     std::vector<BombState*> m_bombs;
 };
 }
