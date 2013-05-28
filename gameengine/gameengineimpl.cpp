@@ -24,8 +24,6 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 	PlayerState playerState = m_gameState.getPlayerState();
 	std::vector<BombState*> allBombs = m_gameState.getAllBombs();
 	m_inputState = inputState;
-    UniqueIdCreator id;
-    WallState wallstate(id);
 
 	for(unsigned int i=0;i<allBombs.size();i++)
 	{
@@ -93,8 +91,7 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 
 	m_gameState.setPlayerState(playerState);
 	m_field->StaticBody();
-    wallstate.setPosition(m_field->getPosition());
-    //m_gameState.addWall(*wallstate);
+
 
 }
 
