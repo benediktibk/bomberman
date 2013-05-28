@@ -195,3 +195,5 @@ common/uniqueidcreator.h
 common/uniqueidcreator.cpp
 common/uniqueidcreatortest.h
 common/uniqueidcreatortest.cpp
+physic/staticbox.h
+physic/staticbox.cpp

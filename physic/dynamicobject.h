@@ -21,6 +21,8 @@ public:
 
 	Common::Point getPosition() const;
 	void applyLinearVelocity(double velocityx,double velocityy);
+    void StaticBody();
+
 private:
 	b2BodyDef *m_bodyDefinition;
 	b2Body *m_body;

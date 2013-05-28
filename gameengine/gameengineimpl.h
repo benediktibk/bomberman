@@ -27,6 +27,7 @@ private:
 	Common::GameState m_gameState;
 	Physic::PhysicSimulator *m_simulator;
     Physic::DynamicObject *m_player;
+    Physic::DynamicObject *m_field;
 };
 }
 

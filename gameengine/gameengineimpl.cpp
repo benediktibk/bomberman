@@ -9,7 +9,8 @@ using namespace Physic;
 
 GameEngineImpl::GameEngineImpl() :
 	m_simulator(new PhysicSimulator),
-	m_player(new DynamicObject(*m_simulator))
+    m_player(new DynamicObject(*m_simulator)),
+    m_field(new DynamicObject(*m_simulator))
 { }
 
 GameEngineImpl::~GameEngineImpl()
@@ -23,6 +24,7 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 	PlayerState playerState = m_gameState.getPlayerState();
     std::vector<BombState*> allBombs = m_gameState.getAllBombs();
 	m_inputState = inputState;
+    WallState wallstate;
 
 	for(unsigned int i=0;i<allBombs.size();i++)
     {
@@ -84,10 +86,15 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
     {
         BombState *bombPlaced=new BombState(m_bombids);
         bombPlaced->setPosition(m_player->getPosition());
+
 		m_gameState.addBomb(bombPlaced);
 	}
 
 	m_gameState.setPlayerState(playerState);
+    m_field->StaticBody();
+    wallstate.setPosition(m_field->getPosition());
+    m_gameState.addWall(wallstate);
+
 }
 
 const Common::GameState &GameEngineImpl::getGameState() const

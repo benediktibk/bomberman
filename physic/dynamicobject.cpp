@@ -42,3 +42,8 @@ void DynamicObject::applyLinearVelocity(double velocityx, double velocityy)
     vel.y=velocityy;
     m_body->SetLinearVelocity(vel);
 }
+
+void DynamicObject::StaticBody()
+{
+    m_bodyDefinition->type = b2_staticBody;
+}

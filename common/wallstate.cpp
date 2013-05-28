@@ -4,10 +4,10 @@ using namespace Common;
 
 void WallState::setPosition(const Point &value)
 {
-	m_position = value;
+    m_position = value;
 }
 
 const Point &WallState::getPosition() const
 {
-	return m_position;
+    return m_position;
 }
