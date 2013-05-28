@@ -16,7 +16,6 @@ public:
 
 	void setPlayerState(const PlayerState &state);
 	const PlayerState& getPlayerState() const;
-	const std::vector<WallState*> &getAllWalls() const;
 	std::vector<const WallState*> getAllChangedWalls() const;
 	size_t getWallCount() const;
 	void addWall(WallState* wall);

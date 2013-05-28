@@ -28,11 +28,6 @@ const PlayerState &GameState::getPlayerState() const
 	return m_playerState;
 }
 
-const vector<WallState*> &GameState::getAllWalls() const
-{
-	return m_walls;
-}
-
 vector<const WallState*> GameState::getAllChangedWalls() const
 {
 	vector<const WallState*> result;
