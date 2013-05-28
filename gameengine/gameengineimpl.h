@@ -24,6 +24,7 @@ public:
 private:
 	Common::InputState m_inputState;
     Common::UniqueIdCreator m_bombids;
+    Common::UniqueIdCreator m_wallids;
 	Common::GameState m_gameState;
 	Physic::PhysicSimulator *m_simulator;
     Physic::DynamicObject *m_player;

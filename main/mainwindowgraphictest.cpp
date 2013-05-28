@@ -44,15 +44,15 @@ void MainWindowGraphicTest::drawState1()
 {
     UniqueIdCreator id;
 	GameState gameState;
-	WallState wallOne;
-	WallState wallTwo;
-	WallState wallThree;
+    WallState *wallOne = new WallState(id);
+    WallState *wallTwo = new WallState(id);
+    WallState *wallThree = new WallState(id);
     BombState *bombOne = new BombState(id);
     BombState *bombTwo = new BombState(id);
 
-	wallOne.setPosition(Point(-3, 4));
-	wallTwo.setPosition(Point(2, 3));
-	wallThree.setPosition(Point(1, 5));
+    wallOne->setPosition(Point(-3, 4));
+    wallTwo->setPosition(Point(2, 3));
+    wallThree->setPosition(Point(1, 5));
     bombOne->setPosition(Point(0, 2));
     bombTwo->setPosition(Point(-4, -1));
 	gameState.addWall(wallOne);
