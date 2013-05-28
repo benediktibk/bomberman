@@ -92,7 +92,6 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 	m_gameState.setPlayerState(playerState);
 	m_field->StaticBody();
 
-
 }
 
 const Common::GameState &GameEngineImpl::getGameState() const

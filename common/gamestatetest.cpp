@@ -24,3 +24,15 @@ void GameStateTest::addBomb_defaultBomb_bombCountIs1()
     vector<BombState*> bombs = m_state.getAllBombs();
 	CPPUNIT_ASSERT_EQUAL((size_t)1, bombs.size());
 }
+
+void GameStateTest::eraseBomb_defaultBomb_bombCountIs1()
+{
+    UniqueIdCreator id;
+    GameState m_state;
+    m_state.addBomb(new BombState(id));
+    m_state.addBomb(new BombState(id));
+    m_state.eraseBomb(1);
+
+    vector<BombState*> bombs = m_state.getAllBombs();
+    CPPUNIT_ASSERT_EQUAL((size_t)1, bombs.size());
+}

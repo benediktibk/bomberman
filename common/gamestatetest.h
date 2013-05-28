@@ -12,11 +12,13 @@ class GameStateTest :
 	 CPPUNIT_TEST_SUITE(GameStateTest);
 	 CPPUNIT_TEST(addWall_defaultWall_wallCountIs1);
 	 CPPUNIT_TEST(addBomb_defaultBomb_bombCountIs1);
+     CPPUNIT_TEST(eraseBomb_defaultBomb_bombCountIs1);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
 	 void addWall_defaultWall_wallCountIs1();
 	 void addBomb_defaultBomb_bombCountIs1();
+     void eraseBomb_defaultBomb_bombCountIs1();
 };
 }
 
