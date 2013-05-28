@@ -25,10 +25,14 @@ public:
 	void setDirectionDown();
 	void setDirectionLeft();
 	void setDirectionRight();
+    void countBomb();
+    void reduceBombCount();
+    unsigned int getBombCount();
 
 private:
 	Point m_position;
 	PlayerDirection m_PlayerDirection;
+    unsigned int m_placedBombCount;
 };
 }
 

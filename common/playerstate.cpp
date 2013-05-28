@@ -3,7 +3,8 @@
 using namespace Common;
 
 PlayerState::PlayerState() :
-    m_PlayerDirection(PlayerDirectionUp)
+    m_PlayerDirection(PlayerDirectionUp),
+    m_placedBombCount(0)
 { }
 
 void PlayerState::setPosition(Point value)
@@ -39,4 +40,19 @@ void PlayerState::setDirectionRight()
 PlayerState::PlayerDirection PlayerState::getDirection() const
 {
     return m_PlayerDirection;
+}
+
+void PlayerState::countBomb()
+{
+    m_placedBombCount += 1;
+}
+
+void PlayerState::reduceBombCount()
+{
+    m_placedBombCount -= 1;
+}
+
+unsigned int PlayerState::getBombCount()
+{
+    return m_placedBombCount;
 }

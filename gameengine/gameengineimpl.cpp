@@ -32,6 +32,7 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 		if (currentBomb->getLifeTime()<0)
 		{
 			m_gameState.eraseBomb(i);
+            playerState.reduceBombCount();
 		} else {
 			currentBomb->setLifeTime(currentBomb->getLifeTime() - time);
 		}
@@ -84,10 +85,14 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 
 	if (m_inputState.isSpaceKeyPressed())
 	{
-		BombState *bombPlaced=new BombState(m_bombids);
-		bombPlaced->setPosition(m_player->getPosition());
+        if(playerState.getBombCount() == 0)
+        {
+        BombState *bombPlaced=new BombState(m_bombids);
+        bombPlaced->setPosition(m_player->getPosition());
+        playerState.countBomb();
 
 		m_gameState.addBomb(bombPlaced);
+        }
 	}
 
 	m_gameState.setPlayerState(playerState);
