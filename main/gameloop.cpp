@@ -11,7 +11,7 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, GameEngine &gameEngine) :
 	m_inputFetcher(inputFetcher),
 	m_gameEngine(gameEngine),
 	m_stopped(false),
-	m_maximumFramesPerSecond(1000),
+	m_maximumFramesPerSecond(60),
 	m_minimumTimeStep(1.0/m_maximumFramesPerSecond),
 	m_framesPerSecond(0)
 { }
