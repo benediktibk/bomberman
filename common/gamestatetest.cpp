@@ -9,20 +9,20 @@ void GameStateTest::addWall_defaultWall_wallCountIs1()
 {
 	UniqueIdCreator id;
 	GameState state;
+
 	state.addWall(new WallState(id));
 
-	vector<WallState*> walls = state.getAllWalls();
-	CPPUNIT_ASSERT_EQUAL((size_t)1, walls.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)1, state.getWallCount());
 }
 
 void GameStateTest::addBomb_defaultBomb_bombCountIs1()
 {
 	UniqueIdCreator id;
 	GameState state;
+
 	state.addBomb(new BombState(id));
 
-	vector<BombState*> bombs = state.getAllBombs();
-	CPPUNIT_ASSERT_EQUAL((size_t)1, bombs.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)1, state.getBombCount());
 }
 
 void GameStateTest::eraseBomb_defaultBomb_bombCountIs1()

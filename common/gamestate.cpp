@@ -44,6 +44,11 @@ vector<const WallState*> GameState::getAllChangedWalls() const
 	return result;
 }
 
+size_t GameState::getWallCount() const
+{
+	return m_walls.size();
+}
+
 void GameState::addWall(WallState* wall)
 {
 	m_walls.push_back(wall);
@@ -62,6 +67,11 @@ vector<const BombState*> GameState::getAllChangedBombs() const
 		result.push_back(*i);
 
 	return result;
+}
+
+size_t GameState::getBombCount() const
+{
+	return m_bombs.size();
 }
 
 void GameState::addBomb(BombState* bomb)
