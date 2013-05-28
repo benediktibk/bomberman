@@ -12,9 +12,9 @@ public:
 	Point(double x, double y);
 
 	void setX(double value);
-	double getX() const;
+    double getX() const;
 	void setY(double value);
-	double getY() const;
+    double getY() const;
 
 	bool operator==(const Point &point) const;
 	Point operator*(double value) const;

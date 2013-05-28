@@ -195,5 +195,13 @@ common/uniqueidcreator.h
 common/uniqueidcreator.cpp
 common/uniqueidcreatortest.h
 common/uniqueidcreatortest.cpp
-physic/staticbox.h
-physic/staticbox.cpp
+physic/staticobject.h
+physic/staticobject.cpp
+physic/topwall.h
+physic/topwall.cpp
+physic/botwall.h
+physic/botwall.cpp
+physic/wallright.h
+physic/wallright.cpp
+physic/wallleft.h
+physic/wallleft.cpp

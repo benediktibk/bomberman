@@ -1,4 +1,5 @@
 #include "wallstate.h"
+//#include "physic/staticobject.h"
 
 using namespace Common;
 
@@ -16,6 +17,7 @@ WallState::~WallState()
 void WallState::setPosition(const Point &value)
 {
     m_position = value;
+
 }
 
 const Point &WallState::getPosition() const

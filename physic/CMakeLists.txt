@@ -1,6 +1,11 @@
 set(PHYSIC_SRC
 	physicsimulator.cpp
-	dynamicobject.cpp
+        dynamicobject.cpp
+        staticobject.cpp
+        topwall.cpp
+        botwall.cpp
+        wallleft.cpp
+        wallright.cpp
 )
 
 set(PHYSIC_TEST_SRC

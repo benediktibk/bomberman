@@ -7,6 +7,11 @@ namespace Physic
 {
 class PhysicSimulator;
 class DynamicObject;
+class StaticObject;
+class TopWall;
+class BotWall;
+class WallLeft;
+class WallRight;
 }
 
 namespace GameEngine
@@ -28,7 +33,11 @@ private:
 	Common::GameState m_gameState;
 	Physic::PhysicSimulator *m_simulator;
     Physic::DynamicObject *m_player;
-    Physic::DynamicObject *m_field;
+    Physic::StaticObject *m_block;
+    Physic::TopWall *m_top;
+    Physic::BotWall *m_bot;
+    Physic::WallLeft *m_left;
+    Physic::WallRight *m_right;
 };
 }
 
