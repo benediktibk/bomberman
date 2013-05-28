@@ -33,8 +33,7 @@ void GameStateTest::eraseBomb_defaultBomb_bombCountIs1()
 	state.addBomb(new BombState(id));
 	state.eraseBomb(1);
 
-	vector<BombState*> bombs = state.getAllBombs();
-	CPPUNIT_ASSERT_EQUAL((size_t)1, bombs.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)1, state.getBombCount());
 }
 
 void GameStateTest::getAllChangedWalls_twoWallsAdded_resultSizeIs2()
