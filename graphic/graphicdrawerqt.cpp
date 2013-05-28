@@ -13,7 +13,7 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view) :
 	m_view(view),
 	m_scene(new QGraphicsScene()),
 	m_player(new Player(*m_scene)),
-    m_pixelPerMeter(40)
+	m_pixelPerMeter(40)
 {
 	m_scene->setSceneRect(-100, -100, 200, 200);
 	m_view.setBackgroundBrush(QBrush(QColor(255, 255, 255)));
@@ -30,13 +30,9 @@ GraphicDrawerQt::~GraphicDrawerQt()
 
 void GraphicDrawerQt::draw(const GameState &gameState)
 {
-	const PlayerState &playerState = gameState.getPlayerState();
-    const vector<WallState*> &walls = gameState.getAllWalls();
-    const vector<BombState*> &bombs = gameState.getAllBombs();
-
-	drawWalls(walls);
-	drawBombs(bombs);
-	drawPlayer(playerState);
+	drawWalls(gameState.getAllChangedWalls());
+	drawBombs(gameState.getAllChangedBombs());
+	drawPlayer(gameState.getPlayerState());
 }
 
 QGraphicsScene &GraphicDrawerQt::getScene()
@@ -49,27 +45,27 @@ void GraphicDrawerQt::drawPlayer(const PlayerState &playerState)
 	m_player->update(playerState, m_pixelPerMeter);
 }
 
-void GraphicDrawerQt::drawWalls(const vector<WallState*> &walls)
+void GraphicDrawerQt::drawWalls(const vector<const WallState*> &walls)
 {
 	deleteWalls();
 
-    for (vector<WallState*>::const_iterator i = walls.begin(); i != walls.end(); ++i)
+	for (vector<const WallState*>::const_iterator i = walls.begin(); i != walls.end(); ++i)
 	{
 		Wall* wall = new Wall(*m_scene);
-        const WallState &state = **i;
+		const WallState &state = **i;
 		wall->update(state, m_pixelPerMeter);
 		m_walls.push_back(wall);
 	}
 }
 
-void GraphicDrawerQt::drawBombs(const vector<BombState*> &bombs)
+void GraphicDrawerQt::drawBombs(const vector<const BombState *> &bombs)
 {
 	deleteBombs();
 
-    for (vector<BombState*>::const_iterator i = bombs.begin(); i != bombs.end(); ++i)
+	for (vector<const BombState*>::const_iterator i = bombs.begin(); i != bombs.end(); ++i)
 	{
 		Bomb* bomb = new Bomb(*m_scene);
-        const BombState &state = **i;
+		const BombState &state = **i;
 		bomb->update(state, m_pixelPerMeter);
 		m_bombs.push_back(bomb);
 	}
