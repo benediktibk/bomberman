@@ -92,8 +92,8 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 
 	m_gameState.setPlayerState(playerState);
 	m_field->StaticBody();
-	wallstate.setPosition(m_field->getPosition());
-	m_gameState.addWall(wallstate);
+//	wallstate.setPosition(m_field->getPosition());
+//	m_gameState.addWall(wallstate);
 
 }
 
