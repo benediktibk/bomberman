@@ -9,8 +9,8 @@ using namespace Physic;
 
 GameEngineImpl::GameEngineImpl() :
 	m_simulator(new PhysicSimulator),
-    m_player(new DynamicObject(*m_simulator)),
-    m_field(new DynamicObject(*m_simulator))
+	m_player(new DynamicObject(*m_simulator)),
+	m_field(new DynamicObject(*m_simulator))
 { }
 
 GameEngineImpl::~GameEngineImpl()
@@ -22,18 +22,18 @@ GameEngineImpl::~GameEngineImpl()
 void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 {
 	PlayerState playerState = m_gameState.getPlayerState();
-    std::vector<BombState*> allBombs = m_gameState.getAllBombs();
+	std::vector<BombState*> allBombs = m_gameState.getAllBombs();
 	m_inputState = inputState;
-    WallState wallstate;
+	WallState wallstate;
 
 	for(unsigned int i=0;i<allBombs.size();i++)
-    {
-        BombState *currentBomb = allBombs[i];
-        if (currentBomb->getLifeTime()<0)
+	{
+		BombState *currentBomb = allBombs[i];
+		if (currentBomb->getLifeTime()<0)
 		{
 			m_gameState.eraseBomb(i);
 		} else {
-            currentBomb->setLifeTime(currentBomb->getLifeTime() - time);
+			currentBomb->setLifeTime(currentBomb->getLifeTime() - time);
 		}
 
 	}
@@ -83,17 +83,17 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 	playerState.setPosition(m_player->getPosition());
 
 	if (m_inputState.isSpaceKeyPressed())
-    {
-        BombState *bombPlaced=new BombState(m_bombids);
-        bombPlaced->setPosition(m_player->getPosition());
+	{
+		BombState *bombPlaced=new BombState(m_bombids);
+		bombPlaced->setPosition(m_player->getPosition());
 
 		m_gameState.addBomb(bombPlaced);
 	}
 
 	m_gameState.setPlayerState(playerState);
-    m_field->StaticBody();
-    wallstate.setPosition(m_field->getPosition());
-    m_gameState.addWall(wallstate);
+	m_field->StaticBody();
+	wallstate.setPosition(m_field->getPosition());
+	m_gameState.addWall(wallstate);
 
 }
 

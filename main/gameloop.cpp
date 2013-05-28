@@ -18,8 +18,8 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, GameEngine &gameEngine) :
 
 GameLoop::~GameLoop()
 {
-	setGuiUpdateFinished();
 	stop();
+	setGuiUpdateFinished();
 	waitTillFinished();
 }
 
