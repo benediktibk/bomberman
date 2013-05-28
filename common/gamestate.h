@@ -11,26 +11,28 @@ namespace Common
 class GameState
 {
 public:
-    GameState();
-    ~GameState();
+	GameState();
+	~GameState();
 
 	void setPlayerState(const PlayerState &state);
 	const PlayerState& getPlayerState() const;
-    const std::vector<WallState*> &getAllWalls() const;
-    void addWall(WallState* wall);
-    const std::vector<BombState*> &getAllBombs() const;
-    void addBomb(BombState* bomb);
+	const std::vector<WallState*> &getAllWalls() const;
+	std::vector<const WallState*> getAllChangedWalls() const;
+	void addWall(WallState* wall);
+	const std::vector<BombState*> &getAllBombs() const;
+	std::vector<const BombState*> getAllChangedBombs() const;
+	void addBomb(BombState* bomb);
 	void eraseBomb(int position);
 
 private:
-    // forbid copies
-    GameState(const GameState &rhs);
-    void operator=(const GameState &rhs);
+	// forbid copies
+	GameState(const GameState &rhs);
+	void operator=(const GameState &rhs);
 
 private:
 	PlayerState m_playerState;
-    std::vector<WallState*> m_walls;
-    std::vector<BombState*> m_bombs;
+	std::vector<WallState*> m_walls;
+	std::vector<BombState*> m_bombs;
 };
 }
 
