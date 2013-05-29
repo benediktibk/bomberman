@@ -64,8 +64,8 @@ void Grid::updatePlayer(const PlayerState &player)
 
 unsigned int Grid::getVectorIndex(const Point &position) const
 {
-    assert(position.getX() > 0);
-    assert(position.getY() > 0);
+    assert(position.getX() >= 0);
+    assert(position.getY() >= 0);
     assert(position.getX() < m_gridRows);
     assert(position.getY() < m_gridColumns);
 	unsigned int x = static_cast<unsigned int>(position.getX());

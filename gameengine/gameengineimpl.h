@@ -3,6 +3,8 @@
 
 #include "common/gameengine.h"
 #include "common/uniqueidcreator.h"
+#include "common/leveldefinition.h"
+
 namespace Physic
 {
 class PhysicSimulator;

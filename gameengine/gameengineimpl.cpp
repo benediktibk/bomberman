@@ -4,7 +4,6 @@
 #include "physic/dynamicobject.h"
 #include "physic/staticobject.h"
 #include "grid.h"
-#include "common/leveldefinition.h"
 
 using namespace GameEngine;
 using namespace Common;
@@ -23,7 +22,6 @@ GameEngineImpl::GameEngineImpl() :
     m_block3(new StaticObject(*m_simulator, Point(7,6), Point(0.35,0.35))),
     m_grid(new Grid(50,50))
 {
-
     WallState *wallstate0 = new WallState(m_wallids, WallState::WallTypeSolid, Point(9,8));
     WallState *wallstate1 = new WallState(m_wallids, WallState::WallTypeSolid, Point(9,6));
     WallState *wallstate2 = new WallState(m_wallids, WallState::WallTypeSolid, Point(7,8));
