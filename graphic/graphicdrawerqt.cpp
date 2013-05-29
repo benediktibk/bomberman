@@ -47,42 +47,82 @@ void GraphicDrawerQt::drawPlayer(const PlayerState &playerState)
 
 void GraphicDrawerQt::drawWalls(const vector<const WallState*> &walls)
 {
-	deleteWalls();
-
 	for (vector<const WallState*>::const_iterator i = walls.begin(); i != walls.end(); ++i)
 	{
-        const WallState &state = **i;
-        Wall* wall = new Wall(*m_scene, state);
-		wall->update(state, m_pixelPerMeter);
-		m_walls.push_back(wall);
+		if ((*i)->isDestroyed())
+			deleteWall(*i);
+		else
+		{
+			map<const WallState*, Wall*>::iterator wallPosition = m_walls.find(*i);
+			bool wallFound = wallPosition != m_walls.end();
+			Wall* wall = 0;
+			const WallState &state = **i;
+
+			if (!wallFound)
+				wall = new Wall(*m_scene, state);
+			else
+				wall = wallPosition->second;
+
+			wall->update(state, m_pixelPerMeter);
+
+			if (!wallFound)
+				m_walls.insert(pair<const WallState*, Wall*>(*i, wall));
+		}
 	}
 }
 
-void GraphicDrawerQt::drawBombs(const vector<const BombState *> &bombs)
+void GraphicDrawerQt::drawBombs(const vector<const BombState*> &bombs)
 {
-	deleteBombs();
-
 	for (vector<const BombState*>::const_iterator i = bombs.begin(); i != bombs.end(); ++i)
 	{
-		Bomb* bomb = new Bomb(*m_scene);
-		const BombState &state = **i;
-		bomb->update(state, m_pixelPerMeter);
-		m_bombs.push_back(bomb);
+		if ((*i)->isDestroyed())
+			deleteBomb(*i);
+		else
+		{
+			map<const BombState*, Bomb*>::iterator bombPosition = m_bombs.find(*i);
+			bool bombFound = bombPosition != m_bombs.end();
+			Bomb* bomb = 0;
+			const BombState &state = **i;
+
+			if (!bombFound)
+				bomb = new Bomb(*m_scene);
+			else
+				bomb = bombPosition->second;
+
+			bomb->update(state, m_pixelPerMeter);
+
+			if (!bombFound)
+				m_bombs.insert(pair<const BombState*, Bomb*>(*i, bomb));
+		}
 	}
 }
 
 void GraphicDrawerQt::deleteWalls()
 {
-	for (vector<Wall*>::iterator i = m_walls.begin(); i != m_walls.end(); ++i)
-		delete *i;
+	for (map<const WallState*, Wall*>::iterator i = m_walls.begin(); i != m_walls.end(); ++i)
+		delete i->second;
 
 	m_walls.clear();
 }
 
 void GraphicDrawerQt::deleteBombs()
 {
-	for (vector<Bomb*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
-		delete *i;
+	for (map<const BombState*, Bomb*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
+		delete i->second;
 
 	m_bombs.clear();
+}
+
+void GraphicDrawerQt::deleteWall(const WallState *wall)
+{
+	map<const WallState*, Wall*>::iterator position = m_walls.find(wall);
+	delete position->second;
+	m_walls.erase(position);
+}
+
+void GraphicDrawerQt::deleteBomb(const BombState *bomb)
+{
+	map<const BombState*, Bomb*>::iterator position = m_bombs.find(bomb);
+	delete position->second;
+	m_bombs.erase(position);
 }

@@ -1,6 +1,7 @@
 #ifndef GRAPHIC_GRAPHICDRAWERQT_H
 #define GRAPHIC_GRAPHICDRAWERQT_H
 
+#include <map>
 #include "common/graphicdrawer.h"
 
 class QGraphicsScene;
@@ -28,13 +29,15 @@ private:
 	void drawBombs(const std::vector<const Common::BombState*> &bombs);
 	void deleteWalls();
 	void deleteBombs();
+	void deleteWall(const Common::WallState *wall);
+	void deleteBomb(const Common::BombState *bomb);
 
 private:
 	QGraphicsView &m_view;
 	QGraphicsScene *m_scene;
 	Player *m_player;
-	std::vector<Wall*> m_walls;
-	std::vector<Bomb*> m_bombs;
+	std::map<const Common::WallState*, Wall*> m_walls;
+	std::map<const Common::BombState*, Bomb*> m_bombs;
 	const double m_pixelPerMeter;
 };
 }
