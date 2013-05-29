@@ -14,7 +14,7 @@ namespace Graphic
 class Wall
 {
 public:
-	Wall(QGraphicsScene &scene);
+    Wall(QGraphicsScene &scene, const Common::WallState &state);
 	~Wall();
 
 	void update(const Common::WallState &state, double pixelPerMeter);

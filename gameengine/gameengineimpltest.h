@@ -14,7 +14,9 @@ class GameEngineImplTest :
 	 CPPUNIT_TEST(updateGameState_DownKeyPressed_PlayerDirectionDown);
 	 CPPUNIT_TEST(updateGameState_LeftKeyPressed_PlayerDirectionLeft);
 	 CPPUNIT_TEST(updateGameState_RightKeyPressed_PlayerDirectionRight);
-	 CPPUNIT_TEST(updateGameState_SpaceKeyPressed_BombPlaced);
+     CPPUNIT_TEST(updateGameState_SpaceKeyPressed_BombPlaced_testPosition);
+     CPPUNIT_TEST(updateGameState_SpaceKeyPressed_BombPlaced_testBombLifeTime_resultIs2);
+     CPPUNIT_TEST(updateGameState_SpaceKeyPressed_towBombsPlaced_oneBombDelete_testBombCount_resultIs1);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -22,7 +24,9 @@ private:
 	 void updateGameState_DownKeyPressed_PlayerDirectionDown();
 	 void updateGameState_LeftKeyPressed_PlayerDirectionLeft();
 	 void updateGameState_RightKeyPressed_PlayerDirectionRight();
-	 void updateGameState_SpaceKeyPressed_BombPlaced();
+     void updateGameState_SpaceKeyPressed_BombPlaced_testPosition();
+     void updateGameState_SpaceKeyPressed_BombPlaced_testBombLifeTime_resultIs2();
+     void updateGameState_SpaceKeyPressed_towBombsPlaced_oneBombDelete_testBombCount_resultIs1();
 };
 }
 

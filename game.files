@@ -207,3 +207,11 @@ physic/wallleft.h
 physic/wallleft.cpp
 gameengine/grid.h
 gameengine/grid.cpp
+common/leveldefinition.h
+common/leveldefinition.cpp
+common/changeablestate.h
+common/changeablestate.cpp
+common/changeablestatetest.h
+common/changeablestatetest.cpp
+common/leveldefinitiontest.h
+common/leveldefinitiontest.cpp

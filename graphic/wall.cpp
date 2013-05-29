@@ -6,12 +6,14 @@
 
 using namespace Graphic;
 
-Wall::Wall(QGraphicsScene &scene) :
-	m_svgItem(new QGraphicsSvgItem(QString("../../resources/objects/wall_solid.svg")))
+Wall::Wall(QGraphicsScene &scene, const Common::WallState &state)
 {
+    if (state.getWallType() == Common::WallState::WallTypeSolid)
+        m_svgItem = new QGraphicsSvgItem(QString("../../resources/objects/wall_solid.svg"));
+    else
+        m_svgItem = new QGraphicsSvgItem(QString("../../resources/objects/wall_loose.svg"));
 
 	scene.addItem(m_svgItem);
-
 }
 
 Wall::~Wall()
