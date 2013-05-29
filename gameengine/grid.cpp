@@ -4,64 +4,63 @@ using namespace Common;
 using namespace GameEngine;
 
 Grid::Grid(double width,double height) :
-    m_gridRows(static_cast<unsigned int>(height)),
-    m_gridColumns(static_cast<unsigned int>(width)),
-    m_numberOfItems(m_gridColumns*m_gridRows),
-    m_itemMatrix(m_numberOfItems,ItemFree),
-    m_idMatrix(m_numberOfItems,0)
+	m_gridRows(static_cast<unsigned int>(height)),
+	m_gridColumns(static_cast<unsigned int>(width)),
+	m_numberOfItems(m_gridColumns*m_gridRows),
+	m_itemMatrix(m_numberOfItems,ItemFree),
+	m_idMatrix(m_numberOfItems,0)
+{ }
+
+bool Grid::isPlaceEmpty(const Point &position) const
 {
+	unsigned int index = getVectorIndex(position);
+	if(m_itemMatrix[index] == ItemFree)
+		return true;
+	else
+		return false;
 }
 
-bool Grid::isPlaceEmpty(const Common::Point &position) const
+void Grid::addBombAtPlace(const BombState &bomb)
 {
-unsigned int index=getVectorIndex(position);
-if(m_itemMatrix[index]==ItemFree)
-    return true;
-else
-    return false;
+	Point position = bomb.getPosition();
+	unsigned int index = getVectorIndex(position);
+	m_itemMatrix[index] = ItemBomb;
+	m_idMatrix[index] = bomb.getBombId();
 }
 
-void Grid::addBombAtPlace(const Common::BombState &bomb)
+void Grid::addWallAtPlace(const WallState &wall)
 {
-    Point position=bomb.getPosition();
-    unsigned int index=getVectorIndex(position);
-    m_itemMatrix[index]=ItemBomb;
-    m_idMatrix[index]=bomb.getBombId();
+	Point position = wall.getPosition();
+	unsigned int index = getVectorIndex(position);
+	m_itemMatrix[index] = ItemWall;
+	m_idMatrix[index] = wall.getWallId();
 }
 
-void Grid::addWallAtPlace(const Common::WallState &wall)
+void Grid::removeBomb(const BombState &bomb)
 {
-    Point position=wall.getPosition();
-    unsigned int index=getVectorIndex(position);
-    m_itemMatrix[index]=ItemWall;
-    m_idMatrix[index]=wall.getWallId();
+	Point position = bomb.getPosition();
+	unsigned int index = getVectorIndex(position);
+	m_itemMatrix[index] = ItemFree;
+	m_idMatrix[index] = 0;
 }
 
-void Grid::removeBomb(const Common::BombState &bomb)
+void Grid::removeWall(const WallState &wall)
 {
-    Point position=bomb.getPosition();
-    unsigned int index=getVectorIndex(position);
-    m_itemMatrix[index]=ItemFree;
-    m_idMatrix[index]=0;
-}
-
-void Grid::removeWall(const Common::WallState &wall)
-{
-    Point position=wall.getPosition();
-    unsigned int index=getVectorIndex(position);
-    m_itemMatrix[index]=ItemFree;
-    m_idMatrix[index]=0;
+	Point position = wall.getPosition();
+	unsigned int index = getVectorIndex(position);
+	m_itemMatrix[index] = ItemFree;
+	m_idMatrix[index] = 0;
  }
-//
-//void Grid::updatePlayer(const Common::PlayerState &player)
-//{
-//
-//}
 
-unsigned int Grid::getVectorIndex(const Common::Point &position) const
+void Grid::updatePlayer(const PlayerState &/*player*/)
 {
-    unsigned int x = static_cast<unsigned int>(position.getX());
-    unsigned int y = static_cast<unsigned int>(position.getY());
-    unsigned int index = ((m_gridRows-y-1)*m_gridColumns)+x;
-    return index;
+
+}
+
+unsigned int Grid::getVectorIndex(const Point &position) const
+{
+	unsigned int x = static_cast<unsigned int>(position.getX());
+	unsigned int y = static_cast<unsigned int>(position.getY());
+	unsigned int index = ((m_gridRows - y - 1)*m_gridColumns) + x;
+	return index;
 }
