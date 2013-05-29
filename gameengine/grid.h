@@ -1,5 +1,5 @@
-#ifndef GRID_H
-#define GRID_H
+#ifndef GAMEENGINE_GRID_H
+#define GAMEENGINE_GRID_H
 
 #include <vector>
 #include "common/point.h"
@@ -21,19 +21,19 @@ private:
 	};
 
 public:
-    Grid(unsigned int rows,unsigned int cols);
+	Grid(unsigned int rows,unsigned int cols);
 
 	bool isPlaceEmpty(const Common::Point &position) const;
-    void addBombAtPlace(Common::BombState &bomb);
-    void addWallAtPlace(Common::WallState &wall);
-    void removeBomb(Common::BombState &bomb);
-    void removeWall(Common::WallState &wall);
+	void addBombAtPlace(Common::BombState &bomb);
+	void addWallAtPlace(Common::WallState &wall);
+	void removeBomb(Common::BombState &bomb);
+	void removeWall(Common::WallState &wall);
 	void updatePlayer(const Common::PlayerState &player);
-    std::vector<unsigned int> getWallsInRange(const Common::BombState &bomb) const;
+	std::vector<unsigned int> getWallsInRange(const Common::BombState &bomb) const;
 
 private:
 	unsigned int getVectorIndex(const Common::Point &position) const;
-    unsigned int getVectorIndex(unsigned int x,unsigned int y) const;
+	unsigned int getVectorIndex(unsigned int x,unsigned int y) const;
 private:
 	unsigned int m_gridRows;
 	unsigned int m_gridColumns;

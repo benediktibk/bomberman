@@ -1,5 +1,5 @@
-#ifndef MAIN_MAINWINDOWCONTROLLER_H
-#define MAIN_MAINWINDOWCONTROLLER_H
+#ifndef MAIN_MAINWINDOW_H
+#define MAIN_MAINWINDOW_H
 
 #include "mainwindowinputfetcher.h"
 
