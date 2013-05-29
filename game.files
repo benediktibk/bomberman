@@ -211,3 +211,5 @@ common/changeablestate.h
 common/changeablestate.cpp
 common/changeablestatetest.h
 common/changeablestatetest.cpp
+common/leveldefinitiontest.h
+common/leveldefinitiontest.cpp

@@ -59,3 +59,53 @@ void GameStateTest::getAllChangedWalls_twoWallsAdded_resultSizeIs2()
 
 	CPPUNIT_ASSERT_EQUAL((size_t)2, walls.size());
 }
+
+void GameStateTest::getAllBombsLifeTime_AfterReduceLifeTime_resultTimeIs2()
+{
+    UniqueIdCreator id;
+    GameState state;
+    const BombState* bomb;
+    state.addBomb(new BombState(id));
+    state.reduceAllBombsLifeTime(1);
+
+    vector<const BombState*> bombs = state.getAllChangedBombs();
+    bomb = bombs[0];
+
+    CPPUNIT_ASSERT_EQUAL((double)2, bomb->getLifeTime());
+}
+
+void GameStateTest::getAllChangedBombs_twoBombsAdded_oneDeleted_resultSizeIs1()
+{
+    UniqueIdCreator id;
+    GameState state;
+    PlayerState playerState;
+
+    playerState.countBomb();
+    state.addBomb(new BombState(id));
+    state.reduceAllBombsLifeTime(1);
+    playerState.countBomb();
+    state.addBomb(new BombState(id));
+    state.reduceAllBombsLifeTime(2.1);
+    state.deleteAllBombsWithNegativeLifeTime(playerState);
+
+    vector<const BombState*> bombs = state.getAllChangedBombs();
+
+    CPPUNIT_ASSERT_EQUAL((size_t)1, bombs.size());
+}
+
+void GameStateTest::getAllChangedBombs_twoBombsAdded_oneDeleted_resultBombCountIs1()
+{
+    UniqueIdCreator id;
+    GameState state;
+    PlayerState playerState;
+
+    playerState.countBomb();
+    state.addBomb(new BombState(id));
+    state.reduceAllBombsLifeTime(1);
+    playerState.countBomb();
+    state.addBomb(new BombState(id));
+    state.reduceAllBombsLifeTime(2.1);
+    state.deleteAllBombsWithNegativeLifeTime(playerState);
+
+    CPPUNIT_ASSERT_EQUAL((unsigned int)1, playerState.getBombCount());
+}

@@ -21,7 +21,7 @@ set(COMMON_TEST_SRC
 	bombstatetest.cpp
 	wallstatetest.cpp
 	uniqueidcreatortest.cpp
-	leveldefinition.cpp
+	leveldefinitiontest.cpp
 	changeablestatetest.cpp
 )
 

@@ -51,8 +51,8 @@ void GraphicDrawerQt::drawWalls(const vector<const WallState*> &walls)
 
 	for (vector<const WallState*>::const_iterator i = walls.begin(); i != walls.end(); ++i)
 	{
-		Wall* wall = new Wall(*m_scene);
-		const WallState &state = **i;
+        const WallState &state = **i;
+        Wall* wall = new Wall(*m_scene, state);
 		wall->update(state, m_pixelPerMeter);
 		m_walls.push_back(wall);
 	}
