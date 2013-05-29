@@ -51,36 +51,25 @@ GameEngineImpl::~GameEngineImpl()
 
 void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 {
-	PlayerState playerState = m_gameState.getPlayerState();
 	m_inputState = inputState;
+	m_playerState = m_gameState.getPlayerState();
+	m_elapsedTime = time;
 
 	m_gameState.removeAllObjectsWithDestroyedFlag();
 
 	deleteAllWallObjects();
 	std::vector<const WallState*> allWalls = m_gameState.getAllChangedWalls();
 
-	m_gameState.reduceAllBombsLifeTime(time);
-	m_gameState.deleteAllBombsWithNegativeLifeTime(playerState);
+	updateBombs();
 
 	movePlayer();
 
 	m_simulator->simulateStep(time);
-	playerState.setPosition(m_player->getPosition());
+	m_playerState.setPosition(m_player->getPosition());
 
-	if (m_inputState.isSpaceKeyPressed())
-	{
-		if(playerState.getBombCount() == 0)
-		{
-			BombState *bombPlaced = new BombState(m_bombids);
-			bombPlaced->setPosition(m_player->getPosition());
-			m_grid->addBombAtPlace(*bombPlaced);
-			playerState.countBomb();
-			m_gameState.addBomb(bombPlaced);
-			m_bombBox = new StaticObject(*m_simulator,m_player->getPosition() , Point(0.35,0.35));
-		}
-	}
+	placeBombs();
 
-	m_gameState.setPlayerState(playerState);
+	m_gameState.setPlayerState(m_playerState);
 }
 
 const Common::GameState &GameEngineImpl::getGameState() const
@@ -90,47 +79,63 @@ const Common::GameState &GameEngineImpl::getGameState() const
 
 void GameEngineImpl::deleteAllWallObjects()
 {
-	for(unsigned int i=0; i<m_wallObjects.size(); i++)
+	for(unsigned int i = 0; i<m_wallObjects.size(); i++)
 	{
 		delete m_wallObjects[i];
 	}
+
 	m_wallObjects.clear();
 }
 
 void GameEngineImpl::movePlayer()
 {
-	PlayerState playerState = m_gameState.getPlayerState();
-
-	if (m_inputState.isUpKeyPressed() && playerState.getDirection() == PlayerState::PlayerDirectionUp)
-		m_player->applyLinearVelocity(0, playerState.getPlayerSpeed());
-	else if (m_inputState.isDownKeyPressed() && playerState.getDirection() == PlayerState::PlayerDirectionDown)
-		m_player->applyLinearVelocity(0, (-1)*playerState.getPlayerSpeed());
-	else if (m_inputState.isLeftKeyPressed() && playerState.getDirection() == PlayerState::PlayerDirectionLeft)
-		m_player->applyLinearVelocity((-1)*playerState.getPlayerSpeed(), 0);
-	else if (m_inputState.isRightKeyPressed() && playerState.getDirection() == PlayerState::PlayerDirectionRight)
-		m_player->applyLinearVelocity(playerState.getPlayerSpeed(), 0);
+	if (m_inputState.isUpKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionUp)
+		m_player->applyLinearVelocity(0, m_playerState.getPlayerSpeed());
+	else if (m_inputState.isDownKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionDown)
+		m_player->applyLinearVelocity(0, (-1)*m_playerState.getPlayerSpeed());
+	else if (m_inputState.isLeftKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionLeft)
+		m_player->applyLinearVelocity((-1)*m_playerState.getPlayerSpeed(), 0);
+	else if (m_inputState.isRightKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionRight)
+		m_player->applyLinearVelocity(m_playerState.getPlayerSpeed(), 0);
 	else if (m_inputState.isUpKeyPressed())
 	{
-		playerState.setDirectionUp();
+		m_playerState.setDirectionUp();
 		m_player->applyLinearVelocity(0, 5);
 	}
 	else if (m_inputState.isDownKeyPressed())
 	{
-		playerState.setDirectionDown();
+		m_playerState.setDirectionDown();
 		m_player->applyLinearVelocity(0, -5);
 	}
 	else if (m_inputState.isLeftKeyPressed())
 	{
-		playerState.setDirectionLeft();
+		m_playerState.setDirectionLeft();
 		m_player->applyLinearVelocity(-5, 0);
 	}
 	else if (m_inputState.isRightKeyPressed())
 	{
-		playerState.setDirectionRight();
+		m_playerState.setDirectionRight();
 		m_player->applyLinearVelocity(5, 0);
 	}
 	else
 		m_player->applyLinearVelocity(0, 0);
+}
 
-	m_gameState.setPlayerState(playerState);
+void GameEngineImpl::updateBombs()
+{
+	m_gameState.reduceAllBombsLifeTime(m_elapsedTime);
+	m_gameState.deleteAllBombsWithNegativeLifeTime(m_playerState);
+}
+
+void GameEngineImpl::placeBombs()
+{
+	if (m_inputState.isSpaceKeyPressed() && m_playerState.getBombCount() < 1)
+	{
+		BombState *bombPlaced = new BombState(m_bombids);
+		bombPlaced->setPosition(m_player->getPosition());
+		m_grid->addBombAtPlace(*bombPlaced);
+		m_playerState.countBomb();
+		m_gameState.addBomb(bombPlaced);
+		m_bombBox = new StaticObject(*m_simulator,m_player->getPosition(), Point(0.35, 0.35));
+	}
 }
