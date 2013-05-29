@@ -10,7 +10,7 @@ using namespace Common;
 
 void GridTest::isPlaceEmpty_TestOnEmptyVector_true()
 {
-    Grid grid(5.0,5.0);
+    Grid grid(5,5);
     Point position(3.0,3.0);
     CPPUNIT_ASSERT(grid.isPlaceEmpty(position));
 }
@@ -18,7 +18,7 @@ void GridTest::isPlaceEmpty_TestOnEmptyVector_true()
 void GridTest::isPlaceEmpty_TestNotEmptyVector_false()
 {
     UniqueIdCreator creator;
-    Grid grid(5.0,5.0);
+    Grid grid(5,5);
     Point position(3.0,3.0);
     BombState bomb(creator);
     bomb.setPosition(position);
@@ -29,7 +29,7 @@ void GridTest::isPlaceEmpty_TestNotEmptyVector_false()
 void GridTest::addBombAtPlace_add_at3_3()
 {
     UniqueIdCreator creator;
-    Grid grid(5.0,5.0);
+    Grid grid(5,5);
     Point position(3.0,3.0);
     BombState bomb(creator);
     bomb.setPosition(position);
@@ -40,7 +40,7 @@ void GridTest::addBombAtPlace_add_at3_3()
 void GridTest::addWallAtPlace_add_at3_3()
 {
     UniqueIdCreator creator;
-    Grid grid(5.0,5.0);
+    Grid grid(5,5);
     Point position(3.0,3.0);
     WallState wall(creator,WallState::WallTypeLoose,position);
     grid.addWallAtPlace(wall);
@@ -50,7 +50,7 @@ void GridTest::addWallAtPlace_add_at3_3()
 void GridTest::removeBomb_from_3_3()
 {
     UniqueIdCreator creator;
-    Grid grid(5.0,5.0);
+    Grid grid(5,5);
     Point position(3.0,3.0);
     BombState bomb(creator);
     bomb.setPosition(position);
@@ -62,7 +62,7 @@ void GridTest::removeBomb_from_3_3()
 void GridTest::removeWall_from_3_3()
 {
     UniqueIdCreator creator;
-    Grid grid(5.0,5.0);
+    Grid grid(5,5);
     Point position(3.0,3.0);
     WallState wall(creator,WallState::WallTypeLoose,position);
     grid.addWallAtPlace(wall);

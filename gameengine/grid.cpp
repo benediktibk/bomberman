@@ -5,9 +5,9 @@ using namespace Common;
 using namespace GameEngine;
 using namespace std;
 
-Grid::Grid(double width,double height) :
-	m_gridRows(static_cast<unsigned int>(height)),
-	m_gridColumns(static_cast<unsigned int>(width)),
+Grid::Grid(unsigned int rows,unsigned int cols) :
+    m_gridRows(rows),
+    m_gridColumns(cols),
 	m_numberOfItems(m_gridColumns*m_gridRows),
 	m_itemMatrix(m_numberOfItems,ItemFree),
 	m_idMatrix(m_numberOfItems,0)
@@ -71,42 +71,42 @@ vector<unsigned int> Grid::getWallsInRange(const BombState &bomb) const
     int x = static_cast<unsigned int>(position.getX());
     int y = static_cast<unsigned int>(position.getY());
     int range =bomb.getDestructionRange();
-    bool xplusdirectioniswall=false;
-    bool xminusdirectioniswall=false;
-    bool yplusdirectioniswall=false;
-    bool yminusdirectioniswall=false;
+    bool xPlusDirectionIsWall=false;
+    bool xMinusDirectionIsWall=false;
+    bool yPlusDirectionIsWall=false;
+    bool yMinusDirectionIsWall=false;
     for( int i=1 ; i<=range ; ++i)
     {
         if((x+i)<static_cast<int>(m_gridRows))
         {
-            if (m_itemMatrix[getVectorIndex(x+i,y)] == ItemWall && xplusdirectioniswall==false)
+            if (m_itemMatrix[getVectorIndex(x+i,y)] == ItemWall && xPlusDirectionIsWall==false)
             {
                 wallsinrange.push_back(m_idMatrix[getVectorIndex(x+i,y)]);
-                xplusdirectioniswall=true;
+                xPlusDirectionIsWall=true;
             }
         }
         if((x-i)>=0)
         {
-            if (m_itemMatrix[getVectorIndex(x-i,y)] == ItemWall && xminusdirectioniswall==false)
+            if (m_itemMatrix[getVectorIndex(x-i,y)] == ItemWall && xMinusDirectionIsWall==false)
             {
                wallsinrange.push_back(m_idMatrix[getVectorIndex(x-i,y)]);
-               xminusdirectioniswall=true;
+               xMinusDirectionIsWall=true;
             }
         }
         if((y+i)<static_cast<int>(m_gridColumns))
         {
-            if (m_itemMatrix[getVectorIndex(x,y+i)] == ItemWall && yplusdirectioniswall==false)
+            if (m_itemMatrix[getVectorIndex(x,y+i)] == ItemWall && yPlusDirectionIsWall==false)
             {
                 wallsinrange.push_back(m_idMatrix[getVectorIndex(x,y+i)]);
-                yplusdirectioniswall=true;
+                yPlusDirectionIsWall=true;
             }
         }
         if((y-i)>=0)
         {
-            if (m_itemMatrix[getVectorIndex(x,y-i)] == ItemWall && yminusdirectioniswall==false)
+            if (m_itemMatrix[getVectorIndex(x,y-i)] == ItemWall && yMinusDirectionIsWall==false)
             {
                 wallsinrange.push_back(m_idMatrix[getVectorIndex(x,y-i)]);
-                yminusdirectioniswall=true;
+                yMinusDirectionIsWall=true;
             }
         }
     }
