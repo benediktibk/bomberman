@@ -205,3 +205,5 @@ physic/wallright.h
 physic/wallright.cpp
 physic/wallleft.h
 physic/wallleft.cpp
+gameengine/grid.h
+gameengine/grid.cpp
