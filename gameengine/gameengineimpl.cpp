@@ -8,6 +8,7 @@
 using namespace GameEngine;
 using namespace Common;
 using namespace Physic;
+using namespace std;
 
 GameEngineImpl::GameEngineImpl() :
 	m_simulator(new PhysicSimulator),
@@ -16,7 +17,8 @@ GameEngineImpl::GameEngineImpl() :
 	m_lowerBorder(new StaticObject(*m_simulator, Point(8, 0), 13, 1)),
 	m_leftBorder(new StaticObject(*m_simulator, Point(0, 7), 1, 13)),
 	m_rightBorder(new StaticObject(*m_simulator,Point(16, 7), 1, 13)),
-	m_grid(new Grid(50, 50))
+	m_grid(new Grid(50, 50)),
+	m_firstGameStateUpdate(true)
 {
 	WallState *wallstate0 = new WallState(m_wallids, WallState::WallTypeSolid, Point(9, 8));
 	WallState *wallstate1 = new WallState(m_wallids, WallState::WallTypeSolid, Point(9, 6));
@@ -47,14 +49,18 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 	m_playerState = m_gameState.getPlayerState();
 	m_elapsedTime = time;
 
+	if (!m_firstGameStateUpdate)
+		m_gameState.resetChangedFlags();
 	m_gameState.removeAllObjectsWithDestroyedFlag();
 	updateBombs();
+	updateWalls();
 	updatePlayerSpeed();
 	m_simulator->simulateStep(time);
 	m_playerState.setPosition(m_player->getPosition());
 	placeBombs();
 
 	m_gameState.setPlayerState(m_playerState);
+	m_firstGameStateUpdate = false;
 }
 
 const Common::GameState &GameEngineImpl::getGameState() const
@@ -64,10 +70,8 @@ const Common::GameState &GameEngineImpl::getGameState() const
 
 void GameEngineImpl::deleteAllWallObjects()
 {
-	for(unsigned int i = 0; i < m_wallObjects.size(); i++)
-	{
-		delete m_wallObjects[i];
-	}
+	for(map<const Common::WallState*, Physic::StaticObject*>::iterator i = m_wallObjects.begin(); i != m_wallObjects.end(); i++)
+		delete i->second;
 
 	m_wallObjects.clear();
 }
@@ -121,5 +125,38 @@ void GameEngineImpl::placeBombs()
 		m_grid->addBombAtPlace(*bombPlaced);
 		m_playerState.countBomb();
 		m_gameState.addBomb(bombPlaced);
+	}
+}
+
+void GameEngineImpl::updateWalls()
+{
+	vector<const WallState*> changedWalls = m_gameState.getAllChangedWalls();
+
+	for (vector<const WallState*>::const_iterator i = changedWalls.begin(); i != changedWalls.end(); ++i)
+		updateWall(*i);
+}
+
+void GameEngineImpl::updateWall(const WallState *wall)
+{
+	map<const WallState*, StaticObject*>::iterator position = m_wallObjects.find(wall);
+	bool wallFound = position != m_wallObjects.end();
+	StaticObject *wallObject = 0;
+
+	if (wallFound)
+	{
+		wallObject = position->second;
+		wallObject->SetPosition(wall->getPosition());
+	}
+	else
+	{
+		wallObject = new StaticObject(*m_simulator, wall->getPosition(), 1, 1);
+		m_wallObjects.insert(pair<const WallState*, StaticObject*>(wall, wallObject));
+		position = m_wallObjects.find(wall);
+	}
+
+	if (wall->isDestroyed())
+	{
+		m_wallObjects.erase(position);
+		delete wallObject;
 	}
 }

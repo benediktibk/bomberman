@@ -19,7 +19,7 @@ public:
 	StaticObject(PhysicSimulator &simulator, const Common::Point &position, double width, double height);
 	~StaticObject();
 
-	void SetPosition(double x, double y);
+	void SetPosition(const Common::Point &point);
 	//void StaticObject::DestroyBody();
 
 private:

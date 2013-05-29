@@ -25,9 +25,9 @@ StaticObject::~StaticObject()
 	delete m_bodyDef;
 }
 
-void StaticObject::SetPosition(double x, double y)
+void StaticObject::SetPosition(const Point &point)
 {
-	m_bodyDef->position.Set(x,y);
+	m_bodyDef->position.Set(point.getX(), point.getY());
 }
 
 //void StaticObject::DestroyBody()

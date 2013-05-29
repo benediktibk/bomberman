@@ -4,6 +4,7 @@
 #include "common/gameengine.h"
 #include "common/uniqueidcreator.h"
 #include "common/leveldefinition.h"
+#include <map>
 
 namespace Physic
 {
@@ -31,6 +32,8 @@ private:
 	void updatePlayerSpeed();
 	void updateBombs();
 	void placeBombs();
+	void updateWalls();
+	void updateWall(const Common::WallState *wall);
 
 private:
 	Common::InputState m_inputState;
@@ -45,8 +48,9 @@ private:
 	Physic::StaticObject *m_lowerBorder;
 	Physic::StaticObject *m_leftBorder;
 	Physic::StaticObject *m_rightBorder;
-	std::vector<Physic::StaticObject*> m_wallObjects;
+	std::map<const Common::WallState*, Physic::StaticObject*> m_wallObjects;
 	Grid *m_grid;
+	bool m_firstGameStateUpdate;
 };
 }
 
