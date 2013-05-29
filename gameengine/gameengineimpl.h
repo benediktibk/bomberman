@@ -3,6 +3,8 @@
 
 #include "common/gameengine.h"
 #include "common/uniqueidcreator.h"
+#include "common/leveldefinition.h"
+
 namespace Physic
 {
 class PhysicSimulator;
@@ -29,6 +31,7 @@ public:
 	virtual const Common::GameState& getGameState() const;
 
 private:
+    Common::LevelDefinition m_level;
 	Common::InputState m_inputState;
 	Common::UniqueIdCreator m_bombids;
 	Common::UniqueIdCreator m_wallids;

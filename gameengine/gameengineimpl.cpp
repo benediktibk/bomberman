@@ -8,7 +8,6 @@
 #include "physic/wallleft.h"
 #include "physic/wallright.h"
 #include "grid.h"
-#include "common/leveldefinition.h"
 
 using namespace GameEngine;
 using namespace Common;
@@ -17,7 +16,7 @@ using namespace Physic;
 GameEngineImpl::GameEngineImpl() :
 	m_simulator(new PhysicSimulator),
     m_player(new DynamicObject(*m_simulator)),
-    m_grid(new Grid(50,50))
+    m_grid(new Grid(m_level.getLevelWidth(),m_level.getLevelHeight()))
 { }
 
 GameEngineImpl::~GameEngineImpl()
@@ -104,3 +103,4 @@ const Common::GameState &GameEngineImpl::getGameState() const
 {
 	return m_gameState;
 }
+
