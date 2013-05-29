@@ -19,7 +19,13 @@ const Point &WallState::getPosition() const
 	return m_position;
 }
 
+
+unsigned int WallState::getWallId() const
+{
+    return m_wallid;
+}
+
 WallState::WallType WallState::getWallType() const
 {
-	return m_wallType;
-}
+    return m_wallType;
+ }

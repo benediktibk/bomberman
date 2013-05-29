@@ -205,6 +205,8 @@ physic/wallright.h
 physic/wallright.cpp
 physic/wallleft.h
 physic/wallleft.cpp
+gameengine/grid.h
+gameengine/grid.cpp
 common/leveldefinition.h
 common/leveldefinition.cpp
 common/changeablestate.h

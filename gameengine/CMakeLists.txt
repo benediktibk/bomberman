@@ -1,5 +1,6 @@
 set(GAMEENGINE_SRC
 	gameengineimpl.cpp
+    grid.cpp
 )
 
 set(GAMEENGINE_TEST_SRC

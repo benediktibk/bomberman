@@ -16,12 +16,12 @@ public:
 		WallTypeSolid,
 		WallTypeLoose
 	};
-
 	WallState(UniqueIdCreator &creator, WallType wallType, const Point &position);
 	~WallState();
 
 	const Point& getPosition() const;
 	WallType getWallType() const;
+    unsigned int getWallId() const;
 
 private:
 	const Point m_position;
