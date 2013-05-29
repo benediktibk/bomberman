@@ -52,6 +52,8 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 	PlayerState playerState = m_gameState.getPlayerState();
 	m_inputState = inputState;
 
+	m_gameState.removeAllObjectsWithDestroyedFlag();
+
 	m_gameState.reduceAllBombsLifeTime(time);
 	m_gameState.deleteAllBombsWithNegativeLifeTime(playerState);
 

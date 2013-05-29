@@ -94,8 +94,8 @@ void GameEngineImplTest::updateGameState_SpaceKeyPressed_towBombsPlaced_oneBombD
 
 	input.setSpaceKeyPressed();
 	gameEngine.updateGameState(input, 0);
-	input.setSpaceKeyNotPressed();
 	gameEngine.updateGameState(input, 3.1);
+	input.setSpaceKeyNotPressed();
 	gameEngine.updateGameState(input, 0);
 	const GameState &game = gameEngine.getGameState();
 
