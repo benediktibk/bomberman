@@ -42,7 +42,7 @@ void BombState::setDestructionRange(int range)
 	setChanged();
 }
 
-int BombState::getDestructionRange() const
+unsigned int BombState::getDestructionRange() const
 {
 	return m_destructionRange;
 }

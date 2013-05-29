@@ -30,7 +30,7 @@ void BombStateTest::setDestructionRange_5_DestructionRangeIs5()
 
 	bomb.setDestructionRange(5);
 
-	CPPUNIT_ASSERT_EQUAL(5, bomb.getDestructionRange());
+    CPPUNIT_ASSERT_EQUAL(static_cast<unsigned int>(5), bomb.getDestructionRange());
 }
 
 void BombStateTest::setPosition_5And4_hasChanged()

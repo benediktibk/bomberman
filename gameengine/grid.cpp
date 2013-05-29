@@ -3,6 +3,7 @@
 
 using namespace Common;
 using namespace GameEngine;
+using namespace std;
 
 Grid::Grid(double width,double height) :
 	m_gridRows(static_cast<unsigned int>(height)),
@@ -63,6 +64,35 @@ void Grid::updatePlayer(const PlayerState &player)
     //m_idMatrix[index] = player.getPlayerId;
 }
 
+vector<unsigned int> Grid::getWallsInRange(const BombState &bomb) const
+{
+    vector<unsigned int> wallsinrange;
+    Point position = bomb.getPosition();
+    int x = static_cast<unsigned int>(position.getX());
+    int y = static_cast<unsigned int>(position.getY());
+    int range =bomb.getDestructionRange();
+    for( int i=1 ; i<=range ; ++i)
+    {
+        if((x+i)<static_cast<int>(m_gridRows))
+        {
+            wallsinrange.push_back(m_idMatrix[getVectorIndex(x+i,y)]);
+        }
+        if((x-i)>=0)
+        {
+            wallsinrange.push_back(m_idMatrix[getVectorIndex(x-i,y)]);
+        }
+        if((y+i)<static_cast<int>(m_gridColumns))
+        {
+            wallsinrange.push_back(m_idMatrix[getVectorIndex(x,y+i)]);
+        }
+        if((y-i)>=0)
+        {
+            wallsinrange.push_back(m_idMatrix[getVectorIndex(x,y-i)]);
+        }
+    }
+    return wallsinrange;
+}
+
 unsigned int Grid::getVectorIndex(const Point &position) const
 {
     assert(position.getX() > 0);
@@ -73,4 +103,14 @@ unsigned int Grid::getVectorIndex(const Point &position) const
 	unsigned int y = static_cast<unsigned int>(position.getY());
     unsigned int index = m_gridColumns*y+x;
 	return index;
+}
+
+unsigned int Grid::getVectorIndex(unsigned int x,unsigned int y) const
+{
+    assert(x > 0);
+    assert(y > 0);
+    assert(x < m_gridRows);
+    assert(y < m_gridColumns);
+    unsigned int index = m_gridColumns*y+x;
+    return index;
 }

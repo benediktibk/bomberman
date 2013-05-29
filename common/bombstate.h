@@ -20,7 +20,7 @@ public:
 	void setLifeTime(double time);
     double getLifeTime() const;
 	void setDestructionRange(int range);
-	int getDestructionRange() const;
+    unsigned int getDestructionRange() const;
 	unsigned int getBombId() const;
     double getBombWidth() const;
     double getBombHeight() const;
@@ -33,7 +33,7 @@ private:
     double m_lifeTime;
     double m_width;
     double m_height;
-	int m_destructionRange;
+    unsigned int m_destructionRange;
 	unsigned int m_bombid;
 	UniqueIdCreator &m_creatorid;
 };
