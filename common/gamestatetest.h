@@ -15,6 +15,7 @@ class GameStateTest :
 	 CPPUNIT_TEST(eraseBomb_defaultBomb_bombCountIs1);
 	 CPPUNIT_TEST(getAllChangedWalls_twoWallsAdded_resultSizeIs2);
 	 CPPUNIT_TEST(getAllChangedBombs_twoBombsAdded_resultSizeIs2);
+     CPPUNIT_TEST(getAllBombsLifeTime_AfterReduceLifeTime_resultTimeIs2);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -23,6 +24,7 @@ private:
 	 void eraseBomb_defaultBomb_bombCountIs1();
 	 void getAllChangedWalls_twoWallsAdded_resultSizeIs2();
 	 void getAllChangedBombs_twoBombsAdded_resultSizeIs2();
+     void getAllBombsLifeTime_AfterReduceLifeTime_resultTimeIs2();
 };
 }
 
