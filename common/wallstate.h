@@ -13,7 +13,7 @@ public:
     ~WallState();
     void setPosition(const Point &value);
     const Point& getPosition() const;
-
+    unsigned int getWallId() const;
 private:
     Point m_position;
     unsigned int m_wallid;

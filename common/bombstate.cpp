@@ -41,3 +41,8 @@ int BombState::getDestructionRange() const
 {
     return m_destructionRange;
 }
+
+unsigned int BombState::getBombId() const
+{
+    return m_bombid;
+}

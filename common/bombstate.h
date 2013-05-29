@@ -17,7 +17,7 @@ public:
 	double getLifeTime() const;
 	void setDestructionRange(int range);
 	int getDestructionRange() const;
-
+    unsigned int getBombId() const;
 private:
 	Point m_position;
 	double m_lifeTime;

@@ -24,3 +24,8 @@ const Point &WallState::getPosition() const
 {
     return m_position;
 }
+
+unsigned int WallState::getWallId() const
+{
+    return m_wallid;
+}
