@@ -215,3 +215,5 @@ common/changeablestatetest.h
 common/changeablestatetest.cpp
 common/leveldefinitiontest.h
 common/leveldefinitiontest.cpp
+gameengine/gridtest.h
+gameengine/gridtest.cpp

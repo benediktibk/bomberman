@@ -53,9 +53,12 @@ void Grid::removeWall(const WallState &wall)
 	m_idMatrix[index] = 0;
  }
 
-void Grid::updatePlayer(const PlayerState &/*player*/)
+void Grid::updatePlayer(const PlayerState &player)
 {
-
+    Point position = player.getPosition();
+    unsigned int index = getVectorIndex(position);
+    m_itemMatrix[index] = ItemPlayer;
+    //m_idMatrix[index] = player.getPlayerId;
 }
 
 unsigned int Grid::getVectorIndex(const Point &position) const
