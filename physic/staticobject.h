@@ -16,7 +16,7 @@ class PhysicSimulator;
 class StaticObject
 {
 public:
-	StaticObject(PhysicSimulator &simulator, const Common::Point &position, const Common::Point &size);
+	StaticObject(PhysicSimulator &simulator, const Common::Point &position, double width, double height);
 	~StaticObject();
 
 	void SetPosition(double x, double y);

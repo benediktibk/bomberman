@@ -12,20 +12,20 @@ using namespace Physic;
 GameEngineImpl::GameEngineImpl() :
 	m_simulator(new PhysicSimulator),
 	m_player(new DynamicObject(*m_simulator)),
-	m_top(new StaticObject(*m_simulator,  Point(8,14), Point(13,1))),
-	m_bot(new StaticObject(*m_simulator,  Point(8,0),Point(13,1))),
-	m_left(new StaticObject(*m_simulator, Point(0,7),Point(1,13))),
-	m_right(new StaticObject(*m_simulator,Point(16,7), Point(1,13))),
-	m_block0(new StaticObject(*m_simulator, Point(9,8),   Point(0.35,0.35))),
-	m_block1(new StaticObject(*m_simulator, Point(9,6),  Point(0.35,0.35))),
-	m_block2(new StaticObject(*m_simulator, Point(7,8),  Point(0.35,0.35))),
-	m_block3(new StaticObject(*m_simulator, Point(7,6), Point(0.35,0.35))),
-	m_grid(new Grid(50,50))
+	m_top(new StaticObject(*m_simulator, Point(8, 14), 13, 1)),
+	m_bot(new StaticObject(*m_simulator, Point(8, 0), 13, 1)),
+	m_left(new StaticObject(*m_simulator, Point(0, 7), 1, 13)),
+	m_right(new StaticObject(*m_simulator,Point(16, 7), 1, 13)),
+	m_block0(new StaticObject(*m_simulator, Point(9, 8), 0.35, 0.35)),
+	m_block1(new StaticObject(*m_simulator, Point(9, 6), 0.35, 0.35)),
+	m_block2(new StaticObject(*m_simulator, Point(7, 8), 0.35, 0.35)),
+	m_block3(new StaticObject(*m_simulator, Point(7, 6), 0.35, 0.35)),
+	m_grid(new Grid(50, 50))
 {
-	WallState *wallstate0 = new WallState(m_wallids, WallState::WallTypeSolid, Point(9,8));
-	WallState *wallstate1 = new WallState(m_wallids, WallState::WallTypeSolid, Point(9,6));
-	WallState *wallstate2 = new WallState(m_wallids, WallState::WallTypeSolid, Point(7,8));
-	WallState *wallstate3 = new WallState(m_wallids, WallState::WallTypeSolid, Point(7,6));
+	WallState *wallstate0 = new WallState(m_wallids, WallState::WallTypeSolid, Point(9, 8));
+	WallState *wallstate1 = new WallState(m_wallids, WallState::WallTypeSolid, Point(9, 6));
+	WallState *wallstate2 = new WallState(m_wallids, WallState::WallTypeSolid, Point(7, 8));
+	WallState *wallstate3 = new WallState(m_wallids, WallState::WallTypeSolid, Point(7, 6));
 
 	m_gameState.addWall(wallstate0);
 	m_gameState.addWall(wallstate1);
@@ -129,6 +129,6 @@ void GameEngineImpl::placeBombs()
 		m_grid->addBombAtPlace(*bombPlaced);
 		m_playerState.countBomb();
 		m_gameState.addBomb(bombPlaced);
-		m_bombBox = new StaticObject(*m_simulator,m_player->getPosition(), Point(0.35, 0.35));
+		m_bombBox = new StaticObject(*m_simulator,m_player->getPosition(), 0.35, 0.35);
 	}
 }
