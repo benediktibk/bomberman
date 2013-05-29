@@ -1,5 +1,3 @@
 #include "leveldefinitiontest.h"
 
-leveldefinitiontest::leveldefinitiontest()
-{
-}
+using namespace Common;
