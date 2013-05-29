@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QtOpenGL/QGLWidget>
 #include <QtCore/QTimer>
+#include <QtGui/QScrollBar>
 #include "graphic/graphicdrawerqt.h"
 #include "common/gamestate.h"
 #include "gameloop.h"
@@ -46,6 +47,7 @@ MainWindow::~MainWindow()
 void MainWindow::updateGui(const Common::GameState *gameState)
 {
 	m_drawer->draw(*gameState);
+	m_ui->graphicsView->setSceneRect(300, -300, 100, 100);
 	m_ui->graphicsView->viewport()->update();
 	m_gameLoop->setGuiUpdateFinished();
 }

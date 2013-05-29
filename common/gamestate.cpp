@@ -5,8 +5,8 @@ using namespace Common;
 using namespace std;
 
 GameState::GameState() :
-    m_height(m_level.getLevelHeight()),
-    m_width(m_level.getLevelWidth())
+	m_height(m_level.getLevelHeight()),
+	m_width(m_level.getLevelWidth())
 { }
 
 GameState::~GameState()
@@ -125,6 +125,16 @@ void GameState::reduceAllBombsLifeTime(double time)
 		 if (m_bombs[i]->isDestroyed())
 			 eraseBomb(i);
 	 }
+ }
+
+ unsigned int GameState::getHeight() const
+ {
+	 return m_height;
+ }
+
+ unsigned int GameState::getWidth() const
+ {
+	 return m_width;
  }
 
 GameState::GameState(const GameState &)

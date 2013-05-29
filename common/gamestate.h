@@ -27,6 +27,8 @@ public:
 	void deleteAllBombsWithNegativeLifeTime(PlayerState &playerState);
 	void resetChangedFlags();
 	void removeAllObjectsWithDestroyedFlag();
+	unsigned int getHeight() const;
+	unsigned int getWidth() const;
 
 private:
 	void eraseBomb(size_t position);
@@ -41,9 +43,9 @@ private:
 	PlayerState m_playerState;
 	std::vector<WallState*> m_walls;
 	std::vector<BombState*> m_bombs;
-    LevelDefinition m_level;
-    unsigned int m_height;
-    unsigned int m_width;
+	LevelDefinition m_level;
+	unsigned int m_height;
+	unsigned int m_width;
 
 };
 }
