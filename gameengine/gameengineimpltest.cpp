@@ -57,7 +57,7 @@ void GameEngineImplTest::updateGameState_RightKeyPressed_PlayerDirectionRight()
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionRight, player.getDirection());
 }
 
-void GameEngineImplTest::updateGameState_SpaceKeyPressed_BombPlaced_testPosition()
+void GameEngineImplTest::updateGameState_oneBombPlaced_bombPositionIsSameAsPlayerPosition()
 {
 	GameEngineImpl gameEngine;
 	InputState input;
@@ -72,7 +72,7 @@ void GameEngineImplTest::updateGameState_SpaceKeyPressed_BombPlaced_testPosition
 	CPPUNIT_ASSERT_EQUAL(player.getPosition(), bomb->getPosition());
 }
 
-void GameEngineImplTest::updateGameState_SpaceKeyPressed_BombPlaced_testBombLifeTime_resultIs2()
+void GameEngineImplTest::updateGameState_oneBombPlaced_bombLifeTimeIs2()
 {
 	GameEngineImpl gameEngine;
 	InputState input;
@@ -80,6 +80,7 @@ void GameEngineImplTest::updateGameState_SpaceKeyPressed_BombPlaced_testBombLife
 
 	input.setSpaceKeyPressed();
 	gameEngine.updateGameState(input,0);
+	input.setSpaceKeyNotPressed();
 	gameEngine.updateGameState(input,1);
 	const GameState &game = gameEngine.getGameState();
 	bomb = game.getAllChangedBombs().front();
@@ -87,7 +88,7 @@ void GameEngineImplTest::updateGameState_SpaceKeyPressed_BombPlaced_testBombLife
 	CPPUNIT_ASSERT_EQUAL((double)2, bomb->getLifeTime());
 }
 
-void GameEngineImplTest::updateGameState_SpaceKeyPressed_towBombsPlaced_oneBombDelete_testBombCount_resultIs1()
+void GameEngineImplTest::updateGameState_twoBombsPlacedAndOneDestroyed_bombCountIs1()
 {
 	GameEngineImpl gameEngine;
 	InputState input;
