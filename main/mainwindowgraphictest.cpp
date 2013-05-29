@@ -44,9 +44,9 @@ void MainWindowGraphicTest::drawState1()
 {
     UniqueIdCreator id;
 	GameState gameState;
-    WallState *wallOne = new WallState(id);
-    WallState *wallTwo = new WallState(id);
-    WallState *wallThree = new WallState(id);
+    WallState *wallOne = new WallState(id, WallState::WallTypeSolid);
+    WallState *wallTwo = new WallState(id, WallState::WallTypeSolid);
+    WallState *wallThree = new WallState(id, WallState::WallTypeSolid);
     BombState *bombOne = new BombState(id);
     BombState *bombTwo = new BombState(id);
 

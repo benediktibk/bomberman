@@ -10,7 +10,7 @@ void GameStateTest::addWall_defaultWall_wallCountIs1()
 	UniqueIdCreator id;
 	GameState state;
 
-	state.addWall(new WallState(id));
+    state.addWall(new WallState(id, WallState::WallTypeSolid));
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, state.getWallCount());
 }
@@ -52,8 +52,8 @@ void GameStateTest::getAllChangedWalls_twoWallsAdded_resultSizeIs2()
 {
 	UniqueIdCreator id;
 	GameState state;
-	state.addWall(new WallState(id));
-	state.addWall(new WallState(id));
+    state.addWall(new WallState(id, WallState::WallTypeSolid));
+    state.addWall(new WallState(id, WallState::WallTypeSolid));
 
 	vector<const WallState*> walls = state.getAllChangedWalls();
 
