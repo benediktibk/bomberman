@@ -40,6 +40,7 @@ private:
 	PlayerState m_playerState;
 	std::vector<WallState*> m_walls;
 	std::vector<BombState*> m_bombs;
+
 };
 }
 
