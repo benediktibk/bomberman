@@ -24,10 +24,10 @@ public:
 	Grid(double width,double height);
 
 	bool isPlaceEmpty(const Common::Point &position) const;
-    Common::Point addBombAtPlace(const Common::BombState &bomb);
-    Common::Point addWallAtPlace(const Common::WallState &wall);
-	void removeBomb(const Common::BombState &bomb);
-	void removeWall(const Common::WallState &wall);
+    Common::Point addBombAtPlace(Common::BombState &bomb);
+    Common::Point addWallAtPlace(Common::WallState &wall);
+    void removeBomb(Common::BombState &bomb);
+    void removeWall(Common::WallState &wall);
 	void updatePlayer(const Common::PlayerState &player);
 
 private:

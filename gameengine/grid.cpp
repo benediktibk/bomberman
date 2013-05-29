@@ -21,7 +21,7 @@ bool Grid::isPlaceEmpty(const Point &position) const
 		return false;
 }
 
-Point Grid::addBombAtPlace(const BombState &bomb)
+Point Grid::addBombAtPlace(BombState &bomb)
 {
     Point position = bomb.getPosition();
 	unsigned int index = getVectorIndex(position);
@@ -30,7 +30,7 @@ Point Grid::addBombAtPlace(const BombState &bomb)
     return position.getGridPosition();
 }
 
-Point Grid::addWallAtPlace(const WallState &wall)
+Point Grid::addWallAtPlace(WallState &wall)
 {
 	Point position = wall.getPosition();
 	unsigned int index = getVectorIndex(position);
@@ -39,7 +39,7 @@ Point Grid::addWallAtPlace(const WallState &wall)
     return position.getGridPosition();
 }
 
-void Grid::removeBomb(const BombState &bomb)
+void Grid::removeBomb(BombState &bomb)
 {
 	Point position = bomb.getPosition();
 	unsigned int index = getVectorIndex(position);
@@ -47,7 +47,7 @@ void Grid::removeBomb(const BombState &bomb)
 	m_idMatrix[index] = 0;
 }
 
-void Grid::removeWall(const WallState &wall)
+void Grid::removeWall(WallState &wall)
 {
 	Point position = wall.getPosition();
 	unsigned int index = getVectorIndex(position);

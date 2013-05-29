@@ -7,6 +7,8 @@
 #include "physic/botwall.h"
 #include "physic/wallleft.h"
 #include "physic/wallright.h"
+#include "grid.h"
+#include "common/leveldefinition.h"
 
 using namespace GameEngine;
 using namespace Common;
@@ -14,13 +16,15 @@ using namespace Physic;
 
 GameEngineImpl::GameEngineImpl() :
 	m_simulator(new PhysicSimulator),
-	m_player(new DynamicObject(*m_simulator))
+    m_player(new DynamicObject(*m_simulator)),
+    m_grid(new Grid(50,50))
 { }
 
 GameEngineImpl::~GameEngineImpl()
 {
 	delete m_player;
 	delete m_simulator;
+    delete m_grid;
 }
 
 void GameEngineImpl::updateGameState(const InputState &inputState, double time)
@@ -82,9 +86,11 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 		if(playerState.getBombCount() == 0)
 		{
 		BombState *bombPlaced=new BombState(m_bombids);
+        Point gridPoint;
 
-
-		bombPlaced->setPosition(m_player->getPosition());
+        bombPlaced->setPosition(m_player->getPosition());
+        gridPoint = m_grid->addBombAtPlace(*bombPlaced);
+        bombPlaced->setPosition(gridPoint);
 		playerState.countBomb();
 
 		m_gameState.addBomb(bombPlaced);

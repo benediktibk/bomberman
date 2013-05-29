@@ -16,6 +16,8 @@ class WallRight;
 
 namespace GameEngine
 {
+class Grid;
+
 class GameEngineImpl :
 		public Common::GameEngine
 {
@@ -34,6 +36,7 @@ private:
 	Physic::PhysicSimulator *m_simulator;
 	Physic::DynamicObject *m_player;
 	Physic::StaticObject *m_block;
+    Grid *m_grid;
 };
 }
 
