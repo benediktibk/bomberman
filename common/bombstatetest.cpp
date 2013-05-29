@@ -32,3 +32,36 @@ void BombStateTest::setDestructionRange_5_DestructionRangeIs5()
 
 	CPPUNIT_ASSERT_EQUAL(5, bomb.getDestructionRange());
 }
+
+void BombStateTest::setPosition_5And4_hasChanged()
+{
+	UniqueIdCreator id;
+	BombState bomb(id);
+	bomb.resetChanged();
+
+	bomb.setPosition(Point(5, 4));
+
+	CPPUNIT_ASSERT(bomb.hasChanged());
+}
+
+void BombStateTest::setLifeTime_4_hasChanged()
+{
+	UniqueIdCreator id;
+	BombState bomb(id);
+	bomb.resetChanged();
+
+	bomb.setLifeTime(4);
+
+	CPPUNIT_ASSERT(bomb.hasChanged());
+}
+
+void BombStateTest::setDestructionRange_5_hasChanged()
+{
+	UniqueIdCreator id;
+	BombState bomb(id);
+	bomb.resetChanged();
+
+	bomb.setDestructionRange(5);
+
+	CPPUNIT_ASSERT(bomb.hasChanged());
+}
