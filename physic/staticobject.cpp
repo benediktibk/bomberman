@@ -13,7 +13,7 @@ StaticObject::StaticObject(PhysicSimulator &simulator, const Point &position, do
 	m_fixtureDef(new b2FixtureDef),
 	m_shape(new b2PolygonShape)
 {
-	m_bodyDef->position.Set(position.getX(),position.getY());
+	m_bodyDef->position.Set(position.getX(), position.getY());
 	m_body = simulator.createBody(*m_bodyDef);
 	m_shape->SetAsBox(width, height);
 	m_fixture = m_body->CreateFixture(m_shape, 0);
