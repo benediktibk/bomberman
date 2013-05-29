@@ -70,4 +70,6 @@ void GridTest::removeWall_from_3_3()
     CPPUNIT_ASSERT(grid.isPlaceEmpty(position));
 }
 
+
+
 //void updatePlayer(const Common::PlayerState &player);
