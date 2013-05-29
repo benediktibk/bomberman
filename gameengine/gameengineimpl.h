@@ -12,6 +12,8 @@ class StaticObject;
 
 namespace GameEngine
 {
+class Grid;
+
 class GameEngineImpl :
         public Common::GameEngine
 {
@@ -42,6 +44,7 @@ private:
     Physic::StaticObject *m_block3;
     std::vector<Physic::StaticObject*> m_wallObjects;
     Physic::StaticObject *m_bombBox;
+    Grid *m_grid;
 };
 }
 

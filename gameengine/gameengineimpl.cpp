@@ -3,7 +3,8 @@
 //BAAAAAAAAAAYERN!
 #include "physic/dynamicobject.h"
 #include "physic/staticobject.h"
-
+#include "grid.h"
+#include "common/leveldefinition.h"
 
 using namespace GameEngine;
 using namespace Common;
@@ -19,7 +20,8 @@ GameEngineImpl::GameEngineImpl() :
     m_block0(new StaticObject(*m_simulator, Point(9,8),   Point(0.35,0.35))),
     m_block1(new StaticObject(*m_simulator, Point(9,6),  Point(0.35,0.35))),
     m_block2(new StaticObject(*m_simulator, Point(7,8),  Point(0.35,0.35))),
-    m_block3(new StaticObject(*m_simulator, Point(7,6), Point(0.35,0.35)))
+    m_block3(new StaticObject(*m_simulator, Point(7,6), Point(0.35,0.35))),
+    m_grid(new Grid(50,50))
 {
 
     WallState *wallstate0 = new WallState(m_wallids, WallState::WallTypeSolid, Point(9,8));
@@ -31,16 +33,13 @@ GameEngineImpl::GameEngineImpl() :
     m_gameState.addWall(wallstate1);
     m_gameState.addWall(wallstate2);
     m_gameState.addWall(wallstate3);
-
-
 }
-
 
 GameEngineImpl::~GameEngineImpl()
 {
     delete m_player;
     delete m_simulator;
-
+    delete m_grid;
     delete m_top;
     delete m_bot;
     delete m_left;
@@ -50,7 +49,6 @@ GameEngineImpl::~GameEngineImpl()
     delete m_block2;
     delete m_block3;
     deleteAllWallObjects();
-
 }
 
 void GameEngineImpl::updateGameState(const InputState &inputState, double time)
@@ -65,7 +63,6 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 
     m_gameState.reduceAllBombsLifeTime(time);
     m_gameState.deleteAllBombsWithNegativeLifeTime(playerState);
-
 
     if (m_inputState.isUpKeyPressed() && playerState.getDirection() == PlayerState::PlayerDirectionUp)
     {
@@ -115,21 +112,16 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
     {
         if(playerState.getBombCount() == 0)
         {
-        BombState *bombPlaced=new BombState(m_bombids);
-
-
-        bombPlaced->setPosition(m_player->getPosition());
-        playerState.countBomb();
-
-        m_gameState.addBomb(bombPlaced);
-
-        m_bombBox = new StaticObject(*m_simulator,m_player->getPosition() , Point(0.35,0.35));
+            BombState *bombPlaced = new BombState(m_bombids);
+            bombPlaced->setPosition(m_player->getPosition());
+            m_grid->addBombAtPlace(*bombPlaced);
+            playerState.countBomb();
+            m_gameState.addBomb(bombPlaced);
+            m_bombBox = new StaticObject(*m_simulator,m_player->getPosition() , Point(0.35,0.35));
         }
-
     }
 
     m_gameState.setPlayerState(playerState);
-
 }
 
 const Common::GameState &GameEngineImpl::getGameState() const
