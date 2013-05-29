@@ -37,6 +37,19 @@ void GameStateTest::getAllChangedBombs_twoBombsAdded_resultSizeIs2()
 	CPPUNIT_ASSERT_EQUAL((size_t)2, bombs.size());
 }
 
+void GameStateTest::getAllChangedBombs_oneBombAddedAndChangedFlagsResetAndAnotherOneAdded_resultSzeIs1()
+{
+	UniqueIdCreator idCreator;
+	GameState state;
+	state.addBomb(new BombState(idCreator));
+	state.resetChangedFlags();
+	state.addBomb(new BombState(idCreator));
+
+	vector<const BombState*> bombs = state.getAllChangedBombs();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, bombs.size());
+}
+
 void GameStateTest::getAllChangedWalls_twoWallsAdded_resultSizeIs2()
 {
 	UniqueIdCreator idCreator;
@@ -47,6 +60,19 @@ void GameStateTest::getAllChangedWalls_twoWallsAdded_resultSizeIs2()
 	vector<const WallState*> walls = state.getAllChangedWalls();
 
 	CPPUNIT_ASSERT_EQUAL((size_t)2, walls.size());
+}
+
+void GameStateTest::getAllChangedWalls_oneWallAdedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1()
+{
+	UniqueIdCreator idCreator;
+	GameState state;
+	state.addWall(new WallState(idCreator, WallState::WallTypeSolid, Point()));
+	state.resetChangedFlags();
+	state.addWall(new WallState(idCreator, WallState::WallTypeSolid, Point()));
+
+	vector<const WallState*> walls = state.getAllChangedWalls();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, walls.size());
 }
 
 void GameStateTest::getAllBombsLifeTime_AfterReduceLifeTime_resultTimeIs2()
@@ -82,7 +108,7 @@ void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_resultSizeIs1(
 	CPPUNIT_ASSERT_EQUAL((size_t)1, bombs.size());
 }
 
-void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_resultBombCountIs1()
+void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_bombCountIs1()
 {
 	UniqueIdCreator idCreator;
 	GameState state;

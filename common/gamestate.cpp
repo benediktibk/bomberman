@@ -31,7 +31,8 @@ vector<const WallState*> GameState::getAllChangedWalls() const
 	result.reserve(m_walls.size());
 
 	for (vector<WallState*>::const_iterator i = m_walls.begin(); i != m_walls.end(); ++i)
-		result.push_back(*i);
+		if ((*i)->hasChanged())
+			result.push_back(*i);
 
 	return result;
 }
@@ -51,7 +52,8 @@ vector<const BombState*> GameState::getAllChangedBombs() const
 	vector<const BombState*> result;
 
 	for (vector<BombState*>::const_iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
-		result.push_back(*i);
+		if ((*i)->hasChanged())
+			result.push_back(*i);
 
 	return result;
 }
