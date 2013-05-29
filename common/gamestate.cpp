@@ -5,6 +5,7 @@ using namespace Common;
 using namespace std;
 
 GameState::GameState()
+
 { }
 
 GameState::~GameState()

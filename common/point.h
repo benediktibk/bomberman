@@ -19,6 +19,7 @@ public:
 	bool operator==(const Point &point) const;
 	Point operator*(double value) const;
 	Point operator/(double value) const;
+    Point getGridPosition() const;
 
 private:
 	double m_x;

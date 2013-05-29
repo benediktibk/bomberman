@@ -197,14 +197,6 @@ common/uniqueidcreatortest.h
 common/uniqueidcreatortest.cpp
 physic/staticobject.h
 physic/staticobject.cpp
-physic/topwall.h
-physic/topwall.cpp
-physic/botwall.h
-physic/botwall.cpp
-physic/wallright.h
-physic/wallright.cpp
-physic/wallleft.h
-physic/wallleft.cpp
 gameengine/grid.h
 gameengine/grid.cpp
 common/leveldefinition.h
@@ -222,3 +214,5 @@ common/destroyablestatetest.cpp
 common/destroyablestatemock.h
 common/destroyablestatemock.cpp
 checkIncludeGuards.sh
+gameengine/gridtest.h
+gameengine/gridtest.cpp

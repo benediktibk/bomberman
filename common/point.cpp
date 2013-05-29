@@ -54,3 +54,18 @@ ostream& operator<<(ostream &stream, const Point &point)
 	stream << "(" << point.getX() << ", " << point.getY() << ")";
 	return stream;
 }
+
+Point Point::getGridPosition() const
+{
+    unsigned int x;
+    unsigned int y;
+    Point gridvalue;
+
+    x=static_cast<unsigned int>(m_x);
+    y=static_cast<unsigned int>(m_y);
+
+    gridvalue.setX(static_cast<double>(x));
+    gridvalue.setY(static_cast<double>(y));
+
+    return gridvalue;
+}
