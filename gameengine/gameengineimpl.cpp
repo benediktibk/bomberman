@@ -83,6 +83,7 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 		{
 		BombState *bombPlaced=new BombState(m_bombids);
 
+
 		bombPlaced->setPosition(m_player->getPosition());
 		playerState.countBomb();
 
