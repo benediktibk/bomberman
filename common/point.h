@@ -21,6 +21,7 @@ public:
 	Point operator/(double value) const;
 	Point operator+(const Point &point) const;
 	Point getGridPosition() const;
+	bool fuzzyEqual(const Point &point, double epsilon) const;
 
 private:
 	double m_x;

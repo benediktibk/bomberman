@@ -83,3 +83,28 @@ void PointTest::operatorAdd_4And3To5And1_9And4()
 
 	CPPUNIT_ASSERT_EQUAL(Point(9, 4), result);
 }
+
+void PointTest::fuzzyEqual_totallyEqual_true()
+{
+	Point pointOne(4, 3);
+	Point pointTwo(4, 3);
+
+	CPPUNIT_ASSERT(pointOne.fuzzyEqual(pointTwo, 0.001));
+}
+
+void PointTest::fuzzyEqual_totallyUnEqual_false()
+{
+	Point pointOne(4, 3);
+	Point pointTwo(5, 1);
+
+
+	CPPUNIT_ASSERT(!pointOne.fuzzyEqual(pointTwo, 0.001));
+}
+
+void PointTest::fuzzyEqual_nearlyEqual_true()
+{
+	Point pointOne(4, 3.0001);
+	Point pointTwo(3.9999, 3);
+
+	CPPUNIT_ASSERT(pointOne.fuzzyEqual(pointTwo, 0.001));
+}

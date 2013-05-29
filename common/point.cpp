@@ -1,4 +1,5 @@
 #include "point.h"
+#include <math.h>
 
 using namespace Common;
 using namespace std;
@@ -66,11 +67,17 @@ Point Point::getGridPosition() const
 	unsigned int y;
 	Point gridvalue;
 
-	x=static_cast<unsigned int>(m_x);
-	y=static_cast<unsigned int>(m_y);
+	x = static_cast<unsigned int>(m_x);
+	y = static_cast<unsigned int>(m_y);
 
 	gridvalue.setX(static_cast<double>(x));
 	gridvalue.setY(static_cast<double>(y));
 
 	return gridvalue;
+}
+
+bool Point::fuzzyEqual(const Point &point, double epsilon) const
+{
+	return	fabs(getX() - point.getX()) < epsilon &&
+			fabs(getY() - point.getY()) < epsilon;
 }

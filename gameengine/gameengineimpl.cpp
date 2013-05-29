@@ -33,15 +33,15 @@ GameEngineImpl::GameEngineImpl() :
 
 GameEngineImpl::~GameEngineImpl()
 {
+	deleteAllWallObjects();
+	deleteAllBombObjects();
 	delete m_player;
-	delete m_simulator;
 	delete m_grid;
 	delete m_upperBorder;
 	delete m_lowerBorder;
 	delete m_leftBorder;
 	delete m_rightBorder;
-	deleteAllWallObjects();
-	deleteAllBombObjects();
+	delete m_simulator;
 }
 
 void GameEngineImpl::updateGameState(const InputState &inputState, double time)
