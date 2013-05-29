@@ -29,7 +29,7 @@
      <widget class="QComboBox" name="comboBox">
       <item>
        <property name="text">
-        <string>the player, two bombs and three walls placed somewhere</string>
+        <string>the player, two bombs, two solid walls and a loose wall placed somewhere</string>
        </property>
       </item>
      </widget>
