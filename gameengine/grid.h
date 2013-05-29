@@ -24,10 +24,10 @@ public:
     Grid(unsigned int rows,unsigned int cols);
 
 	bool isPlaceEmpty(const Common::Point &position) const;
-    Common::Point addBombAtPlace(const Common::BombState &bomb);
-    Common::Point addWallAtPlace(const Common::WallState &wall);
-	void removeBomb(const Common::BombState &bomb);
-	void removeWall(const Common::WallState &wall);
+    void addBombAtPlace(Common::BombState &bomb);
+    void addWallAtPlace(Common::WallState &wall);
+    void removeBomb(Common::BombState &bomb);
+    void removeWall(Common::WallState &wall);
 	void updatePlayer(const Common::PlayerState &player);
     std::vector<unsigned int> getWallsInRange(const Common::BombState &bomb) const;
 

@@ -5,16 +5,16 @@
 using namespace Physic;
 using namespace Common;
 
-StaticObject::StaticObject(PhysicSimulator &simulator) :
+StaticObject::StaticObject(PhysicSimulator &simulator, const Point &position, const Point &size) :
     m_body(0),
     m_bodyDef(new b2BodyDef),
     m_fixture(0),
     m_fixtureDef(new b2FixtureDef),
     m_shape(new b2PolygonShape)
 {
-    m_bodyDef->position.Set(1,2);
+    m_bodyDef->position.Set(position.getX(),position.getY());
     m_body = simulator.createBody(*m_bodyDef);
-    m_shape->SetAsBox(0.1,0.1);
+    m_shape->SetAsBox(size.getX(),size.getY());
     m_fixture = m_body->CreateFixture(m_shape, 0);
 }
 
@@ -25,11 +25,15 @@ StaticObject::~StaticObject()
     delete m_bodyDef;
 }
 
-//void StaticObject::setPosition(const Point &value) const
+void StaticObject::SetPosition(double x, double y)
+{
+    m_bodyDef->position.Set(x,y);
+}
+
+//void StaticObject::DestroyBody()
 //{
-//    m_x = value.getX();
-//    m_y = value.getY();
-//
-//    m_bodyDef->position.Set(m_x,m_y);
-//
+
+//    m_body->DestroyFixture();
 //}
+
+

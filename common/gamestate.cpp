@@ -4,7 +4,9 @@
 using namespace Common;
 using namespace std;
 
-GameState::GameState()
+GameState::GameState() :
+    m_height(m_level.getLevelHeight()),
+    m_width(m_level.getLevelWidth())
 { }
 
 GameState::~GameState()

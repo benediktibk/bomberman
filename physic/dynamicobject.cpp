@@ -13,9 +13,9 @@ DynamicObject::DynamicObject(PhysicSimulator &simulator) :
 	m_fixture(0)
 {
 	m_bodyDefinition->type =  b2_dynamicBody;
-	m_bodyDefinition->position.Set(0, 0);
+    m_bodyDefinition->position.Set(1, 1);
 	m_body = simulator.createBody(*m_bodyDefinition);
-	m_shape->SetAsBox(1, 1);
+    m_shape->SetAsBox(0.5, 0.5);
 	m_fixtureDefinition->shape = m_shape;
 	m_fixtureDefinition->density = 15;
 	m_fixture = m_body->CreateFixture(m_fixtureDefinition);
