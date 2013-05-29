@@ -1,4 +1,5 @@
 #include "grid.h"
+#include<assert.h>
 
 using namespace Common;
 using namespace GameEngine;
@@ -59,6 +60,10 @@ void Grid::updatePlayer(const PlayerState &/*player*/)
 
 unsigned int Grid::getVectorIndex(const Point &position) const
 {
+    assert(position.getX() > 0);
+    assert(position.getY() > 0);
+    assert(position.getX() < m_gridRows);
+    assert(position.getY() < m_gridColumns);
 	unsigned int x = static_cast<unsigned int>(position.getX());
 	unsigned int y = static_cast<unsigned int>(position.getY());
 	unsigned int index = ((m_gridRows - y - 1)*m_gridColumns) + x;
