@@ -23,8 +23,8 @@ public:
 	size_t getBombCount() const;
 	void addBomb(BombState* bomb);
 	void eraseBomb(int position);
-    void reduceAllBombsLifeTime(double time);
-    void deleteAllBombsWithNegativeLifeTime(PlayerState* playerState);
+	void reduceAllBombsLifeTime(double time);
+	void deleteAllBombsWithNegativeLifeTime(PlayerState &playerState);
 
 private:
 	// forbid copies
