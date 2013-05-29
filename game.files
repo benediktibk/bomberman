@@ -207,3 +207,7 @@ physic/wallleft.h
 physic/wallleft.cpp
 common/leveldefinition.h
 common/leveldefinition.cpp
+common/changeablestate.h
+common/changeablestate.cpp
+common/changeablestatetest.h
+common/changeablestatetest.cpp

@@ -9,6 +9,7 @@ set(COMMON_SRC
 	wallstate.cpp
 	uniqueidcreator.cpp
 	leveldefinition.cpp
+	changeablestate.cpp
 )
 
 set(COMMON_TEST_SRC
@@ -21,6 +22,7 @@ set(COMMON_TEST_SRC
 	wallstatetest.cpp
 	uniqueidcreatortest.cpp
 	leveldefinition.cpp
+	changeablestatetest.cpp
 )
 
 add_library(common ${COMMON_SRC})
