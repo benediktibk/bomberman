@@ -8,10 +8,10 @@ using namespace Graphic;
 
 Wall::Wall(QGraphicsScene &scene, const Common::WallState &state)
 {
-    if (state.getWallType() == Common::WallState::WallTypeSolid)
-        m_svgItem = new QGraphicsSvgItem(QString("../../resources/objects/wall_solid.svg"));
-    else
-        m_svgItem = new QGraphicsSvgItem(QString("../../resources/objects/wall_loose.svg"));
+	if (state.getWallType() == Common::WallState::WallTypeSolid)
+		m_svgItem = new QGraphicsSvgItem(QString("../../resources/objects/wall_solid.svg"));
+	else
+		m_svgItem = new QGraphicsSvgItem(QString("../../resources/objects/wall_loose.svg"));
 
 	scene.addItem(m_svgItem);
 }
@@ -24,8 +24,9 @@ Wall::~Wall()
 void Wall::update(const Common::WallState &state, double pixelPerMeter)
 {
 	Point position(state.getPosition()*pixelPerMeter);
+	position = position + Point(state.getWidth()/2, state.getHeight()/2);
 	position.switchIntoQtCoordinates();
 
-    m_svgItem->setScale(0.001*pixelPerMeter*state.getWallHeight());
+	m_svgItem->setScale(0.001*pixelPerMeter*state.getHeight());
 	m_svgItem->setPos(position.toQPoint());
 }

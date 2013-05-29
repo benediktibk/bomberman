@@ -52,12 +52,12 @@ unsigned int BombState::getBombId() const
 	return m_bombid;
 }
 
-double BombState::getBombHeight() const
+double BombState::getHeight() const
 {
 	return m_height;
 }
 
-double BombState::getBombWidth() const
+double BombState::getWidth() const
 {
 	return m_width;
 }

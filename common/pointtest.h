@@ -19,6 +19,7 @@ class PointTest :
 	 CPPUNIT_TEST(streamOperator_3And2_32);
 	 CPPUNIT_TEST(operatorMultiply_3And6With2_6And12);
 	 CPPUNIT_TEST(operatorDivide_3And6With3_1And2);
+	 CPPUNIT_TEST(operatorAdd_4And3To5And1_9And4);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -31,6 +32,7 @@ private:
 	 void streamOperator_3And2_32();
 	 void operatorMultiply_3And6With2_6And12();
 	 void operatorDivide_3And6With3_1And2();
+	 void operatorAdd_4And3To5And1_9And4();
 };
 }
 

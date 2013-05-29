@@ -7,8 +7,8 @@ PlayerState::PlayerState() :
 	m_direction(PlayerDirectionUp),
 	m_placedBombCount(0),
 	m_speed(5.0),
-	m_width(0.5),
-	m_height(0.5)
+	m_width(0.7),
+	m_height(0.7)
 { }
 
 void PlayerState::setPosition(Point value)

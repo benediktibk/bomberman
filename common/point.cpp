@@ -49,6 +49,11 @@ Point Point::operator /(double value) const
 	return Point(m_x/value, m_y/value);
 }
 
+Point Point::operator+(const Point &point) const
+{
+	return Point(getX() + point.getX(), getY() + point.getY());
+}
+
 ostream& operator<<(ostream &stream, const Point &point)
 {
 	stream << "(" << point.getX() << ", " << point.getY() << ")";
@@ -57,15 +62,15 @@ ostream& operator<<(ostream &stream, const Point &point)
 
 Point Point::getGridPosition() const
 {
-    unsigned int x;
-    unsigned int y;
-    Point gridvalue;
+	unsigned int x;
+	unsigned int y;
+	Point gridvalue;
 
-    x=static_cast<unsigned int>(m_x);
-    y=static_cast<unsigned int>(m_y);
+	x=static_cast<unsigned int>(m_x);
+	y=static_cast<unsigned int>(m_y);
 
-    gridvalue.setX(static_cast<double>(x));
-    gridvalue.setY(static_cast<double>(y));
+	gridvalue.setX(static_cast<double>(x));
+	gridvalue.setY(static_cast<double>(y));
 
-    return gridvalue;
+	return gridvalue;
 }

@@ -35,7 +35,7 @@ void WallStateTest::getWallHeight_heightIs1()
     UniqueIdCreator id;
     WallState wall(id, WallState::WallTypeLoose, Point());
 
-    CPPUNIT_ASSERT_EQUAL(1.0, wall.getWallHeight());
+    CPPUNIT_ASSERT_EQUAL(1.0, wall.getHeight());
 }
 
 void WallStateTest::getWallWidth_widthIs1()
@@ -43,5 +43,5 @@ void WallStateTest::getWallWidth_widthIs1()
     UniqueIdCreator id;
     WallState wall(id, WallState::WallTypeLoose, Point());
 
-    CPPUNIT_ASSERT_EQUAL(1.0, wall.getWallWidth());
+    CPPUNIT_ASSERT_EQUAL(1.0, wall.getWidth());
 }

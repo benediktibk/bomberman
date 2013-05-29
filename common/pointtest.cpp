@@ -73,3 +73,13 @@ void PointTest::operatorDivide_3And6With3_1And2()
 
 	CPPUNIT_ASSERT_EQUAL(Point(1, 2), point/3);
 }
+
+void PointTest::operatorAdd_4And3To5And1_9And4()
+{
+	Point pointOne(4, 3);
+	Point pointTwo(5, 1);
+
+	Point result = pointOne + pointTwo;
+
+	CPPUNIT_ASSERT_EQUAL(Point(9, 4), result);
+}

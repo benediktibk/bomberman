@@ -23,8 +23,9 @@ Player::~Player()
 void Player::update(const PlayerState &state, double pixelPerMeter)
 {
 	Point position(state.getPosition()*pixelPerMeter);
+	position = position + Point(state.getWidth()/2, -15);
 	position.switchIntoQtCoordinates();
 
-    m_svgItem->setScale(0.001*pixelPerMeter*state.getWidth());
+	m_svgItem->setScale(0.001*pixelPerMeter*state.getWidth());
 	m_svgItem->setPos(position.toQPoint());
 }

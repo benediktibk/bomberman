@@ -6,9 +6,9 @@ WallState::WallState(UniqueIdCreator &creator, WallState::WallType wallType, con
 	m_position(position),
 	m_wallid(creator.getId()),
 	m_creatorid(creator),
-    m_wallType(wallType),
-    m_width(1.0),
-    m_height(1.0)
+	m_wallType(wallType),
+	m_width(1),
+	m_height(1)
 { }
 
 WallState::~WallState()
@@ -22,7 +22,7 @@ const Point &WallState::getPosition() const
 }
 
 
-unsigned int WallState::getWallId() const
+unsigned int WallState::getId() const
 {
 	return m_wallid;
 }
@@ -37,12 +37,12 @@ WallState::WallType WallState::getWallType() const
 	return m_wallType;
  }
 
-double WallState::getWallHeight() const
+double WallState::getHeight() const
 {
-    return m_height;
+	return m_height;
 }
 
-double WallState::getWallWidth() const
+double WallState::getWidth() const
 {
-    return m_width;
+	return m_width;
 }

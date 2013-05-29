@@ -36,7 +36,7 @@ void Grid::addWallAtPlace(WallState &wall)
     Point position = wall.getPosition();
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemWall;
-	m_idMatrix[index] = wall.getWallId();
+	m_idMatrix[index] = wall.getId();
 }
 
 void Grid::removeBomb(BombState &bomb)

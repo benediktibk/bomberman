@@ -22,8 +22,8 @@ public:
 	void setDestructionRange(int range);
     unsigned int getDestructionRange() const;
 	unsigned int getBombId() const;
-    double getBombWidth() const;
-    double getBombHeight() const;
+    double getWidth() const;
+    double getHeight() const;
 
 protected:
 	virtual void shouldBeDestroyed();

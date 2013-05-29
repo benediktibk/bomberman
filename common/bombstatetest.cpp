@@ -82,7 +82,7 @@ void BombStateTest::getBombHeight_heightIs1()
     UniqueIdCreator id;
     BombState bomb(id);
 
-    CPPUNIT_ASSERT_EQUAL(1.0, bomb.getBombHeight());
+    CPPUNIT_ASSERT_EQUAL(1.0, bomb.getHeight());
 }
 
 void BombStateTest::getBombWidth_widthIs1()
@@ -90,5 +90,5 @@ void BombStateTest::getBombWidth_widthIs1()
     UniqueIdCreator id;
     BombState bomb(id);
 
-    CPPUNIT_ASSERT_EQUAL(1.0, bomb.getBombWidth());
+    CPPUNIT_ASSERT_EQUAL(1.0, bomb.getWidth());
 }
