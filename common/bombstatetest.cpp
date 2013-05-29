@@ -65,3 +65,14 @@ void BombStateTest::setDestructionRange_5_hasChanged()
 
 	CPPUNIT_ASSERT(bomb.hasChanged());
 }
+
+void BombStateTest::setDestroyed_empty_hasChanged()
+{
+	UniqueIdCreator id;
+	BombState bomb(id);
+	bomb.resetChanged();
+
+	bomb.setDestroyed();
+
+	CPPUNIT_ASSERT(bomb.hasChanged());
+}

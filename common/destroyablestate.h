@@ -12,7 +12,7 @@ public:
 	void setDestroyed();
 
 protected:
-	virtual void gotCallToDestroyed();
+	virtual void shouldBeDestroyed();
 
 private:
 	bool m_destroyed;

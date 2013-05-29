@@ -26,5 +26,5 @@ void DestroyableStateTest::setDestroyed_onMockState_gotOneCallToGotDestroyed()
 
 	state.setDestroyed();
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)1, state.getCallsToGotCallToDestroyed());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, state.getCallsToShouldBeDestroyed());
 }

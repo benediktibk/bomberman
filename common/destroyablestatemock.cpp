@@ -6,12 +6,12 @@ DestroyableStateMock::DestroyableStateMock() :
 	m_callsToGotCallToDestroyed(0)
 { }
 
-unsigned int DestroyableStateMock::getCallsToGotCallToDestroyed() const
+unsigned int DestroyableStateMock::getCallsToShouldBeDestroyed() const
 {
 	return m_callsToGotCallToDestroyed;
 }
 
-void DestroyableStateMock::gotCallToDestroyed()
+void DestroyableStateMock::shouldBeDestroyed()
 {
 	++m_callsToGotCallToDestroyed;
 }

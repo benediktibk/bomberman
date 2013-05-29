@@ -26,6 +26,9 @@ public:
 	WallType getWallType() const;
 	unsigned int getWallId() const;
 
+protected:
+	virtual void shouldBeDestroyed();
+
 private:
 	const Point m_position;
 	const unsigned int m_wallid;

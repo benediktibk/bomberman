@@ -47,5 +47,10 @@ int BombState::getDestructionRange() const
 
 unsigned int BombState::getBombId() const
 {
-    return m_bombid;
+	return m_bombid;
+}
+
+void BombState::shouldBeDestroyed()
+{
+	setChanged();
 }

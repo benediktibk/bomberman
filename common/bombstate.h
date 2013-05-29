@@ -22,6 +22,10 @@ public:
 	void setDestructionRange(int range);
 	int getDestructionRange() const;
 	unsigned int getBombId() const;
+
+protected:
+	virtual void shouldBeDestroyed();
+
 private:
 	Point m_position;
 	double m_lifeTime;

@@ -16,6 +16,7 @@ class BombStateTest :
 	 CPPUNIT_TEST(setPosition_5And4_hasChanged);
 	 CPPUNIT_TEST(setLifeTime_4_hasChanged);
 	 CPPUNIT_TEST(setDestructionRange_5_hasChanged);
+	 CPPUNIT_TEST(setDestroyed_empty_hasChanged);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -25,6 +26,7 @@ private:
 	 void setPosition_5And4_hasChanged();
 	 void setLifeTime_4_hasChanged();
 	 void setDestructionRange_5_hasChanged();
+	 void setDestroyed_empty_hasChanged();
 };
 }
 

@@ -22,10 +22,15 @@ const Point &WallState::getPosition() const
 
 unsigned int WallState::getWallId() const
 {
-    return m_wallid;
+	return m_wallid;
+}
+
+void WallState::shouldBeDestroyed()
+{
+	setChanged();
 }
 
 WallState::WallType WallState::getWallType() const
 {
-    return m_wallType;
+	return m_wallType;
  }
