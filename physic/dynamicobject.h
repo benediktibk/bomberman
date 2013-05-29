@@ -23,6 +23,7 @@ public:
 	void applyLinearVelocity(double velocityx, double velocityy);
 
 private:
+	PhysicSimulator &m_simulator;
 	b2BodyDef *m_bodyDefinition;
 	b2Body *m_body;
 	b2PolygonShape *m_shape;
