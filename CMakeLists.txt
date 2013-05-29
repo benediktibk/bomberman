@@ -22,3 +22,9 @@ add_subdirectory(main)
 add_subdirectory(physic)
 add_subdirectory(sound)
 add_subdirectory(threading)
+
+add_custom_target(
+		checkIncludeGuards ALL
+		COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/checkIncludeGuards.sh
+		DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+	)

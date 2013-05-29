@@ -6,7 +6,7 @@ for headerFileWithPath in ${headerFiles}
 do
 	if	[ $headerFileWithPath != "./physic/Box2D" ] &&
 		[ $headerFileWithPath != "./build" ]; then
-		echo "checking ${headerFileWithPath}"
+		echo "checking include guard of ${headerFileWithPath}"
 
 		firstLine=$(head --lines 1 ${headerFileWithPath})
 		secondLine=$(head --lines 2 ${headerFileWithPath} | tail --lines 1)
