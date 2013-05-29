@@ -22,12 +22,16 @@ public:
 	const Point& getPosition() const;
 	WallType getWallType() const;
     unsigned int getWallId() const;
+    double getWallWidth() const;
+    double getWallHeight() const;
 
 private:
 	const Point m_position;
 	const unsigned int m_wallid;
 	UniqueIdCreator &m_creatorid;
 	const WallType m_wallType;
+    double m_width;
+    double m_height;
 };
 }
 

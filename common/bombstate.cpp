@@ -3,9 +3,9 @@
 using namespace Common;
 
 BombState::BombState(UniqueIdCreator &creator) :
-	m_lifeTime(3),
-    m_width(1),
-    m_height(1),
+    m_lifeTime(3.0),
+    m_width(1.0),
+    m_height(1.0),
     m_destructionRange(1),
 	m_bombid(creator.getId()),
     m_creatorid(creator)

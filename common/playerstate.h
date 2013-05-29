@@ -29,6 +29,8 @@ public:
     void reduceBombCount();
     unsigned int getBombCount();
     double getPlayerSpeed() const;
+    double getPlayerWidth() const;
+    double getPlayerHeight() const;
 
 
 private:
@@ -36,6 +38,8 @@ private:
 	PlayerDirection m_PlayerDirection;
     unsigned int m_placedBombCount;
     double m_playerspeed;
+    double m_width;
+    double m_height;
 };
 }
 
