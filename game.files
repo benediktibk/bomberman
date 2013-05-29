@@ -207,3 +207,5 @@ physic/wallleft.h
 physic/wallleft.cpp
 common/leveldefinition.h
 common/leveldefinition.cpp
+common/leveldefinitiontest.h
+common/leveldefinitiontest.cpp

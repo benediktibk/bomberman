@@ -20,7 +20,7 @@ set(COMMON_TEST_SRC
 	bombstatetest.cpp
 	wallstatetest.cpp
 	uniqueidcreatortest.cpp
-	leveldefinition.cpp
+	leveldefinitiontest.cpp
 )
 
 add_library(common ${COMMON_SRC})
