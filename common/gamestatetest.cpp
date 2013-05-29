@@ -98,3 +98,27 @@ void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_resultBombCoun
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, playerState.getBombCount());
 }
+
+void GameStateTest::resetChangedFlags_oneWallAdded_wallIsNotChanged()
+{
+	UniqueIdCreator idCreator;
+	GameState state;
+	WallState *wall = new WallState(idCreator, WallState::WallTypeSolid, Point());
+	state.addWall(wall);
+
+	state.resetChangedFlags();
+
+	CPPUNIT_ASSERT(!wall->hasChanged());
+}
+
+void GameStateTest::resetChangedFlags_oneBombAdded_bombIsNotChanged()
+{
+	UniqueIdCreator idCreator;
+	GameState state;
+	BombState *bomb = new BombState(idCreator);
+	state.addBomb(bomb);
+
+	state.resetChangedFlags();
+
+	CPPUNIT_ASSERT(!bomb->hasChanged());
+}

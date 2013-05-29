@@ -94,6 +94,14 @@ void GameState::reduceAllBombsLifeTime(double time)
 	 }
  }
 
+ void GameState::resetChangedFlags()
+ {
+	 for (vector<WallState*>::iterator i = m_walls.begin(); i != m_walls.end(); ++i)
+		 (*i)->resetChanged();
+	 for (vector<BombState*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
+		 (*i)->resetChanged();
+ }
+
 GameState::GameState(const GameState &)
 { }
 

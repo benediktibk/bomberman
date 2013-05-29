@@ -24,6 +24,7 @@ public:
 	void addBomb(BombState* bomb);
 	void reduceAllBombsLifeTime(double time);
 	void deleteAllBombsWithNegativeLifeTime(PlayerState &playerState);
+	void resetChangedFlags();
 
 private:
 	void eraseBomb(size_t position);
