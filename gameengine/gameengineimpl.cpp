@@ -13,10 +13,10 @@ using namespace std;
 GameEngineImpl::GameEngineImpl() :
 	m_simulator(new PhysicSimulator),
 	m_player(new DynamicObject(*m_simulator, m_playerState.getPosition(), m_playerState.getWidth(), m_playerState.getHeight())),
-	m_upperBorder(new StaticObject(*m_simulator, Point(8, 14), 13, 1)),
-	m_lowerBorder(new StaticObject(*m_simulator, Point(8, 0), 13, 1)),
-	m_leftBorder(new StaticObject(*m_simulator, Point(0, 7), 1, 13)),
-	m_rightBorder(new StaticObject(*m_simulator,Point(16, 7), 1, 13)),
+	m_upperBorder(new StaticObject(*m_simulator, Point(0, 15), 15, 1)),
+	m_lowerBorder(new StaticObject(*m_simulator, Point(0, -1), 15, 1)),
+	m_leftBorder(new StaticObject(*m_simulator, Point(-1, 0), 1, 15)),
+	m_rightBorder(new StaticObject(*m_simulator,Point(15, 0), 1, 15)),
 	m_grid(new Grid(50, 50)),
 	m_firstGameStateUpdate(true)
 {

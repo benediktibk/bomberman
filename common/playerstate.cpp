@@ -3,12 +3,11 @@
 using namespace Common;
 
 PlayerState::PlayerState() :
-	m_position(1, 1),
 	m_direction(PlayerDirectionUp),
 	m_placedBombCount(0),
 	m_speed(5.0),
-	m_width(0.7),
-	m_height(0.7)
+	m_width(1),
+	m_height(1)
 { }
 
 void PlayerState::setPosition(Point value)
