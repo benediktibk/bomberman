@@ -14,43 +14,21 @@ using namespace Physic;
 
 GameEngineImpl::GameEngineImpl() :
 	m_simulator(new PhysicSimulator),
-	m_player(new DynamicObject(*m_simulator)),
-	m_block(new StaticObject(*m_simulator)),
-	m_top(new TopWall(*m_simulator)),
-	m_bot(new BotWall(*m_simulator)),
-	m_left(new WallLeft(*m_simulator)),
-	m_right(new WallRight(*m_simulator))
-{
-
-   // WallState wallstate;
-  //  WallState wallstate1;
-  //  WallState wallstate2;
-
-
-	//wallstate.setPosition(Point(1,2));
-   // wallstate1.setPosition(Point(-2,-1));
-	//wallstate2.setPosition(Point(-2,0));
-
-	//m_gameState.addWall(wallstate);
-	//m_gameState.addWall(wallstate1);
-	//m_gameState.addWall(wallstate2);
-
-}
-
+	m_player(new DynamicObject(*m_simulator))
+{ }
 
 GameEngineImpl::~GameEngineImpl()
 {
 	delete m_player;
 	delete m_simulator;
-	delete m_block;
-	delete m_top;
-	delete m_bot;
 }
 
 void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 {
 	PlayerState playerState = m_gameState.getPlayerState();
 	m_inputState = inputState;
+
+	m_gameState.removeAllObjectsWithDestroyedFlag();
 
 	m_gameState.reduceAllBombsLifeTime(time);
 	m_gameState.deleteAllBombsWithNegativeLifeTime(playerState);

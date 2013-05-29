@@ -40,6 +40,7 @@ MainWindow::~MainWindow()
 	delete m_gameLoop;
 	delete m_drawer;
 	delete m_gameEngine;
+	delete m_ui;
 }
 
 void MainWindow::updateGui(const Common::GameState *gameState)

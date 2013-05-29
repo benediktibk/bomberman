@@ -1,5 +1,5 @@
-#ifndef CHANGABLESTATE_H
-#define CHANGABLESTATE_H
+#ifndef COMMON_CHANGABLESTATE_H
+#define COMMON_CHANGABLESTATE_H
 
 namespace Common
 {
@@ -7,6 +7,7 @@ class ChangeableState
 {
 public:
 	ChangeableState();
+	virtual ~ChangeableState();
 
 public:
 	void setChanged();

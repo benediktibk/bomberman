@@ -24,20 +24,16 @@ public:
 	virtual ~GameEngineImpl();
 
 	virtual void updateGameState(const Common::InputState &inputState, double time);
-    virtual const Common::GameState& getGameState() const;
+	virtual const Common::GameState& getGameState() const;
 
 private:
 	Common::InputState m_inputState;
-    Common::UniqueIdCreator m_bombids;
-    Common::UniqueIdCreator m_wallids;
+	Common::UniqueIdCreator m_bombids;
+	Common::UniqueIdCreator m_wallids;
 	Common::GameState m_gameState;
 	Physic::PhysicSimulator *m_simulator;
-    Physic::DynamicObject *m_player;
-    Physic::StaticObject *m_block;
-    Physic::TopWall *m_top;
-    Physic::BotWall *m_bot;
-    Physic::WallLeft *m_left;
-    Physic::WallRight *m_right;
+	Physic::DynamicObject *m_player;
+	Physic::StaticObject *m_block;
 };
 }
 

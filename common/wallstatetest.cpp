@@ -12,6 +12,16 @@ void WallStateTest::construct_looseWall_typeIsLooseWall()
 	CPPUNIT_ASSERT_EQUAL(WallState::WallTypeLoose, wall.getWallType());
 }
 
+void WallStateTest::setDestroyed_empty_hasChanged()
+{
+	UniqueIdCreator id;
+	WallState wall(id, WallState::WallTypeLoose, Point());
+
+	wall.setDestroyed();
+
+	CPPUNIT_ASSERT(wall.hasChanged());
+}
+
 void WallStateTest::construct_solidWall_typeIsSolidWall()
 {
 	UniqueIdCreator id;
