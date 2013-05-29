@@ -3,11 +3,12 @@
 using namespace Common;
 
 PlayerState::PlayerState() :
-    m_PlayerDirection(PlayerDirectionUp),
-    m_placedBombCount(0),
-    m_playerspeed(5.0),
-    m_width(1.0),
-    m_height(1.0)
+	m_position(1, 1),
+	m_direction(PlayerDirectionUp),
+	m_placedBombCount(0),
+	m_speed(5.0),
+	m_width(0.5),
+	m_height(0.5)
 { }
 
 void PlayerState::setPosition(Point value)
@@ -22,55 +23,55 @@ Point PlayerState::getPosition() const
 
 void PlayerState::setDirectionUp()
 {
-    m_PlayerDirection=PlayerDirectionUp;
+	m_direction=PlayerDirectionUp;
 }
 
 void PlayerState::setDirectionDown()
 {
-    m_PlayerDirection=PlayerDirectionDown;
+	m_direction=PlayerDirectionDown;
 }
 
 void PlayerState::setDirectionLeft()
 {
-    m_PlayerDirection=PlayerDirectionLeft;
+	m_direction=PlayerDirectionLeft;
 }
 
 void PlayerState::setDirectionRight()
 {
-    m_PlayerDirection=PlayerDirectionRight;
+	m_direction=PlayerDirectionRight;
 }
 
 PlayerState::PlayerDirection PlayerState::getDirection() const
 {
-    return m_PlayerDirection;
+	return m_direction;
 }
 
 void PlayerState::countBomb()
 {
-    m_placedBombCount += 1;
+	m_placedBombCount += 1;
 }
 
 void PlayerState::reduceBombCount()
 {
-    m_placedBombCount -= 1;
+	m_placedBombCount -= 1;
 }
 
 unsigned int PlayerState::getBombCount()
 {
-    return m_placedBombCount;
+	return m_placedBombCount;
 }
 
-double PlayerState::getPlayerSpeed() const
+double PlayerState::getSpeed() const
 {
-    return m_playerspeed;
+	return m_speed;
 }
 
-double PlayerState::getPlayerHeight() const
+double PlayerState::getHeight() const
 {
-    return m_height;
+	return m_height;
 }
 
-double PlayerState::getPlayerWidth() const
+double PlayerState::getWidth() const
 {
-    return m_width;
+	return m_width;
 }

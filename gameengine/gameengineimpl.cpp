@@ -12,7 +12,7 @@ using namespace std;
 
 GameEngineImpl::GameEngineImpl() :
 	m_simulator(new PhysicSimulator),
-	m_player(new DynamicObject(*m_simulator)),
+	m_player(new DynamicObject(*m_simulator, m_playerState.getPosition(), m_playerState.getWidth(), m_playerState.getHeight())),
 	m_upperBorder(new StaticObject(*m_simulator, Point(8, 14), 13, 1)),
 	m_lowerBorder(new StaticObject(*m_simulator, Point(8, 0), 13, 1)),
 	m_leftBorder(new StaticObject(*m_simulator, Point(0, 7), 1, 13)),
@@ -88,13 +88,13 @@ void GameEngineImpl::deleteAllBombObjects()
 void GameEngineImpl::updatePlayerSpeed()
 {
 	if (m_inputState.isUpKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionUp)
-		m_player->applyLinearVelocity(0, m_playerState.getPlayerSpeed());
+		m_player->applyLinearVelocity(0, m_playerState.getSpeed());
 	else if (m_inputState.isDownKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionDown)
-		m_player->applyLinearVelocity(0, (-1)*m_playerState.getPlayerSpeed());
+		m_player->applyLinearVelocity(0, (-1)*m_playerState.getSpeed());
 	else if (m_inputState.isLeftKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionLeft)
-		m_player->applyLinearVelocity((-1)*m_playerState.getPlayerSpeed(), 0);
+		m_player->applyLinearVelocity((-1)*m_playerState.getSpeed(), 0);
 	else if (m_inputState.isRightKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionRight)
-		m_player->applyLinearVelocity(m_playerState.getPlayerSpeed(), 0);
+		m_player->applyLinearVelocity(m_playerState.getSpeed(), 0);
 	else if (m_inputState.isUpKeyPressed())
 	{
 		m_playerState.setDirectionUp();

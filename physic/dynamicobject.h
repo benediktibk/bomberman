@@ -16,7 +16,7 @@ class PhysicSimulator;
 class DynamicObject
 {
 public:
-	DynamicObject(PhysicSimulator &simulator);
+	DynamicObject(PhysicSimulator &simulator, const Common::Point &position, double width, double height);
 	~DynamicObject();
 
 	Common::Point getPosition() const;
@@ -29,6 +29,8 @@ private:
 	b2PolygonShape *m_shape;
 	b2FixtureDef *m_fixtureDefinition;
 	b2Fixture *m_fixture;
+	double m_width;
+	double m_height;
 };
 }
 

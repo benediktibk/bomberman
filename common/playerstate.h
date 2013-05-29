@@ -25,21 +25,21 @@ public:
 	void setDirectionDown();
 	void setDirectionLeft();
 	void setDirectionRight();
-    void countBomb();
-    void reduceBombCount();
-    unsigned int getBombCount();
-    double getPlayerSpeed() const;
-    double getPlayerWidth() const;
-    double getPlayerHeight() const;
+	void countBomb();
+	void reduceBombCount();
+	unsigned int getBombCount();
+	double getSpeed() const;
+	double getWidth() const;
+	double getHeight() const;
 
 
 private:
 	Point m_position;
-	PlayerDirection m_PlayerDirection;
-    unsigned int m_placedBombCount;
-    double m_playerspeed;
-    double m_width;
-    double m_height;
+	PlayerDirection m_direction;
+	unsigned int m_placedBombCount;
+	double m_speed;
+	double m_width;
+	double m_height;
 };
 }
 
