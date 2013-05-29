@@ -76,26 +76,28 @@ void GraphicDrawerQt::drawWall(const WallState *wallState)
 void GraphicDrawerQt::drawBombs(const vector<const BombState*> &bombs)
 {
 	for (vector<const BombState*>::const_iterator i = bombs.begin(); i != bombs.end(); ++i)
+		drawBomb(*i);
+}
+
+void GraphicDrawerQt::drawBomb(const BombState *bombState)
+{
+	if (bombState->isDestroyed())
+		deleteBomb(bombState);
+	else
 	{
-		if ((*i)->isDestroyed())
-			deleteBomb(*i);
+		map<const BombState*, Bomb*>::iterator bombPosition = m_bombs.find(bombState);
+		bool bombFound = bombPosition != m_bombs.end();
+		Bomb* bomb = 0;
+
+		if (!bombFound)
+			bomb = new Bomb(*m_scene);
 		else
-		{
-			map<const BombState*, Bomb*>::iterator bombPosition = m_bombs.find(*i);
-			bool bombFound = bombPosition != m_bombs.end();
-			Bomb* bomb = 0;
-			const BombState &state = **i;
+			bomb = bombPosition->second;
 
-			if (!bombFound)
-				bomb = new Bomb(*m_scene);
-			else
-				bomb = bombPosition->second;
+		bomb->update(*bombState, m_pixelPerMeter);
 
-			bomb->update(state, m_pixelPerMeter);
-
-			if (!bombFound)
-				m_bombs.insert(pair<const BombState*, Bomb*>(*i, bomb));
-		}
+		if (!bombFound)
+			m_bombs.insert(pair<const BombState*, Bomb*>(bombState, bomb));
 	}
 }
 
