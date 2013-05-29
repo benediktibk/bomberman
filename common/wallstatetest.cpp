@@ -7,7 +7,7 @@ using namespace Common;
 void WallStateTest::setPosition_5And4_positionIs5And4()
 {
     UniqueIdCreator id;
-    WallState wall(id);
+    WallState wall(id, WallState::WallTypeSolid);
 
 	wall.setPosition(Point(5, 4));
 

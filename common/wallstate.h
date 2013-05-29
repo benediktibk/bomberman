@@ -9,15 +9,23 @@ namespace Common
 class WallState
 {
 public:
-    WallState(UniqueIdCreator &creator);
+    enum WallType
+    {
+        WallTypeSolid,
+        WallTypeLoose
+    };
+
+    WallState(UniqueIdCreator &creator, WallType wallType);
     ~WallState();
     void setPosition(const Point &value);
     const Point& getPosition() const;
+    WallType getWallType() const;
 
 private:
     Point m_position;
     unsigned int m_wallid;
     UniqueIdCreator &m_creatorid;
+    const WallType m_wallType;
 };
 }
 
