@@ -12,4 +12,3 @@ LevelDefinition::ObjectType LevelDefinition::getObjectTypeAtPosition(unsigned in
 {
     return m_objectMatrix[m_width*(positionY-1)+positionX-1];
 }
-
