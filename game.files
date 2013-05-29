@@ -221,3 +221,4 @@ common/destroyablestate.cpp
 common/destroyablestatetest.cpp
 common/destroyablestatemock.h
 common/destroyablestatemock.cpp
+checkIncludeGuards.sh
