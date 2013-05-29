@@ -71,7 +71,13 @@ void GameState::addBomb(BombState* bomb)
 void GameState::eraseBomb(size_t position)
 {
 	delete m_bombs[position];
-	m_bombs.erase(m_bombs.begin()+position);
+	m_bombs.erase(m_bombs.begin() + position);
+}
+
+void GameState::eraseWall(size_t position)
+{
+	delete m_walls[position];
+	m_walls.erase(m_walls.begin() + position);
 }
 
 void GameState::reduceAllBombsLifeTime(double time)
@@ -90,7 +96,7 @@ void GameState::reduceAllBombsLifeTime(double time)
 		BombState *currentBomb = m_bombs[i];
 		if (currentBomb->getLifeTime() < 0)
 		{
-			eraseBomb(i);
+			currentBomb->setDestroyed();
 			playerState.reduceBombCount();
 		}
 	 }
@@ -102,6 +108,21 @@ void GameState::reduceAllBombsLifeTime(double time)
 		 (*i)->resetChanged();
 	 for (vector<BombState*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
 		 (*i)->resetChanged();
+ }
+
+ void GameState::removeAllObjectsWithDestroyedFlag()
+ {
+	 for (size_t i = 0; i < m_walls.size(); ++i)
+	 {
+		 if (m_walls[i]->isDestroyed())
+			 eraseWall(i);
+	 }
+
+	 for (size_t i = 0; i < m_bombs.size(); ++i)
+	 {
+		 if (m_bombs[i]->isDestroyed())
+			 eraseBomb(i);
+	 }
  }
 
 GameState::GameState(const GameState &)

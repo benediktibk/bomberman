@@ -74,28 +74,30 @@ void GameEngineImplTest::updateGameState_SpaceKeyPressed_BombPlaced_testPosition
 
 void GameEngineImplTest::updateGameState_SpaceKeyPressed_BombPlaced_testBombLifeTime_resultIs2()
 {
-    GameEngineImpl gameEngine;
-    InputState input;
-    const BombState *bomb;
+	GameEngineImpl gameEngine;
+	InputState input;
+	const BombState *bomb;
 
-    input.setSpaceKeyPressed();
-    gameEngine.updateGameState(input,0);
-    gameEngine.updateGameState(input,1);
-    const GameState &game = gameEngine.getGameState();
-    bomb = game.getAllChangedBombs().front();
+	input.setSpaceKeyPressed();
+	gameEngine.updateGameState(input,0);
+	gameEngine.updateGameState(input,1);
+	const GameState &game = gameEngine.getGameState();
+	bomb = game.getAllChangedBombs().front();
 
-    CPPUNIT_ASSERT_EQUAL((double)2, bomb->getLifeTime());
+	CPPUNIT_ASSERT_EQUAL((double)2, bomb->getLifeTime());
 }
 
 void GameEngineImplTest::updateGameState_SpaceKeyPressed_towBombsPlaced_oneBombDelete_testBombCount_resultIs1()
 {
-    GameEngineImpl gameEngine;
-    InputState input;
+	GameEngineImpl gameEngine;
+	InputState input;
 
-    input.setSpaceKeyPressed();
-    gameEngine.updateGameState(input,0);
-    gameEngine.updateGameState(input,3.1);
-    const GameState &game = gameEngine.getGameState();
+	input.setSpaceKeyPressed();
+	gameEngine.updateGameState(input, 0);
+	input.setSpaceKeyNotPressed();
+	gameEngine.updateGameState(input, 3.1);
+	gameEngine.updateGameState(input, 0);
+	const GameState &game = gameEngine.getGameState();
 
-    CPPUNIT_ASSERT_EQUAL((size_t)1, game.getBombCount());
+	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getBombCount());
 }
