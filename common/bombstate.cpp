@@ -4,9 +4,11 @@ using namespace Common;
 
 BombState::BombState(UniqueIdCreator &creator) :
 	m_lifeTime(3),
-	m_destructionRange(1),
+    m_width(1),
+    m_height(1),
+    m_destructionRange(1),
 	m_bombid(creator.getId()),
-	m_creatorid(creator)
+    m_creatorid(creator)
 { }
 BombState::~BombState()
 {
@@ -48,4 +50,14 @@ int BombState::getDestructionRange() const
 unsigned int BombState::getBombId() const
 {
     return m_bombid;
+}
+
+double BombState::getBombHeight() const
+{
+    return m_height;
+}
+
+double BombState::getBombWidth() const
+{
+    return m_width;
 }
