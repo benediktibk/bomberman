@@ -215,3 +215,7 @@ common/changeablestatetest.h
 common/changeablestatetest.cpp
 common/leveldefinitiontest.h
 common/leveldefinitiontest.cpp
+common/destroyablestate.h
+common/destroyablestatetest.h
+common/destroyablestate.cpp
+common/destroyablestatetest.cpp

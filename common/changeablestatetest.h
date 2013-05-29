@@ -1,5 +1,5 @@
-#ifndef CHANGEABLESTATETEST_H
-#define CHANGEABLESTATETEST_H
+#ifndef COMMON_CHANGEABLESTATETEST_H
+#define COMMON_CHANGEABLESTATETEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>

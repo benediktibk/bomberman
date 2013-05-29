@@ -74,7 +74,7 @@ void GameStateTest::getAllBombsLifeTime_AfterReduceLifeTime_resultTimeIs2()
 	CPPUNIT_ASSERT_EQUAL((double)2, bomb->getLifeTime());
 }
 
-void GameStateTest::getAllChangedBombs_twoBombsAdded_oneDeleted_resultSizeIs1()
+void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_resultSizeIs1()
 {
 	UniqueIdCreator idCreator;
 	GameState state;
@@ -93,7 +93,7 @@ void GameStateTest::getAllChangedBombs_twoBombsAdded_oneDeleted_resultSizeIs1()
 	CPPUNIT_ASSERT_EQUAL((size_t)1, bombs.size());
 }
 
-void GameStateTest::getAllChangedBombs_twoBombsAdded_oneDeleted_resultBombCountIs1()
+void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_resultBombCountIs1()
 {
 	UniqueIdCreator idCreator;
 	GameState state;
