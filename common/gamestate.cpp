@@ -10,13 +10,9 @@ GameState::GameState()
 GameState::~GameState()
 {
 	for(std::vector<BombState*>::iterator i = m_bombs.begin();i != m_bombs.end(); ++i)
-	{
 		delete *i;
-	}
 	for(std::vector<WallState*>::iterator i = m_walls.begin();i != m_walls.end(); ++i)
-	{
 		delete *i;
-	}
 }
 
 void GameState::setPlayerState(const PlayerState &state)
@@ -70,7 +66,7 @@ void GameState::addBomb(BombState* bomb)
 	m_bombs.push_back(bomb);
 }
 
-void GameState::eraseBomb(int position)
+void GameState::eraseBomb(size_t position)
 {
 	delete m_bombs[position];
 	m_bombs.erase(m_bombs.begin()+position);
@@ -78,7 +74,7 @@ void GameState::eraseBomb(int position)
 
 void GameState::reduceAllBombsLifeTime(double time)
 {
-	for(unsigned int i=0;i<m_bombs.size();i++)
+	for(size_t i = 0; i < m_bombs.size(); i++)
 	{
 		BombState *currentBomb = m_bombs[i];
 		currentBomb->setLifeTime(currentBomb->getLifeTime() - time);
@@ -87,10 +83,10 @@ void GameState::reduceAllBombsLifeTime(double time)
 
  void GameState::deleteAllBombsWithNegativeLifeTime(PlayerState &playerState)
  {
-	 for(unsigned int i=0;i<m_bombs.size();i++)
+	 for(size_t i = 0; i < m_bombs.size(); i++)
 	 {
 		BombState *currentBomb = m_bombs[i];
-		if (currentBomb->getLifeTime()<0)
+		if (currentBomb->getLifeTime() < 0)
 		{
 			eraseBomb(i);
 			playerState.reduceBombCount();

@@ -25,17 +25,6 @@ void GameStateTest::addBomb_defaultBomb_bombCountIs1()
 	CPPUNIT_ASSERT_EQUAL((size_t)1, state.getBombCount());
 }
 
-void GameStateTest::eraseBomb_defaultBomb_bombCountIs1()
-{
-	UniqueIdCreator idCreator;
-	GameState state;
-	state.addBomb(new BombState(idCreator));
-	state.addBomb(new BombState(idCreator));
-	state.eraseBomb(1);
-
-	CPPUNIT_ASSERT_EQUAL((size_t)1, state.getBombCount());
-}
-
 void GameStateTest::getAllChangedBombs_twoBombsAdded_resultSizeIs2()
 {
 	UniqueIdCreator idCreator;

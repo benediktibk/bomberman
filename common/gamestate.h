@@ -22,9 +22,11 @@ public:
 	std::vector<const BombState*> getAllChangedBombs() const;
 	size_t getBombCount() const;
 	void addBomb(BombState* bomb);
-	void eraseBomb(int position);
 	void reduceAllBombsLifeTime(double time);
 	void deleteAllBombsWithNegativeLifeTime(PlayerState &playerState);
+
+private:
+	void eraseBomb(size_t position);
 
 private:
 	// forbid copies
