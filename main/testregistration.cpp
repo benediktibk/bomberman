@@ -14,6 +14,7 @@
 #include "common/uniqueidcreatortest.h"
 #include "common/changeablestatetest.h"
 #include "gameengine/gridtest.h"
+#include "common/destroyablestatetest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::GameStateTest);
@@ -31,3 +32,5 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Threading::SignalTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::UniqueIdCreatorTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::ChangeableStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GridTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::DestroyableStateTest);
+

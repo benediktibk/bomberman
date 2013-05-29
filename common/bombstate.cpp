@@ -3,12 +3,12 @@
 using namespace Common;
 
 BombState::BombState(UniqueIdCreator &creator) :
-    m_lifeTime(3.0),
-    m_width(1.0),
-    m_height(1.0),
-    m_destructionRange(1),
+	m_lifeTime(3.0),
+	m_width(1.0),
+	m_height(1.0),
+	m_destructionRange(1),
 	m_bombid(creator.getId()),
-    m_creatorid(creator)
+	m_creatorid(creator)
 { }
 BombState::~BombState()
 {
@@ -49,15 +49,20 @@ int BombState::getDestructionRange() const
 
 unsigned int BombState::getBombId() const
 {
-    return m_bombid;
+	return m_bombid;
 }
 
 double BombState::getBombHeight() const
 {
-    return m_height;
+	return m_height;
 }
 
 double BombState::getBombWidth() const
 {
-    return m_width;
+	return m_width;
+}
+
+void BombState::shouldBeDestroyed()
+{
+	setChanged();
 }

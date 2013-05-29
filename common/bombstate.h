@@ -4,11 +4,13 @@
 #include "common/point.h"
 #include "common/uniqueidcreator.h"
 #include "common/changeablestate.h"
+#include "common/destroyablestate.h"
 
 namespace Common
 {
 class BombState :
-		public ChangeableState
+		public ChangeableState,
+		public DestroyableState
 {
 public:
 	BombState(UniqueIdCreator &creator);
@@ -19,9 +21,12 @@ public:
     double getLifeTime() const;
 	void setDestructionRange(int range);
 	int getDestructionRange() const;
-    unsigned int getBombId() const;
+	unsigned int getBombId() const;
     double getBombWidth() const;
     double getBombHeight() const;
+
+protected:
+	virtual void shouldBeDestroyed();
 
 private:
 	Point m_position;

@@ -1,7 +1,6 @@
 #ifndef GAMEENGINE_GRIDTEST_H
 #define GAMEENGINE_GRIDTEST_H
 
-
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
