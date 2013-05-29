@@ -26,6 +26,6 @@ void Wall::update(const Common::WallState &state, double pixelPerMeter)
 	Point position(state.getPosition()*pixelPerMeter);
 	position.switchIntoQtCoordinates();
 
-	m_svgItem->setScale(0.001*pixelPerMeter);
+    m_svgItem->setScale(0.001*pixelPerMeter*state.getWallHeight());
 	m_svgItem->setPos(position.toQPoint());
 }
