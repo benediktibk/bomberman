@@ -89,9 +89,8 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
         Point gridPoint;
 
         bombPlaced->setPosition(m_player->getPosition());
-        gridPoint = m_grid->addBombAtPlace(*bombPlaced);
-        bombPlaced->setPosition(gridPoint);
-		playerState.countBomb();
+        m_grid->addBombAtPlace(*bombPlaced);
+        playerState.countBomb();
 
 		m_gameState.addBomb(bombPlaced);
 		}

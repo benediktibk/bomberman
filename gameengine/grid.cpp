@@ -21,22 +21,21 @@ bool Grid::isPlaceEmpty(const Point &position) const
 		return false;
 }
 
-Point Grid::addBombAtPlace(BombState &bomb)
+void Grid::addBombAtPlace(BombState &bomb)
 {
     Point position = bomb.getPosition();
 	unsigned int index = getVectorIndex(position);
     m_itemMatrix[index] = ItemBomb;
 	m_idMatrix[index] = bomb.getBombId();
-    return position.getGridPosition();
+    bomb.setPosition(position.getGridPosition());
 }
 
-Point Grid::addWallAtPlace(WallState &wall)
+void Grid::addWallAtPlace(WallState &wall)
 {
-	Point position = wall.getPosition();
+    Point position = wall.getPosition();
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemWall;
 	m_idMatrix[index] = wall.getWallId();
-    return position.getGridPosition();
 }
 
 void Grid::removeBomb(BombState &bomb)
