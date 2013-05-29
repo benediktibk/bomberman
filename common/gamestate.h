@@ -41,9 +41,13 @@ private:
 	PlayerState m_playerState;
 	std::vector<WallState*> m_walls;
 	std::vector<BombState*> m_bombs;
+<<<<<<< local
     LevelDefinition m_level;
     unsigned int m_height;
     unsigned int m_width;
+=======
+
+>>>>>>> other
 };
 }
 

@@ -1,5 +1,6 @@
 #ifndef STATICOBJECT_H
 #define STATICOBJECT_H
+
 #include "common/point.h"
 
 class b2Body;
@@ -15,10 +16,12 @@ class PhysicSimulator;
 class StaticObject
 {
 public:
-    StaticObject(PhysicSimulator &simulator);
+    StaticObject(PhysicSimulator &simulator, const Common::Point &position, const Common::Point &size);
     ~StaticObject();
 
-//    void setPosition(const Common::Point &value) const;
+    void SetPosition(double x, double y);
+    //void StaticObject::DestroyBody();
+
 private:
 
     b2Body *m_body;
