@@ -7,6 +7,7 @@ class DestroyableState
 {
 public:
 	DestroyableState();
+	virtual ~DestroyableState();
 
 	bool isDestroyed() const;
 	void setDestroyed();

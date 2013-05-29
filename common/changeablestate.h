@@ -7,6 +7,7 @@ class ChangeableState
 {
 public:
 	ChangeableState();
+	virtual ~ChangeableState();
 
 public:
 	void setChanged();

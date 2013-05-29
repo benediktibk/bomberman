@@ -6,6 +6,9 @@ ChangeableState::ChangeableState() :
 	m_changed(true)
 { }
 
+ChangeableState::~ChangeableState()
+{ }
+
 void ChangeableState::setChanged()
 {
 	m_changed = true;

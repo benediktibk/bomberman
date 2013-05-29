@@ -6,6 +6,9 @@ DestroyableState::DestroyableState() :
 	m_destroyed(false)
 { }
 
+DestroyableState::~DestroyableState()
+{ }
+
 bool DestroyableState::isDestroyed() const
 {
 	return m_destroyed;
