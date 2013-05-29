@@ -28,11 +28,14 @@ public:
     void countBomb();
     void reduceBombCount();
     unsigned int getBombCount();
+    double getPlayerSpeed() const;
+
 
 private:
 	Point m_position;
 	PlayerDirection m_PlayerDirection;
     unsigned int m_placedBombCount;
+    double m_playerspeed;
 };
 }
 

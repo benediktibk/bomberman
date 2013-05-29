@@ -4,7 +4,8 @@ using namespace Common;
 
 PlayerState::PlayerState() :
     m_PlayerDirection(PlayerDirectionUp),
-    m_placedBombCount(0)
+    m_placedBombCount(0),
+    m_playerspeed(5.0)
 { }
 
 void PlayerState::setPosition(Point value)
@@ -55,4 +56,9 @@ void PlayerState::reduceBombCount()
 unsigned int PlayerState::getBombCount()
 {
     return m_placedBombCount;
+}
+
+double PlayerState::getPlayerSpeed() const
+{
+    return m_playerspeed;
 }
