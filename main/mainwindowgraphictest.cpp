@@ -42,23 +42,20 @@ void MainWindowGraphicTest::connectSlots()
 
 void MainWindowGraphicTest::drawState1()
 {
-    UniqueIdCreator id;
+	UniqueIdCreator id;
 	GameState gameState;
-    WallState *wallOne = new WallState(id, WallState::WallTypeSolid);
-    WallState *wallTwo = new WallState(id, WallState::WallTypeSolid);
-    WallState *wallThree = new WallState(id, WallState::WallTypeLoose);
-    BombState *bombOne = new BombState(id);
-    BombState *bombTwo = new BombState(id);
+	WallState *wallOne = new WallState(id, WallState::WallTypeSolid, Point(-3, 4));
+	WallState *wallTwo = new WallState(id, WallState::WallTypeSolid, Point(2, 3));
+	WallState *wallThree = new WallState(id, WallState::WallTypeLoose, Point(1, 5));
+	BombState *bombOne = new BombState(id);
+	BombState *bombTwo = new BombState(id);
 
-    wallOne->setPosition(Point(-3, 4));
-    wallTwo->setPosition(Point(2, 3));
-    wallThree->setPosition(Point(1, 5));
-    bombOne->setPosition(Point(0, 2));
-    bombTwo->setPosition(Point(-4, -1));
+	bombOne->setPosition(Point(0, 2));
+	bombTwo->setPosition(Point(-4, -1));
 	gameState.addWall(wallOne);
 	gameState.addWall(wallTwo);
 	gameState.addWall(wallThree);
-    gameState.addBomb(bombOne);
+	gameState.addBomb(bombOne);
 	gameState.addBomb(bombTwo);
 
 	m_drawer->draw(gameState);

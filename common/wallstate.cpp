@@ -1,23 +1,17 @@
 #include "wallstate.h"
-//#include "physic/staticobject.h"
 
 using namespace Common;
 
-WallState::WallState(UniqueIdCreator &creator, WallState::WallType wallType) :
-		m_wallid(creator.getId()),
-		m_creatorid(creator),
-		m_wallType(wallType)
+WallState::WallState(UniqueIdCreator &creator, WallState::WallType wallType, const Point &position) :
+	m_position(position),
+	m_wallid(creator.getId()),
+	m_creatorid(creator),
+	m_wallType(wallType)
 { }
 
 WallState::~WallState()
 {
 	m_creatorid.removeId(m_wallid);
-}
-
-void WallState::setPosition(const Point &value)
-{
-	m_position = value;
-	setChanged();
 }
 
 const Point &WallState::getPosition() const
