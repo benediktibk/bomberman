@@ -69,7 +69,7 @@ void GameEngineImplTest::updateGameState_oneBombPlaced_bombPositionIsSameAsPlaye
 	const PlayerState &player = game.getPlayerState();
 	bomb = game.getAllChangedBombs().front();
 
-	CPPUNIT_ASSERT_EQUAL(player.getPosition(), bomb->getPosition());
+	CPPUNIT_ASSERT(player.getPosition().fuzzyEqual(bomb->getPosition(), 0.001));
 }
 
 void GameEngineImplTest::updateGameState_oneBombPlaced_bombLifeTimeIs2()
