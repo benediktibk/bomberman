@@ -26,5 +26,5 @@ add_subdirectory(threading)
 add_custom_target(
 		checkIncludeGuards ALL
 		COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/checkIncludeGuards.sh
-		DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	)
