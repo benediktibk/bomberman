@@ -50,22 +50,10 @@ GameEngineImpl::~GameEngineImpl()
 void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 {
 	PlayerState playerState = m_gameState.getPlayerState();
-	std::vector<BombState*> allBombs = m_gameState.getAllBombs();
 	m_inputState = inputState;
 
-
-	for(unsigned int i=0;i<allBombs.size();i++)
-	{
-		BombState *currentBomb = allBombs[i];
-		if (currentBomb->getLifeTime()<0)
-		{
-			m_gameState.eraseBomb(i);
-            playerState.reduceBombCount();
-		} else {
-			currentBomb->setLifeTime(currentBomb->getLifeTime() - time);
-		}
-
-	}
+    m_gameState.reduceAllBombsLifeTime(time);
+    m_gameState.deleteAllBombsWithNegativeLifeTime(&playerState);
 
 	if (m_inputState.isUpKeyPressed() && playerState.getDirection() == PlayerState::PlayerDirectionUp)
 	{

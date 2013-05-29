@@ -36,7 +36,7 @@ void GameStateTest::eraseBomb_defaultBomb_bombCountIs1()
 	CPPUNIT_ASSERT_EQUAL((size_t)1, state.getBombCount());
 }
 
-void GameStateTest::getAllChangedWalls_twoWallsAdded_resultSizeIs2()
+void GameStateTest::getAllChangedBombs_twoBombsAdded_resultSizeIs2()
 {
 	UniqueIdCreator id;
 	GameState state;
@@ -48,7 +48,7 @@ void GameStateTest::getAllChangedWalls_twoWallsAdded_resultSizeIs2()
 	CPPUNIT_ASSERT_EQUAL((size_t)2, bombs.size());
 }
 
-void GameStateTest::getAllChangedBombs_twoBombsAdded_resultSizeIs2()
+void GameStateTest::getAllChangedWalls_twoWallsAdded_resultSizeIs2()
 {
 	UniqueIdCreator id;
 	GameState state;

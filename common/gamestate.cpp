@@ -1,4 +1,5 @@
 #include "gamestate.h"
+#include "playerstate.h"
 
 using namespace Common;
 using namespace std;
@@ -49,11 +50,6 @@ void GameState::addWall(WallState* wall)
 	m_walls.push_back(wall);
 }
 
-const vector<BombState*> &GameState::getAllBombs() const
-{
-	return m_bombs;
-}
-
 vector<const BombState*> GameState::getAllChangedBombs() const
 {
 	vector<const BombState*> result;
@@ -79,6 +75,28 @@ void GameState::eraseBomb(int position)
 	delete m_bombs[position];
 	m_bombs.erase(m_bombs.begin()+position);
 }
+
+void GameState::reduceAllBombsLifeTime(double time)
+{
+    for(unsigned int i=0;i<m_bombs.size();i++)
+    {
+        BombState *currentBomb = m_bombs[i];
+        currentBomb->setLifeTime(currentBomb->getLifeTime() - time);
+    }
+}
+
+ void GameState::deleteAllBombsWithNegativeLifeTime(PlayerState* playerState)
+ {
+     for(unsigned int i=0;i<m_bombs.size();i++)
+     {
+        BombState *currentBomb = m_bombs[i];
+        if (currentBomb->getLifeTime()<0)
+        {
+            eraseBomb(i);
+            playerState->reduceBombCount();
+        }
+     }
+ }
 
 GameState::GameState(const GameState &)
 { }
