@@ -219,3 +219,5 @@ common/destroyablestate.h
 common/destroyablestatetest.h
 common/destroyablestate.cpp
 common/destroyablestatetest.cpp
+common/destroyablestatemock.h
+common/destroyablestatemock.cpp

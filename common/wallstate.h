@@ -4,11 +4,13 @@
 #include "common/point.h"
 #include "common/uniqueidcreator.h"
 #include "common/changeablestate.h"
+#include "common/destroyablestate.h"
 
 namespace Common
 {
 class WallState :
-		public ChangeableState
+		public ChangeableState,
+		public DestroyableState
 {
 public:
 	enum WallType
@@ -16,12 +18,13 @@ public:
 		WallTypeSolid,
 		WallTypeLoose
 	};
+
 	WallState(UniqueIdCreator &creator, WallType wallType, const Point &position);
 	~WallState();
 
 	const Point& getPosition() const;
 	WallType getWallType() const;
-    unsigned int getWallId() const;
+	unsigned int getWallId() const;
 
 private:
 	const Point m_position;

@@ -11,6 +11,9 @@ public:
 	bool isDestroyed() const;
 	void setDestroyed();
 
+protected:
+	virtual void gotCallToDestroyed();
+
 private:
 	bool m_destroyed;
 };

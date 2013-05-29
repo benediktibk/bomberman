@@ -14,5 +14,9 @@ bool DestroyableState::isDestroyed() const
 void DestroyableState::setDestroyed()
 {
 	m_destroyed = true;
+	shouldBeDestroyed();
 }
+
+void DestroyableState::shouldBeDestroyed()
+{ }
 
