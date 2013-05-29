@@ -29,8 +29,10 @@ public:
 
 private:
 	void deleteAllWallObjects();
+	void deleteAllBombObjects();
 	void updatePlayerSpeed();
 	void updateBombs();
+	void updateBomb(const Common::BombState *bomb);
 	void placeBombs();
 	void updateWalls();
 	void updateWall(const Common::WallState *wall);
@@ -49,6 +51,7 @@ private:
 	Physic::StaticObject *m_leftBorder;
 	Physic::StaticObject *m_rightBorder;
 	std::map<const Common::WallState*, Physic::StaticObject*> m_wallObjects;
+	std::map<const Common::BombState*, Physic::StaticObject*> m_bombObjects;
 	Grid *m_grid;
 	bool m_firstGameStateUpdate;
 };

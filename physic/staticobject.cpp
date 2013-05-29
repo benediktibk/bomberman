@@ -6,6 +6,7 @@ using namespace Physic;
 using namespace Common;
 
 StaticObject::StaticObject(PhysicSimulator &simulator, const Point &position, double width, double height) :
+	m_simulator(simulator),
 	m_body(0),
 	m_bodyDef(new b2BodyDef),
 	m_fixture(0),
@@ -20,20 +21,15 @@ StaticObject::StaticObject(PhysicSimulator &simulator, const Point &position, do
 
 StaticObject::~StaticObject()
 {
+	m_simulator.destroyBody(m_body);
 	delete m_fixtureDef;
 	delete m_shape;
 	delete m_bodyDef;
 }
 
-void StaticObject::SetPosition(const Point &point)
+void StaticObject::setPosition(const Point &point)
 {
 	m_bodyDef->position.Set(point.getX(), point.getY());
 }
-
-//void StaticObject::DestroyBody()
-//{
-
-//    m_body->DestroyFixture();
-//}
 
 

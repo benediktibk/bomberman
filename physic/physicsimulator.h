@@ -15,6 +15,7 @@ public:
 	~PhysicSimulator();
 
 	b2Body* createBody(const b2BodyDef &definition);
+	void destroyBody(b2Body *body);
 	void simulateStep(double time);
 
 private:

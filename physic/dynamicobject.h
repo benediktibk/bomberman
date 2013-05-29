@@ -20,8 +20,7 @@ public:
 	~DynamicObject();
 
 	Common::Point getPosition() const;
-	void applyLinearVelocity(double velocityx,double velocityy);
-    void StaticBody();
+	void applyLinearVelocity(double velocityx, double velocityy);
 
 private:
 	b2BodyDef *m_bodyDefinition;

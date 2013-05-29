@@ -41,6 +41,7 @@ GameEngineImpl::~GameEngineImpl()
 	delete m_leftBorder;
 	delete m_rightBorder;
 	deleteAllWallObjects();
+	deleteAllBombObjects();
 }
 
 void GameEngineImpl::updateGameState(const InputState &inputState, double time)
@@ -70,10 +71,18 @@ const Common::GameState &GameEngineImpl::getGameState() const
 
 void GameEngineImpl::deleteAllWallObjects()
 {
-	for(map<const Common::WallState*, Physic::StaticObject*>::iterator i = m_wallObjects.begin(); i != m_wallObjects.end(); i++)
+	for(map<const WallState*, StaticObject*>::iterator i = m_wallObjects.begin(); i != m_wallObjects.end(); i++)
 		delete i->second;
 
 	m_wallObjects.clear();
+}
+
+void GameEngineImpl::deleteAllBombObjects()
+{
+	for(map<const BombState*, StaticObject*>::iterator i = m_bombObjects.begin(); i != m_bombObjects.end(); i++)
+		delete i->second;
+
+	m_bombObjects.clear();
 }
 
 void GameEngineImpl::updatePlayerSpeed()
@@ -114,6 +123,36 @@ void GameEngineImpl::updateBombs()
 {
 	m_gameState.reduceAllBombsLifeTime(m_elapsedTime);
 	m_gameState.deleteAllBombsWithNegativeLifeTime(m_playerState);
+
+	vector<const BombState*> changedBombs = m_gameState.getAllChangedBombs();
+
+	for (vector<const BombState*>::const_iterator i = changedBombs.begin(); i != changedBombs.end(); ++i)
+		updateBomb(*i);
+}
+
+void GameEngineImpl::updateBomb(const BombState *bomb)
+{
+	map<const BombState*, StaticObject*>::iterator position = m_bombObjects.find(bomb);
+	bool bombFound = position != m_bombObjects.end();
+	StaticObject *bombObject = 0;
+
+	if (bombFound)
+	{
+		bombObject = position->second;
+		bombObject->setPosition(bomb->getPosition());
+	}
+	else
+	{
+		bombObject = new StaticObject(*m_simulator, bomb->getPosition(), 1, 1);
+		m_bombObjects.insert(pair<const BombState*, StaticObject*>(bomb, bombObject));
+		position = m_bombObjects.find(bomb);
+	}
+
+	if (bomb->isDestroyed())
+	{
+		m_bombObjects.erase(position);
+		delete bombObject;
+	}
 }
 
 void GameEngineImpl::placeBombs()
@@ -145,7 +184,7 @@ void GameEngineImpl::updateWall(const WallState *wall)
 	if (wallFound)
 	{
 		wallObject = position->second;
-		wallObject->SetPosition(wall->getPosition());
+		wallObject->setPosition(wall->getPosition());
 	}
 	else
 	{

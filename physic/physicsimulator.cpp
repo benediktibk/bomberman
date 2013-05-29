@@ -4,7 +4,7 @@
 using namespace Physic;
 
 PhysicSimulator::PhysicSimulator() :
-    m_gravity(new b2Vec2(0, 0)),
+	m_gravity(new b2Vec2(0, 0)),
 	m_world(new b2World(*m_gravity)),
 	m_velocityIterations(6),
 	m_positionIterations(2)
@@ -21,6 +21,11 @@ PhysicSimulator::~PhysicSimulator()
 b2Body* PhysicSimulator::createBody(const b2BodyDef &definition)
 {
 	return m_world->CreateBody(&definition);
+}
+
+void PhysicSimulator::destroyBody(b2Body *body)
+{
+	m_world->DestroyBody(body);
 }
 
 void PhysicSimulator::simulateStep(double time)
