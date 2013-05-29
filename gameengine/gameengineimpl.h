@@ -41,16 +41,11 @@ private:
 	double m_elapsedTime;
 	Physic::PhysicSimulator *m_simulator;
 	Physic::DynamicObject *m_player;
-	Physic::StaticObject *m_top;
-	Physic::StaticObject *m_bot;
-	Physic::StaticObject *m_left;
-	Physic::StaticObject *m_right;
-	Physic::StaticObject *m_block0;
-	Physic::StaticObject *m_block1;
-	Physic::StaticObject *m_block2;
-	Physic::StaticObject *m_block3;
+	Physic::StaticObject *m_upperBorder;
+	Physic::StaticObject *m_lowerBorder;
+	Physic::StaticObject *m_leftBorder;
+	Physic::StaticObject *m_rightBorder;
 	std::vector<Physic::StaticObject*> m_wallObjects;
-	Physic::StaticObject *m_bombBox;
 	Grid *m_grid;
 };
 }

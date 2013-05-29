@@ -12,14 +12,10 @@ using namespace Physic;
 GameEngineImpl::GameEngineImpl() :
 	m_simulator(new PhysicSimulator),
 	m_player(new DynamicObject(*m_simulator)),
-	m_top(new StaticObject(*m_simulator, Point(8, 14), 13, 1)),
-	m_bot(new StaticObject(*m_simulator, Point(8, 0), 13, 1)),
-	m_left(new StaticObject(*m_simulator, Point(0, 7), 1, 13)),
-	m_right(new StaticObject(*m_simulator,Point(16, 7), 1, 13)),
-	m_block0(new StaticObject(*m_simulator, Point(9, 8), 0.35, 0.35)),
-	m_block1(new StaticObject(*m_simulator, Point(9, 6), 0.35, 0.35)),
-	m_block2(new StaticObject(*m_simulator, Point(7, 8), 0.35, 0.35)),
-	m_block3(new StaticObject(*m_simulator, Point(7, 6), 0.35, 0.35)),
+	m_upperBorder(new StaticObject(*m_simulator, Point(8, 14), 13, 1)),
+	m_lowerBorder(new StaticObject(*m_simulator, Point(8, 0), 13, 1)),
+	m_leftBorder(new StaticObject(*m_simulator, Point(0, 7), 1, 13)),
+	m_rightBorder(new StaticObject(*m_simulator,Point(16, 7), 1, 13)),
 	m_grid(new Grid(50, 50))
 {
 	WallState *wallstate0 = new WallState(m_wallids, WallState::WallTypeSolid, Point(9, 8));
@@ -38,14 +34,10 @@ GameEngineImpl::~GameEngineImpl()
 	delete m_player;
 	delete m_simulator;
 	delete m_grid;
-	delete m_top;
-	delete m_bot;
-	delete m_left;
-	delete m_right;
-	delete m_block0;
-	delete m_block1;
-	delete m_block2;
-	delete m_block3;
+	delete m_upperBorder;
+	delete m_lowerBorder;
+	delete m_leftBorder;
+	delete m_rightBorder;
 	deleteAllWallObjects();
 }
 
@@ -129,6 +121,5 @@ void GameEngineImpl::placeBombs()
 		m_grid->addBombAtPlace(*bombPlaced);
 		m_playerState.countBomb();
 		m_gameState.addBomb(bombPlaced);
-		m_bombBox = new StaticObject(*m_simulator,m_player->getPosition(), 0.35, 0.35);
 	}
 }
