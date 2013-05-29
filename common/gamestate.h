@@ -19,11 +19,12 @@ public:
 	std::vector<const WallState*> getAllChangedWalls() const;
 	size_t getWallCount() const;
 	void addWall(WallState* wall);
-	const std::vector<BombState*> &getAllBombs() const;
 	std::vector<const BombState*> getAllChangedBombs() const;
 	size_t getBombCount() const;
 	void addBomb(BombState* bomb);
 	void eraseBomb(int position);
+    void reduceAllBombsLifeTime(double time);
+    void deleteAllBombsWithNegativeLifeTime(PlayerState* playerState);
 
 private:
 	// forbid copies
