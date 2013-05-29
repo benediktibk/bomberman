@@ -78,24 +78,24 @@ void GameState::eraseBomb(int position)
 
 void GameState::reduceAllBombsLifeTime(double time)
 {
-    for(unsigned int i=0;i<m_bombs.size();i++)
-    {
-        BombState *currentBomb = m_bombs[i];
-        currentBomb->setLifeTime(currentBomb->getLifeTime() - time);
-    }
+	for(unsigned int i=0;i<m_bombs.size();i++)
+	{
+		BombState *currentBomb = m_bombs[i];
+		currentBomb->setLifeTime(currentBomb->getLifeTime() - time);
+	}
 }
 
- void GameState::deleteAllBombsWithNegativeLifeTime(PlayerState* playerState)
+ void GameState::deleteAllBombsWithNegativeLifeTime(PlayerState &playerState)
  {
-     for(unsigned int i=0;i<m_bombs.size();i++)
-     {
-        BombState *currentBomb = m_bombs[i];
-        if (currentBomb->getLifeTime()<0)
-        {
-            eraseBomb(i);
-            playerState->reduceBombCount();
-        }
-     }
+	 for(unsigned int i=0;i<m_bombs.size();i++)
+	 {
+		BombState *currentBomb = m_bombs[i];
+		if (currentBomb->getLifeTime()<0)
+		{
+			eraseBomb(i);
+			playerState.reduceBombCount();
+		}
+	 }
  }
 
 GameState::GameState(const GameState &)
