@@ -28,7 +28,7 @@ public:
 
 private:
 	void deleteAllWallObjects();
-	void movePlayer();
+	void updatePlayerSpeed();
 	void updateBombs();
 	void placeBombs();
 

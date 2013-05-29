@@ -56,17 +56,10 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 	m_elapsedTime = time;
 
 	m_gameState.removeAllObjectsWithDestroyedFlag();
-
-	deleteAllWallObjects();
-	std::vector<const WallState*> allWalls = m_gameState.getAllChangedWalls();
-
 	updateBombs();
-
-	movePlayer();
-
+	updatePlayerSpeed();
 	m_simulator->simulateStep(time);
 	m_playerState.setPosition(m_player->getPosition());
-
 	placeBombs();
 
 	m_gameState.setPlayerState(m_playerState);
@@ -79,7 +72,7 @@ const Common::GameState &GameEngineImpl::getGameState() const
 
 void GameEngineImpl::deleteAllWallObjects()
 {
-	for(unsigned int i = 0; i<m_wallObjects.size(); i++)
+	for(unsigned int i = 0; i < m_wallObjects.size(); i++)
 	{
 		delete m_wallObjects[i];
 	}
@@ -87,7 +80,7 @@ void GameEngineImpl::deleteAllWallObjects()
 	m_wallObjects.clear();
 }
 
-void GameEngineImpl::movePlayer()
+void GameEngineImpl::updatePlayerSpeed()
 {
 	if (m_inputState.isUpKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionUp)
 		m_player->applyLinearVelocity(0, m_playerState.getPlayerSpeed());
