@@ -26,6 +26,7 @@ public:
 private:
 	void drawPlayer(const Common::PlayerState &playerState);
 	void drawWalls(const std::vector<const Common::WallState*> &walls);
+	void drawWall(const Common::WallState *wall);
 	void drawBombs(const std::vector<const Common::BombState*> &bombs);
 	void deleteWalls();
 	void deleteBombs();

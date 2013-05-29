@@ -48,26 +48,28 @@ void GraphicDrawerQt::drawPlayer(const PlayerState &playerState)
 void GraphicDrawerQt::drawWalls(const vector<const WallState*> &walls)
 {
 	for (vector<const WallState*>::const_iterator i = walls.begin(); i != walls.end(); ++i)
+		drawWall(*i);
+}
+
+void GraphicDrawerQt::drawWall(const WallState *wallState)
+{
+	if (wallState->isDestroyed())
+		deleteWall(wallState);
+	else
 	{
-		if ((*i)->isDestroyed())
-			deleteWall(*i);
+		map<const WallState*, Wall*>::iterator wallPosition = m_walls.find(wallState);
+		bool wallFound = wallPosition != m_walls.end();
+		Wall* wall = 0;
+
+		if (!wallFound)
+			wall = new Wall(*m_scene, *wallState);
 		else
-		{
-			map<const WallState*, Wall*>::iterator wallPosition = m_walls.find(*i);
-			bool wallFound = wallPosition != m_walls.end();
-			Wall* wall = 0;
-			const WallState &state = **i;
+			wall = wallPosition->second;
 
-			if (!wallFound)
-				wall = new Wall(*m_scene, state);
-			else
-				wall = wallPosition->second;
+		wall->update(*wallState, m_pixelPerMeter);
 
-			wall->update(state, m_pixelPerMeter);
-
-			if (!wallFound)
-				m_walls.insert(pair<const WallState*, Wall*>(*i, wall));
-		}
+		if (!wallFound)
+			m_walls.insert(pair<const WallState*, Wall*>(wallState, wall));
 	}
 }
 
