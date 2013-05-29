@@ -76,3 +76,19 @@ void BombStateTest::setDestroyed_empty_hasChanged()
 
 	CPPUNIT_ASSERT(bomb.hasChanged());
 }
+
+void BombStateTest::getBombHeight_heightIs1()
+{
+    UniqueIdCreator id;
+    BombState bomb(id);
+
+    CPPUNIT_ASSERT_EQUAL(1.0, bomb.getBombHeight());
+}
+
+void BombStateTest::getBombWidth_widthIs1()
+{
+    UniqueIdCreator id;
+    BombState bomb(id);
+
+    CPPUNIT_ASSERT_EQUAL(1.0, bomb.getBombWidth());
+}

@@ -6,7 +6,9 @@ WallState::WallState(UniqueIdCreator &creator, WallState::WallType wallType, con
 	m_position(position),
 	m_wallid(creator.getId()),
 	m_creatorid(creator),
-	m_wallType(wallType)
+    m_wallType(wallType),
+    m_width(1.0),
+    m_height(1.0)
 { }
 
 WallState::~WallState()
@@ -34,3 +36,13 @@ WallState::WallType WallState::getWallType() const
 {
 	return m_wallType;
  }
+
+double WallState::getWallHeight() const
+{
+    return m_height;
+}
+
+double WallState::getWallWidth() const
+{
+    return m_width;
+}
