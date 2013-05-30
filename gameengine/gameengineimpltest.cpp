@@ -7,8 +7,8 @@ using namespace Common;
 
 void GameEngineImplTest::updateGameState_UpKeyPressed_PlayerDirectionUp()
 {
-    LevelDefinition level;
-    GameEngineImpl gameEngine(level);
+	LevelDefinition level;
+	GameEngineImpl gameEngine(level);
 	InputState input;
 
 	input.setUpKeyPressed();
@@ -21,8 +21,8 @@ void GameEngineImplTest::updateGameState_UpKeyPressed_PlayerDirectionUp()
 
 void GameEngineImplTest::updateGameState_DownKeyPressed_PlayerDirectionDown()
 {
-    LevelDefinition level;
-    GameEngineImpl gameEngine(level);
+	LevelDefinition level;
+	GameEngineImpl gameEngine(level);
 	InputState input;
 
 	input.setDownKeyPressed();
@@ -35,8 +35,8 @@ void GameEngineImplTest::updateGameState_DownKeyPressed_PlayerDirectionDown()
 
 void GameEngineImplTest::updateGameState_LeftKeyPressed_PlayerDirectionLeft()
 {
-    LevelDefinition level;
-    GameEngineImpl gameEngine(level);
+	LevelDefinition level;
+	GameEngineImpl gameEngine(level);
 	InputState input;
 
 	input.setLeftKeyPressed();
@@ -49,8 +49,8 @@ void GameEngineImplTest::updateGameState_LeftKeyPressed_PlayerDirectionLeft()
 
 void GameEngineImplTest::updateGameState_RightKeyPressed_PlayerDirectionRight()
 {
-    LevelDefinition level;
-    GameEngineImpl gameEngine(level);
+	LevelDefinition level;
+	GameEngineImpl gameEngine(level);
 	InputState input;
 
 	input.setRightKeyPressed();
@@ -63,8 +63,8 @@ void GameEngineImplTest::updateGameState_RightKeyPressed_PlayerDirectionRight()
 
 void GameEngineImplTest::updateGameState_oneBombPlaced_bombPositionIsSameAsPlayerPosition()
 {
-    LevelDefinition level;
-    GameEngineImpl gameEngine(level);
+	LevelDefinition level;
+	GameEngineImpl gameEngine(level);
 	InputState input;
 	const BombState *bomb;
 
@@ -79,8 +79,8 @@ void GameEngineImplTest::updateGameState_oneBombPlaced_bombPositionIsSameAsPlaye
 
 void GameEngineImplTest::updateGameState_oneBombPlaced_bombLifeTimeIs2()
 {
-    LevelDefinition level;
-    GameEngineImpl gameEngine(level);
+	LevelDefinition level;
+	GameEngineImpl gameEngine(level);
 	InputState input;
 	const BombState *bomb;
 
@@ -96,8 +96,8 @@ void GameEngineImplTest::updateGameState_oneBombPlaced_bombLifeTimeIs2()
 
 void GameEngineImplTest::updateGameState_twoBombsPlacedAndOneDestroyed_bombCountIs1()
 {
-    LevelDefinition level;
-    GameEngineImpl gameEngine(level);
+	LevelDefinition level;
+	GameEngineImpl gameEngine(level);
 	InputState input;
 
 	input.setSpaceKeyPressed();
@@ -112,18 +112,82 @@ void GameEngineImplTest::updateGameState_twoBombsPlacedAndOneDestroyed_bombCount
 
 void GameEngineImplTest::getHeight_HeightOfLevelDefinition_HeightOfGamestate()
 {
-    LevelDefinition level;
-    GameEngineImpl gameEngine(level);
-    const GameState &game = gameEngine.getGameState();
+	LevelDefinition level;
+	GameEngineImpl gameEngine(level);
+	const GameState &game = gameEngine.getGameState();
 
-    CPPUNIT_ASSERT_EQUAL(level.getLevelHeight(), game.getGameStateHeight());
+	CPPUNIT_ASSERT_EQUAL(level.getLevelHeight(), game.getGameStateHeight());
 }
 
 void GameEngineImplTest::getWidth_WidthOfLevelDefinition_WidthOfGamestate()
 {
-    LevelDefinition level;
-    GameEngineImpl gameEngine(level);
-    const GameState &game = gameEngine.getGameState();
+	LevelDefinition level;
+	GameEngineImpl gameEngine(level);
+	const GameState &game = gameEngine.getGameState();
 
-    CPPUNIT_ASSERT_EQUAL(level.getLevelWidth(), game.getGameStateWidth());
+	CPPUNIT_ASSERT_EQUAL(level.getLevelWidth(), game.getGameStateWidth());
+}
+
+void GameEngineImplTest::updateGameState_tryToMoveThroughRightBorder_playerPositionIsAtRightBorder()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	InputState inputState;
+	inputState.setRightKeyPressed();
+
+	gameEngine.updateGameState(inputState, 10);
+
+	const GameState &game = gameEngine.getGameState();
+	const PlayerState &playerState = game.getPlayerState();
+	Point positionShouldBe(3, 0);
+	Point positionReal(playerState.getPosition());
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
+}
+
+void GameEngineImplTest::updateGameState_tryToMoveThroughUpperBorder_playerPositionIsAtUpperBorder()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	InputState inputState;
+	inputState.setUpKeyPressed();
+
+	gameEngine.updateGameState(inputState, 10);
+
+	const GameState &game = gameEngine.getGameState();
+	const PlayerState &playerState = game.getPlayerState();
+	Point positionShouldBe(0, 3);
+	Point positionReal(playerState.getPosition());
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
+}
+
+void GameEngineImplTest::updateGameState_tryToMoveThroughLowerBorder_playerPositionIsAtLowerBorder()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	InputState inputState;
+	inputState.setDownKeyPressed();
+
+	gameEngine.updateGameState(inputState, 10);
+
+	const GameState &game = gameEngine.getGameState();
+	const PlayerState &playerState = game.getPlayerState();
+	Point positionShouldBe(0, 0);
+	Point positionReal(playerState.getPosition());
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
+}
+
+void GameEngineImplTest::updateGameState_tryToMoveThroughLeftBorder_playerPositionIsAtLeftBorder()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	InputState inputState;
+	inputState.setLeftKeyPressed();
+
+	gameEngine.updateGameState(inputState, 10);
+
+	const GameState &game = gameEngine.getGameState();
+	const PlayerState &playerState = game.getPlayerState();
+	Point positionShouldBe(0, 0);
+	Point positionReal(playerState.getPosition());
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }

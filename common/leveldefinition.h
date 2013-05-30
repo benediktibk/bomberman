@@ -14,17 +14,18 @@ public:
 		ObjectTypeEmpty,
 		ObjectTypePlayer,
 		ObjectTypeSolidWall,
-        ObjectTypeLooseWall,
-        ObjectTypeEnemy,
-        ObjectTypeKIEnemy
+		ObjectTypeLooseWall,
+		ObjectTypeEnemy,
+		ObjectTypeKIEnemy
 	};
 
 	LevelDefinition();
+	LevelDefinition(unsigned int width, unsigned int height);
 
-    ObjectType getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY);
-    unsigned int getLevelWidth() const;
-    unsigned int getLevelHeight() const;
-    void setObjectTypeAtPosition(ObjectType objectType, unsigned int positionX, unsigned int positionY);
+	ObjectType getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY);
+	unsigned int getLevelWidth() const;
+	unsigned int getLevelHeight() const;
+	void setObjectTypeAtPosition(ObjectType objectType, unsigned int positionX, unsigned int positionY);
 
 private:
 	unsigned int m_width;
