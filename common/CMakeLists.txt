@@ -11,7 +11,7 @@ set(COMMON_SRC
 	leveldefinition.cpp
 	changeablestate.cpp
 	destroyablestate.cpp
-	powerup.cpp
+	powerupstate.cpp
 )
 
 set(COMMON_TEST_SRC
@@ -27,7 +27,7 @@ set(COMMON_TEST_SRC
 	changeablestatetest.cpp
 	destroyablestatetest.cpp
 	destroyablestatemock.cpp
-	poweruptest.cpp
+	powerupstatetest.cpp
 )
 
 add_library(common ${COMMON_SRC})

@@ -1,15 +1,15 @@
-#ifndef COMMON_POWERUPTEST_H
-#define COMMON_POWERUPTEST_H
+#ifndef COMMON_POWERUPSTATETEST_H
+#define COMMON_POWERUPSTATETEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
 namespace Common
 {
-class PowerUpTest:
+class PowerUpStateTest:
         public CPPUNIT_NS::TestFixture
 {
-    CPPUNIT_TEST_SUITE(PowerUpTest);
+    CPPUNIT_TEST_SUITE(PowerUpStateTest);
     CPPUNIT_TEST(getPowerUpWidth_widthIs1);
     CPPUNIT_TEST(getPowerUpHeight_heightIs1);
     CPPUNIT_TEST_SUITE_END();
@@ -21,4 +21,4 @@ private:
 };
 }
 
-#endif // POWERUPTEST_H
+#endif

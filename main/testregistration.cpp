@@ -18,7 +18,7 @@
 #include "common/leveldefinitiontest.h"
 #include "physic/dynamicobjecttest.h"
 #include "physic/staticobjecttest.h"
-#include "common/poweruptest.h"
+#include "common/powerupstatetest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::DynamicObjectTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::StaticObjectTest);
@@ -40,4 +40,4 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Common::ChangeableStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GridTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::DestroyableStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::LevelDefinitionTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpStateTest);

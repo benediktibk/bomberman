@@ -1,5 +1,5 @@
-#ifndef COMMON_POWERUP_H
-#define COMMON_POWERUP_H
+#ifndef COMMON_POWERUPSTATE_H
+#define COMMON_POWERUPSTATE_H
 
 #include "common/point.h"
 #include "common/uniqueidcreator.h"
@@ -9,13 +9,13 @@
 
 namespace Common
 {
-class PowerUp :
+class PowerUpState :
         public ChangeableState,
         public DestroyableState
 {
 public:
-    PowerUp(UniqueIdCreator &creator, const Point &position);
-    ~PowerUp();
+    PowerUpState(UniqueIdCreator &creator, const Point &position);
+    ~PowerUpState();
 
     const Point& getPosition() const;
     unsigned int getId() const;

@@ -220,7 +220,7 @@ physic/dynamicobjecttest.h
 physic/dynamicobjecttest.cpp
 physic/staticobjecttest.h
 physic/staticobjecttest.cpp
-common/powerup.h
-common/powerup.cpp
-common/poweruptest.h
-common/poweruptest.cpp
+common/powerupstate.h
+common/powerupstate.cpp
+common/powerupstatetest.h
+common/powerupstatetest.cpp
