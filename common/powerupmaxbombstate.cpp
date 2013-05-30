@@ -8,6 +8,4 @@ PowerUpMaxBombState::PowerUpMaxBombState(UniqueIdCreator &creator, const Point &
 { }
 
 void PowerUpMaxBombState::modifyPlayer(PlayerState &/*player*/)
-{
-
-}
+{ }
