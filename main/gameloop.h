@@ -28,6 +28,7 @@ public:
 	void start();
 	void stop();
 	unsigned int getFramesPerSecond();
+	double percentageOfTimeNotSleeping();
 	void setGuiUpdateFinished();
 
 signals:
@@ -45,7 +46,8 @@ private:
 	//! we need a minimum time step, otherwise the physic simulator has problems
 	const double m_minimumTimeStep;
 	unsigned int m_framesPerSecond;
-	Threading::Mutex m_framesPerSecondMutex;
+	Threading::Mutex m_performanceInformationMutex;
+	double m_percentageOfTimeNotSleeping;
 	Threading::Signal m_guiUpdateFinished;
 	Threading::Signal m_start;
 };
