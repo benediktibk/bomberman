@@ -1,0 +1,58 @@
+\documentclass[12pt]{article}
+
+\usepackage[a4paper]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[automark]{scrpage2}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{caption}
+
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{%
+  \parbox{\textwidth}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}\vskip-4pt}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+\lstset{frame=lrb,xleftmargin=\fboxsep,xrightmargin=-\fboxsep,language=[LaTeX]{TeX},columns=flexible}
+\renewcommand{\lstlistingname}{Example}
+
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\ohead[]{Gruppe 1}
+\cfoot[]{\pagemark}
+
+\lstset{tabsize=2, basicstyle=\footnotesize, breaklines=true, language=C++}
+
+\begin{document}
+
+\section{Pflichtanforderungen}
+\subsection{gerastertes Spielfeld}
+Das Spielfeld stellt einen Raster dar, wobei auf jeder Position maximal ein Element enthalten sein kann. Einzige Ausnahme dieser Regel ist ein Spieler und seine gerade eben erst platzierte Bombe.
+\subsection{Ausgabe}
+Die Ausgabe des Spielfeldes erfolgt auf dem Bildschirm mithilfe von Grafiken. Die Grafiken hierzu werden selbst erstellt und stellen zum Beispiel den Spieler, eine Wand oder eine Bombe dar. Für jedes Element des Spielfeldes existiert auch eine grafische Repräsentation.
+\subsection{Spielerbewegung}
+Der Benutzer kann seine Spielfigur mithilfe der Cursortasten bewegen und über die Leertaste Bomben platzieren.
+\subsection{Zerstörbare und unzerstörbare Blöcke}
+Auf dem Spielfeld befinden sich zerstörbare und unterzerstörbare Blöcke. Unzerstörbare Blöcken bleiben während des gesamten Spiels erhalten, die zerstörbaren können durch die Explosion von Bomben aus dem Spiel entfernt werden.
+\subsection{Bombenplatzierung}
+Der Benutzer kann nur eine bestimmte Anzahl an Bomben zu gleich platzieren. Bereits explodierte Bomben zählen hier nicht dazu.
+\subsection{Explosion von Bomben}
+Bomben explodieren automatisch nach einer zuvor definierten Zeit. Durch diese Explosion wird das erste Wandelement oder der erste Spieler in Reichweite in jeder Richtung zerstört. Gültige Richtungen für eine Explosion sind die vier Himmelsrichtungen.
+\subsection{Power-ups}
+Bei der Zerstörung von Wänden werden zufällig Power-ups erzeugt. Mögliche Power-ups sind: 
+\begin{itemize}
+	\item Erhöhung der maximalen Anzahl von Bomben, welche eine Spieler erzeugen kann
+	\item Erhöhung der Reichweite der Bomben, welche ein Spieler erzeugt
+\end{itemize}
+\subsection{Auswahl aus zwei Level}
+Der Benutzer kann zu Beginn aus zumindest zwei Level auswählen. Die Wahl des Levels definiert dann den initalen Zustand des Spielfeldes.
+\subsection{Intelligente Gegner}
+Der Benutzer kann zu Beginn zumindest einen vom Computer gesteuerten Gegner aktivieren. Dieser verfolgt den Spieler und versucht ihn durch Bomben zu töten. Er erkennt bereits gelegte Bomben und weicht ihnen aus. Falls kein Weg zum Gegner frei ist zerstört er wahlweise zerstörbare Blöcke in seiner Nähe.
+
+\section{Optional Anforderungen}
+\subsection{Soundausgabe}
+Während des gesamten Spiels wird eine Musik im Hintergrund abgespielt. Einzelne Aktionen (Explosion von Bomben, Zerstörung von Blöcken, Aufnahme eines Power-ups) führen zur Wiedergabe einer kurzen Melodie.
+\subsection{Multiplayer}
+Es ist möglich, dass zumindest zwei Personen zugleich an einem Rechner spielen. Die Steuerung der jeweils anderen Spielerfiguren erfolgt dann analog zu der ersten über die Tastatur, mit anderen Tasten.
+
+\end{document}
