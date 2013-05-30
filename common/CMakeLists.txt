@@ -13,6 +13,8 @@ set(COMMON_SRC
 	destroyablestate.cpp
     gridpoint.cpp
 	powerupstate.cpp
+	powerupmaxbombstate.cpp
+	powerupbombpackstate.cpp
 )
 
 set(COMMON_TEST_SRC
@@ -29,6 +31,8 @@ set(COMMON_TEST_SRC
 	destroyablestatetest.cpp
 	destroyablestatemock.cpp
 	powerupstatetest.cpp
+	powerupmaxbombstatetest.cpp
+	powerupbombpackstatetest.cpp
 )
 
 add_library(common ${COMMON_SRC})
