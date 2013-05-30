@@ -1,0 +1,30 @@
+\documentclass[12pt]{report}
+
+\usepackage[a4paper]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[automark]{scrpage2}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{caption}
+
+\DeclareCaptionFont{white}{\color{white}}
+\DeclareCaptionFormat{listing}{%
+  \parbox{\textwidth}{\colorbox{gray}{\parbox{\textwidth}{#1#2#3}}\vskip-4pt}}
+\captionsetup[lstlisting]{format=listing,labelfont=white,textfont=white}
+\lstset{frame=lrb,xleftmargin=\fboxsep,xrightmargin=-\fboxsep,language=[LaTeX]{TeX},columns=flexible}
+\renewcommand{\lstlistingname}{Example}
+
+\pagestyle{scrheadings}
+\clearscrheadfoot
+\ohead[]{Gruppe 1}
+\cfoot[]{\pagemark}
+
+\lstset{tabsize=2, basicstyle=\footnotesize, breaklines=true, language=C++}
+
+\begin{document}
+
+\section*{Pflichtenheft Atomic Bomberman, Gruppe 1}
+
+\end{document}
