@@ -220,3 +220,5 @@ physic/dynamicobjecttest.h
 physic/dynamicobjecttest.cpp
 physic/staticobjecttest.h
 physic/staticobjecttest.cpp
+common/powerup.h
+common/powerup.cpp

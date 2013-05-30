@@ -11,6 +11,7 @@ set(COMMON_SRC
 	leveldefinition.cpp
 	changeablestate.cpp
 	destroyablestate.cpp
+	powerup.cpp
 )
 
 set(COMMON_TEST_SRC
