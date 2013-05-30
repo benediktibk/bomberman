@@ -12,7 +12,7 @@ PowerUp::PowerUp(UniqueIdCreator &creator, const Point &position):
 
 PowerUp::~PowerUp()
 {
-    m_creatorid.removeId(m_powerUpId);
+    //m_creatorid.removeId(m_powerUpId);
 }
 
 const Point& PowerUp::getPosition() const
@@ -34,3 +34,6 @@ double PowerUp::getHeight() const
 {
     return m_height;
 }
+
+void PowerUp::modifyPlayer(PlayerState &/*player*/)
+{ }

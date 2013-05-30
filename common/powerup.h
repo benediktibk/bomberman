@@ -4,10 +4,14 @@
 #include "common/point.h"
 #include "common/uniqueidcreator.h"
 #include "common/playerstate.h"
+#include "common/changeablestate.h"
+#include "common/destroyablestate.h"
 
 namespace Common
 {
-class PowerUp
+class PowerUp :
+        public ChangeableState,
+        public DestroyableState
 {
 public:
     PowerUp(UniqueIdCreator &creator, const Point &position);

@@ -222,3 +222,5 @@ physic/staticobjecttest.h
 physic/staticobjecttest.cpp
 common/powerup.h
 common/powerup.cpp
+common/poweruptest.h
+common/poweruptest.cpp

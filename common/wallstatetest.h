@@ -13,8 +13,8 @@ class WallStateTest :
 	 CPPUNIT_TEST(construct_solidWall_typeIsSolidWall);
 	 CPPUNIT_TEST(construct_looseWall_typeIsLooseWall);
 	 CPPUNIT_TEST(setDestroyed_empty_hasChanged);
-	 CPPUNIT_TEST(getWallHeight_heightIs1);
-	CPPUNIT_TEST(getWallWidth_widthIs1);
+     CPPUNIT_TEST(getWallHeight_heightIs1);
+     CPPUNIT_TEST(getWallWidth_widthIs1);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
