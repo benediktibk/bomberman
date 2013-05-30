@@ -8,11 +8,14 @@ using namespace Graphic;
 
 Wall::Wall(QGraphicsScene &scene, const Common::WallState &state)
 {
-	if (state.getWallType() == Common::WallState::WallTypeSolid)
-		m_svgItem = new QGraphicsSvgItem(QString("../../resources/objects/wall_solid.svg"));
-	else
-		m_svgItem = new QGraphicsSvgItem(QString("../../resources/objects/wall_loose.svg"));
+	createSVGItem(state.getWallType());
+	scene.addItem(m_svgItem);
+}
 
+Wall::Wall(QGraphicsScene &scene, const Common::Point &position, double pixelPerMeter)
+{
+	createSVGItem(Common::WallState::WallTypeSolid);
+	updateInternal(position, 1, 1, pixelPerMeter);
 	scene.addItem(m_svgItem);
 }
 
@@ -23,10 +26,23 @@ Wall::~Wall()
 
 void Wall::update(const Common::WallState &state, double pixelPerMeter)
 {
-	Point position(state.getPosition()*pixelPerMeter);
-	position = position + Point(state.getWidth()/2, state.getHeight()/2);
-	position.switchIntoQtCoordinates();
+	updateInternal(state.getPosition(), state.getWidth(), state.getHeight(), pixelPerMeter);
+}
 
-	m_svgItem->setScale(0.001*pixelPerMeter*state.getHeight());
-	m_svgItem->setPos(position.toQPoint());
+void Wall::createSVGItem(Common::WallState::WallType wallType)
+{
+	if (wallType == Common::WallState::WallTypeSolid)
+		m_svgItem = new QGraphicsSvgItem(QString("../../resources/objects/wall_solid.svg"));
+	else
+		m_svgItem = new QGraphicsSvgItem(QString("../../resources/objects/wall_loose.svg"));
+}
+
+void Wall::updateInternal(const Common::Point &position, double width, double height, double pixelPerMeter)
+{
+	Point positionScaled(position*pixelPerMeter);
+	positionScaled = positionScaled + Point(width/2, height/2);
+	positionScaled.switchIntoQtCoordinates();
+
+	m_svgItem->setScale(0.001*pixelPerMeter*height);
+	m_svgItem->setPos(positionScaled.toQPoint());
 }
