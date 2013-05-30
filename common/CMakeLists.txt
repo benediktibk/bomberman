@@ -12,6 +12,7 @@ set(COMMON_SRC
 	changeablestate.cpp
 	destroyablestate.cpp
 	powerupstate.cpp
+	powerupmaxbombstate.cpp
 )
 
 set(COMMON_TEST_SRC

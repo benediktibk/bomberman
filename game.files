@@ -224,3 +224,5 @@ common/powerupstate.h
 common/powerupstate.cpp
 common/powerupstatetest.h
 common/powerupstatetest.cpp
+common/powerupmaxbombstate.h
+common/powerupmaxbombstate.cpp
