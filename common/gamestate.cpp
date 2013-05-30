@@ -4,7 +4,7 @@
 using namespace Common;
 using namespace std;
 
-GameState::GameState(LevelDefinition level) :
+GameState::GameState(const LevelDefinition &level) :
     m_height(level.getLevelHeight()),
     m_width(level.getLevelWidth())
 { }

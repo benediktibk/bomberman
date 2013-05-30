@@ -18,9 +18,10 @@ class GameStateTest :
 	 CPPUNIT_TEST(getAllBombsLifeTime_AfterReduceLifeTime_resultTimeIs2);
 	 CPPUNIT_TEST(getAllChangedBombs_twoBombsAddedAndOneDeleted_resultSizeIs1);
 	 CPPUNIT_TEST(getAllChangedBombs_twoBombsAddedAndOneDeleted_bombCountIs1);
-	 CPPUNIT_TEST(getAllChangedBombs_oneBombAddedAndChangedFlagsResetAndAnotherOneAdded_resultSzeIs1);
+     CPPUNIT_TEST(getAllChangedBombs_oneBombAddedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1);
 	 CPPUNIT_TEST(resetChangedFlags_oneWallAdded_wallIsNotChanged);
 	 CPPUNIT_TEST(resetChangedFlags_oneBombAdded_bombIsNotChanged);
+     CPPUNIT_TEST(getHeight_HeightLevelDefinition_resultIs50);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -32,9 +33,10 @@ private:
 	 void getAllBombsLifeTime_AfterReduceLifeTime_resultTimeIs2();
 	 void getAllChangedBombs_twoBombsAddedAndOneDeleted_resultSizeIs1();
 	 void getAllChangedBombs_twoBombsAddedAndOneDeleted_bombCountIs1();
-	 void getAllChangedBombs_oneBombAddedAndChangedFlagsResetAndAnotherOneAdded_resultSzeIs1();
+     void getAllChangedBombs_oneBombAddedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1();
 	 void resetChangedFlags_oneWallAdded_wallIsNotChanged();
 	 void resetChangedFlags_oneBombAdded_bombIsNotChanged();
+     void getHeight_HeightLevelDefinition_resultIs50();
 };
 }
 

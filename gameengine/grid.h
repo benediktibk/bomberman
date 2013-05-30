@@ -21,7 +21,7 @@ private:
 	};
 
 public:
-	Grid(unsigned int rows,unsigned int cols);
+    Grid(unsigned int rows,unsigned int cols);
 
 	bool isPlaceEmpty(const Common::Point &position) const;
 	void addBombAtPlace(Common::BombState &bomb);

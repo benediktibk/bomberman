@@ -40,7 +40,7 @@ void GameStateTest::getAllChangedBombs_twoBombsAdded_resultSizeIs2()
 	CPPUNIT_ASSERT_EQUAL((size_t)2, bombs.size());
 }
 
-void GameStateTest::getAllChangedBombs_oneBombAddedAndChangedFlagsResetAndAnotherOneAdded_resultSzeIs1()
+void GameStateTest::getAllChangedBombs_oneBombAddedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1()
 {
 	UniqueIdCreator idCreator;
     LevelDefinition level;
@@ -161,4 +161,12 @@ void GameStateTest::resetChangedFlags_oneBombAdded_bombIsNotChanged()
 	state.resetChangedFlags();
 
 	CPPUNIT_ASSERT(!bomb->hasChanged());
+}
+
+void GameStateTest::getHeight_HeightLevelDefinition_resultIs50()
+{
+    LevelDefinition level;
+    GameState state(level);
+
+    CPPUNIT_ASSERT_EQUAL((unsigned int)50, state.getHeight());
 }

@@ -12,7 +12,7 @@ namespace Common
 class GameState
 {
 public:
-    GameState(LevelDefinition level);
+    GameState(const LevelDefinition &level);
 	~GameState();
 
 	void setPlayerState(const PlayerState &state);
