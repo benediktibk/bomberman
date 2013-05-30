@@ -23,3 +23,11 @@ void LevelDefinitionTest::getLevelWidth_resultIs50()
 
     CPPUNIT_ASSERT_EQUAL((unsigned int)50, level.getLevelWidth());
 }
+
+void LevelDefinitionTest::setObjectTypeAtPosition_SolidWallAt3And5_resultIsObjectTypeSolidWall()
+{
+    LevelDefinition level;
+    level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall,3,5);
+
+    CPPUNIT_ASSERT_EQUAL(LevelDefinition::ObjectTypeSolidWall, level.getObjectTypeAtPosition(3,5));
+}
