@@ -31,6 +31,7 @@ set(COMMON_TEST_SRC
 	destroyablestatemock.cpp
 	powerupstatetest.cpp
 	powerupmaxbombstatetest.cpp
+	powerupbombpackstatetest.cpp
 )
 
 add_library(common ${COMMON_SRC})

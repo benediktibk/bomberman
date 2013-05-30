@@ -230,3 +230,5 @@ common/powerupmaxbombstatetest.h
 common/powerupmaxbombstatetest.cpp
 common/powerupbombpackstate.h
 common/powerupbombpackstate.cpp
+common/powerupbombpackstatetest.h
+common/powerupbombpackstatetest.cpp
