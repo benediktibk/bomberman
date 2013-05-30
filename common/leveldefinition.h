@@ -22,10 +22,12 @@ public:
 	LevelDefinition();
 	LevelDefinition(unsigned int width, unsigned int height);
 
-    ObjectType getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY) const;
-    unsigned int getLevelWidth() const;
-    unsigned int getLevelHeight() const;
-    void setObjectTypeAtPosition(ObjectType objectType, unsigned int positionX, unsigned int positionY);
+	ObjectType getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY) const;
+	unsigned int getLevelWidth() const;
+	unsigned int getLevelHeight() const;
+	void setObjectTypeAtPosition(ObjectType objectType, unsigned int positionX, unsigned int positionY);
+
+	static LevelDefinition createDefaultLevel();
 
 private:
 	unsigned int m_width;
@@ -35,4 +37,4 @@ private:
 };
 }
 
-#endif // LEVELDEFINITION_H
+#endif

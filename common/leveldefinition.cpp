@@ -33,3 +33,16 @@ void LevelDefinition::setObjectTypeAtPosition(ObjectType objectType, unsigned in
 {
 	m_objectMatrix[m_width*positionY+positionX] = objectType;
 }
+
+LevelDefinition LevelDefinition::createDefaultLevel()
+{
+	LevelDefinition result(15, 10);
+
+	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 0, 3);
+	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 7);
+	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 2);
+	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 10, 2);
+	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 10, 3);
+
+	return result;
+}

@@ -16,6 +16,7 @@ MainWindow::MainWindow(bool enableOpenGL) :
 	m_fpsUpdateTimeStep(250),
 	m_ui(new Ui::MainWindow),
 	m_drawer(0),
+	m_level(Common::LevelDefinition::createDefaultLevel()),
 	m_gameEngine(new GameEngine::GameEngineImpl(m_level)),
 	m_gameLoop(new GameLoop(*this, *m_gameEngine)),
 	m_timer(new QTimer(this))
