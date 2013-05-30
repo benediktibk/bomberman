@@ -21,26 +21,26 @@ GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
 	m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
 	m_firstGameStateUpdate(true)
 {
-    for(unsigned int x=0;x<level.getLevelWidth();x++)
-    {
-        for(unsigned int y=0;y<level.getLevelHeight();y++)
-        {
-            if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeSolidWall)
-            {
-                WallState *wallstate = new WallState(m_wallids, WallState::WallTypeSolid, Point(x, y));
-                m_gameState.addWall(wallstate);
-            }
-            if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeLooseWall)
-            {
-                WallState *wallstate = new WallState(m_wallids, WallState::WallTypeLoose, Point(x, y));
-                m_gameState.addWall(wallstate);
-            }
-            if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypePlayer)
-            {
-                //m_playerState.setPosition(Point(x,y)); Dynamik Position auf diese ändern
-            }
-        }
-    }
+	for(unsigned int x=0;x<level.getLevelWidth();x++)
+	{
+		for(unsigned int y=0;y<level.getLevelHeight();y++)
+		{
+			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeSolidWall)
+			{
+				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeSolid, Point(x, y));
+				m_gameState.addWall(wallstate);
+			}
+			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeLooseWall)
+			{
+				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeLoose, Point(x, y));
+				m_gameState.addWall(wallstate);
+			}
+			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypePlayer)
+			{
+				//m_playerState.setPosition(Point(x,y)); Dynamik Position auf diese ändern
+			}
+		}
+	}
 }
 
 GameEngineImpl::~GameEngineImpl()
