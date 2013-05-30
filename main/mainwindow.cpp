@@ -13,13 +13,13 @@ using namespace Qt;
 using namespace Graphic;
 
 MainWindow::MainWindow(bool enableOpenGL) :
-	m_fpsUpdateTimeStep(250),
+	m_statusBarUpdateTimeStep(250),
 	m_ui(new Ui::MainWindow),
 	m_drawer(0),
 	m_level(Common::LevelDefinition::createDefaultLevel()),
 	m_gameEngine(new GameEngine::GameEngineImpl(m_level)),
 	m_gameLoop(new GameLoop(*this, *m_gameEngine)),
-	m_timer(new QTimer(this))
+	m_timerStatusBarUpdate(new QTimer(this))
 {
 	m_ui->setupUi(this);
 
@@ -31,10 +31,10 @@ MainWindow::MainWindow(bool enableOpenGL) :
 	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView));
 	connect(	m_gameLoop, SIGNAL(guiUpdateNecessary(const Common::GameState*)),
 				this, SLOT(updateGui(const Common::GameState*)));
-	connect(	m_timer, SIGNAL(timeout()),
-				this, SLOT(updateFPS()));
+	connect(	m_timerStatusBarUpdate, SIGNAL(timeout()),
+				this, SLOT(updateStatusBar()));
 	m_gameLoop->start();
-	m_timer->start(m_fpsUpdateTimeStep);
+	m_timerStatusBarUpdate->start(m_statusBarUpdateTimeStep);
 }
 
 MainWindow::~MainWindow()
@@ -53,8 +53,13 @@ void MainWindow::updateGui(const Common::GameState *gameState)
 	m_gameLoop->setGuiUpdateFinished();
 }
 
-void MainWindow::updateFPS()
+void MainWindow::updateStatusBar()
 {
-	m_ui->statusBar->showMessage(QString("%1 fps").arg(m_gameLoop->getFramesPerSecond()));
-	m_timer->start(m_fpsUpdateTimeStep);
+	QString message = QString("%1 fps, %2 \% of time calculating");
+	double framesPerSecond = m_gameLoop->getFramesPerSecond();
+	double percentageOfTimeNotSleeping = m_gameLoop->percentageOfTimeNotSleeping() * 100;
+	QString framesPerSecondString = QString().setNum(framesPerSecond, 'f', 0);
+	QString percentageOfTimeNotSleepingString = QString().setNum(percentageOfTimeNotSleeping, 'f', 0);
+	m_ui->statusBar->showMessage(message.arg(framesPerSecondString).arg(percentageOfTimeNotSleepingString));
+	m_timerStatusBarUpdate->start(m_statusBarUpdateTimeStep);
 }
