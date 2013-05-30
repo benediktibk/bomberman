@@ -19,9 +19,10 @@ public:
 
 	LevelDefinition();
 
-	ObjectType getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY);
+    ObjectType getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY);
 	unsigned int getLevelWidth();
 	unsigned int getLevelHeight();
+    void setObjectTypeAtPosition(ObjectType objectType, unsigned int positionX, unsigned int positionY);
 
 private:
 	unsigned int m_width;
