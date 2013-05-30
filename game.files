@@ -216,3 +216,7 @@ common/destroyablestatemock.cpp
 checkIncludeGuards.sh
 gameengine/gridtest.h
 gameengine/gridtest.cpp
+physic/dynamicobjecttest.h
+physic/dynamicobjecttest.cpp
+physic/staticobjecttest.h
+physic/staticobjecttest.cpp

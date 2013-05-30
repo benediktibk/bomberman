@@ -16,6 +16,8 @@
 #include "gameengine/gridtest.h"
 #include "common/destroyablestatetest.h"
 #include "common/leveldefinitiontest.h"
+#include "physic/dynamicobjecttest.h"
+#include "physic/staticobjecttest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::GameStateTest);
@@ -35,3 +37,5 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Common::ChangeableStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GridTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::DestroyableStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::LevelDefinitionTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Physic::DynamicObjectTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Physic::StaticObjectTest);

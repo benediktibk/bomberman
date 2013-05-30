@@ -19,7 +19,7 @@ public:
 	StaticObject(PhysicSimulator &simulator, const Common::Point &position, double width, double height);
 	~StaticObject();
 
-	void setPosition(const Common::Point &point);
+	Common::Point getPosition() const;
 
 private:
 	PhysicSimulator &m_simulator;

@@ -137,10 +137,7 @@ void GameEngineImpl::updateBomb(const BombState *bomb)
 	StaticObject *bombObject = 0;
 
 	if (bombFound)
-	{
 		bombObject = position->second;
-		bombObject->setPosition(bomb->getPosition());
-	}
 	else
 	{
 		bombObject = new StaticObject(*m_simulator, bomb->getPosition(), 1, 1);
@@ -182,10 +179,7 @@ void GameEngineImpl::updateWall(const WallState *wall)
 	StaticObject *wallObject = 0;
 
 	if (wallFound)
-	{
 		wallObject = position->second;
-		wallObject->setPosition(wall->getPosition());
-	}
 	else
 	{
 		wallObject = new StaticObject(*m_simulator, wall->getPosition(), 1, 1);

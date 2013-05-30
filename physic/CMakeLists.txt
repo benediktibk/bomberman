@@ -1,11 +1,13 @@
 set(PHYSIC_SRC
 	physicsimulator.cpp
-        dynamicobject.cpp
-        staticobject.cpp
+	dynamicobject.cpp
+	staticobject.cpp
 )
 
 set(PHYSIC_TEST_SRC
 	physicsimulatortest.cpp
+	dynamicobjecttest.cpp
+	staticobjecttest.cpp
 )
 
 include_directories(

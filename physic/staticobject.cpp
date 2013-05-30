@@ -29,9 +29,10 @@ StaticObject::~StaticObject()
 	delete m_bodyDef;
 }
 
-void StaticObject::setPosition(const Point &point)
+Point StaticObject::getPosition() const
 {
-	m_bodyDef->position.Set(point.getX() + m_width/2, point.getY() + m_height/2);
+	b2Vec2 positionVec = m_body->GetPosition();
+	return Point(positionVec.x - m_width/2, positionVec.y - m_height/2);
 }
 
 
