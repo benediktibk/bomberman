@@ -30,3 +30,29 @@ void DynamicObjectTest::desturctor_empty_simulatorHasBodyCount0()
 
 	CPPUNIT_ASSERT_EQUAL((size_t)0, simulator.getBodyCount());
 }
+
+void DynamicObjectTest::applyLinearVelocity_5IntoXAndSimulationStepOf1_positionHasChanged5IntoX()
+{
+	PhysicSimulator simulator;
+	DynamicObject object(simulator, Point(0, 0), 1, 1);
+
+	object.applyLinearVelocity(5, 0);
+	simulator.simulateStep(1);
+
+	Point positionShouldBe(5, 0);
+	Point positionReal(object.getPosition());
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.0001));
+}
+
+void DynamicObjectTest::applyLinearVelocity_5IntoYAndSimulationStepOf01_positionHasChanged05IntoY()
+{
+	PhysicSimulator simulator;
+	DynamicObject object(simulator, Point(0, 0), 1, 1);
+
+	object.applyLinearVelocity(0, 5);
+	simulator.simulateStep(0.1);
+
+	Point positionShouldBe(0, 0.5);
+	Point positionReal(object.getPosition());
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.0001));
+}

@@ -27,6 +27,7 @@ private:
 	int m_velocityIterations;
 	int m_positionIterations;
 	size_t m_bodyCount;
+	double m_maximumTimeStep;
 };
 }
 
