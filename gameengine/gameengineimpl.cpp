@@ -21,7 +21,7 @@ GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
     m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
 	m_firstGameStateUpdate(true)
 {
-	WallState *wallstate0 = new WallState(m_wallids, WallState::WallTypeSolid, Point(9, 8));
+    /*WallState *wallstate0 = new WallState(m_wallids, WallState::WallTypeSolid, Point(9, 8));
 	WallState *wallstate1 = new WallState(m_wallids, WallState::WallTypeSolid, Point(9, 6));
 	WallState *wallstate2 = new WallState(m_wallids, WallState::WallTypeSolid, Point(7, 8));
 	WallState *wallstate3 = new WallState(m_wallids, WallState::WallTypeSolid, Point(7, 6));
@@ -29,7 +29,19 @@ GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
 	m_gameState.addWall(wallstate0);
 	m_gameState.addWall(wallstate1);
 	m_gameState.addWall(wallstate2);
-	m_gameState.addWall(wallstate3);
+    m_gameState.addWall(wallstate3);*/
+
+    for(unsigned int x=0;x<level.getLevelWidth();x++)
+    {
+        for(unsigned int y=0;y<level.getLevelHeight();y++)
+        {
+            if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeLooseWall)
+            {
+                WallState *wallstate = new WallState(m_wallids, WallState::WallTypeSolid, Point(x, y));
+                m_gameState.addWall(wallstate);
+            }
+        }
+    }
 }
 
 GameEngineImpl::~GameEngineImpl()

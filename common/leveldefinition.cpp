@@ -8,7 +8,7 @@ LevelDefinition::LevelDefinition() :
 	m_objectMatrix(m_width*m_height, ObjectTypeEmpty)
 { }
 
-LevelDefinition::ObjectType LevelDefinition::getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY)
+LevelDefinition::ObjectType LevelDefinition::getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY) const
 {
     return m_objectMatrix[m_width*positionY+positionX];
 }

@@ -21,7 +21,7 @@ public:
 
 	LevelDefinition();
 
-    ObjectType getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY);
+    ObjectType getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY) const;
     unsigned int getLevelWidth() const;
     unsigned int getLevelHeight() const;
     void setObjectTypeAtPosition(ObjectType objectType, unsigned int positionX, unsigned int positionY);
