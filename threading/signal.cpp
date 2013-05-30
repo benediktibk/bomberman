@@ -19,6 +19,7 @@ Signal::~Signal()
 	bool mutexLocked = m_conditionMutex->try_lock();
 	m_conditionMutex->unlock();
 	assert(mutexLocked);
+	(void)mutexLocked; // avoid warning about unused variable
 	mutexLocked = m_sendingMutex->try_lock();
 	m_sendingMutex->unlock();
 	assert(mutexLocked);
