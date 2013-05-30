@@ -222,3 +222,8 @@ physic/staticobjecttest.h
 physic/staticobjecttest.cpp
 common/gridpoint.h
 common/gridpoint.cpp
+common/powerupstate.h
+common/powerupstate.cpp
+common/powerupstatetest.h
+common/powerupstatetest.cpp
+

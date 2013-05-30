@@ -34,16 +34,16 @@ public:
 
 public slots:
 	void updateGui(const Common::GameState *gameState);
-	void updateFPS();
+	void updateStatusBar();
 
 private:
-	const unsigned int m_fpsUpdateTimeStep;
+	const unsigned int m_statusBarUpdateTimeStep;
 	Ui::MainWindow *m_ui;
 	Common::GraphicDrawer *m_drawer;
-    Common::LevelDefinition m_level;
+	Common::LevelDefinition m_level;
 	Common::GameEngine *m_gameEngine;
 	GameLoop *m_gameLoop;
-	QTimer *m_timer;
+	QTimer *m_timerStatusBarUpdate;
 };
 }
 
