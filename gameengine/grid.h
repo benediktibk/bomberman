@@ -32,6 +32,7 @@ public:
 	void removeWall(Common::WallState &wall);
 	void updatePlayer(const Common::PlayerState &player);
 	std::vector<unsigned int> getWallsInRange(const Common::BombState &bomb) const;
+    //std::vector<Common::GridPoint> getPlayerFields(const Common::PlayerState &player) const;
 
 private:
     unsigned int getVectorIndex(const Common::GridPoint &position) const;

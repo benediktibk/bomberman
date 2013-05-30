@@ -139,3 +139,8 @@ unsigned int Grid::getVectorIndex(unsigned int x,unsigned int y) const
     unsigned int index = m_gridColumns*y+x;
     return index;
 }
+
+//vector<GridPoint> Grid::getPlayerFields(const Common::PlayerState &player) const
+//{
+//
+//}
