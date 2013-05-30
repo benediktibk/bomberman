@@ -8,9 +8,15 @@ LevelDefinition::LevelDefinition() :
 	m_objectMatrix(m_width*m_height, ObjectTypeEmpty)
 { }
 
+LevelDefinition::LevelDefinition(unsigned int width, unsigned int height) :
+	m_width(width),
+	m_height(height),
+	m_objectMatrix(m_width*m_height, ObjectTypeEmpty)
+{ }
+
 LevelDefinition::ObjectType LevelDefinition::getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY) const
 {
-    return m_objectMatrix[m_width*positionY+positionX];
+	return m_objectMatrix[m_width*positionY+positionX];
 }
 
 unsigned int LevelDefinition::getLevelHeight() const
@@ -25,5 +31,5 @@ unsigned int LevelDefinition::getLevelWidth() const
 
 void LevelDefinition::setObjectTypeAtPosition(ObjectType objectType, unsigned int positionX, unsigned int positionY)
 {
-    m_objectMatrix[m_width*positionY+positionX] = objectType;
+	m_objectMatrix[m_width*positionY+positionX] = objectType;
 }

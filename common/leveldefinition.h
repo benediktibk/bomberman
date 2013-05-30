@@ -14,12 +14,13 @@ public:
 		ObjectTypeEmpty,
 		ObjectTypePlayer,
 		ObjectTypeSolidWall,
-        ObjectTypeLooseWall,
-        ObjectTypeEnemy,
-        ObjectTypeKIEnemy
+		ObjectTypeLooseWall,
+		ObjectTypeEnemy,
+		ObjectTypeKIEnemy
 	};
 
 	LevelDefinition();
+	LevelDefinition(unsigned int width, unsigned int height);
 
     ObjectType getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY) const;
     unsigned int getLevelWidth() const;
