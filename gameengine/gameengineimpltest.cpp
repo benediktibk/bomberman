@@ -7,7 +7,8 @@ using namespace Common;
 
 void GameEngineImplTest::updateGameState_UpKeyPressed_PlayerDirectionUp()
 {
-	GameEngineImpl gameEngine;
+    LevelDefinition level;
+    GameEngineImpl gameEngine(level);
 	InputState input;
 
 	input.setUpKeyPressed();
@@ -20,7 +21,8 @@ void GameEngineImplTest::updateGameState_UpKeyPressed_PlayerDirectionUp()
 
 void GameEngineImplTest::updateGameState_DownKeyPressed_PlayerDirectionDown()
 {
-	GameEngineImpl gameEngine;
+    LevelDefinition level;
+    GameEngineImpl gameEngine(level);
 	InputState input;
 
 	input.setDownKeyPressed();
@@ -33,7 +35,8 @@ void GameEngineImplTest::updateGameState_DownKeyPressed_PlayerDirectionDown()
 
 void GameEngineImplTest::updateGameState_LeftKeyPressed_PlayerDirectionLeft()
 {
-	GameEngineImpl gameEngine;
+    LevelDefinition level;
+    GameEngineImpl gameEngine(level);
 	InputState input;
 
 	input.setLeftKeyPressed();
@@ -46,7 +49,8 @@ void GameEngineImplTest::updateGameState_LeftKeyPressed_PlayerDirectionLeft()
 
 void GameEngineImplTest::updateGameState_RightKeyPressed_PlayerDirectionRight()
 {
-	GameEngineImpl gameEngine;
+    LevelDefinition level;
+    GameEngineImpl gameEngine(level);
 	InputState input;
 
 	input.setRightKeyPressed();
@@ -59,7 +63,8 @@ void GameEngineImplTest::updateGameState_RightKeyPressed_PlayerDirectionRight()
 
 void GameEngineImplTest::updateGameState_oneBombPlaced_bombPositionIsSameAsPlayerPosition()
 {
-	GameEngineImpl gameEngine;
+    LevelDefinition level;
+    GameEngineImpl gameEngine(level);
 	InputState input;
 	const BombState *bomb;
 
@@ -74,7 +79,8 @@ void GameEngineImplTest::updateGameState_oneBombPlaced_bombPositionIsSameAsPlaye
 
 void GameEngineImplTest::updateGameState_oneBombPlaced_bombLifeTimeIs2()
 {
-	GameEngineImpl gameEngine;
+    LevelDefinition level;
+    GameEngineImpl gameEngine(level);
 	InputState input;
 	const BombState *bomb;
 
@@ -90,7 +96,8 @@ void GameEngineImplTest::updateGameState_oneBombPlaced_bombLifeTimeIs2()
 
 void GameEngineImplTest::updateGameState_twoBombsPlacedAndOneDestroyed_bombCountIs1()
 {
-	GameEngineImpl gameEngine;
+    LevelDefinition level;
+    GameEngineImpl gameEngine(level);
 	InputState input;
 
 	input.setSpaceKeyPressed();
