@@ -1,6 +1,7 @@
 #include "powerupmaxbombstatetest.h"
 #include "powerupmaxbombstate.h"
 #include "uniqueidcreator.h"
+#include "playerstate.h"
 
 using namespace Common;
 
@@ -18,4 +19,15 @@ void PowerUpMaxBombStateTest::getPowerUpHeight_heightIs1()
     PowerUpMaxBombState increaseMaxBomb(id, Point());
 
     CPPUNIT_ASSERT_EQUAL(1.0, increaseMaxBomb.getHeight());
+}
+
+void PowerUpMaxBombStateTest::modifyPlayer_maxBombIs2()
+{
+    UniqueIdCreator id;
+    PowerUpMaxBombState increaseMaxBomb(id, Point());
+    PlayerState player;
+
+    increaseMaxBomb.modifyPlayer(player);
+
+    CPPUNIT_ASSERT_EQUAL(static_cast<unsigned int>(2), player.getMaxBombs());
 }
