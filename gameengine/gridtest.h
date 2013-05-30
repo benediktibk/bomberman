@@ -13,6 +13,13 @@ class GridTest :
      CPPUNIT_TEST(isPlaceEmpty_TestOnEmptyVector_true);
      CPPUNIT_TEST(isPlaceEmpty_TestNotEmptyVector_false);
      CPPUNIT_TEST(addBombAtPlace_add_at3_3);
+     CPPUNIT_TEST(getWallsInRange_bombat32_twowallsup);
+     CPPUNIT_TEST(getWallsInRange_bombat32_twowallsright);
+     CPPUNIT_TEST(getWallsInRange_bombat32_twowallsleft);
+     CPPUNIT_TEST(getWallsInRange_bombat32_twowallsdown);
+     CPPUNIT_TEST(getWallsInRange_bombat32and4wallssurrounding_sizeofwallsinrangeis4);
+     CPPUNIT_TEST(getWallsInRange_bombat32and8wallssurroundingrangeis2_sizeofwallsinrangeis4);
+     //CPPUNIT_TEST();
      CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -22,8 +29,14 @@ private:
      void removeBomb_from_3_3();
      void addWallAtPlace_add_at3_3();
      void addBombAtPlace_add_at3_3();
+     void getWallsInRange_bombat32_twowallsup();
+     void getWallsInRange_bombat32_twowallsright();
+     void getWallsInRange_bombat32_twowallsleft();
+     void getWallsInRange_bombat32_twowallsdown();
+     void getWallsInRange_bombat32and4wallssurrounding_sizeofwallsinrangeis4();
+     void getWallsInRange_bombat32and8wallssurroundingrangeis2_sizeofwallsinrangeis4();
+     //void
 };
 }
 
 #endif
-

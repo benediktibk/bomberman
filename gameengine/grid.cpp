@@ -126,8 +126,6 @@ unsigned int Grid::getVectorIndex(const Point &position) const
 
 unsigned int Grid::getVectorIndex(unsigned int x,unsigned int y) const
 {
-    assert(x > 0);
-    assert(y > 0);
     assert(x < m_gridRows);
     assert(y < m_gridColumns);
     unsigned int index = m_gridColumns*y+x;
