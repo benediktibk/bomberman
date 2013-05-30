@@ -25,18 +25,24 @@ public:
 	void setDirectionDown();
 	void setDirectionLeft();
 	void setDirectionRight();
+    void setMaxBombs(unsigned int maxBombs);
+    void increaseMaxBombs();
+    unsigned int getMaxBombs() const;
+    unsigned int getRemainingBombs() const;
 	void countBomb();
 	void reduceBombCount();
 	unsigned int getBombCount();
 	double getSpeed() const;
 	double getWidth() const;
 	double getHeight() const;
+    bool canPlayerPlaceBomb () const;
 
 
 private:
 	Point m_position;
 	PlayerDirection m_direction;
 	unsigned int m_placedBombCount;
+    unsigned int m_maxBombs;
 	double m_speed;
 	double m_width;
 	double m_height;

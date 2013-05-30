@@ -11,6 +11,7 @@ set(COMMON_SRC
 	leveldefinition.cpp
 	changeablestate.cpp
 	destroyablestate.cpp
+    gridpoint.cpp
 	powerupstate.cpp
 	powerupmaxbombstate.cpp
 	powerupbombpackstate.cpp

@@ -1,10 +1,11 @@
 #include "playerstate.h"
-
+#include <assert.h>
 using namespace Common;
 
 PlayerState::PlayerState() :
 	m_direction(PlayerDirectionUp),
 	m_placedBombCount(0),
+    m_maxBombs(1),
 	m_speed(5.0),
 	m_width(1),
 	m_height(1)
@@ -73,4 +74,33 @@ double PlayerState::getHeight() const
 double PlayerState::getWidth() const
 {
 	return m_width;
+}
+
+void PlayerState::setMaxBombs(unsigned int maxBombs)
+{
+    m_maxBombs=maxBombs;
+}
+
+void PlayerState::increaseMaxBombs()
+{
+    m_maxBombs+=1;
+}
+
+unsigned int PlayerState::getMaxBombs() const
+{
+    return m_maxBombs;
+}
+
+unsigned int PlayerState::getRemainingBombs() const
+{
+    assert(((int)m_maxBombs-(int)m_placedBombCount)>=0);
+    return m_maxBombs-m_placedBombCount;
+}
+
+bool PlayerState::canPlayerPlaceBomb() const
+{
+    if(getRemainingBombs()==0)
+        return false;
+    else
+        return true;
 }
