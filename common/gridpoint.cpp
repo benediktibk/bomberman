@@ -14,6 +14,11 @@ GridPoint::GridPoint(unsigned int x, unsigned int y) :
     m_y(y)
 { }
 
+GridPoint::GridPoint(const Point &point) :
+        m_x(static_cast<unsigned int>(point.getX())),
+        m_y(static_cast<unsigned int>(point.getY()))
+{ }
+
 void GridPoint::setX(unsigned int value)
 {
     m_x = value;

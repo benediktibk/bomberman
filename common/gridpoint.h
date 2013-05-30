@@ -10,7 +10,7 @@ class GridPoint
 public:
     GridPoint();
     GridPoint(unsigned int x, unsigned int y);
-    GridPoint(Point);
+    GridPoint(const Point &point);
     void setX(unsigned int value);
     unsigned int getX() const;
     void setY(unsigned int value);

@@ -6,6 +6,7 @@
 #include "common/bombstate.h"
 #include "common/wallstate.h"
 #include "common/playerstate.h"
+#include "common/gridpoint.h"
 
 namespace GameEngine
 {
@@ -24,6 +25,7 @@ public:
     Grid(unsigned int rows,unsigned int cols);
 
 	bool isPlaceEmpty(const Common::Point &position) const;
+    bool isPlaceEmpty(const Common::GridPoint &position) const;
 	void addBombAtPlace(Common::BombState &bomb);
 	void addWallAtPlace(Common::WallState &wall);
 	void removeBomb(Common::BombState &bomb);
@@ -32,7 +34,7 @@ public:
 	std::vector<unsigned int> getWallsInRange(const Common::BombState &bomb) const;
 
 private:
-	unsigned int getVectorIndex(const Common::Point &position) const;
+    unsigned int getVectorIndex(const Common::GridPoint &position) const;
 	unsigned int getVectorIndex(unsigned int x,unsigned int y) const;
 private:
 	unsigned int m_gridRows;
