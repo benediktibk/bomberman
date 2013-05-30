@@ -287,4 +287,154 @@ void GridTest::getWallsInRange_bombat32and8wallssurroundingrangeis2_sizeofwallsi
     CPPUNIT_ASSERT_EQUAL((unsigned int)4 , wallsinrange.size());
 }
 
+void GridTest::getWallsInRange_bombat32andwallssurroundingdistance2rangeis2_sizeofwallsinrangeis4()
+{
+    UniqueIdCreator bombcreator;
+    UniqueIdCreator wallcreator;
+    vector<unsigned int> wallsinrange;
+
+    Grid grid(6,7);
+
+    Point position(3.0,2.0);
+    BombState bomb(bombcreator);
+    bomb.setPosition(position);
+    bomb.setDestructionRange(2);
+    grid.addBombAtPlace(bomb);
+
+    Point position1(3.0,3.0);
+    WallState wall1(wallcreator,WallState::WallTypeLoose,position1);
+    grid.addWallAtPlace(wall1);
+
+    Point position5(3.0,0.0);
+    WallState wall5(wallcreator,WallState::WallTypeLoose,position5);
+    grid.addWallAtPlace(wall5);
+
+    Point position6(5.0,2.0);
+    WallState wall6(wallcreator,WallState::WallTypeLoose,position6);
+    grid.addWallAtPlace(wall6);
+
+    Point position7(3.0,4.0);
+    WallState wall7(wallcreator,WallState::WallTypeLoose,position7);
+    grid.addWallAtPlace(wall7);
+
+    Point position8(1.0,2.0);
+    WallState wall8(wallcreator,WallState::WallTypeLoose,position8);
+    grid.addWallAtPlace(wall8);
+
+    wallsinrange = grid.getWallsInRange(bomb);
+
+
+    CPPUNIT_ASSERT_EQUAL((unsigned int)4 , wallsinrange.size());
+}
+
+void GridTest::getWallsInRange_bombat32andwallssurroundingdistance2rangeis1_sizeofwallsinrangeis0()
+{
+    UniqueIdCreator bombcreator;
+    UniqueIdCreator wallcreator;
+    vector<unsigned int> wallsinrange;
+
+    Grid grid(6,7);
+
+    Point position(3.0,2.0);
+    BombState bomb(bombcreator);
+    bomb.setPosition(position);
+    grid.addBombAtPlace(bomb);
+
+    Point position1(3.0,3.0);
+    WallState wall1(wallcreator,WallState::WallTypeLoose,position1);
+    grid.addWallAtPlace(wall1);
+
+    Point position5(3.0,0.0);
+    WallState wall5(wallcreator,WallState::WallTypeLoose,position5);
+    grid.addWallAtPlace(wall5);
+
+    Point position6(5.0,2.0);
+    WallState wall6(wallcreator,WallState::WallTypeLoose,position6);
+    grid.addWallAtPlace(wall6);
+
+    Point position7(3.0,4.0);
+    WallState wall7(wallcreator,WallState::WallTypeLoose,position7);
+    grid.addWallAtPlace(wall7);
+
+    Point position8(1.0,2.0);
+    WallState wall8(wallcreator,WallState::WallTypeLoose,position8);
+    grid.addWallAtPlace(wall8);
+
+    wallsinrange = grid.getWallsInRange(bomb);
+
+
+    CPPUNIT_ASSERT_EQUAL((unsigned int)4 , wallsinrange.size());
+}
+
+void GridTest::getWallsInRange_bombat60rangeis1_sizeofwallsinrangeis3()
+{
+    UniqueIdCreator bombcreator;
+    UniqueIdCreator wallcreator;
+    vector<unsigned int> wallsinrange;
+
+    Grid grid(6,7);
+
+    Point position(6.0,0.0);
+    BombState bomb(bombcreator);
+    bomb.setPosition(position);
+    grid.addBombAtPlace(bomb);
+
+    Point position1(5.0,2.0);
+    WallState wall1(wallcreator,WallState::WallTypeLoose,position1);
+    grid.addWallAtPlace(wall1);
+
+    Point position5(6.0,2.0);
+    WallState wall5(wallcreator,WallState::WallTypeLoose,position5);
+    grid.addWallAtPlace(wall5);
+
+    Point position6(5.0,0.0);
+    WallState wall6(wallcreator,WallState::WallTypeLoose,position6);
+    grid.addWallAtPlace(wall6);
+
+    Point position8(1.0,2.0);
+    WallState wall8(wallcreator,WallState::WallTypeLoose,position8);
+    grid.addWallAtPlace(wall8);
+
+    wallsinrange = grid.getWallsInRange(bomb);
+
+
+    CPPUNIT_ASSERT_EQUAL((unsigned int)3 , wallsinrange.size());
+}
+
+void GridTest::getWallsInRange_bombat62rangeis2_sizeofwallsinrangeis3()
+{
+    UniqueIdCreator bombcreator;
+    UniqueIdCreator wallcreator;
+    vector<unsigned int> wallsinrange;
+
+    Grid grid(6,7);
+
+    Point position(6.0,0.0);
+    BombState bomb(bombcreator);
+    bomb.setPosition(position);
+    bomb.setDestructionRange(2);
+    grid.addBombAtPlace(bomb);
+
+    Point position1(6.0,3.0);
+    WallState wall1(wallcreator,WallState::WallTypeLoose,position1);
+    grid.addWallAtPlace(wall1);
+
+    Point position5(5.0,2.0);
+    WallState wall5(wallcreator,WallState::WallTypeLoose,position5);
+    grid.addWallAtPlace(wall5);
+
+    Point position6(6.0,0.0);
+    WallState wall6(wallcreator,WallState::WallTypeLoose,position6);
+    grid.addWallAtPlace(wall6);
+
+    Point position8(5.0,0.0);
+    WallState wall8(wallcreator,WallState::WallTypeLoose,position8);
+    grid.addWallAtPlace(wall8);
+
+    wallsinrange = grid.getWallsInRange(bomb);
+
+
+    CPPUNIT_ASSERT_EQUAL((unsigned int)3 , wallsinrange.size());
+}
+
 //void updatePlayer(const Common::PlayerState &player);

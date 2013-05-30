@@ -19,6 +19,10 @@ class GridTest :
      CPPUNIT_TEST(getWallsInRange_bombat32_twowallsdown);
      CPPUNIT_TEST(getWallsInRange_bombat32and4wallssurrounding_sizeofwallsinrangeis4);
      CPPUNIT_TEST(getWallsInRange_bombat32and8wallssurroundingrangeis2_sizeofwallsinrangeis4);
+     CPPUNIT_TEST(getWallsInRange_bombat62rangeis2_sizeofwallsinrangeis3);
+     CPPUNIT_TEST(getWallsInRange_bombat32andwallssurroundingdistance2rangeis2_sizeofwallsinrangeis4);
+     CPPUNIT_TEST(getWallsInRange_bombat32andwallssurroundingdistance2rangeis1_sizeofwallsinrangeis0);
+     CPPUNIT_TEST(getWallsInRange_bombat60rangeis1_sizeofwallsinrangeis3);
      //CPPUNIT_TEST();
      CPPUNIT_TEST_SUITE_END();
 
@@ -35,8 +39,15 @@ private:
      void getWallsInRange_bombat32_twowallsdown();
      void getWallsInRange_bombat32and4wallssurrounding_sizeofwallsinrangeis4();
      void getWallsInRange_bombat32and8wallssurroundingrangeis2_sizeofwallsinrangeis4();
+     void getWallsInRange_bombat62rangeis2_sizeofwallsinrangeis3();
+     void getWallsInRange_bombat32andwallssurroundingdistance2rangeis2_sizeofwallsinrangeis4();
+     void getWallsInRange_bombat32andwallssurroundingdistance2rangeis1_sizeofwallsinrangeis0();
+     void getWallsInRange_bombat60rangeis1_sizeofwallsinrangeis3();
      //void
 };
 }
 
 #endif
+
+
+
