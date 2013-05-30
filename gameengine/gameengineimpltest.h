@@ -23,6 +23,8 @@ class GameEngineImplTest :
 	 CPPUNIT_TEST(updateGameState_tryToMoveThroughUpperBorder_playerPositionIsAtUpperBorder);
 	 CPPUNIT_TEST(updateGameState_tryToMoveThroughLowerBorder_playerPositionIsAtLowerBorder);
 	 CPPUNIT_TEST(updateGameState_tryToMoveThroughLeftBorder_playerPositionIsAtLeftBorder);
+     CPPUNIT_TEST(getWallCount_Create4x4LevelWith2Wall_WallCount2);
+     CPPUNIT_TEST(getWallPosition_Create4x4LevelWithWallPosition2And2_WallPosition2And2);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -39,6 +41,8 @@ private:
 	 void updateGameState_tryToMoveThroughUpperBorder_playerPositionIsAtUpperBorder();
 	 void updateGameState_tryToMoveThroughLowerBorder_playerPositionIsAtLowerBorder();
 	 void updateGameState_tryToMoveThroughLeftBorder_playerPositionIsAtLeftBorder();
+     void getWallCount_Create4x4LevelWith2Wall_WallCount2();
+     void getWallPosition_Create4x4LevelWithWallPosition2And2_WallPosition2And2();
 };
 }
 
