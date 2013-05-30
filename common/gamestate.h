@@ -12,7 +12,7 @@ namespace Common
 class GameState
 {
 public:
-	GameState();
+    GameState(LevelDefinition level);
 	~GameState();
 
 	void setPlayerState(const PlayerState &state);
@@ -43,8 +43,7 @@ private:
 	PlayerState m_playerState;
 	std::vector<WallState*> m_walls;
 	std::vector<BombState*> m_bombs;
-	LevelDefinition m_level;
-	unsigned int m_height;
+    unsigned int m_height;
 	unsigned int m_width;
 
 };

@@ -2,6 +2,7 @@
 #include "ui_mainwindowgraphictest.h"
 #include "graphic/graphicdrawerqt.h"
 #include "common/uniqueidcreator.h"
+#include "common/leveldefinition.h"
 
 using namespace Main;
 using namespace Common;
@@ -43,7 +44,8 @@ void MainWindowGraphicTest::connectSlots()
 void MainWindowGraphicTest::drawState1()
 {
 	UniqueIdCreator id;
-	GameState gameState;
+    LevelDefinition level;
+    GameState gameState(level);
 	WallState *wallOne = new WallState(id, WallState::WallTypeSolid, Point(-3, 4));
 	WallState *wallTwo = new WallState(id, WallState::WallTypeSolid, Point(2, 3));
 	WallState *wallThree = new WallState(id, WallState::WallTypeLoose, Point(1, 5));

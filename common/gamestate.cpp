@@ -4,9 +4,9 @@
 using namespace Common;
 using namespace std;
 
-GameState::GameState() :
-	m_height(m_level.getLevelHeight()),
-	m_width(m_level.getLevelWidth())
+GameState::GameState(LevelDefinition level) :
+    m_height(level.getLevelHeight()),
+    m_width(level.getLevelWidth())
 { }
 
 GameState::~GameState()
