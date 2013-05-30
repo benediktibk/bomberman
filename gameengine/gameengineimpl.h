@@ -21,7 +21,7 @@ class GameEngineImpl :
 		public Common::GameEngine
 {
 public:
-	GameEngineImpl();
+    GameEngineImpl(Common::LevelDefinition level);
 	virtual ~GameEngineImpl();
 
 	virtual void updateGameState(const Common::InputState &inputState, double time);

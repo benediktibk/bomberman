@@ -10,7 +10,7 @@ LevelDefinition::LevelDefinition() :
 
 LevelDefinition::ObjectType LevelDefinition::getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY)
 {
-	return m_objectMatrix[m_width*(positionY)+positionX];
+    return m_objectMatrix[m_width*positionY+positionX];
 }
 
 unsigned int LevelDefinition::getLevelHeight()
@@ -21,4 +21,9 @@ unsigned int LevelDefinition::getLevelHeight()
 unsigned int LevelDefinition::getLevelWidth()
 {
 	return m_width;
+}
+
+void LevelDefinition::setObjectTypeAtPosition(ObjectType objectType, unsigned int positionX, unsigned int positionY)
+{
+    m_objectMatrix[m_width*positionY+positionX] = objectType;
 }

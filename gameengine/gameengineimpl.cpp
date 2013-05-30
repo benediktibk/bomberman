@@ -10,14 +10,14 @@ using namespace Common;
 using namespace Physic;
 using namespace std;
 
-GameEngineImpl::GameEngineImpl() :
+GameEngineImpl::GameEngineImpl(LevelDefinition level) :
 	m_simulator(new PhysicSimulator),
 	m_player(new DynamicObject(*m_simulator, m_playerState.getPosition(), m_playerState.getWidth(), m_playerState.getHeight())),
 	m_upperBorder(new StaticObject(*m_simulator, Point(0, 15), 15, 1)),
 	m_lowerBorder(new StaticObject(*m_simulator, Point(0, -1), 15, 1)),
 	m_leftBorder(new StaticObject(*m_simulator, Point(-1, 0), 1, 15)),
 	m_rightBorder(new StaticObject(*m_simulator,Point(15, 0), 1, 15)),
-	m_grid(new Grid(50, 50)),
+    m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
 	m_firstGameStateUpdate(true)
 {
 	WallState *wallstate0 = new WallState(m_wallids, WallState::WallTypeSolid, Point(9, 8));
