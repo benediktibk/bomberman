@@ -59,6 +59,8 @@ set(LIBRARIES_TEST
 qt4_wrap_ui(MAIN_FORMS_MOC ${MAIN_FORMS})
 qt4_wrap_cpp(MAIN_QT_INCL_MOC ${MAIN_QT_INCL})
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
+
 #add_library(main ${MAIN_SRC})
 add_library(maintest ${MAIN_TEST_SRC})
 add_executable(game main.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})

@@ -28,3 +28,26 @@ add_custom_target(
 		COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/checkIncludeGuards.sh
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	)
+
+set(BACKGROUNDS
+	basic_gradient.svg
+)
+
+set(OBJECTS
+	bomb_planted.svg
+	player_standing.svg
+	wall_loose.svg
+	wall_solid.svg
+)
+
+foreach(file ${BACKGROUNDS})
+	file(	COPY
+			${CMAKE_CURRENT_SOURCE_DIR}/resources/backgrounds/${file}
+			DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/backgrounds/)
+endforeach()
+
+foreach(file ${OBJECTS})
+	file(	COPY
+			${CMAKE_CURRENT_SOURCE_DIR}/resources/objects/${file}
+			DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/objects/)
+endforeach()
