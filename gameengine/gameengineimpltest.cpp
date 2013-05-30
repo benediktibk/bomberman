@@ -109,3 +109,21 @@ void GameEngineImplTest::updateGameState_twoBombsPlacedAndOneDestroyed_bombCount
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getBombCount());
 }
+
+void GameEngineImplTest::getHeight_HeightOfLevelDefinition_HeightOfGamestate()
+{
+    LevelDefinition level;
+    GameEngineImpl gameEngine(level);
+    const GameState &game = gameEngine.getGameState();
+
+    CPPUNIT_ASSERT_EQUAL(level.getLevelHeight(), game.getGameStateHeight());
+}
+
+void GameEngineImplTest::getWidth_WidthOfLevelDefinition_WidthOfGamestate()
+{
+    LevelDefinition level;
+    GameEngineImpl gameEngine(level);
+    const GameState &game = gameEngine.getGameState();
+
+    CPPUNIT_ASSERT_EQUAL(level.getLevelWidth(), game.getGameStateWidth());
+}

@@ -17,6 +17,8 @@ class GameEngineImplTest :
      CPPUNIT_TEST(updateGameState_oneBombPlaced_bombPositionIsSameAsPlayerPosition);
      CPPUNIT_TEST(updateGameState_oneBombPlaced_bombLifeTimeIs2);
      CPPUNIT_TEST(updateGameState_twoBombsPlacedAndOneDestroyed_bombCountIs1);
+     CPPUNIT_TEST(getHeight_HeightOfLevelDefinition_HeightOfGamestate);
+     CPPUNIT_TEST(getWidth_WidthOfLevelDefinition_WidthOfGamestate);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -27,6 +29,8 @@ private:
      void updateGameState_oneBombPlaced_bombPositionIsSameAsPlayerPosition();
      void updateGameState_oneBombPlaced_bombLifeTimeIs2();
      void updateGameState_twoBombsPlacedAndOneDestroyed_bombCountIs1();
+     void getHeight_HeightOfLevelDefinition_HeightOfGamestate();
+     void getWidth_WidthOfLevelDefinition_WidthOfGamestate();
 };
 }
 

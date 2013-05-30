@@ -127,12 +127,12 @@ void GameState::reduceAllBombsLifeTime(double time)
 	 }
  }
 
- unsigned int GameState::getHeight() const
+ unsigned int GameState::getGameStateHeight() const
  {
 	 return m_height;
  }
 
- unsigned int GameState::getWidth() const
+ unsigned int GameState::getGameStateWidth() const
  {
 	 return m_width;
  }

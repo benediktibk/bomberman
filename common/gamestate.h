@@ -27,8 +27,8 @@ public:
 	void deleteAllBombsWithNegativeLifeTime(PlayerState &playerState);
 	void resetChangedFlags();
 	void removeAllObjectsWithDestroyedFlag();
-	unsigned int getHeight() const;
-	unsigned int getWidth() const;
+	unsigned int getGameStateHeight() const;
+	unsigned int getGameStateWidth() const;
 
 private:
 	void eraseBomb(size_t position);

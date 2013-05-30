@@ -14,7 +14,9 @@ public:
 		ObjectTypeEmpty,
 		ObjectTypePlayer,
 		ObjectTypeSolidWall,
-		ObjectTypeLooseWall
+        ObjectTypeLooseWall,
+        ObjectTypeEnemy,
+        ObjectTypeKIEnemy
 	};
 
 	LevelDefinition();

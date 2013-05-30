@@ -22,6 +22,7 @@ class GameStateTest :
 	 CPPUNIT_TEST(resetChangedFlags_oneWallAdded_wallIsNotChanged);
 	 CPPUNIT_TEST(resetChangedFlags_oneBombAdded_bombIsNotChanged);
      CPPUNIT_TEST(getHeight_HeightLevelDefinition_resultIs50);
+     CPPUNIT_TEST(getWidth_WidthLevelDefinition_resultIs50);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -37,6 +38,7 @@ private:
 	 void resetChangedFlags_oneWallAdded_wallIsNotChanged();
 	 void resetChangedFlags_oneBombAdded_bombIsNotChanged();
      void getHeight_HeightLevelDefinition_resultIs50();
+     void getWidth_WidthLevelDefinition_resultIs50();
 };
 }
 

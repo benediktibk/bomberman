@@ -168,5 +168,13 @@ void GameStateTest::getHeight_HeightLevelDefinition_resultIs50()
     LevelDefinition level;
     GameState state(level);
 
-    CPPUNIT_ASSERT_EQUAL((unsigned int)50, state.getHeight());
+    CPPUNIT_ASSERT_EQUAL(level.getLevelHeight(), state.getGameStateHeight());
+}
+
+void GameStateTest::getWidth_WidthLevelDefinition_resultIs50()
+{
+    LevelDefinition level;
+    GameState state(level);
+
+    CPPUNIT_ASSERT_EQUAL(level.getLevelWidth(), state.getGameStateWidth());
 }
