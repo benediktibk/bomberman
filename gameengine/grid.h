@@ -7,6 +7,7 @@
 #include "common/wallstate.h"
 #include "common/playerstate.h"
 #include "common/gridpoint.h"
+#include "common/powerupstate.h"
 
 namespace GameEngine
 {
@@ -18,6 +19,7 @@ private:
 		ItemWall,
 		ItemBomb,
 		ItemPlayer,
+        ItemPowerUp,
 		ItemFree
 	};
 
@@ -31,6 +33,8 @@ public:
 	void removeBomb(Common::BombState &bomb);
 	void removeWall(Common::WallState &wall);
 	void updatePlayer(const Common::PlayerState &player);
+    void removePowerUp(Common::PowerUpState &powerUp);
+    void addPowerUpAtPlace(Common::PowerUpState &powerUp);
 	std::vector<unsigned int> getWallsInRange(const Common::BombState &bomb) const;
     //std::vector<Common::GridPoint> getPlayerFields(const Common::PlayerState &player) const;
 

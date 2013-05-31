@@ -49,6 +49,22 @@ void Grid::addWallAtPlace(WallState &wall)
 	m_idMatrix[index] = wall.getId();
 }
 
+void Grid::addPowerUpAtPlace(PowerUpState &powerUp)
+{
+    GridPoint position(powerUp.getPosition());
+    unsigned int index = getVectorIndex(position);
+    m_itemMatrix[index] = ItemPowerUp;
+    m_idMatrix[index] = powerUp.getId();
+}
+
+void Grid::removePowerUp(PowerUpState &powerUp)
+{
+    GridPoint position(powerUp.getPosition());
+    unsigned int index = getVectorIndex(position);
+    m_itemMatrix[index] = ItemFree;
+    m_idMatrix[index] = 0;
+}
+
 void Grid::removeBomb(BombState &bomb)
 {
     GridPoint position(bomb.getPosition());
