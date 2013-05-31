@@ -161,9 +161,9 @@ vector<const BombState*> GameState::getAllBombsWithNegativeLifeTime() const
 
 void GameState::eraseWallById(unsigned int wallId)
 {
-    for(size_t i; i < m_walls.size(); i++)
+    for(size_t i = 0; i < m_walls.size(); i++)
     {
         if(m_walls[i]->getId() == wallId)
-            eraseWall(i);
+            m_walls[i]->setDestroyed();
     }
 }

@@ -29,11 +29,13 @@ GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
 			{
 				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeSolid, Point(x, y));
 				m_gameState.addWall(wallstate);
+                m_grid->addWallAtPlace(*wallstate);
 			}
 			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeLooseWall)
 			{
 				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeLoose, Point(x, y));
 				m_gameState.addWall(wallstate);
+                m_grid->addWallAtPlace(*wallstate);
 			}
 			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypePlayer)
 			{

@@ -26,6 +26,7 @@ class GameEngineImplTest :
      CPPUNIT_TEST(getWallCount_Create4x4LevelWith2Wall_WallCount2);
      CPPUNIT_TEST(getWallPosition_Create4x4LevelWithWallPosition2And2_WallPosition2And2);
      CPPUNIT_TEST(getWallType_Create4x4LevelWallWithWallType_WallTypeIsLoose);
+     CPPUNIT_TEST(getWallCount_Create4x4LevelWith2WallsOneWallInRangeOfBombAndBombExplodes_WallCount1);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -45,6 +46,7 @@ private:
      void getWallCount_Create4x4LevelWith2Wall_WallCount2();
      void getWallPosition_Create4x4LevelWithWallPosition2And2_WallPosition2And2();
      void getWallType_Create4x4LevelWallWithWallType_WallTypeIsLoose();
+     void getWallCount_Create4x4LevelWith2WallsOneWallInRangeOfBombAndBombExplodes_WallCount1();
 };
 }
 
