@@ -133,7 +133,20 @@ void GameEngineImpl::updatePlayerSpeed()
 
 void GameEngineImpl::updateBombs()
 {
+    vector<const BombState*> BombsWithNegativeLiveTime;
+        
 	m_gameState.reduceAllBombsLifeTime(m_elapsedTime);
+    BombsWithNegativeLiveTime = m_gameState.getAllBombsWithNegativeLifeTime();
+    
+    for(size_t i = 0; i < BombsWithNegativeLiveTime.size(); i++)
+    {
+        vector<unsigned int> wallsInRange;
+        wallsInRange = m_grid->getWallsInRange(*BombsWithNegativeLiveTime[i]);
+        for(size_t j = 0; j < wallsInRange.size(); j++)
+        {
+            m_gameState.eraseWallById(wallsInRange[j]);
+        }
+    }
 	m_gameState.deleteAllBombsWithNegativeLifeTime(m_playerState);
 
 	vector<const BombState*> changedBombs = m_gameState.getAllChangedBombs();
