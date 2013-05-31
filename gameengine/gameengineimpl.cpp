@@ -147,7 +147,7 @@ void GameEngineImpl::updateBombs()
             m_gameState.eraseWallById(wallsInRange[j]);
         }
     }
-	m_gameState.deleteAllBombsWithNegativeLifeTime(m_playerState);
+	m_gameState.setAllBombsWithNegativeLifeTimeDestroyed(m_playerState);
 
 	vector<const BombState*> changedBombs = m_gameState.getAllChangedBombs();
 

@@ -24,7 +24,7 @@ public:
     size_t getBombCount() const;
     void addBomb(BombState* bomb);
     void reduceAllBombsLifeTime(double time);
-    void deleteAllBombsWithNegativeLifeTime(PlayerState &playerState);
+    void setAllBombsWithNegativeLifeTimeDestroyed(PlayerState &playerState);
     void resetChangedFlags();
     void removeAllObjectsWithDestroyedFlag();
     unsigned int getGameStateHeight() const;

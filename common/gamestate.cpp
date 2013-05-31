@@ -91,7 +91,7 @@ void GameState::reduceAllBombsLifeTime(double time)
     }
 }
 
- void GameState::deleteAllBombsWithNegativeLifeTime(PlayerState &playerState)
+ void GameState::setAllBombsWithNegativeLifeTimeDestroyed(PlayerState &playerState)
  {
      for(size_t i = 0; i < m_bombs.size(); i++)
      {
