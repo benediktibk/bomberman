@@ -163,7 +163,7 @@ void GameState::eraseWallById(unsigned int wallId)
 {
     for(size_t i = 0; i < m_walls.size(); i++)
     {
-        if(m_walls[i]->getId() == wallId)
+        if((m_walls[i]->getId() == wallId) && (m_walls[i]->getWallType() == WallState::WallTypeLoose) )
             m_walls[i]->setDestroyed();
     }
 }
