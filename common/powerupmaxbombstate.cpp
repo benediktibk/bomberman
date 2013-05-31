@@ -9,9 +9,5 @@ PowerUpMaxBombState::PowerUpMaxBombState(UniqueIdCreator &creator, const Point &
 
 void PowerUpMaxBombState::modifyPlayer(PlayerState &player)
 {
-    unsigned int maxBombs;
-    maxBombs = player.getMaxBombs();
-    maxBombs += m_plusMaxBombs;
-
-    player.setMaxBombs(maxBombs);
+    player.increaseMaxBombs(m_plusMaxBombs);
 }

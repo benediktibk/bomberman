@@ -37,3 +37,8 @@ double PowerUpState::getHeight() const
 
 void PowerUpState::modifyPlayer(PlayerState& /*player*/)
 { }
+
+void PowerUpState::shouldBeDestroyed()
+{
+    setChanged();
+}
