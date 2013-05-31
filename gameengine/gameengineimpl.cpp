@@ -101,7 +101,7 @@ void GameEngineImpl::updatePlayerPosition()
 	//vector<GridPoint> fieldsCoveredByPlayer = m_grid->getPlayerFields(m_playerState);
 
 	if (m_inputState.isMoreThanOneMovementButtonPressed())
-		updatePlayerSpeed();
+		setPlayerSpeedIfMoreThanOneDirectionIsSelected();
 	else if (m_inputState.isMovementButtonPressed())
 		setPlayerSpeedIntoOnlySelectedDirection();
 	else
@@ -111,8 +111,11 @@ void GameEngineImpl::updatePlayerPosition()
 	m_playerState.setPosition(m_player->getPosition());
 }
 
-void GameEngineImpl::updatePlayerSpeed()
+void GameEngineImpl::setPlayerSpeedIfMoreThanOneDirectionIsSelected()
 {
+	assert(m_inputState.isMoreThanOneMovementButtonPressed());
+	assert(m_inputState.isMovementButtonPressed());
+
 	if (m_inputState.isUpKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionUp)
 		m_player->applyLinearVelocity(0, m_playerState.getSpeed());
 	else if (m_inputState.isDownKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionDown)
@@ -121,28 +124,6 @@ void GameEngineImpl::updatePlayerSpeed()
 		m_player->applyLinearVelocity((-1)*m_playerState.getSpeed(), 0);
 	else if (m_inputState.isRightKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionRight)
 		m_player->applyLinearVelocity(m_playerState.getSpeed(), 0);
-	else if (m_inputState.isUpKeyPressed())
-	{
-		m_playerState.setDirectionUp();
-		m_player->applyLinearVelocity(0, 5);
-	}
-	else if (m_inputState.isDownKeyPressed())
-	{
-		m_playerState.setDirectionDown();
-		m_player->applyLinearVelocity(0, -5);
-	}
-	else if (m_inputState.isLeftKeyPressed())
-	{
-		m_playerState.setDirectionLeft();
-		m_player->applyLinearVelocity(-5, 0);
-	}
-	else if (m_inputState.isRightKeyPressed())
-	{
-		m_playerState.setDirectionRight();
-		m_player->applyLinearVelocity(5, 0);
-	}
-	else
-		m_player->applyLinearVelocity(0, 0);
 }
 
 void GameEngineImpl::setPlayerSpeedIntoOnlySelectedDirection()

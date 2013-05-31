@@ -31,7 +31,7 @@ private:
 	void deleteAllWallObjects();
 	void deleteAllBombObjects();
 	void updatePlayerPosition();
-	void updatePlayerSpeed();
+	void setPlayerSpeedIfMoreThanOneDirectionIsSelected();
 	void setPlayerSpeedIntoOnlySelectedDirection();
 	void setPlayerSpeedToNull();
 	void updateBombs();
