@@ -98,14 +98,22 @@ void GameEngineImpl::deleteAllBombObjects()
 
 void GameEngineImpl::updatePlayerPosition()
 {
-	//vector<GridPoint> fieldsCoveredByPlayer = m_grid->getPlayerFields(m_playerState);
+	vector<GridPoint> fieldsCoveredByPlayer = m_grid->getPlayerFields(m_playerState);
 
-	if (m_inputState.isMoreThanOneMovementButtonPressed())
-		setPlayerSpeedIfMoreThanOneDirectionIsSelected();
-	else if (m_inputState.isMovementButtonPressed())
-		setPlayerSpeedIntoOnlySelectedDirection();
-	else
-		setPlayerSpeedToNull();
+	if (fieldsCoveredByPlayer.size() == 1)
+	{
+		if (m_inputState.isMoreThanOneMovementButtonPressed())
+			setPlayerSpeedIfMoreThanOneDirectionIsSelected();
+		else if (m_inputState.isMovementButtonPressed())
+			setPlayerSpeedIntoOnlySelectedDirection();
+		else
+			setPlayerSpeedToNull();
+	}
+//	else
+//	{
+//		bool horizontalMovementLocked = false;
+//		bool verticalMovementLocked = false;
+//	}
 
 	m_simulator->simulateStep(m_elapsedTime);
 	m_playerState.setPosition(m_player->getPosition());

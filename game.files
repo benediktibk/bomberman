@@ -235,3 +235,5 @@ common/powerupbombpackstate.cpp
 common/powerupbombpackstatetest.h
 common/powerupbombpackstatetest.cpp
 Doxyfile
+common/gridpointtest.h
+common/gridpointtest.cpp

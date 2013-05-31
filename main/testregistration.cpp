@@ -8,6 +8,7 @@
 #include "threading/signaltest.h"
 #include "common/stopwatchtest.h"
 #include "common/pointtest.h"
+#include "common/gridpointtest.h"
 #include "common/enemystatetest.h"
 #include "common/bombstatetest.h"
 #include "common/wallstatetest.h"
@@ -28,6 +29,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::GameStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::StopWatchTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PointTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::GridPointTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::EnemyStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::BombStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::WallStateTest);
