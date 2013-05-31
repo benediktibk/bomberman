@@ -194,58 +194,93 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughLeftBorder_playerPositi
 
 void GameEngineImplTest::getWallCount_Create4x4LevelWith2Wall_WallCount2()
 {
-    LevelDefinition level(4, 4);
-    level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,1,3);
-    level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall,3,3);
-    GameEngineImpl gameEngine(level);
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,1,3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall,3,3);
+	GameEngineImpl gameEngine(level);
 
-    const GameState &game = gameEngine.getGameState();
+	const GameState &game = gameEngine.getGameState();
 
-    CPPUNIT_ASSERT_EQUAL((size_t)2, game.getWallCount());
+	CPPUNIT_ASSERT_EQUAL((size_t)2, game.getWallCount());
 }
 
 void GameEngineImplTest::getWallPosition_Create4x4LevelWithWallPosition2And2_WallPosition2And2()
 {
-    LevelDefinition level(4, 4);
-    level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,2,2);
-    GameEngineImpl gameEngine(level);
-    const WallState *wall;
-    const Point point(2,2);
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,2,2);
+	GameEngineImpl gameEngine(level);
+	const WallState *wall;
+	const Point point(2,2);
 
-    const GameState &game = gameEngine.getGameState();
-    wall = game.getAllChangedWalls().front();
+	const GameState &game = gameEngine.getGameState();
+	wall = game.getAllChangedWalls().front();
 
-    CPPUNIT_ASSERT_EQUAL((const Point)point, wall->getPosition());
+	CPPUNIT_ASSERT_EQUAL((const Point)point, wall->getPosition());
 }
 
 void GameEngineImplTest::getWallType_Create4x4LevelWallWithWallType_WallTypeIsLoose()
 {
-    LevelDefinition level(4, 4);
-    level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,2,2);
-    GameEngineImpl gameEngine(level);
-    const WallState *wall;
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,2,2);
+	GameEngineImpl gameEngine(level);
+	const WallState *wall;
 
-    const GameState &game = gameEngine.getGameState();
-    wall = game.getAllChangedWalls().front();
+	const GameState &game = gameEngine.getGameState();
+	wall = game.getAllChangedWalls().front();
 
-    CPPUNIT_ASSERT_EQUAL(WallState::WallTypeLoose, wall->getWallType());
+	CPPUNIT_ASSERT_EQUAL(WallState::WallTypeLoose, wall->getWallType());
 }
 
 void GameEngineImplTest::getWallCount_Create4x4LevelWith2WallsOneWallInRangeOfBombAndBombExplodes_WallCount1()
 {
-    LevelDefinition level(4, 4);
-    level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,1,3);
-    level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall,1,0);
-    GameEngineImpl gameEngine(level);
-    InputState input;
-    
-    input.setSpaceKeyPressed();
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,1,3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall,1,0);
+	GameEngineImpl gameEngine(level);
+	InputState input;
+
+	input.setSpaceKeyPressed();
 	gameEngine.updateGameState(input, 0);
 	gameEngine.updateGameState(input, 3.1);
 	input.setSpaceKeyNotPressed();
 	gameEngine.updateGameState(input, 0);
 
-    const GameState &game = gameEngine.getGameState();
+	const GameState &game = gameEngine.getGameState();
 
-    CPPUNIT_ASSERT_EQUAL((size_t)1, game.getWallCount());
+	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getWallCount());
+}
+
+void GameEngineImplTest::updateGameState_Create4x4LevelWithSolidWallAndLetBombExplode_wallCountIs1()
+{
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 1, 0);
+	GameEngineImpl gameEngine(level);
+	InputState input;
+
+	input.setSpaceKeyPressed();
+	gameEngine.updateGameState(input, 0);
+	input.setSpaceKeyNotPressed();
+	gameEngine.updateGameState(input, 3.1);
+	gameEngine.updateGameState(input, 0);
+
+	const GameState &game = gameEngine.getGameState();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getWallCount());
+}
+
+void GameEngineImplTest::updateGameState_placeBombAndWaitTillItExploded_bombCountIs0()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	InputState input;
+
+	input.setSpaceKeyPressed();
+	gameEngine.updateGameState(input, 0);
+	input.setSpaceKeyNotPressed();
+	gameEngine.updateGameState(input, 3.1);
+	gameEngine.updateGameState(input, 0);
+
+	const GameState &game = gameEngine.getGameState();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getBombCount());
 }
