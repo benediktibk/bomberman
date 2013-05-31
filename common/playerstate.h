@@ -37,6 +37,7 @@ public:
 	double getWidth() const;
 	double getHeight() const;
     bool canPlayerPlaceBomb () const;
+    Point getCenterPosition() const;
 
 
 private:

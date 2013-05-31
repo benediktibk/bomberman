@@ -109,3 +109,8 @@ bool PlayerState::canPlayerPlaceBomb() const
     else
         return true;
 }
+
+Point PlayerState::getCenterPosition() const
+{
+    return m_position + Point(m_width/2,m_height/2);
+}

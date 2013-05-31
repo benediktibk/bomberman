@@ -20,6 +20,7 @@ public:
 	~DynamicObject();
 
 	Common::Point getPosition() const;
+    Common::Point getCenterPosition() const;
 	void applyLinearVelocity(double velocityx, double velocityy);
 
 private:

@@ -56,3 +56,11 @@ void DynamicObjectTest::applyLinearVelocity_5IntoYAndSimulationStepOf01_position
 	Point positionReal(object.getPosition());
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.0001));
 }
+
+void DynamicObjectTest::constructor_position5And4AndHeight2AndWidth2_centerPositionIs6And5()
+{
+    PhysicSimulator simulator;
+    DynamicObject object(simulator, Point(5, 4), 2, 2);
+
+    CPPUNIT_ASSERT(Point(6, 5).fuzzyEqual(object.getCenterPosition(), 0.0001));
+}

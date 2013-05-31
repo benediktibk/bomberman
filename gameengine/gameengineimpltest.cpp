@@ -217,3 +217,16 @@ void GameEngineImplTest::getWallPosition_Create4x4LevelWithWallPosition2And2_Wal
 
     CPPUNIT_ASSERT_EQUAL((const Point)point, wall->getPosition());
 }
+
+void GameEngineImplTest::getWallType_Create4x4LevelWallWithWallType_WallTypeIsLoose()
+{
+    LevelDefinition level(4, 4);
+    level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,2,2);
+    GameEngineImpl gameEngine(level);
+    const WallState *wall;
+
+    const GameState &game = gameEngine.getGameState();
+    wall = game.getAllChangedWalls().front();
+
+    CPPUNIT_ASSERT_EQUAL(WallState::WallTypeLoose, wall->getWallType());
+}

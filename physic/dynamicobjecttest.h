@@ -15,6 +15,7 @@ class DynamicObjectTest :
 	 CPPUNIT_TEST(desturctor_empty_simulatorHasBodyCount0);
 	 CPPUNIT_TEST(applyLinearVelocity_5IntoXAndSimulationStepOf1_positionHasChanged5IntoX);
 	 CPPUNIT_TEST(applyLinearVelocity_5IntoYAndSimulationStepOf01_positionHasChanged05IntoY);
+     CPPUNIT_TEST(constructor_position5And4AndHeight2AndWidth2_centerPositionIs6And5);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -23,6 +24,7 @@ private:
 	 void desturctor_empty_simulatorHasBodyCount0();
 	 void applyLinearVelocity_5IntoXAndSimulationStepOf1_positionHasChanged5IntoX();
 	 void applyLinearVelocity_5IntoYAndSimulationStepOf01_positionHasChanged05IntoY();
+     void constructor_position5And4AndHeight2AndWidth2_centerPositionIs6And5();
 };
 }
 

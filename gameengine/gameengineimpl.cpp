@@ -169,7 +169,7 @@ void GameEngineImpl::placeBombs()
 	if (m_inputState.isSpaceKeyPressed() && m_playerState.getBombCount() < 1)
 	{
 		BombState *bombPlaced = new BombState(m_bombids);
-		bombPlaced->setPosition(m_player->getPosition());
+        bombPlaced->setPosition(m_player->getCenterPosition());
 		m_grid->addBombAtPlace(*bombPlaced);
 		m_playerState.countBomb();
 		m_gameState.addBomb(bombPlaced);

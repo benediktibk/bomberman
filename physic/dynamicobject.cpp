@@ -45,3 +45,10 @@ void DynamicObject::applyLinearVelocity(double velocityx, double velocityy)
 	vel.y = velocityy;
 	m_body->SetLinearVelocity(vel);
 }
+
+Point DynamicObject::getCenterPosition() const
+{
+    b2Vec2 position = m_body->GetPosition();
+    Point pointposition(position.x, position.y);
+    return pointposition;
+}
