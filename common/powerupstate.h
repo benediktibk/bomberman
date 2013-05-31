@@ -24,6 +24,9 @@ public:
 
     virtual void modifyPlayer(PlayerState &player);
 
+protected:
+    virtual void shouldBeDestroyed();
+
 private:
     const Point m_position;
     const unsigned int m_powerUpId;
@@ -32,4 +35,4 @@ private:
     double m_height;
 };
 }
-#endif // POWERUP_H
+#endif

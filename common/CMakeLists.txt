@@ -15,6 +15,7 @@ set(COMMON_SRC
 	powerupstate.cpp
 	powerupmaxbombstate.cpp
 	powerupbombpackstate.cpp
+	powerupgenerator.cpp
 )
 
 set(COMMON_TEST_SRC
