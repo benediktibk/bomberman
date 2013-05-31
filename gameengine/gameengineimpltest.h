@@ -28,6 +28,7 @@ class GameEngineImplTest :
 	 CPPUNIT_TEST(getWallType_Create4x4LevelWallWithWallType_WallTypeIsLoose);
 	 CPPUNIT_TEST(updateGameState_halfTheTimeOfTheMovementToTheNextGridFieldButtonPressed_playerStaysInBetween);
 	 CPPUNIT_TEST(updateGameState_playerVerticalBetweenTwoFieldsAndUpPressed_playerDoesntMove);
+	 CPPUNIT_TEST(getWallCount_Create4x4LevelWith2WallsOneWallInRangeOfBombAndBombExplodes_WallCount1);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -49,6 +50,8 @@ private:
 	 void getWallType_Create4x4LevelWallWithWallType_WallTypeIsLoose();
 	 void updateGameState_halfTheTimeOfTheMovementToTheNextGridFieldButtonPressed_playerStaysInBetween();
 	 void updateGameState_playerVerticalBetweenTwoFieldsAndUpPressed_playerDoesntMove();
+	 void getWallCount_Create4x4LevelWith2WallsOneWallInRangeOfBombAndBombExplodes_WallCount1();
+
 };
 }
 

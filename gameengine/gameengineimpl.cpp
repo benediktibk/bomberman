@@ -30,11 +30,13 @@ GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
 			{
 				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeSolid, Point(x, y));
 				m_gameState.addWall(wallstate);
+                m_grid->addWallAtPlace(*wallstate);
 			}
 			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeLooseWall)
 			{
 				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeLoose, Point(x, y));
 				m_gameState.addWall(wallstate);
+                m_grid->addWallAtPlace(*wallstate);
 			}
 			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypePlayer)
 			{
@@ -168,8 +170,21 @@ void GameEngineImpl::setPlayerSpeedToNull()
 
 void GameEngineImpl::updateBombs()
 {
+    vector<const BombState*> BombsWithNegativeLiveTime;
+        
 	m_gameState.reduceAllBombsLifeTime(m_elapsedTime);
-	m_gameState.deleteAllBombsWithNegativeLifeTime(m_playerState);
+    BombsWithNegativeLiveTime = m_gameState.getAllBombsWithNegativeLifeTime();
+    
+    for(size_t i = 0; i < BombsWithNegativeLiveTime.size(); i++)
+    {
+        vector<unsigned int> wallsInRange;
+        wallsInRange = m_grid->getWallsInRange(*BombsWithNegativeLiveTime[i]);
+        for(size_t j = 0; j < wallsInRange.size(); j++)
+        {
+            m_gameState.eraseWallById(wallsInRange[j]);
+        }
+    }
+	m_gameState.setAllBombsWithNegativeLifeTimeDestroyed(m_playerState);
 
 	vector<const BombState*> changedBombs = m_gameState.getAllChangedBombs();
 
