@@ -270,19 +270,54 @@ void GameEngineImplTest::updateGameState_playerVerticalBetweenTwoFieldsAndUpPres
 
 void GameEngineImplTest::getWallCount_Create4x4LevelWith2WallsOneWallInRangeOfBombAndBombExplodes_WallCount1()
 {
-    LevelDefinition level(4, 4);
-    level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,1,3);
-    level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall,1,0);
-    GameEngineImpl gameEngine(level);
-    InputState input;
-    
-    input.setSpaceKeyPressed();
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,1,3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall,1,0);
+	GameEngineImpl gameEngine(level);
+	InputState input;
+
+	input.setSpaceKeyPressed();
 	gameEngine.updateGameState(input, 0);
 	gameEngine.updateGameState(input, 3.1);
 	input.setSpaceKeyNotPressed();
 	gameEngine.updateGameState(input, 0);
 
-    const GameState &game = gameEngine.getGameState();
+	const GameState &game = gameEngine.getGameState();
 
-    CPPUNIT_ASSERT_EQUAL((size_t)1, game.getWallCount());
+	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getWallCount());
+}
+
+void GameEngineImplTest::updateGameState_Create4x4LevelWithSolidWallAndLetBombExplode_wallCountIs1()
+{
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 1, 0);
+	GameEngineImpl gameEngine(level);
+	InputState input;
+
+	input.setSpaceKeyPressed();
+	gameEngine.updateGameState(input, 0);
+	input.setSpaceKeyNotPressed();
+	gameEngine.updateGameState(input, 3.1);
+	gameEngine.updateGameState(input, 0);
+
+	const GameState &game = gameEngine.getGameState();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getWallCount());
+}
+
+void GameEngineImplTest::updateGameState_placeBombAndWaitTillItExploded_bombCountIs0()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	InputState input;
+
+	input.setSpaceKeyPressed();
+	gameEngine.updateGameState(input, 0);
+	input.setSpaceKeyNotPressed();
+	gameEngine.updateGameState(input, 3.1);
+	gameEngine.updateGameState(input, 0);
+
+	const GameState &game = gameEngine.getGameState();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getBombCount());
 }
