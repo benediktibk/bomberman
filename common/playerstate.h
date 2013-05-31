@@ -27,6 +27,7 @@ public:
 	void setDirectionRight();
     void setMaxBombs(unsigned int maxBombs);
     void increaseMaxBombs();
+    void increaseMaxBombs(unsigned int number);
     unsigned int getMaxBombs() const;
     unsigned int getRemainingBombs() const;
 	void countBomb();

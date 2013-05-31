@@ -86,6 +86,11 @@ void PlayerState::increaseMaxBombs()
     m_maxBombs+=1;
 }
 
+void PlayerState::increaseMaxBombs(unsigned int number)
+{
+    m_maxBombs+=number;
+}
+
 unsigned int PlayerState::getMaxBombs() const
 {
     return m_maxBombs;
