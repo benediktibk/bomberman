@@ -97,6 +97,7 @@ void GameEngineImpl::deleteAllBombObjects()
 
 void GameEngineImpl::updatePlayerPosition()
 {
+	//vector<GridPoint> fieldsCoveredByPlayer = m_grid->getPlayerFields(m_playerState);
 	updatePlayerSpeed();
 	m_simulator->simulateStep(m_elapsedTime);
 	m_playerState.setPosition(m_player->getPosition());

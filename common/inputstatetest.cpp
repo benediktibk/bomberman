@@ -12,23 +12,23 @@ void InputStateTest::constructor_empty_upKeyIsNotPressed()
 
 void InputStateTest::constructor_empty_downKeyIsNotPressed()
 {
-    InputState inputState;
+	InputState inputState;
 
-    CPPUNIT_ASSERT(!inputState.isDownKeyPressed());
+	CPPUNIT_ASSERT(!inputState.isDownKeyPressed());
 }
 
 void InputStateTest::constructor_empty_leftKeyIsNotPressed()
 {
-    InputState inputState;
+	InputState inputState;
 
-    CPPUNIT_ASSERT(!inputState.isLeftKeyPressed());
+	CPPUNIT_ASSERT(!inputState.isLeftKeyPressed());
 }
 
 void InputStateTest::constructor_empty_rightKeyIsNotPressed()
 {
-    InputState inputState;
+	InputState inputState;
 
-    CPPUNIT_ASSERT(!inputState.isRightKeyPressed());
+	CPPUNIT_ASSERT(!inputState.isRightKeyPressed());
 }
 
 void InputStateTest::setUpKeyPressed_empty_upKeyIsPressed()
@@ -42,29 +42,29 @@ void InputStateTest::setUpKeyPressed_empty_upKeyIsPressed()
 
 void InputStateTest::setDownKeyPressed_empty_downKeyIsPressed()
 {
-    InputState inputState;
+	InputState inputState;
 
-    inputState.setDownKeyPressed();
+	inputState.setDownKeyPressed();
 
-    CPPUNIT_ASSERT(inputState.isDownKeyPressed());
+	CPPUNIT_ASSERT(inputState.isDownKeyPressed());
 }
 
 void InputStateTest::setLeftKeyPressed_empty_leftKeyIsPressed()
 {
-    InputState inputState;
+	InputState inputState;
 
-    inputState.setLeftKeyPressed();
+	inputState.setLeftKeyPressed();
 
-    CPPUNIT_ASSERT(inputState.isLeftKeyPressed());
+	CPPUNIT_ASSERT(inputState.isLeftKeyPressed());
 }
 
 void InputStateTest::setRightKeyPressed_empty_rightKeyIsPressed()
 {
-    InputState inputState;
+	InputState inputState;
 
-    inputState.setRightKeyPressed();
+	inputState.setRightKeyPressed();
 
-    CPPUNIT_ASSERT(inputState.isRightKeyPressed());
+	CPPUNIT_ASSERT(inputState.isRightKeyPressed());
 }
 
 
@@ -80,30 +80,105 @@ void InputStateTest::setUpKeyNotPressed_previouslyPressed_upKeyIsNotPressed()
 
 void InputStateTest::setDownKeyNotPressed_previouslyPressed_downKeyIsNotPressed()
 {
-    InputState inputState;
-    inputState.setDownKeyPressed();
+	InputState inputState;
+	inputState.setDownKeyPressed();
 
-    inputState.setDownKeyNotPressed();
+	inputState.setDownKeyNotPressed();
 
-    CPPUNIT_ASSERT(!inputState.isDownKeyPressed());
+	CPPUNIT_ASSERT(!inputState.isDownKeyPressed());
 }
 
 void InputStateTest::setLeftKeyNotPressed_previouslyPressed_leftKeyIsNotPressed()
 {
-    InputState inputState;
-    inputState.setLeftKeyPressed();
+	InputState inputState;
+	inputState.setLeftKeyPressed();
 
-    inputState.setLeftKeyNotPressed();
+	inputState.setLeftKeyNotPressed();
 
-    CPPUNIT_ASSERT(!inputState.isLeftKeyPressed());
+	CPPUNIT_ASSERT(!inputState.isLeftKeyPressed());
 }
 
 void InputStateTest::setRightKeyNotPressed_previouslyPressed_rightKeyIsNotPressed()
 {
-    InputState inputState;
-    inputState.setRightKeyPressed();
+	InputState inputState;
+	inputState.setRightKeyPressed();
 
-    inputState.setRightKeyNotPressed();
+	inputState.setRightKeyNotPressed();
 
-    CPPUNIT_ASSERT(!inputState.isRightKeyPressed());
+	CPPUNIT_ASSERT(!inputState.isRightKeyPressed());
+}
+
+void InputStateTest::isMovementButtonPressed_upKeyPressed_true()
+{
+	InputState inputState;
+	inputState.setUpKeyPressed();
+
+	CPPUNIT_ASSERT(inputState.isMovementButtonPressed());
+}
+
+void InputStateTest::isMovementButtonPressed_downKeyPressed_true()
+{
+	InputState inputState;
+	inputState.setDownKeyPressed();
+
+	CPPUNIT_ASSERT(inputState.isMovementButtonPressed());
+}
+
+void InputStateTest::isMovementButtonPressed_leftKeyPressed_true()
+{
+	InputState inputState;
+	inputState.setLeftKeyPressed();
+
+	CPPUNIT_ASSERT(inputState.isMovementButtonPressed());
+}
+
+void InputStateTest::isMovementButtonPressed_rightKeyPressed_true()
+{
+	InputState inputState;
+	inputState.setRightKeyPressed();
+
+	CPPUNIT_ASSERT(inputState.isMovementButtonPressed());
+}
+
+void InputStateTest::isMovementButtonPressed_noButtonPressed_false()
+{
+	InputState inputState;
+
+	CPPUNIT_ASSERT(!inputState.isMovementButtonPressed());
+}
+
+void InputStateTest::isMoreThanOneMovementButtonPressed_upAndDownPressed_true()
+{
+	InputState inputState;
+	inputState.setUpKeyPressed();
+	inputState.setDownKeyPressed();
+
+	CPPUNIT_ASSERT(inputState.isMoreThanOneMovementButtonPressed());
+}
+
+void InputStateTest::isMoreThanOneMovementButtonPressed_upPressed_false()
+{
+	InputState inputState;
+	inputState.setUpKeyPressed();
+
+	CPPUNIT_ASSERT(!inputState.isMoreThanOneMovementButtonPressed());
+}
+
+void InputStateTest::isMoreThanOneMovementButtonPressed_leftAndRightPressed_true()
+{
+	InputState inputState;
+	inputState.setLeftKeyPressed();
+	inputState.setRightKeyPressed();
+
+	CPPUNIT_ASSERT(inputState.isMoreThanOneMovementButtonPressed());
+}
+
+void InputStateTest::isMoreThanOneMovementButtonPressed_upAndDownAndLeftPressed_true()
+{
+	InputState inputState;
+	inputState.setUpKeyPressed();
+	inputState.setDownKeyPressed();
+	inputState.setLeftKeyPressed();
+
+	CPPUNIT_ASSERT(inputState.isMoreThanOneMovementButtonPressed());
 }

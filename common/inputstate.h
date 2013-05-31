@@ -23,6 +23,8 @@ public:
 	void setSpaceKeyPressed();
 	void setSpaceKeyNotPressed();
 	bool isSpaceKeyPressed() const;
+	bool isMovementButtonPressed() const;
+	bool isMoreThanOneMovementButtonPressed() const;
 
 private:
 	bool m_upKeyPressed;
