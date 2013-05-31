@@ -32,6 +32,8 @@ private:
 	void deleteAllBombObjects();
 	void updatePlayerPosition();
 	void updatePlayerSpeed();
+	void setPlayerSpeedIntoOnlySelectedDirection();
+	void setPlayerSpeedToNull();
 	void updateBombs();
 	void updateBomb(const Common::BombState *bomb);
 	void placeBombs();
