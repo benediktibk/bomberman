@@ -67,9 +67,7 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 	m_gameState.removeAllObjectsWithDestroyedFlag();
 	updateBombs();
 	updateWalls();
-	updatePlayerSpeed();
-	m_simulator->simulateStep(time);
-	m_playerState.setPosition(m_player->getPosition());
+	updatePlayerPosition();
 	placeBombs();
 
 	m_gameState.setPlayerState(m_playerState);
@@ -95,6 +93,13 @@ void GameEngineImpl::deleteAllBombObjects()
 		delete i->second;
 
 	m_bombObjects.clear();
+}
+
+void GameEngineImpl::updatePlayerPosition()
+{
+	updatePlayerSpeed();
+	m_simulator->simulateStep(m_elapsedTime);
+	m_playerState.setPosition(m_player->getPosition());
 }
 
 void GameEngineImpl::updatePlayerSpeed()
@@ -169,7 +174,7 @@ void GameEngineImpl::placeBombs()
 	if (m_inputState.isSpaceKeyPressed() && m_playerState.getBombCount() < 1)
 	{
 		BombState *bombPlaced = new BombState(m_bombids);
-        bombPlaced->setPosition(m_player->getCenterPosition());
+		bombPlaced->setPosition(m_player->getCenterPosition());
 		m_grid->addBombAtPlace(*bombPlaced);
 		m_playerState.countBomb();
 		m_gameState.addBomb(bombPlaced);
