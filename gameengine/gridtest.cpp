@@ -4,6 +4,7 @@
 #include "common/bombstate.h"
 #include "common/wallstate.h"
 #include "common/uniqueidcreator.h"
+#include "common/powerupstate.h"
 #include <algorithm>
 
 using namespace GameEngine;
@@ -417,4 +418,32 @@ void GridTest::getWallsInRange_bombat61rangeis2_sizeofwallsinrangeis3()
 	wallsinrange = grid.getWallsInRange(bomb);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)3, wallsinrange.size());
+}
+
+void GridTest::getPowerUpsInRange_bombat33rangeis4BombEmptyWallPowerUp_sizeofwallsinrangeis3()
+{
+    UniqueIdCreator bombcreator;
+    UniqueIdCreator wallcreator;
+    UniqueIdCreator powercreator;
+    vector<unsigned int> powerUpsInRange;
+
+    Grid grid(6,7);
+
+    Point position(3.0,3.0);
+    BombState bomb(bombcreator);
+    bomb.setPosition(position);
+    bomb.setDestructionRange(2);
+    grid.addBombAtPlace(bomb);
+
+    Point position1(5.0,3.0);
+    WallState wall1(wallcreator,WallState::WallTypeLoose,position1);
+    grid.addWallAtPlace(wall1);
+
+    Point position2(6.0,3.0);
+    PowerUpState powerUp(powercreator,position2);
+    grid.addPowerUpAtPlace(powerUp);
+
+    powerUpsInRange = grid.getPowerUpsInRange(bomb);
+
+    CPPUNIT_ASSERT_EQUAL((size_t)0, powerUpsInRange.size());
 }
