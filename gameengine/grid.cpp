@@ -89,53 +89,51 @@ void Grid::updatePlayer(const PlayerState &player)
 	//m_idMatrix[index] = player.getPlayerId;
 }
 
+vector<unsigned int> Grid::getItemsInRange(const BombState &bomb , Grid::Item item) const
+{
+    vector<unsigned int> itemsInRange;
+    GridPoint position(bomb.getPosition());
+    int x = position.getX();
+    int y = position.getY();
+    int range =bomb.getDestructionRange();
+    for( int i=1 ; i<=range ; ++i)
+    {
+        if((x+i)<static_cast<int>(m_gridRows))
+        {
+            if (m_itemMatrix[getVectorIndex(x+i,y)] == item && m_itemMatrix[getVectorIndex(x+i-1,y)] != ItemWall)
+            {
+                itemsInRange.push_back(m_idMatrix[getVectorIndex(x+i,y)]);
+            }
+        }
+        if((x-i)>=0)
+        {
+            if (m_itemMatrix[getVectorIndex(x-i,y)] == item && m_itemMatrix[getVectorIndex(x-i+1,y)] != ItemWall)
+            {
+               itemsInRange.push_back(m_idMatrix[getVectorIndex(x-i,y)]);
+            }
+        }
+        if((y+i)<static_cast<int>(m_gridColumns))
+        {
+            if (m_itemMatrix[getVectorIndex(x,y+i)] == item && m_itemMatrix[getVectorIndex(x,y+i-1)] != ItemWall)
+            {
+                itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y+i)]);
+            }
+        }
+        if((y-i)>=0)
+        {
+            if (m_itemMatrix[getVectorIndex(x,y-i)] == item && m_itemMatrix[getVectorIndex(x,y-i+1)] != ItemWall)
+            {
+                itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y-i)]);
+            }
+        }
+    }
+    return itemsInRange;
+}
+
 vector<unsigned int> Grid::getWallsInRange(const BombState &bomb) const
 {
-	vector<unsigned int> wallsinrange;
-	GridPoint position(bomb.getPosition());
-	int x = position.getX();
-	int y = position.getY();
-	int range =bomb.getDestructionRange();
-	bool xPlusDirectionIsWall=false;
-	bool xMinusDirectionIsWall=false;
-	bool yPlusDirectionIsWall=false;
-	bool yMinusDirectionIsWall=false;
-	for( int i=1 ; i<=range ; ++i)
-	{
-		if((x+i)<static_cast<int>(m_gridRows))
-		{
-			if (m_itemMatrix[getVectorIndex(x+i,y)] == ItemWall && xPlusDirectionIsWall==false)
-			{
-				wallsinrange.push_back(m_idMatrix[getVectorIndex(x+i,y)]);
-				xPlusDirectionIsWall=true;
-			}
-		}
-		if((x-i)>=0)
-		{
-			if (m_itemMatrix[getVectorIndex(x-i,y)] == ItemWall && xMinusDirectionIsWall==false)
-			{
-			   wallsinrange.push_back(m_idMatrix[getVectorIndex(x-i,y)]);
-			   xMinusDirectionIsWall=true;
-			}
-		}
-		if((y+i)<static_cast<int>(m_gridColumns))
-		{
-			if (m_itemMatrix[getVectorIndex(x,y+i)] == ItemWall && yPlusDirectionIsWall==false)
-			{
-				wallsinrange.push_back(m_idMatrix[getVectorIndex(x,y+i)]);
-				yPlusDirectionIsWall=true;
-			}
-		}
-		if((y-i)>=0)
-		{
-			if (m_itemMatrix[getVectorIndex(x,y-i)] == ItemWall && yMinusDirectionIsWall==false)
-			{
-				wallsinrange.push_back(m_idMatrix[getVectorIndex(x,y-i)]);
-				yMinusDirectionIsWall=true;
-			}
-		}
-	}
-	return wallsinrange;
+    vector<unsigned int> result = getItemsInRange(bomb , ItemWall);
+    return result;
 }
 
 unsigned int Grid::getVectorIndex(const GridPoint &position) const
