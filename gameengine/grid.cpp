@@ -158,8 +158,32 @@ unsigned int Grid::getVectorIndex(unsigned int x,unsigned int y) const
 
 vector<GridPoint> Grid::getPlayerFields(const Common::PlayerState &player) const
 {
-	//dummy implementation
-	vector<GridPoint> result;
-	result.push_back(player.getPosition());
+    Point position = player.getPosition();
+    GridPoint positionGrid(position);
+    vector<GridPoint> result;
+// Should be a coorect implementation Player doesnt move anymore though
+//    double x = position.getX();
+//    double y = position.getY();
+//    double xGrid = positionGrid.getX();
+//    double yGrid = positionGrid.getY();
+//
+//    if ((x-xGrid)>0)
+//    {
+//        result.push_back(positionGrid);
+//        GridPoint positionGrid2(positionGrid.getX()+1,positionGrid.getY());
+//        result.push_back(positionGrid2);
+//    }
+//    if ((y-yGrid)>0)
+//    {
+//        result.push_back(positionGrid);
+//        GridPoint positionGrid2(positionGrid.getX(),positionGrid.getY()+1);
+//        result.push_back(positionGrid2);
+//    }
+//    if((x-xGrid) == 0 && (y-yGrid) == 0 )
+//    {
+//        result.push_back(positionGrid);
+//    }
+
+    result.push_back(positionGrid);
 	return result;
 }
