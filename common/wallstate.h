@@ -26,7 +26,9 @@ public:
 	WallType getWallType() const;
 	unsigned int getId() const;
 	double getWidth() const;
-	double getHeight() const;
+    double getHeight() const;
+private:
+    WallState(const WallState &wall);
 
 protected:
 	virtual void shouldBeDestroyed();

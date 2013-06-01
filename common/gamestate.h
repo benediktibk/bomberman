@@ -15,7 +15,8 @@ public:
     GameState(const LevelDefinition &level);
     ~GameState();
 
-    void setPlayerState(const PlayerState &state);
+
+    PlayerState& getPlayerState() ;
     const PlayerState& getPlayerState() const;
     std::vector<const WallState*> getAllChangedWalls() const;
     size_t getWallCount() const;

@@ -21,6 +21,12 @@ const Point &WallState::getPosition() const
 	return m_position;
 }
 
+WallState::WallState(const WallState &wall) :
+    m_position(wall.getPosition()),
+    m_wallid(0),
+    m_creatorid(wall.m_creatorid),
+    m_wallType(wall.getWallType())
+{}
 
 unsigned int WallState::getId() const
 {

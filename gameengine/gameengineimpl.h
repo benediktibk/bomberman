@@ -45,7 +45,7 @@ private:
 	Common::UniqueIdCreator m_bombids;
 	Common::UniqueIdCreator m_wallids;
 	Common::GameState m_gameState;
-	Common::PlayerState m_playerState;
+    Common::PlayerState &m_playerState;
 	double m_elapsedTime;
 	Physic::PhysicSimulator *m_simulator;
 	Physic::DynamicObject *m_player;

@@ -25,6 +25,9 @@ public:
     double getWidth() const;
     double getHeight() const;
 
+private:
+    BombState(const BombState &bomb);
+
 protected:
 	virtual void shouldBeDestroyed();
 

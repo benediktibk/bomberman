@@ -17,9 +17,9 @@ GameState::~GameState()
         delete *i;
 }
 
-void GameState::setPlayerState(const PlayerState &state)
+PlayerState &GameState::getPlayerState()
 {
-    m_playerState = state;
+    return m_playerState;
 }
 
 const PlayerState &GameState::getPlayerState() const

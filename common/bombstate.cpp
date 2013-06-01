@@ -15,6 +15,10 @@ BombState::~BombState()
 	m_creatorid.removeId(m_bombid);
 }
 
+BombState::BombState(const BombState &bomb):
+    m_creatorid(bomb.m_creatorid)
+{}
+
 void BombState::setPosition(const Point &value)
 {
 	m_position = value;
