@@ -31,6 +31,7 @@ public:
     unsigned int getGameStateWidth() const;
     std::vector<const BombState*> getAllBombsWithNegativeLifeTime() const;
     void eraseWallById(unsigned int wallId);
+    void setBombsLifeTimeToZero(unsigned int bombId);
     
 private:
     void eraseBomb(size_t position);

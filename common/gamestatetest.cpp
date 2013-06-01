@@ -81,7 +81,7 @@ void GameStateTest::getAllChangedWalls_oneWallAdedAndChangedFlagsResetAndAnother
 	CPPUNIT_ASSERT_EQUAL((size_t)1, walls.size());
 }
 
-void GameStateTest::getAllBombsLifeTime_AfterReduceLifeTime_resultTimeIs2()
+void GameStateTest::getAllBombsLifeTime_afterReduceLifeTime_resultTimeIs2()
 {
 	UniqueIdCreator idCreator;
     LevelDefinition level;
@@ -163,7 +163,7 @@ void GameStateTest::resetChangedFlags_oneBombAdded_bombIsNotChanged()
 	CPPUNIT_ASSERT(!bomb->hasChanged());
 }
 
-void GameStateTest::getHeight_HeightLevelDefinition_resultIs50()
+void GameStateTest::getHeight_heightLevelDefinition_resultIs50()
 {
     LevelDefinition level;
     GameState state(level);
@@ -171,7 +171,7 @@ void GameStateTest::getHeight_HeightLevelDefinition_resultIs50()
     CPPUNIT_ASSERT_EQUAL(level.getLevelHeight(), state.getGameStateHeight());
 }
 
-void GameStateTest::getWidth_WidthLevelDefinition_resultIs50()
+void GameStateTest::getWidth_widthLevelDefinition_resultIs50()
 {
     LevelDefinition level;
     GameState state(level);
@@ -179,7 +179,7 @@ void GameStateTest::getWidth_WidthLevelDefinition_resultIs50()
     CPPUNIT_ASSERT_EQUAL(level.getLevelWidth(), state.getGameStateWidth());
 }
 
-void GameStateTest::getAllBombsWithNegativeLifeTime_TwoBombsAddedOneWithNegativeTime_ResultSizeIs1()
+void GameStateTest::getAllBombsWithNegativeLifeTime_twoBombsAddedOneWithNegativeTime_resultSizeIs1()
 {
 	UniqueIdCreator idCreator;
     LevelDefinition level;
@@ -194,4 +194,33 @@ void GameStateTest::getAllBombsWithNegativeLifeTime_TwoBombsAddedOneWithNegative
 	bomb = bombs[0];
 
 	CPPUNIT_ASSERT_EQUAL((-1.0), bomb->getLifeTime());
+}
+
+void GameStateTest::eraseWallById_twoWallsAddedOneDeleted_wallCountIs1()
+{
+	UniqueIdCreator idCreator;
+    LevelDefinition level;
+    GameState state(level);
+	state.addWall(new WallState(idCreator, WallState::WallTypeLoose, Point()));
+	state.addWall(new WallState(idCreator, WallState::WallTypeLoose, Point()));
+    state.eraseWallById(1);
+    state.removeAllObjectsWithDestroyedFlag();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, state.getWallCount());
+}
+
+
+void GameStateTest::setBombsLifeTimeToZero_oneBombAddedAndSetLifeTimeZero_lifeTimeIs0()
+{
+	UniqueIdCreator idCreator;
+    LevelDefinition level;
+    GameState state(level);
+	const BombState* bomb;
+	state.addBomb(new BombState(idCreator));
+    state.setBombsLifeTimeToZero(0);
+    
+	vector<const BombState*> bombs = state.getAllChangedBombs();
+	bomb = bombs[0];
+
+	CPPUNIT_ASSERT_EQUAL((0.0), bomb->getLifeTime());
 }
