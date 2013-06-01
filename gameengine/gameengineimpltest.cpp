@@ -235,7 +235,7 @@ void GameEngineImplTest::getWallCount_Create4x4LevelWith2WallsOneWallInRangeOfBo
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,1,3);
-	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall,1,0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,1,0);
 	GameEngineImpl gameEngine(level);
 	InputState input;
 

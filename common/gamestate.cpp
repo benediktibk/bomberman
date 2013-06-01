@@ -167,3 +167,12 @@ void GameState::eraseWallById(unsigned int wallId)
             m_walls[i]->setDestroyed();
     }
 }
+
+void GameState::setBombsLifeTimeToZero(unsigned int bombId)
+{
+    for(size_t i = 0; i < m_bombs.size(); i++)
+    {
+        if((m_bombs[i]->getBombId() == bombId))
+            m_bombs[i]->setLifeTime(0);
+    }
+}
