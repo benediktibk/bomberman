@@ -44,8 +44,9 @@ void MainWindowGraphicTest::connectSlots()
 void MainWindowGraphicTest::drawState1()
 {
 	UniqueIdCreator id;
+    UniqueIdCreator idPlayer;
     LevelDefinition level;
-    GameState gameState(level);
+    GameState gameState(level,idPlayer);
 	WallState *wallOne = new WallState(id, WallState::WallTypeSolid, Point(-3, 4));
 	WallState *wallTwo = new WallState(id, WallState::WallTypeSolid, Point(2, 3));
 	WallState *wallThree = new WallState(id, WallState::WallTypeLoose, Point(1, 5));

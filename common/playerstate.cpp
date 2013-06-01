@@ -2,15 +2,25 @@
 #include <assert.h>
 using namespace Common;
 
-PlayerState::PlayerState() :
+PlayerState::PlayerState(UniqueIdCreator &creator) :
 	m_direction(PlayerDirectionUp),
 	m_placedBombCount(0),
     m_maxBombs(1),
 	m_speed(5.0),
 	m_width(1),
-	m_height(1)
+    m_height(1),
+    m_playerId(creator.getId()),
+    m_creatorId(creator)
 { }
 
+PlayerState::PlayerState(const PlayerState &player):
+    m_creatorId(player.m_creatorId)
+{}
+
+PlayerState::~PlayerState()
+{
+    m_creatorId.removeId(m_playerId);
+}
 void PlayerState::setPosition(Point value)
 {
 	m_position = value;

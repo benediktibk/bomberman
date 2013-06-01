@@ -4,10 +4,11 @@
 using namespace Common;
 using namespace std;
 
-GameState::GameState(const LevelDefinition &level) :
+GameState::GameState(const LevelDefinition &level, UniqueIdCreator &creator) :
+    m_playerState(creator),
     m_height(level.getLevelHeight()),
     m_width(level.getLevelWidth())
-{ }
+ { }
 
 GameState::~GameState()
 {
@@ -137,7 +138,8 @@ void GameState::reduceAllBombsLifeTime(double time)
      return m_width;
  }
 
-GameState::GameState(const GameState &)
+ GameState::GameState(const GameState &, UniqueIdCreator &rhs):
+      m_playerState(rhs)
 { }
 
 void GameState::operator=(const GameState &)

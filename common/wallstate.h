@@ -35,8 +35,8 @@ protected:
 
 private:
 	const Point m_position;
-	const unsigned int m_wallid;
-	UniqueIdCreator &m_creatorid;
+    const unsigned int m_wallId;
+    UniqueIdCreator &m_creatorId;
 	const WallType m_wallType;
 	double m_width;
 	double m_height;

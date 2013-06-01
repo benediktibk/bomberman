@@ -2,6 +2,7 @@
 #define COMMON_PLAYERSTATE_H
 
 #include "point.h"
+#include "uniqueidcreator.h"
 
 namespace Common
 {
@@ -16,7 +17,9 @@ public:
 		PlayerDirectionRight
 	};
 
-	PlayerState();
+    PlayerState(UniqueIdCreator &creator);
+
+    ~PlayerState();
 
 	void setPosition(Point value);
 	Point getPosition() const;
@@ -39,6 +42,8 @@ public:
     bool canPlayerPlaceBomb () const;
     Point getCenterPosition() const;
 
+private:
+    PlayerState(const PlayerState &player);
 
 private:
 	Point m_position;
@@ -48,6 +53,8 @@ private:
 	double m_speed;
 	double m_width;
 	double m_height;
+    unsigned int m_playerId;
+    UniqueIdCreator &m_creatorId;
 };
 }
 

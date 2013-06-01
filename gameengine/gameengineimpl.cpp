@@ -12,7 +12,7 @@ using namespace Physic;
 using namespace std;
 
 GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
-	m_gameState(level),
+    m_gameState(level,m_playerIds),
     m_playerState(m_gameState.getPlayerState()),
     m_simulator(new PhysicSimulator),
 	m_player(new DynamicObject(*m_simulator, m_playerState.getPosition(), m_playerState.getWidth(), m_playerState.getHeight())),

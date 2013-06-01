@@ -6,13 +6,14 @@
 #include "bombstate.h"
 #include <vector>
 #include "leveldefinition.h"
+#include "uniqueidcreator.h"
 
 namespace Common
 {
 class GameState
 {
 public:
-    GameState(const LevelDefinition &level);
+    GameState(const LevelDefinition &level, UniqueIdCreator &creator );
     ~GameState();
 
 
@@ -40,7 +41,7 @@ private:
 
 private:
     // forbid copies
-    GameState(const GameState &rhs);
+    GameState(const GameState &rhsm, UniqueIdCreator &rhs);
     void operator=(const GameState &rhs);
 
 private:
