@@ -12,9 +12,9 @@ using namespace Physic;
 using namespace std;
 
 GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
-    m_gameState(level,m_playerIds),
-    m_playerState(m_gameState.getPlayerState()),
-    m_simulator(new PhysicSimulator),
+	m_gameState(level,m_playerIds),
+	m_playerState(m_gameState.getPlayerState()),
+	m_simulator(new PhysicSimulator),
 	m_player(new DynamicObject(*m_simulator, m_playerState.getPosition(), m_playerState.getWidth(), m_playerState.getHeight())),
 	m_upperBorder(new StaticObject(*m_simulator, Point(0, level.getLevelHeight()), level.getLevelWidth(), 1)),
 	m_lowerBorder(new StaticObject(*m_simulator, Point(0, -1), level.getLevelWidth(), 1)),
@@ -31,13 +31,13 @@ GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
 			{
 				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeSolid, Point(x, y));
 				m_gameState.addWall(wallstate);
-                m_grid->addWallAtPlace(*wallstate);
+				m_grid->addWallAtPlace(*wallstate);
 			}
 			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeLooseWall)
 			{
 				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeLoose, Point(x, y));
 				m_gameState.addWall(wallstate);
-                m_grid->addWallAtPlace(*wallstate);
+				m_grid->addWallAtPlace(*wallstate);
 			}
 			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypePlayer)
 			{
@@ -99,22 +99,12 @@ void GameEngineImpl::deleteAllBombObjects()
 
 void GameEngineImpl::updatePlayerPosition()
 {
-	vector<GridPoint> fieldsCoveredByPlayer = m_grid->getPlayerFields(m_playerState);
-
-	if (fieldsCoveredByPlayer.size() == 1)
-	{
-		if (m_inputState.isMoreThanOneMovementButtonPressed())
-			setPlayerSpeedIfMoreThanOneDirectionIsSelected();
-		else if (m_inputState.isMovementButtonPressed())
-			setPlayerSpeedIntoOnlySelectedDirection();
-		else
-			setPlayerSpeedToNull();
-	}
-//	else
-//	{
-//		bool horizontalMovementLocked = false;
-//		bool verticalMovementLocked = false;
-//	}
+	if (m_inputState.isMoreThanOneMovementButtonPressed())
+		setPlayerSpeedIfMoreThanOneDirectionIsSelected();
+	else if (m_inputState.isMovementButtonPressed())
+		setPlayerSpeedIntoOnlySelectedDirection();
+	else
+		setPlayerSpeedToNull();
 
 	m_simulator->simulateStep(m_elapsedTime);
 	m_playerState.setPosition(m_player->getPosition());
@@ -169,27 +159,27 @@ void GameEngineImpl::setPlayerSpeedToNull()
 
 void GameEngineImpl::updateBombs()
 {
-    vector<const BombState*> BombsWithNegativeLiveTime;
-        
+	vector<const BombState*> BombsWithNegativeLiveTime;
+
 	m_gameState.reduceAllBombsLifeTime(m_elapsedTime);
-    BombsWithNegativeLiveTime = m_gameState.getAllBombsWithNegativeLifeTime();
-    
-    for(size_t i = 0; i < BombsWithNegativeLiveTime.size(); i++)
-    {
-        vector<unsigned int> wallsInRange;
-        wallsInRange = m_grid->getWallsInRange(*BombsWithNegativeLiveTime[i]);
-        for(size_t j = 0; j < wallsInRange.size(); j++)
-        {
-            m_gameState.eraseWallById(wallsInRange[j]);
-        }
-        /*vector<unsigned int> bombsInRange;
-        bombsInRange = m_grid->getBombsInRange(*BombsWithNegativeLiveTime[i]);
-        for(size_t j = 0; j < bombsInRange.size(); j++)
-        {
-            
-        }*/
-        
-    }
+	BombsWithNegativeLiveTime = m_gameState.getAllBombsWithNegativeLifeTime();
+
+	for(size_t i = 0; i < BombsWithNegativeLiveTime.size(); i++)
+	{
+		vector<unsigned int> wallsInRange;
+		wallsInRange = m_grid->getWallsInRange(*BombsWithNegativeLiveTime[i]);
+		for(size_t j = 0; j < wallsInRange.size(); j++)
+		{
+			m_gameState.eraseWallById(wallsInRange[j]);
+		}
+		/*vector<unsigned int> bombsInRange;
+		bombsInRange = m_grid->getBombsInRange(*BombsWithNegativeLiveTime[i]);
+		for(size_t j = 0; j < bombsInRange.size(); j++)
+		{
+
+		}*/
+
+	}
 	m_gameState.setAllBombsWithNegativeLifeTimeDestroyed(m_playerState);
 
 	vector<const BombState*> changedBombs = m_gameState.getAllChangedBombs();
