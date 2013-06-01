@@ -432,7 +432,7 @@ void GridTest::getPowerUpsInRange_bombat33rangeis4BombEmptyWallPowerUp_sizeofwal
     Point position(3.0,3.0);
     BombState bomb(bombcreator);
     bomb.setPosition(position);
-    bomb.setDestructionRange(2);
+    bomb.setDestructionRange(4);
     grid.addBombAtPlace(bomb);
 
     Point position1(5.0,3.0);
@@ -446,4 +446,45 @@ void GridTest::getPowerUpsInRange_bombat33rangeis4BombEmptyWallPowerUp_sizeofwal
     powerUpsInRange = grid.getPowerUpsInRange(bomb);
 
     CPPUNIT_ASSERT_EQUAL((size_t)0, powerUpsInRange.size());
+}
+
+
+void GridTest::getPowerUpsInRange_bombat33rangeis5PowerUpBombPowerUpPowerUpWallPowerUp_sizeofwallsinrangeis3()
+{
+    UniqueIdCreator bombcreator;
+    UniqueIdCreator wallcreator;
+    UniqueIdCreator powercreator;
+    vector<unsigned int> powerUpsInRange;
+
+    Grid grid(6,7);
+
+    Point position(3.0,3.0);
+    BombState bomb(bombcreator);
+    bomb.setPosition(position);
+    bomb.setDestructionRange(5);
+    grid.addBombAtPlace(bomb);
+
+    Point position1(2.0,3.0);
+    PowerUpState powerUp(powercreator,position1);
+    grid.addPowerUpAtPlace(powerUp);
+
+    Point position2(4.0,3.0);
+    PowerUpState powerUp1(powercreator,position2);
+    grid.addPowerUpAtPlace(powerUp1);
+
+    Point position3(5.0,3.0);
+    PowerUpState powerUp2(powercreator,position3);
+    grid.addPowerUpAtPlace(powerUp2);
+
+    Point position4(6.0,3.0);
+    WallState wall1(wallcreator,WallState::WallTypeLoose,position4);
+    grid.addWallAtPlace(wall1);
+
+    Point position5(7.0,3.0);
+    PowerUpState powerUp3(powercreator,position5);
+    grid.addPowerUpAtPlace(powerUp3);
+
+    powerUpsInRange = grid.getPowerUpsInRange(bomb);
+
+    CPPUNIT_ASSERT_EQUAL((size_t)3, powerUpsInRange.size());
 }
