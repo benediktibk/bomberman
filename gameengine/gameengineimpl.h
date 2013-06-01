@@ -21,7 +21,7 @@ class GameEngineImpl :
 		public Common::GameEngine
 {
 public:
-    GameEngineImpl(const Common::LevelDefinition &level);
+	GameEngineImpl(const Common::LevelDefinition &level);
 	virtual ~GameEngineImpl();
 
 	virtual void updateGameState(const Common::InputState &inputState, double time);
@@ -30,7 +30,10 @@ public:
 private:
 	void deleteAllWallObjects();
 	void deleteAllBombObjects();
-	void updatePlayerSpeed();
+	void updatePlayerPosition();
+	void setPlayerSpeedIfMoreThanOneDirectionIsSelected();
+	void setPlayerSpeedIntoOnlySelectedDirection();
+	void setPlayerSpeedToNull();
 	void updateBombs();
 	void updateBomb(const Common::BombState *bomb);
 	void placeBombs();

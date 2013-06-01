@@ -11,7 +11,7 @@ set(COMMON_SRC
 	leveldefinition.cpp
 	changeablestate.cpp
 	destroyablestate.cpp
-    gridpoint.cpp
+	gridpoint.cpp
 	powerupstate.cpp
 	powerupmaxbombstate.cpp
 	powerupbombpackstate.cpp
@@ -23,6 +23,7 @@ set(COMMON_TEST_SRC
 	inputstatetest.cpp
 	stopwatchtest.cpp
 	pointtest.cpp
+	gridpointtest.cpp
 	enemystatetest.cpp
 	bombstatetest.cpp
 	wallstatetest.cpp

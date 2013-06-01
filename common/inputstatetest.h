@@ -23,6 +23,15 @@ class InputStateTest :
 	 CPPUNIT_TEST(setDownKeyNotPressed_previouslyPressed_downKeyIsNotPressed);
 	 CPPUNIT_TEST(setLeftKeyNotPressed_previouslyPressed_leftKeyIsNotPressed);
 	 CPPUNIT_TEST(setRightKeyNotPressed_previouslyPressed_rightKeyIsNotPressed);
+	 CPPUNIT_TEST(isMovementButtonPressed_upKeyPressed_true);
+	 CPPUNIT_TEST(isMovementButtonPressed_downKeyPressed_true);
+	 CPPUNIT_TEST(isMovementButtonPressed_leftKeyPressed_true);
+	 CPPUNIT_TEST(isMovementButtonPressed_rightKeyPressed_true);
+	 CPPUNIT_TEST(isMovementButtonPressed_noButtonPressed_false);
+	 CPPUNIT_TEST(isMoreThanOneMovementButtonPressed_upAndDownPressed_true);
+	 CPPUNIT_TEST(isMoreThanOneMovementButtonPressed_upPressed_false);
+	 CPPUNIT_TEST(isMoreThanOneMovementButtonPressed_leftAndRightPressed_true);
+	 CPPUNIT_TEST(isMoreThanOneMovementButtonPressed_upAndDownAndLeftPressed_true);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -38,6 +47,15 @@ private:
 	 void constructor_empty_rightKeyIsNotPressed();
 	 void setRightKeyPressed_empty_rightKeyIsPressed();
 	 void setRightKeyNotPressed_previouslyPressed_rightKeyIsNotPressed();
+	 void isMovementButtonPressed_upKeyPressed_true();
+	 void isMovementButtonPressed_downKeyPressed_true();
+	 void isMovementButtonPressed_leftKeyPressed_true();
+	 void isMovementButtonPressed_rightKeyPressed_true();
+	 void isMovementButtonPressed_noButtonPressed_false();
+	 void isMoreThanOneMovementButtonPressed_upAndDownPressed_true();
+	 void isMoreThanOneMovementButtonPressed_upPressed_false();
+	 void isMoreThanOneMovementButtonPressed_leftAndRightPressed_true();
+	 void isMoreThanOneMovementButtonPressed_upAndDownAndLeftPressed_true();
 };
 }
 

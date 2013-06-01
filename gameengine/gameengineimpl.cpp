@@ -4,6 +4,7 @@
 #include "physic/dynamicobject.h"
 #include "physic/staticobject.h"
 #include "grid.h"
+#include <assert.h>
 
 using namespace GameEngine;
 using namespace Common;
@@ -69,9 +70,7 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 	m_gameState.removeAllObjectsWithDestroyedFlag();
 	updateBombs();
 	updateWalls();
-	updatePlayerSpeed();
-	m_simulator->simulateStep(time);
-	m_playerState.setPosition(m_player->getPosition());
+	updatePlayerPosition();
 	placeBombs();
 
 	m_gameState.setPlayerState(m_playerState);
@@ -99,8 +98,34 @@ void GameEngineImpl::deleteAllBombObjects()
 	m_bombObjects.clear();
 }
 
-void GameEngineImpl::updatePlayerSpeed()
+void GameEngineImpl::updatePlayerPosition()
 {
+	vector<GridPoint> fieldsCoveredByPlayer = m_grid->getPlayerFields(m_playerState);
+
+	if (fieldsCoveredByPlayer.size() == 1)
+	{
+		if (m_inputState.isMoreThanOneMovementButtonPressed())
+			setPlayerSpeedIfMoreThanOneDirectionIsSelected();
+		else if (m_inputState.isMovementButtonPressed())
+			setPlayerSpeedIntoOnlySelectedDirection();
+		else
+			setPlayerSpeedToNull();
+	}
+//	else
+//	{
+//		bool horizontalMovementLocked = false;
+//		bool verticalMovementLocked = false;
+//	}
+
+	m_simulator->simulateStep(m_elapsedTime);
+	m_playerState.setPosition(m_player->getPosition());
+}
+
+void GameEngineImpl::setPlayerSpeedIfMoreThanOneDirectionIsSelected()
+{
+	assert(m_inputState.isMoreThanOneMovementButtonPressed());
+	assert(m_inputState.isMovementButtonPressed());
+
 	if (m_inputState.isUpKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionUp)
 		m_player->applyLinearVelocity(0, m_playerState.getSpeed());
 	else if (m_inputState.isDownKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionDown)
@@ -109,28 +134,38 @@ void GameEngineImpl::updatePlayerSpeed()
 		m_player->applyLinearVelocity((-1)*m_playerState.getSpeed(), 0);
 	else if (m_inputState.isRightKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionRight)
 		m_player->applyLinearVelocity(m_playerState.getSpeed(), 0);
-	else if (m_inputState.isUpKeyPressed())
+}
+
+void GameEngineImpl::setPlayerSpeedIntoOnlySelectedDirection()
+{
+	assert(!m_inputState.isMoreThanOneMovementButtonPressed());
+	assert(m_inputState.isMovementButtonPressed());
+
+	if (m_inputState.isUpKeyPressed())
 	{
 		m_playerState.setDirectionUp();
-		m_player->applyLinearVelocity(0, 5);
+		m_player->applyLinearVelocity(0, m_playerState.getSpeed());
 	}
 	else if (m_inputState.isDownKeyPressed())
 	{
 		m_playerState.setDirectionDown();
-		m_player->applyLinearVelocity(0, -5);
+		m_player->applyLinearVelocity(0, (-1)*m_playerState.getSpeed());
 	}
 	else if (m_inputState.isLeftKeyPressed())
 	{
 		m_playerState.setDirectionLeft();
-		m_player->applyLinearVelocity(-5, 0);
+		m_player->applyLinearVelocity((-1)*m_playerState.getSpeed(), 0);
 	}
 	else if (m_inputState.isRightKeyPressed())
 	{
 		m_playerState.setDirectionRight();
-		m_player->applyLinearVelocity(5, 0);
+		m_player->applyLinearVelocity(m_playerState.getSpeed(), 0);
 	}
-	else
-		m_player->applyLinearVelocity(0, 0);
+}
+
+void GameEngineImpl::setPlayerSpeedToNull()
+{
+	m_player->applyLinearVelocity(0, 0);
 }
 
 void GameEngineImpl::updateBombs()
@@ -191,7 +226,7 @@ void GameEngineImpl::placeBombs()
 	if (m_inputState.isSpaceKeyPressed() && m_playerState.getBombCount() < 1)
 	{
 		BombState *bombPlaced = new BombState(m_bombids);
-        bombPlaced->setPosition(m_player->getCenterPosition());
+		bombPlaced->setPosition(m_player->getCenterPosition());
 		m_grid->addBombAtPlace(*bombPlaced);
 		m_playerState.countBomb();
 		m_gameState.addBomb(bombPlaced);

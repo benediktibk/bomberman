@@ -221,7 +221,7 @@ void GameEngineImplTest::getWallPosition_Create4x4LevelWithWallPosition2And2_Wal
 void GameEngineImplTest::getWallType_Create4x4LevelWallWithWallType_WallTypeIsLoose()
 {
 	LevelDefinition level(4, 4);
-	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,2,2);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 2, 2);
 	GameEngineImpl gameEngine(level);
 	const WallState *wall;
 
@@ -229,6 +229,43 @@ void GameEngineImplTest::getWallType_Create4x4LevelWallWithWallType_WallTypeIsLo
 	wall = game.getAllChangedWalls().front();
 
 	CPPUNIT_ASSERT_EQUAL(WallState::WallTypeLoose, wall->getWallType());
+}
+
+void GameEngineImplTest::updateGameState_halfTheTimeOfTheMovementToTheNextGridFieldButtonPressed_playerStaysInBetween()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	InputState inputState;
+	const GameState &game = gameEngine.getGameState();
+	const PlayerState &player = game.getPlayerState();
+
+	inputState.setRightKeyPressed();
+	gameEngine.updateGameState(inputState, 1/(2*player.getSpeed()));
+	inputState.setRightKeyNotPressed();
+	gameEngine.updateGameState(inputState, 1/(2*player.getSpeed()));
+
+	Point positionShouldBe(0.5, 0);
+	Point positionReal(player.getPosition());
+	CPPUNIT_ASSERT(positionReal.fuzzyEqual(positionShouldBe, 0.05));
+}
+
+void GameEngineImplTest::updateGameState_playerVerticalBetweenTwoFieldsAndUpPressed_playerDoesntMove()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	InputState inputState;
+	const GameState &game = gameEngine.getGameState();
+	const PlayerState &player = game.getPlayerState();
+
+	inputState.setRightKeyPressed();
+	gameEngine.updateGameState(inputState, 1/(2*player.getSpeed()));
+	inputState.setRightKeyNotPressed();
+	inputState.setUpKeyPressed();
+	gameEngine.updateGameState(inputState, 1/(2*player.getSpeed()));
+
+	Point positionShouldBe(0.5, 0);
+	Point positionReal(player.getPosition());
+	CPPUNIT_ASSERT(positionReal.fuzzyEqual(positionShouldBe, 0.05));
 }
 
 void GameEngineImplTest::getWallCount_Create4x4LevelWith2WallsOneWallInRangeOfBombAndBombExplodes_WallCount1()
