@@ -164,6 +164,12 @@ vector<unsigned int> Grid::getBombsInRange(const BombState &bomb) const
     return result;
 }
 
+vector<unsigned int> Grid::getPowerUpsInRange(const BombState &bomb) const
+{
+    vector<unsigned int> result = getItemsInRange(bomb , ItemPowerUp);
+    return result;
+}
+
 unsigned int Grid::getVectorIndex(const GridPoint &position) const
 {
 	assert(position.getX() < m_gridColumns);

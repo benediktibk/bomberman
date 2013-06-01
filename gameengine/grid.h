@@ -38,6 +38,7 @@ public:
 	std::vector<unsigned int> getWallsInRange(const Common::BombState &bomb) const;
     std::vector<unsigned int> getPlayersInRange(const Common::BombState &bomb) const;
     std::vector<unsigned int> getBombsInRange(const Common::BombState &bomb) const;
+    std::vector<unsigned int> getPowerUpsInRange(const Common::BombState &bomb) const;
     std::vector<Common::GridPoint> getPlayerFields(const Common::PlayerState &player) const;
 
 private:
