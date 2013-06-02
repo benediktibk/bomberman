@@ -151,7 +151,8 @@ void PlayerTest::getPosition_movingIntoX_correctPosition()
 
 	player.applyLinearVelocity(1, 0);
 
-	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(player.getPosition(), 0.0001));
+	Point positionReal = player.getPosition();
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.0001));
 }
 
 void PlayerTest::getPosition_movingIntoY_correctPosition()
@@ -162,7 +163,8 @@ void PlayerTest::getPosition_movingIntoY_correctPosition()
 
 	player.applyLinearVelocity(0, 1);
 
-	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(player.getPosition(), 0.0001));
+	Point positionReal = player.getPosition();
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.0001));
 }
 
 void PlayerTest::getCenterPosition_movingIntoX_correctPosition()

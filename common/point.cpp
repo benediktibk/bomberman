@@ -55,6 +55,11 @@ Point Point::operator+(const Point &point) const
 	return Point(getX() + point.getX(), getY() + point.getY());
 }
 
+Point Point::operator-(const Point &point) const
+{
+	return Point(getX() - point.getX(), getY() - point.getY());
+}
+
 ostream& operator<<(ostream &stream, const Point &point)
 {
 	stream << "(" << point.getX() << ", " << point.getY() << ")";

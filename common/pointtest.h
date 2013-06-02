@@ -20,6 +20,7 @@ class PointTest :
 	 CPPUNIT_TEST(operatorMultiply_3And6With2_6And12);
 	 CPPUNIT_TEST(operatorDivide_3And6With3_1And2);
 	 CPPUNIT_TEST(operatorAdd_4And3To5And1_9And4);
+	 CPPUNIT_TEST(operatorMinus_5And3From9And4_4And1);
 	 CPPUNIT_TEST(fuzzyEqual_totallyEqual_true);
 	 CPPUNIT_TEST(fuzzyEqual_totallyUnEqual_false);
 	 CPPUNIT_TEST(fuzzyEqual_nearlyEqual_true);
@@ -36,6 +37,7 @@ private:
 	 void operatorMultiply_3And6With2_6And12();
 	 void operatorDivide_3And6With3_1And2();
 	 void operatorAdd_4And3To5And1_9And4();
+	 void operatorMinus_5And3From9And4_4And1();
 	 void fuzzyEqual_totallyEqual_true();
 	 void fuzzyEqual_totallyUnEqual_false();
 	 void fuzzyEqual_nearlyEqual_true();

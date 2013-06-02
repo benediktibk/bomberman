@@ -34,6 +34,8 @@ private:
 	double m_height;
 	double m_physicalWidth;
 	double m_physicalHeight;
+	bool m_movingIntoX;
+	bool m_movingIntoY;
 };
 }
 

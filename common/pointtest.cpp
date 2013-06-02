@@ -84,6 +84,16 @@ void PointTest::operatorAdd_4And3To5And1_9And4()
 	CPPUNIT_ASSERT_EQUAL(Point(9, 4), result);
 }
 
+void PointTest::operatorMinus_5And3From9And4_4And1()
+{
+	Point pointOne(9, 4);
+	Point pointTwo(5, 3);
+
+	Point result = pointOne - pointTwo;
+
+	CPPUNIT_ASSERT_EQUAL(Point(4, 1), result);
+}
+
 void PointTest::fuzzyEqual_totallyEqual_true()
 {
 	Point pointOne(4, 3);

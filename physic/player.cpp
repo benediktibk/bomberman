@@ -12,7 +12,9 @@ Player::Player(PhysicSimulator &simulator, const Point &position, double width, 
 	m_width(width),
 	m_height(height),
 	m_physicalWidth(width),
-	m_physicalHeight(height)
+	m_physicalHeight(height),
+	m_movingIntoX(false),
+	m_movingIntoY(false)
 {
 	updateObjectToPhysicalDimensions(position);
 }
@@ -25,7 +27,15 @@ Player::~Player()
 Point Player::getPosition() const
 {
 	assert(m_object != 0);
-	return m_object->getPosition();
+
+	Point objectPosition = m_object->getPosition();
+
+	if (m_movingIntoX)
+		return objectPosition - Point(0, m_height/4);
+	else if (m_movingIntoY)
+		return objectPosition - Point(m_width/4, 0);
+	else
+		return objectPosition;
 }
 
 Point Player::getCenterPosition() const
@@ -38,20 +48,38 @@ void Player::applyLinearVelocity(double velocityIntoX, double velocityIntoY)
 {
 	assert(velocityIntoX == 0 || velocityIntoY == 0);
 
+	Point oldPosition = getPosition();
+	Point newPosition;
+
 	if (velocityIntoX != 0)
 	{
 		m_physicalWidth = m_width;
 		m_physicalHeight = m_height/2;
+		m_movingIntoX = true;
+		m_movingIntoY = false;
+		newPosition = oldPosition + Point(0, m_height/4);
 	}
-
-	if (velocityIntoY != 0)
+	else if (velocityIntoY != 0)
 	{
 		m_physicalWidth = m_width/2;
 		m_physicalHeight = m_height;
+		m_movingIntoX = false;
+		m_movingIntoY = true;
+		newPosition = oldPosition + Point(m_width/4, 0);
+	}
+	else
+	{
+		m_physicalHeight = m_height;
+		m_physicalWidth = m_width;
+		m_movingIntoX = false;
+		m_movingIntoY = false;
+		newPosition = oldPosition;
 	}
 
-	updateObjectToPhysicalDimensions(m_object->getPosition());
+	updateObjectToPhysicalDimensions(newPosition);
 	m_object->applyLinearVelocity(velocityIntoX, velocityIntoY);
+
+	assert(oldPosition.fuzzyEqual(getPosition(), 0.0001));
 }
 
 double Player::getVelocityX() const
