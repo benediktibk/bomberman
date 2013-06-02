@@ -238,11 +238,12 @@ void GameEngineImplTest::updateGameState_halfTheTimeOfTheMovementToTheNextGridFi
 	InputState inputState;
 	const GameState &game = gameEngine.getGameState();
 	const PlayerState &player = game.getPlayerState();
+	const double timeForField = 1/player.getSpeed();
 
 	inputState.setRightKeyPressed();
-	gameEngine.updateGameState(inputState, 1/(2*player.getSpeed()));
+	gameEngine.updateGameState(inputState, timeForField/2);
 	inputState.setRightKeyNotPressed();
-	gameEngine.updateGameState(inputState, 1/(2*player.getSpeed()));
+	gameEngine.updateGameState(inputState, timeForField/2);
 
 	Point positionShouldBe(1, 0);
 	Point positionReal(player.getPosition());
@@ -356,7 +357,7 @@ void GameEngineImplTest::updateGameState_playerSurroundedByWallsAndTriesToMoveRi
 	CPPUNIT_ASSERT(newPosition.getX() > initialPosition.getX());
 }
 
-void GameEngineImplTest::updateGameState_moveToUpperBorderAndBackAndTryToGetRightBetweenTwoWalls_playerMovedRight()
+void GameEngineImplTest::updateGameState_moveRightAndToUpperBorderAndBackAndTryToGetRightBetweenTwoWalls_playerMovedRight()
 {
 	LevelDefinition level(15, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 3, 2);
