@@ -224,12 +224,12 @@ void GameEngineImpl::updateBombs()
 		{
 			m_gameState.eraseWallById(wallsInRange[j]);
 		}
-		/*vector<unsigned int> bombsInRange;
+		vector<unsigned int> bombsInRange;
 		bombsInRange = m_grid->getBombsInRange(*BombsWithNegativeLiveTime[i]);
 		for(size_t j = 0; j < bombsInRange.size(); j++)
 		{
-
-		}*/
+            m_gameState.setBombsLifeTimeToZero(bombsInRange[j]);
+		}
 
 	}
 	m_gameState.setAllBombsWithNegativeLifeTimeDestroyed(m_playerState);
