@@ -97,6 +97,16 @@ void GameEngineImpl::deleteAllBombObjects()
 	m_bombObjects.clear();
 }
 
+void GameEngineImpl::updatePlayerVelocity()
+{
+	if (m_inputState.isMoreThanOneMovementButtonPressed())
+		setPlayerSpeedIfMoreThanOneDirectionIsSelected();
+	else if (m_inputState.isMovementButtonPressed())
+		setPlayerSpeedIntoOnlySelectedDirection();
+	else
+		setPlayerSpeedToNull();
+}
+
 void GameEngineImpl::updatePlayerPosition()
 {
 	double timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
@@ -105,24 +115,13 @@ void GameEngineImpl::updatePlayerPosition()
 
 	if (timeTillPlayerReachesGridPoint == 0)
 	{
-		if (m_inputState.isMoreThanOneMovementButtonPressed())
-			setPlayerSpeedIfMoreThanOneDirectionIsSelected();
-		else if (m_inputState.isMovementButtonPressed())
-			setPlayerSpeedIntoOnlySelectedDirection();
-		else
-			setPlayerSpeedToNull();
-
-			timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
+		updatePlayerVelocity();
+		timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
 	}
 
 	for (simulatedTimeCounter = 0; simulatedTimeCounter + timeTillPlayerReachesGridPoint < m_elapsedTime && timeTillPlayerReachesGridPoint > 0; simulatedTimeCounter += timeTillPlayerReachesGridPoint)
 	{
-		if (m_inputState.isMoreThanOneMovementButtonPressed())
-			setPlayerSpeedIfMoreThanOneDirectionIsSelected();
-		else if (m_inputState.isMovementButtonPressed())
-			setPlayerSpeedIntoOnlySelectedDirection();
-		else
-			setPlayerSpeedToNull();
+		updatePlayerVelocity();
 
 		m_simulator->simulateStep(timeTillPlayerReachesGridPoint);
 		realSimulatedTime += timeTillPlayerReachesGridPoint;
