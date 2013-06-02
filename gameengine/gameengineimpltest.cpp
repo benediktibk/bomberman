@@ -323,6 +323,27 @@ void GameEngineImplTest::updateGameState_placeBombAndWaitTillItExploded_bombCoun
 	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getBombCount());
 }
 
+void GameEngineImplTest::updateGameState_placeBombAtUpperBorder_bombCountIs0()
+{
+    //CPPUNIT_ASSERT(false);
+	LevelDefinition level(10, 4);
+	GameEngineImpl gameEngine(level);
+	InputState input;
+
+	input.setUpKeyPressed();
+	gameEngine.updateGameState(input, 100);
+	input.setUpKeyNotPressed();
+	input.setSpaceKeyPressed();
+	gameEngine.updateGameState(input, 0);
+	input.setSpaceKeyNotPressed();
+	gameEngine.updateGameState(input, 10);
+	gameEngine.updateGameState(input, 0);
+
+	const GameState &game = gameEngine.getGameState();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getBombCount());
+}
+
 void GameEngineImplTest::updateGameState_playerSurroundedByWallsAndTriesToMoveUp_playerMovedUp()
 {
 	LevelDefinition level(4, 4);
