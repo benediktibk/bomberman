@@ -51,18 +51,18 @@ void Grid::addWallAtPlace(WallState &wall)
 
 void Grid::addPowerUpAtPlace(PowerUpState &powerUp)
 {
-    GridPoint position(powerUp.getPosition());
-    unsigned int index = getVectorIndex(position);
-    m_itemMatrix[index] = ItemPowerUp;
-    m_idMatrix[index] = powerUp.getId();
+	GridPoint position(powerUp.getPosition());
+	unsigned int index = getVectorIndex(position);
+	m_itemMatrix[index] = ItemPowerUp;
+	m_idMatrix[index] = powerUp.getId();
 }
 
 void Grid::removePowerUp(PowerUpState &powerUp)
 {
-    GridPoint position(powerUp.getPosition());
-    unsigned int index = getVectorIndex(position);
-    m_itemMatrix[index] = ItemFree;
-    m_idMatrix[index] = 0;
+	GridPoint position(powerUp.getPosition());
+	unsigned int index = getVectorIndex(position);
+	m_itemMatrix[index] = ItemFree;
+	m_idMatrix[index] = 0;
 }
 
 void Grid::removeBomb(BombState &bomb)
@@ -89,59 +89,91 @@ void Grid::updatePlayer(const PlayerState &player)
 	//m_idMatrix[index] = player.getPlayerId;
 }
 
-vector<unsigned int> Grid::getWallsInRange(const BombState &bomb) const
+vector<unsigned int> Grid::getItemsInRange(const BombState &bomb , Grid::Item item) const
 {
-	vector<unsigned int> wallsinrange;
+	vector<unsigned int> itemsInRange;
 	GridPoint position(bomb.getPosition());
 	int x = position.getX();
 	int y = position.getY();
 	int range =bomb.getDestructionRange();
-	bool xPlusDirectionIsWall=false;
-	bool xMinusDirectionIsWall=false;
-	bool yPlusDirectionIsWall=false;
-	bool yMinusDirectionIsWall=false;
+	bool isWallRight = false;
+	bool isWallLeft = false;
+	bool isWallUp = false;
+	bool isWallDown = false;
 	for( int i=1 ; i<=range ; ++i)
 	{
 		if((x+i)<static_cast<int>(m_gridRows))
 		{
-			if (m_itemMatrix[getVectorIndex(x+i,y)] == ItemWall && xPlusDirectionIsWall==false)
+			if (m_itemMatrix[getVectorIndex(x+i,y)] == item && isWallRight == false)
 			{
-				wallsinrange.push_back(m_idMatrix[getVectorIndex(x+i,y)]);
-				xPlusDirectionIsWall=true;
+				if(m_itemMatrix[getVectorIndex(x+i-1,y)] == ItemWall)
+					isWallRight = true;
+				else
+					itemsInRange.push_back(m_idMatrix[getVectorIndex(x+i,y)]);
 			}
 		}
 		if((x-i)>=0)
 		{
-			if (m_itemMatrix[getVectorIndex(x-i,y)] == ItemWall && xMinusDirectionIsWall==false)
+			if (m_itemMatrix[getVectorIndex(x-i,y)] == item && isWallLeft == false)
 			{
-			   wallsinrange.push_back(m_idMatrix[getVectorIndex(x-i,y)]);
-			   xMinusDirectionIsWall=true;
+				if(m_itemMatrix[getVectorIndex(x-i+1,y)] == ItemWall)
+					isWallLeft = true;
+				else
+					itemsInRange.push_back(m_idMatrix[getVectorIndex(x-i,y)]);
 			}
 		}
 		if((y+i)<static_cast<int>(m_gridColumns))
 		{
-			if (m_itemMatrix[getVectorIndex(x,y+i)] == ItemWall && yPlusDirectionIsWall==false)
+			if (m_itemMatrix[getVectorIndex(x,y+i)] == item && isWallUp == false)
 			{
-				wallsinrange.push_back(m_idMatrix[getVectorIndex(x,y+i)]);
-				yPlusDirectionIsWall=true;
+				if(m_itemMatrix[getVectorIndex(x,y+i-1)] == ItemWall)
+					isWallUp = true;
+				else
+					itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y+i)]);
 			}
 		}
 		if((y-i)>=0)
 		{
-			if (m_itemMatrix[getVectorIndex(x,y-i)] == ItemWall && yMinusDirectionIsWall==false)
+			if (m_itemMatrix[getVectorIndex(x,y-i)] == item && isWallDown == false)
 			{
-				wallsinrange.push_back(m_idMatrix[getVectorIndex(x,y-i)]);
-				yMinusDirectionIsWall=true;
+				if(m_itemMatrix[getVectorIndex(x,y-i+1)] == ItemWall)
+					isWallDown = true;
+				else
+					itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y-i)]);
 			}
 		}
 	}
-	return wallsinrange;
+	return itemsInRange;
+}
+
+vector<unsigned int> Grid::getWallsInRange(const BombState &bomb) const
+{
+	vector<unsigned int> result = getItemsInRange(bomb , ItemWall);
+	return result;
+}
+
+vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb) const
+{
+	vector<unsigned int> result = getItemsInRange(bomb , ItemPlayer);
+	return result;
+}
+
+vector<unsigned int> Grid::getBombsInRange(const BombState &bomb) const
+{
+	vector<unsigned int> result = getItemsInRange(bomb , ItemBomb);
+	return result;
+}
+
+vector<unsigned int> Grid::getPowerUpsInRange(const BombState &bomb) const
+{
+	vector<unsigned int> result = getItemsInRange(bomb , ItemPowerUp);
+	return result;
 }
 
 unsigned int Grid::getVectorIndex(const GridPoint &position) const
 {
-	assert(position.getX() < m_gridColumns);
-	assert(position.getY() < m_gridRows);
+    assert(position.getX()< m_gridColumns);
+    assert(position.getY()< m_gridRows);
 	unsigned int x = position.getX();
 	unsigned int y = position.getY();
 	unsigned int index = m_gridColumns*y+x;
@@ -150,16 +182,39 @@ unsigned int Grid::getVectorIndex(const GridPoint &position) const
 
 unsigned int Grid::getVectorIndex(unsigned int x,unsigned int y) const
 {
-	assert(x < m_gridColumns);
-	assert(y < m_gridRows);
+    assert(x< m_gridColumns);
+    assert(y< m_gridRows);
 	unsigned int index = m_gridColumns*y+x;
 	return index;
 }
 
 vector<GridPoint> Grid::getPlayerFields(const Common::PlayerState &player) const
 {
-	//dummy implementation
+	Point position = player.getPosition();
+	GridPoint positionGrid(position);
 	vector<GridPoint> result;
-	result.push_back(player.getPosition());
+
+	double x = position.getX();
+	double y = position.getY();
+	double xGrid = positionGrid.getX();
+	double yGrid = positionGrid.getY();
+
+	if ((x-xGrid)>0)
+	{
+		result.push_back(positionGrid);
+		GridPoint positionGrid2(positionGrid.getX()+1,positionGrid.getY());
+		result.push_back(positionGrid2);
+	}
+	if ((y-yGrid)>0)
+	{
+		result.push_back(positionGrid);
+		GridPoint positionGrid2(positionGrid.getX(),positionGrid.getY()+1);
+		result.push_back(positionGrid2);
+	}
+	if((x-xGrid) == 0 && (y-yGrid) == 0 )
+	{
+		result.push_back(positionGrid);
+	}
+
 	return result;
 }

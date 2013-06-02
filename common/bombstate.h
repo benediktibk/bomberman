@@ -25,6 +25,9 @@ public:
     double getWidth() const;
     double getHeight() const;
 
+private:
+    BombState(const BombState &bomb);
+
 protected:
 	virtual void shouldBeDestroyed();
 
@@ -34,8 +37,8 @@ private:
     double m_width;
     double m_height;
     unsigned int m_destructionRange;
-	unsigned int m_bombid;
-	UniqueIdCreator &m_creatorid;
+    unsigned int m_bombId;
+    UniqueIdCreator &m_creatorId;
 };
 }
 

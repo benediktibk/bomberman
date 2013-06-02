@@ -24,8 +24,9 @@ void PowerUpMaxBombStateTest::getPowerUpHeight_heightIs1()
 void PowerUpMaxBombStateTest::modifyPlayer_maxBombIs2()
 {
     UniqueIdCreator id;
+    UniqueIdCreator idPlayer;
     PowerUpMaxBombState increaseMaxBomb(id, Point());
-    PlayerState player;
+    PlayerState player(idPlayer);
 
     increaseMaxBomb.modifyPlayer(player);
 

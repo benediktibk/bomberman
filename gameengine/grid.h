@@ -36,11 +36,15 @@ public:
     void removePowerUp(Common::PowerUpState &powerUp);
     void addPowerUpAtPlace(Common::PowerUpState &powerUp);
 	std::vector<unsigned int> getWallsInRange(const Common::BombState &bomb) const;
-	std::vector<Common::GridPoint> getPlayerFields(const Common::PlayerState &player) const;
+    std::vector<unsigned int> getPlayersInRange(const Common::BombState &bomb) const;
+    std::vector<unsigned int> getBombsInRange(const Common::BombState &bomb) const;
+    std::vector<unsigned int> getPowerUpsInRange(const Common::BombState &bomb) const;
+    std::vector<Common::GridPoint> getPlayerFields(const Common::PlayerState &player) const;
 
 private:
 	unsigned int getVectorIndex(const Common::GridPoint &position) const;
 	unsigned int getVectorIndex(unsigned int x,unsigned int y) const;
+    std::vector<unsigned int> getItemsInRange(const Common::BombState &bomb , Grid::Item item) const;
 private:
 	unsigned int m_gridRows;
 	unsigned int m_gridColumns;

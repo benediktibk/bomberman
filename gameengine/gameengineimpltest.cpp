@@ -14,7 +14,7 @@ void GameEngineImplTest::updateGameState_UpKeyPressed_PlayerDirectionUp()
 	input.setUpKeyPressed();
 	gameEngine.updateGameState(input,0);
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &player = game.getPlayerState();
+    const PlayerState &player = game.getPlayerState();
 
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionUp, player.getDirection());
 }

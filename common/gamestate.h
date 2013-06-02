@@ -6,16 +6,18 @@
 #include "bombstate.h"
 #include <vector>
 #include "leveldefinition.h"
+#include "uniqueidcreator.h"
 
 namespace Common
 {
 class GameState
 {
 public:
-    GameState(const LevelDefinition &level);
+    GameState(const LevelDefinition &level, UniqueIdCreator &creator );
     ~GameState();
 
-    void setPlayerState(const PlayerState &state);
+
+    PlayerState& getPlayerState() ;
     const PlayerState& getPlayerState() const;
     std::vector<const WallState*> getAllChangedWalls() const;
     size_t getWallCount() const;
@@ -39,7 +41,7 @@ private:
 
 private:
     // forbid copies
-    GameState(const GameState &rhs);
+    GameState(const GameState &rhsm, UniqueIdCreator &rhs);
     void operator=(const GameState &rhs);
 
 private:

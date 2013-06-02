@@ -49,9 +49,9 @@ set(LIBRARIES
 )
 
 set(LIBRARIES_TEST
-	maintest
-	commontest
-	gameenginetest
+    commontest
+    maintest
+    gameenginetest
 	physictest
 	threadingtest
 )

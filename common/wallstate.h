@@ -26,15 +26,17 @@ public:
 	WallType getWallType() const;
 	unsigned int getId() const;
 	double getWidth() const;
-	double getHeight() const;
+    double getHeight() const;
+private:
+    WallState(const WallState &wall);
 
 protected:
 	virtual void shouldBeDestroyed();
 
 private:
 	const Point m_position;
-	const unsigned int m_wallid;
-	UniqueIdCreator &m_creatorid;
+    const unsigned int m_wallId;
+    UniqueIdCreator &m_creatorId;
 	const WallType m_wallType;
 	double m_width;
 	double m_height;

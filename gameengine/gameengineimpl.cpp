@@ -12,7 +12,8 @@ using namespace Physic;
 using namespace std;
 
 GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
-	m_gameState(level),
+	m_gameState(level,m_playerIds),
+	m_playerState(m_gameState.getPlayerState()),
 	m_simulator(new PhysicSimulator),
 	m_player(new DynamicObject(*m_simulator, m_playerState.getPosition(), m_playerState.getWidth(), m_playerState.getHeight())),
 	m_upperBorder(new StaticObject(*m_simulator, Point(0, level.getLevelHeight()), level.getLevelWidth(), 1)),
@@ -62,7 +63,6 @@ GameEngineImpl::~GameEngineImpl()
 void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 {
 	m_inputState = inputState;
-	m_playerState = m_gameState.getPlayerState();
 	m_elapsedTime = time;
 
 	if (!m_firstGameStateUpdate)
@@ -73,7 +73,6 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 	updatePlayerPosition();
 	placeBombs();
 
-	m_gameState.setPlayerState(m_playerState);
 	m_firstGameStateUpdate = false;
 }
 
@@ -113,7 +112,7 @@ void GameEngineImpl::updatePlayerPosition()
 		else
 			setPlayerSpeedToNull();
 
-		timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
+			timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
 	}
 
 	for (simulatedTimeCounter = 0; simulatedTimeCounter + timeTillPlayerReachesGridPoint < m_elapsedTime && timeTillPlayerReachesGridPoint > 0; simulatedTimeCounter += timeTillPlayerReachesGridPoint)
