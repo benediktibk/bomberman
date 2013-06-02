@@ -142,3 +142,49 @@ void PlayerTest::applyLinearVelocity_4And0_bodyCountOfSimulatorIs1()
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, simulator.getBodyCount());
 }
+
+void PlayerTest::getPosition_movingIntoX_correctPosition()
+{
+	PhysicSimulator simulator;
+	Point positionShouldBe(3, 2);
+	Player player(simulator, positionShouldBe, 1, 1);
+
+	player.applyLinearVelocity(1, 0);
+
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(player.getPosition(), 0.0001));
+}
+
+void PlayerTest::getPosition_movingIntoY_correctPosition()
+{
+	PhysicSimulator simulator;
+	Point positionShouldBe(3, 2);
+	Player player(simulator, positionShouldBe, 1, 1);
+
+	player.applyLinearVelocity(0, 1);
+
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(player.getPosition(), 0.0001));
+}
+
+void PlayerTest::getCenterPosition_movingIntoX_correctPosition()
+{
+	PhysicSimulator simulator;
+	Player player(simulator, Point(3, 2), 1, 1);
+
+	player.applyLinearVelocity(1, 0);
+
+	Point positionShouldBe(3.5, 2.5);
+	Point positionReal = player.getCenterPosition();
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.0001));
+}
+
+void PlayerTest::getCenterPosition_movingIntoY_correctPosition()
+{
+	PhysicSimulator simulator;
+	Player player(simulator, Point(3, 2), 1, 1);
+
+	player.applyLinearVelocity(0, 1);
+
+	Point positionShouldBe(3.5, 2.5);
+	Point positionReal = player.getCenterPosition();
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.0001));
+}
