@@ -1,7 +1,7 @@
 #include "gameengineimpl.h"
 #include "physic/physicsimulator.h"
 //BAAAAAAAAAAYERN!
-#include "physic/dynamicobject.h"
+#include "physic/player.h"
 #include "physic/staticobject.h"
 #include "grid.h"
 #include <assert.h>
@@ -15,7 +15,7 @@ GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
 	m_gameState(level,m_playerIds),
 	m_playerState(m_gameState.getPlayerState()),
 	m_simulator(new PhysicSimulator),
-	m_player(new DynamicObject(*m_simulator, m_playerState.getPosition(), m_playerState.getWidth(), m_playerState.getHeight())),
+	m_player(new Player(*m_simulator, m_playerState.getPosition(), m_playerState.getWidth(), m_playerState.getHeight())),
 	m_upperBorder(new StaticObject(*m_simulator, Point(0, level.getLevelHeight()), level.getLevelWidth(), 1)),
 	m_lowerBorder(new StaticObject(*m_simulator, Point(0, -1), level.getLevelWidth(), 1)),
 	m_leftBorder(new StaticObject(*m_simulator, Point(-1, 0), 1, level.getLevelHeight())),

@@ -9,7 +9,7 @@
 namespace Physic
 {
 class PhysicSimulator;
-class DynamicObject;
+class Player;
 class StaticObject;
 }
 
@@ -51,7 +51,7 @@ private:
 	Common::PlayerState &m_playerState;
 	double m_elapsedTime;
 	Physic::PhysicSimulator *m_simulator;
-	Physic::DynamicObject *m_player;
+	Physic::Player *m_player;
 	Physic::StaticObject *m_upperBorder;
 	Physic::StaticObject *m_lowerBorder;
 	Physic::StaticObject *m_leftBorder;
