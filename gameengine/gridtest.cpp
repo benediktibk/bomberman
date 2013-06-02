@@ -427,7 +427,7 @@ void GridTest::getPowerUpsInRange_bombat33rangeis4BombEmptyWallPowerUp_sizeofwal
     UniqueIdCreator powercreator;
     vector<unsigned int> powerUpsInRange;
 
-    Grid grid(6,7);
+    Grid grid(7,7);
 
     Point position(3.0,3.0);
     BombState bomb(bombcreator);
@@ -456,35 +456,53 @@ void GridTest::getPowerUpsInRange_bombat33rangeis5PowerUpBombPowerUpPowerUpWallP
     UniqueIdCreator powercreator;
     vector<unsigned int> powerUpsInRange;
 
-    Grid grid(6,7);
+    Grid grid(7,7);
 
-    Point position(3.0,3.0);
+    Point position(2.0,3.0);
     BombState bomb(bombcreator);
     bomb.setPosition(position);
     bomb.setDestructionRange(5);
     grid.addBombAtPlace(bomb);
 
-    Point position1(2.0,3.0);
+    Point position1(1.0,3.0);
     PowerUpState powerUp(powercreator,position1);
     grid.addPowerUpAtPlace(powerUp);
 
-    Point position2(4.0,3.0);
+    Point position2(3.0,3.0);
     PowerUpState powerUp1(powercreator,position2);
     grid.addPowerUpAtPlace(powerUp1);
 
-    Point position3(5.0,3.0);
+    Point position3(4.0,3.0);
     PowerUpState powerUp2(powercreator,position3);
     grid.addPowerUpAtPlace(powerUp2);
 
-    Point position4(6.0,3.0);
+    Point position4(5.0,3.0);
     WallState wall1(wallcreator,WallState::WallTypeLoose,position4);
     grid.addWallAtPlace(wall1);
 
-    Point position5(7.0,3.0);
+    Point position5(6.0,3.0);
     PowerUpState powerUp3(powercreator,position5);
     grid.addPowerUpAtPlace(powerUp3);
 
     powerUpsInRange = grid.getPowerUpsInRange(bomb);
 
     CPPUNIT_ASSERT_EQUAL((size_t)3, powerUpsInRange.size());
+}
+
+void GridTest::getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringetIndex()
+{
+    UniqueIdCreator bombcreator;
+    vector<unsigned int> wallsInRange;
+
+    Grid grid(10,10);
+
+    Point position(5.0,9.0);
+    BombState bomb(bombcreator);
+    bomb.setPosition(position);
+    bomb.setDestructionRange(5);
+    grid.addBombAtPlace(bomb);
+
+       wallsInRange = grid.getWallsInRange(bomb);
+
+    CPPUNIT_ASSERT_EQUAL((size_t)0, wallsInRange.size());
 }

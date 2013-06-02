@@ -25,6 +25,7 @@ class GridTest :
      CPPUNIT_TEST(getWallsInRange_bombat60rangeis1_sizeofwallsinrangeis2);
      CPPUNIT_TEST(getPowerUpsInRange_bombat33rangeis4BombEmptyWallPowerUp_sizeofwallsinrangeis3);
      CPPUNIT_TEST(getPowerUpsInRange_bombat33rangeis5PowerUpBombPowerUpPowerUpWallPowerUp_sizeofwallsinrangeis3);
+     CPPUNIT_TEST(getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringetIndex);
      //CPPUNIT_TEST();
      CPPUNIT_TEST_SUITE_END();
 
@@ -47,6 +48,7 @@ private:
      void getWallsInRange_bombat60rangeis1_sizeofwallsinrangeis2();
      void getPowerUpsInRange_bombat33rangeis4BombEmptyWallPowerUp_sizeofwallsinrangeis3();
      void getPowerUpsInRange_bombat33rangeis5PowerUpBombPowerUpPowerUpWallPowerUp_sizeofwallsinrangeis3();
+     void getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringetIndex();
      //void
 };
 }

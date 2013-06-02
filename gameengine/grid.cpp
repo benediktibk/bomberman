@@ -172,6 +172,8 @@ vector<unsigned int> Grid::getPowerUpsInRange(const BombState &bomb) const
 
 unsigned int Grid::getVectorIndex(const GridPoint &position) const
 {
+    assert(position.getX()< m_gridColumns);
+    assert(position.getY()< m_gridRows);
 	unsigned int x = position.getX();
 	unsigned int y = position.getY();
 	unsigned int index = m_gridColumns*y+x;
@@ -180,6 +182,8 @@ unsigned int Grid::getVectorIndex(const GridPoint &position) const
 
 unsigned int Grid::getVectorIndex(unsigned int x,unsigned int y) const
 {
+    assert(x< m_gridColumns);
+    assert(y< m_gridRows);
 	unsigned int index = m_gridColumns*y+x;
 	return index;
 }
@@ -212,6 +216,5 @@ vector<GridPoint> Grid::getPlayerFields(const Common::PlayerState &player) const
 		result.push_back(positionGrid);
 	}
 
-	result.push_back(positionGrid);
 	return result;
 }

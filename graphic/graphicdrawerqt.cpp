@@ -143,9 +143,9 @@ void GraphicDrawerQt::drawLowerBorderWalls(unsigned int width)
 void GraphicDrawerQt::drawEdgeBorderWalls(unsigned int width, unsigned int height)
 {
 	m_borderWalls.push_back(new Wall(*m_scene, Point(-1, -1), m_pixelPerMeter));
-	m_borderWalls.push_back(new Wall(*m_scene, Point(-1, height), m_pixelPerMeter));
+    m_borderWalls.push_back(new Wall(*m_scene, Point(-1, height), m_pixelPerMeter));
 	m_borderWalls.push_back(new Wall(*m_scene, Point(width, -1), m_pixelPerMeter));
-	m_borderWalls.push_back(new Wall(*m_scene, Point(width, height), m_pixelPerMeter));
+    m_borderWalls.push_back(new Wall(*m_scene, Point(width, height), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::deleteWalls()

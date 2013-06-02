@@ -20,12 +20,12 @@ GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
 	m_lowerBorder(new StaticObject(*m_simulator, Point(0, -1), level.getLevelWidth(), 1)),
 	m_leftBorder(new StaticObject(*m_simulator, Point(-1, 0), 1, level.getLevelHeight())),
 	m_rightBorder(new StaticObject(*m_simulator,Point(level.getLevelWidth(), 0), 1, level.getLevelHeight())),
-	m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
+    m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
 	m_firstGameStateUpdate(true)
 {
 	for(unsigned int x=0;x<level.getLevelWidth();x++)
 	{
-		for(unsigned int y=0;y<level.getLevelHeight();y++)
+        for(unsigned int y=0;y<level.getLevelHeight();y++)
 		{
 			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeSolidWall)
 			{
