@@ -463,3 +463,22 @@ void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerStaysOnGridPoin
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, gameEngine.getTimeTillPlayerReachesGridPoint(), 0.05);
 }
+
+void GameEngineImplTest::updateGameState_keyPressedHalfWayToGridFieldAndEnoughTimeToReachIt_playerPositionIsGridField()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	const GameState &game = gameEngine.getGameState();
+	const PlayerState &player = game.getPlayerState();
+	InputState input;
+	double timeForOneField = 1/player.getSpeed();
+
+	input.setRightKeyPressed();
+	gameEngine.updateGameState(input, timeForOneField/2);
+	input.setRightKeyNotPressed();
+	gameEngine.updateGameState(input, timeForOneField);
+
+	Point positionShouldBe(1, 0);
+	Point positionReal(player.getPosition());
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
+}
