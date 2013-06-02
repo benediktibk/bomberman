@@ -121,13 +121,17 @@ void GameEngineImpl::updatePlayerPosition()
 
 	for (simulatedTimeCounter = 0; simulatedTimeCounter + timeTillPlayerReachesGridPoint < m_elapsedTime && timeTillPlayerReachesGridPoint > 0; simulatedTimeCounter += timeTillPlayerReachesGridPoint)
 	{
-		updatePlayerVelocity();
+		if (simulatedTimeCounter > 0)
+			updatePlayerVelocity();
 
 		m_simulator->simulateStep(timeTillPlayerReachesGridPoint);
 		realSimulatedTime += timeTillPlayerReachesGridPoint;
 
 		timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
 	}
+
+	if (timeTillPlayerReachesGridPoint == 0)
+		updatePlayerVelocity();
 
 	m_simulator->simulateStep(m_elapsedTime - realSimulatedTime);
 	m_playerState.setPosition(m_player->getPosition());
