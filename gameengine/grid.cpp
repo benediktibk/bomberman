@@ -102,7 +102,7 @@ vector<unsigned int> Grid::getItemsInRange(const BombState &bomb , Grid::Item it
 	bool isWallDown = false;
 	for( int i=1 ; i<=range ; ++i)
 	{
-		if((x+i)<static_cast<int>(m_gridRows))
+        if((x+i)<static_cast<int>(m_gridColumns))
 		{
 			if (m_itemMatrix[getVectorIndex(x+i,y)] == item && isWallRight == false)
 			{
@@ -122,7 +122,7 @@ vector<unsigned int> Grid::getItemsInRange(const BombState &bomb , Grid::Item it
 					itemsInRange.push_back(m_idMatrix[getVectorIndex(x-i,y)]);
 			}
 		}
-		if((y+i)<static_cast<int>(m_gridColumns))
+        if((y+i)<static_cast<int>(m_gridRows))
 		{
 			if (m_itemMatrix[getVectorIndex(x,y+i)] == item && isWallUp == false)
 			{

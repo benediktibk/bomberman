@@ -324,7 +324,7 @@ void GameEngineImplTest::updateGameState_placeBombAndWaitTillItExploded_bombCoun
 
 void GameEngineImplTest::updateGameState_placeBombAtUpperBorder_bombCountIs0()
 {
-	CPPUNIT_ASSERT(false);
+    //CPPUNIT_ASSERT(false);
 	LevelDefinition level(10, 4);
 	GameEngineImpl gameEngine(level);
 	InputState input;
