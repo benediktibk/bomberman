@@ -239,3 +239,7 @@ common/gridpointtest.h
 common/gridpointtest.cpp
 common/powerupgenerator.h
 common/powerupgenerator.cpp
+physic/player.h
+physic/player.cpp
+physic/playertest.h
+physic/playertest.cpp

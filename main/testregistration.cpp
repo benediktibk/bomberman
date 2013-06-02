@@ -22,6 +22,7 @@
 #include "common/powerupstatetest.h"
 #include "common/powerupmaxbombstatetest.h"
 #include "common/powerupbombpackstatetest.h"
+#include "physic/playertest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::DynamicObjectTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::StaticObjectTest);
@@ -47,3 +48,4 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Common::LevelDefinitionTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpMaxBombStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpBombPackStateTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Physic::PlayerTest);
