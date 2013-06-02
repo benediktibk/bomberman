@@ -66,6 +66,16 @@ double Player::getVelocityY() const
 	return m_object->getVelocityY();
 }
 
+double Player::getWidth() const
+{
+	return m_width;
+}
+
+double Player::getHeight() const
+{
+	return m_height;
+}
+
 double Player::getPhysicalWidth() const
 {
 	return m_physicalWidth;
