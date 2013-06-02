@@ -14,7 +14,7 @@ void GameEngineImplTest::updateGameState_UpKeyPressed_PlayerDirectionUp()
 	input.setUpKeyPressed();
 	gameEngine.updateGameState(input,0);
 	const GameState &game = gameEngine.getGameState();
-    const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getPlayerState();
 
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionUp, player.getDirection());
 }
@@ -315,6 +315,26 @@ void GameEngineImplTest::updateGameState_placeBombAndWaitTillItExploded_bombCoun
 	gameEngine.updateGameState(input, 0);
 	input.setSpaceKeyNotPressed();
 	gameEngine.updateGameState(input, 3.1);
+	gameEngine.updateGameState(input, 0);
+
+	const GameState &game = gameEngine.getGameState();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getBombCount());
+}
+
+void GameEngineImplTest::updateGameState_placeBombAtUpperBorder_bombCountIs0()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	InputState input;
+
+	input.setUpKeyPressed();
+	gameEngine.updateGameState(input, 100);
+	input.setUpKeyNotPressed();
+	input.setSpaceKeyPressed();
+	gameEngine.updateGameState(input, 0);
+	input.setSpaceKeyNotPressed();
+	gameEngine.updateGameState(input, 10);
 	gameEngine.updateGameState(input, 0);
 
 	const GameState &game = gameEngine.getGameState();
