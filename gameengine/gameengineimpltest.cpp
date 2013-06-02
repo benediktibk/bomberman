@@ -14,7 +14,7 @@ void GameEngineImplTest::updateGameState_UpKeyPressed_PlayerDirectionUp()
 	input.setUpKeyPressed();
 	gameEngine.updateGameState(input,0);
 	const GameState &game = gameEngine.getGameState();
-    const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getPlayerState();
 
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionUp, player.getDirection());
 }
@@ -320,6 +320,40 @@ void GameEngineImplTest::updateGameState_placeBombAndWaitTillItExploded_bombCoun
 	const GameState &game = gameEngine.getGameState();
 
 	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getBombCount());
+}
+
+void GameEngineImplTest::updateGameState_playerSurroundedByWallsAndTriesToMoveUp_playerMovedUp()
+{
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 1, 1);
+	GameEngineImpl gameEngine(level);
+	InputState input;
+	const GameState &gameState = gameEngine.getGameState();
+	const PlayerState &playerState = gameState.getPlayerState();
+	Point initialPosition = playerState.getPosition();
+
+	input.setUpKeyPressed();
+	gameEngine.updateGameState(input, 10);
+
+	Point newPosition = playerState.getPosition();
+	CPPUNIT_ASSERT(newPosition.getY() > initialPosition.getY());
+}
+
+void GameEngineImplTest::updateGameState_playerSurroundedByWallsAndTriesToMoveRight_playerMovedRight()
+{
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 1, 1);
+	GameEngineImpl gameEngine(level);
+	InputState input;
+	const GameState &gameState = gameEngine.getGameState();
+	const PlayerState &playerState = gameState.getPlayerState();
+	Point initialPosition = playerState.getPosition();
+
+	input.setRightKeyPressed();
+	gameEngine.updateGameState(input, 10);
+
+	Point newPosition = playerState.getPosition();
+	CPPUNIT_ASSERT(newPosition.getX() > initialPosition.getX());
 }
 
 void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
