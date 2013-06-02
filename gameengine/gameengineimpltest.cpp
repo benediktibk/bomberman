@@ -356,6 +356,36 @@ void GameEngineImplTest::updateGameState_playerSurroundedByWallsAndTriesToMoveRi
 	CPPUNIT_ASSERT(newPosition.getX() > initialPosition.getX());
 }
 
+void GameEngineImplTest::updateGameState_moveToUpperBorderAndBackAndTryToGetRightBetweenTwoWalls_playerMovedRight()
+{
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 3, 2);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 3, 4);
+	GameEngineImpl gameEngine(level);
+	InputState input;
+	const GameState &gameState = gameEngine.getGameState();
+	const PlayerState &playerState = gameState.getPlayerState();
+	const double timeForOneField = 1/playerState.getSpeed();
+
+
+	input.setRightKeyPressed();
+	gameEngine.updateGameState(input, 1.5*timeForOneField);
+	input.setRightKeyNotPressed();
+	gameEngine.updateGameState(input, timeForOneField);
+	input.setUpKeyPressed();
+	gameEngine.updateGameState(input, 20*timeForOneField);
+	input.setUpKeyNotPressed();
+	input.setDownKeyPressed();
+	gameEngine.updateGameState(input, 5.5*timeForOneField);
+	input.setDownKeyNotPressed();
+	gameEngine.updateGameState(input, timeForOneField);
+	input.setRightKeyPressed();
+	gameEngine.updateGameState(input, timeForOneField);
+
+	Point newPosition = playerState.getPosition();
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(3, newPosition.getX(), 0.05);
+}
+
 void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
 {
 	LevelDefinition level(4, 4);
