@@ -130,7 +130,7 @@ void GameEngineImpl::updatePlayerPosition()
 		timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
 	}
 
-	if (timeTillPlayerReachesGridPoint == 0)
+	if (timeTillPlayerReachesGridPoint < 0.05)
 		updatePlayerVelocity();
 
 	m_simulator->simulateStep(m_elapsedTime - realSimulatedTime);
