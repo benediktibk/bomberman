@@ -20,8 +20,10 @@ public:
 	~DynamicObject();
 
 	Common::Point getPosition() const;
-    Common::Point getCenterPosition() const;
+	Common::Point getCenterPosition() const;
 	void applyLinearVelocity(double velocityx, double velocityy);
+	double getVelocityX() const;
+	double getVelocityY() const;
 
 private:
 	PhysicSimulator &m_simulator;

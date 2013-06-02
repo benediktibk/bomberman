@@ -26,7 +26,7 @@ void GameEngineImplTest::updateGameState_DownKeyPressed_PlayerDirectionDown()
 	InputState input;
 
 	input.setDownKeyPressed();
-	gameEngine.updateGameState(input,0);
+	gameEngine.updateGameState(input, 1);
 	const GameState &game = gameEngine.getGameState();
 	const PlayerState &player = game.getPlayerState();
 
@@ -231,7 +231,7 @@ void GameEngineImplTest::getWallType_Create4x4LevelWallWithWallType_WallTypeIsLo
 	CPPUNIT_ASSERT_EQUAL(WallState::WallTypeLoose, wall->getWallType());
 }
 
-void GameEngineImplTest::updateGameState_halfTheTimeOfTheMovementToTheNextGridFieldButtonPressed_playerStaysInBetween()
+void GameEngineImplTest::updateGameState_halfTheTimeOfTheMovementToTheNextGridFieldButtonPressed_playerReachesGridPoint()
 {
 	LevelDefinition level(4, 4);
 	GameEngineImpl gameEngine(level);
@@ -244,12 +244,12 @@ void GameEngineImplTest::updateGameState_halfTheTimeOfTheMovementToTheNextGridFi
 	inputState.setRightKeyNotPressed();
 	gameEngine.updateGameState(inputState, 1/(2*player.getSpeed()));
 
-	Point positionShouldBe(0.5, 0);
+	Point positionShouldBe(1, 0);
 	Point positionReal(player.getPosition());
 	CPPUNIT_ASSERT(positionReal.fuzzyEqual(positionShouldBe, 0.05));
 }
 
-void GameEngineImplTest::updateGameState_playerVerticalBetweenTwoFieldsAndUpPressed_playerDoesntMove()
+void GameEngineImplTest::updateGameState_playerVerticalBetweenTwoFieldsAndUpPressed_playerKeepsDirection()
 {
 	LevelDefinition level(4, 4);
 	GameEngineImpl gameEngine(level);
@@ -263,7 +263,7 @@ void GameEngineImplTest::updateGameState_playerVerticalBetweenTwoFieldsAndUpPres
 	inputState.setUpKeyPressed();
 	gameEngine.updateGameState(inputState, 1/(2*player.getSpeed()));
 
-	Point positionShouldBe(0.5, 0);
+	Point positionShouldBe(1, 0);
 	Point positionReal(player.getPosition());
 	CPPUNIT_ASSERT(positionReal.fuzzyEqual(positionShouldBe, 0.05));
 }
@@ -320,4 +320,81 @@ void GameEngineImplTest::updateGameState_placeBombAndWaitTillItExploded_bombCoun
 	const GameState &game = gameEngine.getGameState();
 
 	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getBombCount());
+}
+
+void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	const GameState &game = gameEngine.getGameState();
+	const PlayerState &player = game.getPlayerState();
+	InputState input;
+	double halfTimeToReachGridPoint = 1/(2*player.getSpeed());
+
+	input.setRightKeyPressed();
+	gameEngine.updateGameState(input, halfTimeToReachGridPoint);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(halfTimeToReachGridPoint, gameEngine.getTimeTillPlayerReachesGridPoint(), 0.0001);
+}
+
+void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayLeftToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	const GameState &game = gameEngine.getGameState();
+	const PlayerState &player = game.getPlayerState();
+	InputState input;
+	double halfTimeToReachGridPoint = 1/(2*player.getSpeed());
+
+	input.setRightKeyPressed();
+	gameEngine.updateGameState(input, halfTimeToReachGridPoint*10);
+	input.setRightKeyNotPressed();
+	input.setLeftKeyPressed();
+	gameEngine.updateGameState(input, halfTimeToReachGridPoint);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(halfTimeToReachGridPoint, gameEngine.getTimeTillPlayerReachesGridPoint(), 0.05);
+}
+
+void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayUpToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	const GameState &game = gameEngine.getGameState();
+	const PlayerState &player = game.getPlayerState();
+	InputState input;
+	double halfTimeToReachGridPoint = 1/(2*player.getSpeed());
+
+	input.setUpKeyPressed();
+	gameEngine.updateGameState(input, halfTimeToReachGridPoint);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(halfTimeToReachGridPoint, gameEngine.getTimeTillPlayerReachesGridPoint(), 0.0001);
+}
+
+void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayDownToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	const GameState &game = gameEngine.getGameState();
+	const PlayerState &player = game.getPlayerState();
+	InputState input;
+	double halfTimeToReachGridPoint = 1/(2*player.getSpeed());
+
+	input.setUpKeyPressed();
+	gameEngine.updateGameState(input, halfTimeToReachGridPoint*10);
+	input.setUpKeyNotPressed();
+	input.setDownKeyPressed();
+	gameEngine.updateGameState(input, halfTimeToReachGridPoint);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(halfTimeToReachGridPoint, gameEngine.getTimeTillPlayerReachesGridPoint(), 0.05);
+}
+
+void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerStaysOnGridPoint_0()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);;
+	InputState input;
+
+	gameEngine.updateGameState(input, 10);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, gameEngine.getTimeTillPlayerReachesGridPoint(), 0.05);
 }

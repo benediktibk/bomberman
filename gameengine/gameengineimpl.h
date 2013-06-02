@@ -26,6 +26,7 @@ public:
 
 	virtual void updateGameState(const Common::InputState &inputState, double time);
 	virtual const Common::GameState& getGameState() const;
+	double getTimeTillPlayerReachesGridPoint() const;
 
 private:
 	void deleteAllWallObjects();

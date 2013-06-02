@@ -30,13 +30,13 @@ GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
 			{
 				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeSolid, Point(x, y));
 				m_gameState.addWall(wallstate);
-                m_grid->addWallAtPlace(*wallstate);
+				m_grid->addWallAtPlace(*wallstate);
 			}
 			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeLooseWall)
 			{
 				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeLoose, Point(x, y));
 				m_gameState.addWall(wallstate);
-                m_grid->addWallAtPlace(*wallstate);
+				m_grid->addWallAtPlace(*wallstate);
 			}
 			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypePlayer)
 			{
@@ -100,9 +100,11 @@ void GameEngineImpl::deleteAllBombObjects()
 
 void GameEngineImpl::updatePlayerPosition()
 {
-	vector<GridPoint> fieldsCoveredByPlayer = m_grid->getPlayerFields(m_playerState);
+	double timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
+	double simulatedTimeCounter;
+	double realSimulatedTime = 0;
 
-	if (fieldsCoveredByPlayer.size() == 1)
+	if (timeTillPlayerReachesGridPoint == 0)
 	{
 		if (m_inputState.isMoreThanOneMovementButtonPressed())
 			setPlayerSpeedIfMoreThanOneDirectionIsSelected();
@@ -110,14 +112,26 @@ void GameEngineImpl::updatePlayerPosition()
 			setPlayerSpeedIntoOnlySelectedDirection();
 		else
 			setPlayerSpeedToNull();
-	}
-//	else
-//	{
-//		bool horizontalMovementLocked = false;
-//		bool verticalMovementLocked = false;
-//	}
 
-	m_simulator->simulateStep(m_elapsedTime);
+		timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
+	}
+
+	for (simulatedTimeCounter = 0; simulatedTimeCounter + timeTillPlayerReachesGridPoint < m_elapsedTime && timeTillPlayerReachesGridPoint > 0; simulatedTimeCounter += timeTillPlayerReachesGridPoint)
+	{
+		if (m_inputState.isMoreThanOneMovementButtonPressed())
+			setPlayerSpeedIfMoreThanOneDirectionIsSelected();
+		else if (m_inputState.isMovementButtonPressed())
+			setPlayerSpeedIntoOnlySelectedDirection();
+		else
+			setPlayerSpeedToNull();
+
+		m_simulator->simulateStep(timeTillPlayerReachesGridPoint);
+		realSimulatedTime += timeTillPlayerReachesGridPoint;
+
+		timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
+	}
+
+	m_simulator->simulateStep(m_elapsedTime - realSimulatedTime);
 	m_playerState.setPosition(m_player->getPosition());
 }
 
@@ -168,29 +182,57 @@ void GameEngineImpl::setPlayerSpeedToNull()
 	m_player->applyLinearVelocity(0, 0);
 }
 
+double GameEngineImpl::getTimeTillPlayerReachesGridPoint() const
+{
+	double velocityX = m_player->getVelocityX();
+	double velocityY = m_player->getVelocityY();
+	const Point &position = m_player->getPosition();
+	const GridPoint gridPosition(position);
+	double time = 0;
+
+	if (velocityX != 0)
+	{
+		if (velocityX > 0)
+			time = (position.getX() - gridPosition.getX())/velocityX;
+		else
+			time = (position.getX() - (gridPosition.getX() + 1))/velocityX;
+	}
+
+	if (velocityY != 0)
+	{
+		if (velocityY > 0)
+			time = (position.getY() - gridPosition.getY())/velocityY;
+		else
+			time = (position.getY() - (gridPosition.getY() + 1))/velocityY;
+	}
+
+	assert(time >= 0);
+	return time;
+}
+
 void GameEngineImpl::updateBombs()
 {
-    vector<const BombState*> BombsWithNegativeLiveTime;
-        
+	vector<const BombState*> BombsWithNegativeLiveTime;
+
 	m_gameState.reduceAllBombsLifeTime(m_elapsedTime);
-    BombsWithNegativeLiveTime = m_gameState.getAllBombsWithNegativeLifeTime();
-    
-    for(size_t i = 0; i < BombsWithNegativeLiveTime.size(); i++)
-    {
-        vector<unsigned int> wallsInRange;
-        wallsInRange = m_grid->getWallsInRange(*BombsWithNegativeLiveTime[i]);
-        for(size_t j = 0; j < wallsInRange.size(); j++)
-        {
-            m_gameState.eraseWallById(wallsInRange[j]);
-        }
-        /*vector<unsigned int> bombsInRange;
-        bombsInRange = m_grid->getBombsInRange(*BombsWithNegativeLiveTime[i]);
-        for(size_t j = 0; j < bombsInRange.size(); j++)
-        {
-            
-        }*/
-        
-    }
+	BombsWithNegativeLiveTime = m_gameState.getAllBombsWithNegativeLifeTime();
+
+	for(size_t i = 0; i < BombsWithNegativeLiveTime.size(); i++)
+	{
+		vector<unsigned int> wallsInRange;
+		wallsInRange = m_grid->getWallsInRange(*BombsWithNegativeLiveTime[i]);
+		for(size_t j = 0; j < wallsInRange.size(); j++)
+		{
+			m_gameState.eraseWallById(wallsInRange[j]);
+		}
+		/*vector<unsigned int> bombsInRange;
+		bombsInRange = m_grid->getBombsInRange(*BombsWithNegativeLiveTime[i]);
+		for(size_t j = 0; j < bombsInRange.size(); j++)
+		{
+
+		}*/
+
+	}
 	m_gameState.setAllBombsWithNegativeLifeTimeDestroyed(m_playerState);
 
 	vector<const BombState*> changedBombs = m_gameState.getAllChangedBombs();
