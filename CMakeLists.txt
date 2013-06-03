@@ -10,6 +10,7 @@ set(BOX2D_BUILD_STATIC)
 set(CMAKE_CXX_FLAGS_COMMON "-Wall -Wextra -Werror -ansi")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_COMMON} -O3 -DNDEBUG")
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_COMMON} -g")
+set(CMAKE_CXX_FLAGS_COVERAGE "${CMAKE_CXX_FLAGS_COMMON} -g -fprofile-arcs -ftest-coverage")
 
 include_directories(
 	.
@@ -51,3 +52,9 @@ foreach(file ${OBJECTS})
 			${CMAKE_CURRENT_SOURCE_DIR}/resources/objects/${file}
 			DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/objects/)
 endforeach()
+
+add_custom_target(
+	testcoverage
+	${CMAKE_CURRENT_SOURCE_DIR}/testCoverage.sh ${CMAKE_CURRENT_SOURCE_DIR}
+	DEPENDS testrunner
+)
