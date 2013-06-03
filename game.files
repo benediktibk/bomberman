@@ -247,3 +247,4 @@ common/randomdecision.h
 common/randomdecision.cpp
 common/randomdecisiontest.h
 common/randomdecisiontest.cpp
+main/mainregressiontest.cpp

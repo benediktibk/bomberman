@@ -208,7 +208,9 @@ double GameEngineImpl::getTimeTillPlayerReachesGridPoint() const
 			time = (position.getY() - (gridPosition.getY() + 1))/velocityY;
 	}
 
-	assert(time >= 0);
+	if (time < 0)
+		time = 0;
+
 	return time;
 }
 
@@ -231,7 +233,7 @@ void GameEngineImpl::updateBombs()
 		bombsInRange = m_grid->getBombsInRange(*BombsWithNegativeLiveTime[i]);
 		for(size_t j = 0; j < bombsInRange.size(); j++)
 		{
-            m_gameState.setBombsLifeTimeToZero(bombsInRange[j]);
+			m_gameState.setBombsLifeTimeToZero(bombsInRange[j]);
 		}
 
 	}
