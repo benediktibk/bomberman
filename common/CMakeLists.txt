@@ -16,6 +16,7 @@ set(COMMON_SRC
 	powerupmaxbombstate.cpp
 	powerupbombpackstate.cpp
 	powerupgenerator.cpp
+	randomdecision.cpp
 )
 
 set(COMMON_TEST_SRC
@@ -35,6 +36,7 @@ set(COMMON_TEST_SRC
 	powerupstatetest.cpp
 	powerupmaxbombstatetest.cpp
 	powerupbombpackstatetest.cpp
+	randomdecisiontest.cpp
 )
 
 add_library(common ${COMMON_SRC})
