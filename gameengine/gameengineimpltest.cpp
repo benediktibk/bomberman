@@ -1,7 +1,7 @@
 #include "gameengineimpltest.h"
 #include "gameengineimpl.h"
 
-
+using namespace std;
 using namespace GameEngine;
 using namespace Common;
 
@@ -325,7 +325,7 @@ void GameEngineImplTest::updateGameState_placeBombAndWaitTillItExploded_bombCoun
 
 void GameEngineImplTest::updateGameState_placeBombAtUpperBorder_bombCountIs0()
 {
-    //CPPUNIT_ASSERT(false);
+	//CPPUNIT_ASSERT(false);
 	LevelDefinition level(10, 4);
 	GameEngineImpl gameEngine(level);
 	InputState input;
@@ -502,4 +502,23 @@ void GameEngineImplTest::updateGameState_keyPressedHalfWayToGridFieldAndEnoughTi
 	Point positionShouldBe(1, 0);
 	Point positionReal(player.getPosition());
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
+}
+
+void GameEngineImplTest::updateGameState_placeBombAndWaitExactTheBombLifeTime_bombCountIs0()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	const GameState &game = gameEngine.getGameState();
+	InputState input;
+
+	input.setSpaceKeyPressed();
+	gameEngine.updateGameState(input, 0);
+	input.setSpaceKeyNotPressed();
+	vector<const BombState*> bombs = game.getAllChangedBombs();
+	const BombState &bomb = *(bombs.front());
+	double bombLifeTime = bomb.getLifeTime();
+	gameEngine.updateGameState(input, bombLifeTime);
+	gameEngine.updateGameState(input, 1);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getBombCount());
 }

@@ -29,6 +29,7 @@ class GameEngineImplTest :
 	CPPUNIT_TEST(updateGameState_halfTheTimeOfTheMovementToTheNextGridFieldButtonPressed_playerReachesGridPoint);
 	CPPUNIT_TEST(updateGameState_playerVerticalBetweenTwoFieldsAndUpPressed_playerKeepsDirection);
 	CPPUNIT_TEST(updateGameState_keyPressedHalfWayToGridFieldAndEnoughTimeToReachIt_playerPositionIsGridField);
+	CPPUNIT_TEST(updateGameState_placeBombAndWaitExactTheBombLifeTime_bombCountIs0);
 	CPPUNIT_TEST(getHeight_HeightOfLevelDefinition_HeightOfGamestate);
 	CPPUNIT_TEST(getWidth_WidthOfLevelDefinition_WidthOfGamestate);
 	CPPUNIT_TEST(getWallCount_Create4x4LevelWith2Wall_WallCount2);
@@ -66,7 +67,7 @@ private:
 	void updateGameState_Create4x4LevelWithSolidWallAndLetBombExplode_wallCountIs1();
 	void updateGameState_placeBombAndWaitTillItExploded_bombCountIs0();
 	void updateGameState_placeBombAtUpperBorder_bombCountIs0();
-	void updateGameState_playerSurroundedByWallsAndTriesToMoveUp_playerMovedUp();	
+	void updateGameState_playerSurroundedByWallsAndTriesToMoveUp_playerMovedUp();
 	void updateGameState_playerSurroundedByWallsAndTriesToMoveRight_playerMovedRight();
 	void updateGameState_moveRightAndToUpperBorderAndBackAndTryToGetRightBetweenTwoWalls_playerMovedRight();
 	void getTimeTillPlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints();
@@ -75,6 +76,7 @@ private:
 	void getTimeTillPlayerReachesGridPoint_playerMovedHalfWayDownToGridPoint_halfTimeToMoveBetweenTwoGridPoints();
 	void getTimeTillPlayerReachesGridPoint_playerStaysOnGridPoint_0();
 	void updateGameState_keyPressedHalfWayToGridFieldAndEnoughTimeToReachIt_playerPositionIsGridField();
+	void updateGameState_placeBombAndWaitExactTheBombLifeTime_bombCountIs0();
 };
 }
 
