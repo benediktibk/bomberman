@@ -19,11 +19,12 @@ MainWindow::MainWindow(bool enableOpenGL) :
 	m_level(Common::LevelDefinition::createDefaultLevel()),
 	m_gameEngine(new GameEngine::GameEngineImpl(m_level)),
 	m_gameLoop(new GameLoop(*this, *m_gameEngine, *this)),
-	m_timerStatusBarUpdate(new QTimer(this))
+	m_timerStatusBarUpdate(new QTimer(this)),
+	m_enableOpenGL(enableOpenGL)
 {
 	m_ui->setupUi(this);
 
-	if (enableOpenGL)
+	if (m_enableOpenGL)
 		m_ui->graphicsView->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
 
 	m_ui->graphicsView->setFocusPolicy(NoFocus);
@@ -63,11 +64,20 @@ void MainWindow::updateGui(const Common::GameState *gameState)
 
 void MainWindow::updateStatusBar()
 {
-	QString message = QString("%1 fps, %2 \% of time calculating");
+	QString messageTemplate = QString("%1 fps");
+
+	if (!m_enableOpenGL)
+		messageTemplate += QString(", %2\% of time calculating");
+
 	double framesPerSecond = m_gameLoop->getFramesPerSecond();
 	double percentageOfTimeNotSleeping = m_gameLoop->percentageOfTimeNotSleeping() * 100;
 	QString framesPerSecondString = QString().setNum(framesPerSecond, 'f', 0);
 	QString percentageOfTimeNotSleepingString = QString().setNum(percentageOfTimeNotSleeping, 'f', 0);
-	m_ui->statusBar->showMessage(message.arg(framesPerSecondString).arg(percentageOfTimeNotSleepingString));
+	QString completeMessage(messageTemplate.arg(framesPerSecondString));
+
+	if (!m_enableOpenGL)
+		completeMessage = completeMessage.arg(percentageOfTimeNotSleepingString);
+
+	m_ui->statusBar->showMessage(completeMessage);
 	m_timerStatusBarUpdate->start(m_statusBarUpdateTimeStep);
 }

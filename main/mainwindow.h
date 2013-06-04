@@ -53,6 +53,7 @@ private:
 	GameLoop *m_gameLoop;
 	QTimer *m_timerStatusBarUpdate;
 	Threading::Signal m_guiUpdateFinished;
+	bool m_enableOpenGL;
 };
 }
 
