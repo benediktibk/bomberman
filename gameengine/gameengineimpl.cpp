@@ -276,6 +276,7 @@ void GameEngineImpl::placeBombs()
         bombPlaced->setPosition(m_player->getCenterPosition());
         m_grid->addBombAtPlace(*bombPlaced);
         m_playerState.countBomb();
+        m_playerState.decreaseBombPackIfPowerUp();
         m_gameState.addBomb(bombPlaced);
         m_spaceKeyReleased = false;
     }

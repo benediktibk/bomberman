@@ -6,12 +6,13 @@ PlayerState::PlayerState(UniqueIdCreator &creator) :
     m_direction(PlayerDirectionUp),
     m_placedBombCount(0),
     m_maxBombs(1),
+    m_bombPackCount(0),
     m_speed(5.0),
     m_width(1),
     m_height(1),
     m_playerId(creator.getId()),
     m_creatorId(creator)
-{ }
+{}
 
 PlayerState::PlayerState(const PlayerState &player):
     m_creatorId(player.m_creatorId)
@@ -101,6 +102,22 @@ void PlayerState::increaseMaxBombs(unsigned int number)
     m_maxBombs+=number;
 }
 
+void PlayerState::powerUpBombPack()
+{
+    m_bombPackCount+=5;
+}
+
+void PlayerState::decreaseBombPackIfPowerUp()
+{
+    if(m_bombPackCount>0)
+        m_bombPackCount-=1;
+}
+
+void PlayerState::powerUpBombPack(unsigned int number)
+{
+    m_bombPackCount+=number;
+}
+
 unsigned int PlayerState::getMaxBombs() const
 {
     return m_maxBombs;
@@ -109,7 +126,7 @@ unsigned int PlayerState::getMaxBombs() const
 unsigned int PlayerState::getRemainingBombs() const
 {
     assert(((int)m_maxBombs-(int)m_placedBombCount)>=0);
-    return m_maxBombs-m_placedBombCount;
+    return m_bombPackCount+m_maxBombs-m_placedBombCount;
 }
 
 bool PlayerState::canPlayerPlaceBomb() const

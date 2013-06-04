@@ -7,5 +7,7 @@ PowerUpBombPackState::PowerUpBombPackState(UniqueIdCreator &creator, const Point
     m_BombsInPackage(5)
 { }
 
-void PowerUpBombPackState::modifyPlayer(PlayerState &/*player*/)
-{ }
+void PowerUpBombPackState::modifyPlayer(PlayerState &player)
+{
+    player.powerUpBombPack(m_BombsInPackage);
+}
