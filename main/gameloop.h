@@ -11,6 +11,7 @@ namespace Common
 	class GameEngine;
 	class InputFetcher;
 	class GameState;
+	class GraphicDrawer;
 }
 
 namespace Main
@@ -22,17 +23,13 @@ class GameLoop :
 	Q_OBJECT
 
 public:
-	GameLoop(Common::InputFetcher &inputFetcher, Common::GameEngine &gameEngine);
+	GameLoop(Common::InputFetcher &inputFetcher, Common::GameEngine &gameEngine, Common::GraphicDrawer &graphicDrawer);
 	virtual ~GameLoop();
 
 	void start();
 	void stop();
 	unsigned int getFramesPerSecond();
 	double percentageOfTimeNotSleeping();
-	void setGuiUpdateFinished();
-
-signals:
-	void guiUpdateNecessary(const Common::GameState *gameState);
 
 protected:
 	virtual void execute();
@@ -40,6 +37,7 @@ protected:
 private:
 	Common::InputFetcher &m_inputFetcher;
 	Common::GameEngine &m_gameEngine;
+	Common::GraphicDrawer &m_graphicDrawer;
 	Threading::Mutex m_stoppedMutex;
 	bool m_stopped;
 	const unsigned int m_maximumFramesPerSecond;
@@ -48,7 +46,6 @@ private:
 	unsigned int m_framesPerSecond;
 	Threading::Mutex m_performanceInformationMutex;
 	double m_percentageOfTimeNotSleeping;
-	Threading::Signal m_guiUpdateFinished;
 	Threading::Signal m_start;
 };
 }

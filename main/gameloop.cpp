@@ -1,15 +1,17 @@
 #include "gameloop.h"
 #include "common/inputfetcher.h"
 #include "common/gameengine.h"
+#include "common/graphicdrawer.h"
 #include "common/stopwatch.h"
 #include <unistd.h>
 
 using namespace Common;
 using namespace Main;
 
-GameLoop::GameLoop(InputFetcher &inputFetcher, GameEngine &gameEngine) :
+GameLoop::GameLoop(InputFetcher &inputFetcher, GameEngine &gameEngine, GraphicDrawer &graphicDrawer) :
 	m_inputFetcher(inputFetcher),
 	m_gameEngine(gameEngine),
+	m_graphicDrawer(graphicDrawer),
 	m_stopped(false),
 	m_maximumFramesPerSecond(60),
 	m_minimumTimeStep(1.0/m_maximumFramesPerSecond),
@@ -20,7 +22,6 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, GameEngine &gameEngine) :
 GameLoop::~GameLoop()
 {
 	stop();
-	setGuiUpdateFinished();
 	waitTillFinished();
 }
 
@@ -51,11 +52,6 @@ double GameLoop::percentageOfTimeNotSleeping()
 	double result = m_percentageOfTimeNotSleeping;
 	m_performanceInformationMutex.unlock();
 	return result;
-}
-
-void GameLoop::setGuiUpdateFinished()
-{
-	m_guiUpdateFinished.send();
 }
 
 void GameLoop::execute()
@@ -91,11 +87,7 @@ void GameLoop::execute()
 
 		watchRealCalculatingTime.restart();
 		m_gameEngine.updateGameState(m_inputFetcher.getInputState(), time);
-
-		emit guiUpdateNecessary(&(m_gameEngine.getGameState()));
-		m_guiUpdateFinished.wait();
-		m_guiUpdateFinished.reset();
-
+		m_graphicDrawer.draw(m_gameEngine.getGameState());
 		realCalculatingTime = watchRealCalculatingTime.getTimeAndRestart();
 
 		m_stoppedMutex.lock();

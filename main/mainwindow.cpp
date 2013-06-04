@@ -18,7 +18,7 @@ MainWindow::MainWindow(bool enableOpenGL) :
 	m_drawer(0),
 	m_level(Common::LevelDefinition::createDefaultLevel()),
 	m_gameEngine(new GameEngine::GameEngineImpl(m_level)),
-	m_gameLoop(new GameLoop(*this, *m_gameEngine)),
+	m_gameLoop(new GameLoop(*this, *m_gameEngine, *this)),
 	m_timerStatusBarUpdate(new QTimer(this))
 {
 	m_ui->setupUi(this);
@@ -29,7 +29,7 @@ MainWindow::MainWindow(bool enableOpenGL) :
 	m_ui->graphicsView->setFocusPolicy(NoFocus);
 	m_ui->graphicsView->setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
 	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView));
-	connect(	m_gameLoop, SIGNAL(guiUpdateNecessary(const Common::GameState*)),
+	connect(	this, SIGNAL(guiUpdateNecessary(const Common::GameState*)),
 				this, SLOT(updateGui(const Common::GameState*)));
 	connect(	m_timerStatusBarUpdate, SIGNAL(timeout()),
 				this, SLOT(updateStatusBar()));
@@ -39,10 +39,18 @@ MainWindow::MainWindow(bool enableOpenGL) :
 
 MainWindow::~MainWindow()
 {
+	m_guiUpdateFinished.send();
 	delete m_gameLoop;
 	delete m_drawer;
 	delete m_gameEngine;
 	delete m_ui;
+}
+
+void MainWindow::draw(const Common::GameState &gameState)
+{
+	emit guiUpdateNecessary(&gameState);
+	m_guiUpdateFinished.wait();
+	m_guiUpdateFinished.reset();
 }
 
 void MainWindow::updateGui(const Common::GameState *gameState)
@@ -50,7 +58,7 @@ void MainWindow::updateGui(const Common::GameState *gameState)
 	m_drawer->draw(*gameState);
 	m_ui->graphicsView->setSceneRect(300, -300, 100, 100);
 	m_ui->graphicsView->viewport()->update();
-	m_gameLoop->setGuiUpdateFinished();
+	m_guiUpdateFinished.send();
 }
 
 void MainWindow::updateStatusBar()

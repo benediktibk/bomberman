@@ -3,6 +3,8 @@
 
 #include "mainwindowinputfetcher.h"
 #include "common/leveldefinition.h"
+#include "common/graphicdrawer.h"
+#include "threading/signal.h"
 
 class QGraphicsView;
 class QTimer;
@@ -24,7 +26,8 @@ namespace Main
 class GameLoop;
 
 class MainWindow :
-		public MainWindowInputFetcher
+		public MainWindowInputFetcher,
+		public Common::GraphicDrawer
 {
 	Q_OBJECT
 
@@ -32,9 +35,14 @@ public:
 	MainWindow(bool enableOpenGL);
 	~MainWindow();
 
-public slots:
+	virtual void draw(const Common::GameState &gameState);
+
+private slots:
 	void updateGui(const Common::GameState *gameState);
 	void updateStatusBar();
+
+signals:
+	void guiUpdateNecessary(const Common::GameState *gameState);
 
 private:
 	const unsigned int m_statusBarUpdateTimeStep;
@@ -44,6 +52,7 @@ private:
 	Common::GameEngine *m_gameEngine;
 	GameLoop *m_gameLoop;
 	QTimer *m_timerStatusBarUpdate;
+	Threading::Signal m_guiUpdateFinished;
 };
 }
 
