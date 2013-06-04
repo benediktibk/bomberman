@@ -283,7 +283,7 @@ void GameEngineImpl::placeBombs()
 
 void GameEngineImpl::isSpaceKeyReleased()
 {
-    if(!m_inputState.isSpaceKeyPressed())
+    if(!m_inputState.isSpaceKeyPressed() && m_playerState.canPlayerPlaceBomb())
     {
         m_spaceKeyReleased = true;
     }
