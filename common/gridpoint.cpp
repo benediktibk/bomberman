@@ -17,7 +17,12 @@ GridPoint::GridPoint(unsigned int x, unsigned int y) :
 GridPoint::GridPoint(const Point &point) :
 		m_x(static_cast<unsigned int>(point.getX())),
 		m_y(static_cast<unsigned int>(point.getY()))
-{ }
+{
+	if (fabs((m_x + 1) - point.getX()) < 0.05)
+		++m_x;
+	if (fabs((m_y + 1) - point.getY()) < 0.05)
+		++m_y;
+}
 
 void GridPoint::setX(unsigned int value)
 {

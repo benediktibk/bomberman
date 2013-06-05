@@ -5,6 +5,7 @@ set(PHYSIC_SRC
 	player.cpp
 	collisiongroups.cpp
 	physicalobject.cpp
+	gamephysicsimulator.cpp
 )
 
 set(PHYSIC_TEST_SRC

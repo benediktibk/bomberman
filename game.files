@@ -251,3 +251,5 @@ physic/physicalobject.h
 physic/physicalobject.cpp
 common/powerupgeneratortest.h
 common/powerupgeneratortest.cpp
+physic/gamephysicsimulator.h
+physic/gamephysicsimulator.cpp
