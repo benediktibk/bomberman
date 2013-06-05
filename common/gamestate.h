@@ -38,10 +38,12 @@ public:
     void setBombsLifeTimeToZero(unsigned int bombId);
     const PowerUpState* getPowerUpById(unsigned int powerUpId);
     void removePowerUpById(unsigned int powerUpId);
+    void addPowerUp(PowerUpState* powerUp);
 
 private:
     void eraseBomb(size_t position);
     void eraseWall(size_t position);
+    void erasePowerUp(size_t position);
 
 private:
     // forbid copies
@@ -52,7 +54,7 @@ private:
     std::vector<PlayerState*> m_players;
     std::vector<WallState*> m_walls;
     std::vector<BombState*> m_bombs;
-    std::vector<PowerUpState*>m_powerUp;
+    std::vector<PowerUpState*>m_powerUps;
     unsigned int m_height;
     unsigned int m_width;
 

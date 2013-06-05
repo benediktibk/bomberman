@@ -195,22 +195,32 @@ void GameState::setBombsLifeTimeToZero(unsigned int bombId)
 
 const PowerUpState* GameState::getPowerUpById(unsigned int powerUpId)
 {
-    for(size_t i = 0; i < m_powerUp.size(); i++)
+    for(size_t i = 0; i < m_powerUps.size(); i++)
     {
-        if(m_powerUp[i]->getId() == powerUpId)
-            return m_powerUp[i];
+        if(m_powerUps[i]->getId() == powerUpId)
+            return m_powerUps[i];
     }
 
     assert(false);
-    return m_powerUp[0];
+    return m_powerUps[0];
 }
 
 void GameState::removePowerUpById(unsigned int powerUpId)
 {
-    for(size_t i = 0; i < m_powerUp.size(); i++)
+    for(size_t i = 0; i < m_powerUps.size(); i++)
     {
-        if(m_powerUp[i]->getId() == powerUpId)
-            m_powerUp[i]->setDestroyed();
+        if(m_powerUps[i]->getId() == powerUpId)
+            m_powerUps[i]->setDestroyed();
     }
 }
 
+void GameState::addPowerUp(PowerUpState *powerUp)
+{
+    m_powerUps.push_back(powerUp);
+}
+
+void GameState::erasePowerUp(size_t position)
+{
+    delete m_powerUps[position];
+    m_powerUps.erase(m_powerUps.begin() + position);
+}
