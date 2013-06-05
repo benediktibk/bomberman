@@ -45,7 +45,6 @@ class GameEngineImplTest :
     CPPUNIT_TEST(increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCountIs2);
     CPPUNIT_TEST(increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombCountIs2);
     CPPUNIT_TEST(setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTimeOfSecondBombIs0);
-   // CPPUNIT_TEST(updateGameState_placeBombNearPowerUp_PowerUpCountIs0);
 	CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -84,7 +83,6 @@ private:
     void increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCountIs2();
     void increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombCountIs2();
     void setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTimeOfSecondBombIs0();
-   // void updateGameState_placeBombNearPowerUp_PowerUpCountIs0();
 };
 }
 
