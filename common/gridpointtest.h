@@ -21,6 +21,7 @@ class GridPointTest :
 	 CPPUNIT_TEST(operatorDivide_3And6With3_1And2);
 	 CPPUNIT_TEST(operatorAdd_4And3To5And1_9And4);
 	 CPPUNIT_TEST(operatorMinus_4And3From6And4_2And1);
+	 CPPUNIT_TEST(constructor_pointWithNotExactPositions_correctPosition);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -35,6 +36,7 @@ private:
 	 void operatorDivide_3And6With3_1And2();
 	 void operatorAdd_4And3To5And1_9And4();
 	 void operatorMinus_4And3From6And4_2And1();
+	 void constructor_pointWithNotExactPositions_correctPosition();
 };
 }
 
