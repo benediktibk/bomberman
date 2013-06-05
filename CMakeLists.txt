@@ -31,7 +31,6 @@ add_custom_target(
 	)
 
 set(BACKGROUNDS
-	basic_gradient.svg
 )
 
 set(OBJECTS
