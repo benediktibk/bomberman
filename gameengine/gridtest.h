@@ -28,6 +28,9 @@ class GridTest :
      CPPUNIT_TEST(getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringetIndex);
      CPPUNIT_TEST(isPlaceEmpty_itemat33_false);
      CPPUNIT_TEST(isPlaceEmpty_itemat33_true);
+     CPPUNIT_TEST(removeBomb_itemat33_true);
+     CPPUNIT_TEST(removeWall_itemat33_true);
+     CPPUNIT_TEST(removePowerUp_itemat33_true);
      //CPPUNIT_TEST();
      CPPUNIT_TEST_SUITE_END();
 
@@ -53,6 +56,10 @@ private:
      void getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringetIndex();
      void isPlaceEmpty_itemat33_false();
      void isPlaceEmpty_itemat33_true();
+     void removeBomb_itemat33_true();
+     void removeWall_itemat33_true();
+     void removePowerUp_itemat33_true();
+
      //void
 };
 }

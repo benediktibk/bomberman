@@ -533,3 +533,46 @@ void GridTest::isPlaceEmpty_itemat33_true()
 
     CPPUNIT_ASSERT(grid.isPlaceEmpty(position));
 }
+
+void GridTest::removePowerUp_itemat33_true()
+{
+    UniqueIdCreator powerUpCreator;
+
+    Grid grid(10,10);
+
+    Point position(3.0,3.0);
+    PowerUpState powerup(powerUpCreator,position);
+    grid.addPowerUpAtPlace(powerup);
+    grid.removePowerUp(powerup);
+
+    CPPUNIT_ASSERT(grid.isPlaceEmpty(position));
+}
+
+void GridTest::removeBomb_itemat33_true()
+{
+    UniqueIdCreator bombCreator;
+
+    Grid grid(10,10);
+
+    Point position(3.0,3.0);
+    BombState bomb(bombCreator);
+    bomb.setPosition(position);
+    grid.addBombAtPlace(bomb);
+    grid.removeBomb(bomb);
+
+    CPPUNIT_ASSERT(grid.isPlaceEmpty(position));
+}
+
+void GridTest::removeWall_itemat33_true()
+{
+    UniqueIdCreator wallCreator;
+
+    Grid grid(10,10);
+
+    Point position(3.0,3.0);
+    WallState wall(wallCreator,WallState::WallTypeLoose,position);
+    grid.addWallAtPlace(wall);
+    grid.removeWall(wall);
+
+    CPPUNIT_ASSERT(grid.isPlaceEmpty(position));
+}
