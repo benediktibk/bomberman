@@ -111,4 +111,203 @@ void PlayerStateTest::increaseMaxBombs_5_maxBombsIs6()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)6, player.getMaxBombs());
 }
 
+void PlayerStateTest::countBomb_calledTwice_bombCountIs2()
+{
+	PlayerState player(*m_idCreator);
+	player.setMaxBombs(10);
+
+	player.countBomb();
+	player.countBomb();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, player.getBombCount());
+}
+
+void PlayerStateTest::reduceBombCount_calledTwiceAndIncreasedThreeTimes_bombCountIs1()
+{
+	PlayerState player(*m_idCreator);
+	player.setMaxBombs(10);
+
+	player.countBomb();
+	player.countBomb();
+	player.countBomb();
+	player.reduceBombCount();
+	player.reduceBombCount();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, player.getBombCount());
+}
+
+void PlayerStateTest::getRemainingBombs_maxBombCount5And2BombsPlaced_3()
+{
+	PlayerState player(*m_idCreator);
+	player.setMaxBombs(5);
+
+	player.countBomb();
+	player.countBomb();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, player.getRemainingBombs());
+}
+
+void PlayerStateTest::canPlaceBomb_maxBombCount2AndTwoBombsPlaced_false()
+{
+	PlayerState player(*m_idCreator);
+	player.setMaxBombs(2);
+
+	player.countBomb();
+	player.countBomb();
+
+	CPPUNIT_ASSERT(!player.canPlayerPlaceBomb());
+}
+
+void PlayerStateTest::canPlaceBomb_maxBombCount3AndTwoBombsPlaced_true()
+{
+	PlayerState player(*m_idCreator);
+	player.setMaxBombs(3);
+
+	player.countBomb();
+	player.countBomb();
+
+	CPPUNIT_ASSERT(player.canPlayerPlaceBomb());
+}
+
+void PlayerStateTest::constructor_idCreator_maximumSpeedIs5()
+{
+	PlayerState player(*m_idCreator);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(5, player.getMaximumSpeed(), 0.0001);
+}
+
+void PlayerStateTest::getSpeedIntoX_notMoving_0()
+{
+	PlayerState player(*m_idCreator);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getSpeedIntoX(), 0.0001);
+}
+
+void PlayerStateTest::getSpeedIntoY_notMoving_0()
+{
+	PlayerState player(*m_idCreator);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getSpeedIntoY(), 0.0001);
+}
+
+void PlayerStateTest::constructor_idCreator_isNotMoving()
+{
+	PlayerState player(*m_idCreator);
+
+	CPPUNIT_ASSERT(!player.isMoving());
+}
+
+void PlayerStateTest::setMoving_empty_isMoving()
+{
+	PlayerState player(*m_idCreator);
+
+	player.setMoving();
+
+	CPPUNIT_ASSERT(player.isMoving());
+}
+
+void PlayerStateTest::setNotMoving_empty_isNotMoving()
+{
+	PlayerState player(*m_idCreator);
+	player.setMoving();
+
+	player.setNotMoving();
+
+	CPPUNIT_ASSERT(!player.isMoving());
+}
+
+void PlayerStateTest::constructor_idCreator_widthIs1()
+{
+	PlayerState player(*m_idCreator);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1, player.getWidth(), 0.0001);
+}
+
+void PlayerStateTest::constructor_idCreator_heightIs1()
+{
+	PlayerState player(*m_idCreator);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1, player.getHeight(), 0.0001);
+}
+
+void PlayerStateTest::getCenterPosition_positionIs3And4_35And45()
+{
+	PlayerState player(*m_idCreator);
+	player.setPosition(Point(3, 4));
+
+	CPPUNIT_ASSERT_EQUAL(Point(3.5, 4.5), player.getCenterPosition());
+}
+
+void PlayerStateTest::getSpeedIntoX_movingAndDirectionUp_0()
+{
+	PlayerState player(*m_idCreator);
+	player.setMoving();
+	player.setDirectionUp();
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getSpeedIntoX(), 0.0001);
+}
+
+void PlayerStateTest::getSpeedIntoX_movingAndDirectionDown_0()
+{
+	PlayerState player(*m_idCreator);
+	player.setMoving();
+	player.setDirectionDown();
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getSpeedIntoX(), 0.0001);
+}
+
+void PlayerStateTest::getSpeedIntoX_movingAndDirectionRight_maximumSpeed()
+{
+	PlayerState player(*m_idCreator);
+	player.setMoving();
+	player.setDirectionRight();
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(player.getMaximumSpeed(), player.getSpeedIntoX(), 0.0001);
+}
+
+void PlayerStateTest::getSpeedIntoX_movingAndDirectionLeft_minusMaximumSpeed()
+{
+	PlayerState player(*m_idCreator);
+	player.setMoving();
+	player.setDirectionLeft();
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL((-1)*player.getMaximumSpeed(), player.getSpeedIntoX(), 0.0001);
+}
+
+void PlayerStateTest::getSpeedIntoY_movingAndDirectionUp_maximumSpeed()
+{
+	PlayerState player(*m_idCreator);
+	player.setMoving();
+	player.setDirectionUp();
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(player.getMaximumSpeed(), player.getSpeedIntoY(), 0.0001);
+}
+
+void PlayerStateTest::getSpeedIntoY_movingAndDirectionDown_minusMaximumSpeed()
+{
+	PlayerState player(*m_idCreator);
+	player.setMoving();
+	player.setDirectionDown();
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL((-1)*player.getMaximumSpeed(), player.getSpeedIntoY(), 0.0001);
+}
+
+void PlayerStateTest::getSpeedIntoY_movingAndDirectionLeft_0()
+{
+	PlayerState player(*m_idCreator);
+	player.setMoving();
+	player.setDirectionLeft();
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getSpeedIntoY(), 0.0001);
+}
+
+void PlayerStateTest::getSpeedIntoY_movingAndDirectionRight_0()
+{
+	PlayerState player(*m_idCreator);
+	player.setMoving();
+	player.setDirectionRight();
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getSpeedIntoY(), 0.0001);
+}
+
 
