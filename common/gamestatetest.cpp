@@ -118,7 +118,7 @@ void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_resultSizeIs1(
 	playerState.countBomb();
 	state.addBomb(new BombState(idCreator));
 	state.reduceAllBombsLifeTime(2.1);
-	state.setAllBombsWithNegativeLifeTimeDestroyed(playerState);
+	state.setAllBombsWithNoLifeTimeDestroyed(playerState);
 	state.removeAllObjectsWithDestroyedFlag();
 
 	vector<const BombState*> bombs = state.getAllChangedBombs();
@@ -140,7 +140,7 @@ void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_bombCountIs1()
 	playerState.countBomb();
 	state.addBomb(new BombState(idCreator));
 	state.reduceAllBombsLifeTime(2.1);
-	state.setAllBombsWithNegativeLifeTimeDestroyed(playerState);
+	state.setAllBombsWithNoLifeTimeDestroyed(playerState);
 	state.removeAllObjectsWithDestroyedFlag();
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, playerState.getBombCount());

@@ -21,7 +21,6 @@
 #include "physic/staticobjecttest.h"
 #include "common/powerupstatetest.h"
 #include "common/powerupmaxbombstatetest.h"
-#include "common/powerupbombpackstatetest.h"
 #include "physic/playertest.h"
 #include "common/randomdecisiontest.h"
 
@@ -37,7 +36,6 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Common::DestroyableStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::LevelDefinitionTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpMaxBombStateTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpBombPackStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::UniqueIdCreatorTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::ChangeableStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::RandomDecisionTest);

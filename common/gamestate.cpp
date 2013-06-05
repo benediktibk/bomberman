@@ -92,12 +92,12 @@ void GameState::reduceAllBombsLifeTime(double time)
     }
 }
 
- void GameState::setAllBombsWithNegativeLifeTimeDestroyed(PlayerState &playerState)
+ void GameState::setAllBombsWithNoLifeTimeDestroyed(PlayerState &playerState)
  {
      for(size_t i = 0; i < m_bombs.size(); i++)
      {
         BombState *currentBomb = m_bombs[i];
-        if (currentBomb->getLifeTime() < 0)
+        if (currentBomb->getLifeTime() <= 0)
         {
             currentBomb->setDestroyed();
             playerState.reduceBombCount();
@@ -145,7 +145,7 @@ void GameState::reduceAllBombsLifeTime(double time)
 void GameState::operator=(const GameState &)
 { }
 
-vector<const BombState*> GameState::getAllBombsWithNegativeLifeTime() const
+vector<const BombState*> GameState::getAllBombsWithNoLifeTime() const
 {
     vector<const BombState*> result;
 

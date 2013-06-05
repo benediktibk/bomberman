@@ -26,12 +26,12 @@ public:
     size_t getBombCount() const;
     void addBomb(BombState* bomb);
     void reduceAllBombsLifeTime(double time);
-    void setAllBombsWithNegativeLifeTimeDestroyed(PlayerState &playerState);
+    void setAllBombsWithNoLifeTimeDestroyed(PlayerState &playerState);
     void resetChangedFlags();
     void removeAllObjectsWithDestroyedFlag();
     unsigned int getGameStateHeight() const;
     unsigned int getGameStateWidth() const;
-    std::vector<const BombState*> getAllBombsWithNegativeLifeTime() const;
+    std::vector<const BombState*> getAllBombsWithNoLifeTime() const;
     void eraseWallById(unsigned int wallId);
     void setBombsLifeTimeToZero(unsigned int bombId);
     
