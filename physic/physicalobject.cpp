@@ -59,7 +59,7 @@ Point PhysicalObject::getCenterPosition() const
 void PhysicalObject::setCollisionGroup(int16_t collisionGroup)
 {
 	b2Filter filter = m_fixture->GetFilterData();
-	filter.groupIndex = collisionGroup;
+	filter.categoryBits = collisionGroup;
 	m_fixture->SetFilterData(filter);
 }
 
