@@ -176,13 +176,13 @@ unsigned int PlayerState::getMaxBombs() const
 
 unsigned int PlayerState::getRemainingBombs() const
 {
-	assert(((int)m_maxBombs-(int)m_placedBombCount)>=0);
-	return m_maxBombs-m_placedBombCount;
+	assert(m_maxBombs >= m_placedBombCount);
+	return m_maxBombs - m_placedBombCount;
 }
 
 bool PlayerState::canPlayerPlaceBomb() const
 {
-	if(getRemainingBombs()==0)
+	if(getRemainingBombs() == 0)
 		return false;
 	else
 		return true;
