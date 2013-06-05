@@ -241,6 +241,12 @@ void GameEngineImpl::updateBombs()
         {
             m_gameState.setBombsLifeTimeToZero(bombsInRange[j]);
         }
+        vector<unsigned int> powerUpsInRange;
+        powerUpsInRange = m_grid->getPowerUpsInRange(*BombsWithNoLifeTime[i]);
+        for(size_t j = 0; j < powerUpsInRange.size(); j++)
+        {
+            m_gameState.removePowerUpById(powerUpsInRange[j]);
+        }
 
     }
     m_gameState.setAllBombsWithNoLifeTimeDestroyed(m_playerState);
