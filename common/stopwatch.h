@@ -1,7 +1,7 @@
 #ifndef COMMON_STOPWATCH_H
 #define COMMON_STOPWATCH_H
 
-#include <sys/types.h>
+#include <boost/timer.hpp>
 
 namespace Common
 {
@@ -14,7 +14,7 @@ public:
 	void restart();
 
 private:
-	timeval m_start;
+    boost::timer m_start;
 };
 }
 
