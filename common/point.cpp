@@ -68,6 +68,7 @@ ostream& operator<<(ostream &stream, const Point &point)
 
 bool Point::fuzzyEqual(const Point &point, double epsilon) const
 {
+	//! @todo replace with fuzzy
 	return	fabs(getX() - point.getX()) < epsilon &&
 			fabs(getY() - point.getY()) < epsilon;
 }

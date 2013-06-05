@@ -200,18 +200,23 @@ vector<GridPoint> Grid::getPlayerFields(const Common::PlayerState &player) const
 	double xGrid = positionGrid.getX();
 	double yGrid = positionGrid.getY();
 
+	//! @todo replace with fuzzy
 	if (x - xGrid > 0.05)
 	{
 		result.push_back(positionGrid);
 		GridPoint positionGrid2(positionGrid.getX()+1,positionGrid.getY());
 		result.push_back(positionGrid2);
 	}
+
+	//! @todo replace with fuzzy
 	if (y - yGrid > 0.05)
 	{
 		result.push_back(positionGrid);
 		GridPoint positionGrid2(positionGrid.getX(),positionGrid.getY()+1);
 		result.push_back(positionGrid2);
 	}
+
+	//! @todo replace with fuzzy
 	if(fabs(x - xGrid) < 0.05 && fabs(y - yGrid) < 0.05)
 	{
 		result.push_back(positionGrid);

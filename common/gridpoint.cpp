@@ -18,8 +18,12 @@ GridPoint::GridPoint(const Point &point) :
 		m_x(static_cast<unsigned int>(point.getX())),
 		m_y(static_cast<unsigned int>(point.getY()))
 {
+
+	//! @todo replace with fuzzy
 	if (fabs((m_x + 1) - point.getX()) < 0.05)
 		++m_x;
+
+	//! @todo replace with fuzzy
 	if (fabs((m_y + 1) - point.getY()) < 0.05)
 		++m_y;
 }

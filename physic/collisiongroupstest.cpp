@@ -81,5 +81,6 @@ bool CollisionGroupsTest::isPowerOfTwo(double value) const
 	double exponent = log(value)/log(2);
 	double exponentFloored = floor(exponent);
 
+	//! @todo replace with fuzzy
 	return fabs(exponent - exponentFloored) < 0.001;
 }
