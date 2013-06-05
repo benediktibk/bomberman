@@ -14,43 +14,43 @@ namespace GameEngine
 class Grid
 {
 private:
-	enum Item
-	{
-		ItemWall,
-		ItemBomb,
-		ItemPlayer,
+    enum Item
+    {
+        ItemWall,
+        ItemBomb,
+        ItemPlayer,
         ItemPowerUp,
-		ItemFree
-	};
+        ItemFree
+    };
 
 public:
-	Grid(unsigned int rows,unsigned int cols);
+    Grid(unsigned int rows,unsigned int cols);
 
-	bool isPlaceEmpty(const Common::Point &position) const;
-	bool isPlaceEmpty(const Common::GridPoint &position) const;
-	void addBombAtPlace(Common::BombState &bomb);
-	void addWallAtPlace(Common::WallState &wall);
-	void removeBomb(Common::BombState &bomb);
-	void removeWall(Common::WallState &wall);
-	void updatePlayer(const Common::PlayerState &player);
+    bool isPlaceEmpty(const Common::Point &position) const;
+    bool isPlaceEmpty(const Common::GridPoint &position) const;
+    void addBombAtPlace(Common::BombState &bomb);
+    void addWallAtPlace(Common::WallState &wall);
+    void removeBomb(Common::BombState &bomb);
+    void removeWall(Common::WallState &wall);
+    void updatePlayer(const Common::PlayerState &player);
     void removePowerUp(Common::PowerUpState &powerUp);
     void addPowerUpAtPlace(Common::PowerUpState &powerUp);
-	std::vector<unsigned int> getWallsInRange(const Common::BombState &bomb) const;
+    std::vector<unsigned int> getWallsInRange(const Common::BombState &bomb) const;
     std::vector<unsigned int> getPlayersInRange(const Common::BombState &bomb) const;
     std::vector<unsigned int> getBombsInRange(const Common::BombState &bomb) const;
     std::vector<unsigned int> getPowerUpsInRange(const Common::BombState &bomb) const;
     std::vector<Common::GridPoint> getPlayerFields(const Common::PlayerState &player) const;
-
+//    std::vector<Common::GridPoint> getPowerUps();
 private:
-	unsigned int getVectorIndex(const Common::GridPoint &position) const;
-	unsigned int getVectorIndex(unsigned int x,unsigned int y) const;
+    unsigned int getVectorIndex(const Common::GridPoint &position) const;
+    unsigned int getVectorIndex(unsigned int x,unsigned int y) const;
     std::vector<unsigned int> getItemsInRange(const Common::BombState &bomb , Grid::Item item) const;
 private:
-	unsigned int m_gridRows;
-	unsigned int m_gridColumns;
-	unsigned int m_numberOfItems;
-	std::vector<Item> m_itemMatrix;
-	std::vector<unsigned int> m_idMatrix;
+    unsigned int m_gridRows;
+    unsigned int m_gridColumns;
+    unsigned int m_numberOfItems;
+    std::vector<Item> m_itemMatrix;
+    std::vector<unsigned int> m_idMatrix;
 };
 }
 

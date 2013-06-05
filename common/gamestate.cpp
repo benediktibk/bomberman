@@ -227,7 +227,7 @@ const PowerUpState* GameState::getPowerUpById(unsigned int powerUpId)
 	return m_powerUps[0];
 }
 
-void GameState::removePowerUpById(unsigned int powerUpId)
+void GameState::erasePowerUpById(unsigned int powerUpId)
 {
 	for(size_t i = 0; i < m_powerUps.size(); i++)
 	{
