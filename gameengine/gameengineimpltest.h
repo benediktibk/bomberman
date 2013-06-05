@@ -30,6 +30,7 @@ class GameEngineImplTest :
 	CPPUNIT_TEST(updateGameState_playerVerticalBetweenTwoFieldsAndUpPressed_playerKeepsDirection);
 	CPPUNIT_TEST(updateGameState_keyPressedHalfWayToGridFieldAndEnoughTimeToReachIt_playerPositionIsGridField);
 	CPPUNIT_TEST(updateGameState_placeBombAndWaitExactTheBombLifeTime_bombCountIs0);
+	CPPUNIT_TEST(updateGameState_moveTowardsWallAndAgainAway_playerPositionIsCorrect);
 	CPPUNIT_TEST(getHeight_HeightOfLevelDefinition_HeightOfGamestate);
 	CPPUNIT_TEST(getWidth_WidthOfLevelDefinition_WidthOfGamestate);
 	CPPUNIT_TEST(getWallCount_Create4x4LevelWith2Wall_WallCount2);
@@ -42,9 +43,9 @@ class GameEngineImplTest :
 	CPPUNIT_TEST(getTimeTillPlayerReachesGridPoint_playerMovedHalfWayUpToGridPoint_halfTimeToMoveBetweenTwoGridPoints);
 	CPPUNIT_TEST(getTimeTillPlayerReachesGridPoint_playerMovedHalfWayDownToGridPoint_halfTimeToMoveBetweenTwoGridPoints);
 	CPPUNIT_TEST(getTimeTillPlayerReachesGridPoint_playerStaysOnGridPoint_0);
-    CPPUNIT_TEST(increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCountIs2);
-    CPPUNIT_TEST(increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombCountIs2);
-    CPPUNIT_TEST(setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTimeOfSecondBombIs0);
+	CPPUNIT_TEST(increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCountIs2);
+	CPPUNIT_TEST(increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombCountIs2);
+	CPPUNIT_TEST(setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTimeOfSecondBombIs0);
    // CPPUNIT_TEST(updateGameState_placeBombNearPowerUp_PowerUpCountIs0);
 	CPPUNIT_TEST_SUITE_END();
 
@@ -74,6 +75,7 @@ private:
 	void updateGameState_playerSurroundedByWallsAndTriesToMoveUp_playerMovedUp();
 	void updateGameState_playerSurroundedByWallsAndTriesToMoveRight_playerMovedRight();
 	void updateGameState_moveRightAndToUpperBorderAndBackAndTryToGetRightBetweenTwoWalls_playerMovedRight();
+	void updateGameState_moveTowardsWallAndAgainAway_playerPositionIsCorrect();
 	void getTimeTillPlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints();
 	void getTimeTillPlayerReachesGridPoint_playerMovedHalfWayLeftToGridPoint_halfTimeToMoveBetweenTwoGridPoints();
 	void getTimeTillPlayerReachesGridPoint_playerMovedHalfWayUpToGridPoint_halfTimeToMoveBetweenTwoGridPoints();
@@ -81,9 +83,9 @@ private:
 	void getTimeTillPlayerReachesGridPoint_playerStaysOnGridPoint_0();
 	void updateGameState_keyPressedHalfWayToGridFieldAndEnoughTimeToReachIt_playerPositionIsGridField();
 	void updateGameState_placeBombAndWaitExactTheBombLifeTime_bombCountIs0();
-    void increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCountIs2();
-    void increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombCountIs2();
-    void setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTimeOfSecondBombIs0();
+	void increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCountIs2();
+	void increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombCountIs2();
+	void setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTimeOfSecondBombIs0();
    // void updateGameState_placeBombNearPowerUp_PowerUpCountIs0();
 };
 }
