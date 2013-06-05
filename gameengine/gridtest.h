@@ -31,6 +31,7 @@ class GridTest :
      CPPUNIT_TEST(removeBomb_itemat33_true);
      CPPUNIT_TEST(removeWall_itemat33_true);
      CPPUNIT_TEST(removePowerUp_itemat33_true);
+     CPPUNIT_TEST(getPlayerFields_PlayerAt1comm5and1_11and21);
      //CPPUNIT_TEST();
      CPPUNIT_TEST_SUITE_END();
 
@@ -59,6 +60,7 @@ private:
      void removeBomb_itemat33_true();
      void removeWall_itemat33_true();
      void removePowerUp_itemat33_true();
+     void getPlayerFields_PlayerAt1comm5and1_11and21();
 
      //void
 };

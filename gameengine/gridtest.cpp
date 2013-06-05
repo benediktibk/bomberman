@@ -576,3 +576,28 @@ void GridTest::removeWall_itemat33_true()
 
     CPPUNIT_ASSERT(grid.isPlaceEmpty(position));
 }
+
+void GridTest::getPlayerFields_PlayerAt1comm5and1_11and21()
+{
+    Grid grid(3,3);
+    bool isEqual=false;
+    UniqueIdCreator playerCreator;
+    PlayerState player(playerCreator);
+    vector<GridPoint> gridPoints;
+    vector<GridPoint> gridPointsShouldBe;
+    Point position(1.5,1.0);
+    player.setPosition(position);
+    grid.updatePlayer(player);
+    gridPoints=grid.getPlayerFields(player);
+
+    GridPoint point1(1,1);
+    GridPoint point2(2,1);
+    gridPointsShouldBe.push_back(point1);
+    gridPointsShouldBe.push_back(point2);
+    if(gridPoints==gridPointsShouldBe)
+        isEqual=true;
+
+    CPPUNIT_ASSERT(isEqual);
+}
+
+
