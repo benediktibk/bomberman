@@ -31,6 +31,7 @@ add_custom_target(
 	)
 
 set(BACKGROUNDS
+	cell_pattern_1.svg
 )
 
 set(OBJECTS
