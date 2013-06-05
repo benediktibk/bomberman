@@ -95,3 +95,23 @@ void PhysicSimulatorTest::simulateStep_collisionOfDynamicWithDynamicObject_secon
 	delete objectTwo;
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
+
+void PhysicSimulatorTest::simulateStep_dynamicObjectInDifferentCollisionGroupThanStaticObject_doNotCollide()
+{
+	PhysicSimulator simulator;
+	DynamicObject *dynamicObject = new DynamicObject(simulator, Point(0, 0), 1, 1);
+	StaticObject *staticObject = new StaticObject(simulator, Point(3, 0), 1, 1);
+	dynamicObject->applyLinearVelocity(10, 0);
+	dynamicObject->doNotCollideWith(65535);
+	staticObject->doNotCollideWith(65535);
+	dynamicObject->setCollisionGroup(1);
+	staticObject->setCollisionGroup(2);
+
+	simulator.simulateStep(1);
+
+	Point positionShouldBe(10, 0);
+	Point positionReal(dynamicObject->getPosition());
+	delete dynamicObject;
+	delete staticObject;
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
+}

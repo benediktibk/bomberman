@@ -21,6 +21,7 @@
 #include "common/powerupstatetest.h"
 #include "common/powerupmaxbombstatetest.h"
 #include "physic/playertest.h"
+#include "physic/gamephysicsimulatortest.h"
 #include "common/randomdecisiontest.h"
 #include "physic/collisiongroupstest.h"
 #include "common/powerupgeneratortest.h"
@@ -44,6 +45,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Physic::StaticObjectTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::PlayerTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::PhysicSimulatorTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::CollisionGroupsTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Physic::GamePhysicSimulatorTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Threading::ThreadTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Threading::MutexTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Threading::SignalTest);

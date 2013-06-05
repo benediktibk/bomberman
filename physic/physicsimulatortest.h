@@ -16,6 +16,7 @@ class PhysicSimulatorTest :
 	 CPPUNIT_TEST(simulateStep_collisionOfDynamicWithStaticObject_staticObjectPositionIsNotChanged);
 	 CPPUNIT_TEST(simulateStep_collisionOfDynamicWithDynamicObject_firstDynamicObjectPositionIsCorrect);
 	 CPPUNIT_TEST(simulateStep_collisionOfDynamicWithDynamicObject_secondDynamicObjectPositionIsCorrect);
+	 CPPUNIT_TEST(simulateStep_dynamicObjectInDifferentCollisionGroupThanStaticObject_doNotCollide);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -25,6 +26,7 @@ private:
 	 void simulateStep_collisionOfDynamicWithStaticObject_staticObjectPositionIsNotChanged();
 	 void simulateStep_collisionOfDynamicWithDynamicObject_firstDynamicObjectPositionIsCorrect();
 	 void simulateStep_collisionOfDynamicWithDynamicObject_secondDynamicObjectPositionIsCorrect();
+	 void simulateStep_dynamicObjectInDifferentCollisionGroupThanStaticObject_doNotCollide();
 };
 }
 

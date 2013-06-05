@@ -4,6 +4,8 @@ set(PHYSIC_SRC
 	staticobject.cpp
 	player.cpp
 	collisiongroups.cpp
+	physicalobject.cpp
+	gamephysicsimulator.cpp
 )
 
 set(PHYSIC_TEST_SRC
@@ -12,6 +14,7 @@ set(PHYSIC_TEST_SRC
 	staticobjecttest.cpp
 	playertest.cpp
 	collisiongroupstest.cpp
+	gamephysicsimulatortest.cpp
 )
 
 include_directories(

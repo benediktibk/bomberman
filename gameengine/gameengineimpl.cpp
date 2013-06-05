@@ -1,11 +1,12 @@
-#include "gameengineimpl.h"
-#include "physic/physicsimulator.h"
+#include "gameengine/gameengineimpl.h"
+#include "gameengine/grid.h"
+#include "physic/gamephysicsimulator.h"
 //BAAAAAAAAAAYERN!
 #include "physic/player.h"
 #include "physic/staticobject.h"
 #include "physic/collisiongroups.h"
-#include "grid.h"
 #include <assert.h>
+#include <algorithm>
 
 using namespace GameEngine;
 using namespace Common;
@@ -13,56 +14,22 @@ using namespace Physic;
 using namespace std;
 
 GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
-	m_gameState(level,m_playerIds),
+	m_gameState(level, m_playerIds, m_wallids),
 	m_playerState(m_gameState.getPlayerState()),
-	m_simulator(new PhysicSimulator),
-	m_player(new Player(*m_simulator, m_playerState.getPosition(), m_playerState.getWidth(), m_playerState.getHeight())),
-	m_upperBorder(new StaticObject(*m_simulator, Point(0, level.getLevelHeight()), level.getLevelWidth(), 1)),
-	m_lowerBorder(new StaticObject(*m_simulator, Point(0, -1), level.getLevelWidth(), 1)),
-	m_leftBorder(new StaticObject(*m_simulator, Point(-1, 0), 1, level.getLevelHeight())),
-	m_rightBorder(new StaticObject(*m_simulator,Point(level.getLevelWidth(), 0), 1, level.getLevelHeight())),
 	m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
 	m_firstGameStateUpdate(true),
-	m_collisionGroups(0)
+	m_simulator(new GamePhysicSimulator(level, m_playerState))
 {
-	for(unsigned int x=0;x<level.getLevelWidth();x++)
-	{
-		for(unsigned int y=0;y<level.getLevelHeight();y++)
-		{
-			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeSolidWall)
-			{
-				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeSolid, Point(x, y));
-				m_gameState.addWall(wallstate);
-				m_grid->addWallAtPlace(*wallstate);
-			}
-			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeLooseWall)
-			{
-				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeLoose, Point(x, y));
-				m_gameState.addWall(wallstate);
-				m_grid->addWallAtPlace(*wallstate);
-			}
-			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypePlayer)
-			{
-				//m_playerState.setPosition(Point(x,y)); Dynamik Position auf diese ändern
-			}
-		}
-	}
+	vector<const WallState*> walls = m_gameState.getAllChangedWalls();
 
-	m_collisionGroups = new CollisionGroups(m_gameState.getAllPossiblePlayerIDs());
+	for (vector<const WallState*>::const_iterator i = walls.begin(); i != walls.end(); ++i)
+		m_grid->addWallAtPlace(**i);
 }
 
 GameEngineImpl::~GameEngineImpl()
 {
-	deleteAllWallObjects();
-	deleteAllBombObjects();
-	delete m_player;
 	delete m_grid;
-	delete m_upperBorder;
-	delete m_lowerBorder;
-	delete m_leftBorder;
-	delete m_rightBorder;
 	delete m_simulator;
-	delete m_collisionGroups;
 }
 
 void GameEngineImpl::updateGameState(const InputState &inputState, double time)
@@ -74,9 +41,9 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
 		m_gameState.resetChangedFlags();
 	m_gameState.removeAllObjectsWithDestroyedFlag();
 	updateBombs();
-	updateWalls();
 	updatePlayerPosition();
 	placeBombs();
+	m_simulator->updateItems(m_gameState);
 //    applyPowerUps();
 
 	m_firstGameStateUpdate = false;
@@ -92,22 +59,6 @@ Common::GameState &GameEngineImpl::getGameState()
 	return m_gameState;
 }
 
-void GameEngineImpl::deleteAllWallObjects()
-{
-	for(map<const WallState*, StaticObject*>::iterator i = m_wallObjects.begin(); i != m_wallObjects.end(); i++)
-		delete i->second;
-
-	m_wallObjects.clear();
-}
-
-void GameEngineImpl::deleteAllBombObjects()
-{
-	for(map<const BombState*, StaticObject*>::iterator i = m_bombObjects.begin(); i != m_bombObjects.end(); i++)
-		delete i->second;
-
-	m_bombObjects.clear();
-}
-
 void GameEngineImpl::updatePlayerVelocity()
 {
 	if (m_inputState.isMoreThanOneMovementButtonPressed())
@@ -120,32 +71,22 @@ void GameEngineImpl::updatePlayerVelocity()
 
 void GameEngineImpl::updatePlayerPosition()
 {
-	double timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
-	double simulatedTimeCounter;
 	double realSimulatedTime = 0;
+	vector<GridPoint> playerFields = m_grid->getPlayerFields(m_playerState);
 
-	if (timeTillPlayerReachesGridPoint == 0)
-	{
+	if (playerFields.size() == 1)
 		updatePlayerVelocity();
-		timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
-	}
 
-	for (simulatedTimeCounter = 0; simulatedTimeCounter + timeTillPlayerReachesGridPoint < m_elapsedTime && timeTillPlayerReachesGridPoint > 0; simulatedTimeCounter += timeTillPlayerReachesGridPoint)
+	double timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
+
+	if (timeTillPlayerReachesGridPoint < m_elapsedTime)
 	{
-		if (simulatedTimeCounter > 0)
-			updatePlayerVelocity();
-
-		m_simulator->simulateStep(timeTillPlayerReachesGridPoint);
+		m_simulator->simulateStep(m_playerState, timeTillPlayerReachesGridPoint);
 		realSimulatedTime += timeTillPlayerReachesGridPoint;
-
-		timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
+		updatePlayerVelocity();
 	}
 
-	if (timeTillPlayerReachesGridPoint < 0.05)
-		updatePlayerVelocity();
-
-	m_simulator->simulateStep(m_elapsedTime - realSimulatedTime);
-	m_playerState.setPosition(m_player->getPosition());
+	m_simulator->simulateStep(m_playerState, m_elapsedTime - realSimulatedTime);
 }
 
 void GameEngineImpl::setPlayerSpeedIfMoreThanOneDirectionIsSelected()
@@ -154,13 +95,13 @@ void GameEngineImpl::setPlayerSpeedIfMoreThanOneDirectionIsSelected()
 	assert(m_inputState.isMovementButtonPressed());
 
 	if (m_inputState.isUpKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionUp)
-		m_player->applyLinearVelocity(0, m_playerState.getSpeed());
+		m_playerState.setMoving();
 	else if (m_inputState.isDownKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionDown)
-		m_player->applyLinearVelocity(0, (-1)*m_playerState.getSpeed());
+		m_playerState.setMoving();
 	else if (m_inputState.isLeftKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionLeft)
-		m_player->applyLinearVelocity((-1)*m_playerState.getSpeed(), 0);
+		m_playerState.setMoving();
 	else if (m_inputState.isRightKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionRight)
-		m_player->applyLinearVelocity(m_playerState.getSpeed(), 0);
+		m_playerState.setMoving();
 }
 
 void GameEngineImpl::setPlayerSpeedIntoOnlySelectedDirection()
@@ -171,35 +112,35 @@ void GameEngineImpl::setPlayerSpeedIntoOnlySelectedDirection()
 	if (m_inputState.isUpKeyPressed())
 	{
 		m_playerState.setDirectionUp();
-		m_player->applyLinearVelocity(0, m_playerState.getSpeed());
+		m_playerState.setMoving();
 	}
 	else if (m_inputState.isDownKeyPressed())
 	{
 		m_playerState.setDirectionDown();
-		m_player->applyLinearVelocity(0, (-1)*m_playerState.getSpeed());
+		m_playerState.setMoving();
 	}
 	else if (m_inputState.isLeftKeyPressed())
 	{
 		m_playerState.setDirectionLeft();
-		m_player->applyLinearVelocity((-1)*m_playerState.getSpeed(), 0);
+		m_playerState.setMoving();
 	}
 	else if (m_inputState.isRightKeyPressed())
 	{
 		m_playerState.setDirectionRight();
-		m_player->applyLinearVelocity(m_playerState.getSpeed(), 0);
+		m_playerState.setMoving();
 	}
 }
 
 void GameEngineImpl::setPlayerSpeedToNull()
 {
-	m_player->applyLinearVelocity(0, 0);
+	m_playerState.setNotMoving();
 }
 
 double GameEngineImpl::getTimeTillPlayerReachesGridPoint() const
 {
-	double velocityX = m_player->getVelocityX();
-	double velocityY = m_player->getVelocityY();
-	const Point &position = m_player->getPosition();
+	double velocityX = m_playerState.getSpeedIntoX();
+	double velocityY = m_playerState.getSpeedIntoY();
+	const Point &position = m_playerState.getPosition();
 	const GridPoint gridPosition(position);
 	double time = 0;
 
@@ -219,10 +160,7 @@ double GameEngineImpl::getTimeTillPlayerReachesGridPoint() const
 			time = (position.getY() - (gridPosition.getY() + 1))/velocityY;
 	}
 
-	if (time < 0)
-		time = 0;
-
-	return time;
+	return max(0.0, time);
 }
 
 void GameEngineImpl::updateBombs()
@@ -252,36 +190,9 @@ void GameEngineImpl::updateBombs()
 		{
 			m_gameState.erasePowerUpById(powerUpsInRange[j]);
 		}
-
 	}
+
 	m_gameState.setAllBombsWithNoLifeTimeDestroyed(m_playerState);
-
-	vector<const BombState*> changedBombs = m_gameState.getAllChangedBombs();
-
-	for (vector<const BombState*>::const_iterator i = changedBombs.begin(); i != changedBombs.end(); ++i)
-		updateBomb(*i);
-}
-
-void GameEngineImpl::updateBomb(const BombState *bomb)
-{
-	map<const BombState*, StaticObject*>::iterator position = m_bombObjects.find(bomb);
-	bool bombFound = position != m_bombObjects.end();
-	StaticObject *bombObject = 0;
-
-	if (bombFound)
-		bombObject = position->second;
-	else
-	{
-		bombObject = new StaticObject(*m_simulator, bomb->getPosition(), 1, 1);
-		m_bombObjects.insert(pair<const BombState*, StaticObject*>(bomb, bombObject));
-		position = m_bombObjects.find(bomb);
-	}
-
-	if (bomb->isDestroyed())
-	{
-		m_bombObjects.erase(position);
-		delete bombObject;
-	}
 }
 
 void GameEngineImpl::placeBombs()
@@ -289,42 +200,13 @@ void GameEngineImpl::placeBombs()
 	if (m_inputState.isSpaceKeyPressed() && m_playerState.canPlayerPlaceBomb())
 	{
 		BombState *bombPlaced = new BombState(m_bombids);
-		bombPlaced->setPosition(m_player->getCenterPosition());
+		bombPlaced->setPosition(m_playerState.getCenterPosition());
 		m_grid->addBombAtPlace(*bombPlaced);
 		m_playerState.countBomb();
 		m_gameState.addBomb(bombPlaced);
 	}
 }
 
-void GameEngineImpl::updateWalls()
-{
-	vector<const WallState*> changedWalls = m_gameState.getAllChangedWalls();
-
-	for (vector<const WallState*>::const_iterator i = changedWalls.begin(); i != changedWalls.end(); ++i)
-		updateWall(*i);
-}
-
-void GameEngineImpl::updateWall(const WallState *wall)
-{
-	map<const WallState*, StaticObject*>::iterator position = m_wallObjects.find(wall);
-	bool wallFound = position != m_wallObjects.end();
-	StaticObject *wallObject = 0;
-
-	if (wallFound)
-		wallObject = position->second;
-	else
-	{
-		wallObject = new StaticObject(*m_simulator, wall->getPosition(), 1, 1);
-		m_wallObjects.insert(pair<const WallState*, StaticObject*>(wall, wallObject));
-		position = m_wallObjects.find(wall);
-	}
-
-	if (wall->isDestroyed())
-	{
-		m_wallObjects.erase(position);
-		delete wallObject;
-	}
-}
 /*
 void GameEngineImpl::applyPowerUps()
 {

@@ -43,15 +43,16 @@ void MainWindowGraphicTest::connectSlots()
 
 void MainWindowGraphicTest::drawState1()
 {
-	UniqueIdCreator id;
-    UniqueIdCreator idPlayer;
-    LevelDefinition level;
-    GameState gameState(level,idPlayer);
-	WallState *wallOne = new WallState(id, WallState::WallTypeSolid, Point(-3, 4));
-	WallState *wallTwo = new WallState(id, WallState::WallTypeSolid, Point(2, 3));
-	WallState *wallThree = new WallState(id, WallState::WallTypeLoose, Point(1, 5));
-	BombState *bombOne = new BombState(id);
-	BombState *bombTwo = new BombState(id);
+	UniqueIdCreator wallIDCreator;
+	UniqueIdCreator playerIDCreator;
+	UniqueIdCreator bombIDCreator;
+	LevelDefinition level;
+	GameState gameState(level, playerIDCreator, wallIDCreator);
+	WallState *wallOne = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(-3, 4));
+	WallState *wallTwo = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(2, 3));
+	WallState *wallThree = new WallState(wallIDCreator, WallState::WallTypeLoose, Point(1, 5));
+	BombState *bombOne = new BombState(bombIDCreator);
+	BombState *bombTwo = new BombState(bombIDCreator);
 
 	bombOne->setPosition(Point(0, 2));
 	bombTwo->setPosition(Point(-4, -1));

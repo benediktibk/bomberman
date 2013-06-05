@@ -93,3 +93,10 @@ void GridPointTest::operatorMinus_4And3From6And4_2And1()
 
 	CPPUNIT_ASSERT_EQUAL(GridPoint(2, 1), result);
 }
+
+void GridPointTest::constructor_pointWithNotExactPositions_correctPosition()
+{
+	GridPoint point(Point(3.96, 5.972));
+
+	CPPUNIT_ASSERT_EQUAL(GridPoint(4, 6), point);
+}

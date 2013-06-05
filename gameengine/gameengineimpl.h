@@ -4,66 +4,49 @@
 #include "common/gameengine.h"
 #include "common/uniqueidcreator.h"
 #include "common/leveldefinition.h"
-#include <map>
 
 namespace Physic
 {
-	class PhysicSimulator;
-	class Player;
-	class StaticObject;
-	class CollisionGroups;
+	class GamePhysicSimulator;
 }
 
 namespace GameEngine
 {
-class Grid;
+	class Grid;
 
-class GameEngineImpl :
-		public Common::GameEngine
-{
-public:
-	GameEngineImpl(const Common::LevelDefinition &level);
-	virtual ~GameEngineImpl();
+	class GameEngineImpl :
+			public Common::GameEngine
+	{
+	public:
+		GameEngineImpl(const Common::LevelDefinition &level);
+		virtual ~GameEngineImpl();
 
-	virtual void updateGameState(const Common::InputState &inputState, double time);
-	virtual const Common::GameState& getGameState() const;
-	Common::GameState& getGameState();
-	double getTimeTillPlayerReachesGridPoint() const;
+		virtual void updateGameState(const Common::InputState &inputState, double time);
+		virtual const Common::GameState& getGameState() const;
+		Common::GameState& getGameState();
+		double getTimeTillPlayerReachesGridPoint() const;
 
-private:
-	void deleteAllWallObjects();
-	void deleteAllBombObjects();
-	void updatePlayerPosition();
-	void updatePlayerVelocity();
-	void setPlayerSpeedIfMoreThanOneDirectionIsSelected();
-	void setPlayerSpeedIntoOnlySelectedDirection();
-	void setPlayerSpeedToNull();
-	void updateBombs();
-	void updateBomb(const Common::BombState *bomb);
-	void placeBombs();
-	void updateWalls();
-	void updateWall(const Common::WallState *wall);
+	private:
+		void updatePlayerPosition();
+		void updatePlayerVelocity();
+		void setPlayerSpeedIfMoreThanOneDirectionIsSelected();
+		void setPlayerSpeedIntoOnlySelectedDirection();
+		void setPlayerSpeedToNull();
+		void updateBombs();
+		void placeBombs();
 
-private:
-	Common::InputState m_inputState;
-	Common::UniqueIdCreator m_bombids;
-	Common::UniqueIdCreator m_wallids;
-	Common::UniqueIdCreator m_playerIds;
-	Common::GameState m_gameState;
-	Common::PlayerState &m_playerState;
-	double m_elapsedTime;
-	Physic::PhysicSimulator *m_simulator;
-	Physic::Player *m_player;
-	Physic::StaticObject *m_upperBorder;
-	Physic::StaticObject *m_lowerBorder;
-	Physic::StaticObject *m_leftBorder;
-	Physic::StaticObject *m_rightBorder;
-	std::map<const Common::WallState*, Physic::StaticObject*> m_wallObjects;
-	std::map<const Common::BombState*, Physic::StaticObject*> m_bombObjects;
-	Grid *m_grid;
-	bool m_firstGameStateUpdate;
-	Physic::CollisionGroups *m_collisionGroups;
-};
+	private:
+		Common::InputState m_inputState;
+		Common::UniqueIdCreator m_bombids;
+		Common::UniqueIdCreator m_wallids;
+		Common::UniqueIdCreator m_playerIds;
+		Common::GameState m_gameState;
+		Common::PlayerState &m_playerState;
+		double m_elapsedTime;
+		Grid *m_grid;
+		bool m_firstGameStateUpdate;
+		Physic::GamePhysicSimulator *m_simulator;
+	};
 }
 
 #endif
