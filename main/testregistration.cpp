@@ -23,6 +23,7 @@
 #include "common/powerupmaxbombstatetest.h"
 #include "physic/playertest.h"
 #include "common/randomdecisiontest.h"
+#include "common/powerupgeneratortest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::GameStateTest);
@@ -49,3 +50,4 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Threading::SignalTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GameEngineImplTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GridTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Main::GameLoopTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpGeneratorTest);

@@ -245,3 +245,5 @@ common/randomdecisiontest.h
 common/randomdecisiontest.cpp
 main/mainregressiontest.cpp
 testCoverage.sh
+common/powerupgeneratortest.h
+common/powerupgeneratortest.cpp
