@@ -32,9 +32,6 @@ public:
     void setMaxBombs(unsigned int maxBombs);
     void increaseMaxBombs();
     void increaseMaxBombs(unsigned int number);
-    void powerUpBombPack();
-    void powerUpBombPack(unsigned int number);
-    void decreaseBombPackIfPowerUp();
     unsigned int getMaxBombs() const;
     unsigned int getRemainingBombs() const;
     void countBomb();
@@ -54,7 +51,6 @@ private:
     PlayerDirection m_direction;
     unsigned int m_placedBombCount;
     unsigned int m_maxBombs;
-    unsigned int m_bombPackCount;
     double m_speed;
     double m_width;
     double m_height;
