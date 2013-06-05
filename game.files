@@ -249,3 +249,5 @@ physic/collisiongroups.h
 physic/collisiongroups.cpp
 physic/collisiongroupstest.h
 physic/collisiongroupstest.cpp
+common/powerupgeneratortest.h
+common/powerupgeneratortest.cpp

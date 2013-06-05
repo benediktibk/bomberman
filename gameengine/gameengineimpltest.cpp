@@ -600,3 +600,21 @@ void GameEngineImplTest::setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTim
 
 	CPPUNIT_ASSERT_EQUAL((double)0, bomb.getLifeTime());
 }
+
+/*void GameEngineImplTest::updateGameState_placeBombNearPowerUp_PowerUpCountIs0()
+{
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 1, 0);
+	GameEngineImpl gameEngine(level);
+	InputState input;
+
+	input.setSpaceKeyPressed();
+	gameEngine.updateGameState(input, 0);
+	input.setSpaceKeyNotPressed();
+	gameEngine.updateGameState(input, 3.1);
+	gameEngine.updateGameState(input, 0);
+
+	const GameState &game = gameEngine.getGameState();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getWallCount());
+}*/

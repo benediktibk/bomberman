@@ -59,7 +59,8 @@ void GridTest::removeBomb_from_3_3()
 	bomb.setPosition(position);
 	grid.addBombAtPlace(bomb);
 	grid.removeBomb(bomb);
-	CPPUNIT_ASSERT(grid.isPlaceEmpty(position));
+    GridPoint point(position);
+    CPPUNIT_ASSERT(grid.isPlaceEmpty(point));
 }
 
 void GridTest::removeWall_from_3_3()
@@ -71,6 +72,18 @@ void GridTest::removeWall_from_3_3()
 	grid.addWallAtPlace(wall);
 	grid.removeWall(wall);
 	CPPUNIT_ASSERT(grid.isPlaceEmpty(position));
+}
+
+void GridTest::isPlaceEmpty_withGridPoint()
+{
+    UniqueIdCreator creator;
+    Grid grid(5,5);
+    Point position(3.0,3.0);
+    WallState wall(creator,WallState::WallTypeLoose,position);
+    grid.addWallAtPlace(wall);
+    grid.removeWall(wall);
+    GridPoint point(position);
+    CPPUNIT_ASSERT(grid.isPlaceEmpty(point));
 }
 
 void GridTest::getWallsInRange_bombat32_twowallsup()
