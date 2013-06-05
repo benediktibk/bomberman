@@ -216,28 +216,28 @@ double GameEngineImpl::getTimeTillPlayerReachesGridPoint() const
 
 void GameEngineImpl::updateBombs()
 {
-	vector<const BombState*> BombsWithNegativeLiveTime;
+	vector<const BombState*> BombsWithNoLifeTime;
 
 	m_gameState.reduceAllBombsLifeTime(m_elapsedTime);
-	BombsWithNegativeLiveTime = m_gameState.getAllBombsWithNegativeLifeTime();
+	BombsWithNoLifeTime = m_gameState.getAllBombsWithNoLifeTime();
 
-	for(size_t i = 0; i < BombsWithNegativeLiveTime.size(); i++)
+	for(size_t i = 0; i < BombsWithNoLifeTime.size(); i++)
 	{
 		vector<unsigned int> wallsInRange;
-		wallsInRange = m_grid->getWallsInRange(*BombsWithNegativeLiveTime[i]);
+		wallsInRange = m_grid->getWallsInRange(*BombsWithNoLifeTime[i]);
 		for(size_t j = 0; j < wallsInRange.size(); j++)
 		{
 			m_gameState.eraseWallById(wallsInRange[j]);
 		}
 		vector<unsigned int> bombsInRange;
-		bombsInRange = m_grid->getBombsInRange(*BombsWithNegativeLiveTime[i]);
+		bombsInRange = m_grid->getBombsInRange(*BombsWithNoLifeTime[i]);
 		for(size_t j = 0; j < bombsInRange.size(); j++)
 		{
 			m_gameState.setBombsLifeTimeToZero(bombsInRange[j]);
 		}
 
 	}
-	m_gameState.setAllBombsWithNegativeLifeTimeDestroyed(m_playerState);
+	m_gameState.setAllBombsWithNoLifeTimeDestroyed(m_playerState);
 
 	vector<const BombState*> changedBombs = m_gameState.getAllChangedBombs();
 
