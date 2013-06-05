@@ -2,7 +2,6 @@
 #include "physic/gamephysicsimulator.h"
 #include "common/leveldefinition.h"
 #include "common/gamestate.h"
-#include "common/uniqueidcreator.h"
 
 using namespace Physic;
 using namespace Common;
@@ -11,8 +10,7 @@ void GamePhysicSimulatorTest::simulateStep_movePlayerTowardsWall_playerCollidesW
 {
 	LevelDefinition level(5, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 0);
-	UniqueIdCreator playerIDCreator;
-	GameState gameState(level, playerIDCreator);
+	GameState gameState(level, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &player = gameState.getPlayerState();
 	GamePhysicSimulator simulator(level, player);
 	player.setDirectionRight();
@@ -29,14 +27,12 @@ void GamePhysicSimulatorTest::simulateStep_movePlayerTowardsWall_playerCollidesW
 void GamePhysicSimulatorTest::simulateStep_movePlayerTowardsBomb_playerCollidesWithBomb()
 {
 	LevelDefinition level(5, 10);
-	UniqueIdCreator playerIDCreator;
-	UniqueIdCreator bombIDCreator;
-	GameState gameState(level, playerIDCreator);
+	GameState gameState(level, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &player = gameState.getPlayerState();
 	GamePhysicSimulator simulator(level, player);
 	player.setDirectionRight();
 	player.setMoving();
-	BombState *bomb = new BombState(bombIDCreator);
+	BombState *bomb = new BombState(m_bombIDCreator);
 	bomb->setPosition(Point(3, 0));
 	gameState.addBomb(bomb);
 	simulator.updateItems(gameState);

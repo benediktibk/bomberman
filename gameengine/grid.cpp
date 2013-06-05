@@ -42,7 +42,7 @@ void Grid::addBombAtPlace(BombState &bomb)
 	bomb.setPosition(position.getPointPosition());
 }
 
-void Grid::addWallAtPlace(WallState &wall)
+void Grid::addWallAtPlace(const WallState &wall)
 {
 	GridPoint position(wall.getPosition());
 	unsigned int index = getVectorIndex(position);

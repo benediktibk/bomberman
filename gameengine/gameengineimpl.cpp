@@ -14,34 +14,16 @@ using namespace Physic;
 using namespace std;
 
 GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
-	m_gameState(level,m_playerIds),
+	m_gameState(level, m_playerIds, m_wallids),
 	m_playerState(m_gameState.getPlayerState()),
 	m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
 	m_firstGameStateUpdate(true),
 	m_simulator(new GamePhysicSimulator(level, m_playerState))
 {
-	for(unsigned int x=0;x<level.getLevelWidth();x++)
-	{
-		for(unsigned int y=0;y<level.getLevelHeight();y++)
-		{
-			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeSolidWall)
-			{
-				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeSolid, Point(x, y));
-				m_gameState.addWall(wallstate);
-				m_grid->addWallAtPlace(*wallstate);
-			}
-			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeLooseWall)
-			{
-				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeLoose, Point(x, y));
-				m_gameState.addWall(wallstate);
-				m_grid->addWallAtPlace(*wallstate);
-			}
-			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypePlayer)
-			{
-				//m_playerState.setPosition(Point(x,y)); Dynamik Position auf diese ändern
-			}
-		}
-	}
+	vector<const WallState*> walls = m_gameState.getAllChangedWalls();
+
+	for (vector<const WallState*>::const_iterator i = walls.begin(); i != walls.end(); ++i)
+		m_grid->addWallAtPlace(**i);
 }
 
 GameEngineImpl::~GameEngineImpl()

@@ -5,11 +5,29 @@
 using namespace Common;
 using namespace std;
 
-GameState::GameState(const LevelDefinition &level, UniqueIdCreator &creator) :
+GameState::GameState(const LevelDefinition &level, UniqueIdCreator &playerIDCreator, UniqueIdCreator &wallIDCreator) :
 	m_height(level.getLevelHeight()),
 	m_width(level.getLevelWidth())
 {
-	m_players.push_back(new PlayerState(creator));
+	m_players.push_back(new PlayerState(playerIDCreator));
+
+	for(unsigned int x = 0; x < level.getLevelWidth(); x++)
+	{
+		for(unsigned int y = 0; y < level.getLevelHeight(); y++)
+		{
+			if(level.getObjectTypeAtPosition(x, y) == LevelDefinition::ObjectTypeSolidWall)
+			{
+				WallState *wallstate = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(x, y));
+				addWall(wallstate);
+			}
+
+			if(level.getObjectTypeAtPosition(x, y) == LevelDefinition::ObjectTypeLooseWall)
+			{
+				WallState *wallstate = new WallState(wallIDCreator, WallState::WallTypeLoose, Point(x, y));
+				addWall(wallstate);
+			}
+		}
+	}
 }
 
 GameState::~GameState()

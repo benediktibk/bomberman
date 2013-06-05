@@ -3,6 +3,7 @@
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
+#include "common/uniqueidcreator.h"
 
 namespace Physic
 {
@@ -18,6 +19,11 @@ namespace Physic
 	private:
 		void simulateStep_movePlayerTowardsWall_playerCollidesWithWall();
 		void simulateStep_movePlayerTowardsBomb_playerCollidesWithBomb();
+
+	private:
+		Common::UniqueIdCreator m_playerIDCreator;
+		Common::UniqueIdCreator m_wallIDCreator;
+		Common::UniqueIdCreator m_bombIDCreator;
 	};
 }
 
