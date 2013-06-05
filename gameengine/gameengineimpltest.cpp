@@ -522,3 +522,80 @@ void GameEngineImplTest::updateGameState_placeBombAndWaitExactTheBombLifeTime_bo
 
 	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getBombCount());
 }
+
+void GameEngineImplTest::increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCountIs2()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	GameState &game = gameEngine.getGameState();
+    PlayerState &player = game.getPlayerState();
+	InputState input;
+
+    player.increaseMaxBombs();
+	input.setSpaceKeyPressed();
+	gameEngine.updateGameState(input, 0);
+	input.setSpaceKeyNotPressed();
+    input.setUpKeyPressed();
+    gameEngine.updateGameState(input, (1.5/player.getSpeed()));
+    input.setUpKeyNotPressed();
+    input.setSpaceKeyPressed();
+    gameEngine.updateGameState(input, 0);
+    input.setSpaceKeyNotPressed();
+    gameEngine.updateGameState(input, 0);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)2, game.getBombCount());
+}
+
+void GameEngineImplTest::increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombCountIs2()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	GameState &game = gameEngine.getGameState();
+    PlayerState &player = game.getPlayerState();
+	InputState input;
+
+    player.increaseMaxBombs();
+	input.setSpaceKeyPressed();
+	gameEngine.updateGameState(input, 0);
+	input.setSpaceKeyNotPressed();
+    input.setUpKeyPressed();
+    gameEngine.updateGameState(input, (1.5/player.getSpeed()));
+    input.setUpKeyNotPressed();
+    input.setSpaceKeyPressed();
+    gameEngine.updateGameState(input, 0);
+    input.setSpaceKeyNotPressed();
+    input.setUpKeyPressed();
+    gameEngine.updateGameState(input, (1.5/player.getSpeed()));
+    input.setUpKeyNotPressed();
+    input.setSpaceKeyPressed();
+    gameEngine.updateGameState(input, 0);
+    input.setSpaceKeyNotPressed();
+    gameEngine.updateGameState(input, 0);
+    
+	CPPUNIT_ASSERT_EQUAL((size_t)2, game.getBombCount());
+}
+
+void GameEngineImplTest::setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTimeOfSecondBombIs0()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	GameState &game = gameEngine.getGameState();
+    PlayerState &player = game.getPlayerState();
+	InputState input;
+
+    player.increaseMaxBombs();
+	input.setSpaceKeyPressed();
+	gameEngine.updateGameState(input, 0);
+	input.setSpaceKeyNotPressed();
+    input.setUpKeyPressed();
+    gameEngine.updateGameState(input, (1.0/player.getSpeed()));
+    input.setUpKeyNotPressed();
+    input.setSpaceKeyPressed();
+    gameEngine.updateGameState(input, 2.8);
+    input.setSpaceKeyNotPressed();
+    gameEngine.updateGameState(input, 0.1);
+    vector<const BombState*> bombs = game.getAllChangedBombs();
+	const BombState &bomb = *(bombs.front()); 
+
+	CPPUNIT_ASSERT_EQUAL((double)0, bomb.getLifeTime());
+}
