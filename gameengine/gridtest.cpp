@@ -520,6 +520,30 @@ void GridTest::getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringet
     CPPUNIT_ASSERT_EQUAL((size_t)0, wallsInRange.size());
 }
 
+void GridTest::getPlayersinRange_bombat59gridsize1010_1()
+{
+    UniqueIdCreator playerCreator;
+    vector<unsigned int> playersInRange;
+    UniqueIdCreator bombcreator;
+
+    Grid grid(10,10);
+
+    Point position(5.0,9.0);
+    BombState bomb(bombcreator);
+    bomb.setPosition(position);
+    bomb.setDestructionRange(5);
+    grid.addBombAtPlace(bomb);
+
+    Point position2(5.0,8.0);
+    PlayerState player(playerCreator);
+    player.setPosition(position2);
+    grid.updatePlayer(player);
+
+    playersInRange = grid.getPlayersInRange(bomb);
+
+    CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
+}
+
 void GridTest::isPlaceEmpty_itemat33_false()
 {
     UniqueIdCreator wallcreator;
