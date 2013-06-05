@@ -1,5 +1,6 @@
 #include "grid.h"
 #include <assert.h>
+#include <math.h>
 
 using namespace Common;
 using namespace GameEngine;
@@ -199,19 +200,19 @@ vector<GridPoint> Grid::getPlayerFields(const Common::PlayerState &player) const
 	double xGrid = positionGrid.getX();
 	double yGrid = positionGrid.getY();
 
-	if (x - xGrid > 0)
+	if (x - xGrid > 0.05)
 	{
 		result.push_back(positionGrid);
 		GridPoint positionGrid2(positionGrid.getX()+1,positionGrid.getY());
 		result.push_back(positionGrid2);
 	}
-	if (y - yGrid > 0)
+	if (y - yGrid > 0.05)
 	{
 		result.push_back(positionGrid);
 		GridPoint positionGrid2(positionGrid.getX(),positionGrid.getY()+1);
 		result.push_back(positionGrid2);
 	}
-	if(x - xGrid == 0 && y - yGrid == 0)
+	if(fabs(x - xGrid) < 0.05 && fabs(y - yGrid) < 0.05)
 	{
 		result.push_back(positionGrid);
 	}
