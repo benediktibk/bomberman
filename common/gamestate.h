@@ -19,6 +19,7 @@ public:
 
 	PlayerState& getPlayerState() ;
 	PlayerState& getPlayerStateById(unsigned int playerId);
+	std::vector<unsigned int> getAllPossiblePlayerIDs() const;
 	const PlayerState& getPlayerState() const;
 	std::vector<const WallState*> getAllChangedWalls() const;
 	size_t getWallCount() const;
@@ -37,14 +38,14 @@ public:
 	void setBombsLifeTimeToZero(unsigned int bombId);
 	const PowerUpState* getPowerUpById(unsigned int powerUpId);
 	void removePowerUpById(unsigned int powerUpId);
-    void addPowerUp(PowerUpState* powerUp);
-    size_t getPowerUpCount() const;
-    std::vector<const PowerUpState*> getAllChangedPowerUps() const;
+	void addPowerUp(PowerUpState* powerUp);
+	size_t getPowerUpCount() const;
+	std::vector<const PowerUpState*> getAllChangedPowerUps() const;
 
 private:
 	void eraseBomb(size_t position);
 	void eraseWall(size_t position);
-    void erasePowerUp(size_t position);
+	void erasePowerUp(size_t position);
 
 private:
 	// forbid copies
@@ -55,7 +56,7 @@ private:
 	std::vector<PlayerState*> m_players;
 	std::vector<WallState*> m_walls;
 	std::vector<BombState*> m_bombs;
-    std::vector<PowerUpState*>m_powerUps;
+	std::vector<PowerUpState*>m_powerUps;
 	unsigned int m_height;
 	unsigned int m_width;
 
