@@ -81,6 +81,11 @@ const Common::GameState &GameEngineImpl::getGameState() const
     return m_gameState;
 }
 
+Common::GameState &GameEngineImpl::getGameState()
+{
+    return m_gameState;
+}
+
 void GameEngineImpl::deleteAllWallObjects()
 {
     for(map<const WallState*, StaticObject*>::iterator i = m_wallObjects.begin(); i != m_wallObjects.end(); i++)

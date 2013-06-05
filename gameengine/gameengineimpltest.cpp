@@ -522,3 +522,26 @@ void GameEngineImplTest::updateGameState_placeBombAndWaitExactTheBombLifeTime_bo
 
 	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getBombCount());
 }
+
+void GameEngineImplTest::setMaxBombCount_placeTwoBombsAtTheSameTime_BombCountIs2()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	GameState &game = gameEngine.getGameState();
+    PlayerState &player = game.getPlayerState();
+	InputState input;
+
+    player.increaseMaxBombs();
+	input.setSpaceKeyPressed();
+	gameEngine.updateGameState(input, 0);
+	input.setSpaceKeyNotPressed();
+    input.setUpKeyPressed();
+    gameEngine.updateGameState(input, (1.5/player.getSpeed()));
+    input.setUpKeyNotPressed();
+    input.setSpaceKeyPressed();
+    gameEngine.updateGameState(input, 0);
+    input.setSpaceKeyNotPressed();
+    gameEngine.updateGameState(input, 0);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)2, game.getBombCount());
+}

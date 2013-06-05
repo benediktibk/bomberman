@@ -42,6 +42,7 @@ class GameEngineImplTest :
 	CPPUNIT_TEST(getTimeTillPlayerReachesGridPoint_playerMovedHalfWayUpToGridPoint_halfTimeToMoveBetweenTwoGridPoints);
 	CPPUNIT_TEST(getTimeTillPlayerReachesGridPoint_playerMovedHalfWayDownToGridPoint_halfTimeToMoveBetweenTwoGridPoints);
 	CPPUNIT_TEST(getTimeTillPlayerReachesGridPoint_playerStaysOnGridPoint_0);
+    CPPUNIT_TEST(setMaxBombCount_placeTwoBombsAtTheSameTime_BombCountIs2);
 	CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -77,6 +78,7 @@ private:
 	void getTimeTillPlayerReachesGridPoint_playerStaysOnGridPoint_0();
 	void updateGameState_keyPressedHalfWayToGridFieldAndEnoughTimeToReachIt_playerPositionIsGridField();
 	void updateGameState_placeBombAndWaitExactTheBombLifeTime_bombCountIs0();
+    void setMaxBombCount_placeTwoBombsAtTheSameTime_BombCountIs2();
 };
 }
 
