@@ -14,12 +14,19 @@ GameState::GameState(const LevelDefinition &level, UniqueIdCreator &creator) :
 
 GameState::~GameState()
 {
-	for(std::vector<BombState*>::iterator i = m_bombs.begin();i != m_bombs.end(); ++i)
+	for(std::vector<BombState*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
 		delete *i;
-	for(std::vector<WallState*>::iterator i = m_walls.begin();i != m_walls.end(); ++i)
+	for(std::vector<WallState*>::iterator i = m_walls.begin(); i != m_walls.end(); ++i)
 		delete *i;
-	for(vector<PowerUpState*>::iterator i = m_powerUps.begin();i != m_powerUps.end(); ++i)
+	for(vector<PowerUpState*>::iterator i = m_powerUps.begin(); i != m_powerUps.end(); ++i)
 		delete *i;
+	for(vector<PlayerState*>::iterator i = m_players.begin(); i != m_players.end(); ++i)
+		delete *i;
+
+	m_bombs.clear();
+	m_walls.clear();
+	m_powerUps.clear();
+	m_players.clear();
 }
 
 PlayerState &GameState::getPlayerState()
