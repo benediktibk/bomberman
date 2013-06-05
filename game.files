@@ -253,3 +253,5 @@ common/powerupgeneratortest.h
 common/powerupgeneratortest.cpp
 physic/gamephysicsimulator.h
 physic/gamephysicsimulator.cpp
+physic/gamephysicsimulatortest.h
+physic/gamephysicsimulatortest.cpp

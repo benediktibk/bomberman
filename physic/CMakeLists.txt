@@ -14,6 +14,7 @@ set(PHYSIC_TEST_SRC
 	staticobjecttest.cpp
 	playertest.cpp
 	collisiongroupstest.cpp
+	gamephysicsimulatortest.cpp
 )
 
 include_directories(
