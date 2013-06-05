@@ -591,11 +591,12 @@ void GameEngineImplTest::setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTim
     gameEngine.updateGameState(input, (1.0/player.getSpeed()));
     input.setUpKeyNotPressed();
     input.setSpaceKeyPressed();
-    gameEngine.updateGameState(input, 2.8);
+    gameEngine.updateGameState(input, 1);
     input.setSpaceKeyNotPressed();
-    gameEngine.updateGameState(input, 0.1);
+    gameEngine.updateGameState(input, 2.5);
+    gameEngine.updateGameState(input, 0);
     vector<const BombState*> bombs = game.getAllChangedBombs();
-	const BombState &bomb = *(bombs.front()); 
+    const BombState &bomb = *(bombs.front()); 
 
 	CPPUNIT_ASSERT_EQUAL((double)0, bomb.getLifeTime());
 }
