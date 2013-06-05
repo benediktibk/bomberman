@@ -1,14 +1,16 @@
 #include "gamestate.h"
 #include "playerstate.h"
+#include <assert.h>
 
 using namespace Common;
 using namespace std;
 
 GameState::GameState(const LevelDefinition &level, UniqueIdCreator &creator) :
-    m_playerState(creator),
     m_height(level.getLevelHeight()),
     m_width(level.getLevelWidth())
- { }
+{
+    m_players.push_back(new PlayerState(creator));
+}
 
 GameState::~GameState()
 {
@@ -20,12 +22,23 @@ GameState::~GameState()
 
 PlayerState &GameState::getPlayerState()
 {
-    return m_playerState;
+    return *(m_players[0]);
+}
+
+PlayerState &GameState::getPlayerStateById(unsigned int playerId)
+{
+    for(size_t i = 0; i < m_players.size(); i++)
+    {
+        if((m_players[i]->getId() == playerId))
+            return *(m_players[i]);
+    }
+   assert(false);
+   return *(m_players[0]);
 }
 
 const PlayerState &GameState::getPlayerState() const
 {
-    return m_playerState;
+    return *(m_players[0]);
 }
 
 vector<const WallState*> GameState::getAllChangedWalls() const
@@ -138,9 +151,10 @@ void GameState::reduceAllBombsLifeTime(double time)
      return m_width;
  }
 
- GameState::GameState(const GameState &, UniqueIdCreator &rhs):
-      m_playerState(rhs)
-{ }
+ GameState::GameState(const GameState &, UniqueIdCreator &rhs)
+ {
+     m_players.push_back(new PlayerState(rhs));
+ }
 
 void GameState::operator=(const GameState &)
 { }

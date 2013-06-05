@@ -21,6 +21,12 @@ PlayerState::~PlayerState()
 {
     m_creatorId.removeId(m_playerId);
 }
+
+unsigned int PlayerState::getId()
+{
+    return m_playerId;
+}
+
 void PlayerState::setPosition(Point value)
 {
     m_position = value;

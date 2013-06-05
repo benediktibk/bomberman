@@ -24,6 +24,7 @@ public:
     void setPosition(Point value);
     Point getPosition() const;
     PlayerDirection getDirection() const;
+    unsigned int getId();
     void setDirectionUp();
     void setDirectionDown();
     void setDirectionLeft();

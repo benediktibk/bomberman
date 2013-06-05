@@ -15,7 +15,7 @@ int main (int, char**)
 	 TestResultCollector collectedResults;
 	 BriefTestProgressListener progress;
 	 TestRunner testRunner;
-	 CompilerOutputter compilerOutputter (&collectedResults, cerr);
+     CompilerOutputter compilerOutputter (&collectedResults, cerr);
 
 	 testResult.addListener(&collectedResults);
 	 testResult.addListener(&progress);
