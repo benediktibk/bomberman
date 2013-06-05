@@ -14,7 +14,6 @@ set(COMMON_SRC
 	gridpoint.cpp
 	powerupstate.cpp
 	powerupmaxbombstate.cpp
-	powerupbombpackstate.cpp
 	powerupgenerator.cpp
 	randomdecision.cpp
 )
@@ -35,7 +34,6 @@ set(COMMON_TEST_SRC
 	destroyablestatemock.cpp
 	powerupstatetest.cpp
 	powerupmaxbombstatetest.cpp
-	powerupbombpackstatetest.cpp
 	randomdecisiontest.cpp
 )
 
