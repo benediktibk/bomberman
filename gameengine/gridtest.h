@@ -37,7 +37,7 @@ class GridTest :
      CPPUNIT_TEST(removeBomb_from_3_3);
      CPPUNIT_TEST(removeWall_from_3_3);
      CPPUNIT_TEST(isPlaceEmpty_withGridPoint);
-
+     CPPUNIT_TEST(getPlayersinRange_bombat59gridsize1010_1);
      //CPPUNIT_TEST();
      CPPUNIT_TEST_SUITE_END();
 
@@ -69,6 +69,7 @@ private:
      void getPlayerFields_PlayerAt1comm5and1_11and21();
      void getPlayerFields_PlayerAt1and1comma5_11and12();
      void isPlaceEmpty_withGridPoint();
+     void getPlayersinRange_bombat59gridsize1010_1();
 
      //void
 };
