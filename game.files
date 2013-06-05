@@ -152,8 +152,6 @@ physic/Box2D/Box2DConfig.cmake
 physic/Box2D/Box2D.h
 physic/dynamicobject.h
 physic/dynamicobject.cpp
-common/stopwatchtest.h
-common/stopwatchtest.cpp
 main/mainwindowinputfetcher.cpp
 main/mainwindowinputfetcher.h
 main/mainwindowinputtest.h

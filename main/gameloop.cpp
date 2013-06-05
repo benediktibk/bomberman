@@ -74,8 +74,8 @@ void GameLoop::execute()
 			StopWatch watchForWait;
 			watchForWait.restart();
 			usleep((m_minimumTimeStep - timeWithoutWait)*1000000);
-			timeWaited = watchForWait.getTimeAndRestart();
-			time = timeWaited + timeWithoutWait;
+            timeWaited=(m_minimumTimeStep - timeWithoutWait);
+            time = timeWaited + timeWithoutWait;
 		}
 		else
 			time = timeWithoutWait;

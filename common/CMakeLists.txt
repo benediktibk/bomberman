@@ -1,7 +1,7 @@
 set(COMMON_SRC
 	gamestate.cpp
 	inputstate.cpp
-	stopwatch.cpp
+    stopwatch.cpp
 	playerstate.cpp
 	point.cpp
 	enemystate.cpp
@@ -21,7 +21,6 @@ set(COMMON_SRC
 set(COMMON_TEST_SRC
 	gamestatetest.cpp
 	inputstatetest.cpp
-	stopwatchtest.cpp
 	pointtest.cpp
 	gridpointtest.cpp
 	enemystatetest.cpp

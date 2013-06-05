@@ -6,7 +6,6 @@
 #include "threading/threadtest.h"
 #include "threading/mutextest.h"
 #include "threading/signaltest.h"
-#include "common/stopwatchtest.h"
 #include "common/pointtest.h"
 #include "common/gridpointtest.h"
 #include "common/enemystatetest.h"
@@ -26,7 +25,6 @@
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::GameStateTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(Common::StopWatchTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PointTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::GridPointTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::EnemyStateTest);

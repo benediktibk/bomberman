@@ -1,6 +1,7 @@
 #include "stopwatch.h"
 #include <sys/time.h>
 
+
 using namespace Common;
 
 StopWatch::StopWatch()
@@ -10,15 +11,12 @@ StopWatch::StopWatch()
 
 double StopWatch::getTimeAndRestart()
 {
-	double micro = 1000000;
-	timeval end;
-	gettimeofday(&end, 0);
-	double result = (end.tv_sec - m_start.tv_sec)*micro + (end.tv_usec  - m_start.tv_usec);
-	m_start = end;
-	return result/micro;
+    double t=m_start.elapsed();
+    restart();
+    return t;
 }
 
 void StopWatch::restart()
 {
-	gettimeofday(&m_start, 0);
+    m_start.restart();
 }
