@@ -102,7 +102,6 @@ void PhysicSimulatorTest::simulateStep_dynamicObjectInDifferentCollisionGroupTha
 	DynamicObject *dynamicObject = new DynamicObject(simulator, Point(0, 0), 1, 1);
 	StaticObject *staticObject = new StaticObject(simulator, Point(3, 0), 1, 1);
 	dynamicObject->applyLinearVelocity(10, 0);
-	//set different collision groups
 
 	simulator.simulateStep(1);
 

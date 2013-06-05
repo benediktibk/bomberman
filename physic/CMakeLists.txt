@@ -4,6 +4,7 @@ set(PHYSIC_SRC
 	staticobject.cpp
 	player.cpp
 	collisiongroups.cpp
+	physicalobject.cpp
 )
 
 set(PHYSIC_TEST_SRC

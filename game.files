@@ -247,5 +247,7 @@ physic/collisiongroups.h
 physic/collisiongroups.cpp
 physic/collisiongroupstest.h
 physic/collisiongroupstest.cpp
+physic/physicalobject.h
+physic/physicalobject.cpp
 common/powerupgeneratortest.h
 common/powerupgeneratortest.cpp
