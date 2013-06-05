@@ -3,6 +3,7 @@ set(PHYSIC_SRC
 	dynamicobject.cpp
 	staticobject.cpp
 	player.cpp
+	collisiongroups.cpp
 )
 
 set(PHYSIC_TEST_SRC
@@ -10,6 +11,7 @@ set(PHYSIC_TEST_SRC
 	dynamicobjecttest.cpp
 	staticobjecttest.cpp
 	playertest.cpp
+	collisiongroupstest.cpp
 )
 
 include_directories(

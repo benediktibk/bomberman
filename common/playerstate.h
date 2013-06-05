@@ -9,53 +9,52 @@ namespace Common
 class PlayerState
 {
 public:
-    enum PlayerDirection
-    {
-        PlayerDirectionUp,
-        PlayerDirectionDown,
-        PlayerDirectionLeft,
-        PlayerDirectionRight
-    };
+	enum PlayerDirection
+	{
+		PlayerDirectionUp,
+		PlayerDirectionDown,
+		PlayerDirectionLeft,
+		PlayerDirectionRight
+	};
 
-    PlayerState(UniqueIdCreator &creator);
+	PlayerState(UniqueIdCreator &creator);
+	~PlayerState();
 
-    ~PlayerState();
-
-    void setPosition(Point value);
-    Point getPosition() const;
-    PlayerDirection getDirection() const;
-    unsigned int getId();
-    void setDirectionUp();
-    void setDirectionDown();
-    void setDirectionLeft();
-    void setDirectionRight();
-    void setMaxBombs(unsigned int maxBombs);
-    void increaseMaxBombs();
-    void increaseMaxBombs(unsigned int number);
-    unsigned int getMaxBombs() const;
-    unsigned int getRemainingBombs() const;
-    void countBomb();
-    void reduceBombCount();
-    unsigned int getBombCount();
-    double getSpeed() const;
-    double getWidth() const;
-    double getHeight() const;
-    bool canPlayerPlaceBomb () const;
-    Point getCenterPosition() const;
-
-private:
-    PlayerState(const PlayerState &player);
+	void setPosition(Point value);
+	Point getPosition() const;
+	PlayerDirection getDirection() const;
+	unsigned int getId() const;
+	void setDirectionUp();
+	void setDirectionDown();
+	void setDirectionLeft();
+	void setDirectionRight();
+	void setMaxBombs(unsigned int maxBombs);
+	void increaseMaxBombs();
+	void increaseMaxBombs(unsigned int number);
+	unsigned int getMaxBombs() const;
+	unsigned int getRemainingBombs() const;
+	void countBomb();
+	void reduceBombCount();
+	unsigned int getBombCount();
+	double getSpeed() const;
+	double getWidth() const;
+	double getHeight() const;
+	bool canPlayerPlaceBomb () const;
+	Point getCenterPosition() const;
 
 private:
-    Point m_position;
-    PlayerDirection m_direction;
-    unsigned int m_placedBombCount;
-    unsigned int m_maxBombs;
-    double m_speed;
-    double m_width;
-    double m_height;
-    unsigned int m_playerId;
-    UniqueIdCreator &m_creatorId;
+	PlayerState(const PlayerState &player);
+
+private:
+	Point m_position;
+	PlayerDirection m_direction;
+	unsigned int m_placedBombCount;
+	unsigned int m_maxBombs;
+	double m_speed;
+	double m_width;
+	double m_height;
+	unsigned int m_playerId;
+	UniqueIdCreator &m_creatorId;
 };
 }
 
