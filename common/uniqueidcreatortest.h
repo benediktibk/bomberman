@@ -13,12 +13,16 @@ class UniqueIdCreatorTest :
 	 CPPUNIT_TEST(getId_when_third_deleted);
 	 CPPUNIT_TEST(getId_when_third);
 	 CPPUNIT_TEST(getId_when_first);
+	 CPPUNIT_TEST(getId_calledTwice_idCountIs2);
+	 CPPUNIT_TEST(removeID_calledTwiceAndThreeIDsFetched_idCountIs1);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
 	 void getId_when_third_deleted();
 	 void getId_when_third();
 	 void getId_when_first();
+	 void getId_calledTwice_idCountIs2();
+	 void removeID_calledTwiceAndThreeIDsFetched_idCountIs1();
 };
 }
 

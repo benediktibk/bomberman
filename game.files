@@ -255,3 +255,5 @@ physic/gamephysicsimulator.h
 physic/gamephysicsimulator.cpp
 physic/gamephysicsimulatortest.h
 physic/gamephysicsimulatortest.cpp
+common/playerstatetest.h
+common/playerstatetest.cpp
