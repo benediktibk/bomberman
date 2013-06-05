@@ -14,10 +14,6 @@ PlayerState::PlayerState(UniqueIdCreator &creator) :
 	m_moving(false)
 {}
 
-PlayerState::PlayerState(const PlayerState &player):
-	m_creatorId(player.m_creatorId)
-{}
-
 PlayerState::~PlayerState()
 {
 	m_creatorId.removeId(m_playerId);

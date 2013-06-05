@@ -7,17 +7,14 @@ BombState::BombState(UniqueIdCreator &creator) :
 	m_width(1.0),
 	m_height(1.0),
 	m_destructionRange(1),
-    m_bombId(creator.getId()),
-    m_creatorId(creator)
+	m_bombId(creator.getId()),
+	m_creatorId(creator)
 { }
+
 BombState::~BombState()
 {
-    m_creatorId.removeId(m_bombId);
+	m_creatorId.removeId(m_bombId);
 }
-
-BombState::BombState(const BombState &bomb):
-    m_creatorId(bomb.m_creatorId)
-{}
 
 void BombState::setPosition(const Point &value)
 {
@@ -53,7 +50,7 @@ unsigned int BombState::getDestructionRange() const
 
 unsigned int BombState::getBombId() const
 {
-    return m_bombId;
+	return m_bombId;
 }
 
 double BombState::getHeight() const

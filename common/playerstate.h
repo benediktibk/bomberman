@@ -48,7 +48,9 @@ namespace Common
 		Point getCenterPosition() const;
 
 	private:
+		// forbid copies
 		PlayerState(const PlayerState &player);
+		void operator=(const PlayerState &player);
 
 	private:
 		Point m_position;
