@@ -18,6 +18,7 @@ public:
 
 
     PlayerState& getPlayerState() ;
+    PlayerState& getPlayerStateById(unsigned int playerId);
     const PlayerState& getPlayerState() const;
     std::vector<const WallState*> getAllChangedWalls() const;
     size_t getWallCount() const;
@@ -34,7 +35,7 @@ public:
     std::vector<const BombState*> getAllBombsWithNoLifeTime() const;
     void eraseWallById(unsigned int wallId);
     void setBombsLifeTimeToZero(unsigned int bombId);
-    
+
 private:
     void eraseBomb(size_t position);
     void eraseWall(size_t position);
@@ -45,7 +46,7 @@ private:
     void operator=(const GameState &rhs);
 
 private:
-    PlayerState m_playerState;
+    std::vector<PlayerState*> m_players;
     std::vector<WallState*> m_walls;
     std::vector<BombState*> m_bombs;
     unsigned int m_height;
