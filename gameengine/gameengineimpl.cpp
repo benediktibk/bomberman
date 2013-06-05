@@ -245,7 +245,7 @@ void GameEngineImpl::updateBombs()
         powerUpsInRange = m_grid->getPowerUpsInRange(*BombsWithNoLifeTime[i]);
         for(size_t j = 0; j < powerUpsInRange.size(); j++)
         {
-            m_gameState.removePowerUpById(powerUpsInRange[j]);
+            m_gameState.erasePowerUpById(powerUpsInRange[j]);
         }
 
     }
@@ -323,7 +323,9 @@ void GameEngineImpl::updateWall(const WallState *wall)
 /*
 void GameEngineImpl::applyPowerUps()
 {
-    std::vector<unsigned int> playerfield = m_grid->getPlayerFields(m_player);
-
+    std::vector<GridPoint> playerField = m_grid->getPlayerFields(m_player);
+  for (vector<const WallState*>::const_iterator i = changedWalls.begin(); i != changedWalls.end(); ++i)
+    std::vector<unsigned int> powerUpField = m_grid->
 }
+
 */
