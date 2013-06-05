@@ -506,3 +506,30 @@ void GridTest::getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringet
 
     CPPUNIT_ASSERT_EQUAL((size_t)0, wallsInRange.size());
 }
+
+void GridTest::isPlaceEmpty_itemat33_false()
+{
+    UniqueIdCreator wallcreator;
+
+    Grid grid(10,10);
+
+    Point position(3.0,3.0);
+    WallState wall1(wallcreator,WallState::WallTypeLoose,position);
+    grid.addWallAtPlace(wall1);
+
+    CPPUNIT_ASSERT(!grid.isPlaceEmpty(position));
+}
+
+void GridTest::isPlaceEmpty_itemat33_true()
+{
+    UniqueIdCreator wallcreator;
+
+    Grid grid(10,10);
+
+    Point position(3.0,3.0);
+    WallState wall1(wallcreator,WallState::WallTypeLoose,position);
+    grid.addWallAtPlace(wall1);
+    grid.removeWall(wall1);
+
+    CPPUNIT_ASSERT(grid.isPlaceEmpty(position));
+}
