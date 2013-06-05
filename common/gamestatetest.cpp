@@ -252,3 +252,46 @@ void GameStateTest::addPowerUp_defaultPowerUp_powerUpCountIs1()
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, state.getPowerUpCount());
 }
+
+void GameStateTest::getAllChangedPowerUps_twoPowerUpsAdded_resultSizeIs2()
+{
+	UniqueIdCreator idCreator;
+    UniqueIdCreator idPlayer;
+    LevelDefinition level;
+    GameState state(level,idPlayer);
+    state.addPowerUp(new PowerUpState(idCreator, Point()));
+    state.addPowerUp(new PowerUpState(idCreator, Point()));
+    
+	vector<const PowerUpState*> powerUps = state.getAllChangedPowerUps();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)2, powerUps.size());
+}
+
+void GameStateTest::getAllChangedPowerUps_onePowerUpAdedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1()
+{
+	UniqueIdCreator idCreator;
+    UniqueIdCreator idPlayer;
+    LevelDefinition level;
+    GameState state(level,idPlayer);
+	state.addPowerUp(new PowerUpState(idCreator, Point()));
+	state.resetChangedFlags();
+	state.addPowerUp(new PowerUpState(idCreator, Point()));
+
+	vector<const PowerUpState*> powerUps = state.getAllChangedPowerUps();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, powerUps.size());
+}
+
+void GameStateTest::resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged()
+{
+	UniqueIdCreator idCreator;
+    UniqueIdCreator idPlayer;
+    LevelDefinition level;
+    GameState state(level,idPlayer);
+	PowerUpState *powerUp = new PowerUpState(idCreator, Point());
+	state.addPowerUp(powerUp);
+
+	state.resetChangedFlags();
+
+	CPPUNIT_ASSERT(!powerUp->hasChanged());
+}

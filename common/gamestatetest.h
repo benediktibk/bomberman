@@ -27,6 +27,9 @@ class GameStateTest :
      CPPUNIT_TEST(eraseWallById_twoWallsAddedOneDeleted_wallCountIs1);
      CPPUNIT_TEST(setBombsLifeTimeToZero_oneBombAddedAndSetLifeTimeZero_lifeTimeIs0);
      CPPUNIT_TEST(addPowerUp_defaultPowerUp_powerUpCountIs1);
+     CPPUNIT_TEST(getAllChangedPowerUps_twoPowerUpsAdded_resultSizeIs2);
+     CPPUNIT_TEST(getAllChangedPowerUps_onePowerUpAdedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1);
+     CPPUNIT_TEST(resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -47,6 +50,9 @@ private:
      void eraseWallById_twoWallsAddedOneDeleted_wallCountIs1();
      void setBombsLifeTimeToZero_oneBombAddedAndSetLifeTimeZero_lifeTimeIs0();
      void addPowerUp_defaultPowerUp_powerUpCountIs1();
+     void getAllChangedPowerUps_twoPowerUpsAdded_resultSizeIs2();
+     void getAllChangedPowerUps_onePowerUpAdedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1();
+     void resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged();
 };
 }
 
