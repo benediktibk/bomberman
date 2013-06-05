@@ -26,6 +26,7 @@ class GameStateTest :
      CPPUNIT_TEST(getAllBombsWithNegativeLifeTime_twoBombsAddedOneWithNegativeTime_resultSizeIs1);
      CPPUNIT_TEST(eraseWallById_twoWallsAddedOneDeleted_wallCountIs1);
      CPPUNIT_TEST(setBombsLifeTimeToZero_oneBombAddedAndSetLifeTimeZero_lifeTimeIs0);
+     CPPUNIT_TEST(addPowerUp_defaultPowerUp_powerUpCountIs1);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -45,6 +46,7 @@ private:
      void getAllBombsWithNegativeLifeTime_twoBombsAddedOneWithNegativeTime_resultSizeIs1();
      void eraseWallById_twoWallsAddedOneDeleted_wallCountIs1();
      void setBombsLifeTimeToZero_oneBombAddedAndSetLifeTimeZero_lifeTimeIs0();
+     void addPowerUp_defaultPowerUp_powerUpCountIs1();
 };
 }
 

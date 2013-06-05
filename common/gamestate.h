@@ -39,6 +39,8 @@ public:
     const PowerUpState* getPowerUpById(unsigned int powerUpId);
     void removePowerUpById(unsigned int powerUpId);
     void addPowerUp(PowerUpState* powerUp);
+    size_t getPowerUpCount() const;
+    std::vector<const PowerUpState*> getAllChangedPowerUps() const;
 
 private:
     void eraseBomb(size_t position);

@@ -18,6 +18,8 @@ GameState::~GameState()
         delete *i;
     for(std::vector<WallState*>::iterator i = m_walls.begin();i != m_walls.end(); ++i)
         delete *i;
+    for(vector<PowerUpState*>::iterator i = m_powerUps.begin();i != m_powerUps.end(); ++i)
+        delete *i;
 }
 
 PlayerState &GameState::getPlayerState()
@@ -124,6 +126,9 @@ void GameState::reduceAllBombsLifeTime(double time)
          (*i)->resetChanged();
      for (vector<BombState*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
          (*i)->resetChanged();
+     for (vector<PowerUpState*>::iterator i = m_powerUps.begin(); i != m_powerUps.end(); ++i)
+         (*i)->resetChanged();
+     
  }
 
  void GameState::removeAllObjectsWithDestroyedFlag()
@@ -138,6 +143,12 @@ void GameState::reduceAllBombsLifeTime(double time)
      {
          if (m_bombs[i]->isDestroyed())
              eraseBomb(i);
+     }
+     
+     for (size_t i = 0; i < m_powerUps.size(); ++i)
+     {
+         if (m_powerUps[i]->isDestroyed())
+             erasePowerUp(i);
      }
  }
 
@@ -223,4 +234,21 @@ void GameState::erasePowerUp(size_t position)
 {
     delete m_powerUps[position];
     m_powerUps.erase(m_powerUps.begin() + position);
+}
+
+size_t GameState::getPowerUpCount() const
+{
+    return m_powerUps.size();
+}
+
+vector<const PowerUpState*> GameState::getAllChangedPowerUps() const
+{
+    vector<const PowerUpState*> result;
+    result.reserve(m_powerUps.size());
+
+    for (vector<PowerUpState*>::const_iterator i = m_powerUps.begin(); i != m_powerUps.end(); ++i)
+        if ((*i)->hasChanged())
+            result.push_back(*i);
+
+    return result;
 }

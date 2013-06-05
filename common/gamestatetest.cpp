@@ -240,3 +240,15 @@ void GameStateTest::setBombsLifeTimeToZero_oneBombAddedAndSetLifeTimeZero_lifeTi
 
 	CPPUNIT_ASSERT_EQUAL((0.0), bomb->getLifeTime());
 }
+
+void GameStateTest::addPowerUp_defaultPowerUp_powerUpCountIs1()
+{
+	UniqueIdCreator idCreator;
+    UniqueIdCreator idPlayer;
+    LevelDefinition level;
+    GameState state(level,idPlayer);
+
+    state.addPowerUp(new PowerUpState(idCreator,Point()));
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, state.getPowerUpCount());
+}
