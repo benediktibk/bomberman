@@ -72,6 +72,7 @@ void GameEngineImpl::updateGameState(const InputState &inputState, double time)
     updateWalls();
     updatePlayerPosition();
     placeBombs();
+//    applyPowerUps();
 
     m_firstGameStateUpdate = false;
 }
@@ -313,3 +314,10 @@ void GameEngineImpl::updateWall(const WallState *wall)
         delete wallObject;
     }
 }
+/*
+void GameEngineImpl::applyPowerUps()
+{
+    std::vector<unsigned int> playerfield = m_grid->getPlayerFields(m_player);
+
+}
+*/

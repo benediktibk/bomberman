@@ -7,6 +7,7 @@
 #include <vector>
 #include "leveldefinition.h"
 #include "uniqueidcreator.h"
+#include "powerupstate.h"
 
 namespace Common
 {
@@ -35,6 +36,8 @@ public:
     std::vector<const BombState*> getAllBombsWithNoLifeTime() const;
     void eraseWallById(unsigned int wallId);
     void setBombsLifeTimeToZero(unsigned int bombId);
+    const PowerUpState* getPowerUpById(unsigned int powerUpId);
+    void removePowerUpById(unsigned int powerUpId);
 
 private:
     void eraseBomb(size_t position);
@@ -49,6 +52,7 @@ private:
     std::vector<PlayerState*> m_players;
     std::vector<WallState*> m_walls;
     std::vector<BombState*> m_bombs;
+    std::vector<PowerUpState*>m_powerUp;
     unsigned int m_height;
     unsigned int m_width;
 

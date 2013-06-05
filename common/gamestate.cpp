@@ -192,3 +192,25 @@ void GameState::setBombsLifeTimeToZero(unsigned int bombId)
             m_bombs[i]->setLifeTime(0);
     }
 }
+
+const PowerUpState* GameState::getPowerUpById(unsigned int powerUpId)
+{
+    for(size_t i = 0; i < m_powerUp.size(); i++)
+    {
+        if(m_powerUp[i]->getId() == powerUpId)
+            return m_powerUp[i];
+    }
+
+    assert(false);
+    return m_powerUp[0];
+}
+
+void GameState::removePowerUpById(unsigned int powerUpId)
+{
+    for(size_t i = 0; i < m_powerUp.size(); i++)
+    {
+        if(m_powerUp[i]->getId() == powerUpId)
+            m_powerUp[i]->setDestroyed();
+    }
+}
+
