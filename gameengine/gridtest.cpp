@@ -600,4 +600,25 @@ void GridTest::getPlayerFields_PlayerAt1comm5and1_11and21()
     CPPUNIT_ASSERT(isEqual);
 }
 
+void GridTest::getPlayerFields_PlayerAt1and1comma5_11and12()
+{
+    Grid grid(3,3);
+    bool isEqual=false;
+    UniqueIdCreator playerCreator;
+    PlayerState player(playerCreator);
+    vector<GridPoint> gridPoints;
+    vector<GridPoint> gridPointsShouldBe;
+    Point position(1.0,1.5);
+    player.setPosition(position);
+    grid.updatePlayer(player);
+    gridPoints=grid.getPlayerFields(player);
 
+    GridPoint point1(1,1);
+    GridPoint point2(1,2);
+    gridPointsShouldBe.push_back(point1);
+    gridPointsShouldBe.push_back(point2);
+    if(gridPoints==gridPointsShouldBe)
+        isEqual=true;
+
+    CPPUNIT_ASSERT(isEqual);
+}
