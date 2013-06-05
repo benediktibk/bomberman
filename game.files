@@ -228,7 +228,7 @@ common/powerupmaxbombstate.h
 common/powerupmaxbombstate.cpp
 common/powerupmaxbombstatetest.h
 common/powerupmaxbombstatetest.cpp
-Doxyfile
+Doxyfile.in
 common/gridpointtest.h
 common/gridpointtest.cpp
 common/powerupgenerator.h
