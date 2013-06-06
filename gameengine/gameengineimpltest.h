@@ -32,6 +32,7 @@ class GameEngineImplTest :
 	CPPUNIT_TEST(updateGameState_placeBombAndWaitExactTheBombLifeTime_bombCountIs0);
 	CPPUNIT_TEST(updateGameState_moveTowardsWallAndAgainAway_playerPositionIsCorrect);
 	CPPUNIT_TEST(updateGameState_placeBombAndStayAtPlace_playerDoesntMove);
+	CPPUNIT_TEST(updateGameState_placeBombMoveAwayAndTryToMoveThroughBomb_playerStaysBesideBomb);
 	CPPUNIT_TEST(getHeight_HeightOfLevelDefinition_HeightOfGamestate);
 	CPPUNIT_TEST(getWidth_WidthOfLevelDefinition_WidthOfGamestate);
 	CPPUNIT_TEST(getWallCount_Create4x4LevelWith2Wall_WallCount2);
@@ -85,6 +86,7 @@ private:
 	void updateGameState_keyPressedHalfWayToGridFieldAndEnoughTimeToReachIt_playerPositionIsGridField();
 	void updateGameState_placeBombAndWaitExactTheBombLifeTime_bombCountIs0();
 	void updateGameState_placeBombAndStayAtPlace_playerDoesntMove();
+	void updateGameState_placeBombMoveAwayAndTryToMoveThroughBomb_playerStaysBesideBomb();
 	void increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCountIs2();
 	void increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombCountIs2();
 	void setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTimeOfSecondBombIs0();

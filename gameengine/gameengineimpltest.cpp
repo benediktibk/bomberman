@@ -570,6 +570,28 @@ void GameEngineImplTest::updateGameState_placeBombAndStayAtPlace_playerDoesntMov
 	CPPUNIT_ASSERT(Point(0, 0).fuzzyEqual(player.getPosition(), 0.05));
 }
 
+void GameEngineImplTest::updateGameState_placeBombMoveAwayAndTryToMoveThroughBomb_playerStaysBesideBomb()
+{
+	LevelDefinition level(4, 4);
+	GameEngineImpl gameEngine(level);
+	const GameState &game = gameEngine.getGameState();
+	const PlayerState &player = game.getPlayerState();
+	double timeForOneField = 1/player.getMaximumSpeed();
+	InputState input;
+
+	input.setSpaceKeyPressed();
+	input.setRightKeyPressed();
+	gameEngine.updateGameState(input, 0);
+	input.setSpaceKeyNotPressed();
+	gameEngine.updateGameState(input, timeForOneField/2);
+	input.setRightKeyNotPressed();
+	gameEngine.updateGameState(input, timeForOneField);
+	input.setLeftKeyPressed();
+	gameEngine.updateGameState(input, timeForOneField);
+
+	CPPUNIT_ASSERT(Point(1, 0).fuzzyEqual(player.getPosition(), 0.05));
+}
+
 void GameEngineImplTest::increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCountIs2()
 {
 	LevelDefinition level(4, 4);
