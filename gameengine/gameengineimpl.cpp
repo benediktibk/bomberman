@@ -166,34 +166,36 @@ double GameEngineImpl::getTimeTillPlayerReachesGridPoint() const
 
 void GameEngineImpl::updateBombs()
 {
-	vector<const BombState*> BombsWithNoLifeTime;
+	vector<const BombState*> bombsWithNoLifeTime;
 
 	m_gameState.reduceAllBombsLifeTime(m_elapsedTime);
-	BombsWithNoLifeTime = m_gameState.getAllBombsWithNoLifeTime();
+	bombsWithNoLifeTime = m_gameState.getAllBombsWithNoLifeTime();
 
-	for(size_t i = 0; i < BombsWithNoLifeTime.size(); i++)
+	for (size_t i = 0; i < bombsWithNoLifeTime.size(); i++)
 	{
+		const BombState &bomb = *bombsWithNoLifeTime[i];
+
 		vector<unsigned int> wallsInRange;
-		wallsInRange = m_grid->getWallsInRange(*BombsWithNoLifeTime[i]);
+		wallsInRange = m_grid->getWallsInRange(bomb);
 		for(size_t j = 0; j < wallsInRange.size(); j++)
-		{
 			m_gameState.eraseWallById(wallsInRange[j]);
-		}
+
 		vector<unsigned int> bombsInRange;
-		bombsInRange = m_grid->getBombsInRange(*BombsWithNoLifeTime[i]);
+		bombsInRange = m_grid->getBombsInRange(bomb);
 		for(size_t j = 0; j < bombsInRange.size(); j++)
-		{
 			m_gameState.setBombsLifeTimeToZero(bombsInRange[j]);
-		}
+
 		vector<unsigned int> powerUpsInRange;
-		powerUpsInRange = m_grid->getPowerUpsInRange(*BombsWithNoLifeTime[i]);
+		powerUpsInRange = m_grid->getPowerUpsInRange(bomb);
 		for(size_t j = 0; j < powerUpsInRange.size(); j++)
-		{
 			m_gameState.erasePowerUpById(powerUpsInRange[j]);
-		}
 	}
 
 	m_gameState.setAllBombsWithNoLifeTimeDestroyed(m_playerState);
+
+	bombsWithNoLifeTime = m_gameState.getAllBombsWithNoLifeTime();
+	for (vector<const BombState*>::const_iterator i = bombsWithNoLifeTime.begin(); i != bombsWithNoLifeTime.end(); ++i)
+		m_playerState.removeDestroyedBombFromCollisionStorage(*i);
 }
 
 void GameEngineImpl::placeBombs()

@@ -204,10 +204,8 @@ vector<const BombState*> GameState::getAllBombsWithNoLifeTime() const
 	for(size_t i = 0; i < m_bombs.size(); i++)
 	{
 	   BombState *currentBomb = m_bombs[i];
-	   if (currentBomb->getLifeTime() < 0)
-	   {
+	   if (currentBomb->getLifeTime() <= 0)
 		   result.push_back(currentBomb);
-	   }
 	}
 
 	return result;
