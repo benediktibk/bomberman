@@ -10,8 +10,6 @@ Thread::Thread() :
 
 Thread::~Thread()
 {
-	if (!m_finished)
-		m_thread->interrupt();
 	waitTillFinished();
 	delete m_thread;
 }
