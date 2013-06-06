@@ -12,7 +12,11 @@ GameState::GameState(const LevelDefinition &level, unsigned int playerCount, Uni
 	assert(playerCount > 0);
 
 	for (unsigned int i = 0; i < playerCount; ++i)
-		m_players.push_back(new PlayerState(playerIDCreator));
+	{
+		PlayerState *player = new PlayerState(playerIDCreator);
+		m_players.push_back(player);
+		m_playersConst.push_back(player);
+	}
 
 	for(unsigned int x = 0; x < level.getLevelWidth(); x++)
 	{
@@ -75,6 +79,11 @@ vector<unsigned int> GameState::getAllPossiblePlayerIDs() const
 		result.push_back((*i)->getId());
 
 	return result;
+}
+
+const std::vector<const PlayerState *> &GameState::getAllPlayers() const
+{
+	return m_playersConst;
 }
 
 const PlayerState &GameState::getFirstPlayerState() const

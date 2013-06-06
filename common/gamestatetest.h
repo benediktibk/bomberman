@@ -33,6 +33,7 @@ namespace Common
 		 CPPUNIT_TEST(getAllChangedPowerUps_onePowerUpAdedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1);
 		 CPPUNIT_TEST(resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged);
 		 CPPUNIT_TEST(getAllPossiblePlayerIDs_onePlayerCreated_resultSizeIs1);
+		 CPPUNIT_TEST(constructor_3players_playerCountIs3);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -58,6 +59,7 @@ namespace Common
 		 void getAllChangedPowerUps_onePowerUpAdedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1();
 		 void resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged();
 		 void getAllPossiblePlayerIDs_onePlayerCreated_resultSizeIs1();
+		 void constructor_3players_playerCountIs3();
 
 	private:
 		 UniqueIdCreator m_playerIDCreator;

@@ -21,6 +21,7 @@ public:
 	const PlayerState& getFirstPlayerState() const;
 	PlayerState& getPlayerStateById(unsigned int playerId);
 	std::vector<unsigned int> getAllPossiblePlayerIDs() const;
+	const std::vector<const PlayerState*>& getAllPlayers() const;
 	std::vector<const WallState*> getAllChangedWalls() const;
 	size_t getWallCount() const;
 	void addWall(WallState* wall);
@@ -54,6 +55,7 @@ private:
 
 private:
 	std::vector<PlayerState*> m_players;
+	std::vector<const PlayerState*> m_playersConst;
 	std::vector<WallState*> m_walls;
 	std::vector<BombState*> m_bombs;
 	std::vector<PowerUpState*>m_powerUps;

@@ -278,3 +278,13 @@ void GameStateTest::getAllPossiblePlayerIDs_onePlayerCreated_resultSizeIs1()
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, playerIDs.size());
 }
+
+void GameStateTest::constructor_3players_playerCountIs3()
+{
+	LevelDefinition level;
+	GameState state(level, 3, m_playerIDCreator, m_wallIDCreator);
+
+	const vector<const PlayerState*> &players = state.getAllPlayers();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)3, players.size());
+}
