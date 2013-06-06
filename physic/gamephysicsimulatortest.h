@@ -14,11 +14,15 @@ namespace Physic
 		CPPUNIT_TEST_SUITE(GamePhysicSimulatorTest);
 		CPPUNIT_TEST(simulateStep_movePlayerTowardsWall_playerCollidesWithWall);
 		CPPUNIT_TEST(simulateStep_movePlayerTowardsBomb_playerCollidesWithBomb);
+		CPPUNIT_TEST(simulateStep_twoPlayersAndOneMovesTowardsTheOther_playersCollide);
+		CPPUNIT_TEST(simulateStep_twoPlayersAndOneMovesTowardsTheOther_playerTwoDoesntMove);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
 		void simulateStep_movePlayerTowardsWall_playerCollidesWithWall();
 		void simulateStep_movePlayerTowardsBomb_playerCollidesWithBomb();
+		void simulateStep_twoPlayersAndOneMovesTowardsTheOther_playersCollide();
+		void simulateStep_twoPlayersAndOneMovesTowardsTheOther_playerTwoDoesntMove();
 
 	private:
 		Common::UniqueIdCreator m_playerIDCreator;

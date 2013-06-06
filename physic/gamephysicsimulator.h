@@ -23,15 +23,16 @@ namespace Physic
 	class GamePhysicSimulator
 	{
 	public:
-		GamePhysicSimulator(const Common::LevelDefinition &level, const Common::PlayerState &player);
+		GamePhysicSimulator(const Common::LevelDefinition &level);
 		~GamePhysicSimulator();
 
-		void simulateStep(Common::PlayerState &player, double time);
+		void simulateStep(Common::GameState &game, double time);
 		void updateItems(const Common::GameState &state);
 
 	private:
-		void deleteAllWallObjects();
-		void deleteAllBombObjects();
+		void deleteAllWalls();
+		void deleteAllBombs();
+		void deleteAllPlayers();
 		void updateBombs(const Common::GameState &state);
 		void updateBomb(const Common::BombState *bomb);
 		void updateWalls(const Common::GameState &state);
@@ -40,13 +41,13 @@ namespace Physic
 
 	private:
 		Physic::PhysicSimulator *m_simulator;
-		Physic::Player *m_player;
 		Physic::StaticObject *m_upperBorder;
 		Physic::StaticObject *m_lowerBorder;
 		Physic::StaticObject *m_leftBorder;
 		Physic::StaticObject *m_rightBorder;
-		std::map<const Common::WallState*, Wall*> m_wallObjects;
-		std::map<const Common::BombState*, Bomb*> m_bombObjects;
+		std::map<const Common::PlayerState*, Player*> m_players;
+		std::map<const Common::WallState*, Wall*> m_walls;
+		std::map<const Common::BombState*, Bomb*> m_bombs;
 	};
 }
 

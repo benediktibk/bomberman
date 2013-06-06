@@ -13,9 +13,8 @@ using namespace Physic;
 using namespace Common;
 using namespace std;
 
-GamePhysicSimulator::GamePhysicSimulator(const LevelDefinition &level, const PlayerState &player) :
+GamePhysicSimulator::GamePhysicSimulator(const LevelDefinition &level) :
 	m_simulator(new PhysicSimulator),
-	m_player(new Player(*m_simulator, player)),
 	m_upperBorder(new StaticObject(*m_simulator, Point(0, level.getLevelHeight()), level.getLevelWidth(), 1)),
 	m_lowerBorder(new StaticObject(*m_simulator, Point(0, -1), level.getLevelWidth(), 1)),
 	m_leftBorder(new StaticObject(*m_simulator, Point(-1, 0), 1, level.getLevelHeight())),
@@ -24,21 +23,45 @@ GamePhysicSimulator::GamePhysicSimulator(const LevelDefinition &level, const Pla
 
 GamePhysicSimulator::~GamePhysicSimulator()
 {
-	deleteAllWallObjects();
-	deleteAllBombObjects();
+	deleteAllWalls();
+	deleteAllBombs();
+	deleteAllPlayers();
 	delete m_upperBorder;
 	delete m_lowerBorder;
 	delete m_leftBorder;
 	delete m_rightBorder;
-	delete m_player;
 	delete m_simulator;
 }
 
-void GamePhysicSimulator::simulateStep(PlayerState &player, double time)
+void GamePhysicSimulator::simulateStep(GameState &game, double time)
 {
-	m_player->applyLinearVelocity(player.getSpeedIntoX(), player.getSpeedIntoY());
+	vector<unsigned int> playerIDs = game.getAllPossiblePlayerIDs();
+
+	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
+	{
+		const PlayerState& playerState = game.getPlayerStateById(*i);
+		map<const PlayerState*, Player*>::iterator playerPosition = m_players.find(&playerState);
+		Player *player = 0;
+
+		if (playerPosition == m_players.end())
+		{
+			player = new Player(*m_simulator, playerState);
+			m_players.insert(pair<const PlayerState*, Player*>(&playerState, player));
+		}
+		else
+			player = playerPosition->second;
+
+		player->applyLinearVelocity(playerState.getSpeedIntoX(), playerState.getSpeedIntoY());
+	}
+
 	m_simulator->simulateStep(time);
-	player.setPosition(m_player->getPosition());
+
+	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
+	{
+		PlayerState& playerState = game.getPlayerStateById(*i);
+		Player *player = m_players.at(&playerState);
+		playerState.setPosition(player->getPosition());
+	}
 }
 
 void GamePhysicSimulator::updateItems(const GameState &state)
@@ -48,20 +71,28 @@ void GamePhysicSimulator::updateItems(const GameState &state)
 	updateCollisionGroups(state.getFirstPlayerState());
 }
 
-void GamePhysicSimulator::deleteAllWallObjects()
+void GamePhysicSimulator::deleteAllWalls()
 {
-	for(map<const WallState*, Wall*>::iterator i = m_wallObjects.begin(); i != m_wallObjects.end(); i++)
+	for(map<const WallState*, Wall*>::iterator i = m_walls.begin(); i != m_walls.end(); i++)
 		delete i->second;
 
-	m_wallObjects.clear();
+	m_walls.clear();
 }
 
-void GamePhysicSimulator::deleteAllBombObjects()
+void GamePhysicSimulator::deleteAllBombs()
 {
-	for(map<const BombState*, Bomb*>::iterator i = m_bombObjects.begin(); i != m_bombObjects.end(); i++)
+	for(map<const BombState*, Bomb*>::iterator i = m_bombs.begin(); i != m_bombs.end(); i++)
 		delete i->second;
 
-	m_bombObjects.clear();
+	m_bombs.clear();
+}
+
+void GamePhysicSimulator::deleteAllPlayers()
+{
+	for(map<const PlayerState*, Player*>::iterator i = m_players.begin(); i != m_players.end(); i++)
+		delete i->second;
+
+	m_players.clear();
 }
 
 void GamePhysicSimulator::updateBombs(const GameState &state)
@@ -74,8 +105,8 @@ void GamePhysicSimulator::updateBombs(const GameState &state)
 
 void GamePhysicSimulator::updateBomb(const BombState *bomb)
 {
-	map<const BombState*, Bomb*>::iterator position = m_bombObjects.find(bomb);
-	bool bombFound = position != m_bombObjects.end();
+	map<const BombState*, Bomb*>::iterator position = m_bombs.find(bomb);
+	bool bombFound = position != m_bombs.end();
 	Bomb *bombObject = 0;
 
 	if (bombFound)
@@ -83,13 +114,13 @@ void GamePhysicSimulator::updateBomb(const BombState *bomb)
 	else
 	{
 		bombObject = new Bomb(*m_simulator, *bomb);
-		m_bombObjects.insert(pair<const BombState*, Bomb*>(bomb, bombObject));
-		position = m_bombObjects.find(bomb);
+		m_bombs.insert(pair<const BombState*, Bomb*>(bomb, bombObject));
+		position = m_bombs.find(bomb);
 	}
 
 	if (bomb->isDestroyed())
 	{
-		m_bombObjects.erase(position);
+		m_bombs.erase(position);
 		delete bombObject;
 	}
 }
@@ -104,8 +135,8 @@ void GamePhysicSimulator::updateWalls(const GameState &state)
 
 void GamePhysicSimulator::updateWall(const WallState *wall)
 {
-	map<const WallState*, Wall*>::iterator position = m_wallObjects.find(wall);
-	bool wallFound = position != m_wallObjects.end();
+	map<const WallState*, Wall*>::iterator position = m_walls.find(wall);
+	bool wallFound = position != m_walls.end();
 	Wall *wallObject = 0;
 
 	if (wallFound)
@@ -113,20 +144,20 @@ void GamePhysicSimulator::updateWall(const WallState *wall)
 	else
 	{
 		wallObject = new Wall(*m_simulator, *wall);
-		m_wallObjects.insert(pair<const WallState*, Wall*>(wall, wallObject));
-		position = m_wallObjects.find(wall);
+		m_walls.insert(pair<const WallState*, Wall*>(wall, wallObject));
+		position = m_walls.find(wall);
 	}
 
 	if (wall->isDestroyed())
 	{
-		m_wallObjects.erase(position);
+		m_walls.erase(position);
 		delete wallObject;
 	}
 }
 
 void GamePhysicSimulator::updateCollisionGroups(const PlayerState &player)
 {
-	for (map<const BombState*, Bomb*>::iterator i = m_bombObjects.begin(); i != m_bombObjects.end(); ++i)
+	for (map<const BombState*, Bomb*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
 	{
 		Bomb *bomb = i->second;
 		bomb->collideWithEverything();
@@ -135,7 +166,7 @@ void GamePhysicSimulator::updateCollisionGroups(const PlayerState &player)
 	vector<const BombState*> bombsNotToCollideWith = player.getBombsNotToCollideWith();
 	for (vector<const BombState*>::const_iterator i = bombsNotToCollideWith.begin(); i != bombsNotToCollideWith.end(); ++i)
 	{
-		Bomb *bomb = m_bombObjects.at(*i);
+		Bomb *bomb = m_bombs.at(*i);
 		bomb->doNotCollideWith(player);
 	}
 }

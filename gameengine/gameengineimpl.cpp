@@ -18,7 +18,7 @@ GameEngineImpl::GameEngineImpl(const LevelDefinition &level, unsigned int player
 	m_playerState(m_gameState.getFirstPlayerState()),
 	m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
 	m_firstGameStateUpdate(true),
-	m_simulator(new GamePhysicSimulator(level, m_playerState))
+	m_simulator(new GamePhysicSimulator(level))
 {
 	vector<const WallState*> walls = m_gameState.getAllChangedWalls();
 
@@ -81,12 +81,12 @@ void GameEngineImpl::updatePlayerPosition()
 
 	if (timeTillPlayerReachesGridPoint < m_elapsedTime)
 	{
-		m_simulator->simulateStep(m_playerState, timeTillPlayerReachesGridPoint);
+		m_simulator->simulateStep(m_gameState, timeTillPlayerReachesGridPoint);
 		realSimulatedTime += timeTillPlayerReachesGridPoint;
 		updatePlayerVelocity();
 	}
 
-	m_simulator->simulateStep(m_playerState, m_elapsedTime - realSimulatedTime);
+	m_simulator->simulateStep(m_gameState, m_elapsedTime - realSimulatedTime);
 
 	playerFields = m_grid->getPlayerFields(m_playerState);
 	vector<const BombState*> bombsNotToCollideWith = m_playerState.getBombsNotToCollideWith();

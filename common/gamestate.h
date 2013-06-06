@@ -19,6 +19,8 @@ public:
 
 	PlayerState& getFirstPlayerState();
 	const PlayerState& getFirstPlayerState() const;
+	PlayerState& getSecondPlayerState();
+	const PlayerState& getSecondPlayerState() const;
 	PlayerState& getPlayerStateById(unsigned int playerId);
 	std::vector<unsigned int> getAllPossiblePlayerIDs() const;
 	const std::vector<const PlayerState*>& getAllPlayers() const;

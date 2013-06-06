@@ -91,6 +91,16 @@ const PlayerState &GameState::getFirstPlayerState() const
 	return *(m_players[0]);
 }
 
+PlayerState &GameState::getSecondPlayerState()
+{
+	return *(m_players[1]);
+}
+
+const PlayerState &GameState::getSecondPlayerState() const
+{
+	return *(m_players[1]);
+}
+
 vector<const WallState*> GameState::getAllChangedWalls() const
 {
 	vector<const WallState*> result;
