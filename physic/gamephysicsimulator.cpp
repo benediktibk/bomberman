@@ -4,8 +4,7 @@
 #include "physic/staticobject.h"
 #include "physic/player.h"
 #include "physic/wall.h"
-#include "common/bombstate.h"
-#include "common/wallstate.h"
+#include "physic/bomb.h"
 #include "common/playerstate.h"
 #include "common/gamestate.h"
 #include "common/leveldefinition.h"
@@ -58,7 +57,7 @@ void GamePhysicSimulator::deleteAllWallObjects()
 
 void GamePhysicSimulator::deleteAllBombObjects()
 {
-	for(map<const BombState*, StaticObject*>::iterator i = m_bombObjects.begin(); i != m_bombObjects.end(); i++)
+	for(map<const BombState*, Bomb*>::iterator i = m_bombObjects.begin(); i != m_bombObjects.end(); i++)
 		delete i->second;
 
 	m_bombObjects.clear();
@@ -74,16 +73,16 @@ void GamePhysicSimulator::updateBombs(const GameState &state)
 
 void GamePhysicSimulator::updateBomb(const BombState *bomb)
 {
-	map<const BombState*, StaticObject*>::iterator position = m_bombObjects.find(bomb);
+	map<const BombState*, Bomb*>::iterator position = m_bombObjects.find(bomb);
 	bool bombFound = position != m_bombObjects.end();
-	StaticObject *bombObject = 0;
+	Bomb *bombObject = 0;
 
 	if (bombFound)
 		bombObject = position->second;
 	else
 	{
-		bombObject = new StaticObject(*m_simulator, bomb->getPosition(), 1, 1);
-		m_bombObjects.insert(pair<const BombState*, StaticObject*>(bomb, bombObject));
+		bombObject = new Bomb(*m_simulator, *bomb);
+		m_bombObjects.insert(pair<const BombState*, Bomb*>(bomb, bombObject));
 		position = m_bombObjects.find(bomb);
 	}
 

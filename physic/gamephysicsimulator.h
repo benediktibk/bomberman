@@ -17,6 +17,7 @@ namespace Physic
 	class PhysicSimulator;
 	class Player;
 	class Wall;
+	class Bomb;
 	class StaticObject;
 
 	class GamePhysicSimulator
@@ -44,7 +45,7 @@ namespace Physic
 		Physic::StaticObject *m_leftBorder;
 		Physic::StaticObject *m_rightBorder;
 		std::map<const Common::WallState*, Wall*> m_wallObjects;
-		std::map<const Common::BombState*, Physic::StaticObject*> m_bombObjects;
+		std::map<const Common::BombState*, Bomb*> m_bombObjects;
 	};
 }
 

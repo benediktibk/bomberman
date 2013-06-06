@@ -4,6 +4,7 @@ set(PHYSIC_SRC
 	staticobject.cpp
 	player.cpp
 	wall.cpp
+	bomb.cpp
 	collisiongroups.cpp
 	physicalobject.cpp
 	gamephysicsimulator.cpp
