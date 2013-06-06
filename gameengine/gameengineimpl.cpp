@@ -15,7 +15,7 @@ using namespace std;
 
 GameEngineImpl::GameEngineImpl(const LevelDefinition &level, unsigned int playerCount) :
 	m_gameState(level, playerCount, m_playerIds, m_wallids),
-	m_playerState(m_gameState.getPlayerState()),
+	m_playerState(m_gameState.getFirstPlayerState()),
 	m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
 	m_firstGameStateUpdate(true),
 	m_simulator(new GamePhysicSimulator(level, m_playerState))

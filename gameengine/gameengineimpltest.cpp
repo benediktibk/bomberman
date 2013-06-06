@@ -14,7 +14,7 @@ void GameEngineImplTest::updateGameState_UpKeyPressed_PlayerDirectionUp()
 	input.setUpKeyPressed();
 	gameEngine.updateGameState(input,0);
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getFirstPlayerState();
 
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionUp, player.getDirection());
 }
@@ -28,7 +28,7 @@ void GameEngineImplTest::updateGameState_DownKeyPressed_PlayerDirectionDown()
 	input.setDownKeyPressed();
 	gameEngine.updateGameState(input, 1);
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getFirstPlayerState();
 
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionDown, player.getDirection());
 }
@@ -42,7 +42,7 @@ void GameEngineImplTest::updateGameState_LeftKeyPressed_PlayerDirectionLeft()
 	input.setLeftKeyPressed();
 	gameEngine.updateGameState(input,0);
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getFirstPlayerState();
 
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionLeft, player.getDirection());
 }
@@ -56,7 +56,7 @@ void GameEngineImplTest::updateGameState_RightKeyPressed_PlayerDirectionRight()
 	input.setRightKeyPressed();
 	gameEngine.updateGameState(input,0);
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getFirstPlayerState();
 
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionRight, player.getDirection());
 }
@@ -71,7 +71,7 @@ void GameEngineImplTest::updateGameState_oneBombPlaced_bombPositionIsSameAsPlaye
 	input.setSpaceKeyPressed();
 	gameEngine.updateGameState(input,0);
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getFirstPlayerState();
 	bomb = game.getAllChangedBombs().front();
 
 	CPPUNIT_ASSERT(player.getPosition().fuzzyEqual(bomb->getPosition(), 0.001));
@@ -138,7 +138,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughRightBorder_playerPosit
 	gameEngine.updateGameState(inputState, 10);
 
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &playerState = game.getPlayerState();
+	const PlayerState &playerState = game.getFirstPlayerState();
 	Point positionShouldBe(3, 0);
 	Point positionReal(playerState.getPosition());
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
@@ -154,7 +154,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughUpperBorder_playerPosit
 	gameEngine.updateGameState(inputState, 10);
 
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &playerState = game.getPlayerState();
+	const PlayerState &playerState = game.getFirstPlayerState();
 	Point positionShouldBe(0, 3);
 	Point positionReal(playerState.getPosition());
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
@@ -170,7 +170,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughLowerBorder_playerPosit
 	gameEngine.updateGameState(inputState, 10);
 
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &playerState = game.getPlayerState();
+	const PlayerState &playerState = game.getFirstPlayerState();
 	Point positionShouldBe(0, 0);
 	Point positionReal(playerState.getPosition());
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
@@ -186,7 +186,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughLeftBorder_playerPositi
 	gameEngine.updateGameState(inputState, 10);
 
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &playerState = game.getPlayerState();
+	const PlayerState &playerState = game.getFirstPlayerState();
 	Point positionShouldBe(0, 0);
 	Point positionReal(playerState.getPosition());
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
@@ -237,7 +237,7 @@ void GameEngineImplTest::updateGameState_halfTheTimeOfTheMovementToTheNextGridFi
 	GameEngineImpl gameEngine(level, 1);
 	InputState inputState;
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getFirstPlayerState();
 	const double timeForField = 1/player.getMaximumSpeed();
 
 	inputState.setRightKeyPressed();
@@ -256,7 +256,7 @@ void GameEngineImplTest::updateGameState_playerVerticalBetweenTwoFieldsAndUpPres
 	GameEngineImpl gameEngine(level, 1);
 	InputState inputState;
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getFirstPlayerState();
 
 	inputState.setRightKeyPressed();
 	gameEngine.updateGameState(inputState, 1/(2*player.getMaximumSpeed()));
@@ -351,7 +351,7 @@ void GameEngineImplTest::updateGameState_playerSurroundedByWallsAndTriesToMoveUp
 	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 	const GameState &gameState = gameEngine.getGameState();
-	const PlayerState &playerState = gameState.getPlayerState();
+	const PlayerState &playerState = gameState.getFirstPlayerState();
 	Point initialPosition = playerState.getPosition();
 
 	input.setUpKeyPressed();
@@ -368,7 +368,7 @@ void GameEngineImplTest::updateGameState_playerSurroundedByWallsAndTriesToMoveRi
 	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 	const GameState &gameState = gameEngine.getGameState();
-	const PlayerState &playerState = gameState.getPlayerState();
+	const PlayerState &playerState = gameState.getFirstPlayerState();
 	Point initialPosition = playerState.getPosition();
 
 	input.setRightKeyPressed();
@@ -386,7 +386,7 @@ void GameEngineImplTest::updateGameState_moveRightAndToUpperBorderAndBackAndTryT
 	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 	const GameState &gameState = gameEngine.getGameState();
-	const PlayerState &playerState = gameState.getPlayerState();
+	const PlayerState &playerState = gameState.getFirstPlayerState();
 	const double timeForOneField = 1/playerState.getMaximumSpeed();
 
 
@@ -414,7 +414,7 @@ void GameEngineImplTest::updateGameState_moveTowardsWallAndAgainAway_playerPosit
 	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 	const GameState &gameState = gameEngine.getGameState();
-	const PlayerState &playerState = gameState.getPlayerState();
+	const PlayerState &playerState = gameState.getFirstPlayerState();
 	const double timeForOneField = 1/playerState.getMaximumSpeed();
 
 	input.setRightKeyPressed();
@@ -444,7 +444,7 @@ void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayRig
 	LevelDefinition level(4, 4);
 	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getFirstPlayerState();
 	InputState input;
 	double halfTimeToReachGridPoint = 1/(2*player.getMaximumSpeed());
 
@@ -459,7 +459,7 @@ void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayLef
 	LevelDefinition level(4, 4);
 	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getFirstPlayerState();
 	InputState input;
 	double halfTimeToReachGridPoint = 1/(2*player.getMaximumSpeed());
 
@@ -477,7 +477,7 @@ void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayUpT
 	LevelDefinition level(4, 4);
 	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getFirstPlayerState();
 	InputState input;
 	double halfTimeToReachGridPoint = 1/(2*player.getMaximumSpeed());
 
@@ -492,7 +492,7 @@ void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayDow
 	LevelDefinition level(4, 4);
 	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getFirstPlayerState();
 	InputState input;
 	double halfTimeToReachGridPoint = 1/(2*player.getMaximumSpeed());
 
@@ -521,7 +521,7 @@ void GameEngineImplTest::updateGameState_keyPressedHalfWayToGridFieldAndEnoughTi
 	LevelDefinition level(4, 4);
 	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getFirstPlayerState();
 	InputState input;
 	double timeForOneField = 1/player.getMaximumSpeed();
 
@@ -566,7 +566,7 @@ void GameEngineImplTest::updateGameState_placeBombAndStayAtPlace_playerDoesntMov
 	input.setSpaceKeyNotPressed();
 	gameEngine.updateGameState(input, 1);
 
-	const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getFirstPlayerState();
 	CPPUNIT_ASSERT(Point(0, 0).fuzzyEqual(player.getPosition(), 0.05));
 }
 
@@ -575,7 +575,7 @@ void GameEngineImplTest::updateGameState_placeBombMoveAwayAndTryToMoveThroughBom
 	LevelDefinition level(4, 4);
 	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
-	const PlayerState &player = game.getPlayerState();
+	const PlayerState &player = game.getFirstPlayerState();
 	double timeForOneField = 1/player.getMaximumSpeed();
 	InputState input;
 
@@ -597,7 +597,7 @@ void GameEngineImplTest::increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCou
 	LevelDefinition level(4, 4);
 	GameEngineImpl gameEngine(level, 1);
 	GameState &game = gameEngine.getGameState();
-	PlayerState &player = game.getPlayerState();
+	PlayerState &player = game.getFirstPlayerState();
 	InputState input;
 
 	player.increaseMaxBombs();
@@ -620,7 +620,7 @@ void GameEngineImplTest::increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombC
 	LevelDefinition level(4, 4);
 	GameEngineImpl gameEngine(level, 1);
 	GameState &game = gameEngine.getGameState();
-	PlayerState &player = game.getPlayerState();
+	PlayerState &player = game.getFirstPlayerState();
 	InputState input;
 
 	player.increaseMaxBombs();
@@ -649,7 +649,7 @@ void GameEngineImplTest::setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTim
 	LevelDefinition level(4, 4);
 	GameEngineImpl gameEngine(level, 1);
 	GameState &game = gameEngine.getGameState();
-	PlayerState &player = game.getPlayerState();
+	PlayerState &player = game.getFirstPlayerState();
 	InputState input;
 
 	player.increaseMaxBombs();

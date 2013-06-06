@@ -37,7 +37,7 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 
 	drawWalls(gameState.getAllChangedWalls());
 	drawBombs(gameState.getAllChangedBombs());
-	drawPlayer(gameState.getPlayerState());
+	drawPlayer(gameState.getFirstPlayerState());
 	m_firstRedraw = false;
 }
 

@@ -17,10 +17,10 @@ public:
 	GameState(const LevelDefinition &level, unsigned int playerCount, UniqueIdCreator &playerIDCreator, UniqueIdCreator &wallIDCreator);
 	~GameState();
 
-	PlayerState& getPlayerState() ;
+	PlayerState& getFirstPlayerState();
+	const PlayerState& getFirstPlayerState() const;
 	PlayerState& getPlayerStateById(unsigned int playerId);
 	std::vector<unsigned int> getAllPossiblePlayerIDs() const;
-	const PlayerState& getPlayerState() const;
 	std::vector<const WallState*> getAllChangedWalls() const;
 	size_t getWallCount() const;
 	void addWall(WallState* wall);

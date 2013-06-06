@@ -45,7 +45,7 @@ void GamePhysicSimulator::updateItems(const GameState &state)
 {
 	updateBombs(state);
 	updateWalls(state);
-	updateCollisionGroups(state.getPlayerState());
+	updateCollisionGroups(state.getFirstPlayerState());
 }
 
 void GamePhysicSimulator::deleteAllWallObjects()

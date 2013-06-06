@@ -93,7 +93,7 @@ void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_resultSizeIs1(
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	PlayerState &playerState = state.getPlayerState();
+	PlayerState &playerState = state.getFirstPlayerState();
 
 	playerState.countBomb();
 	state.addBomb(new BombState(m_bombIDCreator));
@@ -113,7 +113,7 @@ void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_bombCountIs1()
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	PlayerState &playerState = state.getPlayerState();
+	PlayerState &playerState = state.getFirstPlayerState();
 
 	playerState.countBomb();
 	state.addBomb(new BombState(m_bombIDCreator));

@@ -50,7 +50,7 @@ GameState::~GameState()
 	m_players.clear();
 }
 
-PlayerState &GameState::getPlayerState()
+PlayerState &GameState::getFirstPlayerState()
 {
 	return *(m_players[0]);
 }
@@ -77,7 +77,7 @@ vector<unsigned int> GameState::getAllPossiblePlayerIDs() const
 	return result;
 }
 
-const PlayerState &GameState::getPlayerState() const
+const PlayerState &GameState::getFirstPlayerState() const
 {
 	return *(m_players[0]);
 }
