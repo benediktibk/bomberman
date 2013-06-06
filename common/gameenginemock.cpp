@@ -3,7 +3,7 @@
 using namespace Common;
 
 GameEngineMock::GameEngineMock() :
-	m_state(m_level, m_idCreator, m_idCreator),
+	m_state(m_level, 1, m_idCreator, m_idCreator),
 	m_callsToUpdateGameState(0)
 { }
 

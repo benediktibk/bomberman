@@ -14,7 +14,7 @@ namespace Common
 class GameState
 {
 public:
-	GameState(const LevelDefinition &level, UniqueIdCreator &playerIDCreator, UniqueIdCreator &wallIDCreator);
+	GameState(const LevelDefinition &level, unsigned int playerCount, UniqueIdCreator &playerIDCreator, UniqueIdCreator &wallIDCreator);
 	~GameState();
 
 	PlayerState& getPlayerState() ;

@@ -5,11 +5,14 @@
 using namespace Common;
 using namespace std;
 
-GameState::GameState(const LevelDefinition &level, UniqueIdCreator &playerIDCreator, UniqueIdCreator &wallIDCreator) :
+GameState::GameState(const LevelDefinition &level, unsigned int playerCount, UniqueIdCreator &playerIDCreator, UniqueIdCreator &wallIDCreator) :
 	m_height(level.getLevelHeight()),
 	m_width(level.getLevelWidth())
 {
-	m_players.push_back(new PlayerState(playerIDCreator));
+	assert(playerCount > 0);
+
+	for (unsigned int i = 0; i < playerCount; ++i)
+		m_players.push_back(new PlayerState(playerIDCreator));
 
 	for(unsigned int x = 0; x < level.getLevelWidth(); x++)
 	{

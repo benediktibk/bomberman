@@ -3,7 +3,7 @@
 using namespace Common;
 
 GameEngineStub::GameEngineStub() :
-	m_state(m_level, m_idCreator, m_idCreator)
+	m_state(m_level, 1, m_idCreator, m_idCreator)
 { }
 
 void GameEngineStub::updateGameState(const InputState &, double)

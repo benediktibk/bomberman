@@ -8,7 +8,7 @@ using namespace Common;
 void GameEngineImplTest::updateGameState_UpKeyPressed_PlayerDirectionUp()
 {
 	LevelDefinition level;
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 
 	input.setUpKeyPressed();
@@ -22,7 +22,7 @@ void GameEngineImplTest::updateGameState_UpKeyPressed_PlayerDirectionUp()
 void GameEngineImplTest::updateGameState_DownKeyPressed_PlayerDirectionDown()
 {
 	LevelDefinition level;
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 
 	input.setDownKeyPressed();
@@ -36,7 +36,7 @@ void GameEngineImplTest::updateGameState_DownKeyPressed_PlayerDirectionDown()
 void GameEngineImplTest::updateGameState_LeftKeyPressed_PlayerDirectionLeft()
 {
 	LevelDefinition level;
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 
 	input.setLeftKeyPressed();
@@ -50,7 +50,7 @@ void GameEngineImplTest::updateGameState_LeftKeyPressed_PlayerDirectionLeft()
 void GameEngineImplTest::updateGameState_RightKeyPressed_PlayerDirectionRight()
 {
 	LevelDefinition level;
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 
 	input.setRightKeyPressed();
@@ -64,7 +64,7 @@ void GameEngineImplTest::updateGameState_RightKeyPressed_PlayerDirectionRight()
 void GameEngineImplTest::updateGameState_oneBombPlaced_bombPositionIsSameAsPlayerPosition()
 {
 	LevelDefinition level;
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 	const BombState *bomb;
 
@@ -80,7 +80,7 @@ void GameEngineImplTest::updateGameState_oneBombPlaced_bombPositionIsSameAsPlaye
 void GameEngineImplTest::updateGameState_oneBombPlaced_bombLifeTimeIs2()
 {
 	LevelDefinition level;
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 	const BombState *bomb;
 
@@ -97,7 +97,7 @@ void GameEngineImplTest::updateGameState_oneBombPlaced_bombLifeTimeIs2()
 void GameEngineImplTest::updateGameState_twoBombsPlacedAndOneDestroyed_bombCountIs1()
 {
 	LevelDefinition level;
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 
 	input.setSpaceKeyPressed();
@@ -113,7 +113,7 @@ void GameEngineImplTest::updateGameState_twoBombsPlacedAndOneDestroyed_bombCount
 void GameEngineImplTest::getHeight_HeightOfLevelDefinition_HeightOfGamestate()
 {
 	LevelDefinition level;
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
 
 	CPPUNIT_ASSERT_EQUAL(level.getLevelHeight(), game.getGameStateHeight());
@@ -122,7 +122,7 @@ void GameEngineImplTest::getHeight_HeightOfLevelDefinition_HeightOfGamestate()
 void GameEngineImplTest::getWidth_WidthOfLevelDefinition_WidthOfGamestate()
 {
 	LevelDefinition level;
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
 
 	CPPUNIT_ASSERT_EQUAL(level.getLevelWidth(), game.getGameStateWidth());
@@ -131,7 +131,7 @@ void GameEngineImplTest::getWidth_WidthOfLevelDefinition_WidthOfGamestate()
 void GameEngineImplTest::updateGameState_tryToMoveThroughRightBorder_playerPositionIsAtRightBorder()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState inputState;
 	inputState.setRightKeyPressed();
 
@@ -147,7 +147,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughRightBorder_playerPosit
 void GameEngineImplTest::updateGameState_tryToMoveThroughUpperBorder_playerPositionIsAtUpperBorder()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState inputState;
 	inputState.setUpKeyPressed();
 
@@ -163,7 +163,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughUpperBorder_playerPosit
 void GameEngineImplTest::updateGameState_tryToMoveThroughLowerBorder_playerPositionIsAtLowerBorder()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState inputState;
 	inputState.setDownKeyPressed();
 
@@ -179,7 +179,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughLowerBorder_playerPosit
 void GameEngineImplTest::updateGameState_tryToMoveThroughLeftBorder_playerPositionIsAtLeftBorder()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState inputState;
 	inputState.setLeftKeyPressed();
 
@@ -197,7 +197,7 @@ void GameEngineImplTest::getWallCount_Create4x4LevelWith2Wall_WallCount2()
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,1,3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall,3,3);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 
 	const GameState &game = gameEngine.getGameState();
 
@@ -208,7 +208,7 @@ void GameEngineImplTest::getWallPosition_Create4x4LevelWithWallPosition2And2_Wal
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,2,2);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	const WallState *wall;
 	const Point point(2,2);
 
@@ -222,7 +222,7 @@ void GameEngineImplTest::getWallType_Create4x4LevelWallWithWallType_WallTypeIsLo
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 2, 2);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	const WallState *wall;
 
 	const GameState &game = gameEngine.getGameState();
@@ -234,7 +234,7 @@ void GameEngineImplTest::getWallType_Create4x4LevelWallWithWallType_WallTypeIsLo
 void GameEngineImplTest::updateGameState_halfTheTimeOfTheMovementToTheNextGridFieldButtonPressed_playerReachesGridPoint()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState inputState;
 	const GameState &game = gameEngine.getGameState();
 	const PlayerState &player = game.getPlayerState();
@@ -253,7 +253,7 @@ void GameEngineImplTest::updateGameState_halfTheTimeOfTheMovementToTheNextGridFi
 void GameEngineImplTest::updateGameState_playerVerticalBetweenTwoFieldsAndUpPressed_playerKeepsDirection()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState inputState;
 	const GameState &game = gameEngine.getGameState();
 	const PlayerState &player = game.getPlayerState();
@@ -274,7 +274,7 @@ void GameEngineImplTest::getWallCount_Create4x4LevelWith2WallsOneWallInRangeOfBo
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,1,3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall,1,0);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 
 	input.setSpaceKeyPressed();
@@ -292,7 +292,7 @@ void GameEngineImplTest::updateGameState_Create4x4LevelWithSolidWallAndLetBombEx
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 1, 0);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 
 	input.setSpaceKeyPressed();
@@ -309,7 +309,7 @@ void GameEngineImplTest::updateGameState_Create4x4LevelWithSolidWallAndLetBombEx
 void GameEngineImplTest::updateGameState_placeBombAndWaitTillItExploded_bombCountIs0()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 
 	input.setSpaceKeyPressed();
@@ -327,7 +327,7 @@ void GameEngineImplTest::updateGameState_placeBombAtUpperBorder_bombCountIs0()
 {
 	//CPPUNIT_ASSERT(false);
 	LevelDefinition level(10, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 
 	input.setUpKeyPressed();
@@ -348,7 +348,7 @@ void GameEngineImplTest::updateGameState_playerSurroundedByWallsAndTriesToMoveUp
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 1, 1);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 	const GameState &gameState = gameEngine.getGameState();
 	const PlayerState &playerState = gameState.getPlayerState();
@@ -365,7 +365,7 @@ void GameEngineImplTest::updateGameState_playerSurroundedByWallsAndTriesToMoveRi
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 1, 1);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 	const GameState &gameState = gameEngine.getGameState();
 	const PlayerState &playerState = gameState.getPlayerState();
@@ -383,7 +383,7 @@ void GameEngineImplTest::updateGameState_moveRightAndToUpperBorderAndBackAndTryT
 	LevelDefinition level(15, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 3, 2);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 3, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 	const GameState &gameState = gameEngine.getGameState();
 	const PlayerState &playerState = gameState.getPlayerState();
@@ -411,7 +411,7 @@ void GameEngineImplTest::updateGameState_moveRightAndToUpperBorderAndBackAndTryT
 void GameEngineImplTest::updateGameState_moveTowardsWallAndAgainAway_playerPositionIsCorrect()
 {
 	LevelDefinition level(15, 10);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 	const GameState &gameState = gameEngine.getGameState();
 	const PlayerState &playerState = gameState.getPlayerState();
@@ -442,7 +442,7 @@ void GameEngineImplTest::updateGameState_moveTowardsWallAndAgainAway_playerPosit
 void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
 	const PlayerState &player = game.getPlayerState();
 	InputState input;
@@ -457,7 +457,7 @@ void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayRig
 void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayLeftToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
 	const PlayerState &player = game.getPlayerState();
 	InputState input;
@@ -475,7 +475,7 @@ void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayLef
 void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayUpToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
 	const PlayerState &player = game.getPlayerState();
 	InputState input;
@@ -490,7 +490,7 @@ void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayUpT
 void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayDownToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
 	const PlayerState &player = game.getPlayerState();
 	InputState input;
@@ -508,7 +508,7 @@ void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayDow
 void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerStaysOnGridPoint_0()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);;
+	GameEngineImpl gameEngine(level, 1);;
 	InputState input;
 
 	gameEngine.updateGameState(input, 10);
@@ -519,7 +519,7 @@ void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerStaysOnGridPoin
 void GameEngineImplTest::updateGameState_keyPressedHalfWayToGridFieldAndEnoughTimeToReachIt_playerPositionIsGridField()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
 	const PlayerState &player = game.getPlayerState();
 	InputState input;
@@ -538,7 +538,7 @@ void GameEngineImplTest::updateGameState_keyPressedHalfWayToGridFieldAndEnoughTi
 void GameEngineImplTest::updateGameState_placeBombAndWaitExactTheBombLifeTime_bombCountIs0()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
 	InputState input;
 
@@ -557,7 +557,7 @@ void GameEngineImplTest::updateGameState_placeBombAndWaitExactTheBombLifeTime_bo
 void GameEngineImplTest::updateGameState_placeBombAndStayAtPlace_playerDoesntMove()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
 	InputState input;
 
@@ -573,7 +573,7 @@ void GameEngineImplTest::updateGameState_placeBombAndStayAtPlace_playerDoesntMov
 void GameEngineImplTest::updateGameState_placeBombMoveAwayAndTryToMoveThroughBomb_playerStaysBesideBomb()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	const GameState &game = gameEngine.getGameState();
 	const PlayerState &player = game.getPlayerState();
 	double timeForOneField = 1/player.getMaximumSpeed();
@@ -595,7 +595,7 @@ void GameEngineImplTest::updateGameState_placeBombMoveAwayAndTryToMoveThroughBom
 void GameEngineImplTest::increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCountIs2()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	GameState &game = gameEngine.getGameState();
 	PlayerState &player = game.getPlayerState();
 	InputState input;
@@ -618,7 +618,7 @@ void GameEngineImplTest::increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCou
 void GameEngineImplTest::increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombCountIs2()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	GameState &game = gameEngine.getGameState();
 	PlayerState &player = game.getPlayerState();
 	InputState input;
@@ -647,7 +647,7 @@ void GameEngineImplTest::increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombC
 void GameEngineImplTest::setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTimeOfSecondBombIs0()
 {
 	LevelDefinition level(4, 4);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	GameState &game = gameEngine.getGameState();
 	PlayerState &player = game.getPlayerState();
 	InputState input;
@@ -674,7 +674,7 @@ void GameEngineImplTest::setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTim
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 1, 0);
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	InputState input;
 
 	input.setSpaceKeyPressed();

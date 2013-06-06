@@ -10,7 +10,7 @@ void GamePhysicSimulatorTest::simulateStep_movePlayerTowardsWall_playerCollidesW
 {
 	LevelDefinition level(5, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 0);
-	GameState gameState(level, m_playerIDCreator, m_wallIDCreator);
+	GameState gameState(level, 1, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &player = gameState.getPlayerState();
 	GamePhysicSimulator simulator(level, player);
 	player.setDirectionRight();
@@ -27,7 +27,7 @@ void GamePhysicSimulatorTest::simulateStep_movePlayerTowardsWall_playerCollidesW
 void GamePhysicSimulatorTest::simulateStep_movePlayerTowardsBomb_playerCollidesWithBomb()
 {
 	LevelDefinition level(5, 10);
-	GameState gameState(level, m_playerIDCreator, m_wallIDCreator);
+	GameState gameState(level, 1, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &player = gameState.getPlayerState();
 	GamePhysicSimulator simulator(level, player);
 	player.setDirectionRight();

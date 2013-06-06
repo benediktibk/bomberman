@@ -7,7 +7,7 @@ using namespace std;
 void GameStateTest::addWall_defaultWall_wallCountIs1()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeSolid, Point()));
 
@@ -17,7 +17,7 @@ void GameStateTest::addWall_defaultWall_wallCountIs1()
 void GameStateTest::addBomb_defaultBomb_bombCountIs1()
 {
 	LevelDefinition level;
-	GameState state(level,  m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	state.addBomb(new BombState(m_bombIDCreator));
 
@@ -27,7 +27,7 @@ void GameStateTest::addBomb_defaultBomb_bombCountIs1()
 void GameStateTest::getAllChangedBombs_twoBombsAdded_resultSizeIs2()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	state.addBomb(new BombState(m_bombIDCreator));
 	state.addBomb(new BombState(m_bombIDCreator));
 
@@ -39,7 +39,7 @@ void GameStateTest::getAllChangedBombs_twoBombsAdded_resultSizeIs2()
 void GameStateTest::getAllChangedBombs_oneBombAddedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1()
 {
 	LevelDefinition level;
-	GameState state(level,  m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	state.addBomb(new BombState(m_bombIDCreator));
 	state.resetChangedFlags();
 	state.addBomb(new BombState(m_bombIDCreator));
@@ -52,7 +52,7 @@ void GameStateTest::getAllChangedBombs_oneBombAddedAndChangedFlagsResetAndAnothe
 void GameStateTest::getAllChangedWalls_twoWallsAdded_resultSizeIs2()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeSolid, Point()));
 	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeSolid, Point()));
 
@@ -64,7 +64,7 @@ void GameStateTest::getAllChangedWalls_twoWallsAdded_resultSizeIs2()
 void GameStateTest::getAllChangedWalls_oneWallAdedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeSolid, Point()));
 	state.resetChangedFlags();
 	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeSolid, Point()));
@@ -77,7 +77,7 @@ void GameStateTest::getAllChangedWalls_oneWallAdedAndChangedFlagsResetAndAnother
 void GameStateTest::getAllBombsLifeTime_afterReduceLifeTime_resultTimeIs2()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	const BombState* bomb;
 	state.addBomb(new BombState(m_bombIDCreator));
 	state.reduceAllBombsLifeTime(1);
@@ -92,7 +92,7 @@ void GameStateTest::getAllBombsLifeTime_afterReduceLifeTime_resultTimeIs2()
 void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_resultSizeIs1()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &playerState = state.getPlayerState();
 
 	playerState.countBomb();
@@ -112,7 +112,7 @@ void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_resultSizeIs1(
 void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_bombCountIs1()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &playerState = state.getPlayerState();
 
 	playerState.countBomb();
@@ -130,7 +130,7 @@ void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_bombCountIs1()
 void GameStateTest::resetChangedFlags_oneWallAdded_wallIsNotChanged()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	WallState *wall = new WallState(m_wallIDCreator, WallState::WallTypeSolid, Point());
 	state.addWall(wall);
 
@@ -142,7 +142,7 @@ void GameStateTest::resetChangedFlags_oneWallAdded_wallIsNotChanged()
 void GameStateTest::resetChangedFlags_oneBombAdded_bombIsNotChanged()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	BombState *bomb = new BombState(m_bombIDCreator);
 	state.addBomb(bomb);
 
@@ -154,7 +154,7 @@ void GameStateTest::resetChangedFlags_oneBombAdded_bombIsNotChanged()
 void GameStateTest::getHeight_heightLevelDefinition_resultIs50()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	CPPUNIT_ASSERT_EQUAL(level.getLevelHeight(), state.getGameStateHeight());
 }
@@ -162,7 +162,7 @@ void GameStateTest::getHeight_heightLevelDefinition_resultIs50()
 void GameStateTest::getWidth_widthLevelDefinition_resultIs50()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	CPPUNIT_ASSERT_EQUAL(level.getLevelWidth(), state.getGameStateWidth());
 }
@@ -170,7 +170,7 @@ void GameStateTest::getWidth_widthLevelDefinition_resultIs50()
 void GameStateTest::getAllBombsWithNegativeLifeTime_twoBombsAddedOneWithNegativeTime_resultSizeIs1()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	const BombState* bomb;
 	state.addBomb(new BombState(m_bombIDCreator));
 	state.reduceAllBombsLifeTime(2);
@@ -186,7 +186,7 @@ void GameStateTest::getAllBombsWithNegativeLifeTime_twoBombsAddedOneWithNegative
 void GameStateTest::eraseWallById_twoWallsAddedOneDeleted_wallCountIs1()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeLoose, Point()));
 	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeLoose, Point()));
 	state.eraseWallById(1);
@@ -198,7 +198,7 @@ void GameStateTest::eraseWallById_twoWallsAddedOneDeleted_wallCountIs1()
 void GameStateTest::setBombsLifeTimeToZero_oneBombAddedAndSetLifeTimeZero_lifeTimeIs0()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	const BombState* bomb;
 	state.addBomb(new BombState(m_bombIDCreator));
 	state.setBombsLifeTimeToZero(0);
@@ -212,7 +212,7 @@ void GameStateTest::setBombsLifeTimeToZero_oneBombAddedAndSetLifeTimeZero_lifeTi
 void GameStateTest::addPowerUp_defaultPowerUp_powerUpCountIs1()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
 
@@ -222,7 +222,7 @@ void GameStateTest::addPowerUp_defaultPowerUp_powerUpCountIs1()
 void GameStateTest::getAllChangedPowerUps_twoPowerUpsAdded_resultSizeIs2()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
 	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
 
@@ -234,7 +234,7 @@ void GameStateTest::getAllChangedPowerUps_twoPowerUpsAdded_resultSizeIs2()
 void GameStateTest::removePowerUpById_twoPowerUpsAdddedOneDeleted_PowerUpCountIs1()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
 	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
 	state.erasePowerUpById(1);
@@ -247,7 +247,7 @@ void GameStateTest::removePowerUpById_twoPowerUpsAdddedOneDeleted_PowerUpCountIs
 void GameStateTest::getAllChangedPowerUps_onePowerUpAdedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
 	state.resetChangedFlags();
 	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
@@ -260,7 +260,7 @@ void GameStateTest::getAllChangedPowerUps_onePowerUpAdedAndChangedFlagsResetAndA
 void GameStateTest::resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	PowerUpState *powerUp = new PowerUpState(m_powerUpIDCreator, Point());
 	state.addPowerUp(powerUp);
 
@@ -272,7 +272,7 @@ void GameStateTest::resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged()
 void GameStateTest::getAllPossiblePlayerIDs_onePlayerCreated_resultSizeIs1()
 {
 	LevelDefinition level;
-	GameState state(level, m_playerIDCreator, m_wallIDCreator);
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	vector<unsigned int> playerIDs = state.getAllPossiblePlayerIDs();
 

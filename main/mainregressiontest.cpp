@@ -25,7 +25,7 @@ int main(int, char**)
 {
 	srand(3);
 	LevelDefinition level(createRandomLevel());
-	GameEngineImpl gameEngine(level);
+	GameEngineImpl gameEngine(level, 1);
 	RandomDecision pressRight(0.3);
 	RandomDecision pressLeft(0.3);
 	RandomDecision pressUp(0.3);

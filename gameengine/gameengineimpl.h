@@ -18,7 +18,7 @@ namespace GameEngine
 			public Common::GameEngine
 	{
 	public:
-		GameEngineImpl(const Common::LevelDefinition &level);
+		GameEngineImpl(const Common::LevelDefinition &level, unsigned int playerCount);
 		virtual ~GameEngineImpl();
 
 		virtual void updateGameState(const Common::InputState &inputState, double time);

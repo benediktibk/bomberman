@@ -47,7 +47,7 @@ void MainWindowGraphicTest::drawState1()
 	UniqueIdCreator playerIDCreator;
 	UniqueIdCreator bombIDCreator;
 	LevelDefinition level;
-	GameState gameState(level, playerIDCreator, wallIDCreator);
+	GameState gameState(level, 1, playerIDCreator, wallIDCreator);
 	WallState *wallOne = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(-3, 4));
 	WallState *wallTwo = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(2, 3));
 	WallState *wallThree = new WallState(wallIDCreator, WallState::WallTypeLoose, Point(1, 5));

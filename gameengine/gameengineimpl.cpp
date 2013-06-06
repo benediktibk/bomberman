@@ -13,8 +13,8 @@ using namespace Common;
 using namespace Physic;
 using namespace std;
 
-GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
-	m_gameState(level, m_playerIds, m_wallids),
+GameEngineImpl::GameEngineImpl(const LevelDefinition &level, unsigned int playerCount) :
+	m_gameState(level, playerCount, m_playerIds, m_wallids),
 	m_playerState(m_gameState.getPlayerState()),
 	m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
 	m_firstGameStateUpdate(true),
