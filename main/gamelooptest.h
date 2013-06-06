@@ -16,7 +16,8 @@ class GameLoopTest :
 	 CPPUNIT_TEST(execute_runSomeExecutions_inputFetcherGotAsMuchCallsAsGameEngine);
 	 CPPUNIT_TEST(execute_runSomeExecutions_gameEngineGotAsMuchCallsAsGraphicDrawer);
 	 CPPUNIT_TEST(execute_runAround100ms_gameEngineGotAround6CallsToUpdateGameState);
-	 CPPUNIT_TEST(execute_running_framesPerSecondAre60);
+	 CPPUNIT_TEST(getFramesPerSecond_running_60);
+	 CPPUNIT_TEST(percentageOfTimeNotSleeping_running_0);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -26,7 +27,8 @@ private:
 	 void execute_runSomeExecutions_inputFetcherGotAsMuchCallsAsGameEngine();
 	 void execute_runSomeExecutions_gameEngineGotAsMuchCallsAsGraphicDrawer();
 	 void execute_runAround100ms_gameEngineGotAround6CallsToUpdateGameState();
-	 void execute_running_framesPerSecondAre60();
+	 void getFramesPerSecond_running_60();
+	 void percentageOfTimeNotSleeping_running_0();
 };
 }
 

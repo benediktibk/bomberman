@@ -101,7 +101,7 @@ void GameLoopTest::execute_runAround100ms_gameEngineGotAround6CallsToUpdateGameS
 	delete gameLoop;
 }
 
-void GameLoopTest::execute_running_framesPerSecondAre60()
+void GameLoopTest::getFramesPerSecond_running_60()
 {
 	InputFetcherStub inputFetcher;
 	GameEngineStub gameEngine;
@@ -112,6 +112,22 @@ void GameLoopTest::execute_running_framesPerSecondAre60()
 	usleep(1000*100);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(60, gameLoop->getFramesPerSecond(), 1);
+	gameLoop->stop();
+	gameLoop->waitTillFinished();
+	delete gameLoop;
+}
+
+void GameLoopTest::percentageOfTimeNotSleeping_running_0()
+{
+	InputFetcherStub inputFetcher;
+	GameEngineStub gameEngine;
+	GraphicDrawerStub graphicDrawer;
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
+
+	gameLoop->start();
+	usleep(1000*100);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, gameLoop->percentageOfTimeNotSleeping(), 0.1);
 	gameLoop->stop();
 	gameLoop->waitTillFinished();
 	delete gameLoop;
