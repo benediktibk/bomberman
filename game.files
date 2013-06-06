@@ -273,3 +273,5 @@ physic/wall.h
 physic/wall.cpp
 physic/bomb.h
 physic/bomb.cpp
+physic/physicalobjecttest.h
+physic/physicalobjecttest.cpp

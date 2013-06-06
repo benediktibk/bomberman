@@ -30,6 +30,7 @@ public:
 	Common::Point getCenterPosition() const;
 	void setCollisionGroup(int16_t collisionGroup);
 	void resetCollisionGroup();
+	int16_t getCollisionGroup() const;
 
 protected:
 	b2Body& getBody();

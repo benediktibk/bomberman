@@ -70,6 +70,12 @@ void PhysicalObject::resetCollisionGroup()
 	m_fixture->SetFilterData(filter);
 }
 
+int16_t PhysicalObject::getCollisionGroup() const
+{
+	b2Filter filter = m_fixture->GetFilterData();
+	return filter.groupIndex;
+}
+
 b2Body &PhysicalObject::getBody()
 {
 	return *m_body;

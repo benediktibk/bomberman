@@ -12,6 +12,7 @@ set(PHYSIC_SRC
 
 set(PHYSIC_TEST_SRC
 	physicsimulatortest.cpp
+	physicalobjecttest.cpp
 	dynamicobjecttest.cpp
 	staticobjecttest.cpp
 	playertest.cpp
