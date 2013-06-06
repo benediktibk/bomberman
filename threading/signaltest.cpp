@@ -52,3 +52,13 @@ void SignalTest::send_threadWaitingOnSignalAndThenCopiesValue_destinationHasValu
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(5, destination, 0.00001);
 }
+
+void SignalTest::reset_signalSent_signalNotSet()
+{
+	Signal signal;
+	signal.send();
+
+	signal.reset();
+
+	CPPUNIT_ASSERT(!signal.isSignalSent());
+}

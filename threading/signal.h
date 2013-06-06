@@ -18,6 +18,7 @@ public:
 	void send();
 	void reset();
 	void wait();
+	bool isSignalSent() const;
 
 private:
 	boost::condition_variable *m_condition;

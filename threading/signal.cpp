@@ -52,3 +52,9 @@ void Signal::wait()
 	while (!m_sent)
 		m_condition->wait(lock);
 }
+
+bool Signal::isSignalSent() const
+{
+	unique_lock<mutex> lock(*m_conditionMutex);
+	return m_sent;
+}
