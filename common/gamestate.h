@@ -49,7 +49,7 @@ private:
 
 private:
 	// forbid copies
-	GameState(const GameState &rhsm, UniqueIdCreator &rhs);
+	GameState(const GameState &rhs);
 	void operator=(const GameState &rhs);
 
 private:

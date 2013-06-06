@@ -36,6 +36,12 @@ set(COMMON_TEST_SRC
 	randomdecisiontest.cpp
 	powerupgeneratortest.cpp
 	playerstatetest.cpp
+	gameenginestub.cpp
+	gameenginemock.cpp
+	graphicdrawerstub.cpp
+	graphicdrawermock.cpp
+	inputfetcherstub.cpp
+	inputfetchermock.cpp
 )
 
 add_library(common ${COMMON_SRC})

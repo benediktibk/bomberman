@@ -143,68 +143,59 @@ void GameState::reduceAllBombsLifeTime(double time)
 	}
 }
 
- void GameState::setAllBombsWithNoLifeTimeDestroyed(PlayerState &playerState)
- {
-	 for(size_t i = 0; i < m_bombs.size(); i++)
-	 {
+void GameState::setAllBombsWithNoLifeTimeDestroyed(PlayerState &playerState)
+{
+	for(size_t i = 0; i < m_bombs.size(); i++)
+	{
 		BombState *currentBomb = m_bombs[i];
 		if (currentBomb->getLifeTime() <= 0)
 		{
 			currentBomb->setDestroyed();
 			playerState.reduceBombCount();
 		}
-	 }
- }
+	}
+}
 
- void GameState::resetChangedFlags()
- {
-	 for (vector<WallState*>::iterator i = m_walls.begin(); i != m_walls.end(); ++i)
-		 (*i)->resetChanged();
-	 for (vector<BombState*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
-		 (*i)->resetChanged();
-	 for (vector<PowerUpState*>::iterator i = m_powerUps.begin(); i != m_powerUps.end(); ++i)
-		 (*i)->resetChanged();
+void GameState::resetChangedFlags()
+{
+	for (vector<WallState*>::iterator i = m_walls.begin(); i != m_walls.end(); ++i)
+		(*i)->resetChanged();
+	for (vector<BombState*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
+		(*i)->resetChanged();
+	for (vector<PowerUpState*>::iterator i = m_powerUps.begin(); i != m_powerUps.end(); ++i)
+		(*i)->resetChanged();
+}
 
- }
+void GameState::removeAllObjectsWithDestroyedFlag()
+{
+	for (size_t i = 0; i < m_walls.size(); ++i)
+	{
+		if (m_walls[i]->isDestroyed())
+			eraseWall(i);
+	}
 
- void GameState::removeAllObjectsWithDestroyedFlag()
- {
-	 for (size_t i = 0; i < m_walls.size(); ++i)
-	 {
-		 if (m_walls[i]->isDestroyed())
-			 eraseWall(i);
-	 }
+	for (size_t i = 0; i < m_bombs.size(); ++i)
+	{
+		if (m_bombs[i]->isDestroyed())
+			eraseBomb(i);
+	}
 
-	 for (size_t i = 0; i < m_bombs.size(); ++i)
-	 {
-		 if (m_bombs[i]->isDestroyed())
-			 eraseBomb(i);
-	 }
+	for (size_t i = 0; i < m_powerUps.size(); ++i)
+	{
+		if (m_powerUps[i]->isDestroyed())
+			erasePowerUp(i);
+	}
+}
 
-	 for (size_t i = 0; i < m_powerUps.size(); ++i)
-	 {
-		 if (m_powerUps[i]->isDestroyed())
-			 erasePowerUp(i);
-	 }
- }
+unsigned int GameState::getGameStateHeight() const
+{
+	return m_height;
+}
 
- unsigned int GameState::getGameStateHeight() const
- {
-	 return m_height;
- }
-
- unsigned int GameState::getGameStateWidth() const
- {
-	 return m_width;
- }
-
- GameState::GameState(const GameState &, UniqueIdCreator &rhs)
- {
-	 m_players.push_back(new PlayerState(rhs));
- }
-
-void GameState::operator=(const GameState &)
-{ }
+unsigned int GameState::getGameStateWidth() const
+{
+	return m_width;
+}
 
 vector<const BombState*> GameState::getAllBombsWithNoLifeTime() const
 {

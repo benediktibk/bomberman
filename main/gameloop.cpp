@@ -22,7 +22,8 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, GameEngine &gameEngine, GraphicDr
 GameLoop::~GameLoop()
 {
 	stop();
-	waitTillFinished();
+	if (m_start.isSignalSent())
+		waitTillFinished();
 }
 
 void GameLoop::start()
@@ -74,8 +75,8 @@ void GameLoop::execute()
 			StopWatch watchForWait;
 			watchForWait.restart();
 			usleep((m_minimumTimeStep - timeWithoutWait)*1000000);
-            timeWaited=(m_minimumTimeStep - timeWithoutWait);
-            time = timeWaited + timeWithoutWait;
+			timeWaited=(m_minimumTimeStep - timeWithoutWait);
+			time = timeWaited + timeWithoutWait;
 		}
 		else
 			time = timeWithoutWait;

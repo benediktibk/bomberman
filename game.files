@@ -257,3 +257,15 @@ physic/gamephysicsimulatortest.h
 physic/gamephysicsimulatortest.cpp
 common/playerstatetest.h
 common/playerstatetest.cpp
+common/gameenginestub.h
+common/gameenginestub.cpp
+common/gameenginemock.h
+common/gameenginemock.cpp
+common/graphicdrawerstub.h
+common/graphicdrawerstub.cpp
+common/graphicdrawermock.h
+common/graphicdrawermock.cpp
+common/inputfetcherstub.h
+common/inputfetcherstub.cpp
+common/inputfetchermock.h
+common/inputfetchermock.cpp

@@ -6,6 +6,7 @@ include(${QT_USE_FILE})
 add_definitions(${QT_DEFINITIONS})
 
 set(MAIN_SRC
+	gameloop.cpp
 )
 
 set(MAIN_TEST_SRC
@@ -17,7 +18,6 @@ set(MAIN_QT_SRC
 	mainwindowinputfetcher.cpp
 	mainwindowinputtest.cpp
 	mainwindowgraphictest.cpp
-	gameloop.cpp
 )
 
 set(MAIN_FORMS
@@ -31,7 +31,6 @@ set(MAIN_QT_INCL
 	mainwindowinputfetcher.h
 	mainwindowinputtest.h
 	mainwindowgraphictest.h
-	gameloop.h
 )
 
 include_directories(
@@ -39,6 +38,7 @@ include_directories(
 )
 
 set(LIBRARIES
+	main
 	gameengine
 	graphic
 	physic
@@ -49,11 +49,11 @@ set(LIBRARIES
 )
 
 set(LIBRARIES_TEST
-	commontest
 	maintest
 	gameenginetest
 	physictest
 	threadingtest
+	commontest
 )
 
 qt4_wrap_ui(MAIN_FORMS_MOC ${MAIN_FORMS})
@@ -61,7 +61,7 @@ qt4_wrap_cpp(MAIN_QT_INCL_MOC ${MAIN_QT_INCL})
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin)
 
-#add_library(main ${MAIN_SRC})
+add_library(main ${MAIN_SRC})
 add_library(maintest ${MAIN_TEST_SRC})
 add_executable(game main.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
 add_executable(inputtest maininputtest.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
