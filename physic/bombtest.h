@@ -13,10 +13,12 @@ namespace Physic
 	public:
 		CPPUNIT_TEST_SUITE(BombTest);
 		CPPUNIT_TEST(doNotCollideWith_player_playerDoesntCollide);
+		CPPUNIT_TEST(collideWithEverything_doNotCollideWithCalled_playerCollides);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
 		void doNotCollideWith_player_playerDoesntCollide();
+		void collideWithEverything_doNotCollideWithCalled_playerCollides();
 
 	private:
 		Common::UniqueIdCreator m_bombIDCreator;

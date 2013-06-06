@@ -26,3 +26,22 @@ void BombTest::doNotCollideWith_player_playerDoesntCollide()
 	Point positionReal(player.getPosition());
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
+
+void BombTest::collideWithEverything_doNotCollideWithCalled_playerCollides()
+{
+	PhysicSimulator simulator;
+	BombState bombState(m_bombIDCreator);
+	bombState.setPosition(Point(3, 0));
+	Bomb bomb(simulator, bombState);
+	PlayerState playerState(m_playerIDCreator);
+	Player player(simulator, playerState);
+	player.applyLinearVelocity(10, 0);
+	bomb.doNotCollideWith(playerState);
+
+	bomb.collideWithEverything();
+
+	simulator.simulateStep(1);
+	Point positionShouldBe(2, 0);
+	Point positionReal(player.getPosition());
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
+}
