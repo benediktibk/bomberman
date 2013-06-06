@@ -87,7 +87,16 @@ void GameEngineImpl::updatePlayerPosition()
 	}
 
 	m_simulator->simulateStep(m_playerState, m_elapsedTime - realSimulatedTime);
-	m_playerState.removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith();
+
+	playerFields = m_grid->getPlayerFields(m_playerState);
+	vector<const BombState*> bombsNotToCollideWith = m_playerState.getBombsNotToCollideWith();
+	for (vector<const BombState*>::const_iterator i = bombsNotToCollideWith.begin(); i != bombsNotToCollideWith.end(); ++i)
+	{
+		GridPoint gridPosition((*i)->getPosition());
+
+		if (count(playerFields.begin(), playerFields.end(), gridPosition) == 0)
+			m_playerState.removeBombFromDoNotCollideList(*i);
+	}
 }
 
 void GameEngineImpl::setPlayerSpeedIfMoreThanOneDirectionIsSelected()
@@ -195,7 +204,7 @@ void GameEngineImpl::updateBombs()
 
 	bombsWithNoLifeTime = m_gameState.getAllBombsWithNoLifeTime();
 	for (vector<const BombState*>::const_iterator i = bombsWithNoLifeTime.begin(); i != bombsWithNoLifeTime.end(); ++i)
-		m_playerState.removeDestroyedBombFromCollisionStorage(*i);
+		m_playerState.removeBombFromDoNotCollideList(*i);
 }
 
 void GameEngineImpl::placeBombs()

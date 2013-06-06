@@ -52,9 +52,8 @@ namespace Common
 		bool canPlayerPlaceBomb () const;
 		Point getCenterPosition() const;
 		void doNotCollideWith(const BombState *bomb);
-		void removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith();
 		std::vector<const BombState*> getBombsNotToCollideWith() const;
-		void removeDestroyedBombFromCollisionStorage(const BombState *bomb);
+		void removeBombFromDoNotCollideList(const BombState *bomb);
 
 	private:
 		// forbid copies

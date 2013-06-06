@@ -208,19 +208,13 @@ void PlayerState::doNotCollideWith(const BombState *bomb)
 	m_bombsNotToCollideWith.push_back(bomb);
 }
 
-void PlayerState::removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith()
-{
-	//! @todo implement
-}
-
 vector<const BombState *> PlayerState::getBombsNotToCollideWith() const
 {
 	return m_bombsNotToCollideWith;
 }
 
-void PlayerState::removeDestroyedBombFromCollisionStorage(const BombState *bomb)
+void PlayerState::removeBombFromDoNotCollideList(const BombState *bomb)
 {
-	assert(bomb->isDestroyed());
 	vector<const BombState *>::iterator end = remove(m_bombsNotToCollideWith.begin(), m_bombsNotToCollideWith.end(), bomb);
 	m_bombsNotToCollideWith.erase(end, m_bombsNotToCollideWith.end());
 }

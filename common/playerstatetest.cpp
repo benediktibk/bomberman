@@ -358,38 +358,7 @@ void PlayerStateTest::doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideW
 	CPPUNIT_ASSERT_EQUAL((size_t)2, result.size());
 }
 
-void PlayerStateTest::removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith_twoBombsCoveredByPlayer_twoBombsNotToCollideWith()
-{
-	BombState bombOne(*m_bombIDCreator);
-	BombState bombTwo(*m_bombIDCreator);
-	PlayerState player(*m_playerIDCreator);
-	bombOne.setPosition(Point(1, 2));
-	bombOne.setPosition(Point(1, 3));
-	player.setPosition(Point(1, 2.5));
-	player.doNotCollideWith(&bombOne);
-	player.doNotCollideWith(&bombTwo);
-
-	player.removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith();
-
-	vector<const BombState*> result = player.getBombsNotToCollideWith();
-	CPPUNIT_ASSERT_EQUAL((size_t)2, result.size());
-}
-
-void PlayerStateTest::removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith_playerBesideOnlyBomb_noBombsNotToCollideWith()
-{
-	BombState bomb(*m_bombIDCreator);
-	PlayerState player(*m_playerIDCreator);
-	bomb.setPosition(Point(1, 2));
-	player.setPosition(Point(1, 3));
-	player.doNotCollideWith(&bomb);
-
-	player.removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith();
-
-	vector<const BombState*> result = player.getBombsNotToCollideWith();
-	CPPUNIT_ASSERT_EQUAL((size_t)0, result.size());
-}
-
-void PlayerStateTest::removeDestroyedBombFromCollisionStorage_twoBombsAddedAndFirstOneExploded_oneBombNotToCollideWith()
+void PlayerStateTest::removeBombFromDoNotCollideList_twoBombsAddedAndFirstOneExploded_oneBombNotToCollideWith()
 {
 	BombState bombOne(*m_bombIDCreator);
 	BombState bombTwo(*m_bombIDCreator);
@@ -401,7 +370,7 @@ void PlayerStateTest::removeDestroyedBombFromCollisionStorage_twoBombsAddedAndFi
 	player.doNotCollideWith(&bombTwo);
 	bombOne.setDestroyed();
 
-	player.removeDestroyedBombFromCollisionStorage(&bombOne);
+	player.removeBombFromDoNotCollideList(&bombOne);
 
 	vector<const BombState*> result = player.getBombsNotToCollideWith();
 	CPPUNIT_ASSERT_EQUAL((size_t)1, result.size());
