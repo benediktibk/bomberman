@@ -82,6 +82,8 @@ void GameEngineImpl::updatePlayerPosition()
 	if (timeTillPlayerReachesGridPoint < m_elapsedTime)
 	{
 		m_simulator->simulateStep(m_gameState, timeTillPlayerReachesGridPoint);
+		GridPoint gridPosition(m_playerState.getPosition());
+		m_playerState.setPosition(gridPosition.getPointPosition());
 		realSimulatedTime += timeTillPlayerReachesGridPoint;
 		updatePlayerVelocity();
 	}
