@@ -29,8 +29,7 @@ public:
 	Common::Point getPosition() const;
 	Common::Point getCenterPosition() const;
 	void setCollisionGroup(int16_t collisionGroup);
-	void collideWith(int16_t collisionGroup);
-	void doNotCollideWith(int16_t collisionGroup);
+	void resetCollisionGroup();
 
 protected:
 	b2Body& getBody();

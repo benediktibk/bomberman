@@ -59,21 +59,14 @@ Point PhysicalObject::getCenterPosition() const
 void PhysicalObject::setCollisionGroup(int16_t collisionGroup)
 {
 	b2Filter filter = m_fixture->GetFilterData();
-	filter.categoryBits = collisionGroup;
+	filter.groupIndex = collisionGroup;
 	m_fixture->SetFilterData(filter);
 }
 
-void PhysicalObject::collideWith(int16_t collisionGroup)
+void PhysicalObject::resetCollisionGroup()
 {
 	b2Filter filter = m_fixture->GetFilterData();
-	filter.maskBits = filter.maskBits | collisionGroup;
-	m_fixture->SetFilterData(filter);
-}
-
-void PhysicalObject::doNotCollideWith(int16_t collisionGroup)
-{
-	b2Filter filter = m_fixture->GetFilterData();
-	filter.maskBits = filter.maskBits & ~collisionGroup;
+	filter.groupIndex = 0;
 	m_fixture->SetFilterData(filter);
 }
 
