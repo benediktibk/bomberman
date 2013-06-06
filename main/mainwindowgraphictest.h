@@ -33,6 +33,7 @@ private slots:
 private:
 	void connectSlots();
 	void drawState1();
+	void drawState2();
 
 private:
 	Ui::MainWindowGraphicTest *m_ui;

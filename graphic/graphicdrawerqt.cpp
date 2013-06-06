@@ -1,7 +1,7 @@
-#include "graphicdrawerqt.h"
-#include "player.h"
-#include "wall.h"
-#include "bomb.h"
+#include "graphic/graphicdrawerqt.h"
+#include "graphic/player.h"
+#include "graphic/wall.h"
+#include "graphic/bomb.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 
@@ -12,7 +12,6 @@ using namespace std;
 GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view) :
 	m_view(view),
 	m_scene(new QGraphicsScene()),
-	m_player(new Player(*m_scene)),
 	m_pixelPerMeter(40),
 	m_firstRedraw(true)
 {
@@ -26,7 +25,7 @@ GraphicDrawerQt::~GraphicDrawerQt()
 	deleteWalls();
 	deleteBombs();
 	deleteBorderWalls();
-	delete m_player;
+	deletePlayers();
 	delete m_scene;
 }
 
@@ -37,7 +36,7 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 
 	drawWalls(gameState.getAllChangedWalls());
 	drawBombs(gameState.getAllChangedBombs());
-	drawPlayer(gameState.getFirstPlayerState());
+	drawPlayers(gameState);
 	m_firstRedraw = false;
 }
 
@@ -46,9 +45,29 @@ QGraphicsScene &GraphicDrawerQt::getScene()
 	return *m_scene;
 }
 
-void GraphicDrawerQt::drawPlayer(const PlayerState &playerState)
+void GraphicDrawerQt::drawPlayers(const GameState &gameState)
 {
-	m_player->update(playerState, m_pixelPerMeter);
+	vector<const PlayerState*> players = gameState.getAllPlayers();
+
+	for (vector<const PlayerState*>::const_iterator i = players.begin(); i != players.end(); ++i)
+		drawPlayer(*i);
+}
+
+void GraphicDrawerQt::drawPlayer(const PlayerState *playerState)
+{
+	map<const PlayerState*, Player*>::iterator playerPosition = m_players.find(playerState);
+	bool playerFound = playerPosition != m_players.end();
+	Player* player = 0;
+
+	if (!playerFound)
+		player = new Player(*m_scene);
+	else
+		player = playerPosition->second;
+
+	player->update(*playerState, m_pixelPerMeter);
+
+	if (!playerFound)
+		m_players.insert(pair<const PlayerState*, Player*>(playerState, player));
 }
 
 void GraphicDrawerQt::drawWalls(const vector<const WallState*> &walls)
@@ -143,9 +162,9 @@ void GraphicDrawerQt::drawLowerBorderWalls(unsigned int width)
 void GraphicDrawerQt::drawEdgeBorderWalls(unsigned int width, unsigned int height)
 {
 	m_borderWalls.push_back(new Wall(*m_scene, Point(-1, -1), m_pixelPerMeter));
-    m_borderWalls.push_back(new Wall(*m_scene, Point(-1, height), m_pixelPerMeter));
+	m_borderWalls.push_back(new Wall(*m_scene, Point(-1, height), m_pixelPerMeter));
 	m_borderWalls.push_back(new Wall(*m_scene, Point(width, -1), m_pixelPerMeter));
-    m_borderWalls.push_back(new Wall(*m_scene, Point(width, height), m_pixelPerMeter));
+	m_borderWalls.push_back(new Wall(*m_scene, Point(width, height), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::deleteWalls()
@@ -184,4 +203,12 @@ void GraphicDrawerQt::deleteBorderWalls()
 		delete *i;
 
 	m_borderWalls.clear();
+}
+
+void GraphicDrawerQt::deletePlayers()
+{
+	for (map<const PlayerState*, Player*>::iterator i = m_players.begin(); i != m_players.end(); ++i)
+		delete i->second;
+
+	m_players.clear();
 }

@@ -32,6 +32,11 @@
         <string>the player, two bombs, two solid walls and a loose wall placed somewhere</string>
        </property>
       </item>
+      <item>
+       <property name="text">
+        <string>three players</string>
+       </property>
+      </item>
      </widget>
     </item>
    </layout>
