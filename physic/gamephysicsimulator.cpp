@@ -3,6 +3,7 @@
 #include "physic/dynamicobject.h"
 #include "physic/staticobject.h"
 #include "physic/player.h"
+#include "physic/wall.h"
 #include "common/bombstate.h"
 #include "common/wallstate.h"
 #include "common/playerstate.h"
@@ -49,7 +50,7 @@ void GamePhysicSimulator::updateItems(const GameState &state)
 
 void GamePhysicSimulator::deleteAllWallObjects()
 {
-	for(map<const WallState*, StaticObject*>::iterator i = m_wallObjects.begin(); i != m_wallObjects.end(); i++)
+	for(map<const WallState*, Wall*>::iterator i = m_wallObjects.begin(); i != m_wallObjects.end(); i++)
 		delete i->second;
 
 	m_wallObjects.clear();
@@ -103,16 +104,16 @@ void GamePhysicSimulator::updateWalls(const GameState &state)
 
 void GamePhysicSimulator::updateWall(const WallState *wall)
 {
-	map<const WallState*, StaticObject*>::iterator position = m_wallObjects.find(wall);
+	map<const WallState*, Wall*>::iterator position = m_wallObjects.find(wall);
 	bool wallFound = position != m_wallObjects.end();
-	StaticObject *wallObject = 0;
+	Wall *wallObject = 0;
 
 	if (wallFound)
 		wallObject = position->second;
 	else
 	{
-		wallObject = new StaticObject(*m_simulator, wall->getPosition(), 1, 1);
-		m_wallObjects.insert(pair<const WallState*, StaticObject*>(wall, wallObject));
+		wallObject = new Wall(*m_simulator, *wall);
+		m_wallObjects.insert(pair<const WallState*, Wall*>(wall, wallObject));
 		position = m_wallObjects.find(wall);
 	}
 

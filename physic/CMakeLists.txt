@@ -3,6 +3,7 @@ set(PHYSIC_SRC
 	dynamicobject.cpp
 	staticobject.cpp
 	player.cpp
+	wall.cpp
 	collisiongroups.cpp
 	physicalobject.cpp
 	gamephysicsimulator.cpp

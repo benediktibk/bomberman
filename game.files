@@ -269,3 +269,5 @@ common/inputfetcherstub.h
 common/inputfetcherstub.cpp
 common/inputfetchermock.h
 common/inputfetchermock.cpp
+physic/wall.h
+physic/wall.cpp
