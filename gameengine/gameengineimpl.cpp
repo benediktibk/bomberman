@@ -87,6 +87,7 @@ void GameEngineImpl::updatePlayerPosition()
 	}
 
 	m_simulator->simulateStep(m_playerState, m_elapsedTime - realSimulatedTime);
+	m_playerState.removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith();
 }
 
 void GameEngineImpl::setPlayerSpeedIfMoreThanOneDirectionIsSelected()
@@ -203,6 +204,7 @@ void GameEngineImpl::placeBombs()
 		bombPlaced->setPosition(m_playerState.getCenterPosition());
 		m_grid->addBombAtPlace(*bombPlaced);
 		m_playerState.countBomb();
+		m_playerState.doNotCollideWith(bombPlaced);
 		m_gameState.addBomb(bombPlaced);
 	}
 }

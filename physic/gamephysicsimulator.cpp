@@ -45,6 +45,7 @@ void GamePhysicSimulator::updateItems(const GameState &state)
 {
 	updateBombs(state);
 	updateWalls(state);
+	updateCollisionGroups(state.getPlayerState());
 }
 
 void GamePhysicSimulator::deleteAllWallObjects()
@@ -120,5 +121,21 @@ void GamePhysicSimulator::updateWall(const WallState *wall)
 	{
 		m_wallObjects.erase(position);
 		delete wallObject;
+	}
+}
+
+void GamePhysicSimulator::updateCollisionGroups(const PlayerState &player)
+{
+	for (map<const BombState*, Bomb*>::iterator i = m_bombObjects.begin(); i != m_bombObjects.end(); ++i)
+	{
+		Bomb *bomb = i->second;
+		bomb->collideWithEverything();
+	}
+
+	vector<const BombState*> bombsNotToCollideWith = player.getBombsNotToCollideWith();
+	for (vector<const BombState*>::const_iterator i = bombsNotToCollideWith.begin(); i != bombsNotToCollideWith.end(); ++i)
+	{
+		Bomb *bomb = m_bombObjects.at(*i);
+		bomb->doNotCollideWith(player);
 	}
 }

@@ -1,6 +1,7 @@
 #include "common/playerstate.h"
 #include "common/bombstate.h"
 #include <assert.h>
+#include <algorithm>
 
 using namespace Common;
 using namespace std;
@@ -215,4 +216,11 @@ void PlayerState::removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith()
 vector<const BombState *> PlayerState::getBombsNotToCollideWith() const
 {
 	return m_bombsNotToCollideWith;
+}
+
+void PlayerState::removeDestroyedBombFromCollisionStorage(const BombState *bomb)
+{
+	assert(bomb->isDestroyed());
+	vector<const BombState *>::iterator end = remove(m_bombsNotToCollideWith.begin(), m_bombsNotToCollideWith.end(), bomb);
+	m_bombsNotToCollideWith.erase(end, m_bombsNotToCollideWith.end());
 }

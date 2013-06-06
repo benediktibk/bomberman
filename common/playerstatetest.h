@@ -51,6 +51,7 @@ namespace Common
 		CPPUNIT_TEST(doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideWith);
 		CPPUNIT_TEST(removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith_twoBombsCoveredByPlayer_twoBombsNotToCollideWith);
 		CPPUNIT_TEST(removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith_playerBesideOnlyBomb_noBombsNotToCollideWith);
+		CPPUNIT_TEST(removeDestroyedBombFromCollisionStorage_twoBombsAddedAndFirstOneExploded_oneBombNotToCollideWith);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -97,6 +98,7 @@ namespace Common
 		void doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideWith();
 		void removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith_twoBombsCoveredByPlayer_twoBombsNotToCollideWith();
 		void removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith_playerBesideOnlyBomb_noBombsNotToCollideWith();
+		void removeDestroyedBombFromCollisionStorage_twoBombsAddedAndFirstOneExploded_oneBombNotToCollideWith();
 
 	private:
 		UniqueIdCreator *m_playerIDCreator;

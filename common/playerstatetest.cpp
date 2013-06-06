@@ -388,3 +388,21 @@ void PlayerStateTest::removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith_
 	vector<const BombState*> result = player.getBombsNotToCollideWith();
 	CPPUNIT_ASSERT_EQUAL((size_t)0, result.size());
 }
+
+void PlayerStateTest::removeDestroyedBombFromCollisionStorage_twoBombsAddedAndFirstOneExploded_oneBombNotToCollideWith()
+{
+	BombState bombOne(*m_bombIDCreator);
+	BombState bombTwo(*m_bombIDCreator);
+	PlayerState player(*m_playerIDCreator);
+	bombOne.setPosition(Point(1, 2));
+	bombOne.setPosition(Point(1, 3));
+	player.setPosition(Point(1, 2.5));
+	player.doNotCollideWith(&bombOne);
+	player.doNotCollideWith(&bombTwo);
+	bombOne.setDestroyed();
+
+	player.removeDestroyedBombFromCollisionStorage(&bombOne);
+
+	vector<const BombState*> result = player.getBombsNotToCollideWith();
+	CPPUNIT_ASSERT_EQUAL((size_t)1, result.size());
+}
