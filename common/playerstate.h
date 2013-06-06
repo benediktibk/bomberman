@@ -3,9 +3,12 @@
 
 #include "common/point.h"
 #include "common/uniqueidcreator.h"
+#include <vector>
 
 namespace Common
 {
+	class BombState;
+
 	class PlayerState
 	{
 	public:
@@ -48,6 +51,9 @@ namespace Common
 		void setHeight(double value);
 		bool canPlayerPlaceBomb () const;
 		Point getCenterPosition() const;
+		void doNotCollideWith(const Common::BombState *bomb);
+		void removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith();
+		std::vector<const Common::BombState*> getBombsNotToCollideWith() const;
 
 	private:
 		// forbid copies
@@ -65,6 +71,7 @@ namespace Common
 		unsigned int m_playerId;
 		UniqueIdCreator &m_creatorId;
 		bool m_moving;
+		std::vector<const Common::BombState*> m_bombsNotToCollideWith;
 	};
 }
 

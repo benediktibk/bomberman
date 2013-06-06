@@ -47,6 +47,10 @@ namespace Common
 		CPPUNIT_TEST(getSpeedIntoY_movingAndDirectionRight_0);
 		CPPUNIT_TEST(setHeight_5_heightIs5);
 		CPPUNIT_TEST(setWidth_5_widthIs5);
+		CPPUNIT_TEST(doNotCollideWith_validBomb_oneBombNotToCollideWith);
+		CPPUNIT_TEST(doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideWith);
+		CPPUNIT_TEST(removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith_twoBombsCoveredByPlayer_twoBombsNotToCollideWith);
+		CPPUNIT_TEST(removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith_playerBesideOnlyBomb_noBombsNotToCollideWith);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -89,9 +93,14 @@ namespace Common
 		void getSpeedIntoY_movingAndDirectionRight_0();
 		void setHeight_5_heightIs5();
 		void setWidth_5_widthIs5();
+		void doNotCollideWith_validBomb_oneBombNotToCollideWith();
+		void doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideWith();
+		void removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith_twoBombsCoveredByPlayer_twoBombsNotToCollideWith();
+		void removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith_playerBesideOnlyBomb_noBombsNotToCollideWith();
 
 	private:
-		UniqueIdCreator *m_idCreator;
+		UniqueIdCreator *m_playerIDCreator;
+		UniqueIdCreator *m_bombIDCreator;
 	};
 }
 

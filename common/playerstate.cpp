@@ -1,6 +1,9 @@
-#include "playerstate.h"
+#include "common/playerstate.h"
+#include "common/bombstate.h"
 #include <assert.h>
+
 using namespace Common;
+using namespace std;
 
 PlayerState::PlayerState(UniqueIdCreator &creator) :
 	m_direction(PlayerDirectionUp),
@@ -197,4 +200,19 @@ bool PlayerState::canPlayerPlaceBomb() const
 Point PlayerState::getCenterPosition() const
 {
 	return m_position + Point(m_width/2,m_height/2);
+}
+
+void PlayerState::doNotCollideWith(const BombState *bomb)
+{
+	m_bombsNotToCollideWith.push_back(bomb);
+}
+
+void PlayerState::removeBombsWhichAreNotCoveredByPlayerFromDoNotCollideWith()
+{
+	//! @todo implement
+}
+
+vector<const BombState *> PlayerState::getBombsNotToCollideWith() const
+{
+	return m_bombsNotToCollideWith;
 }
