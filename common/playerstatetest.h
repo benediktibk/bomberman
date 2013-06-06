@@ -45,6 +45,8 @@ namespace Common
 		CPPUNIT_TEST(getSpeedIntoY_movingAndDirectionDown_minusMaximumSpeed);
 		CPPUNIT_TEST(getSpeedIntoY_movingAndDirectionLeft_0);
 		CPPUNIT_TEST(getSpeedIntoY_movingAndDirectionRight_0);
+		CPPUNIT_TEST(setHeight_5_heightIs5);
+		CPPUNIT_TEST(setWidth_5_widthIs5);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -85,6 +87,8 @@ namespace Common
 		void getSpeedIntoY_movingAndDirectionDown_minusMaximumSpeed();
 		void getSpeedIntoY_movingAndDirectionLeft_0();
 		void getSpeedIntoY_movingAndDirectionRight_0();
+		void setHeight_5_heightIs5();
+		void setWidth_5_widthIs5();
 
 	private:
 		UniqueIdCreator *m_idCreator;

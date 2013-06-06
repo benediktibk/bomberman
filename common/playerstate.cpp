@@ -145,6 +145,16 @@ double PlayerState::getHeight() const
 	return m_height;
 }
 
+void PlayerState::setWidth(double value)
+{
+	m_width = value;
+}
+
+void PlayerState::setHeight(double value)
+{
+	m_height = value;
+}
+
 double PlayerState::getWidth() const
 {
 	return m_width;

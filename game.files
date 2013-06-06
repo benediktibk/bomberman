@@ -275,3 +275,5 @@ physic/bomb.h
 physic/bomb.cpp
 physic/physicalobjecttest.h
 physic/physicalobjecttest.cpp
+physic/bombtest.h
+physic/bombtest.cpp

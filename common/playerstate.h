@@ -44,6 +44,8 @@ namespace Common
 		bool isMoving() const;
 		double getWidth() const;
 		double getHeight() const;
+		void setWidth(double value);
+		void setHeight(double value);
 		bool canPlayerPlaceBomb () const;
 		Point getCenterPosition() const;
 

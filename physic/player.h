@@ -2,6 +2,12 @@
 #define PHYSIC_PLAYER_H
 
 #include "common/point.h"
+#include <stdint.h>
+
+namespace Common
+{
+	class PlayerState;
+}
 
 namespace Physic
 {
@@ -13,7 +19,7 @@ namespace Physic
 	class Player
 	{
 	public:
-		Player(PhysicSimulator &simulator, const Common::Point &position, double width, double height);
+		Player(PhysicSimulator &simulator, const Common::PlayerState &player);
 		~Player();
 
 		Common::Point getPosition() const;
@@ -28,7 +34,7 @@ namespace Physic
 		bool isMoving() const;
 
 	private:
-		void updateObjectToPhysicalDimensions(const Common::Point &position);
+		void updateObjectToPhysicalDimensions(const Common::Point &position, int16_t collisionGroup);
 
 	private:
 		PhysicSimulator &m_simulator;

@@ -4,6 +4,12 @@
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
+namespace Common
+{
+	class UniqueIdCreator;
+	class PlayerState;
+}
+
 namespace Physic
 {
 class PlayerTest :
@@ -31,6 +37,10 @@ class PlayerTest :
 	 CPPUNIT_TEST(getCenterPosition_movingIntoY_correctPosition);
 	 CPPUNIT_TEST_SUITE_END();
 
+public:
+	 virtual void setUp();
+	 virtual void tearDown();
+
 private:
 	 void constructor_validDimensions_bodyCountOfSimulatorIs1();
 	 void destructor_empty_bodyCountOfSimulatorIs0();
@@ -51,6 +61,10 @@ private:
 	 void getPosition_movingIntoY_correctPosition();
 	 void getCenterPosition_movingIntoX_correctPosition();
 	 void getCenterPosition_movingIntoY_correctPosition();
+
+private:
+	 Common::UniqueIdCreator *m_playerIDCreator;
+	 Common::PlayerState *m_playerState;
 };
 }
 

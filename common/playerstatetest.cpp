@@ -310,4 +310,22 @@ void PlayerStateTest::getSpeedIntoY_movingAndDirectionRight_0()
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getSpeedIntoY(), 0.0001);
 }
 
+void PlayerStateTest::setHeight_5_heightIs5()
+{
+	PlayerState player(*m_idCreator);
+
+	player.setHeight(5);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(5, player.getHeight(), 0.0001);
+}
+
+void PlayerStateTest::setWidth_5_widthIs5()
+{
+	PlayerState player(*m_idCreator);
+
+	player.setWidth(5);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(5, player.getWidth(), 0.0001);
+}
+
 

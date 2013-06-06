@@ -18,6 +18,7 @@ set(PHYSIC_TEST_SRC
 	playertest.cpp
 	collisiongroupstest.cpp
 	gamephysicsimulatortest.cpp
+	bombtest.cpp
 )
 
 include_directories(

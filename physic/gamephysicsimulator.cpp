@@ -15,7 +15,7 @@ using namespace std;
 
 GamePhysicSimulator::GamePhysicSimulator(const LevelDefinition &level, const PlayerState &player) :
 	m_simulator(new PhysicSimulator),
-	m_player(new Player(*m_simulator, player.getPosition(), player.getWidth(), player.getHeight())),
+	m_player(new Player(*m_simulator, player)),
 	m_upperBorder(new StaticObject(*m_simulator, Point(0, level.getLevelHeight()), level.getLevelWidth(), 1)),
 	m_lowerBorder(new StaticObject(*m_simulator, Point(0, -1), level.getLevelWidth(), 1)),
 	m_leftBorder(new StaticObject(*m_simulator, Point(-1, 0), 1, level.getLevelHeight())),

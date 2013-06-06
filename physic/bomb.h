@@ -4,6 +4,7 @@
 namespace Common
 {
 	class BombState;
+	class PlayerState;
 }
 
 namespace Physic
@@ -16,6 +17,9 @@ namespace Physic
 	public:
 		Bomb(PhysicSimulator &simulator, const Common::BombState &bomb);
 		~Bomb();
+
+		void doNotCollideWith(const Common::PlayerState &player);
+		void collideWithEverything();
 
 	private:
 		StaticObject *m_object;
