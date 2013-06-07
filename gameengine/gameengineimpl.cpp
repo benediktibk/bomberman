@@ -100,12 +100,6 @@ void GameEngineImpl::updatePlayerPositions()
 	double realSimulatedTime = 0;
 	double timeTillOnePlayerReachesGridPoint = getTimeTillOnePlayerReachesGridPoint();
 
-	if (timeTillOnePlayerReachesGridPoint == 0)
-	{
-		updatePlayerVelocities();
-		timeTillOnePlayerReachesGridPoint = getTimeTillOnePlayerReachesGridPoint();
-	}
-
 	do
 	{
 		if (realSimulatedTime + timeTillOnePlayerReachesGridPoint < m_elapsedTime)

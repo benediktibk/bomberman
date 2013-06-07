@@ -17,5 +17,7 @@ const GameState &GameEngineStub::getGameState() const
 
 vector<unsigned int> GameEngineStub::getAllPossiblePlayerIDs() const
 {
-	return vector<unsigned int>();
+	 vector<unsigned int> result;
+	 result.push_back(23);
+	 return result;
 }

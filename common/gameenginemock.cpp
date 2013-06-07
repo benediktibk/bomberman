@@ -20,7 +20,9 @@ const GameState &GameEngineMock::getGameState() const
 
 vector<unsigned int> GameEngineMock::getAllPossiblePlayerIDs() const
 {
-	return vector<unsigned int>();
+	vector<unsigned int> result;
+	result.push_back(23);
+	return result;
 }
 
 unsigned int GameEngineMock::getCallsToUpdateGameState() const
