@@ -556,6 +556,49 @@ void GameEngineImplTest::updateGamestate_pressDownAndThenLeft_playerKeepsDirecti
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
 
+void GameEngineImplTest::updateGameState_movementOfSecondPlayer_positionOfSecondPlayerIsCorrect()
+{
+	InputState input;
+	createGameEngine(LevelDefinition(), 2);
+	GameState &gameState = m_gameEngine->getGameState();
+	PlayerState &secondPlayer = gameState.getSecondPlayerState();
+	const double timeForOneField = 1/secondPlayer.getMaximumSpeed();
+	secondPlayer.setPosition(Point(0, 1));
+
+	input.setRightKeyPressed();
+	setSecondPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	input.setRightKeyNotPressed();
+	setSecondPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+
+	Point positionShouldBe(1, 1);
+	Point positionReal(secondPlayer.getPosition());
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
+}
+
+void GameEngineImplTest::updateGameState_movementOfSecondPlayer_firstPlayerDoesntMove()
+{
+	InputState input;
+	createGameEngine(LevelDefinition(), 2);
+	GameState &gameState = m_gameEngine->getGameState();
+	const PlayerState &firstPlayer = gameState.getFirstPlayerState();
+	PlayerState &secondPlayer = gameState.getSecondPlayerState();
+	const double timeForOneField = 1/secondPlayer.getMaximumSpeed();
+	secondPlayer.setPosition(Point(0, 1));
+
+	input.setRightKeyPressed();
+	setSecondPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	input.setRightKeyNotPressed();
+	setSecondPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+
+	Point positionShouldBe(0, 0);
+	Point positionReal(firstPlayer.getPosition());
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
+}
+
 void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
 {
 	LevelDefinition level(4, 4);
@@ -838,7 +881,10 @@ void GameEngineImplTest::createGameEngine(const LevelDefinition &level, unsigned
 
 	m_gameEngine = new GameEngineImpl(level, playerCount);
 	vector<unsigned int> playerIDs = m_gameEngine->getAllPossiblePlayerIDs();
-	m_firstPlayerID = playerIDs.front();
+	m_firstPlayerID = playerIDs[0];
+
+	if (playerCount > 1)
+		m_secondPlayerID = playerIDs[1];
 
 	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
 		m_inputStates.insert(pair<unsigned int, InputState>(*i, InputState()));
@@ -847,6 +893,11 @@ void GameEngineImplTest::createGameEngine(const LevelDefinition &level, unsigned
 void GameEngineImplTest::setFirstPlayerInput(const InputState &input)
 {
 	m_inputStates[m_firstPlayerID] = input;
+}
+
+void GameEngineImplTest::setSecondPlayerInput(const InputState &input)
+{
+	m_inputStates[m_secondPlayerID] = input;
 }
 
 void GameEngineImplTest::setUp()

@@ -40,6 +40,8 @@ namespace GameEngine
 		CPPUNIT_TEST(updateGamestate_pressDownAndThenLeft_playerKeepsDirection);
 		CPPUNIT_TEST(updateGameState_placeBombAndStayAtPlace_playerDoesntMove);
 		CPPUNIT_TEST(updateGameState_placeBombMoveAwayAndTryToMoveThroughBomb_playerStaysBesideBomb);
+		CPPUNIT_TEST(updateGameState_movementOfSecondPlayer_positionOfSecondPlayerIsCorrect);
+		CPPUNIT_TEST(updateGameState_movementOfSecondPlayer_firstPlayerDoesntMove);
 		CPPUNIT_TEST(getHeight_HeightOfLevelDefinition_HeightOfGamestate);
 		CPPUNIT_TEST(getWidth_WidthOfLevelDefinition_WidthOfGamestate);
 		CPPUNIT_TEST(getWallCount_Create4x4LevelWith2Wall_WallCount2);
@@ -93,6 +95,8 @@ namespace GameEngine
 		void updateGameState_pressLeftAndThenDown_playerKeepsDirection();
 		void updateGameState_pressUpAndThenRight_playerKeepsDirection();
 		void updateGamestate_pressDownAndThenLeft_playerKeepsDirection();
+		void updateGameState_movementOfSecondPlayer_positionOfSecondPlayerIsCorrect();
+		void updateGameState_movementOfSecondPlayer_firstPlayerDoesntMove();
 		void getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints();
 		void getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayLeftToGridPoint_halfTimeToMoveBetweenTwoGridPoints();
 		void getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayUpToGridPoint_halfTimeToMoveBetweenTwoGridPoints();
@@ -110,11 +114,13 @@ namespace GameEngine
 	private:
 		void createGameEngine(const Common::LevelDefinition &level, unsigned int playerCount);
 		void setFirstPlayerInput(const Common::InputState &input);
+		void setSecondPlayerInput(const Common::InputState &input);
 
 	private:
 		std::map<unsigned int, Common::InputState> m_inputStates;
 		GameEngineImpl *m_gameEngine;
 		unsigned int m_firstPlayerID;
+		unsigned int m_secondPlayerID;
 	};
 }
 

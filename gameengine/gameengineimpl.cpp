@@ -25,6 +25,9 @@ GameEngineImpl::GameEngineImpl(const LevelDefinition &level, unsigned int player
 
 	for (vector<const WallState*>::const_iterator i = walls.begin(); i != walls.end(); ++i)
 		m_grid->addWallAtPlace(**i);
+
+	for (unsigned int i = 0; i < playerCount; ++i)
+		m_inputStates.insert(pair<unsigned int, InputState>(i, InputState()));
 }
 
 GameEngineImpl::~GameEngineImpl()
@@ -35,6 +38,7 @@ GameEngineImpl::~GameEngineImpl()
 
 void GameEngineImpl::updateGameState(const std::map<unsigned int, Common::InputState> &inputStates, double time)
 {
+	assert(m_inputStates.size() == inputStates.size());
 	m_inputStates = inputStates;
 	m_elapsedTime = time;
 
