@@ -207,6 +207,22 @@ void PlayerTest::getCenterPosition_movingIntoY_correctPosition()
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.0001));
 }
 
+void PlayerTest::getVelocityX_notMoving_0()
+{
+	PhysicSimulator simulator;
+	Player player(simulator, *m_playerState);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getVelocityX(), 0.00001);
+}
+
+void PlayerTest::getVelocityY_notMoving_0()
+{
+	PhysicSimulator simulator;
+	Player player(simulator, *m_playerState);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getVelocityY(), 0.00001);
+}
+
 void PlayerTest::setUp()
 {
 	m_playerIDCreator = new UniqueIdCreator;
