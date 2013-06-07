@@ -8,6 +8,7 @@
 #include <assert.h>
 #include <algorithm>
 #include <limits>
+#include <math.h>
 
 using namespace GameEngine;
 using namespace Common;
@@ -98,6 +99,12 @@ void GameEngineImpl::updatePlayerPositions()
 	updatePlayerVelocities();
 	double realSimulatedTime = 0;
 	double timeTillOnePlayerReachesGridPoint = getTimeTillOnePlayerReachesGridPoint();
+
+	if (timeTillOnePlayerReachesGridPoint == 0)
+	{
+		updatePlayerVelocities();
+		timeTillOnePlayerReachesGridPoint = getTimeTillOnePlayerReachesGridPoint();
+	}
 
 	do
 	{
@@ -206,21 +213,42 @@ double GameEngineImpl::getTimeTillPlayerReachesGridPoint(const PlayerState &play
 
 	if (velocityX != 0)
 	{
-		if (velocityX > 0)
-			time = (position.getX() - gridPosition.getX())/velocityX;
+		double positionX = position.getX();
+		unsigned int gridPositionX = gridPosition.getX();
+
+		//! @todo replace with fuzzy
+		if (fabs(gridPositionX - positionX) < 0.05)
+			time = 1/fabs(velocityX);
 		else
-			time = (position.getX() - (gridPosition.getX() + 1))/velocityX;
+		{
+			if (velocityX > 0)
+				time = (positionX - gridPositionX)/velocityX;
+			else
+				time = (positionX - (gridPositionX + 1))/velocityX;
+		}
 	}
 
 	if (velocityY != 0)
 	{
-		if (velocityY > 0)
-			time = (position.getY() - gridPosition.getY())/velocityY;
+		double positionY = position.getY();
+		unsigned int gridPositionY = gridPosition.getY();
+
+		//! @todo replace with fuzzy
+		if (fabs(gridPositionY - positionY) < 0.05)
+			time = 1/fabs(velocityY);
 		else
-			time = (position.getY() - (gridPosition.getY() + 1))/velocityY;
+		{
+			if (velocityY > 0)
+				time = (positionY - gridPositionY)/velocityY;
+			else
+				time = (positionY - (gridPositionY + 1))/velocityY;
+		}
 	}
 
-	return max(0.0, time);
+	if (player.isMoving())
+		return max(0.0, time);
+	else
+		return numeric_limits<double>::max()/2;
 }
 
 void GameEngineImpl::updateBombs()

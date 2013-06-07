@@ -446,7 +446,7 @@ void GameEngineImplTest::updateGameState_moveTowardsWallAndAgainAway_playerPosit
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(realPosition, 0.05));
 }
 
-void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
+void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
 {
 	LevelDefinition level(4, 4);
 	createGameEngine(level, 1);
@@ -461,7 +461,7 @@ void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayRig
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(halfTimeToReachGridPoint, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.0001);
 }
 
-void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayLeftToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
+void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayLeftToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
 {
 	LevelDefinition level(4, 4);
 	createGameEngine(level, 1);
@@ -479,7 +479,7 @@ void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayLef
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(halfTimeToReachGridPoint, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.05);
 }
 
-void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayUpToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
+void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayUpToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
 {
 	LevelDefinition level(4, 4);
 	createGameEngine(level, 1);
@@ -494,7 +494,7 @@ void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayUpT
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(halfTimeToReachGridPoint, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.0001);
 }
 
-void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayDownToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
+void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayDownToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
 {
 	LevelDefinition level(4, 4);
 	createGameEngine(level, 1);
@@ -504,23 +504,40 @@ void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerMovedHalfWayDow
 	double halfTimeToReachGridPoint = 1/(2*player.getMaximumSpeed());
 
 	input.setUpKeyPressed();
+	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, halfTimeToReachGridPoint*10);
 	input.setUpKeyNotPressed();
 	input.setDownKeyPressed();
+	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, halfTimeToReachGridPoint);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(halfTimeToReachGridPoint, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.05);
 }
 
-void GameEngineImplTest::getTimeTillPlayerReachesGridPoint_playerStaysOnGridPoint_0()
+void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerStaysOnGridPoint_0()
 {
 	LevelDefinition level(4, 4);
 	createGameEngine(level, 1);
-	InputState input;
 
 	m_gameEngine->updateGameState(m_inputStates, 10);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.05);
+}
+
+void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerIsMovingButDirectOnGridField_timeToReachNextGridField()
+{
+	LevelDefinition level(4, 4);
+	createGameEngine(level, 1);
+	InputState input;
+	input.setRightKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+
+	double time = m_gameEngine->getTimeTillOnePlayerReachesGridPoint();
+	const GameState &game = m_gameEngine->getGameState();
+	const PlayerState &player = game.getFirstPlayerState();
+	double timeShouldBe = 1/player.getMaximumSpeed();
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(timeShouldBe, time, 0.0001);
 }
 
 void GameEngineImplTest::updateGameState_keyPressedHalfWayToGridFieldAndEnoughTimeToReachIt_playerPositionIsGridField()
