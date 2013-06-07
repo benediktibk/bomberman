@@ -17,11 +17,7 @@ Grid::Grid(unsigned int rows, unsigned int cols) :
 bool Grid::isPlaceEmpty(const Point &position) const
 {
 	GridPoint gridPosition(position);
-	unsigned int index = getVectorIndex(gridPosition);
-	if(m_itemMatrix[index] == ItemFree)
-		return true;
-	else
-		return false;
+	return isPlaceEmpty(gridPosition);
 }
 
 bool Grid::isPlaceEmpty(const GridPoint &position) const
