@@ -100,3 +100,22 @@ void GridPointTest::constructor_pointWithNotExactPositions_correctPosition()
 
 	CPPUNIT_ASSERT_EQUAL(GridPoint(4, 6), point);
 }
+
+void GridPointTest::constructor_gridPoint3And4_3And4()
+{
+	GridPoint source(3, 4);
+
+	GridPoint target(source);
+
+	CPPUNIT_ASSERT_EQUAL(GridPoint(3, 4), target);
+}
+
+void GridPointTest::assignment_gridPoint3And4_3And4()
+{
+	GridPoint source(3, 4);
+	GridPoint target;
+
+	target = source;
+
+	CPPUNIT_ASSERT_EQUAL(GridPoint(3, 4), target);
+}
