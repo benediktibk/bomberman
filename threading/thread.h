@@ -8,25 +8,26 @@ namespace boost
 
 namespace Threading
 {
-class Thread
-{
-public:
-	Thread();
-	virtual ~Thread();
+	class Signal;
 
-	void waitTillFinished() const;
+	class Thread
+	{
+	public:
+		Thread();
+		virtual ~Thread();
 
-protected:
-	virtual void execute() = 0;
+		void waitTillFinished() const;
 
-private:
-	static void threadFunction(Thread *thread);
-	void setFinished();
+	protected:
+		virtual void execute() = 0;
 
-private:
-	boost::thread *m_thread;
-	bool m_finished;
-};
+	private:
+		static void threadFunction(Thread *thread);
+
+	private:
+		Threading::Signal *m_finished;
+		boost::thread *m_thread;
+	};
 }
 
 #endif
