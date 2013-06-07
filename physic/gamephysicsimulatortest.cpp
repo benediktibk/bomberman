@@ -32,7 +32,7 @@ void GamePhysicSimulatorTest::simulateStep_movePlayerTowardsBomb_playerCollidesW
 	GamePhysicSimulator simulator(level);
 	player.setDirectionRight();
 	player.setMoving();
-	BombState *bomb = new BombState(m_bombIDCreator);
+	BombState *bomb = new BombState(m_bombIDCreator, player.getId());
 	bomb->setPosition(Point(3, 0));
 	gameState.addBomb(bomb);
 	simulator.updateItems(gameState);

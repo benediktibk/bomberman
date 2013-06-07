@@ -18,7 +18,6 @@ namespace Common
 		 CPPUNIT_TEST(getAllChangedBombs_twoBombsAdded_resultSizeIs2);
 		 CPPUNIT_TEST(getAllBombsLifeTime_afterReduceLifeTime_resultTimeIs2);
 		 CPPUNIT_TEST(getAllChangedBombs_twoBombsAddedAndOneDeleted_resultSizeIs1);
-		 CPPUNIT_TEST(getAllChangedBombs_twoBombsAddedAndOneDeleted_bombCountIs1);
 		 CPPUNIT_TEST(getAllChangedBombs_oneBombAddedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1);
 		 CPPUNIT_TEST(resetChangedFlags_oneWallAdded_wallIsNotChanged);
 		 CPPUNIT_TEST(resetChangedFlags_oneBombAdded_bombIsNotChanged);
@@ -34,6 +33,9 @@ namespace Common
 		 CPPUNIT_TEST(resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged);
 		 CPPUNIT_TEST(getAllPossiblePlayerIDs_onePlayerCreated_resultSizeIs1);
 		 CPPUNIT_TEST(constructor_3players_playerCountIs3);
+		 CPPUNIT_TEST(setAllBombsWithNoLifeTimeDestroyed_oneBombWithNoLifeTime_resultSizeIs1);
+		 CPPUNIT_TEST(setAllBombsWithNoLifeTimeDestroyed_oneBombWithNoLifeTime_resultIsAddedBomb);
+		 CPPUNIT_TEST(setAllBombsWithNoLifeTimeDestroyed_twoOfThreeBombsWithNoLifeTime_resultSizeIs2);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -44,7 +46,6 @@ namespace Common
 		 void getAllChangedBombs_twoBombsAdded_resultSizeIs2();
 		 void getAllBombsLifeTime_afterReduceLifeTime_resultTimeIs2();
 		 void getAllChangedBombs_twoBombsAddedAndOneDeleted_resultSizeIs1();
-		 void getAllChangedBombs_twoBombsAddedAndOneDeleted_bombCountIs1();
 		 void getAllChangedBombs_oneBombAddedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1();
 		 void resetChangedFlags_oneWallAdded_wallIsNotChanged();
 		 void resetChangedFlags_oneBombAdded_bombIsNotChanged();
@@ -60,6 +61,9 @@ namespace Common
 		 void resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged();
 		 void getAllPossiblePlayerIDs_onePlayerCreated_resultSizeIs1();
 		 void constructor_3players_playerCountIs3();
+		 void setAllBombsWithNoLifeTimeDestroyed_oneBombWithNoLifeTime_resultSizeIs1();
+		 void setAllBombsWithNoLifeTimeDestroyed_oneBombWithNoLifeTime_resultIsAddedBomb();
+		 void setAllBombsWithNoLifeTimeDestroyed_twoOfThreeBombsWithNoLifeTime_resultSizeIs2();
 
 	private:
 		 UniqueIdCreator m_playerIDCreator;

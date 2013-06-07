@@ -21,27 +21,31 @@ namespace GameEngine
 		GameEngineImpl(const Common::LevelDefinition &level, unsigned int playerCount);
 		virtual ~GameEngineImpl();
 
-		virtual void updateGameState(const Common::InputState &inputState, double time);
+		virtual void updateGameState(const std::map<unsigned int, Common::InputState> &inputStates, double time);
 		virtual const Common::GameState& getGameState() const;
+		virtual std::vector<unsigned int> getAllPossiblePlayerIDs() const;
 		Common::GameState& getGameState();
-		double getTimeTillPlayerReachesGridPoint() const;
+		double getTimeTillOnePlayerReachesGridPoint() const;
+		double getTimeTillPlayerReachesGridPoint(const Common::PlayerState &player) const;
 
 	private:
-		void updatePlayerPosition();
-		void updatePlayerVelocity();
-		void setPlayerSpeedIfMoreThanOneDirectionIsSelected();
-		void setPlayerSpeedIntoOnlySelectedDirection();
-		void setPlayerSpeedToNull();
+		void updatePlayerPositions();
+		void updatePlayerVelocities();
+		void updatePlayerVelocity(Common::PlayerState &player, const Common::InputState &input);
+		void updatePlayerWithBombCollisions();
+		void setPlayerSpeedIfMoreThanOneDirectionIsSelected(Common::PlayerState &player, const Common::InputState &input);
+		void setPlayerSpeedIntoOnlySelectedDirection(Common::PlayerState &player, const Common::InputState &input);
+		void setPlayerSpeedToNull(Common::PlayerState &player);
 		void updateBombs();
 		void placeBombs();
+		void placeBombForPlayer(Common::PlayerState &player, const Common::InputState &input);
 
 	private:
-		Common::InputState m_inputState;
+		std::map<unsigned int, Common::InputState> m_inputStates;
 		Common::UniqueIdCreator m_bombids;
 		Common::UniqueIdCreator m_wallids;
 		Common::UniqueIdCreator m_playerIds;
 		Common::GameState m_gameState;
-		Common::PlayerState &m_playerState;
 		double m_elapsedTime;
 		Grid *m_grid;
 		bool m_firstGameStateUpdate;

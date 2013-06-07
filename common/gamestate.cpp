@@ -70,6 +70,18 @@ PlayerState &GameState::getPlayerStateById(unsigned int playerId)
    return *(m_players[0]);
 }
 
+const PlayerState &GameState::getPlayerStateById(unsigned int playerId) const
+{
+	for(size_t i = 0; i < m_players.size(); i++)
+	{
+		if((m_players[i]->getId() == playerId))
+			return *(m_players[i]);
+	}
+
+   assert(false);
+   return *(m_players[0]);
+}
+
 vector<unsigned int> GameState::getAllPossiblePlayerIDs() const
 {
 	vector<unsigned int> result;
@@ -165,17 +177,21 @@ void GameState::reduceAllBombsLifeTime(double time)
 	}
 }
 
-void GameState::setAllBombsWithNoLifeTimeDestroyed(PlayerState &playerState)
+vector<const BombState*> GameState::setAllBombsWithNoLifeTimeDestroyed()
 {
+	vector<const BombState*> destroyedBombs;
+
 	for(size_t i = 0; i < m_bombs.size(); i++)
 	{
 		BombState *currentBomb = m_bombs[i];
 		if (currentBomb->getLifeTime() <= 0)
 		{
 			currentBomb->setDestroyed();
-			playerState.reduceBombCount();
+			destroyedBombs.push_back(currentBomb);
 		}
 	}
+
+	return destroyedBombs;
 }
 
 void GameState::resetChangedFlags()
@@ -246,7 +262,7 @@ void GameState::setBombsLifeTimeToZero(unsigned int bombId)
 {
 	for(size_t i = 0; i < m_bombs.size(); i++)
 	{
-		if((m_bombs[i]->getBombId() == bombId))
+		if((m_bombs[i]->getID() == bombId))
 			m_bombs[i]->setLifeTime(0);
 	}
 }

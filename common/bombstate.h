@@ -13,17 +13,19 @@ class BombState :
 		public DestroyableState
 {
 public:
-	BombState(UniqueIdCreator &creator);
+	BombState(UniqueIdCreator &creator, unsigned int playerID);
 	~BombState();
+
 	void setPosition(const Point &value);
 	const Point& getPosition() const;
 	void setLifeTime(double time);
 	double getLifeTime() const;
 	void setDestructionRange(int range);
 	unsigned int getDestructionRange() const;
-	unsigned int getBombId() const;
+	unsigned int getID() const;
 	double getWidth() const;
 	double getHeight() const;
+	unsigned int getPlayerID() const;
 
 private:
 	// forbid copies
@@ -34,6 +36,7 @@ protected:
 	virtual void shouldBeDestroyed();
 
 private:
+	const unsigned int m_playerID;
 	Point m_position;
 	double m_lifeTime;
 	double m_width;

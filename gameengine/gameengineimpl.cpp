@@ -7,6 +7,7 @@
 #include "physic/collisiongroups.h"
 #include <assert.h>
 #include <algorithm>
+#include <limits>
 
 using namespace GameEngine;
 using namespace Common;
@@ -15,7 +16,6 @@ using namespace std;
 
 GameEngineImpl::GameEngineImpl(const LevelDefinition &level, unsigned int playerCount) :
 	m_gameState(level, playerCount, m_playerIds, m_wallids),
-	m_playerState(m_gameState.getFirstPlayerState()),
 	m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
 	m_firstGameStateUpdate(true),
 	m_simulator(new GamePhysicSimulator(level))
@@ -32,19 +32,18 @@ GameEngineImpl::~GameEngineImpl()
 	delete m_simulator;
 }
 
-void GameEngineImpl::updateGameState(const InputState &inputState, double time)
+void GameEngineImpl::updateGameState(const std::map<unsigned int, Common::InputState> &inputStates, double time)
 {
-	m_inputState = inputState;
+	m_inputStates = inputStates;
 	m_elapsedTime = time;
 
 	if (!m_firstGameStateUpdate)
 		m_gameState.resetChangedFlags();
 	m_gameState.removeAllObjectsWithDestroyedFlag();
 	updateBombs();
-	updatePlayerPosition();
+	updatePlayerPositions();
 	placeBombs();
 	m_simulator->updateItems(m_gameState);
-//    applyPowerUps();
 
 	m_firstGameStateUpdate = false;
 }
@@ -59,100 +58,149 @@ Common::GameState &GameEngineImpl::getGameState()
 	return m_gameState;
 }
 
-void GameEngineImpl::updatePlayerVelocity()
+vector<unsigned int> GameEngineImpl::getAllPossiblePlayerIDs() const
 {
-	if (m_inputState.isMoreThanOneMovementButtonPressed())
-		setPlayerSpeedIfMoreThanOneDirectionIsSelected();
-	else if (m_inputState.isMovementButtonPressed())
-		setPlayerSpeedIntoOnlySelectedDirection();
-	else
-		setPlayerSpeedToNull();
+	return m_gameState.getAllPossiblePlayerIDs();
 }
 
-void GameEngineImpl::updatePlayerPosition()
+void GameEngineImpl::updatePlayerVelocity(PlayerState &player, const InputState &input)
 {
-	double realSimulatedTime = 0;
-	vector<GridPoint> playerFields = m_grid->getPlayerFields(m_playerState);
+	if (input.isMoreThanOneMovementButtonPressed())
+		setPlayerSpeedIfMoreThanOneDirectionIsSelected(player, input);
+	else if (input.isMovementButtonPressed())
+		setPlayerSpeedIntoOnlySelectedDirection(player, input);
+	else
+		setPlayerSpeedToNull(player);
+}
 
-	if (playerFields.size() == 1)
-		updatePlayerVelocity();
+void GameEngineImpl::updatePlayerWithBombCollisions()
+{
+	vector<unsigned int> playerIDs = m_gameState.getAllPossiblePlayerIDs();
 
-	double timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
-
-	if (timeTillPlayerReachesGridPoint < m_elapsedTime)
+	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
 	{
-		m_simulator->simulateStep(m_gameState, timeTillPlayerReachesGridPoint);
-		GridPoint gridPosition(m_playerState.getPosition());
-		m_playerState.setPosition(gridPosition.getPointPosition());
-		realSimulatedTime += timeTillPlayerReachesGridPoint;
-		updatePlayerVelocity();
+		PlayerState &player = m_gameState.getPlayerStateById(*i);
+		vector<GridPoint> playerFields = m_grid->getPlayerFields(player);
+		vector<const BombState*> bombsNotToCollideWith = player.getBombsNotToCollideWith();
+
+		for (vector<const BombState*>::const_iterator j = bombsNotToCollideWith.begin(); j != bombsNotToCollideWith.end(); ++j)
+		{
+			GridPoint gridPosition((*j)->getPosition());
+
+			if (count(playerFields.begin(), playerFields.end(), gridPosition) == 0)
+				player.removeBombFromDoNotCollideList(*j);
+		}
 	}
+}
+
+void GameEngineImpl::updatePlayerPositions()
+{
+	updatePlayerVelocities();
+	double realSimulatedTime = 0;
+	double timeTillOnePlayerReachesGridPoint = getTimeTillOnePlayerReachesGridPoint();
+
+	do
+	{
+		if (realSimulatedTime + timeTillOnePlayerReachesGridPoint < m_elapsedTime)
+		{
+			m_simulator->simulateStep(m_gameState, timeTillOnePlayerReachesGridPoint);
+			realSimulatedTime += timeTillOnePlayerReachesGridPoint;
+			updatePlayerVelocities();
+		}
+
+		timeTillOnePlayerReachesGridPoint = getTimeTillOnePlayerReachesGridPoint();
+	} while (realSimulatedTime + timeTillOnePlayerReachesGridPoint < m_elapsedTime);
 
 	m_simulator->simulateStep(m_gameState, m_elapsedTime - realSimulatedTime);
 
-	playerFields = m_grid->getPlayerFields(m_playerState);
-	vector<const BombState*> bombsNotToCollideWith = m_playerState.getBombsNotToCollideWith();
-	for (vector<const BombState*>::const_iterator i = bombsNotToCollideWith.begin(); i != bombsNotToCollideWith.end(); ++i)
-	{
-		GridPoint gridPosition((*i)->getPosition());
+	updatePlayerWithBombCollisions();
+}
 
-		if (count(playerFields.begin(), playerFields.end(), gridPosition) == 0)
-			m_playerState.removeBombFromDoNotCollideList(*i);
+void GameEngineImpl::updatePlayerVelocities()
+{
+	vector<unsigned int> playerIDs = m_gameState.getAllPossiblePlayerIDs();
+
+	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
+	{
+		PlayerState &player = m_gameState.getPlayerStateById(*i);
+		vector<GridPoint> playerFields = m_grid->getPlayerFields(player);
+
+		if (playerFields.size() == 1)
+		{
+			updatePlayerVelocity(player, m_inputStates.at(*i));
+			GridPoint gridPosition(player.getPosition());
+			player.setPosition(gridPosition.getPointPosition());
+		}
 	}
 }
 
-void GameEngineImpl::setPlayerSpeedIfMoreThanOneDirectionIsSelected()
+void GameEngineImpl::setPlayerSpeedIfMoreThanOneDirectionIsSelected(PlayerState &player, const InputState &input)
 {
-	assert(m_inputState.isMoreThanOneMovementButtonPressed());
-	assert(m_inputState.isMovementButtonPressed());
+	assert(input.isMoreThanOneMovementButtonPressed());
+	assert(input.isMovementButtonPressed());
 
-	if (m_inputState.isUpKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionUp)
-		m_playerState.setMoving();
-	else if (m_inputState.isDownKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionDown)
-		m_playerState.setMoving();
-	else if (m_inputState.isLeftKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionLeft)
-		m_playerState.setMoving();
-	else if (m_inputState.isRightKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionRight)
-		m_playerState.setMoving();
+	if (input.isUpKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionUp)
+		player.setMoving();
+	else if (input.isDownKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionDown)
+		player.setMoving();
+	else if (input.isLeftKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionLeft)
+		player.setMoving();
+	else if (input.isRightKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionRight)
+		player.setMoving();
 }
 
-void GameEngineImpl::setPlayerSpeedIntoOnlySelectedDirection()
+void GameEngineImpl::setPlayerSpeedIntoOnlySelectedDirection(PlayerState &player, const InputState &input)
 {
-	assert(!m_inputState.isMoreThanOneMovementButtonPressed());
-	assert(m_inputState.isMovementButtonPressed());
+	assert(!input.isMoreThanOneMovementButtonPressed());
+	assert(input.isMovementButtonPressed());
 
-	if (m_inputState.isUpKeyPressed())
+	if (input.isUpKeyPressed())
 	{
-		m_playerState.setDirectionUp();
-		m_playerState.setMoving();
+		player.setDirectionUp();
+		player.setMoving();
 	}
-	else if (m_inputState.isDownKeyPressed())
+	else if (input.isDownKeyPressed())
 	{
-		m_playerState.setDirectionDown();
-		m_playerState.setMoving();
+		player.setDirectionDown();
+		player.setMoving();
 	}
-	else if (m_inputState.isLeftKeyPressed())
+	else if (input.isLeftKeyPressed())
 	{
-		m_playerState.setDirectionLeft();
-		m_playerState.setMoving();
+		player.setDirectionLeft();
+		player.setMoving();
 	}
-	else if (m_inputState.isRightKeyPressed())
+	else if (input.isRightKeyPressed())
 	{
-		m_playerState.setDirectionRight();
-		m_playerState.setMoving();
+		player.setDirectionRight();
+		player.setMoving();
 	}
 }
 
-void GameEngineImpl::setPlayerSpeedToNull()
+void GameEngineImpl::setPlayerSpeedToNull(Common::PlayerState &player)
 {
-	m_playerState.setNotMoving();
+	player.setNotMoving();
 }
 
-double GameEngineImpl::getTimeTillPlayerReachesGridPoint() const
+double GameEngineImpl::getTimeTillOnePlayerReachesGridPoint() const
 {
-	double velocityX = m_playerState.getSpeedIntoX();
-	double velocityY = m_playerState.getSpeedIntoY();
-	const Point &position = m_playerState.getPosition();
+	vector<unsigned int> playerIDs = m_gameState.getAllPossiblePlayerIDs();
+	double minimalTime = numeric_limits<double>::max();
+
+	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
+	{
+		const PlayerState &player = m_gameState.getPlayerStateById(*i);
+		double timeForOnePlayer = getTimeTillPlayerReachesGridPoint(player);
+		minimalTime = min(minimalTime, timeForOnePlayer);
+	}
+
+	return minimalTime;
+}
+
+double GameEngineImpl::getTimeTillPlayerReachesGridPoint(const PlayerState &player) const
+{
+	double velocityX = player.getSpeedIntoX();
+	double velocityY = player.getSpeedIntoY();
+	const Point &position = player.getPosition();
 	const GridPoint gridPosition(position);
 	double time = 0;
 
@@ -202,32 +250,38 @@ void GameEngineImpl::updateBombs()
 			m_gameState.erasePowerUpById(powerUpsInRange[j]);
 	}
 
-	m_gameState.setAllBombsWithNoLifeTimeDestroyed(m_playerState);
+	vector<const BombState*> destroyedBombs = m_gameState.setAllBombsWithNoLifeTimeDestroyed();
 
-	bombsWithNoLifeTime = m_gameState.getAllBombsWithNoLifeTime();
-	for (vector<const BombState*>::const_iterator i = bombsWithNoLifeTime.begin(); i != bombsWithNoLifeTime.end(); ++i)
-		m_playerState.removeBombFromDoNotCollideList(*i);
+	for (vector<const BombState*>::const_iterator i = destroyedBombs.begin(); i != destroyedBombs.end(); ++i)
+	{
+		unsigned int playerID = (*i)->getPlayerID();
+		PlayerState &player = m_gameState.getPlayerStateById(playerID);
+		player.reduceBombCount();
+		player.removeBombFromDoNotCollideList(*i);
+	}
 }
 
 void GameEngineImpl::placeBombs()
 {
-	if (m_inputState.isSpaceKeyPressed() && m_playerState.canPlayerPlaceBomb())
+	vector<unsigned int> playerIDs = m_gameState.getAllPossiblePlayerIDs();
+
+	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
 	{
-		BombState *bombPlaced = new BombState(m_bombids);
-		bombPlaced->setPosition(m_playerState.getCenterPosition());
-		m_grid->addBombAtPlace(*bombPlaced);
-		m_playerState.countBomb();
-		m_playerState.doNotCollideWith(bombPlaced);
-		m_gameState.addBomb(bombPlaced);
+		PlayerState &player = m_gameState.getPlayerStateById(*i);
+		const InputState &input = m_inputStates.at(*i);
+		placeBombForPlayer(player, input);
 	}
 }
 
-/*
-void GameEngineImpl::applyPowerUps()
+void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &input)
 {
-	std::vector<GridPoint> playerField = m_grid->getPlayerFields(m_player);
-  for (vector<const WallState*>::const_iterator i = changedWalls.begin(); i != changedWalls.end(); ++i)
-	std::vector<unsigned int> powerUpField = m_grid->
+	if (input.isSpaceKeyPressed() && player.canPlayerPlaceBomb())
+	{
+		BombState *bombPlaced = new BombState(m_bombids, player.getId());
+		bombPlaced->setPosition(player.getCenterPosition());
+		m_grid->addBombAtPlace(*bombPlaced);
+		player.countBomb();
+		player.doNotCollideWith(bombPlaced);
+		m_gameState.addBomb(bombPlaced);
+	}
 }
-
-*/

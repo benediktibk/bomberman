@@ -14,8 +14,9 @@ namespace Common
 	public:
 		GameEngineMock();
 
-		virtual void updateGameState(const InputState &inputState, double time);
+		virtual void updateGameState(const std::map<unsigned int, InputState> &inputStates, double time);
 		virtual const GameState& getGameState() const;
+		virtual std::vector<unsigned int> getAllPossiblePlayerIDs() const;
 
 		unsigned int getCallsToUpdateGameState() const;
 

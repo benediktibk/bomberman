@@ -87,7 +87,20 @@ void GameLoop::execute()
 		m_performanceInformationMutex.unlock();
 
 		watchRealCalculatingTime.restart();
-		m_gameEngine.updateGameState(m_inputFetcher.getInputState(), time);
+
+		/*!
+		 * @todo Remove this code and feed the input states direct into
+		 * the game engine, when the input fetcher supports it.
+		 * It should look like this: m_gameEngine.updateGameState(m_inputFetcher.getInputStates(), time);
+		 */
+
+		// begin of temporary code
+		std::vector<unsigned int> playerIDs = m_gameEngine.getAllPossiblePlayerIDs();
+		std::map<unsigned int, InputState> inputStates;
+		inputStates[playerIDs.front()] = m_inputFetcher.getInputState();
+		m_gameEngine.updateGameState(inputStates, time);
+		// end of temporary code
+
 		m_graphicDrawer.draw(m_gameEngine.getGameState());
 		realCalculatingTime = watchRealCalculatingTime.getTimeAndRestart();
 

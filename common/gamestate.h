@@ -22,6 +22,7 @@ public:
 	PlayerState& getSecondPlayerState();
 	const PlayerState& getSecondPlayerState() const;
 	PlayerState& getPlayerStateById(unsigned int playerId);
+	const PlayerState& getPlayerStateById(unsigned int playerId) const;
 	std::vector<unsigned int> getAllPossiblePlayerIDs() const;
 	const std::vector<const PlayerState*>& getAllPlayers() const;
 	std::vector<const WallState*> getAllChangedWalls() const;
@@ -31,7 +32,7 @@ public:
 	size_t getBombCount() const;
 	void addBomb(BombState* bomb);
 	void reduceAllBombsLifeTime(double time);
-	void setAllBombsWithNoLifeTimeDestroyed(PlayerState &playerState);
+	std::vector<const BombState *> setAllBombsWithNoLifeTimeDestroyed();
 	void resetChangedFlags();
 	void removeAllObjectsWithDestroyedFlag();
 	unsigned int getGameStateHeight() const;

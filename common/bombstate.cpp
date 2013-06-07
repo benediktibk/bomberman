@@ -2,7 +2,8 @@
 
 using namespace Common;
 
-BombState::BombState(UniqueIdCreator &creator) :
+BombState::BombState(UniqueIdCreator &creator, unsigned int playerID) :
+	m_playerID(playerID),
 	m_lifeTime(3.0),
 	m_width(1.0),
 	m_height(1.0),
@@ -48,7 +49,7 @@ unsigned int BombState::getDestructionRange() const
 	return m_destructionRange;
 }
 
-unsigned int BombState::getBombId() const
+unsigned int BombState::getID() const
 {
 	return m_bombId;
 }
@@ -56,6 +57,11 @@ unsigned int BombState::getBombId() const
 double BombState::getHeight() const
 {
 	return m_height;
+}
+
+unsigned int BombState::getPlayerID() const
+{
+	return m_playerID;
 }
 
 double BombState::getWidth() const

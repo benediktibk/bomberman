@@ -2,9 +2,11 @@
 #include "gameengine/gameengineimpl.h"
 #include "common/leveldefinition.h"
 #include <stdlib.h>
+#include <map>
 
 using namespace Common;
 using namespace GameEngine;
+using namespace std;
 
 LevelDefinition createRandomLevel()
 {
@@ -31,6 +33,8 @@ int main(int, char**)
 	RandomDecision pressUp(0.3);
 	RandomDecision pressDown(0.3);
 	InputState input;
+	map<unsigned int, InputState> inputs;
+	unsigned int playerID = gameEngine.getAllPossiblePlayerIDs().front();
 
 	while(true)
 	{
@@ -54,7 +58,8 @@ int main(int, char**)
 		else
 			input.setDownKeyNotPressed();
 
-		gameEngine.updateGameState(input, 0.0234);
+		inputs[playerID] = input;
+		gameEngine.updateGameState(inputs, 0.0234);
 	}
 
 	return 0;

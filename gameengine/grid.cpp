@@ -38,7 +38,7 @@ void Grid::addBombAtPlace(BombState &bomb)
 	GridPoint position(bomb.getPosition());
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemBomb;
-	m_idMatrix[index] = bomb.getBombId();
+	m_idMatrix[index] = bomb.getID();
 	bomb.setPosition(position.getPointPosition());
 }
 

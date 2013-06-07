@@ -54,8 +54,8 @@ void MainWindowGraphicTest::drawState1()
 	WallState *wallOne = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(3, 4));
 	WallState *wallTwo = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(2, 3));
 	WallState *wallThree = new WallState(wallIDCreator, WallState::WallTypeLoose, Point(1, 5));
-	BombState *bombOne = new BombState(bombIDCreator);
-	BombState *bombTwo = new BombState(bombIDCreator);
+	BombState *bombOne = new BombState(bombIDCreator, 0);
+	BombState *bombTwo = new BombState(bombIDCreator, 0);
 
 	bombOne->setPosition(Point(0, 2));
 	bombTwo->setPosition(Point(4, 1));

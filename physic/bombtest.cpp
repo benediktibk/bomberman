@@ -12,7 +12,7 @@ using namespace Common;
 void BombTest::doNotCollideWith_player_playerDoesntCollide()
 {
 	PhysicSimulator simulator;
-	BombState bombState(m_bombIDCreator);
+	BombState bombState(m_bombIDCreator, 0);
 	bombState.setPosition(Point(3, 0));
 	Bomb bomb(simulator, bombState);
 	PlayerState playerState(m_playerIDCreator);
@@ -30,7 +30,7 @@ void BombTest::doNotCollideWith_player_playerDoesntCollide()
 void BombTest::collideWithEverything_doNotCollideWithCalled_playerCollides()
 {
 	PhysicSimulator simulator;
-	BombState bombState(m_bombIDCreator);
+	BombState bombState(m_bombIDCreator, 0);
 	bombState.setPosition(Point(3, 0));
 	Bomb bomb(simulator, bombState);
 	PlayerState playerState(m_playerIDCreator);
