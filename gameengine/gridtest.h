@@ -37,7 +37,8 @@ namespace GameEngine
 		 CPPUNIT_TEST(removeBomb_from_3_3);
 		 CPPUNIT_TEST(removeWall_from_3_3);
 		 CPPUNIT_TEST(removeWall_addedWall_placeIsEmpty);
-		 CPPUNIT_TEST(isPlaceEmtpy_coveredByWall_false);
+		 CPPUNIT_TEST(isPlaceEmtpy_coveredByNothing_true);
+		 CPPUNIT_TEST(isPlaceEmpty_coveredByWall_false);
 		 CPPUNIT_TEST(getPlayersinRange_bombat59gridsize1010_1);
 		 CPPUNIT_TEST_SUITE_END();
 
@@ -69,7 +70,8 @@ namespace GameEngine
 		 void getPlayerFields_PlayerAt1comm5and1_11and21();
 		 void getPlayerFields_PlayerAt1and1comma5_11and12();
 		 void removeWall_addedWall_placeIsEmpty();
-		 void isPlaceEmtpy_coveredByWall_false();
+		 void isPlaceEmtpy_coveredByNothing_true();
+		 void isPlaceEmpty_coveredByWall_false();
 		 void getPlayersinRange_bombat59gridsize1010_1();
 	};
 }

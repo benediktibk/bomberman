@@ -93,11 +93,22 @@ void GridTest::removeWall_addedWall_placeIsEmpty()
 	CPPUNIT_ASSERT(grid.isPlaceEmpty(point));
 }
 
-void GridTest::isPlaceEmtpy_coveredByWall_false()
+void GridTest::isPlaceEmtpy_coveredByNothing_true()
 {
 	Grid grid(5, 5);
 
-	CPPUNIT_ASSERT(grid.isPlaceEmpty(Point(3, 2)));
+	CPPUNIT_ASSERT(grid.isPlaceEmpty(GridPoint(3, 2)));
+}
+
+void GridTest::isPlaceEmpty_coveredByWall_false()
+{
+	UniqueIdCreator wallIDCreator;
+	Grid grid(5, 5);
+	Point position(3, 2);
+	WallState wall(wallIDCreator, WallState::WallTypeLoose, position);
+	grid.addWallAtPlace(wall);
+
+	CPPUNIT_ASSERT(!grid.isPlaceEmpty(position));
 }
 
 void GridTest::getWallsInRange_bombat32_twowallsup()
