@@ -31,7 +31,7 @@ add_custom_target(
 	)
 
 set(BACKGROUNDS
-	basic_gradient.svg
+	cell_pattern_1.svg
 )
 
 set(OBJECTS
@@ -58,3 +58,25 @@ add_custom_target(
 	${CMAKE_CURRENT_SOURCE_DIR}/testCoverage.sh ${CMAKE_CURRENT_SOURCE_DIR}
 	DEPENDS testrunner
 )
+
+find_package(Doxygen)
+if(DOXYGEN_FOUND)
+execute_process(COMMAND hg identify -n
+				OUTPUT_VARIABLE HG_CURRENT_REV)
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
+
+add_custom_target(
+
+	doc
+
+	rm -f ${CMAKE_CURRENT_BINARY_DIR}/documentation/html/formula.repository && ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile 2>&1 | grep -v "stl_vector.h" | grep -v "parameter '__"
+
+	WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+
+	COMMENT "Generating API documentation with Doxygen" VERBATIM
+
+	DEPENDS ${COMMON_SRC} ${COMMON_TEST_SRC}
+
+)
+endif(DOXYGEN_FOUND)

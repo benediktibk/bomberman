@@ -26,10 +26,11 @@ private:
 public:
     Grid(unsigned int rows,unsigned int cols);
 
+
     bool isPlaceEmpty(const Common::Point &position) const;
     bool isPlaceEmpty(const Common::GridPoint &position) const;
     void addBombAtPlace(Common::BombState &bomb);
-    void addWallAtPlace(Common::WallState &wall);
+    void addWallAtPlace(const Common::WallState &wall);
     void removeBomb(Common::BombState &bomb);
     void removeWall(Common::WallState &wall);
     void updatePlayer(const Common::PlayerState &player);
@@ -40,7 +41,7 @@ public:
     std::vector<unsigned int> getBombsInRange(const Common::BombState &bomb) const;
     std::vector<unsigned int> getPowerUpsInRange(const Common::BombState &bomb) const;
     std::vector<Common::GridPoint> getPlayerFields(const Common::PlayerState &player) const;
-//    std::vector<Common::GridPoint> getPowerUps();
+
 private:
     unsigned int getVectorIndex(const Common::GridPoint &position) const;
     unsigned int getVectorIndex(unsigned int x,unsigned int y) const;

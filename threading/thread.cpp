@@ -1,34 +1,28 @@
 #include "threading/thread.h"
+#include "threading/signal.h"
 #include <boost/thread.hpp>
 
 using namespace Threading;
 
 Thread::Thread() :
-	m_thread(new boost::thread(threadFunction, this)),
-	m_finished(false)
+	m_finished(new Signal),
+	m_thread(new boost::thread(threadFunction, this))
 { }
 
 Thread::~Thread()
 {
-	if (!m_finished)
-		m_thread->interrupt();
 	waitTillFinished();
+	delete m_finished;
 	delete m_thread;
 }
 
 void Thread::waitTillFinished() const
 {
-	if (!m_finished)
-		m_thread->join();
+	m_finished->wait();
 }
 
 void Thread::threadFunction(Thread *thread)
 {
 	thread->execute();
-	thread->setFinished();
-}
-
-void Thread::setFinished()
-{
-	m_finished = true;
+	thread->m_finished->send();
 }

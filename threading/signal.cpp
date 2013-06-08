@@ -16,13 +16,10 @@ Signal::Signal() :
 
 Signal::~Signal()
 {
-	bool mutexLocked = m_conditionMutex->try_lock();
+	m_conditionMutex->lock();
 	m_conditionMutex->unlock();
-	assert(mutexLocked);
-	(void)mutexLocked; // avoid warning about unused variable
-	mutexLocked = m_sendingMutex->try_lock();
+	m_sendingMutex->lock();
 	m_sendingMutex->unlock();
-	assert(mutexLocked);
 
 	delete m_condition;
 	delete m_conditionMutex;
@@ -51,4 +48,10 @@ void Signal::wait()
 	unique_lock<mutex> lock(*m_conditionMutex);
 	while (!m_sent)
 		m_condition->wait(lock);
+}
+
+bool Signal::isSignalSent() const
+{
+	unique_lock<mutex> lock(*m_conditionMutex);
+	return m_sent;
 }

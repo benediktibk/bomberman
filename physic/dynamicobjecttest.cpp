@@ -21,7 +21,7 @@ void DynamicObjectTest::constructor_validSimulator_simulatorHasBodyCount1()
 	CPPUNIT_ASSERT_EQUAL((size_t)1, simulator.getBodyCount());
 }
 
-void DynamicObjectTest::desturctor_empty_simulatorHasBodyCount0()
+void DynamicObjectTest::destructor_empty_simulatorHasBodyCount0()
 {
 	PhysicSimulator simulator;
 	DynamicObject *object = new DynamicObject(simulator, Point(), 1, 1);

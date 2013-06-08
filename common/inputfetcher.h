@@ -5,12 +5,12 @@
 
 namespace Common
 {
-class InputFetcher
-{
-public:
-	virtual InputState getInputState() = 0;
+	class InputFetcher
+	{
+	public:
+		virtual InputState getInputState() = 0;
 
-	virtual ~InputFetcher() { }
-};
+		virtual ~InputFetcher() { }
+	};
 }
 #endif

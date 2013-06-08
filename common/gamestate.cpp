@@ -5,11 +5,36 @@
 using namespace Common;
 using namespace std;
 
-GameState::GameState(const LevelDefinition &level, UniqueIdCreator &creator) :
+GameState::GameState(const LevelDefinition &level, unsigned int playerCount, UniqueIdCreator &playerIDCreator, UniqueIdCreator &wallIDCreator) :
 	m_height(level.getLevelHeight()),
 	m_width(level.getLevelWidth())
 {
-	m_players.push_back(new PlayerState(creator));
+	assert(playerCount > 0);
+
+	for (unsigned int i = 0; i < playerCount; ++i)
+	{
+		PlayerState *player = new PlayerState(playerIDCreator);
+		m_players.push_back(player);
+		m_playersConst.push_back(player);
+	}
+
+	for(unsigned int x = 0; x < level.getLevelWidth(); x++)
+	{
+		for(unsigned int y = 0; y < level.getLevelHeight(); y++)
+		{
+			if(level.getObjectTypeAtPosition(x, y) == LevelDefinition::ObjectTypeSolidWall)
+			{
+				WallState *wallstate = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(x, y));
+				addWall(wallstate);
+			}
+
+			if(level.getObjectTypeAtPosition(x, y) == LevelDefinition::ObjectTypeLooseWall)
+			{
+				WallState *wallstate = new WallState(wallIDCreator, WallState::WallTypeLoose, Point(x, y));
+				addWall(wallstate);
+			}
+		}
+	}
 }
 
 GameState::~GameState()
@@ -29,7 +54,7 @@ GameState::~GameState()
 	m_players.clear();
 }
 
-PlayerState &GameState::getPlayerState()
+PlayerState &GameState::getFirstPlayerState()
 {
 	return *(m_players[0]);
 }
@@ -45,6 +70,18 @@ PlayerState &GameState::getPlayerStateById(unsigned int playerId)
    return *(m_players[0]);
 }
 
+const PlayerState &GameState::getPlayerStateById(unsigned int playerId) const
+{
+	for(size_t i = 0; i < m_players.size(); i++)
+	{
+		if((m_players[i]->getId() == playerId))
+			return *(m_players[i]);
+	}
+
+   assert(false);
+   return *(m_players[0]);
+}
+
 vector<unsigned int> GameState::getAllPossiblePlayerIDs() const
 {
 	vector<unsigned int> result;
@@ -56,9 +93,24 @@ vector<unsigned int> GameState::getAllPossiblePlayerIDs() const
 	return result;
 }
 
-const PlayerState &GameState::getPlayerState() const
+const std::vector<const PlayerState *> &GameState::getAllPlayers() const
+{
+	return m_playersConst;
+}
+
+const PlayerState &GameState::getFirstPlayerState() const
 {
 	return *(m_players[0]);
+}
+
+PlayerState &GameState::getSecondPlayerState()
+{
+	return *(m_players[1]);
+}
+
+const PlayerState &GameState::getSecondPlayerState() const
+{
+	return *(m_players[1]);
 }
 
 vector<const WallState*> GameState::getAllChangedWalls() const
@@ -125,68 +177,63 @@ void GameState::reduceAllBombsLifeTime(double time)
 	}
 }
 
- void GameState::setAllBombsWithNoLifeTimeDestroyed(PlayerState &playerState)
- {
-	 for(size_t i = 0; i < m_bombs.size(); i++)
-	 {
+vector<const BombState*> GameState::setAllBombsWithNoLifeTimeDestroyed()
+{
+	vector<const BombState*> destroyedBombs;
+
+	for(size_t i = 0; i < m_bombs.size(); i++)
+	{
 		BombState *currentBomb = m_bombs[i];
 		if (currentBomb->getLifeTime() <= 0)
 		{
 			currentBomb->setDestroyed();
-			playerState.reduceBombCount();
+			destroyedBombs.push_back(currentBomb);
 		}
-	 }
- }
+	}
 
- void GameState::resetChangedFlags()
- {
-	 for (vector<WallState*>::iterator i = m_walls.begin(); i != m_walls.end(); ++i)
-		 (*i)->resetChanged();
-	 for (vector<BombState*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
-		 (*i)->resetChanged();
-	 for (vector<PowerUpState*>::iterator i = m_powerUps.begin(); i != m_powerUps.end(); ++i)
-		 (*i)->resetChanged();
+	return destroyedBombs;
+}
 
- }
+void GameState::resetChangedFlags()
+{
+	for (vector<WallState*>::iterator i = m_walls.begin(); i != m_walls.end(); ++i)
+		(*i)->resetChanged();
+	for (vector<BombState*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
+		(*i)->resetChanged();
+	for (vector<PowerUpState*>::iterator i = m_powerUps.begin(); i != m_powerUps.end(); ++i)
+		(*i)->resetChanged();
+}
 
- void GameState::removeAllObjectsWithDestroyedFlag()
- {
-	 for (size_t i = 0; i < m_walls.size(); ++i)
-	 {
-		 if (m_walls[i]->isDestroyed())
-			 eraseWall(i);
-	 }
+void GameState::removeAllObjectsWithDestroyedFlag()
+{
+	for (size_t i = 0; i < m_walls.size(); ++i)
+	{
+		if (m_walls[i]->isDestroyed())
+			eraseWall(i);
+	}
 
-	 for (size_t i = 0; i < m_bombs.size(); ++i)
-	 {
-		 if (m_bombs[i]->isDestroyed())
-			 eraseBomb(i);
-	 }
+	for (size_t i = 0; i < m_bombs.size(); ++i)
+	{
+		if (m_bombs[i]->isDestroyed())
+			eraseBomb(i);
+	}
 
-	 for (size_t i = 0; i < m_powerUps.size(); ++i)
-	 {
-		 if (m_powerUps[i]->isDestroyed())
-			 erasePowerUp(i);
-	 }
- }
+	for (size_t i = 0; i < m_powerUps.size(); ++i)
+	{
+		if (m_powerUps[i]->isDestroyed())
+			erasePowerUp(i);
+	}
+}
 
- unsigned int GameState::getGameStateHeight() const
- {
-	 return m_height;
- }
+unsigned int GameState::getGameStateHeight() const
+{
+	return m_height;
+}
 
- unsigned int GameState::getGameStateWidth() const
- {
-	 return m_width;
- }
-
- GameState::GameState(const GameState &, UniqueIdCreator &rhs)
- {
-	 m_players.push_back(new PlayerState(rhs));
- }
-
-void GameState::operator=(const GameState &)
-{ }
+unsigned int GameState::getGameStateWidth() const
+{
+	return m_width;
+}
 
 vector<const BombState*> GameState::getAllBombsWithNoLifeTime() const
 {
@@ -195,10 +242,8 @@ vector<const BombState*> GameState::getAllBombsWithNoLifeTime() const
 	for(size_t i = 0; i < m_bombs.size(); i++)
 	{
 	   BombState *currentBomb = m_bombs[i];
-	   if (currentBomb->getLifeTime() < 0)
-	   {
+	   if (currentBomb->getLifeTime() <= 0)
 		   result.push_back(currentBomb);
-	   }
 	}
 
 	return result;
@@ -217,7 +262,7 @@ void GameState::setBombsLifeTimeToZero(unsigned int bombId)
 {
 	for(size_t i = 0; i < m_bombs.size(); i++)
 	{
-		if((m_bombs[i]->getBombId() == bombId))
+		if((m_bombs[i]->getID() == bombId))
 			m_bombs[i]->setLifeTime(0);
 	}
 }

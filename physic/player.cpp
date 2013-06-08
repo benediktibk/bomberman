@@ -1,27 +1,39 @@
-#include "player.h"
-#include "dynamicobject.h"
+#include "physic/player.h"
+#include "physic/physicalobject.h"
+#include "physic/dynamicobject.h"
+#include "physic/staticobject.h"
+#include "common/playerstate.h"
 #include <assert.h>
 
 using namespace Common;
 using namespace Physic;
 
 
-Player::Player(PhysicSimulator &simulator, const Point &position, double width, double height) :
+Player::Player(PhysicSimulator &simulator, const PlayerState &player) :
 	m_simulator(simulator),
 	m_object(0),
-	m_width(width),
-	m_height(height),
-	m_physicalWidth(width),
-	m_physicalHeight(height),
+	m_dynamicObject(0),
+	m_staticObject(0),
+	m_width(player.getWidth()),
+	m_height(player.getHeight()),
+	m_physicalWidth(m_width),
+	m_physicalHeight(m_height),
 	m_movingIntoX(false),
 	m_movingIntoY(false)
 {
-	updateObjectToPhysicalDimensions(position);
+	int16_t playerID = player.getId();
+	int16_t collisionGroup = (-1)*(playerID + 1);
+	updateObjectToPhysicalDimensions(player.getPosition(), collisionGroup);
 }
 
 Player::~Player()
 {
-	delete m_object;
+	if (m_object != 0)
+		delete m_object;
+
+	m_object = 0;
+	m_dynamicObject = 0;
+	m_staticObject = 0;
 }
 
 Point Player::getPosition() const
@@ -76,8 +88,9 @@ void Player::applyLinearVelocity(double velocityIntoX, double velocityIntoY)
 		newPosition = oldPosition;
 	}
 
-	updateObjectToPhysicalDimensions(newPosition);
-	m_object->applyLinearVelocity(velocityIntoX, velocityIntoY);
+	updateObjectToPhysicalDimensions(newPosition, m_object->getCollisionGroup());
+	if (isMoving())
+		m_dynamicObject->applyLinearVelocity(velocityIntoX, velocityIntoY);
 
 	assert(oldPosition.fuzzyEqual(getPosition(), 0.0001));
 }
@@ -85,13 +98,21 @@ void Player::applyLinearVelocity(double velocityIntoX, double velocityIntoY)
 double Player::getVelocityX() const
 {
 	assert(m_object != 0);
-	return m_object->getVelocityX();
+
+	if (isMoving())
+		return m_dynamicObject->getVelocityX();
+	else
+		return 0;
 }
 
 double Player::getVelocityY() const
 {
 	assert(m_object != 0);
-	return m_object->getVelocityY();
+
+	if (isMoving())
+		return m_dynamicObject->getVelocityY();
+	else
+		return 0;
 }
 
 double Player::getWidth() const
@@ -114,10 +135,30 @@ double Player::getPhysicalHeight() const
 	return m_physicalHeight;
 }
 
-void Player::updateObjectToPhysicalDimensions(const Point &position)
+bool Player::isMoving() const
+{
+	return m_movingIntoX || m_movingIntoY;
+}
+
+void Player::updateObjectToPhysicalDimensions(const Point &position, int16_t collisionGroup)
 {
 	if (m_object != 0)
 		delete m_object;
 
-	m_object = new DynamicObject(m_simulator, position, m_physicalWidth, m_physicalHeight);
+	m_object = 0;
+	m_dynamicObject = 0;
+	m_staticObject = 0;
+
+	if (isMoving())
+	{
+		m_dynamicObject = new DynamicObject(m_simulator, position, m_physicalWidth, m_physicalHeight);
+		m_object = m_dynamicObject;
+	}
+	else
+	{
+		m_staticObject = new StaticObject(m_simulator, position, m_physicalWidth, m_physicalHeight);
+		m_object = m_staticObject;
+	}
+
+	m_object->setCollisionGroup(collisionGroup);
 }

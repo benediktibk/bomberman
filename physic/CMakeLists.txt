@@ -3,15 +3,22 @@ set(PHYSIC_SRC
 	dynamicobject.cpp
 	staticobject.cpp
 	player.cpp
+	wall.cpp
+	bomb.cpp
 	collisiongroups.cpp
+	physicalobject.cpp
+	gamephysicsimulator.cpp
 )
 
 set(PHYSIC_TEST_SRC
 	physicsimulatortest.cpp
+	physicalobjecttest.cpp
 	dynamicobjecttest.cpp
 	staticobjecttest.cpp
 	playertest.cpp
 	collisiongroupstest.cpp
+	gamephysicsimulatortest.cpp
+	bombtest.cpp
 )
 
 include_directories(

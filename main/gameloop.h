@@ -4,7 +4,6 @@
 #include "threading/thread.h"
 #include "threading/mutex.h"
 #include "threading/signal.h"
-#include <QtCore/QObject>
 
 namespace Common
 {
@@ -17,11 +16,8 @@ namespace Common
 namespace Main
 {
 class GameLoop :
-		public QObject,
 		public Threading::Thread
 {
-	Q_OBJECT
-
 public:
 	GameLoop(Common::InputFetcher &inputFetcher, Common::GameEngine &gameEngine, Common::GraphicDrawer &graphicDrawer);
 	virtual ~GameLoop();

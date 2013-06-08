@@ -7,7 +7,7 @@ using namespace Common;
 void BombStateTest::setPosition_5And4_positionIs5And4()
 {
 	UniqueIdCreator id;
-	BombState bomb(id);
+	BombState bomb(id, 0);
 
 	bomb.setPosition(Point(5, 4));
 
@@ -17,7 +17,7 @@ void BombStateTest::setPosition_5And4_positionIs5And4()
 void BombStateTest::setLifeTime_3_lifeTimeIs3()
 {
 	UniqueIdCreator id;
-	BombState bomb(id);
+	BombState bomb(id, 0);
 
 	bomb.setLifeTime(3);
 
@@ -26,17 +26,17 @@ void BombStateTest::setLifeTime_3_lifeTimeIs3()
 void BombStateTest::setDestructionRange_5_DestructionRangeIs5()
 {
 	UniqueIdCreator id;
-	BombState bomb(id);
+	BombState bomb(id, 0);
 
 	bomb.setDestructionRange(5);
 
-    CPPUNIT_ASSERT_EQUAL(static_cast<unsigned int>(5), bomb.getDestructionRange());
+	CPPUNIT_ASSERT_EQUAL(static_cast<unsigned int>(5), bomb.getDestructionRange());
 }
 
 void BombStateTest::setPosition_5And4_hasChanged()
 {
 	UniqueIdCreator id;
-	BombState bomb(id);
+	BombState bomb(id, 0);
 	bomb.resetChanged();
 
 	bomb.setPosition(Point(5, 4));
@@ -47,7 +47,7 @@ void BombStateTest::setPosition_5And4_hasChanged()
 void BombStateTest::setLifeTime_4_hasChanged()
 {
 	UniqueIdCreator id;
-	BombState bomb(id);
+	BombState bomb(id, 0);
 	bomb.resetChanged();
 
 	bomb.setLifeTime(4);
@@ -58,7 +58,7 @@ void BombStateTest::setLifeTime_4_hasChanged()
 void BombStateTest::setDestructionRange_5_hasChanged()
 {
 	UniqueIdCreator id;
-	BombState bomb(id);
+	BombState bomb(id, 0);
 	bomb.resetChanged();
 
 	bomb.setDestructionRange(5);
@@ -69,7 +69,7 @@ void BombStateTest::setDestructionRange_5_hasChanged()
 void BombStateTest::setDestroyed_empty_hasChanged()
 {
 	UniqueIdCreator id;
-	BombState bomb(id);
+	BombState bomb(id, 0);
 	bomb.resetChanged();
 
 	bomb.setDestroyed();
@@ -79,16 +79,24 @@ void BombStateTest::setDestroyed_empty_hasChanged()
 
 void BombStateTest::getBombHeight_heightIs1()
 {
-    UniqueIdCreator id;
-    BombState bomb(id);
+	UniqueIdCreator id;
+	BombState bomb(id, 0);
 
-    CPPUNIT_ASSERT_EQUAL(1.0, bomb.getHeight());
+	CPPUNIT_ASSERT_EQUAL(1.0, bomb.getHeight());
+}
+
+void BombStateTest::constructor_playerIDIs5_playerIDIs5()
+{
+	UniqueIdCreator id;
+	BombState bomb(id, 5);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)5, bomb.getPlayerID());
 }
 
 void BombStateTest::getBombWidth_widthIs1()
 {
-    UniqueIdCreator id;
-    BombState bomb(id);
+	UniqueIdCreator id;
+	BombState bomb(id, 0);
 
-    CPPUNIT_ASSERT_EQUAL(1.0, bomb.getWidth());
+	CPPUNIT_ASSERT_EQUAL(1.0, bomb.getWidth());
 }

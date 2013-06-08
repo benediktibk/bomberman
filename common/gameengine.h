@@ -1,19 +1,22 @@
 #ifndef COMMON_GAMEENGINE_H
 #define COMMON_GAMEENGINE_H
 
-#include "inputstate.h"
-#include "gamestate.h"
+#include "common/inputstate.h"
+#include "common/gamestate.h"
+#include <vector>
+#include <map>
 
 namespace Common
 {
-class GameEngine
-{
-public:
-	virtual void updateGameState(const InputState &inputState, double time) = 0;
-    virtual const GameState& getGameState() const = 0;
+	class GameEngine
+	{
+	public:
+		virtual void updateGameState(const std::map<unsigned int, InputState> &inputStates, double time) = 0;
+		virtual const GameState& getGameState() const = 0;
+		virtual std::vector<unsigned int> getAllPossiblePlayerIDs() const = 0;
 
-	virtual ~GameEngine() { }
-};
+		virtual ~GameEngine() { }
+	};
 }
 
 #endif

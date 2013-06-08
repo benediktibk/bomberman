@@ -1,7 +1,7 @@
 set(COMMON_SRC
 	gamestate.cpp
 	inputstate.cpp
-    stopwatch.cpp
+	stopwatch.cpp
 	playerstate.cpp
 	point.cpp
 	enemystate.cpp
@@ -35,6 +35,13 @@ set(COMMON_TEST_SRC
 	powerupmaxbombstatetest.cpp
 	randomdecisiontest.cpp
 	powerupgeneratortest.cpp
+	playerstatetest.cpp
+	gameenginestub.cpp
+	gameenginemock.cpp
+	graphicdrawerstub.cpp
+	graphicdrawermock.cpp
+	inputfetcherstub.cpp
+	inputfetchermock.cpp
 )
 
 add_library(common ${COMMON_SRC})

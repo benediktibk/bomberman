@@ -4,66 +4,55 @@
 #include "common/gameengine.h"
 #include "common/uniqueidcreator.h"
 #include "common/leveldefinition.h"
-#include <map>
+#include "common/gridpoint.h"
 
 namespace Physic
 {
-	class PhysicSimulator;
-	class Player;
-	class StaticObject;
-	class CollisionGroups;
+    class GamePhysicSimulator;
 }
 
 namespace GameEngine
 {
-class Grid;
+    class Grid;
 
-class GameEngineImpl :
-		public Common::GameEngine
-{
-public:
-	GameEngineImpl(const Common::LevelDefinition &level);
-	virtual ~GameEngineImpl();
+    class GameEngineImpl :
+            public Common::GameEngine
+    {
+    public:
+        GameEngineImpl(const Common::LevelDefinition &level, unsigned int playerCount);
+        virtual ~GameEngineImpl();
 
-	virtual void updateGameState(const Common::InputState &inputState, double time);
-	virtual const Common::GameState& getGameState() const;
-	Common::GameState& getGameState();
-	double getTimeTillPlayerReachesGridPoint() const;
+        virtual void updateGameState(const std::map<unsigned int, Common::InputState> &inputStates, double time);
+        virtual const Common::GameState& getGameState() const;
+        virtual std::vector<unsigned int> getAllPossiblePlayerIDs() const;
+        Common::GameState& getGameState();
+        double getTimeTillOnePlayerReachesGridPoint() const;
+        double getTimeTillPlayerReachesGridPoint(const Common::PlayerState &player) const;
+        std::vector<Common::GridPoint> getAllPowerUpFields() const;
 
-private:
-	void deleteAllWallObjects();
-	void deleteAllBombObjects();
-	void updatePlayerPosition();
-	void updatePlayerVelocity();
-	void setPlayerSpeedIfMoreThanOneDirectionIsSelected();
-	void setPlayerSpeedIntoOnlySelectedDirection();
-	void setPlayerSpeedToNull();
-	void updateBombs();
-	void updateBomb(const Common::BombState *bomb);
-	void placeBombs();
-	void updateWalls();
-	void updateWall(const Common::WallState *wall);
+    private:
+        void updatePlayerPositions();
+        void updatePlayerVelocities();
+        void updatePlayerVelocity(Common::PlayerState &player, const Common::InputState &input);
+        void updatePlayerWithBombCollisions();
+        void setPlayerSpeedIfMoreThanOneDirectionIsSelected(Common::PlayerState &player, const Common::InputState &input);
+        void setPlayerSpeedIntoOnlySelectedDirection(Common::PlayerState &player, const Common::InputState &input);
+        void setPlayerSpeedToNull(Common::PlayerState &player);
+        void updateBombs();
+        void placeBombs();
+        void placeBombForPlayer(Common::PlayerState &player, const Common::InputState &input);
 
-private:
-	Common::InputState m_inputState;
-	Common::UniqueIdCreator m_bombids;
-	Common::UniqueIdCreator m_wallids;
-	Common::UniqueIdCreator m_playerIds;
-	Common::GameState m_gameState;
-	Common::PlayerState &m_playerState;
-	double m_elapsedTime;
-	Physic::PhysicSimulator *m_simulator;
-	Physic::Player *m_player;
-	Physic::StaticObject *m_upperBorder;
-	Physic::StaticObject *m_lowerBorder;
-	Physic::StaticObject *m_leftBorder;
-	Physic::StaticObject *m_rightBorder;
-	std::map<const Common::WallState*, Physic::StaticObject*> m_wallObjects;
-	std::map<const Common::BombState*, Physic::StaticObject*> m_bombObjects;
-	Grid *m_grid;
-	bool m_firstGameStateUpdate;
-	Physic::CollisionGroups *m_collisionGroups;
-};
+    private:
+        std::map<unsigned int, Common::InputState> m_inputStates;
+        Common::UniqueIdCreator m_bombids;
+        Common::UniqueIdCreator m_wallids;
+        Common::UniqueIdCreator m_playerIds;
+        Common::GameState m_gameState;
+        double m_elapsedTime;
+        Grid *m_grid;
+        bool m_firstGameStateUpdate;
+        Physic::GamePhysicSimulator *m_simulator;
+    };
 }
 
 #endif

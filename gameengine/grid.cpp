@@ -1,11 +1,12 @@
 #include "grid.h"
 #include <assert.h>
+#include <math.h>
 
 using namespace Common;
 using namespace GameEngine;
 using namespace std;
 
-Grid::Grid(unsigned int rows,unsigned int cols) :
+Grid::Grid(unsigned int rows, unsigned int cols) :
     m_gridRows(rows),
     m_gridColumns(cols),
     m_numberOfItems(m_gridColumns*m_gridRows),
@@ -16,11 +17,7 @@ Grid::Grid(unsigned int rows,unsigned int cols) :
 bool Grid::isPlaceEmpty(const Point &position) const
 {
     GridPoint gridPosition(position);
-    unsigned int index = getVectorIndex(gridPosition);
-    if(m_itemMatrix[index] == ItemFree)
-        return true;
-    else
-        return false;
+    return isPlaceEmpty(gridPosition);
 }
 
 bool Grid::isPlaceEmpty(const GridPoint &position) const
@@ -37,11 +34,11 @@ void Grid::addBombAtPlace(BombState &bomb)
     GridPoint position(bomb.getPosition());
     unsigned int index = getVectorIndex(position);
     m_itemMatrix[index] = ItemBomb;
-    m_idMatrix[index] = bomb.getBombId();
+    m_idMatrix[index] = bomb.getID();
     bomb.setPosition(position.getPointPosition());
 }
 
-void Grid::addWallAtPlace(WallState &wall)
+void Grid::addWallAtPlace(const WallState &wall)
 {
     GridPoint position(wall.getPosition());
     unsigned int index = getVectorIndex(position);
@@ -199,36 +196,27 @@ vector<GridPoint> Grid::getPlayerFields(const Common::PlayerState &player) const
     double xGrid = positionGrid.getX();
     double yGrid = positionGrid.getY();
 
-    if ((x-xGrid)>0)
+    //! @todo replace with fuzzy
+    if (x - xGrid > 0.05)
     {
         result.push_back(positionGrid);
         GridPoint positionGrid2(positionGrid.getX()+1,positionGrid.getY());
         result.push_back(positionGrid2);
     }
-    if ((y-yGrid)>0)
+
+    //! @todo replace with fuzzy
+    if (y - yGrid > 0.05)
     {
         result.push_back(positionGrid);
         GridPoint positionGrid2(positionGrid.getX(),positionGrid.getY()+1);
         result.push_back(positionGrid2);
     }
-    if((x-xGrid) == 0 && (y-yGrid) == 0 )
+
+    //! @todo replace with fuzzy
+    if(fabs(x - xGrid) < 0.05 && fabs(y - yGrid) < 0.05)
     {
         result.push_back(positionGrid);
     }
 
     return result;
 }
-/*
-vector<GridPoin> Grid::getPowerUps()
-{
-    vector<GridPoint> result;
-    for(vector<const Item>::const_iterator i = m_itemMatrix.begin(); i != m_itemMatrix.end(); ++i)
-    {
-        if(m_itemMatrix[i] == ItemPowerUp)
-        {
-            result.push_back(m_itemMatrix[i]);
-        }
-
-}
-}
-*/

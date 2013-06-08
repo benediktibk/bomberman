@@ -1,336 +1,328 @@
-#include "gameengineimpl.h"
-#include "physic/physicsimulator.h"
+#include "gameengine/gameengineimpl.h"
+#include "gameengine/grid.h"
+#include "physic/gamephysicsimulator.h"
 //BAAAAAAAAAAYERN!
 #include "physic/player.h"
 #include "physic/staticobject.h"
 #include "physic/collisiongroups.h"
-#include "grid.h"
 #include <assert.h>
+#include <algorithm>
+#include <limits>
+#include <math.h>
 
 using namespace GameEngine;
 using namespace Common;
 using namespace Physic;
 using namespace std;
 
-GameEngineImpl::GameEngineImpl(const LevelDefinition &level) :
-	m_gameState(level,m_playerIds),
-	m_playerState(m_gameState.getPlayerState()),
-	m_simulator(new PhysicSimulator),
-	m_player(new Player(*m_simulator, m_playerState.getPosition(), m_playerState.getWidth(), m_playerState.getHeight())),
-	m_upperBorder(new StaticObject(*m_simulator, Point(0, level.getLevelHeight()), level.getLevelWidth(), 1)),
-	m_lowerBorder(new StaticObject(*m_simulator, Point(0, -1), level.getLevelWidth(), 1)),
-	m_leftBorder(new StaticObject(*m_simulator, Point(-1, 0), 1, level.getLevelHeight())),
-	m_rightBorder(new StaticObject(*m_simulator,Point(level.getLevelWidth(), 0), 1, level.getLevelHeight())),
-	m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
-	m_firstGameStateUpdate(true),
-	m_collisionGroups(0)
+GameEngineImpl::GameEngineImpl(const LevelDefinition &level, unsigned int playerCount) :
+    m_gameState(level, playerCount, m_playerIds, m_wallids),
+    m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
+    m_firstGameStateUpdate(true),
+    m_simulator(new GamePhysicSimulator(level))
 {
-	for(unsigned int x=0;x<level.getLevelWidth();x++)
-	{
-		for(unsigned int y=0;y<level.getLevelHeight();y++)
-		{
-			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeSolidWall)
-			{
-				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeSolid, Point(x, y));
-				m_gameState.addWall(wallstate);
-				m_grid->addWallAtPlace(*wallstate);
-			}
-			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypeLooseWall)
-			{
-				WallState *wallstate = new WallState(m_wallids, WallState::WallTypeLoose, Point(x, y));
-				m_gameState.addWall(wallstate);
-				m_grid->addWallAtPlace(*wallstate);
-			}
-			if(level.getObjectTypeAtPosition(x,y) == LevelDefinition::ObjectTypePlayer)
-			{
-				//m_playerState.setPosition(Point(x,y)); Dynamik Position auf diese ändern
-			}
-		}
-	}
+    vector<const WallState*> walls = m_gameState.getAllChangedWalls();
 
-	m_collisionGroups = new CollisionGroups(m_gameState.getAllPossiblePlayerIDs());
+    for (vector<const WallState*>::const_iterator i = walls.begin(); i != walls.end(); ++i)
+        m_grid->addWallAtPlace(**i);
+
+    for (unsigned int i = 0; i < playerCount; ++i)
+        m_inputStates.insert(pair<unsigned int, InputState>(i, InputState()));
 }
 
 GameEngineImpl::~GameEngineImpl()
 {
-	deleteAllWallObjects();
-	deleteAllBombObjects();
-	delete m_player;
-	delete m_grid;
-	delete m_upperBorder;
-	delete m_lowerBorder;
-	delete m_leftBorder;
-	delete m_rightBorder;
-	delete m_simulator;
-	delete m_collisionGroups;
+    delete m_grid;
+    delete m_simulator;
 }
 
-void GameEngineImpl::updateGameState(const InputState &inputState, double time)
+void GameEngineImpl::updateGameState(const std::map<unsigned int, Common::InputState> &inputStates, double time)
 {
-	m_inputState = inputState;
-	m_elapsedTime = time;
+    assert(m_inputStates.size() == inputStates.size());
+    m_inputStates = inputStates;
+    m_elapsedTime = time;
 
-	if (!m_firstGameStateUpdate)
-		m_gameState.resetChangedFlags();
-	m_gameState.removeAllObjectsWithDestroyedFlag();
-	updateBombs();
-	updateWalls();
-	updatePlayerPosition();
-	placeBombs();
-//    applyPowerUps();
+    if (!m_firstGameStateUpdate)
+        m_gameState.resetChangedFlags();
+    m_gameState.removeAllObjectsWithDestroyedFlag();
+    updateBombs();
+    updatePlayerPositions();
+    placeBombs();
+    m_simulator->updateItems(m_gameState);
 
-	m_firstGameStateUpdate = false;
+    m_firstGameStateUpdate = false;
 }
 
 const Common::GameState &GameEngineImpl::getGameState() const
 {
-	return m_gameState;
+    return m_gameState;
 }
 
 Common::GameState &GameEngineImpl::getGameState()
 {
-	return m_gameState;
+    return m_gameState;
 }
 
-void GameEngineImpl::deleteAllWallObjects()
+vector<unsigned int> GameEngineImpl::getAllPossiblePlayerIDs() const
 {
-	for(map<const WallState*, StaticObject*>::iterator i = m_wallObjects.begin(); i != m_wallObjects.end(); i++)
-		delete i->second;
-
-	m_wallObjects.clear();
+    return m_gameState.getAllPossiblePlayerIDs();
 }
 
-void GameEngineImpl::deleteAllBombObjects()
+void GameEngineImpl::updatePlayerVelocity(PlayerState &player, const InputState &input)
 {
-	for(map<const BombState*, StaticObject*>::iterator i = m_bombObjects.begin(); i != m_bombObjects.end(); i++)
-		delete i->second;
-
-	m_bombObjects.clear();
+    if (input.isMoreThanOneMovementButtonPressed())
+        setPlayerSpeedIfMoreThanOneDirectionIsSelected(player, input);
+    else if (input.isMovementButtonPressed())
+        setPlayerSpeedIntoOnlySelectedDirection(player, input);
+    else
+        setPlayerSpeedToNull(player);
 }
 
-void GameEngineImpl::updatePlayerVelocity()
+void GameEngineImpl::updatePlayerWithBombCollisions()
 {
-	if (m_inputState.isMoreThanOneMovementButtonPressed())
-		setPlayerSpeedIfMoreThanOneDirectionIsSelected();
-	else if (m_inputState.isMovementButtonPressed())
-		setPlayerSpeedIntoOnlySelectedDirection();
-	else
-		setPlayerSpeedToNull();
+    vector<unsigned int> playerIDs = m_gameState.getAllPossiblePlayerIDs();
+
+    for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
+    {
+        PlayerState &player = m_gameState.getPlayerStateById(*i);
+        vector<GridPoint> playerFields = m_grid->getPlayerFields(player);
+        vector<const BombState*> bombsNotToCollideWith = player.getBombsNotToCollideWith();
+
+        for (vector<const BombState*>::const_iterator j = bombsNotToCollideWith.begin(); j != bombsNotToCollideWith.end(); ++j)
+        {
+            GridPoint gridPosition((*j)->getPosition());
+
+            if (count(playerFields.begin(), playerFields.end(), gridPosition) == 0)
+                player.removeBombFromDoNotCollideList(*j);
+        }
+    }
 }
 
-void GameEngineImpl::updatePlayerPosition()
+void GameEngineImpl::updatePlayerPositions()
 {
-	double timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
-	double simulatedTimeCounter;
-	double realSimulatedTime = 0;
+    updatePlayerVelocities();
+    double realSimulatedTime = 0;
+    double timeTillOnePlayerReachesGridPoint = getTimeTillOnePlayerReachesGridPoint();
 
-	if (timeTillPlayerReachesGridPoint == 0)
-	{
-		updatePlayerVelocity();
-		timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
-	}
+    do
+    {
+        if (realSimulatedTime + timeTillOnePlayerReachesGridPoint < m_elapsedTime)
+        {
+            m_simulator->simulateStep(m_gameState, timeTillOnePlayerReachesGridPoint);
+            realSimulatedTime += timeTillOnePlayerReachesGridPoint;
+            updatePlayerVelocities();
+        }
 
-	for (simulatedTimeCounter = 0; simulatedTimeCounter + timeTillPlayerReachesGridPoint < m_elapsedTime && timeTillPlayerReachesGridPoint > 0; simulatedTimeCounter += timeTillPlayerReachesGridPoint)
-	{
-		if (simulatedTimeCounter > 0)
-			updatePlayerVelocity();
+        timeTillOnePlayerReachesGridPoint = getTimeTillOnePlayerReachesGridPoint();
+    } while (realSimulatedTime + timeTillOnePlayerReachesGridPoint < m_elapsedTime);
 
-		m_simulator->simulateStep(timeTillPlayerReachesGridPoint);
-		realSimulatedTime += timeTillPlayerReachesGridPoint;
+    m_simulator->simulateStep(m_gameState, m_elapsedTime - realSimulatedTime);
 
-		timeTillPlayerReachesGridPoint = getTimeTillPlayerReachesGridPoint();
-	}
-
-	if (timeTillPlayerReachesGridPoint < 0.05)
-		updatePlayerVelocity();
-
-	m_simulator->simulateStep(m_elapsedTime - realSimulatedTime);
-	m_playerState.setPosition(m_player->getPosition());
+    updatePlayerWithBombCollisions();
 }
 
-void GameEngineImpl::setPlayerSpeedIfMoreThanOneDirectionIsSelected()
+void GameEngineImpl::updatePlayerVelocities()
 {
-	assert(m_inputState.isMoreThanOneMovementButtonPressed());
-	assert(m_inputState.isMovementButtonPressed());
+    vector<unsigned int> playerIDs = m_gameState.getAllPossiblePlayerIDs();
 
-	if (m_inputState.isUpKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionUp)
-		m_player->applyLinearVelocity(0, m_playerState.getSpeed());
-	else if (m_inputState.isDownKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionDown)
-		m_player->applyLinearVelocity(0, (-1)*m_playerState.getSpeed());
-	else if (m_inputState.isLeftKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionLeft)
-		m_player->applyLinearVelocity((-1)*m_playerState.getSpeed(), 0);
-	else if (m_inputState.isRightKeyPressed() && m_playerState.getDirection() == PlayerState::PlayerDirectionRight)
-		m_player->applyLinearVelocity(m_playerState.getSpeed(), 0);
+    for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
+    {
+        PlayerState &player = m_gameState.getPlayerStateById(*i);
+        vector<GridPoint> playerFields = m_grid->getPlayerFields(player);
+
+        if (playerFields.size() == 1)
+        {
+            updatePlayerVelocity(player, m_inputStates.at(*i));
+            GridPoint gridPosition(player.getPosition());
+            player.setPosition(gridPosition.getPointPosition());
+        }
+    }
 }
 
-void GameEngineImpl::setPlayerSpeedIntoOnlySelectedDirection()
+void GameEngineImpl::setPlayerSpeedIfMoreThanOneDirectionIsSelected(PlayerState &player, const InputState &input)
 {
-	assert(!m_inputState.isMoreThanOneMovementButtonPressed());
-	assert(m_inputState.isMovementButtonPressed());
+    assert(input.isMoreThanOneMovementButtonPressed());
+    assert(input.isMovementButtonPressed());
 
-	if (m_inputState.isUpKeyPressed())
-	{
-		m_playerState.setDirectionUp();
-		m_player->applyLinearVelocity(0, m_playerState.getSpeed());
-	}
-	else if (m_inputState.isDownKeyPressed())
-	{
-		m_playerState.setDirectionDown();
-		m_player->applyLinearVelocity(0, (-1)*m_playerState.getSpeed());
-	}
-	else if (m_inputState.isLeftKeyPressed())
-	{
-		m_playerState.setDirectionLeft();
-		m_player->applyLinearVelocity((-1)*m_playerState.getSpeed(), 0);
-	}
-	else if (m_inputState.isRightKeyPressed())
-	{
-		m_playerState.setDirectionRight();
-		m_player->applyLinearVelocity(m_playerState.getSpeed(), 0);
-	}
+    if (input.isUpKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionUp)
+        player.setMoving();
+    else if (input.isDownKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionDown)
+        player.setMoving();
+    else if (input.isLeftKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionLeft)
+        player.setMoving();
+    else if (input.isRightKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionRight)
+        player.setMoving();
 }
 
-void GameEngineImpl::setPlayerSpeedToNull()
+void GameEngineImpl::setPlayerSpeedIntoOnlySelectedDirection(PlayerState &player, const InputState &input)
 {
-	m_player->applyLinearVelocity(0, 0);
+    assert(!input.isMoreThanOneMovementButtonPressed());
+    assert(input.isMovementButtonPressed());
+
+    if (input.isUpKeyPressed())
+    {
+        player.setDirectionUp();
+        player.setMoving();
+    }
+    else if (input.isDownKeyPressed())
+    {
+        player.setDirectionDown();
+        player.setMoving();
+    }
+    else if (input.isLeftKeyPressed())
+    {
+        player.setDirectionLeft();
+        player.setMoving();
+    }
+    else if (input.isRightKeyPressed())
+    {
+        player.setDirectionRight();
+        player.setMoving();
+    }
 }
 
-double GameEngineImpl::getTimeTillPlayerReachesGridPoint() const
+void GameEngineImpl::setPlayerSpeedToNull(Common::PlayerState &player)
 {
-	double velocityX = m_player->getVelocityX();
-	double velocityY = m_player->getVelocityY();
-	const Point &position = m_player->getPosition();
-	const GridPoint gridPosition(position);
-	double time = 0;
+    player.setNotMoving();
+}
 
-	if (velocityX != 0)
-	{
-		if (velocityX > 0)
-			time = (position.getX() - gridPosition.getX())/velocityX;
-		else
-			time = (position.getX() - (gridPosition.getX() + 1))/velocityX;
-	}
+double GameEngineImpl::getTimeTillOnePlayerReachesGridPoint() const
+{
+    vector<unsigned int> playerIDs = m_gameState.getAllPossiblePlayerIDs();
+    double minimalTime = numeric_limits<double>::max();
 
-	if (velocityY != 0)
-	{
-		if (velocityY > 0)
-			time = (position.getY() - gridPosition.getY())/velocityY;
-		else
-			time = (position.getY() - (gridPosition.getY() + 1))/velocityY;
-	}
+    for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
+    {
+        const PlayerState &player = m_gameState.getPlayerStateById(*i);
+        double timeForOnePlayer = getTimeTillPlayerReachesGridPoint(player);
+        minimalTime = min(minimalTime, timeForOnePlayer);
+    }
 
-	if (time < 0)
-		time = 0;
+    return minimalTime;
+}
 
-	return time;
+double GameEngineImpl::getTimeTillPlayerReachesGridPoint(const PlayerState &player) const
+{
+    double velocityX = player.getSpeedIntoX();
+    double velocityY = player.getSpeedIntoY();
+    const Point &position = player.getPosition();
+    const GridPoint gridPosition(position);
+    double time = 0;
+
+    if (velocityX != 0)
+    {
+        double positionX = position.getX();
+        unsigned int gridPositionX = gridPosition.getX();
+
+        //! @todo replace with fuzzy
+        if (fabs(gridPositionX - positionX) < 0.05)
+            time = 1/fabs(velocityX);
+        else
+        {
+            if (velocityX > 0)
+                time = (positionX - gridPositionX)/velocityX;
+            else
+                time = (positionX - (gridPositionX + 1))/velocityX;
+        }
+    }
+
+    if (velocityY != 0)
+    {
+        double positionY = position.getY();
+        unsigned int gridPositionY = gridPosition.getY();
+
+        //! @todo replace with fuzzy
+        if (fabs(gridPositionY - positionY) < 0.05)
+            time = 1/fabs(velocityY);
+        else
+        {
+            if (velocityY > 0)
+                time = (positionY - gridPositionY)/velocityY;
+            else
+                time = (positionY - (gridPositionY + 1))/velocityY;
+        }
+    }
+
+    if (player.isMoving())
+        return max(0.0, time);
+    else
+        return numeric_limits<double>::max()/2;
 }
 
 void GameEngineImpl::updateBombs()
 {
-	vector<const BombState*> BombsWithNoLifeTime;
+    vector<const BombState*> bombsWithNoLifeTime;
 
-	m_gameState.reduceAllBombsLifeTime(m_elapsedTime);
-	BombsWithNoLifeTime = m_gameState.getAllBombsWithNoLifeTime();
+    m_gameState.reduceAllBombsLifeTime(m_elapsedTime);
+    bombsWithNoLifeTime = m_gameState.getAllBombsWithNoLifeTime();
 
-	for(size_t i = 0; i < BombsWithNoLifeTime.size(); i++)
-	{
-		vector<unsigned int> wallsInRange;
-		wallsInRange = m_grid->getWallsInRange(*BombsWithNoLifeTime[i]);
-		for(size_t j = 0; j < wallsInRange.size(); j++)
-		{
-			m_gameState.eraseWallById(wallsInRange[j]);
-		}
-		vector<unsigned int> bombsInRange;
-		bombsInRange = m_grid->getBombsInRange(*BombsWithNoLifeTime[i]);
-		for(size_t j = 0; j < bombsInRange.size(); j++)
-		{
-			m_gameState.setBombsLifeTimeToZero(bombsInRange[j]);
-		}
-		vector<unsigned int> powerUpsInRange;
-		powerUpsInRange = m_grid->getPowerUpsInRange(*BombsWithNoLifeTime[i]);
-		for(size_t j = 0; j < powerUpsInRange.size(); j++)
-		{
-			m_gameState.erasePowerUpById(powerUpsInRange[j]);
-		}
+    for (size_t i = 0; i < bombsWithNoLifeTime.size(); i++)
+    {
+        const BombState &bomb = *bombsWithNoLifeTime[i];
 
-	}
-	m_gameState.setAllBombsWithNoLifeTimeDestroyed(m_playerState);
+        vector<unsigned int> wallsInRange;
+        wallsInRange = m_grid->getWallsInRange(bomb);
+        for(size_t j = 0; j < wallsInRange.size(); j++)
+            m_gameState.eraseWallById(wallsInRange[j]);
 
-	vector<const BombState*> changedBombs = m_gameState.getAllChangedBombs();
+        vector<unsigned int> bombsInRange;
+        bombsInRange = m_grid->getBombsInRange(bomb);
+        for(size_t j = 0; j < bombsInRange.size(); j++)
+            m_gameState.setBombsLifeTimeToZero(bombsInRange[j]);
 
-	for (vector<const BombState*>::const_iterator i = changedBombs.begin(); i != changedBombs.end(); ++i)
-		updateBomb(*i);
-}
+        vector<unsigned int> powerUpsInRange;
+        powerUpsInRange = m_grid->getPowerUpsInRange(bomb);
+        for(size_t j = 0; j < powerUpsInRange.size(); j++)
+            m_gameState.erasePowerUpById(powerUpsInRange[j]);
+    }
 
-void GameEngineImpl::updateBomb(const BombState *bomb)
-{
-	map<const BombState*, StaticObject*>::iterator position = m_bombObjects.find(bomb);
-	bool bombFound = position != m_bombObjects.end();
-	StaticObject *bombObject = 0;
+    vector<const BombState*> destroyedBombs = m_gameState.setAllBombsWithNoLifeTimeDestroyed();
 
-	if (bombFound)
-		bombObject = position->second;
-	else
-	{
-		bombObject = new StaticObject(*m_simulator, bomb->getPosition(), 1, 1);
-		m_bombObjects.insert(pair<const BombState*, StaticObject*>(bomb, bombObject));
-		position = m_bombObjects.find(bomb);
-	}
-
-	if (bomb->isDestroyed())
-	{
-		m_bombObjects.erase(position);
-		delete bombObject;
-	}
+    for (vector<const BombState*>::const_iterator i = destroyedBombs.begin(); i != destroyedBombs.end(); ++i)
+    {
+        unsigned int playerID = (*i)->getPlayerID();
+        PlayerState &player = m_gameState.getPlayerStateById(playerID);
+        player.reduceBombCount();
+        player.removeBombFromDoNotCollideList(*i);
+    }
 }
 
 void GameEngineImpl::placeBombs()
 {
-	if (m_inputState.isSpaceKeyPressed() && m_playerState.canPlayerPlaceBomb())
-	{
-		BombState *bombPlaced = new BombState(m_bombids);
-		bombPlaced->setPosition(m_player->getCenterPosition());
-		m_grid->addBombAtPlace(*bombPlaced);
-		m_playerState.countBomb();
-		m_gameState.addBomb(bombPlaced);
-	}
+    vector<unsigned int> playerIDs = m_gameState.getAllPossiblePlayerIDs();
+
+    for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
+    {
+        PlayerState &player = m_gameState.getPlayerStateById(*i);
+        const InputState &input = m_inputStates.at(*i);
+        placeBombForPlayer(player, input);
+    }
 }
 
-void GameEngineImpl::updateWalls()
+void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &input)
 {
-	vector<const WallState*> changedWalls = m_gameState.getAllChangedWalls();
-
-	for (vector<const WallState*>::const_iterator i = changedWalls.begin(); i != changedWalls.end(); ++i)
-		updateWall(*i);
+    if (input.isSpaceKeyPressed() && player.canPlayerPlaceBomb())
+    {
+        BombState *bombPlaced = new BombState(m_bombids, player.getId());
+        bombPlaced->setPosition(player.getCenterPosition());
+        m_grid->addBombAtPlace(*bombPlaced);
+        player.countBomb();
+        player.doNotCollideWith(bombPlaced);
+        m_gameState.addBomb(bombPlaced);
+    }
 }
 
-void GameEngineImpl::updateWall(const WallState *wall)
+vector<GridPoint>GameEngineImpl::getAllPowerUpFields() const
 {
-	map<const WallState*, StaticObject*>::iterator position = m_wallObjects.find(wall);
-	bool wallFound = position != m_wallObjects.end();
-	StaticObject *wallObject = 0;
+    std::vector<const PowerUpState*>PowerUps = m_gameState.getAllChangedPowerUps();
+    std::vector<GridPoint> result;
 
-	if (wallFound)
-		wallObject = position->second;
-	else
-	{
-		wallObject = new StaticObject(*m_simulator, wall->getPosition(), 1, 1);
-		m_wallObjects.insert(pair<const WallState*, StaticObject*>(wall, wallObject));
-		position = m_wallObjects.find(wall);
-	}
 
-	if (wall->isDestroyed())
-	{
-		m_wallObjects.erase(position);
-		delete wallObject;
-	}
+    for(vector<const PowerUpState*>::const_iterator i = PowerUps.begin(); i != PowerUps.end(); ++i)
+    {
+        const Point position = (*i)->getPosition();
+        GridPoint positionGrid(position);
+        result.push_back(positionGrid);
+    }
+    return result;
 }
-/*
-void GameEngineImpl::applyPowerUps()
-{
-	std::vector<GridPoint> playerField = m_grid->getPlayerFields(m_player);
-  for (vector<const WallState*>::const_iterator i = changedWalls.begin(); i != changedWalls.end(); ++i)
-	std::vector<unsigned int> powerUpField = m_grid->
-}
-
-*/
