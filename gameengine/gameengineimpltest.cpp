@@ -190,7 +190,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughLeftBorder_playerPositi
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
 
-void GameEngineImplTest::getWallCount_Create4x4LevelWith2Wall_WallCount2()
+void GameEngineImplTest::getWallCount_Create4x4LevelWith2Wall_WallCountIs2()
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 1, 3);
@@ -871,6 +871,32 @@ void GameEngineImplTest::setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTim
 	const BombState &bomb = *(bombs.front());
 
 	CPPUNIT_ASSERT_EQUAL((double)0, bomb.getLifeTime());
+}
+
+void GameEngineImplTest::getPlayerPosition_Create4x4LevelWithPlayerPosition2And2_PlayerPosition2And2()
+{
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 2);
+	createGameEngine(level, 1);
+	const PlayerState *player;
+	const Point point(2,2);
+
+	const GameState &game = m_gameEngine->getGameState();
+	player = game.getAllPlayers().front();
+
+	CPPUNIT_ASSERT_EQUAL((const Point)point, player->getPosition());
+}
+
+void GameEngineImplTest::getPlayerCount_Create4x4LevelWith2Player_PlayerCountIs2()
+{
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
+	createGameEngine(level, 1);
+
+	const GameState &game = m_gameEngine->getGameState();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)2, game.getPlayerCount());
 }
 
 void GameEngineImplTest::createGameEngine(const LevelDefinition &level, unsigned int playerCount)

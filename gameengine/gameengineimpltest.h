@@ -45,7 +45,7 @@ class GameEngineImplTest :
 	CPPUNIT_TEST(updateGameState_movementOfSecondPlayer_firstPlayerDoesntMove);
 	CPPUNIT_TEST(getHeight_HeightOfLevelDefinition_HeightOfGamestate);
 	CPPUNIT_TEST(getWidth_WidthOfLevelDefinition_WidthOfGamestate);
-	CPPUNIT_TEST(getWallCount_Create4x4LevelWith2Wall_WallCount2);
+	CPPUNIT_TEST(getWallCount_Create4x4LevelWith2Wall_WallCountIs2);
 	CPPUNIT_TEST(getWallPosition_Create4x4LevelWithWallPosition2And2_WallPosition2And2);
 	CPPUNIT_TEST(getWallType_Create4x4LevelWallWithWallType_WallTypeIsLoose);
 	CPPUNIT_TEST(getWallCount_Create4x4LevelWith2WallsOneWallInRangeOfBombAndBombExplodes_WallCount1);
@@ -59,6 +59,7 @@ class GameEngineImplTest :
 	CPPUNIT_TEST(increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCountIs2);
 	CPPUNIT_TEST(increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombCountIs2);
 	CPPUNIT_TEST(setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTimeOfSecondBombIs0);
+    CPPUNIT_TEST(getPlayerPosition_Create4x4LevelWithPlayerPosition2And2_PlayerPosition2And2);
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -79,7 +80,7 @@ private:
 	void updateGameState_tryToMoveThroughUpperBorder_playerPositionIsAtUpperBorder();
 	void updateGameState_tryToMoveThroughLowerBorder_playerPositionIsAtLowerBorder();
 	void updateGameState_tryToMoveThroughLeftBorder_playerPositionIsAtLeftBorder();
-	void getWallCount_Create4x4LevelWith2Wall_WallCount2();
+	void getWallCount_Create4x4LevelWith2Wall_WallCountIs2();
 	void getWallPosition_Create4x4LevelWithWallPosition2And2_WallPosition2And2();
 	void getWallType_Create4x4LevelWallWithWallType_WallTypeIsLoose();
 	void updateGameState_halfTheTimeOfTheMovementToTheNextGridFieldButtonPressed_playerReachesGridPoint();
@@ -111,6 +112,8 @@ private:
 	void increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCountIs2();
 	void increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombCountIs2();
 	void setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTimeOfSecondBombIs0();
+    void getPlayerPosition_Create4x4LevelWithPlayerPosition2And2_PlayerPosition2And2();
+    void getPlayerCount_Create4x4LevelWith2Player_PlayerCountIs2();
 
 private:
 	void createGameEngine(const Common::LevelDefinition &level, unsigned int playerCount);

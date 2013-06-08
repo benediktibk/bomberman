@@ -45,6 +45,7 @@ public:
 	void addPowerUp(PowerUpState* powerUp);
 	size_t getPowerUpCount() const;
 	std::vector<const PowerUpState*> getAllChangedPowerUps() const;
+    size_t getPlayerCount() const;
 
 private:
 	void eraseBomb(size_t position);

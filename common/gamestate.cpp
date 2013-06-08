@@ -320,3 +320,8 @@ vector<const PowerUpState*> GameState::getAllChangedPowerUps() const
 
 	return result;
 }
+
+size_t GameState::getPlayerCount() const
+{
+	return m_players.size();
+}
