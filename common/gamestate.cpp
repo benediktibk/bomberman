@@ -18,6 +18,7 @@ GameState::GameState(const LevelDefinition &level, unsigned int playerCount, Uni
 		m_playersConst.push_back(player);
 	}
 
+    unsigned int playerPositionCount = 0;
 	for(unsigned int x = 0; x < level.getLevelWidth(); x++)
 	{
 		for(unsigned int y = 0; y < level.getLevelHeight(); y++)
@@ -33,6 +34,10 @@ GameState::GameState(const LevelDefinition &level, unsigned int playerCount, Uni
 				WallState *wallstate = new WallState(wallIDCreator, WallState::WallTypeLoose, Point(x, y));
 				addWall(wallstate);
 			}
+            if(level.getObjectTypeAtPosition(x, y) == LevelDefinition::ObjectTypePlayer)
+            {
+                m_players[playerPositionCount]->setPosition(Point(x,y));
+            }
 		}
 	}
 }
