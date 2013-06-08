@@ -325,3 +325,9 @@ size_t GameState::getPlayerCount() const
 {
 	return m_players.size();
 }
+
+void GameState::erasePlayer(size_t position)
+{
+	delete m_players[position];
+	m_players.erase(m_players.begin() + position);
+}

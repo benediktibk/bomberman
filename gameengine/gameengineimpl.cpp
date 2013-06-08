@@ -274,6 +274,11 @@ void GameEngineImpl::updateBombs()
         powerUpsInRange = m_grid->getPowerUpsInRange(bomb);
         for(size_t j = 0; j < powerUpsInRange.size(); j++)
             m_gameState.erasePowerUpById(powerUpsInRange[j]);
+        
+        /*vector<unsigned int> playersInRange;
+        playersInRange = m_grid->getPlayersInRange(bomb);
+        for(size_t j = 0; j < playersInRange.size(); j++)
+            m_gameState.erasePlayerById(playersInRange[j]);*/
     }
 
     vector<const BombState*> destroyedBombs = m_gameState.setAllBombsWithNoLifeTimeDestroyed();

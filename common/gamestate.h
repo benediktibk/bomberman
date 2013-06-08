@@ -46,11 +46,12 @@ public:
 	size_t getPowerUpCount() const;
 	std::vector<const PowerUpState*> getAllChangedPowerUps() const;
     size_t getPlayerCount() const;
-
+    
 private:
 	void eraseBomb(size_t position);
 	void eraseWall(size_t position);
 	void erasePowerUp(size_t position);
+    void erasePlayer(size_t position);
 
 private:
 	// forbid copies
