@@ -5,6 +5,8 @@
 #include "common/inputfetcher.h"
 #include "common/inputstate.h"
 #include "threading/mutex.h"
+#include <vector>
+#include <map>
 
 namespace Main
 {
@@ -16,6 +18,8 @@ Q_OBJECT
 
 public:
 	MainWindowInputFetcher();
+    
+    void setAllPossiblePlayerIds(std::vector<unsigned int> allPossiblePlayerIds);
 
 	virtual Common::InputState getInputState();
 
@@ -26,6 +30,8 @@ protected:
 private:
 	Common::InputState m_inputState;
 	Threading::Mutex m_inputStateMutex;
+    std::vector<unsigned int> m_allPossiblePlayerIds;
+    std::map<unsigned int, Common::InputState> m_inputStates;
 };
 }
 

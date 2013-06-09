@@ -9,6 +9,14 @@ MainWindowInputFetcher::MainWindowInputFetcher() :
 	QMainWindow(0)
 { }
 
+void MainWindowInputFetcher::setAllPossiblePlayerIds(std::vector<unsigned int> allPossiblePlayerIds)
+{
+    for(size_t i = 0; i < allPossiblePlayerIds.size(); i++)
+    {
+        m_allPossiblePlayerIds[i] = allPossiblePlayerIds[i];
+    }
+}
+
 InputState MainWindowInputFetcher::getInputState()
 {
 	m_inputStateMutex.lock();
