@@ -38,6 +38,7 @@ LevelDefinition LevelDefinition::createDefaultLevel()
 {
 	LevelDefinition result(15, 10);
 
+    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
 	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 0, 3);
 	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 7);
 	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 2);
