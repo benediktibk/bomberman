@@ -892,11 +892,35 @@ void GameEngineImplTest::getPlayerCount_Create4x4LevelWith2Player_PlayerCountIs2
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
-	createGameEngine(level, 1);
+	createGameEngine(level, 2);
 
 	const GameState &game = m_gameEngine->getGameState();
 
 	CPPUNIT_ASSERT_EQUAL((size_t)2, game.getPlayerCount());
+}
+
+void GameEngineImplTest::getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestroyed_PlayerCountIs1()
+{
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 1);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 1);
+	createGameEngine(level, 2);
+    
+	const GameState &game = m_gameEngine->getGameState();
+    InputState input;
+    
+    input.setSpaceKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	input.setSpaceKeyNotPressed();
+	input.setUpKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 1);
+	input.setUpKeyNotPressed();
+    m_gameEngine->updateGameState(m_inputStates, 2.1);
+    m_gameEngine->updateGameState(m_inputStates, 0);
+    
+	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getPlayerCount());
 }
 
 void GameEngineImplTest::createGameEngine(const LevelDefinition &level, unsigned int playerCount)

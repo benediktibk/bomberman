@@ -60,6 +60,8 @@ class GameEngineImplTest :
 	CPPUNIT_TEST(increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombCountIs2);
 	CPPUNIT_TEST(setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTimeOfSecondBombIs0);
     CPPUNIT_TEST(getPlayerPosition_Create4x4LevelWithPlayerPosition2And2_PlayerPosition2And2);
+    CPPUNIT_TEST(getPlayerCount_Create4x4LevelWith2Player_PlayerCountIs2);
+    CPPUNIT_TEST(getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestroyed_PlayerCountIs1);
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -114,6 +116,7 @@ private:
 	void setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTimeOfSecondBombIs0();
     void getPlayerPosition_Create4x4LevelWithPlayerPosition2And2_PlayerPosition2And2();
     void getPlayerCount_Create4x4LevelWith2Player_PlayerCountIs2();
+    void getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestroyed_PlayerCountIs1();
 
 private:
 	void createGameEngine(const Common::LevelDefinition &level, unsigned int playerCount);
