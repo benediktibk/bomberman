@@ -3,13 +3,15 @@
 
 #include "common/point.h"
 #include "common/uniqueidcreator.h"
+#include "common/destroyablestate.h"
 #include <vector>
 
 namespace Common
 {
 	class BombState;
 
-	class PlayerState
+	class PlayerState :
+            public DestroyableState
 	{
 	public:
 		enum PlayerDirection
@@ -59,7 +61,7 @@ namespace Common
 		// forbid copies
 		PlayerState(const PlayerState &player);
 		void operator=(const PlayerState &player);
-
+        
 	private:
 		Point m_position;
 		PlayerDirection m_direction;

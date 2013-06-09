@@ -311,3 +311,13 @@ void GameStateTest::setAllBombsWithNoLifeTimeDestroyed_twoOfThreeBombsWithNoLife
 
 	CPPUNIT_ASSERT_EQUAL((size_t)2, result.size());
 }
+
+void GameStateTest::erasePlayerById_onePlayersAddedOneDeleted_playerCountIs0()
+{
+	LevelDefinition level;
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
+	state.erasePlayerById(0);
+	state.removeAllObjectsWithDestroyedFlag();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, state.getPlayerCount());
+}

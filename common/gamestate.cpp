@@ -228,6 +228,12 @@ void GameState::removeAllObjectsWithDestroyedFlag()
 		if (m_powerUps[i]->isDestroyed())
 			erasePowerUp(i);
 	}
+    
+    for (size_t i = 0; i < m_players.size(); ++i)
+	{
+		if (m_players[i]->isDestroyed())
+			erasePlayer(i);
+	}
 }
 
 unsigned int GameState::getGameStateHeight() const
@@ -330,4 +336,13 @@ void GameState::erasePlayer(size_t position)
 {
 	delete m_players[position];
 	m_players.erase(m_players.begin() + position);
+}
+
+void GameState::erasePlayerById(unsigned int playerId)
+{
+	for(size_t i = 0; i < m_players.size(); i++)
+	{
+		if(m_players[i]->getId() == playerId)
+			m_players[i]->setDestroyed();
+	}
 }
