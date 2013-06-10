@@ -1,6 +1,7 @@
 #include "leveldefinition.h"
 
 using namespace Common;
+using namespace std;
 
 LevelDefinition::LevelDefinition() :
 	m_width(50),
@@ -34,11 +35,22 @@ void LevelDefinition::setObjectTypeAtPosition(ObjectType objectType, unsigned in
 	m_objectMatrix[m_width*positionY+positionX] = objectType;
 }
 
+size_t LevelDefinition::getPlayerStartPositionCount() const
+{
+	size_t result = 0;
+
+	for (vector<ObjectType>::const_iterator i = m_objectMatrix.begin(); i != m_objectMatrix.end(); ++i)
+		if (*i == LevelDefinition::ObjectTypePlayer)
+			++result;
+
+	return result;
+}
+
 LevelDefinition LevelDefinition::createDefaultLevel()
 {
 	LevelDefinition result(15, 10);
 
-    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
+	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
 	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 0, 3);
 	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 7);
 	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 2);

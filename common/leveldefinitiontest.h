@@ -6,24 +6,24 @@
 
 namespace Common
 {
+	class LevelDefinitionTest :
+			public CPPUNIT_NS::TestFixture
+	{
+		CPPUNIT_TEST_SUITE(LevelDefinitionTest);
+		CPPUNIT_TEST(getObjectTypeAtPosition_3And5_resultIsObjectTypeEmpty);
+		CPPUNIT_TEST(getLevelHeight_resultIs50);
+		CPPUNIT_TEST(getLevelWidth_resultIs50);
+		CPPUNIT_TEST(setObjectTypeAtPosition_SolidWallAt3And5_resultIsObjectTypeSolidWall);
+		CPPUNIT_TEST(getPlayerStartPositionCount_twoPlayerStartPositions_2);
+		CPPUNIT_TEST_SUITE_END();
 
-class LevelDefinitionTest :
-		public CPPUNIT_NS::TestFixture
-{
-	CPPUNIT_TEST_SUITE(LevelDefinitionTest);
-	CPPUNIT_TEST(getObjectTypeAtPosition_3And5_resultIsObjectTypeEmpty);
-	CPPUNIT_TEST(getLevelHeight_resultIs50);
-	CPPUNIT_TEST(getLevelWidth_resultIs50);
-    CPPUNIT_TEST(setObjectTypeAtPosition_SolidWallAt3And5_resultIsObjectTypeSolidWall);
-	CPPUNIT_TEST_SUITE_END();
-
-private:
-	void getObjectTypeAtPosition_3And5_resultIsObjectTypeEmpty();
-	void getLevelHeight_resultIs50();
-	void getLevelWidth_resultIs50();
-    void setObjectTypeAtPosition_SolidWallAt3And5_resultIsObjectTypeSolidWall();
-
-};
+	private:
+		void getObjectTypeAtPosition_3And5_resultIsObjectTypeEmpty();
+		void getLevelHeight_resultIs50();
+		void getLevelWidth_resultIs50();
+		void setObjectTypeAtPosition_SolidWallAt3And5_resultIsObjectTypeSolidWall();
+		void getPlayerStartPositionCount_twoPlayerStartPositions_2();
+	};
 }
 
-#endif // LEVELDEFINITIONTEST_H
+#endif
