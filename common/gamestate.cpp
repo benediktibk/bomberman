@@ -10,6 +10,7 @@ GameState::GameState(const LevelDefinition &level, unsigned int playerCount, Uni
 	m_width(level.getLevelWidth())
 {
 	assert(playerCount > 0);
+	assert(playerCount <= level.getPlayerStartPositionCount());
 
 	for (unsigned int i = 0; i < playerCount; ++i)
 	{
@@ -18,7 +19,7 @@ GameState::GameState(const LevelDefinition &level, unsigned int playerCount, Uni
 		m_playersConst.push_back(player);
 	}
 
-    unsigned int playerPositionCount = 0;
+	unsigned int playerPositionCount = 0;
 	for(unsigned int x = 0; x < level.getLevelWidth(); x++)
 	{
 		for(unsigned int y = 0; y < level.getLevelHeight(); y++)
@@ -34,10 +35,10 @@ GameState::GameState(const LevelDefinition &level, unsigned int playerCount, Uni
 				WallState *wallstate = new WallState(wallIDCreator, WallState::WallTypeLoose, Point(x, y));
 				addWall(wallstate);
 			}
-            if(level.getObjectTypeAtPosition(x, y) == LevelDefinition::ObjectTypePlayer)
-            {
-                m_players[playerPositionCount]->setPosition(Point(x,y));
-            }
+			if(level.getObjectTypeAtPosition(x, y) == LevelDefinition::ObjectTypePlayer)
+			{
+				m_players[playerPositionCount]->setPosition(Point(x,y));
+			}
 		}
 	}
 }
@@ -228,8 +229,8 @@ void GameState::removeAllObjectsWithDestroyedFlag()
 		if (m_powerUps[i]->isDestroyed())
 			erasePowerUp(i);
 	}
-    
-    for (size_t i = 0; i < m_players.size(); ++i)
+
+	for (size_t i = 0; i < m_players.size(); ++i)
 	{
 		if (m_players[i]->isDestroyed())
 			erasePlayer(i);

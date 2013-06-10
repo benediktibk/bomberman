@@ -7,13 +7,17 @@ LevelDefinition::LevelDefinition() :
 	m_width(50),
 	m_height(50),
 	m_objectMatrix(m_width*m_height, ObjectTypeEmpty)
-{ }
+{
+	m_objectMatrix[0] = ObjectTypePlayer;
+}
 
 LevelDefinition::LevelDefinition(unsigned int width, unsigned int height) :
 	m_width(width),
 	m_height(height),
 	m_objectMatrix(m_width*m_height, ObjectTypeEmpty)
-{ }
+{
+	m_objectMatrix[0] = ObjectTypePlayer;
+}
 
 LevelDefinition::ObjectType LevelDefinition::getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY) const
 {

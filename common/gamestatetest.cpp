@@ -264,6 +264,8 @@ void GameStateTest::getAllPossiblePlayerIDs_onePlayerCreated_resultSizeIs1()
 void GameStateTest::constructor_3players_playerCountIs3()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 0);
 	GameState state(level, 3, m_playerIDCreator, m_wallIDCreator);
 
 	const vector<const PlayerState*> &players = state.getAllPlayers();
