@@ -2,6 +2,7 @@
 #define PHYSIC_PLAYER_H
 
 #include "common/point.h"
+#include "common/gridpoint.h"
 #include <stdint.h>
 
 namespace Common
@@ -41,6 +42,8 @@ namespace Physic
 		PhysicalObject *m_object;
 		DynamicObject *m_dynamicObject;
 		StaticObject *m_staticObject;
+        StaticObject *m_field1;
+        StaticObject *m_field2;
 		double m_width;
 		double m_height;
 		double m_physicalWidth;
