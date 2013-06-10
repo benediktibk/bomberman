@@ -30,7 +30,6 @@ class PlayerTest :
 	 CPPUNIT_TEST(getPhysicalWidth_movingIntoYAndWith6_3);
 	 CPPUNIT_TEST(applyLinearVelocity_4And0_velocityXIs4);
 	 CPPUNIT_TEST(applyLinearVelocity_0And5_velocityYIs5);
-	 CPPUNIT_TEST(applyLinearVelocity_4And0_bodyCountOfSimulatorIs1);
 	 CPPUNIT_TEST(getPosition_movingIntoX_correctPosition);
 	 CPPUNIT_TEST(getPosition_movingIntoY_correctPosition);
 	 CPPUNIT_TEST(getCenterPosition_movingIntoX_correctPosition);
@@ -58,7 +57,6 @@ private:
 	 void getPhysicalWidth_movingIntoYAndWith6_3();
 	 void applyLinearVelocity_4And0_velocityXIs4();
 	 void applyLinearVelocity_0And5_velocityYIs5();
-	 void applyLinearVelocity_4And0_bodyCountOfSimulatorIs1();
 	 void getPosition_movingIntoX_correctPosition();
 	 void getPosition_movingIntoY_correctPosition();
 	 void getCenterPosition_movingIntoX_correctPosition();

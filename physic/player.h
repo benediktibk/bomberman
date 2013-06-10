@@ -50,6 +50,7 @@ namespace Physic
 		double m_physicalHeight;
 		bool m_movingIntoX;
 		bool m_movingIntoY;
+       int16_t m_collisionGroup;
 	};
 }
 

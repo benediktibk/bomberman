@@ -14,16 +14,17 @@ Player::Player(PhysicSimulator &simulator, const PlayerState &player) :
 	m_object(0),
 	m_dynamicObject(0),
 	m_staticObject(0),
+    m_field1(0),
+    m_field2(0),
 	m_width(player.getWidth()),
 	m_height(player.getHeight()),
 	m_physicalWidth(m_width),
 	m_physicalHeight(m_height),
 	m_movingIntoX(false),
-	m_movingIntoY(false)
+    m_movingIntoY(false),
+    m_collisionGroup((-1)*(player.getId() + 1))
 {
-	int16_t playerID = player.getId();
-	int16_t collisionGroup = (-1)*(playerID + 1);
-	updateObjectToPhysicalDimensions(player.getPosition(), collisionGroup);
+        updateObjectToPhysicalDimensions(player.getPosition(), m_collisionGroup);
 }
 
 Player::~Player()
@@ -34,6 +35,8 @@ Player::~Player()
 	m_object = 0;
 	m_dynamicObject = 0;
 	m_staticObject = 0;
+    delete m_field1;
+    delete m_field2;
 }
 
 Point Player::getPosition() const
@@ -75,11 +78,16 @@ void Player::applyLinearVelocity(double velocityIntoX, double velocityIntoY)
 		m_movingIntoY = false;
 		newPosition = oldPosition + Point(0, m_height/4);
         if (coverdFields.size() == 1)
+        {
             m_field1 = new StaticObject(m_simulator,coverdFields[0].getPointPosition(),1.0,1.0);
+            m_field1->setCollisionGroup(m_collisionGroup);
+        }
         else
         {
             m_field1 = new StaticObject(m_simulator,coverdFields[0].getPointPosition(),1.0,1.0);
-            m_field1 = new StaticObject(m_simulator,coverdFields[1].getPointPosition(),1.0,1.0);
+            m_field1->setCollisionGroup(m_collisionGroup);
+            m_field2 = new StaticObject(m_simulator,coverdFields[1].getPointPosition(),1.0,1.0);
+            m_field2->setCollisionGroup(m_collisionGroup);
         }
 	}
 	else if (velocityIntoY != 0)
@@ -90,11 +98,16 @@ void Player::applyLinearVelocity(double velocityIntoX, double velocityIntoY)
 		m_movingIntoY = true;
 		newPosition = oldPosition + Point(m_width/4, 0);
         if (coverdFields.size() == 1)
+        {
             m_field1 = new StaticObject(m_simulator,coverdFields[0].getPointPosition(),1.0,1.0);
+            m_field1->setCollisionGroup(m_collisionGroup);
+        }
         else
         {
             m_field1 = new StaticObject(m_simulator,coverdFields[0].getPointPosition(),1.0,1.0);
-            m_field1 = new StaticObject(m_simulator,coverdFields[1].getPointPosition(),1.0,1.0);
+            m_field1->setCollisionGroup(m_collisionGroup);
+            m_field2 = new StaticObject(m_simulator,coverdFields[1].getPointPosition(),1.0,1.0);
+            m_field2->setCollisionGroup(m_collisionGroup);
         }
 	}
 	else

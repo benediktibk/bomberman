@@ -145,15 +145,6 @@ void PlayerTest::applyLinearVelocity_0And5_velocityYIs5()
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(5, player.getVelocityY(), 0.0001);
 }
 
-void PlayerTest::applyLinearVelocity_4And0_bodyCountOfSimulatorIs1()
-{
-	PhysicSimulator simulator;
-	Player player(simulator, *m_playerState);
-
-	player.applyLinearVelocity(4, 0);
-
-	CPPUNIT_ASSERT_EQUAL((size_t)1, simulator.getBodyCount());
-}
 
 void PlayerTest::getPosition_movingIntoX_correctPosition()
 {
