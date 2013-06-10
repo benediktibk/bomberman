@@ -33,6 +33,9 @@ void MainWindowGraphicTest::selectGameState(int index)
 	case 2:
 		drawState2();
 		break;
+	case 3:
+		drawState3();
+		break;
 	default:
 		break;
 	}
@@ -84,6 +87,22 @@ void MainWindowGraphicTest::drawState2()
 		PlayerState& player = gameState.getPlayerStateById(playerID);
 		player.setPosition(Point(i, i));
 	}
+
+	delete m_drawer;
+	m_drawer = new Graphic::GraphicDrawerQt(*(m_ui->graphicsView));
+	m_drawer->draw(gameState);
+}
+
+void MainWindowGraphicTest::drawState3()
+{
+	UniqueIdCreator wallIDCreator;
+	UniqueIdCreator playerIDCreator;
+	UniqueIdCreator powerUpIDCreator;
+	LevelDefinition level;
+	GameState gameState(level, 1, playerIDCreator, wallIDCreator);
+
+	PowerUpState *powerUp = new PowerUpState(powerUpIDCreator, Point(0, 1));
+	gameState.addPowerUp(powerUp);
 
 	delete m_drawer;
 	m_drawer = new Graphic::GraphicDrawerQt(*(m_ui->graphicsView));

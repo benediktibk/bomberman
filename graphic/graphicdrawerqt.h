@@ -12,6 +12,7 @@ namespace Graphic
 	class Player;
 	class Wall;
 	class Bomb;
+	class PowerUp;
 
 	class GraphicDrawerQt :
 			public Common::GraphicDrawer
@@ -30,6 +31,8 @@ namespace Graphic
 		void drawWall(const Common::WallState *wall);
 		void drawBombs(const std::vector<const Common::BombState*> &bombs);
 		void drawBomb(const Common::BombState *bomb);
+		void drawPowerUps(const std::vector<const Common::PowerUpState*> &powerUps);
+		void drawPowerUp(const Common::PowerUpState *powerUp);
 		void drawBorderWalls(unsigned int width, unsigned int height);
 		void drawLeftBorderWalls(unsigned int height);
 		void drawRightBorderWalls(unsigned int width, unsigned int height);
@@ -38,8 +41,10 @@ namespace Graphic
 		void drawEdgeBorderWalls(unsigned int width, unsigned int height);
 		void deleteWalls();
 		void deleteBombs();
+		void deletePowerUps();
 		void deleteWall(const Common::WallState *wall);
 		void deleteBomb(const Common::BombState *bomb);
+		void deletePowerUp(const Common::PowerUpState *powerUp);
 		void deleteBorderWalls();
 		void deletePlayers();
 
@@ -49,6 +54,7 @@ namespace Graphic
 		std::map<const Common::PlayerState*, Player*> m_players;
 		std::map<const Common::WallState*, Wall*> m_walls;
 		std::map<const Common::BombState*, Bomb*> m_bombs;
+		std::map<const Common::PowerUpState*, PowerUp*> m_powerUps;
 		const double m_pixelPerMeter;
 		bool m_firstRedraw;
 		std::vector<Wall*> m_borderWalls;

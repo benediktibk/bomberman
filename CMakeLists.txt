@@ -39,6 +39,7 @@ set(OBJECTS
 	player_standing.svg
 	wall_loose.svg
 	wall_solid.svg
+	power_up.svg
 )
 
 foreach(file ${BACKGROUNDS})

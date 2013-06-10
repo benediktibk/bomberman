@@ -277,3 +277,5 @@ physic/physicalobjecttest.h
 physic/physicalobjecttest.cpp
 physic/bombtest.h
 physic/bombtest.cpp
+graphic/powerup.h
+graphic/powerup.cpp

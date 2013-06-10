@@ -2,6 +2,7 @@
 #include "graphic/player.h"
 #include "graphic/wall.h"
 #include "graphic/bomb.h"
+#include "graphic/powerup.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 
@@ -24,6 +25,7 @@ GraphicDrawerQt::~GraphicDrawerQt()
 {
 	deleteWalls();
 	deleteBombs();
+	deletePowerUps();
 	deleteBorderWalls();
 	deletePlayers();
 	delete m_scene;
@@ -36,6 +38,7 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 
 	drawWalls(gameState.getAllChangedWalls());
 	drawBombs(gameState.getAllChangedBombs());
+	drawPowerUps(gameState.getAllChangedPowerUps());
 	drawPlayers(gameState);
 	m_firstRedraw = false;
 }
@@ -126,6 +129,34 @@ void GraphicDrawerQt::drawBomb(const BombState *bombState)
 	}
 }
 
+void GraphicDrawerQt::drawPowerUps(const std::vector<const PowerUpState *> &powerUps)
+{
+	for (vector<const PowerUpState*>::const_iterator i = powerUps.begin(); i != powerUps.end(); ++i)
+		drawPowerUp(*i);
+}
+
+void GraphicDrawerQt::drawPowerUp(const PowerUpState *powerUpState)
+{
+	if (powerUpState->isDestroyed())
+		deletePowerUp(powerUpState);
+	else
+	{
+		map<const PowerUpState*, PowerUp*>::iterator powerUpPosition = m_powerUps.find(powerUpState);
+		bool powerUpFound = powerUpPosition != m_powerUps.end();
+		PowerUp* powerUp = 0;
+
+		if (!powerUpFound)
+			powerUp = new PowerUp(*m_scene);
+		else
+			powerUp = powerUpPosition->second;
+
+		powerUp->update(*powerUpState, m_pixelPerMeter);
+
+		if (!powerUpFound)
+			m_powerUps.insert(pair<const PowerUpState*, PowerUp*>(powerUpState, powerUp));
+	}
+}
+
 void GraphicDrawerQt::drawBorderWalls(unsigned int width, unsigned int height)
 {
 	drawLeftBorderWalls(height);
@@ -183,6 +214,14 @@ void GraphicDrawerQt::deleteBombs()
 	m_bombs.clear();
 }
 
+void GraphicDrawerQt::deletePowerUps()
+{
+	for (map<const PowerUpState*, PowerUp*>::iterator i = m_powerUps.begin(); i != m_powerUps.end(); ++i)
+		delete i->second;
+
+	m_bombs.clear();;
+}
+
 void GraphicDrawerQt::deleteWall(const WallState *wall)
 {
 	map<const WallState*, Wall*>::iterator position = m_walls.find(wall);
@@ -195,6 +234,13 @@ void GraphicDrawerQt::deleteBomb(const BombState *bomb)
 	map<const BombState*, Bomb*>::iterator position = m_bombs.find(bomb);
 	delete position->second;
 	m_bombs.erase(position);
+}
+
+void GraphicDrawerQt::deletePowerUp(const PowerUpState *powerUp)
+{
+	map<const PowerUpState*, PowerUp*>::iterator position = m_powerUps.find(powerUp);
+	delete position->second;
+	m_powerUps.erase(position);
 }
 
 void GraphicDrawerQt::deleteBorderWalls()

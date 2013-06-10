@@ -11,17 +11,17 @@ namespace Common
 
 namespace Graphic
 {
-class Bomb
-{
-public:
-	Bomb(QGraphicsScene &scene);
-	~Bomb();
+	class Bomb
+	{
+	public:
+		Bomb(QGraphicsScene &scene);
+		~Bomb();
 
-	void update(const Common::BombState &state, double pixelPerMeter);
+		void update(const Common::BombState &state, double pixelPerMeter);
 
-private:
-	QGraphicsSvgItem *m_svgItem;
-};
+	private:
+		QGraphicsSvgItem *m_svgItem;
+	};
 }
 
 #endif

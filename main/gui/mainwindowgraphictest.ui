@@ -37,6 +37,11 @@
         <string>three players</string>
        </property>
       </item>
+      <item>
+       <property name="text">
+        <string>one power up</string>
+       </property>
+      </item>
      </widget>
     </item>
    </layout>
