@@ -3,6 +3,7 @@
 
 #include <ostream>
 
+
 namespace Common
 {
 class Point
