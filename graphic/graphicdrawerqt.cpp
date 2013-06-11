@@ -34,13 +34,15 @@ GraphicDrawerQt::~GraphicDrawerQt()
 void GraphicDrawerQt::draw(const GameState &gameState)
 {
 	if (m_firstRedraw)
+	{
 		drawBorderWalls(gameState.getWidth(), gameState.getHeight());
+		updateViewArea(gameState);
+	}
 
 	drawWalls(gameState.getAllChangedWalls());
 	drawBombs(gameState.getAllChangedBombs());
 	drawPowerUps(gameState.getAllChangedPowerUps());
 	drawPlayers(gameState);
-	updateViewSceneRect(gameState);
 	updateViewPosition(gameState);
 	m_firstRedraw = false;
 }
@@ -159,7 +161,7 @@ void GraphicDrawerQt::drawPowerUp(const PowerUpState *powerUpState)
 	}
 }
 
-void GraphicDrawerQt::updateViewSceneRect(const GameState &gameState)
+void GraphicDrawerQt::updateViewArea(const GameState &gameState)
 {
 	unsigned int width = gameState.getWidth();
 	unsigned int widthWithBorders = width + 2;

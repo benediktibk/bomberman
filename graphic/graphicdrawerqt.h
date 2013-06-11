@@ -33,7 +33,7 @@ namespace Graphic
 		void drawBomb(const Common::BombState *bomb);
 		void drawPowerUps(const std::vector<const Common::PowerUpState*> &powerUps);
 		void drawPowerUp(const Common::PowerUpState *powerUp);
-		void updateViewSceneRect(const Common::GameState &gameState);
+		void updateViewArea(const Common::GameState &gameState);
 		void updateViewPosition(const Common::GameState &gameState);
 		void drawBorderWalls(unsigned int width, unsigned int height);
 		void drawLeftBorderWalls(unsigned int height);
