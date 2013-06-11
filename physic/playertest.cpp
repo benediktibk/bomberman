@@ -6,6 +6,9 @@
 
 using namespace Physic;
 using namespace Common;
+using namespace std;
+
+
 
 void PlayerTest::constructor_validDimensions_bodyCountOfSimulatorIs1()
 {
@@ -218,12 +221,36 @@ void PlayerTest::setUp()
 {
 	m_playerIDCreator = new UniqueIdCreator;
 	m_playerState = new PlayerState(*m_playerIDCreator);
+    m_playerState2 = new PlayerState(*m_playerIDCreator);
 }
 
 void PlayerTest::tearDown()
 {
 	delete m_playerState;
 	m_playerState = 0;
-	delete m_playerIDCreator;
-	m_playerIDCreator = 0;
+    delete m_playerState2;
+    m_playerState2 = 0;
+    delete m_playerIDCreator;
+    m_playerIDCreator = 0;
+
+}
+
+void PlayerTest::getCenterPosition_movingIntoYIntoOtherPlayer_correctPosition()
+{
+    PhysicSimulator simulator;
+    m_playerState->setPosition(Point(1, 2));
+    m_playerState2->setPosition(Point(3,2));
+    Player player1(simulator, *m_playerState);
+    Player player2(simulator, *m_playerState2);
+
+    player1.applyLinearVelocity(1, 0);
+    simulator.simulateStep(0.5);
+
+    player2.applyLinearVelocity(1, 0);
+    simulator.simulateStep(3);
+    player2.applyLinearVelocity(0, 0);
+    Point positionShouldBe(3, 2);
+    Point positionReal = player2.getPosition();
+    CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.0001));
+
 }

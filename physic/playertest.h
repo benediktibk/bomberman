@@ -36,6 +36,7 @@ class PlayerTest :
 	 CPPUNIT_TEST(getCenterPosition_movingIntoY_correctPosition);
 	 CPPUNIT_TEST(getVelocityX_notMoving_0);
 	 CPPUNIT_TEST(getVelocityY_notMoving_0);
+     CPPUNIT_TEST(getCenterPosition_movingIntoYIntoOtherPlayer_correctPosition);
 	 CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -63,10 +64,12 @@ private:
 	 void getCenterPosition_movingIntoY_correctPosition();
 	 void getVelocityX_notMoving_0();
 	 void getVelocityY_notMoving_0();
+     void getCenterPosition_movingIntoYIntoOtherPlayer_correctPosition();
 
 private:
 	 Common::UniqueIdCreator *m_playerIDCreator;
 	 Common::PlayerState *m_playerState;
+     Common::PlayerState *m_playerState2;
 };
 }
 
