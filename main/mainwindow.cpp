@@ -7,6 +7,10 @@
 #include "common/gamestate.h"
 #include "gameloop.h"
 #include "gameengine/gameengineimpl.h"
+#include <QBrush>
+#include <QImage>
+#include <QPainter>
+#include <QtSvg/QtSvg>
 
 using namespace Main;
 using namespace Qt;
@@ -26,6 +30,15 @@ MainWindow::MainWindow(bool enableOpenGL) :
 
 	if (m_enableOpenGL)
 		m_ui->graphicsView->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
+
+    QSvgRenderer renderer(QString("resources/backgrounds/cell_pattern_1.svg"));
+    QImage image(40, 40, QImage::Format_ARGB32);
+    QPainter painter(&image);
+    renderer.render(&painter);
+
+    QBrush *backgroundBrush = new QBrush(image);
+
+    m_ui->graphicsView->setBackgroundBrush(*backgroundBrush);
 
 	m_ui->graphicsView->setFocusPolicy(NoFocus);
 	m_ui->graphicsView->setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
@@ -57,7 +70,6 @@ void MainWindow::draw(const Common::GameState &gameState)
 void MainWindow::updateGui(const Common::GameState *gameState)
 {
 	m_drawer->draw(*gameState);
-	m_ui->graphicsView->setSceneRect(300, -300, 100, 100);
 	m_ui->graphicsView->viewport()->update();
 	m_guiUpdateFinished.send();
 }

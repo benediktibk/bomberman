@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1024</width>
-    <height>743</height>
+    <width>428</width>
+    <height>382</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Ultimate Game</string>
+   <string>Ultimate Bomberman</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">

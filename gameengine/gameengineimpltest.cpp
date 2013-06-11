@@ -110,7 +110,7 @@ void GameEngineImplTest::getHeight_HeightOfLevelDefinition_HeightOfGamestate()
 	createGameEngine(level, 1);
 	const GameState &game = m_gameEngine->getGameState();
 
-	CPPUNIT_ASSERT_EQUAL(level.getLevelHeight(), game.getGameStateHeight());
+	CPPUNIT_ASSERT_EQUAL(level.getLevelHeight(), game.getHeight());
 }
 
 void GameEngineImplTest::getWidth_WidthOfLevelDefinition_WidthOfGamestate()
@@ -119,7 +119,7 @@ void GameEngineImplTest::getWidth_WidthOfLevelDefinition_WidthOfGamestate()
 	createGameEngine(level, 1);
 	const GameState &game = m_gameEngine->getGameState();
 
-	CPPUNIT_ASSERT_EQUAL(level.getLevelWidth(), game.getGameStateWidth());
+	CPPUNIT_ASSERT_EQUAL(level.getLevelWidth(), game.getWidth());
 }
 
 void GameEngineImplTest::updateGameState_tryToMoveThroughRightBorder_playerPositionIsAtRightBorder()
@@ -560,10 +560,14 @@ void GameEngineImplTest::updateGamestate_pressDownAndThenLeft_playerKeepsDirecti
 void GameEngineImplTest::updateGameState_movementOfSecondPlayer_positionOfSecondPlayerIsCorrect()
 {
 	InputState input;
-	createGameEngine(LevelDefinition(), 2);
+	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	createGameEngine(level, 2);
 	GameState &gameState = m_gameEngine->getGameState();
+	PlayerState &firstPlayer = gameState.getFirstPlayerState();
 	PlayerState &secondPlayer = gameState.getSecondPlayerState();
 	const double timeForOneField = 1/secondPlayer.getMaximumSpeed();
+	firstPlayer.setPosition(Point(0, 0));
 	secondPlayer.setPosition(Point(0, 1));
 
 	input.setRightKeyPressed();
@@ -581,11 +585,14 @@ void GameEngineImplTest::updateGameState_movementOfSecondPlayer_positionOfSecond
 void GameEngineImplTest::updateGameState_movementOfSecondPlayer_firstPlayerDoesntMove()
 {
 	InputState input;
-	createGameEngine(LevelDefinition(), 2);
+	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	createGameEngine(level, 2);
 	GameState &gameState = m_gameEngine->getGameState();
-	const PlayerState &firstPlayer = gameState.getFirstPlayerState();
+	PlayerState &firstPlayer = gameState.getFirstPlayerState();
 	PlayerState &secondPlayer = gameState.getSecondPlayerState();
 	const double timeForOneField = 1/secondPlayer.getMaximumSpeed();
+	firstPlayer.setPosition(Point(0, 0));
 	secondPlayer.setPosition(Point(0, 1));
 
 	input.setRightKeyPressed();
@@ -906,11 +913,11 @@ void GameEngineImplTest::getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestro
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 1);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 1);
 	createGameEngine(level, 2);
-    
+
 	const GameState &game = m_gameEngine->getGameState();
-    InputState input;
-    
-    input.setSpaceKeyPressed();
+	InputState input;
+
+	input.setSpaceKeyPressed();
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 0);
 	input.setSpaceKeyNotPressed();
@@ -918,9 +925,9 @@ void GameEngineImplTest::getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestro
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 1);
 	input.setUpKeyNotPressed();
-    m_gameEngine->updateGameState(m_inputStates, 2.1);
-    m_gameEngine->updateGameState(m_inputStates, 0);
-    
+	m_gameEngine->updateGameState(m_inputStates, 2.1);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+
 	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getPlayerCount());
 }
 

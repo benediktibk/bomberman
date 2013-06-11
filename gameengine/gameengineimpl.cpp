@@ -274,7 +274,7 @@ void GameEngineImpl::updateBombs()
         powerUpsInRange = m_grid->getPowerUpsInRange(bomb);
         for(size_t j = 0; j < powerUpsInRange.size(); j++)
             m_gameState.erasePowerUpById(powerUpsInRange[j]);
-        
+
         vector<unsigned int> playersInRange;
         playersInRange = m_grid->getPlayersInRange(bomb);
         for(size_t j = 0; j < playersInRange.size(); j++)
@@ -317,17 +317,36 @@ void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &i
     }
 }
 
-vector<GridPoint>GameEngineImpl::getAllPowerUpFields() const
+void GameEngineImpl::playerGetsPowerUp()
 {
-    std::vector<const PowerUpState*>PowerUps = m_gameState.getAllChangedPowerUps();
-    std::vector<GridPoint> result;
+    vector<unsigned int> playerIDs = m_gameState.getAllPossiblePlayerIDs();
+    vector<unsigned int> powerUpIDs = m_gameState.getAllPossiblePowerUpIDs();
 
-
-    for(vector<const PowerUpState*>::const_iterator i = PowerUps.begin(); i != PowerUps.end(); ++i)
+    for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
     {
-        const Point position = (*i)->getPosition();
-        GridPoint positionGrid(position);
-        result.push_back(positionGrid);
+        PlayerState &player = m_gameState.getPlayerStateById(*i);
+        vector<GridPoint> playerFields = m_grid->getPlayerFields(player);
+        if(playerFields.size() == 1)
+        {
+        for(vector<unsigned int>::const_iterator j = powerUpIDs.begin(); j != powerUpIDs.end(); ++j)
+            {
+            const PowerUpState *powerup = m_gameState.getPowerUpById(*j);
+            const Point powerUpPosition = powerup->getPosition();
+            GridPoint powerUpField(powerUpPosition);
+            if(powerUpField==playerFields[0])
+                {
+                //apply PowerUp
+                //powerup->modifyPlayer(player);
+                m_gameState.erasePowerUpById(*j);
+                }
+            }
+
+            }
     }
-    return result;
 }
+
+void GameEngineImpl::applyPowerUp()
+{
+
+}
+

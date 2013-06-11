@@ -33,6 +33,9 @@ void MainWindowGraphicTest::selectGameState(int index)
 	case 2:
 		drawState2();
 		break;
+	case 3:
+		drawState3();
+		break;
 	default:
 		break;
 	}
@@ -41,7 +44,6 @@ void MainWindowGraphicTest::selectGameState(int index)
 void MainWindowGraphicTest::connectSlots()
 {
 	connect(m_ui->comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectGameState(int)));
-	connect(m_ui->comboBox, SIGNAL(highlighted(int)), this, SLOT(selectGameState(int)));
 }
 
 void MainWindowGraphicTest::drawState1()
@@ -75,15 +77,26 @@ void MainWindowGraphicTest::drawState2()
 	UniqueIdCreator wallIDCreator;
 	UniqueIdCreator playerIDCreator;
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 1);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 2);
 	GameState gameState(level, 3, playerIDCreator, wallIDCreator);
-	vector<unsigned int> playerIDs = gameState.getAllPossiblePlayerIDs();
 
-	for (unsigned int i = 0; i < playerIDs.size(); ++i)
-	{
-		unsigned int playerID = playerIDs[i];
-		PlayerState& player = gameState.getPlayerStateById(playerID);
-		player.setPosition(Point(i, i));
-	}
+	delete m_drawer;
+	m_drawer = new Graphic::GraphicDrawerQt(*(m_ui->graphicsView));
+	m_drawer->draw(gameState);
+}
+
+void MainWindowGraphicTest::drawState3()
+{
+	UniqueIdCreator wallIDCreator;
+	UniqueIdCreator playerIDCreator;
+	UniqueIdCreator powerUpIDCreator;
+	LevelDefinition level;
+	GameState gameState(level, 1, playerIDCreator, wallIDCreator);
+
+	PowerUpState *powerUp = new PowerUpState(powerUpIDCreator, Point(0, 1));
+	gameState.addPowerUp(powerUp);
 
 	delete m_drawer;
 	m_drawer = new Graphic::GraphicDrawerQt(*(m_ui->graphicsView));

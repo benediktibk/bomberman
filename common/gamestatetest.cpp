@@ -138,7 +138,7 @@ void GameStateTest::getHeight_heightLevelDefinition_resultIs50()
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
-	CPPUNIT_ASSERT_EQUAL(level.getLevelHeight(), state.getGameStateHeight());
+	CPPUNIT_ASSERT_EQUAL(level.getLevelHeight(), state.getHeight());
 }
 
 void GameStateTest::getWidth_widthLevelDefinition_resultIs50()
@@ -146,7 +146,7 @@ void GameStateTest::getWidth_widthLevelDefinition_resultIs50()
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
-	CPPUNIT_ASSERT_EQUAL(level.getLevelWidth(), state.getGameStateWidth());
+	CPPUNIT_ASSERT_EQUAL(level.getLevelWidth(), state.getWidth());
 }
 
 void GameStateTest::getAllBombsWithNegativeLifeTime_twoBombsAddedOneWithNegativeTime_resultSizeIs1()
@@ -264,11 +264,31 @@ void GameStateTest::getAllPossiblePlayerIDs_onePlayerCreated_resultSizeIs1()
 void GameStateTest::constructor_3players_playerCountIs3()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 0);
 	GameState state(level, 3, m_playerIDCreator, m_wallIDCreator);
 
 	const vector<const PlayerState*> &players = state.getAllPlayers();
 
 	CPPUNIT_ASSERT_EQUAL((size_t)3, players.size());
+}
+
+void GameStateTest::constructor_threePlayersOnDifferentPositions_allPlayersHaveDifferentPositions()
+{
+	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 1);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 2);
+	GameState state(level, 3, m_playerIDCreator, m_wallIDCreator);
+
+	const vector<const PlayerState*> &players = state.getAllPlayers();
+
+	Point firstPosition(players[0]->getPosition());
+	Point secondPosition(players[1]->getPosition());
+	Point thirdPosition(players[2]->getPosition());
+	CPPUNIT_ASSERT(!firstPosition.fuzzyEqual(secondPosition, 0.001));
+	CPPUNIT_ASSERT(!firstPosition.fuzzyEqual(thirdPosition, 0.001));
+	CPPUNIT_ASSERT(!secondPosition.fuzzyEqual(thirdPosition, 0.001));
 }
 
 void GameStateTest::setAllBombsWithNoLifeTimeDestroyed_oneBombWithNoLifeTime_resultSizeIs1()
