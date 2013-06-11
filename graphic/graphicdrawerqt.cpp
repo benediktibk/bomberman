@@ -16,7 +16,6 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view) :
 	m_pixelPerMeter(40),
 	m_firstRedraw(true)
 {
-	m_scene->setSceneRect(-100, -100, 200, 200);
 	m_view.setBackgroundBrush(QBrush(QColor(255, 255, 255)));
 	m_view.setScene(m_scene);
 }
@@ -34,12 +33,13 @@ GraphicDrawerQt::~GraphicDrawerQt()
 void GraphicDrawerQt::draw(const GameState &gameState)
 {
 	if (m_firstRedraw)
-		drawBorderWalls(gameState.getGameStateWidth(), gameState.getGameStateHeight());
+		drawBorderWalls(gameState.getWidth(), gameState.getHeight());
 
 	drawWalls(gameState.getAllChangedWalls());
 	drawBombs(gameState.getAllChangedBombs());
 	drawPowerUps(gameState.getAllChangedPowerUps());
 	drawPlayers(gameState);
+	updateViewPosition(gameState);
 	m_firstRedraw = false;
 }
 
@@ -155,6 +155,21 @@ void GraphicDrawerQt::drawPowerUp(const PowerUpState *powerUpState)
 		if (!powerUpFound)
 			m_powerUps.insert(pair<const PowerUpState*, PowerUp*>(powerUpState, powerUp));
 	}
+}
+
+void GraphicDrawerQt::updateViewPosition(const GameState &gameState)
+{
+	unsigned int width = gameState.getWidth();
+	unsigned int widthWithBorders = width + 2;
+	unsigned int height = gameState.getHeight();
+	unsigned int heightWithBorders = height + 2;
+	unsigned int widthWithBordersInPixel = widthWithBorders*m_pixelPerMeter;
+	unsigned int heightInPixel = height*m_pixelPerMeter;
+	unsigned int heightWithBordersInPixel = heightWithBorders*m_pixelPerMeter;
+	qreal x = (-1)*m_pixelPerMeter;
+	qreal y = (-1)*static_cast<double>(heightInPixel);
+
+	m_view.setSceneRect(x, y, widthWithBordersInPixel, heightWithBordersInPixel);
 }
 
 void GraphicDrawerQt::drawBorderWalls(unsigned int width, unsigned int height)

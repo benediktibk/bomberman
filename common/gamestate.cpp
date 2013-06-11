@@ -237,12 +237,12 @@ void GameState::removeAllObjectsWithDestroyedFlag()
 	}
 }
 
-unsigned int GameState::getGameStateHeight() const
+unsigned int GameState::getHeight() const
 {
 	return m_height;
 }
 
-unsigned int GameState::getGameStateWidth() const
+unsigned int GameState::getWidth() const
 {
 	return m_width;
 }

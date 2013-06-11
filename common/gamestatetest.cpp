@@ -138,7 +138,7 @@ void GameStateTest::getHeight_heightLevelDefinition_resultIs50()
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
-	CPPUNIT_ASSERT_EQUAL(level.getLevelHeight(), state.getGameStateHeight());
+	CPPUNIT_ASSERT_EQUAL(level.getLevelHeight(), state.getHeight());
 }
 
 void GameStateTest::getWidth_widthLevelDefinition_resultIs50()
@@ -146,7 +146,7 @@ void GameStateTest::getWidth_widthLevelDefinition_resultIs50()
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
-	CPPUNIT_ASSERT_EQUAL(level.getLevelWidth(), state.getGameStateWidth());
+	CPPUNIT_ASSERT_EQUAL(level.getLevelWidth(), state.getWidth());
 }
 
 void GameStateTest::getAllBombsWithNegativeLifeTime_twoBombsAddedOneWithNegativeTime_resultSizeIs1()

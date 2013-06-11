@@ -57,7 +57,6 @@ void MainWindow::draw(const Common::GameState &gameState)
 void MainWindow::updateGui(const Common::GameState *gameState)
 {
 	m_drawer->draw(*gameState);
-	m_ui->graphicsView->setSceneRect(300, -300, 100, 100);
 	m_ui->graphicsView->viewport()->update();
 	m_guiUpdateFinished.send();
 }
