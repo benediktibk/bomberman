@@ -3,6 +3,7 @@
 #include "graphic/wall.h"
 #include "graphic/bomb.h"
 #include "graphic/powerup.h"
+#include "graphic/point.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 
@@ -39,6 +40,7 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 	drawBombs(gameState.getAllChangedBombs());
 	drawPowerUps(gameState.getAllChangedPowerUps());
 	drawPlayers(gameState);
+	updateViewSceneRect(gameState);
 	updateViewPosition(gameState);
 	m_firstRedraw = false;
 }
@@ -157,7 +159,7 @@ void GraphicDrawerQt::drawPowerUp(const PowerUpState *powerUpState)
 	}
 }
 
-void GraphicDrawerQt::updateViewPosition(const GameState &gameState)
+void GraphicDrawerQt::updateViewSceneRect(const GameState &gameState)
 {
 	unsigned int width = gameState.getWidth();
 	unsigned int widthWithBorders = width + 2;
@@ -170,6 +172,15 @@ void GraphicDrawerQt::updateViewPosition(const GameState &gameState)
 	qreal y = (-1)*static_cast<double>(heightInPixel);
 
 	m_view.setSceneRect(x, y, widthWithBordersInPixel, heightWithBordersInPixel);
+}
+
+void GraphicDrawerQt::updateViewPosition(const GameState &gameState)
+{
+	const PlayerState &firstPlayer = gameState.getFirstPlayerState();
+	Common::Point firstPlayerPosition = firstPlayer.getCenterPosition();
+	Graphic::Point qtPoint = firstPlayerPosition*m_pixelPerMeter;
+	qtPoint.switchIntoQtCoordinates();
+	m_view.centerOn(qtPoint.toQPoint());
 }
 
 void GraphicDrawerQt::drawBorderWalls(unsigned int width, unsigned int height)
