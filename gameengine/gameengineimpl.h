@@ -28,7 +28,7 @@ namespace GameEngine
         Common::GameState& getGameState();
         double getTimeTillOnePlayerReachesGridPoint() const;
         double getTimeTillPlayerReachesGridPoint(const Common::PlayerState &player) const;
-        std::vector<Common::GridPoint> getAllPowerUpFields() const;
+        void playerGetsPowerUp();
 
     private:
         void updatePlayerPositions();
@@ -41,6 +41,7 @@ namespace GameEngine
         void updateBombs();
         void placeBombs();
         void placeBombForPlayer(Common::PlayerState &player, const Common::InputState &input);
+        void applyPowerUp();
 
     private:
         std::map<unsigned int, Common::InputState> m_inputStates;
