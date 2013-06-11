@@ -78,15 +78,10 @@ void MainWindowGraphicTest::drawState2()
 	UniqueIdCreator wallIDCreator;
 	UniqueIdCreator playerIDCreator;
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 1);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 2);
 	GameState gameState(level, 3, playerIDCreator, wallIDCreator);
-	vector<unsigned int> playerIDs = gameState.getAllPossiblePlayerIDs();
-
-	for (unsigned int i = 0; i < playerIDs.size(); ++i)
-	{
-		unsigned int playerID = playerIDs[i];
-		PlayerState& player = gameState.getPlayerStateById(playerID);
-		player.setPosition(Point(i, i));
-	}
 
 	delete m_drawer;
 	m_drawer = new Graphic::GraphicDrawerQt(*(m_ui->graphicsView));
