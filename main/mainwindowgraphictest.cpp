@@ -44,7 +44,6 @@ void MainWindowGraphicTest::selectGameState(int index)
 void MainWindowGraphicTest::connectSlots()
 {
 	connect(m_ui->comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectGameState(int)));
-	connect(m_ui->comboBox, SIGNAL(highlighted(int)), this, SLOT(selectGameState(int)));
 }
 
 void MainWindowGraphicTest::drawState1()
