@@ -281,3 +281,4 @@ graphic/powerup.h
 graphic/powerup.cpp
 graphic/cellbackground.h
 graphic/cellbackground.cpp
+resources/objects/explosion_center.svg
