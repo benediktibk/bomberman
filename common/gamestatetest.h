@@ -45,6 +45,7 @@ namespace Common
 		 CPPUNIT_TEST(getAllWallsWithDestroyedFlag_twoWallsAddedOneDestroyed_resultIs1);
 		 CPPUNIT_TEST(getAllPowerUpsWithDestroyedFlag_twoPowerUpsAddedOneDestroyed_resultIs1);
 		 CPPUNIT_TEST(reduceAllBombsLifeTime_oneExplodedBomb_explodedBombsLifeTimeDecreased);
+		 CPPUNIT_TEST(removeAllObjectsWithDestroyedFlag_oneDestroyedExplodedBomb_explodedBombCountIs0);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -82,6 +83,7 @@ namespace Common
 		 void getAllWallsWithDestroyedFlag_twoWallsAddedOneDestroyed_resultIs1();
 		 void getAllPowerUpsWithDestroyedFlag_twoPowerUpsAddedOneDestroyed_resultIs1();
 		 void reduceAllBombsLifeTime_oneExplodedBomb_explodedBombsLifeTimeDecreased();
+		 void removeAllObjectsWithDestroyedFlag_oneDestroyedExplodedBomb_explodedBombCountIs0();
 
 	private:
 		 UniqueIdCreator m_playerIDCreator;

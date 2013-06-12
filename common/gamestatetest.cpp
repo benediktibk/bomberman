@@ -446,3 +446,20 @@ void GameStateTest::reduceAllBombsLifeTime_oneExplodedBomb_explodedBombsLifeTime
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(ExplodedBombState::initialLifeTime() - 0.7, explodedBomb.getLifeTime(), 0.001);
 }
+
+void GameStateTest::removeAllObjectsWithDestroyedFlag_oneDestroyedExplodedBomb_explodedBombCountIs0()
+{
+	LevelDefinition level;
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
+	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	state.addBomb(bomb);
+	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
+	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
+	state.removeAllObjectsWithDestroyedFlag();
+	state.reduceAllBombsLifeTime(ExplodedBombState::initialLifeTime()*2);
+	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
+
+	state.removeAllObjectsWithDestroyedFlag();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, state.getExplodedBombCount());
+}

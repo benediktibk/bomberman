@@ -217,6 +217,9 @@ vector<const BombState*> GameState::setAllBombsWithNoLifeTimeDestroyedAndAddExpl
 		}
 	}
 
+	for (vector<ExplodedBombState*>::iterator i = m_explodedBombs.begin(); i != m_explodedBombs.end(); ++i)
+		(*i)->setDestroyedIfNoLifeTimeLeft();
+
 	return destroyedBombs;
 }
 
@@ -256,6 +259,18 @@ void GameState::removeAllObjectsWithDestroyedFlag()
 	{
 		if (m_players[i]->isDestroyed())
 			erasePlayer(i);
+	}
+
+	size_t i = 0;
+	while (i < m_explodedBombs.size())
+	{
+		if (m_explodedBombs[i]->isDestroyed())
+		{
+			delete m_explodedBombs[i];
+			m_explodedBombs.erase(m_explodedBombs.begin() + i);
+		}
+		else
+			++i;
 	}
 }
 
