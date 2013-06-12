@@ -44,7 +44,7 @@ private:
 	unsigned int m_framesPerSecond;
 	Threading::Mutex m_performanceInformationMutex;
 	double m_percentageOfTimeNotSleeping;
-	Threading::Signal m_start;
+	Threading::Signal m_start;  
 };
 }
 
