@@ -15,7 +15,9 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view) :
 	m_view(view),
 	m_scene(new QGraphicsScene()),
 	m_pixelPerMeter(40),
-	m_firstRedraw(true)
+	m_firstRedraw(true),
+	m_minimumViewDistance(0),
+	m_minimumViewDistanceInPixel(m_minimumViewDistance*m_pixelPerMeter)
 {
 	m_view.setBackgroundBrush(QBrush(QColor(255, 255, 255)));
 	m_view.setScene(m_scene);
@@ -33,17 +35,21 @@ GraphicDrawerQt::~GraphicDrawerQt()
 
 void GraphicDrawerQt::draw(const GameState &gameState)
 {
+	const PlayerState &firstPlayer = gameState.getFirstPlayerState();
+
 	if (m_firstRedraw)
 	{
 		drawBorderWalls(gameState.getWidth(), gameState.getHeight());
 		updateViewArea(gameState);
+		setViewPositionToTheCenterOfPlayer(firstPlayer);
 	}
+	else
+		updateViewPositionForPlayer(firstPlayer);
 
 	drawWalls(gameState.getAllChangedWalls());
 	drawBombs(gameState.getAllChangedBombs());
 	drawPowerUps(gameState.getAllChangedPowerUps());
 	drawPlayers(gameState);
-	updateViewPosition(gameState);
 	m_firstRedraw = false;
 }
 
@@ -176,11 +182,77 @@ void GraphicDrawerQt::updateViewArea(const GameState &gameState)
 	m_view.setSceneRect(x, y, widthWithBordersInPixel, heightWithBordersInPixel);
 }
 
-void GraphicDrawerQt::updateViewPosition(const GameState &gameState)
+void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
 {
-	const PlayerState &firstPlayer = gameState.getFirstPlayerState();
-	Common::Point firstPlayerPosition = firstPlayer.getCenterPosition();
-	Graphic::Point qtPoint = firstPlayerPosition*m_pixelPerMeter;
+	QRect maximumPlayerMovement;
+	unsigned int viewWidth = m_view.width();
+	unsigned int viewHeight = m_view.height();
+
+	if (viewWidth <= m_minimumViewDistanceInPixel*2)
+	{
+		maximumPlayerMovement.setX(viewWidth/2);
+		maximumPlayerMovement.setWidth(0);
+	}
+	else
+	{
+		maximumPlayerMovement.setX(m_minimumViewDistanceInPixel);
+		maximumPlayerMovement.setWidth(viewWidth - 2*m_minimumViewDistanceInPixel);
+	}
+
+	if (viewHeight <= m_minimumViewDistanceInPixel*2)
+	{
+		maximumPlayerMovement.setY(viewHeight/2);
+		maximumPlayerMovement.setHeight(0);
+	}
+	else
+	{
+		maximumPlayerMovement.setY(m_minimumViewDistanceInPixel);
+		maximumPlayerMovement.setHeight(viewHeight - 2*m_minimumViewDistanceInPixel);
+	}
+
+	if (maximumPlayerMovement.width() == 0 && maximumPlayerMovement.height() == 0)
+	{
+		setViewPositionToTheCenterOfPlayer(player);
+		return;
+	}
+
+	QPolygonF maximumPlayerMovementInScenePolygon = m_view.mapToScene(maximumPlayerMovement);
+	QRectF maximumPlayerMovementInScene = maximumPlayerMovementInScenePolygon.boundingRect();
+	Point playerPosition(player.getPosition()*m_pixelPerMeter);
+	playerPosition = playerPosition + Point(player.getWidth()/2, player.getHeight()/2)*m_pixelPerMeter;
+	playerPosition.switchIntoQtCoordinates();
+	QPointF centerOfView(maximumPlayerMovementInScene.center());
+	QPointF positionToCenterOn(centerOfView);
+
+	if (playerPosition.getY() < maximumPlayerMovementInScene.top())
+	{
+		double difference = maximumPlayerMovementInScene.top() - playerPosition.getY();
+		positionToCenterOn.setY(centerOfView.y() - difference);
+	}
+	else if (playerPosition.getY() > maximumPlayerMovementInScene.bottom())
+	{
+		double difference = playerPosition.getY() - maximumPlayerMovementInScene.bottom();
+		positionToCenterOn.setY(centerOfView.y() + difference);
+	}
+
+	if (playerPosition.getX() < maximumPlayerMovementInScene.left())
+	{
+		double difference = maximumPlayerMovementInScene.left() - playerPosition.getX();
+		positionToCenterOn.setX(centerOfView.x() - difference);
+	}
+	else if (playerPosition.getX() > maximumPlayerMovementInScene.right())
+	{
+		double difference = playerPosition.getX() - maximumPlayerMovementInScene.bottom();
+		positionToCenterOn.setX(centerOfView.x() + difference);
+	}
+
+	m_view.centerOn(positionToCenterOn);
+}
+
+void GraphicDrawerQt::setViewPositionToTheCenterOfPlayer(const PlayerState &player)
+{
+	Common::Point playerPosition = player.getCenterPosition();
+	Graphic::Point qtPoint = playerPosition*m_pixelPerMeter;
 	qtPoint.switchIntoQtCoordinates();
 	m_view.centerOn(qtPoint.toQPoint());
 }

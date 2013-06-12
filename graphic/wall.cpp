@@ -40,7 +40,7 @@ void Wall::createSVGItem(Common::WallState::WallType wallType)
 void Wall::updateInternal(const Common::Point &position, double width, double height, double pixelPerMeter)
 {
 	Point positionScaled(position*pixelPerMeter);
-	positionScaled = positionScaled + Point(width/2, height/2);
+	positionScaled = positionScaled + Point(width/2, height/2)*pixelPerMeter;
 	positionScaled.switchIntoQtCoordinates();
 
 	m_svgItem->setScale(0.001*pixelPerMeter*height);

@@ -20,7 +20,7 @@ Bomb::~Bomb()
 void Bomb::update(const Common::BombState &state, double pixelPerMeter)
 {
 	Point position(state.getPosition()*pixelPerMeter);
-	position = position + Point(state.getWidth()/2, state.getHeight()/2);
+	position = position + Point(state.getWidth()/2, state.getHeight()/2)*pixelPerMeter;
 	position.switchIntoQtCoordinates();
 
 	m_svgItem->setScale(0.001*pixelPerMeter*state.getHeight());

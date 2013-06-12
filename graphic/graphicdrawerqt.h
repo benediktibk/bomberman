@@ -34,7 +34,8 @@ namespace Graphic
 		void drawPowerUps(const std::vector<const Common::PowerUpState*> &powerUps);
 		void drawPowerUp(const Common::PowerUpState *powerUp);
 		void updateViewArea(const Common::GameState &gameState);
-		void updateViewPosition(const Common::GameState &gameState);
+		void updateViewPositionForPlayer(const Common::PlayerState &player);
+		void setViewPositionToTheCenterOfPlayer(const Common::PlayerState &player);
 		void drawBorderWalls(unsigned int width, unsigned int height);
 		void drawLeftBorderWalls(unsigned int height);
 		void drawRightBorderWalls(unsigned int width, unsigned int height);
@@ -60,6 +61,8 @@ namespace Graphic
 		const double m_pixelPerMeter;
 		bool m_firstRedraw;
 		std::vector<Wall*> m_borderWalls;
+		const double m_minimumViewDistance;
+		const double m_minimumViewDistanceInPixel;
 	};
 }
 
