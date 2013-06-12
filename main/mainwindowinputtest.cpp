@@ -22,8 +22,9 @@ void MainWindowInputTest::inputStateCalled()
     allPlayerIds[0] = 0;
     allPlayerIds[1] = 1;
 
+    setAllPossiblePlayerIds(allPlayerIds);
     std::map<unsigned int, InputState> currentInputState;
-    currentInputState = getInputStates(allPlayerIds);
+    currentInputState = getInputStates();
 
     if (currentInputState[0].isDownKeyPressed())
         m_ui->inputTestDownLabel->setText(tr("Down"));

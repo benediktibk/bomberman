@@ -9,6 +9,12 @@ MainWindowInputFetcher::MainWindowInputFetcher() :
 	QMainWindow(0)
 { }
 
+void MainWindowInputFetcher::setAllPossiblePlayerIds(std::vector<unsigned int> allPossiblePlayerIds)
+{
+    for(size_t i = 0; i < allPossiblePlayerIds.size(); i++)
+        m_playerIds = allPossiblePlayerIds;
+}
+
 InputState MainWindowInputFetcher::getInputState()
 {
 	m_inputStateMutex.lock();
@@ -17,12 +23,12 @@ InputState MainWindowInputFetcher::getInputState()
 	return stateCopy;
 }
 
-std::map<unsigned int, InputState> MainWindowInputFetcher::getInputStates(std::vector<unsigned int> allPossiblePlayerIds)
+std::map<unsigned int, InputState> MainWindowInputFetcher::getInputStates()
 {
     m_inputStateMutex.lock();
     std::map<unsigned int, InputState> stateCopy;
-    stateCopy[allPossiblePlayerIds.front()] = m_inputState;
-    stateCopy[allPossiblePlayerIds.back()] = m_inputStatePlayer2;
+    stateCopy[m_playerIds.front()] = m_inputState;
+    stateCopy[m_playerIds.back()] = m_inputStatePlayer2;
     m_inputStateMutex.unlock();
     return stateCopy;
 }

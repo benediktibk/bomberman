@@ -18,8 +18,10 @@ Q_OBJECT
 
 public:
 	MainWindowInputFetcher();
+
+    void setAllPossiblePlayerIds(std::vector<unsigned int> allPossiblePlayerIds);
     
-    virtual std::map<unsigned int, Common::InputState> getInputStates(std::vector<unsigned int> allPossiblePlayerIds);
+    virtual std::map<unsigned int, Common::InputState> getInputStates();
 	virtual Common::InputState getInputState();
 
 protected:
@@ -30,6 +32,7 @@ private:
 	Common::InputState m_inputState;
     Common::InputState m_inputStatePlayer2;
 	Threading::Mutex m_inputStateMutex;
+    std::vector<unsigned int> m_playerIds;
 };
 }
 
