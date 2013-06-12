@@ -7,6 +7,8 @@
 #include "common/leveldefinition.h"
 #include "common/uniqueidcreator.h"
 #include "common/powerupstate.h"
+#include "common/powerupmaxbombstate.h"
+#include "common/powerupmaxvelocitystate.h"
 #include "common/explodedbombstate.h"
 #include <vector>
 

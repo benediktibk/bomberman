@@ -43,12 +43,14 @@ namespace GameEngine
         void updateBombs();
         void placeBombs();
         void placeBombForPlayer(Common::PlayerState &player, const Common::InputState &input);
+        void addRandomPowerUpAtPosition(Common::Point position);
 
     private:
         std::map<unsigned int, Common::InputState> m_inputStates;
         Common::UniqueIdCreator m_bombids;
         Common::UniqueIdCreator m_wallids;
         Common::UniqueIdCreator m_playerIds;
+        Common::UniqueIdCreator m_powerUpIds;
         Common::GameState m_gameState;
         double m_elapsedTime;
         Grid *m_grid;
