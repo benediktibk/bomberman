@@ -28,6 +28,7 @@
 #include "physic/collisiongroupstest.h"
 #include "common/powerupgeneratortest.h"
 #include "common/playerstatetest.h"
+#include "common/powerupmaxvelocitystatetest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::GameStateTest);
@@ -59,3 +60,4 @@ CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GameEngineImplTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GridTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Main::GameLoopTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpGeneratorTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpMaxVelocityStateTest);

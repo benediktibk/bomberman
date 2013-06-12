@@ -286,3 +286,7 @@ resources/objects/explosion_center.svg
 resources/backgrounds/cell_pattern_1.svg
 resources/objects/powerup_v2.svg
 resources/objects/powerup_v1.svg
+common/powerupmaxvelocitystate.cpp
+common/powerupmaxvelocitystate.h
+common/powerupmaxvelocitystatetest.cpp
+common/powerupmaxvelocitystatetest.h

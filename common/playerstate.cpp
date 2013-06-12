@@ -218,3 +218,8 @@ void PlayerState::removeBombFromDoNotCollideList(const BombState *bomb)
 	vector<const BombState *>::iterator end = remove(m_bombsNotToCollideWith.begin(), m_bombsNotToCollideWith.end(), bomb);
 	m_bombsNotToCollideWith.erase(end, m_bombsNotToCollideWith.end());
 }
+
+void PlayerState::increaseMaximumSpeed()
+{
+    m_maximumSpeed += 2;
+}
