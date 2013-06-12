@@ -16,7 +16,8 @@ set(COMMON_SRC
 	powerupmaxbombstate.cpp
 	powerupgenerator.cpp
 	randomdecision.cpp
-    powerupmaxvelocitystate.cpp
+	powerupmaxvelocitystate.cpp
+	explodedbombstate.cpp
 )
 
 set(COMMON_TEST_SRC
@@ -43,7 +44,8 @@ set(COMMON_TEST_SRC
 	graphicdrawermock.cpp
 	inputfetcherstub.cpp
 	inputfetchermock.cpp
-    powerupmaxvelocitystatetest.cpp
+	powerupmaxvelocitystatetest.cpp
+	explodedbombstatetest.cpp
 )
 
 add_library(common ${COMMON_SRC})
