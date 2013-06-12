@@ -41,6 +41,7 @@ void Wall::createSVGItem(Common::WallState::WallType wallType)
 void Wall::updateInternal(const Common::Point &position, double width, double height, double pixelPerMeter)
 {
 	assert(width == height);
+	(void)(width); //! necessary to avoid warning in release build
 	Point positionScaled(position*pixelPerMeter);
 	positionScaled.switchIntoQtCoordinates();
 
