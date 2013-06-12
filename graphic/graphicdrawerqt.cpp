@@ -74,17 +74,20 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 {
 	assert(m_responsibilityValid);
 
-	const PlayerState &firstPlayer = gameState.getFirstPlayerState();
-
 	if (m_firstRedraw)
 	{
 		drawBorderWalls(gameState.getWidth(), gameState.getHeight());
 		drawCellBackgrounds(gameState.getWidth(), gameState.getHeight());
 		updateViewArea(gameState);
-		setViewPositionToTheCenterOfPlayer(firstPlayer);
+	}
+
+	if (m_responsibleForOnePlayer)
+	{
+		const PlayerState &player = gameState.getPlayerStateById(m_playerIDResponsibleFor);
+		updateViewPositionForPlayer(player);
 	}
 	else
-		updateViewPositionForPlayer(firstPlayer);
+		m_view.fitInView(m_scene->sceneRect());
 
 	drawWalls(gameState.getAllChangedWalls());
 	drawBombs(gameState.getAllChangedBombs());
