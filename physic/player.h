@@ -33,6 +33,7 @@ namespace Physic
 		double getPhysicalWidth() const;
 		double getPhysicalHeight() const;
 		bool isMoving() const;
+        void updateObstacle();
 
 	private:
 		void updateObjectToPhysicalDimensions(const Common::Point &position, int16_t collisionGroup);

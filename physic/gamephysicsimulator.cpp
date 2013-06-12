@@ -50,8 +50,8 @@ void GamePhysicSimulator::simulateStep(GameState &game, double time)
 		}
 		else
 			player = playerPosition->second;
-
-		player->applyLinearVelocity(playerState.getSpeedIntoX(), playerState.getSpeedIntoY());
+        player->applyLinearVelocity(playerState.getSpeedIntoX(), playerState.getSpeedIntoY());
+        player->updateObstacle();
 	}
 
 	m_simulator->simulateStep(time);
