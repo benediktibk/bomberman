@@ -6,8 +6,15 @@
 using namespace Graphic;
 
 CellBackground::CellBackground(QGraphicsScene &scene) :
-    m_svgItem(new QGraphicsSvgItem)
+    m_svgItem(new QGraphicsSvgItem(QString("resources/backgrounds/cell_pattern_1.svg")))
 {
+    scene.addItem(m_svgItem);
+}
+
+CellBackground::CellBackground(QGraphicsScene &scene, const Common::Point &position, double pixelPerMeter) :
+    m_svgItem(new QGraphicsSvgItem(QString("resources/backgrounds/cell_pattern_1.svg")))
+{
+    updateInternal(position, 1, 1, pixelPerMeter);
     scene.addItem(m_svgItem);
 }
 
@@ -16,11 +23,17 @@ CellBackground::~CellBackground()
     delete m_svgItem;
 }
 
-void CellBackground::update(const Point &point, double pixelPerMeter)
+void CellBackground::updateInternal(const Common::Point &position, double width, double height, double pixelPerMeter)
 {
-    Point position(point * pixelPerMeter);
-    position.switchIntoQtCoordinates();
+    Point positionScaled(position*pixelPerMeter);
+    positionScaled = positionScaled + Point(width/2, height/2);
+    positionScaled.switchIntoQtCoordinates();
 
-    m_svgItem->setScale(0.001*pixelPerMeter);
-    m_svgItem->setPos(position.toQPoint());
+    m_svgItem->setScale(0.001*pixelPerMeter*height);
+    m_svgItem->setPos(positionScaled.toQPoint());
+}
+
+void CellBackground::update(const Common::Point &position, double pixelPerMeter)
+{
+    updateInternal(position, 1, 1, pixelPerMeter);
 }

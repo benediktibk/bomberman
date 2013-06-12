@@ -188,7 +188,6 @@ resources/objects/wall_solid.svg
 resources/objects/wall_loose.svg
 resources/objects/player_standing.svg
 resources/objects/bomb_planted.svg
-resources/backgrounds/basic_gradient.svg
 common/uniqueidcreator.h
 common/uniqueidcreator.cpp
 common/uniqueidcreatortest.h
@@ -284,3 +283,4 @@ graphic/powerup.cpp
 graphic/cellbackground.h
 graphic/cellbackground.cpp
 resources/objects/explosion_center.svg
+resources/backgrounds/cell_pattern_1.svg
