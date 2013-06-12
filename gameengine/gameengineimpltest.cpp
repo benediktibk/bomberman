@@ -96,15 +96,15 @@ void GameEngineImplTest::updateGameState_twoBombsPlacedAndOneDestroyed_bombCount
 	input.setSpaceKeyPressed();
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 0);
-    input.setSpaceKeyNotPressed();
-    setFirstPlayerInput(input);
-    m_gameEngine->updateGameState(m_inputStates, 3.1);
-    m_gameEngine->updateGameState(m_inputStates, 0);
-    input.setSpaceKeyPressed();
-    setFirstPlayerInput(input);
-    m_gameEngine->updateGameState(m_inputStates, 1);
 	input.setSpaceKeyNotPressed();
-    setFirstPlayerInput(input);
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 3.1);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	input.setSpaceKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 1);
+	input.setSpaceKeyNotPressed();
+	setFirstPlayerInput(input);
 	const GameState &game = m_gameEngine->getGameState();
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getBombCount());
@@ -927,12 +927,12 @@ void GameEngineImplTest::getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestro
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 0);
 	input.setSpaceKeyNotPressed();
-    setFirstPlayerInput(input);
+	setFirstPlayerInput(input);
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 1);
 	input.setUpKeyNotPressed();
-    setFirstPlayerInput(input);
+	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 2.1);
 	m_gameEngine->updateGameState(m_inputStates, 0);
 
@@ -942,39 +942,39 @@ void GameEngineImplTest::getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestro
 
 void GameEngineImplTest::getPosition_getpositionaftercollisionwithotherplayer()
 {
-    LevelDefinition level(4, 4);
-    level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 1);
-    level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 1);
-    createGameEngine(level, 2);
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 1);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 1);
+	createGameEngine(level, 2);
 
-    GameState &game = m_gameEngine->getGameState();
-    PlayerState &firstPlayer = game.getFirstPlayerState();
-    PlayerState &secondPlayer = game.getSecondPlayerState();
+	GameState &game = m_gameEngine->getGameState();
+	PlayerState &firstPlayer = game.getFirstPlayerState();
+	PlayerState &secondPlayer = game.getSecondPlayerState();
 
-    const double timeForOneField = 1/firstPlayer.getMaximumSpeed();
-    Point pointTwo(2,1);
-    Point pointOne(0,1);
+	const double timeForOneField = 1/firstPlayer.getMaximumSpeed();
+	Point pointTwo(2,1);
+	Point pointOne(0,1);
 
 
-    firstPlayer.setPosition(pointOne);
-    secondPlayer.setPosition(pointTwo);
-    InputState input;
+	firstPlayer.setPosition(pointOne);
+	secondPlayer.setPosition(pointTwo);
+	InputState input;
 
-    input.setRightKeyPressed();
-    setFirstPlayerInput(input);
-    m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
-    input.setRightKeyNotPressed();
-    setFirstPlayerInput(input);
-    m_gameEngine->updateGameState(m_inputStates, 0.1);
+	input.setRightKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	input.setRightKeyNotPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0.1);
 
-    input.setLeftKeyPressed();
-    setSecondPlayerInput(input);
-    m_gameEngine->updateGameState(m_inputStates, 1);
-    input.setLeftKeyNotPressed();
-    m_gameEngine->updateGameState(m_inputStates, 0.1);
-    Point pointPositionEquals = secondPlayer.getPosition();
-    double x = pointPositionEquals.getX();
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(x,2.0,0.05);
+	input.setLeftKeyPressed();
+	setSecondPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 1);
+	input.setLeftKeyNotPressed();
+	m_gameEngine->updateGameState(m_inputStates, 0.1);
+	Point pointPositionEquals = secondPlayer.getPosition();
+	double x = pointPositionEquals.getX();
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(x,2.0,0.05);
 }
 
 void GameEngineImplTest::createGameEngine(const LevelDefinition &level, unsigned int playerCount)
@@ -1019,20 +1019,21 @@ void GameEngineImplTest::tearDown()
 
 void GameEngineImplTest::addPowerUp_PowerUpCount_Is_1_Player_Walks_on_PowerUP_PowerUpCount_Is_0()
 {
-    LevelDefinition level(4, 4);
+	CPPUNIT_ASSERT(false); // test crashes with segmentation fault
+	LevelDefinition level(4, 4);
 	createGameEngine(level, 1);
-    UniqueIdCreator idcreator;
+	UniqueIdCreator idcreator;
 	GameState &game = m_gameEngine->getGameState();
 	PlayerState &player = game.getFirstPlayerState();
-	InputState input; 
-    
-    game.addPowerUp(new PowerUpMaxBombState(idcreator,Point(1,2)));
-    
-    
-    game.getPowerUpCount();
-    CPPUNIT_ASSERT_EQUAL((size_t)1, game.getPowerUpCount());
-   
-    player.setPosition(Point(1, 1));
-    input.setRightKeyPressed();
-    CPPUNIT_ASSERT_EQUAL((size_t)0, game.getPowerUpCount());
-}    
+	InputState input;
+
+	game.addPowerUp(new PowerUpMaxBombState(idcreator,Point(1,2)));
+
+
+	game.getPowerUpCount();
+	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getPowerUpCount());
+
+	player.setPosition(Point(1, 1));
+	input.setRightKeyPressed();
+	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getPowerUpCount());
+}
