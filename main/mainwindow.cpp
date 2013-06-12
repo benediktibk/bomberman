@@ -1,19 +1,13 @@
-#include "mainwindow.h"
+#include "main/mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QtOpenGL/QGLWidget>
-#include <QtCore/QTimer>
-#include <QtGui/QScrollBar>
 #include "graphic/graphicdrawerqt.h"
 #include "common/gamestate.h"
-#include "gameloop.h"
+#include "main/gameloop.h"
 #include "gameengine/gameengineimpl.h"
-#include <QBrush>
-#include <QImage>
-#include <QPainter>
-#include <QtSvg/QtSvg>
+#include <QtCore/QTimer>
+#include <QtGui/QScrollBar>
 
 using namespace Main;
-using namespace Qt;
 using namespace Graphic;
 using namespace std;
 
@@ -29,25 +23,12 @@ MainWindow::MainWindow(bool enableOpenGL) :
 {
 	m_ui->setupUi(this);
 
-	if (m_enableOpenGL)
-		m_ui->graphicsView->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
-
-	QSvgRenderer renderer(QString("resources/backgrounds/cell_pattern_1.svg"));
-	QImage image(40, 40, QImage::Format_ARGB32);
-	QPainter painter(&image);
-	renderer.render(&painter);
-
-	QBrush *backgroundBrush = new QBrush(image);
-
-	m_ui->graphicsView->setBackgroundBrush(*backgroundBrush);
-
-	m_ui->graphicsView->setFocusPolicy(NoFocus);
-	m_ui->graphicsView->setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
-	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView));
+	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), m_enableOpenGL);
 	vector<unsigned int> playerIDs = m_gameEngine->getAllPossiblePlayerIDs();
 	vector<unsigned int> playerIDsToShow;
 	playerIDsToShow.push_back(playerIDs.front());
 	setResponsibleForPlayers(playerIDsToShow);
+
 	connect(	this, SIGNAL(guiUpdateNecessary(const Common::GameState*)),
 				this, SLOT(updateGui(const Common::GameState*)));
 	connect(	m_timerStatusBarUpdate, SIGNAL(timeout()),

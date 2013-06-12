@@ -19,7 +19,7 @@ namespace Graphic
 			public Common::GraphicDrawer
 	{
 	public:
-		GraphicDrawerQt(QGraphicsView &view);
+		GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL);
 		virtual ~GraphicDrawerQt();
 
 		virtual void setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs);

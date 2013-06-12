@@ -100,7 +100,7 @@ void MainWindowGraphicTest::drawState3()
 void MainWindowGraphicTest::drawState(const GameState &game)
 {
 	delete m_drawer;
-	m_drawer = new Graphic::GraphicDrawerQt(*(m_ui->graphicsView));
+	m_drawer = new Graphic::GraphicDrawerQt(*(m_ui->graphicsView), false);
 	vector<unsigned int> playerIDs = game.getAllPossiblePlayerIDs();
 	m_drawer->setResponsibleForPlayers(playerIDs);
 	m_drawer->draw(game);

@@ -7,13 +7,19 @@
 #include "graphic/cellbackground.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QBrush>
+#include <QImage>
+#include <QPainter>
+#include <QtSvg/QtSvg>
+#include <QtOpenGL/QGLWidget>
 #include <assert.h>
 
 using namespace Graphic;
 using namespace Common;
 using namespace std;
+using namespace Qt;
 
-GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view) :
+GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 	m_view(view),
 	m_scene(new QGraphicsScene()),
 	m_pixelPerMeter(40),
@@ -22,7 +28,20 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view) :
 	m_minimumViewDistanceInPixel(m_minimumViewDistance*m_pixelPerMeter),
 	m_responsibilityValid(false)
 {
-	m_view.setBackgroundBrush(QBrush(QColor(255, 255, 255)));
+	if (enableOpenGL)
+		m_view.setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
+
+	QSvgRenderer renderer(QString("resources/backgrounds/cell_pattern_1.svg"));
+	QImage image(m_pixelPerMeter, m_pixelPerMeter, QImage::Format_ARGB32);
+	QPainter painter(&image);
+	renderer.render(&painter);
+
+	QBrush *backgroundBrush = new QBrush(image);
+
+	m_view.setBackgroundBrush(*backgroundBrush);
+
+	m_view.setFocusPolicy(NoFocus);
+	m_view.setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
 	m_view.setScene(m_scene);
 }
 
