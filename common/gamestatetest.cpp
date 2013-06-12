@@ -101,7 +101,7 @@ void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_resultSizeIs1(
 	playerState.countBomb();
 	state.addBomb(new BombState(m_bombIDCreator, 0));
 	state.reduceAllBombsLifeTime(2.1);
-	state.setAllBombsWithNoLifeTimeDestroyed();
+	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
 	state.removeAllObjectsWithDestroyedFlag();
 
 	vector<const BombState*> bombs = state.getAllChangedBombs();
@@ -291,7 +291,7 @@ void GameStateTest::constructor_threePlayersOnDifferentPositions_allPlayersHaveD
 	CPPUNIT_ASSERT(!secondPosition.fuzzyEqual(thirdPosition, 0.001));
 }
 
-void GameStateTest::setAllBombsWithNoLifeTimeDestroyed_oneBombWithNoLifeTime_resultSizeIs1()
+void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBombWithNoLifeTime_resultSizeIs1()
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
@@ -299,12 +299,12 @@ void GameStateTest::setAllBombsWithNoLifeTimeDestroyed_oneBombWithNoLifeTime_res
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 
-	vector<const BombState*> result = state.setAllBombsWithNoLifeTimeDestroyed();
+	vector<const BombState*> result = state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, result.size());
 }
 
-void GameStateTest::setAllBombsWithNoLifeTimeDestroyed_oneBombWithNoLifeTime_resultIsAddedBomb()
+void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBombWithNoLifeTime_resultIsAddedBomb()
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
@@ -312,12 +312,12 @@ void GameStateTest::setAllBombsWithNoLifeTimeDestroyed_oneBombWithNoLifeTime_res
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 
-	vector<const BombState*> result = state.setAllBombsWithNoLifeTimeDestroyed();
+	vector<const BombState*> result = state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
 
 	CPPUNIT_ASSERT(bomb == result.front());
 }
 
-void GameStateTest::setAllBombsWithNoLifeTimeDestroyed_twoOfThreeBombsWithNoLifeTime_resultSizeIs2()
+void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_twoOfThreeBombsWithNoLifeTime_resultSizeIs2()
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
@@ -327,9 +327,22 @@ void GameStateTest::setAllBombsWithNoLifeTimeDestroyed_twoOfThreeBombsWithNoLife
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 	state.addBomb(new BombState(m_bombIDCreator, 0));
 
-	vector<const BombState*> result = state.setAllBombsWithNoLifeTimeDestroyed();
+	vector<const BombState*> result = state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
 
 	CPPUNIT_ASSERT_EQUAL((size_t)2, result.size());
+}
+
+void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBombWithNoLifeTime_explodedBombCountIs1()
+{
+	LevelDefinition level;
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
+	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	state.addBomb(bomb);
+	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
+
+	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, state.getExplodedBombCount());
 }
 
 void GameStateTest::erasePlayerById_onePlayersAddedOneDeleted_playerCountIs0()
@@ -344,47 +357,47 @@ void GameStateTest::erasePlayerById_onePlayersAddedOneDeleted_playerCountIs0()
 
 void GameStateTest::getAllBombsWithDestroyedFlag_twoBombsAddedOneDestroyed_resultIs1()
 {
-    LevelDefinition level;
-    GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-    PlayerState &playerState = state.getFirstPlayerState();
+	LevelDefinition level;
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
+	PlayerState &playerState = state.getFirstPlayerState();
 
-    playerState.countBomb();
-    state.addBomb(new BombState(m_bombIDCreator, 0));
-    state.reduceAllBombsLifeTime(1);
-    playerState.countBomb();
-    state.addBomb(new BombState(m_bombIDCreator, 0));
-    state.reduceAllBombsLifeTime(2.1);
-    state.setAllBombsWithNoLifeTimeDestroyed();
+	playerState.countBomb();
+	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.reduceAllBombsLifeTime(1);
+	playerState.countBomb();
+	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.reduceAllBombsLifeTime(2.1);
+	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
 
-    vector<const BombState*> bombs = state.getAllBombsWithDestroyedFlag();
+	vector<const BombState*> bombs = state.getAllBombsWithDestroyedFlag();
 
-    CPPUNIT_ASSERT_EQUAL((size_t)1, bombs.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)1, bombs.size());
 }
 
 void GameStateTest::getAllWallsWithDestroyedFlag_twoWallsAddedOneDestroyed_resultIs1()
 {
-    LevelDefinition level;
-    GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
+	LevelDefinition level;
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
-    state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeLoose, Point()));
-    state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeLoose, Point()));
-    state.eraseWallById(0);
+	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeLoose, Point()));
+	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeLoose, Point()));
+	state.eraseWallById(0);
 
-    vector<const WallState*> walls = state.getAllWallsWithDestroyedFlag();
+	vector<const WallState*> walls = state.getAllWallsWithDestroyedFlag();
 
-    CPPUNIT_ASSERT_EQUAL((size_t)1, walls.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)1, walls.size());
 }
 
 void GameStateTest::getAllPowerUpsWithDestroyedFlag_twoPowerUpsAddedOneDestroyed_resultIs1()
 {
-    LevelDefinition level;
-    GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
+	LevelDefinition level;
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
-    state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
-    state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
-    state.erasePowerUpById(0);
+	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
+	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
+	state.erasePowerUpById(0);
 
-    vector<const PowerUpState*> powerUps = state.getAllPowerUpsWithDestroyedFlag();
+	vector<const PowerUpState*> powerUps = state.getAllPowerUpsWithDestroyedFlag();
 
-    CPPUNIT_ASSERT_EQUAL((size_t)1, powerUps.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)1, powerUps.size());
 }

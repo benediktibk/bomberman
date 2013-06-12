@@ -282,7 +282,7 @@ void GameEngineImpl::updateBombs()
             m_gameState.erasePlayerById(playersInRange[j]);
     }
 
-    vector<const BombState*> destroyedBombs = m_gameState.setAllBombsWithNoLifeTimeDestroyed();
+    vector<const BombState*> destroyedBombs = m_gameState.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
 
     for (vector<const BombState*>::const_iterator i = destroyedBombs.begin(); i != destroyedBombs.end(); ++i)
     {
