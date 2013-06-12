@@ -9,6 +9,13 @@
 
 namespace Common
 {
+enum PowerUpType
+    {
+    PowerUpTypeNone,
+    PowerUpTypeMaxBomb,
+    PowerUpTypeMaxVelocity
+    };
+
 class PowerUpState :
         public ChangeableState,
         public DestroyableState

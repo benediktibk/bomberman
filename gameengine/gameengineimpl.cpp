@@ -5,6 +5,7 @@
 #include "physic/player.h"
 #include "physic/staticobject.h"
 #include "physic/collisiongroups.h"
+#include "common/powerupgenerator.h"
 #include <assert.h>
 #include <algorithm>
 #include <limits>
@@ -344,13 +345,37 @@ void GameEngineImpl::playerGetsPowerUp()
                 }
             }
 
-            }
+        }
     }
 }
 
 void GameEngineImpl::addPowerUp(PowerUpState* powerUp)
 {
-    m_gameState.addPowerUp(powerUp);   
+    m_gameState.addPowerUp(powerUp);
+    m_grid->addPowerUpAtPlace(*powerUp);
+}
+
+void GameEngineImpl::addRandomPowerUpAtPosition(Point position)
+{
+    PowerUpGenerator generator;
+    PowerUpType randomType = generator.getRandomPowerUpType();
+
+    if (randomType == PowerUpTypeNone)
+            return;
+    else if (randomType == PowerUpTypeMaxBomb)
+    {
+        PowerUpMaxBombState *powerUp = new PowerUpMaxBombState(m_powerUpIds, position);
+        addPowerUp(powerUp);
+    }
+    else if (randomType == PowerUpTypeMaxVelocity)
+    {
+        PowerUpMaxVelocityState *powerUp = new PowerUpMaxVelocityState(m_powerUpIds, position);
+        addPowerUp(powerUp);
+    }
+    else
+        assert(false);
+
+
 }
 
 void GameEngineImpl::removeAllObjectsWithDestroyedFlagFromGrid()
@@ -361,7 +386,10 @@ void GameEngineImpl::removeAllObjectsWithDestroyedFlagFromGrid()
 
     vector<const WallState*> allWallsWithDestroyedFlag = m_gameState.getAllWallsWithDestroyedFlag();
     for(size_t i = 0;i < allWallsWithDestroyedFlag.size();i++)
+    {
+        addRandomPowerUpAtPosition(allWallsWithDestroyedFlag[i]->getPosition());
         m_grid->removeWall(*allWallsWithDestroyedFlag[i]);
+    }
 
     vector<const PowerUpState*> allPowerUpsWithDestroyedFlag = m_gameState.getAllPowerUpsWithDestroyedFlag();
     for(size_t i = 0;i < allPowerUpsWithDestroyedFlag.size();i++)
