@@ -13,6 +13,7 @@
 #include "common/wallstatetest.h"
 #include "common/uniqueidcreatortest.h"
 #include "common/changeablestatetest.h"
+#include "common/explodedbombstatetest.h"
 #include "gameengine/gridtest.h"
 #include "common/destroyablestatetest.h"
 #include "common/leveldefinitiontest.h"
@@ -45,6 +46,9 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Common::UniqueIdCreatorTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::ChangeableStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::RandomDecisionTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PlayerStateTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::ExplodedBombStateTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpGeneratorTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpMaxVelocityStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::PhysicalObjectTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::DynamicObjectTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::StaticObjectTest);
@@ -59,5 +63,3 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Threading::SignalTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GameEngineImplTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GridTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Main::GameLoopTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpGeneratorTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpMaxVelocityStateTest);
