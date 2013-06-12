@@ -4,6 +4,7 @@
 #include "graphic/bomb.h"
 #include "graphic/powerup.h"
 #include "graphic/point.h"
+#include "graphic/cellbackground.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 
@@ -36,6 +37,7 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 	if (m_firstRedraw)
 	{
 		drawBorderWalls(gameState.getWidth(), gameState.getHeight());
+        drawCellBackgrounds(gameState.getWidth(), gameState.getHeight());
 		updateViewArea(gameState);
 	}
 
@@ -224,6 +226,17 @@ void GraphicDrawerQt::drawEdgeBorderWalls(unsigned int width, unsigned int heigh
 	m_borderWalls.push_back(new Wall(*m_scene, Point(-1, height), m_pixelPerMeter));
 	m_borderWalls.push_back(new Wall(*m_scene, Point(width, -1), m_pixelPerMeter));
 	m_borderWalls.push_back(new Wall(*m_scene, Point(width, height), m_pixelPerMeter));
+}
+
+void GraphicDrawerQt::drawCellBackgrounds(unsigned int width, unsigned int height)
+{
+    for (unsigned int x = 0; x < width; ++x)
+    {
+        for (unsigned int y = 0; y < height; ++y)
+        {
+            m_cellBackgrounds.push_back(new CellBackground(*m_scene, Point(x, y), m_pixelPerMeter));
+        }
+    }
 }
 
 void GraphicDrawerQt::deleteWalls()

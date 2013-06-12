@@ -54,7 +54,7 @@ void Grid::addPowerUpAtPlace(PowerUpState &powerUp)
     m_idMatrix[index] = powerUp.getId();
 }
 
-void Grid::removePowerUp(PowerUpState &powerUp)
+void Grid::removePowerUp(const PowerUpState &powerUp)
 {
     GridPoint position(powerUp.getPosition());
     unsigned int index = getVectorIndex(position);
@@ -62,7 +62,7 @@ void Grid::removePowerUp(PowerUpState &powerUp)
     m_idMatrix[index] = 0;
 }
 
-void Grid::removeBomb(BombState &bomb)
+void Grid::removeBomb(const BombState &bomb)
 {
     GridPoint position(bomb.getPosition());
     unsigned int index = getVectorIndex(position);
@@ -70,7 +70,7 @@ void Grid::removeBomb(BombState &bomb)
     m_idMatrix[index] = 0;
 }
 
-void Grid::removeWall(WallState &wall)
+void Grid::removeWall(const WallState &wall)
 {
     GridPoint position(wall.getPosition());
     unsigned int index = getVectorIndex(position);

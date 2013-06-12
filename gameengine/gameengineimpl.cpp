@@ -44,6 +44,7 @@ void GameEngineImpl::updateGameState(const std::map<unsigned int, Common::InputS
 
     if (!m_firstGameStateUpdate)
         m_gameState.resetChangedFlags();
+    removeAllObjectsWithDestroyedFlagFromGrid();
     m_gameState.removeAllObjectsWithDestroyedFlag();
     updateBombs();
     updatePlayerPositions();
@@ -308,12 +309,15 @@ void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &i
 {
     if (input.isSpaceKeyPressed() && player.canPlayerPlaceBomb())
     {
-        BombState *bombPlaced = new BombState(m_bombids, player.getId());
-        bombPlaced->setPosition(player.getCenterPosition());
-        m_grid->addBombAtPlace(*bombPlaced);
-        player.countBomb();
-        player.doNotCollideWith(bombPlaced);
-        m_gameState.addBomb(bombPlaced);
+        if(m_grid->isPlaceEmpty(player.getCenterPosition()))
+        {
+            BombState *bombPlaced = new BombState(m_bombids, player.getId());
+            bombPlaced->setPosition(player.getCenterPosition());
+            m_grid->addBombAtPlace(*bombPlaced);
+            player.countBomb();
+            player.doNotCollideWith(bombPlaced);
+            m_gameState.addBomb(bombPlaced);
+        }
     }
 }
 
@@ -350,3 +354,17 @@ void GameEngineImpl::applyPowerUp()
 
 }
 
+void GameEngineImpl::removeAllObjectsWithDestroyedFlagFromGrid()
+{
+    vector<const BombState*> allBombsWithDestroyedFlag = m_gameState.getAllBombsWithDestroyedFlag();
+    for(size_t i = 0;i < allBombsWithDestroyedFlag.size();i++)
+        m_grid->removeBomb(*allBombsWithDestroyedFlag[i]);
+
+    vector<const WallState*> allWallsWithDestroyedFlag = m_gameState.getAllWallsWithDestroyedFlag();
+    for(size_t i = 0;i < allWallsWithDestroyedFlag.size();i++)
+        m_grid->removeWall(*allWallsWithDestroyedFlag[i]);
+
+    vector<const PowerUpState*> allPowerUpsWithDestroyedFlag = m_gameState.getAllPowerUpsWithDestroyedFlag();
+    for(size_t i = 0;i < allPowerUpsWithDestroyedFlag.size();i++)
+        m_grid->removePowerUp(*allPowerUpsWithDestroyedFlag[i]);
+}
