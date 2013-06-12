@@ -13,9 +13,11 @@ class GameLoopTest :
 	 CPPUNIT_TEST(constructor_notStarted_inputFetcherGotNoCallsToGetInputState);
 	 CPPUNIT_TEST(constructor_notStarted_gameEngineGotNoCallsToUpdateGameState);
 	 CPPUNIT_TEST(constructor_notStarted_graphicDrawerGotNoCallsToDraw);
+	 CPPUNIT_TEST(constructor_notStarted_graphicDrawerGotNoCallsToSetResponsibleForPlayers);
 	 CPPUNIT_TEST(execute_runSomeExecutions_inputFetcherGotAsMuchCallsAsGameEngine);
 	 CPPUNIT_TEST(execute_runSomeExecutions_gameEngineGotAsMuchCallsAsGraphicDrawer);
 	 CPPUNIT_TEST(execute_runAround100ms_gameEngineGotAround6CallsToUpdateGameState);
+	 CPPUNIT_TEST(execute_runSomeExecutions_graphicDrawerGotNoCallsToSetResponsibleForPlayers);
 	 CPPUNIT_TEST(getFramesPerSecond_running_60);
 	 CPPUNIT_TEST(percentageOfTimeNotSleeping_running_0);
 	 CPPUNIT_TEST_SUITE_END();
@@ -24,9 +26,11 @@ private:
 	 void constructor_notStarted_inputFetcherGotNoCallsToGetInputState();
 	 void constructor_notStarted_gameEngineGotNoCallsToUpdateGameState();
 	 void constructor_notStarted_graphicDrawerGotNoCallsToDraw();
+	 void constructor_notStarted_graphicDrawerGotNoCallsToSetResponsibleForPlayers();
 	 void execute_runSomeExecutions_inputFetcherGotAsMuchCallsAsGameEngine();
 	 void execute_runSomeExecutions_gameEngineGotAsMuchCallsAsGraphicDrawer();
 	 void execute_runAround100ms_gameEngineGotAround6CallsToUpdateGameState();
+	 void execute_runSomeExecutions_graphicDrawerGotNoCallsToSetResponsibleForPlayers();
 	 void getFramesPerSecond_running_60();
 	 void percentageOfTimeNotSleeping_running_0();
 };

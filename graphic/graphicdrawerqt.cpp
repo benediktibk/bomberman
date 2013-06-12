@@ -7,6 +7,7 @@
 #include "graphic/cellbackground.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <assert.h>
 
 using namespace Graphic;
 using namespace Common;
@@ -18,7 +19,8 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view) :
 	m_pixelPerMeter(40),
 	m_firstRedraw(true),
 	m_minimumViewDistance(4),
-	m_minimumViewDistanceInPixel(m_minimumViewDistance*m_pixelPerMeter)
+	m_minimumViewDistanceInPixel(m_minimumViewDistance*m_pixelPerMeter),
+	m_responsibilityValid(false)
 {
 	m_view.setBackgroundBrush(QBrush(QColor(255, 255, 255)));
 	m_view.setScene(m_scene);
@@ -34,8 +36,25 @@ GraphicDrawerQt::~GraphicDrawerQt()
 	delete m_scene;
 }
 
+void GraphicDrawerQt::setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs)
+{
+	assert(playerIDs.size() > 0);
+
+	if (playerIDs.size() == 1)
+	{
+		m_responsibleForOnePlayer = true;
+		m_playerIDResponsibleFor = playerIDs.front();
+	}
+	else
+		m_responsibleForOnePlayer = false;
+
+	m_responsibilityValid = true;
+}
+
 void GraphicDrawerQt::draw(const GameState &gameState)
 {
+	assert(m_responsibilityValid);
+
 	const PlayerState &firstPlayer = gameState.getFirstPlayerState();
 
 	if (m_firstRedraw)

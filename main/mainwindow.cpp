@@ -15,13 +15,14 @@
 using namespace Main;
 using namespace Qt;
 using namespace Graphic;
+using namespace std;
 
 MainWindow::MainWindow(bool enableOpenGL) :
 	m_statusBarUpdateTimeStep(250),
 	m_ui(new Ui::MainWindow),
 	m_drawer(0),
 	m_level(Common::LevelDefinition::createDefaultLevel()),
-    m_gameEngine(new GameEngine::GameEngineImpl(m_level, 2)),
+	m_gameEngine(new GameEngine::GameEngineImpl(m_level, 2)),
 	m_gameLoop(new GameLoop(*this, *m_gameEngine, *this)),
 	m_timerStatusBarUpdate(new QTimer(this)),
 	m_enableOpenGL(enableOpenGL)
@@ -31,18 +32,22 @@ MainWindow::MainWindow(bool enableOpenGL) :
 	if (m_enableOpenGL)
 		m_ui->graphicsView->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
 
-    QSvgRenderer renderer(QString("resources/backgrounds/cell_pattern_1.svg"));
-    QImage image(40, 40, QImage::Format_ARGB32);
-    QPainter painter(&image);
-    renderer.render(&painter);
+	QSvgRenderer renderer(QString("resources/backgrounds/cell_pattern_1.svg"));
+	QImage image(40, 40, QImage::Format_ARGB32);
+	QPainter painter(&image);
+	renderer.render(&painter);
 
-    QBrush *backgroundBrush = new QBrush(image);
+	QBrush *backgroundBrush = new QBrush(image);
 
-    m_ui->graphicsView->setBackgroundBrush(*backgroundBrush);
+	m_ui->graphicsView->setBackgroundBrush(*backgroundBrush);
 
 	m_ui->graphicsView->setFocusPolicy(NoFocus);
 	m_ui->graphicsView->setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
 	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView));
+	vector<unsigned int> playerIDs = m_gameEngine->getAllPossiblePlayerIDs();
+	vector<unsigned int> playerIDsToShow;
+	playerIDsToShow.push_back(playerIDs.front());
+	setResponsibleForPlayers(playerIDsToShow);
 	connect(	this, SIGNAL(guiUpdateNecessary(const Common::GameState*)),
 				this, SLOT(updateGui(const Common::GameState*)));
 	connect(	m_timerStatusBarUpdate, SIGNAL(timeout()),
@@ -58,6 +63,11 @@ MainWindow::~MainWindow()
 	delete m_drawer;
 	delete m_gameEngine;
 	delete m_ui;
+}
+
+void MainWindow::setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs)
+{
+	m_drawer->setResponsibleForPlayers(playerIDs);
 }
 
 void MainWindow::draw(const Common::GameState &gameState)

@@ -67,9 +67,7 @@ void MainWindowGraphicTest::drawState1()
 	gameState.addBomb(bombOne);
 	gameState.addBomb(bombTwo);
 
-	delete m_drawer;
-	m_drawer = new Graphic::GraphicDrawerQt(*(m_ui->graphicsView));
-	m_drawer->draw(gameState);
+	drawState(gameState);
 }
 
 void MainWindowGraphicTest::drawState2()
@@ -82,9 +80,7 @@ void MainWindowGraphicTest::drawState2()
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 2);
 	GameState gameState(level, 3, playerIDCreator, wallIDCreator);
 
-	delete m_drawer;
-	m_drawer = new Graphic::GraphicDrawerQt(*(m_ui->graphicsView));
-	m_drawer->draw(gameState);
+	drawState(gameState);
 }
 
 void MainWindowGraphicTest::drawState3()
@@ -98,7 +94,14 @@ void MainWindowGraphicTest::drawState3()
 	PowerUpState *powerUp = new PowerUpState(powerUpIDCreator, Point(0, 1));
 	gameState.addPowerUp(powerUp);
 
+	drawState(gameState);
+}
+
+void MainWindowGraphicTest::drawState(const GameState &game)
+{
 	delete m_drawer;
 	m_drawer = new Graphic::GraphicDrawerQt(*(m_ui->graphicsView));
-	m_drawer->draw(gameState);
+	vector<unsigned int> playerIDs = game.getAllPossiblePlayerIDs();
+	m_drawer->setResponsibleForPlayers(playerIDs);
+	m_drawer->draw(game);
 }
