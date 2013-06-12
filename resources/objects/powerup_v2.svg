@@ -321,17 +321,6 @@
        x2="463.87271"
        y2="251.79453"
        gradientUnits="userSpaceOnUse" />
-    <radialGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient3907"
-       id="radialGradient3905"
-       cx="143.13725"
-       cy="212.63481"
-       fx="143.13725"
-       fy="212.63481"
-       r="440.79541"
-       gradientTransform="matrix(1,0,0,0.95133411,0,10.348062)"
-       gradientUnits="userSpaceOnUse" />
     <filter
        id="filter3973"
        style="color-interpolation-filters:sRGB;"
@@ -373,7 +362,7 @@
        fx="653.71741"
        fy="553.75537"
        r="169.16667"
-       gradientTransform="matrix(-1.8862005,-0.39183946,0.35931622,-1.7296431,1687.7862,1696.2671)"
+       gradientTransform="matrix(-2.2820061,-0.65838539,0.85786224,-2.9734055,1670.4587,2559.2529)"
        gradientUnits="userSpaceOnUse" />
     <radialGradient
        inkscape:collect="always"
