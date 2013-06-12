@@ -359,3 +359,36 @@ void GameState::erasePlayerById(unsigned int playerId)
             m_players[i]->setDestroyed();
     }
 }
+
+vector<const BombState*> GameState::getAllBombsWithDestroyedFlag() const
+{
+    vector<const BombState*> result;
+
+    for (vector<BombState*>::const_iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
+        if ((*i)->isDestroyed())
+            result.push_back(*i);
+
+    return result;
+}
+
+vector<const WallState*> GameState::getAllWallsWithDestroyedFlag() const
+{
+    vector<const WallState*> result;
+
+    for (vector<WallState*>::const_iterator i = m_walls.begin(); i != m_walls.end(); ++i)
+        if ((*i)->isDestroyed())
+            result.push_back(*i);
+
+    return result;
+}
+
+vector<const PowerUpState*> GameState::getAllPowerUpsWithDestroyedFlag() const
+{
+    vector<const PowerUpState*> result;
+
+    for (vector<PowerUpState*>::const_iterator i = m_powerUps.begin(); i != m_powerUps.end(); ++i)
+        if ((*i)->isDestroyed())
+            result.push_back(*i);
+
+    return result;
+}

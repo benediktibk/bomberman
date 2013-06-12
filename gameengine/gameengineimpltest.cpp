@@ -95,10 +95,15 @@ void GameEngineImplTest::updateGameState_twoBombsPlacedAndOneDestroyed_bombCount
 	input.setSpaceKeyPressed();
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 0);
-	m_gameEngine->updateGameState(m_inputStates, 3.1);
+    input.setSpaceKeyNotPressed();
+    setFirstPlayerInput(input);
+    m_gameEngine->updateGameState(m_inputStates, 3.1);
+    m_gameEngine->updateGameState(m_inputStates, 0);
+    input.setSpaceKeyPressed();
+    setFirstPlayerInput(input);
+    m_gameEngine->updateGameState(m_inputStates, 1);
 	input.setSpaceKeyNotPressed();
-	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, 0);
+    setFirstPlayerInput(input);
 	const GameState &game = m_gameEngine->getGameState();
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getBombCount());
@@ -921,10 +926,12 @@ void GameEngineImplTest::getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestro
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 0);
 	input.setSpaceKeyNotPressed();
+    setFirstPlayerInput(input);
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 1);
 	input.setUpKeyNotPressed();
+    setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 2.1);
 	m_gameEngine->updateGameState(m_inputStates, 0);
 
