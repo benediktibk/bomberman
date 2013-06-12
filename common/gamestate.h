@@ -33,6 +33,7 @@ namespace Common
 		size_t getBombCount() const;
 		void addBomb(BombState* bomb);
 		void reduceAllBombsLifeTime(double time);
+		std::vector<const ExplodedBombState*> getAllChangedExplodedBombs() const;
 		std::vector<const BombState *> setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
 		void resetChangedFlags();
 		void removeAllObjectsWithDestroyedFlag();

@@ -188,6 +188,17 @@ void GameState::reduceAllBombsLifeTime(double time)
 	}
 }
 
+vector<const ExplodedBombState*> GameState::getAllChangedExplodedBombs() const
+{
+	vector<const ExplodedBombState*> result;
+
+	for (vector<ExplodedBombState*>::const_iterator i = m_explodedBombs.begin(); i != m_explodedBombs.end(); ++i)
+		if ((*i)->hasChanged())
+			result.push_back(*i);
+
+	return result;
+}
+
 vector<const BombState*> GameState::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs()
 {
 	vector<const BombState*> destroyedBombs;
