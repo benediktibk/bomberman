@@ -13,6 +13,13 @@ PowerUp::PowerUp(QGraphicsScene &scene) :
 	scene.addItem(m_svgItem);
 }
 
+PowerUp::PowerUp(QGraphicsScene &scene, PowerUpState &state, double pixelPerMeter)
+{
+    createSvgItem(state);
+    scene.addItem(m_svgItem);
+    update(state, pixelPerMeter);
+}
+
 PowerUp::~PowerUp()
 {
 	delete m_svgItem;
@@ -26,4 +33,9 @@ void PowerUp::update(const PowerUpState &state, double pixelPerMeter)
 
 	m_svgItem->setScale(0.001*pixelPerMeter*state.getHeight());
 	m_svgItem->setPos(position.toQPoint());
+}
+
+void PowerUp::createSvgItem(PowerUpState &/*state*/)
+{
+    m_svgItem = new QGraphicsSvgItem(QString("resources/objects/powerup_v2.svg"));
 }
