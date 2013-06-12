@@ -35,7 +35,7 @@ double PowerUpState::getHeight() const
     return m_height;
 }
 
-void PowerUpState::modifyPlayer(PlayerState& /*player*/)
+void PowerUpState::modifyPlayer(PlayerState& /*player*/) const
 { }
 
 void PowerUpState::shouldBeDestroyed()

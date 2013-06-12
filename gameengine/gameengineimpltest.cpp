@@ -1,4 +1,5 @@
 #include "gameengineimpltest.h"
+#include "common/powerupmaxbombstate.h"
 
 using namespace std;
 using namespace GameEngine;
@@ -1016,4 +1017,22 @@ void GameEngineImplTest::tearDown()
 	m_gameEngine = 0;
 }
 
-
+void GameEngineImplTest::addPowerUp_PowerUpCount_Is_1_Player_Walks_on_PowerUP_PowerUpCount_Is_0()
+{
+    LevelDefinition level(4, 4);
+	createGameEngine(level, 1);
+    UniqueIdCreator idcreator;
+	GameState &game = m_gameEngine->getGameState();
+	PlayerState &player = game.getFirstPlayerState();
+	InputState input; 
+    
+    game.addPowerUp(new PowerUpMaxBombState(idcreator,Point(1,2)));
+    
+    
+    game.getPowerUpCount();
+    CPPUNIT_ASSERT_EQUAL((size_t)1, game.getPowerUpCount());
+   
+    player.setPosition(Point(1, 1));
+    input.setRightKeyPressed();
+    CPPUNIT_ASSERT_EQUAL((size_t)0, game.getPowerUpCount());
+}    

@@ -22,7 +22,7 @@ public:
     double getWidth() const;
     double getHeight() const;
 
-    virtual void modifyPlayer(PlayerState &player);
+    virtual void modifyPlayer(PlayerState &player) const;
 
 protected:
     virtual void shouldBeDestroyed();
