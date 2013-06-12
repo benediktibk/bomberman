@@ -8,16 +8,16 @@ using namespace Graphic;
 using namespace Common;
 
 PowerUp::PowerUp(QGraphicsScene &scene) :
-    m_svgItem(new QGraphicsSvgItem(QString("resources/objects/powerup_v2.svg")))
+	m_svgItem(new QGraphicsSvgItem(QString("resources/objects/powerup_v2.svg")))
 {
 	scene.addItem(m_svgItem);
 }
 
 PowerUp::PowerUp(QGraphicsScene &scene, PowerUpState &state, double pixelPerMeter)
 {
-    createSvgItem(state);
-    scene.addItem(m_svgItem);
-    update(state, pixelPerMeter);
+	createSvgItem(state);
+	scene.addItem(m_svgItem);
+	update(state, pixelPerMeter);
 }
 
 PowerUp::~PowerUp()
@@ -28,7 +28,6 @@ PowerUp::~PowerUp()
 void PowerUp::update(const PowerUpState &state, double pixelPerMeter)
 {
 	Point position(state.getPosition()*pixelPerMeter);
-	position = position + Point(state.getWidth()/2, state.getHeight()/2)*pixelPerMeter;
 	position.switchIntoQtCoordinates();
 
 	m_svgItem->setScale(0.001*pixelPerMeter*state.getHeight());
@@ -37,5 +36,5 @@ void PowerUp::update(const PowerUpState &state, double pixelPerMeter)
 
 void PowerUp::createSvgItem(PowerUpState &/*state*/)
 {
-    m_svgItem = new QGraphicsSvgItem(QString("resources/objects/powerup_v2.svg"));
+	m_svgItem = new QGraphicsSvgItem(QString("resources/objects/powerup_v2.svg"));
 }
