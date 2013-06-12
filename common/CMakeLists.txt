@@ -18,7 +18,7 @@ set(COMMON_SRC
 	randomdecision.cpp
 	powerupmaxvelocitystate.cpp
 	explodedbombstate.cpp
-        compare.cpp
+	compare.cpp
 )
 
 set(COMMON_TEST_SRC
@@ -47,7 +47,7 @@ set(COMMON_TEST_SRC
 	inputfetchermock.cpp
 	powerupmaxvelocitystatetest.cpp
 	explodedbombstatetest.cpp
-        comparetest.cpp
+	comparetest.cpp
 )
 
 add_library(common ${COMMON_SRC})
