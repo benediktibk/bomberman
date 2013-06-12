@@ -13,6 +13,7 @@ namespace Graphic
 	class Wall;
 	class Bomb;
 	class PowerUp;
+    class CellBackground;
 
 	class GraphicDrawerQt :
 			public Common::GraphicDrawer
@@ -41,6 +42,7 @@ namespace Graphic
 		void drawUpperBorderWalls(unsigned int width, unsigned int height);
 		void drawLowerBorderWalls(unsigned int width);
 		void drawEdgeBorderWalls(unsigned int width, unsigned int height);
+        void drawCellBackgrounds(unsigned int width, unsigned int height);
 		void deleteWalls();
 		void deleteBombs();
 		void deletePowerUps();
@@ -60,6 +62,7 @@ namespace Graphic
 		const double m_pixelPerMeter;
 		bool m_firstRedraw;
 		std::vector<Wall*> m_borderWalls;
+        std::vector<CellBackground*> m_cellBackgrounds;
 	};
 }
 
