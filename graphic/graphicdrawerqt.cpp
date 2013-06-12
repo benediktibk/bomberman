@@ -182,6 +182,8 @@ void GraphicDrawerQt::updateViewArea(const GameState &gameState)
 	m_view.setSceneRect(x, y, widthWithBordersInPixel, heightWithBordersInPixel);
 }
 
+#include <iostream>
+
 void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
 {
 	QRect maximumPlayerMovement;
@@ -246,6 +248,8 @@ void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
 		positionToCenterOn.setX(centerOfView.x() + difference);
 	}
 
+	positionToCenterOn.setX(positionToCenterOn.x() - 2);
+	positionToCenterOn.setY(positionToCenterOn.y() - 2);
 	m_view.centerOn(positionToCenterOn);
 }
 
