@@ -62,13 +62,9 @@ Point Player::getCenterPosition() const
 void Player::applyLinearVelocity(double velocityIntoX, double velocityIntoY)
 {
 	assert(velocityIntoX == 0 || velocityIntoY == 0);
-    delete m_field1;
-    delete m_field2;
-    m_field1 = 0;
-    m_field2 = 0;
 
 	Point oldPosition = getPosition();
-    vector<GridPoint> coverdFields = GridPoint::getCoveredGridPoints(oldPosition);	Point newPosition;
+    Point newPosition;
 
 	if (velocityIntoX != 0)
 	{
@@ -77,18 +73,6 @@ void Player::applyLinearVelocity(double velocityIntoX, double velocityIntoY)
 		m_movingIntoX = true;
 		m_movingIntoY = false;
 		newPosition = oldPosition + Point(0, m_height/4);
-        if (coverdFields.size() == 1)
-        {
-            m_field1 = new StaticObject(m_simulator,coverdFields[0].getPointPosition(),1.0,1.0);
-            m_field1->setCollisionGroup(m_collisionGroup);
-        }
-        else
-        {
-            m_field1 = new StaticObject(m_simulator,coverdFields[0].getPointPosition(),1.0,1.0);
-            m_field1->setCollisionGroup(m_collisionGroup);
-            m_field2 = new StaticObject(m_simulator,coverdFields[1].getPointPosition(),1.0,1.0);
-            m_field2->setCollisionGroup(m_collisionGroup);
-        }
 	}
 	else if (velocityIntoY != 0)
 	{
@@ -97,18 +81,6 @@ void Player::applyLinearVelocity(double velocityIntoX, double velocityIntoY)
 		m_movingIntoX = false;
 		m_movingIntoY = true;
 		newPosition = oldPosition + Point(m_width/4, 0);
-        if (coverdFields.size() == 1)
-        {
-            m_field1 = new StaticObject(m_simulator,coverdFields[0].getPointPosition(),1.0,1.0);
-            m_field1->setCollisionGroup(m_collisionGroup);
-        }
-        else
-        {
-            m_field1 = new StaticObject(m_simulator,coverdFields[0].getPointPosition(),1.0,1.0);
-            m_field1->setCollisionGroup(m_collisionGroup);
-            m_field2 = new StaticObject(m_simulator,coverdFields[1].getPointPosition(),1.0,1.0);
-            m_field2->setCollisionGroup(m_collisionGroup);
-        }
 	}
 	else
 	{
@@ -194,4 +166,26 @@ void Player::updateObjectToPhysicalDimensions(const Point &position, int16_t col
 	m_object->setCollisionGroup(collisionGroup);
 }
 
+void Player::updateObstacle()
+{
+    delete m_field1;
+    delete m_field2;
+    m_field1 = 0;
+    m_field2 = 0;
 
+    vector<GridPoint> coverdFields = GridPoint::getCoveredGridPoints(getPosition());
+
+    if (coverdFields.size() == 1)
+    {
+        m_field1 = new StaticObject(m_simulator,coverdFields[0].getPointPosition(),1.0,1.0);
+        m_field1->setCollisionGroup(m_collisionGroup);
+    }
+    else
+    {
+        m_field1 = new StaticObject(m_simulator,coverdFields[0].getPointPosition(),1.0,1.0);
+        m_field1->setCollisionGroup(m_collisionGroup);
+        m_field2 = new StaticObject(m_simulator,coverdFields[1].getPointPosition(),1.0,1.0);
+        m_field2->setCollisionGroup(m_collisionGroup);
+    }
+
+}

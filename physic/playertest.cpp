@@ -13,7 +13,7 @@ using namespace std;
 void PlayerTest::constructor_validDimensions_bodyCountOfSimulatorIs1()
 {
 	PhysicSimulator simulator;
-	Player player(simulator, *m_playerState);
+    Player player(simulator, *m_playerOneState);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, simulator.getBodyCount());
 }
@@ -21,7 +21,7 @@ void PlayerTest::constructor_validDimensions_bodyCountOfSimulatorIs1()
 void PlayerTest::destructor_empty_bodyCountOfSimulatorIs0()
 {
 	PhysicSimulator simulator;
-	Player *player = new Player(simulator, *m_playerState);
+    Player *player = new Player(simulator, *m_playerOneState);
 
 	delete player;
 
@@ -32,8 +32,8 @@ void PlayerTest::getPosition_positionSetTo2And3_2And3()
 {
 	PhysicSimulator simulator;
 	Point positionShouldBe(2, 3);
-	m_playerState->setPosition(positionShouldBe);
-	Player player(simulator, *m_playerState);
+    m_playerOneState->setPosition(positionShouldBe);
+    Player player(simulator, *m_playerOneState);
 
 	Point positionReal = player.getPosition();
 
@@ -43,8 +43,8 @@ void PlayerTest::getPosition_positionSetTo2And3_2And3()
 void PlayerTest::getCenterPosition_positionSetTo2And3WithHeightAndWidth2_3And4()
 {
 	PhysicSimulator simulator;
-	m_playerState->setPosition(Point(3, 4));
-	Player player(simulator, *m_playerState);
+    m_playerOneState->setPosition(Point(3, 4));
+    Player player(simulator, *m_playerOneState);
 
 	Point positionReal = player.getCenterPosition();
 
@@ -55,8 +55,8 @@ void PlayerTest::getCenterPosition_positionSetTo2And3WithHeightAndWidth2_3And4()
 void PlayerTest::constructor_heightSetTo2_heightIs2()
 {
 	PhysicSimulator simulator;
-	m_playerState->setHeight(2);
-	Player player(simulator, *m_playerState);
+    m_playerOneState->setHeight(2);
+    Player player(simulator, *m_playerOneState);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(2, player.getHeight(), 0.0001);
 }
@@ -64,8 +64,8 @@ void PlayerTest::constructor_heightSetTo2_heightIs2()
 void PlayerTest::constructor_widthSetTo4_widthIs4()
 {
 	PhysicSimulator simulator;
-	m_playerState->setWidth(4);
-	Player player(simulator, *m_playerState);
+    m_playerOneState->setWidth(4);
+    Player player(simulator, *m_playerOneState);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(4, player.getWidth(), 0.0001);
 }
@@ -73,8 +73,8 @@ void PlayerTest::constructor_widthSetTo4_widthIs4()
 void PlayerTest::getPhysicalHeight_notMovingAndHeight4_4()
 {
 	PhysicSimulator simulator;
-	m_playerState->setHeight(4);
-	Player player(simulator, *m_playerState);
+    m_playerOneState->setHeight(4);
+    Player player(simulator, *m_playerOneState);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(4, player.getPhysicalHeight(), 0.0001);
 }
@@ -82,8 +82,8 @@ void PlayerTest::getPhysicalHeight_notMovingAndHeight4_4()
 void PlayerTest::getPhysicalWidth_notMovingAndWidth2_2()
 {
 	PhysicSimulator simulator;
-	m_playerState->setWidth(2);
-	Player player(simulator, *m_playerState);
+    m_playerOneState->setWidth(2);
+    Player player(simulator, *m_playerOneState);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(2, player.getPhysicalWidth(), 0.0001);
 }
@@ -91,8 +91,8 @@ void PlayerTest::getPhysicalWidth_notMovingAndWidth2_2()
 void PlayerTest::getPhysicalHeight_movingIntoXAndHeight4_2()
 {
 	PhysicSimulator simulator;
-	m_playerState->setHeight(4);
-	Player player(simulator, *m_playerState);
+    m_playerOneState->setHeight(4);
+    Player player(simulator, *m_playerOneState);
 	player.applyLinearVelocity(1, 0);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(2, player.getPhysicalHeight(), 0.0001);
@@ -101,8 +101,8 @@ void PlayerTest::getPhysicalHeight_movingIntoXAndHeight4_2()
 void PlayerTest::getPhysicalHeight_movingIntoYAndHeight4_4()
 {
 	PhysicSimulator simulator;
-	m_playerState->setHeight(4);
-	Player player(simulator, *m_playerState);
+    m_playerOneState->setHeight(4);
+    Player player(simulator, *m_playerOneState);
 	player.applyLinearVelocity(0, 1);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(4, player.getPhysicalHeight(), 0.0001);
@@ -111,8 +111,8 @@ void PlayerTest::getPhysicalHeight_movingIntoYAndHeight4_4()
 void PlayerTest::getPhysicalWidth_movingIntoXAndWidth6_6()
 {
 	PhysicSimulator simulator;
-	m_playerState->setWidth(6);
-	Player player(simulator, *m_playerState);
+    m_playerOneState->setWidth(6);
+    Player player(simulator, *m_playerOneState);
 	player.applyLinearVelocity(1, 0);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(6, player.getPhysicalWidth(), 0.0001);
@@ -121,8 +121,8 @@ void PlayerTest::getPhysicalWidth_movingIntoXAndWidth6_6()
 void PlayerTest::getPhysicalWidth_movingIntoYAndWith6_3()
 {
 	PhysicSimulator simulator;
-	m_playerState->setWidth(6);
-	Player player(simulator, *m_playerState);
+    m_playerOneState->setWidth(6);
+    Player player(simulator, *m_playerOneState);
 	player.applyLinearVelocity(0, 1);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(3, player.getPhysicalWidth(), 0.0001);
@@ -131,7 +131,7 @@ void PlayerTest::getPhysicalWidth_movingIntoYAndWith6_3()
 void PlayerTest::applyLinearVelocity_4And0_velocityXIs4()
 {
 	PhysicSimulator simulator;
-	Player player(simulator, *m_playerState);
+    Player player(simulator, *m_playerOneState);
 
 	player.applyLinearVelocity(4, 0);
 
@@ -141,7 +141,7 @@ void PlayerTest::applyLinearVelocity_4And0_velocityXIs4()
 void PlayerTest::applyLinearVelocity_0And5_velocityYIs5()
 {
 	PhysicSimulator simulator;
-	Player player(simulator, *m_playerState);
+    Player player(simulator, *m_playerOneState);
 
 	player.applyLinearVelocity(0, 5);
 
@@ -153,8 +153,8 @@ void PlayerTest::getPosition_movingIntoX_correctPosition()
 {
 	PhysicSimulator simulator;
 	Point positionShouldBe(3, 2);
-	m_playerState->setPosition(positionShouldBe);
-	Player player(simulator, *m_playerState);
+    m_playerOneState->setPosition(positionShouldBe);
+    Player player(simulator, *m_playerOneState);
 
 	player.applyLinearVelocity(1, 0);
 
@@ -166,8 +166,8 @@ void PlayerTest::getPosition_movingIntoY_correctPosition()
 {
 	PhysicSimulator simulator;
 	Point positionShouldBe(3, 2);
-	m_playerState->setPosition(positionShouldBe);
-	Player player(simulator, *m_playerState);
+    m_playerOneState->setPosition(positionShouldBe);
+    Player player(simulator, *m_playerOneState);
 
 	player.applyLinearVelocity(0, 1);
 
@@ -178,8 +178,8 @@ void PlayerTest::getPosition_movingIntoY_correctPosition()
 void PlayerTest::getCenterPosition_movingIntoX_correctPosition()
 {
 	PhysicSimulator simulator;
-	m_playerState->setPosition(Point(3, 2));
-	Player player(simulator, *m_playerState);
+    m_playerOneState->setPosition(Point(3, 2));
+    Player player(simulator, *m_playerOneState);
 
 	player.applyLinearVelocity(1, 0);
 
@@ -191,8 +191,8 @@ void PlayerTest::getCenterPosition_movingIntoX_correctPosition()
 void PlayerTest::getCenterPosition_movingIntoY_correctPosition()
 {
 	PhysicSimulator simulator;
-	m_playerState->setPosition(Point(3, 2));
-	Player player(simulator, *m_playerState);
+    m_playerOneState->setPosition(Point(3, 2));
+    Player player(simulator, *m_playerOneState);
 
 	player.applyLinearVelocity(0, 1);
 
@@ -204,7 +204,7 @@ void PlayerTest::getCenterPosition_movingIntoY_correctPosition()
 void PlayerTest::getVelocityX_notMoving_0()
 {
 	PhysicSimulator simulator;
-	Player player(simulator, *m_playerState);
+    Player player(simulator, *m_playerOneState);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getVelocityX(), 0.00001);
 }
@@ -212,7 +212,7 @@ void PlayerTest::getVelocityX_notMoving_0()
 void PlayerTest::getVelocityY_notMoving_0()
 {
 	PhysicSimulator simulator;
-	Player player(simulator, *m_playerState);
+    Player player(simulator, *m_playerOneState);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getVelocityY(), 0.00001);
 }
@@ -220,16 +220,16 @@ void PlayerTest::getVelocityY_notMoving_0()
 void PlayerTest::setUp()
 {
 	m_playerIDCreator = new UniqueIdCreator;
-	m_playerState = new PlayerState(*m_playerIDCreator);
-    m_playerState2 = new PlayerState(*m_playerIDCreator);
+    m_playerOneState = new PlayerState(*m_playerIDCreator);
+    m_playerTwoState = new PlayerState(*m_playerIDCreator);
 }
 
 void PlayerTest::tearDown()
 {
-	delete m_playerState;
-	m_playerState = 0;
-    delete m_playerState2;
-    m_playerState2 = 0;
+    delete m_playerOneState;
+    m_playerOneState = 0;
+    delete m_playerTwoState;
+    m_playerTwoState = 0;
     delete m_playerIDCreator;
     m_playerIDCreator = 0;
 
@@ -238,19 +238,23 @@ void PlayerTest::tearDown()
 void PlayerTest::getCenterPosition_movingIntoYIntoOtherPlayer_correctPosition()
 {
     PhysicSimulator simulator;
-    m_playerState->setPosition(Point(1, 2));
-    m_playerState2->setPosition(Point(3,2));
-    Player player1(simulator, *m_playerState);
-    Player player2(simulator, *m_playerState2);
+    m_playerOneState->setPosition(Point(1, 2));
+    m_playerTwoState->setPosition(Point(3,2));
+    Player playerOne(simulator, *m_playerOneState);
+    Player playerTwo(simulator, *m_playerTwoState);
 
-    player1.applyLinearVelocity(1, 0);
+    playerOne.applyLinearVelocity(1, 0);
     simulator.simulateStep(0.5);
+    playerOne.updateObstacle();
 
-    player2.applyLinearVelocity(1, 0);
+    playerTwo.applyLinearVelocity(-1, 0);
+    playerTwo.updateObstacle();
     simulator.simulateStep(3);
-    player2.applyLinearVelocity(0, 0);
-    Point positionShouldBe(3, 2);
-    Point positionReal = player2.getPosition();
-    CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.0001));
-
+    playerTwo.applyLinearVelocity(0, 0);
+    Point positionPlayerOneShouldBe(2, 2);
+    Point positionPlayerOneReal = playerOne.getPosition();
+    Point positionPlayerTwoShouldBe(3, 2);
+    Point positionPlayerTwoReal = playerTwo.getPosition();
+    CPPUNIT_ASSERT(positionPlayerOneShouldBe.fuzzyEqual(positionPlayerOneReal, 0.05));
+    CPPUNIT_ASSERT(positionPlayerTwoShouldBe.fuzzyEqual(positionPlayerTwoReal, 0.05));
 }

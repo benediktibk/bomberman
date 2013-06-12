@@ -1,6 +1,7 @@
 #include "gridpointtest.h"
 #include "gridpoint.h"
 #include <sstream>
+#include <vector>
 
 using namespace Common;
 
@@ -118,4 +119,11 @@ void GridPointTest::assignment_gridPoint3And4_3And4()
 	target = source;
 
 	CPPUNIT_ASSERT_EQUAL(GridPoint(3, 4), target);
+}
+
+void GridPointTest::getCoveredGridPoints_pointat1point5and2_gridpoints()
+{
+    Point position(1.5,2.0);
+    std::vector<GridPoint> coveredfields = GridPoint::getCoveredGridPoints(position);
+    CPPUNIT_ASSERT_EQUAL((size_t)2, coveredfields.size());
 }

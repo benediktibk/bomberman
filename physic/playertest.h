@@ -68,8 +68,8 @@ private:
 
 private:
 	 Common::UniqueIdCreator *m_playerIDCreator;
-	 Common::PlayerState *m_playerState;
-     Common::PlayerState *m_playerState2;
+	 Common::PlayerState *m_playerOneState;
+     Common::PlayerState *m_playerTwoState;
 };
 }
 
