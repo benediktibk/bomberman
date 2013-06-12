@@ -18,6 +18,7 @@ set(COMMON_SRC
 	randomdecision.cpp
 	powerupmaxvelocitystate.cpp
 	explodedbombstate.cpp
+        compare.cpp
 )
 
 set(COMMON_TEST_SRC

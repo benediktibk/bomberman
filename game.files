@@ -296,3 +296,5 @@ common/explodedbombstate.h
 common/explodedbombstate.cpp
 common/explodedbombstatetest.h
 common/explodedbombstatetest.cpp
+common/compare.h
+common/compare.cpp
