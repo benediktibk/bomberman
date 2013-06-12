@@ -33,6 +33,17 @@ void ExplodedBombStateTest::decreaseLifeTime_03_lifeTimeIs03Smaller()
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(oldLifeTime - 0.3, explodedBomb.getLifeTime(), 0.0001);
 }
 
+void ExplodedBombStateTest::decreaseLifeTime_4_hasChanged()
+{
+	BombState bomb(*m_bombIdCreator, 0);
+	ExplodedBombState explodedBomb(bomb);
+	explodedBomb.resetChanged();
+
+	explodedBomb.decreaseLifeTime(4);
+
+	CPPUNIT_ASSERT(explodedBomb.hasChanged());
+}
+
 void ExplodedBombStateTest::constructor_bombWithDestructionRange3_destructionRangeIs3()
 {
 	BombState bomb(*m_bombIdCreator, 0);

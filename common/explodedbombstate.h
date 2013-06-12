@@ -22,6 +22,9 @@ namespace Common
 		void setDestroyedIfNoLifeTimeLeft();
 		const Point& getPosition() const;
 
+	public:
+		static double initialLifeTime();
+
 	private:
 		double m_lifeTime;
 		Point m_position;

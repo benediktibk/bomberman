@@ -415,3 +415,19 @@ void GameStateTest::getAllPowerUpsWithDestroyedFlag_twoPowerUpsAddedOneDestroyed
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, powerUps.size());
 }
+
+void GameStateTest::reduceAllBombsLifeTime_oneExplodedBomb_explodedBombsLifeTimeDecreased()
+{
+	LevelDefinition level;
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
+	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	state.addBomb(bomb);
+	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
+	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
+	state.reduceAllBombsLifeTime(0.7);
+
+	vector<const ExplodedBombState*> explodedBombs = state.getAllChangedExplodedBombs();
+	const ExplodedBombState &explodedBomb = *(explodedBombs.front());
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(ExplodedBombState::initialLifeTime() - 0.7, explodedBomb.getLifeTime(), 0.001);
+}

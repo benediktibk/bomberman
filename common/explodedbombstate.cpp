@@ -4,7 +4,7 @@
 using namespace Common;
 
 ExplodedBombState::ExplodedBombState(const BombState &bomb) :
-	m_lifeTime(0.5),
+	m_lifeTime(initialLifeTime()),
 	m_position(bomb.getPosition()),
 	m_destructionRange(bomb.getDestructionRange())
 { }
@@ -12,6 +12,7 @@ ExplodedBombState::ExplodedBombState(const BombState &bomb) :
 void ExplodedBombState::decreaseLifeTime(double time)
 {
 	m_lifeTime -= time;
+	setChanged();
 }
 
 double ExplodedBombState::getLifeTime() const
@@ -33,4 +34,9 @@ void ExplodedBombState::setDestroyedIfNoLifeTimeLeft()
 const Point &ExplodedBombState::getPosition() const
 {
 	return m_position;
+}
+
+double ExplodedBombState::initialLifeTime()
+{
+	return 0.5;
 }

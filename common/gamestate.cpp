@@ -181,11 +181,14 @@ void GameState::eraseWall(size_t position)
 
 void GameState::reduceAllBombsLifeTime(double time)
 {
-	for(size_t i = 0; i < m_bombs.size(); i++)
+	for (size_t i = 0; i < m_bombs.size(); i++)
 	{
 		BombState *currentBomb = m_bombs[i];
 		currentBomb->setLifeTime(currentBomb->getLifeTime() - time);
 	}
+
+	for (vector<ExplodedBombState*>::iterator i = m_explodedBombs.begin(); i != m_explodedBombs.end(); ++i)
+		(*i)->decreaseLifeTime(time);
 }
 
 vector<const ExplodedBombState*> GameState::getAllChangedExplodedBombs() const
