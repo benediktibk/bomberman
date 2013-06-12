@@ -3,6 +3,7 @@
 #include "graphic/point.h"
 #include <QGraphicsScene>
 #include <QtSvg/QGraphicsSvgItem>
+#include <assert.h>
 
 using namespace Graphic;
 
@@ -39,8 +40,8 @@ void Wall::createSVGItem(Common::WallState::WallType wallType)
 
 void Wall::updateInternal(const Common::Point &position, double width, double height, double pixelPerMeter)
 {
+	assert(width == height);
 	Point positionScaled(position*pixelPerMeter);
-	positionScaled = positionScaled + Point(width/2, height/2)*pixelPerMeter;
 	positionScaled.switchIntoQtCoordinates();
 
 	m_svgItem->setScale(0.001*pixelPerMeter*height);

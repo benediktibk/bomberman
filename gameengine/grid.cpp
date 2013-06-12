@@ -54,7 +54,7 @@ void Grid::addPowerUpAtPlace(PowerUpState &powerUp)
     m_idMatrix[index] = powerUp.getId();
 }
 
-void Grid::removePowerUp(PowerUpState &powerUp)
+void Grid::removePowerUp(const PowerUpState &powerUp)
 {
     GridPoint position(powerUp.getPosition());
     unsigned int index = getVectorIndex(position);
@@ -62,7 +62,7 @@ void Grid::removePowerUp(PowerUpState &powerUp)
     m_idMatrix[index] = 0;
 }
 
-void Grid::removeBomb(BombState &bomb)
+void Grid::removeBomb(const BombState &bomb)
 {
     GridPoint position(bomb.getPosition());
     unsigned int index = getVectorIndex(position);
@@ -70,7 +70,7 @@ void Grid::removeBomb(BombState &bomb)
     m_idMatrix[index] = 0;
 }
 
-void Grid::removeWall(WallState &wall)
+void Grid::removeWall(const WallState &wall)
 {
     GridPoint position(wall.getPosition());
     unsigned int index = getVectorIndex(position);
@@ -188,35 +188,6 @@ unsigned int Grid::getVectorIndex(unsigned int x,unsigned int y) const
 vector<GridPoint> Grid::getPlayerFields(const Common::PlayerState &player) const
 {
     Point position = player.getPosition();
-    GridPoint positionGrid(position);
-    vector<GridPoint> result;
-
-    double x = position.getX();
-    double y = position.getY();
-    double xGrid = positionGrid.getX();
-    double yGrid = positionGrid.getY();
-
-    //! @todo replace with fuzzy
-    if (x - xGrid > 0.05)
-    {
-        result.push_back(positionGrid);
-        GridPoint positionGrid2(positionGrid.getX()+1,positionGrid.getY());
-        result.push_back(positionGrid2);
-    }
-
-    //! @todo replace with fuzzy
-    if (y - yGrid > 0.05)
-    {
-        result.push_back(positionGrid);
-        GridPoint positionGrid2(positionGrid.getX(),positionGrid.getY()+1);
-        result.push_back(positionGrid2);
-    }
-
-    //! @todo replace with fuzzy
-    if(fabs(x - xGrid) < 0.05 && fabs(y - yGrid) < 0.05)
-    {
-        result.push_back(positionGrid);
-    }
-
-    return result;
+    vector<GridPoint> fields = GridPoint::getCoveredGridPoints(position);
+    return fields;
 }

@@ -24,6 +24,7 @@ class GridPointTest :
 	 CPPUNIT_TEST(constructor_pointWithNotExactPositions_correctPosition);
 	 CPPUNIT_TEST(constructor_gridPoint3And4_3And4);
 	 CPPUNIT_TEST(assignment_gridPoint3And4_3And4);
+     CPPUNIT_TEST(getCoveredGridPoints_pointat1point5and2_gridpoints);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -41,6 +42,7 @@ private:
 	 void constructor_pointWithNotExactPositions_correctPosition();
 	 void constructor_gridPoint3And4_3And4();
 	 void assignment_gridPoint3And4_3And4();
+     void getCoveredGridPoints_pointat1point5and2_gridpoints();
 };
 }
 

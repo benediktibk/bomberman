@@ -62,6 +62,7 @@ class GameEngineImplTest :
     CPPUNIT_TEST(getPlayerPosition_Create4x4LevelWithPlayerPosition2And2_PlayerPosition2And2);
     CPPUNIT_TEST(getPlayerCount_Create4x4LevelWith2Player_PlayerCountIs2);
     CPPUNIT_TEST(getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestroyed_PlayerCountIs1);
+    CPPUNIT_TEST(getPosition_getpositionaftercollisionwithotherplayer);
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -117,6 +118,7 @@ private:
     void getPlayerPosition_Create4x4LevelWithPlayerPosition2And2_PlayerPosition2And2();
     void getPlayerCount_Create4x4LevelWith2Player_PlayerCountIs2();
     void getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestroyed_PlayerCountIs1();
+    void getPosition_getpositionaftercollisionwithotherplayer();
 
 private:
 	void createGameEngine(const Common::LevelDefinition &level, unsigned int playerCount);

@@ -4,6 +4,7 @@
 #include "threading/thread.h"
 #include "threading/mutex.h"
 #include "threading/signal.h"
+#include "gameengine/computerenemyinputfetcher.h"
 
 namespace Common
 {
@@ -32,6 +33,7 @@ protected:
 
 private:
 	Common::InputFetcher &m_inputFetcher;
+    GameEngine::ComputerEnemyInputFetcher m_computerEnemyInputFetcher;
 	Common::GameEngine &m_gameEngine;
 	Common::GraphicDrawer &m_graphicDrawer;
 	Threading::Mutex m_stoppedMutex;

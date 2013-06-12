@@ -2,6 +2,7 @@
 #define PHYSIC_PLAYER_H
 
 #include "common/point.h"
+#include "common/gridpoint.h"
 #include <stdint.h>
 
 namespace Common
@@ -32,6 +33,7 @@ namespace Physic
 		double getPhysicalWidth() const;
 		double getPhysicalHeight() const;
 		bool isMoving() const;
+        void updateObstacle();
 
 	private:
 		void updateObjectToPhysicalDimensions(const Common::Point &position, int16_t collisionGroup);
@@ -41,12 +43,15 @@ namespace Physic
 		PhysicalObject *m_object;
 		DynamicObject *m_dynamicObject;
 		StaticObject *m_staticObject;
+        StaticObject *m_field1;
+        StaticObject *m_field2;
 		double m_width;
 		double m_height;
 		double m_physicalWidth;
 		double m_physicalHeight;
 		bool m_movingIntoX;
 		bool m_movingIntoY;
+       int16_t m_collisionGroup;
 	};
 }
 

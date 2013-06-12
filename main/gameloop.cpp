@@ -8,7 +8,7 @@
 using namespace Common;
 using namespace Main;
 
-GameLoop::GameLoop(InputFetcher &inputFetcher, GameEngine &gameEngine, GraphicDrawer &graphicDrawer) :
+GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, GraphicDrawer &graphicDrawer) :
 	m_inputFetcher(inputFetcher),
 	m_gameEngine(gameEngine),
 	m_graphicDrawer(graphicDrawer),
@@ -98,7 +98,9 @@ void GameLoop::execute()
 		std::vector<unsigned int> playerIDs = m_gameEngine.getAllPossiblePlayerIDs();
 		std::map<unsigned int, InputState> inputStates;
 		inputStates[playerIDs.front()] = m_inputFetcher.getInputState();
+        inputStates[playerIDs.back()] = m_computerEnemyInputFetcher.getInputState();
 		m_gameEngine.updateGameState(inputStates, time);
+
 		// end of temporary code
 
 		m_graphicDrawer.draw(m_gameEngine.getGameState());

@@ -31,10 +31,10 @@ public:
     bool isPlaceEmpty(const Common::GridPoint &position) const;
     void addBombAtPlace(Common::BombState &bomb);
     void addWallAtPlace(const Common::WallState &wall);
-    void removeBomb(Common::BombState &bomb);
-    void removeWall(Common::WallState &wall);
+    void removeBomb(const Common::BombState &bomb);
+    void removeWall(const Common::WallState &wall);
     void updatePlayer(const Common::PlayerState &player);
-    void removePowerUp(Common::PowerUpState &powerUp);
+    void removePowerUp(const Common::PowerUpState &powerUp);
     void addPowerUpAtPlace(Common::PowerUpState &powerUp);
     std::vector<unsigned int> getWallsInRange(const Common::BombState &bomb) const;
     std::vector<unsigned int> getPlayersInRange(const Common::BombState &bomb) const;

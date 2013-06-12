@@ -1,6 +1,7 @@
 set(GAMEENGINE_SRC
 	gameengineimpl.cpp
     grid.cpp
+    computerenemyinputfetcher.cpp
 )
 
 set(GAMEENGINE_TEST_SRC

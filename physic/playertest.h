@@ -30,13 +30,13 @@ class PlayerTest :
 	 CPPUNIT_TEST(getPhysicalWidth_movingIntoYAndWith6_3);
 	 CPPUNIT_TEST(applyLinearVelocity_4And0_velocityXIs4);
 	 CPPUNIT_TEST(applyLinearVelocity_0And5_velocityYIs5);
-	 CPPUNIT_TEST(applyLinearVelocity_4And0_bodyCountOfSimulatorIs1);
 	 CPPUNIT_TEST(getPosition_movingIntoX_correctPosition);
 	 CPPUNIT_TEST(getPosition_movingIntoY_correctPosition);
 	 CPPUNIT_TEST(getCenterPosition_movingIntoX_correctPosition);
 	 CPPUNIT_TEST(getCenterPosition_movingIntoY_correctPosition);
 	 CPPUNIT_TEST(getVelocityX_notMoving_0);
 	 CPPUNIT_TEST(getVelocityY_notMoving_0);
+     CPPUNIT_TEST(getCenterPosition_movingIntoYIntoOtherPlayer_correctPosition);
 	 CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -58,17 +58,18 @@ private:
 	 void getPhysicalWidth_movingIntoYAndWith6_3();
 	 void applyLinearVelocity_4And0_velocityXIs4();
 	 void applyLinearVelocity_0And5_velocityYIs5();
-	 void applyLinearVelocity_4And0_bodyCountOfSimulatorIs1();
 	 void getPosition_movingIntoX_correctPosition();
 	 void getPosition_movingIntoY_correctPosition();
 	 void getCenterPosition_movingIntoX_correctPosition();
 	 void getCenterPosition_movingIntoY_correctPosition();
 	 void getVelocityX_notMoving_0();
 	 void getVelocityY_notMoving_0();
+     void getCenterPosition_movingIntoYIntoOtherPlayer_correctPosition();
 
 private:
 	 Common::UniqueIdCreator *m_playerIDCreator;
-	 Common::PlayerState *m_playerState;
+	 Common::PlayerState *m_playerOneState;
+     Common::PlayerState *m_playerTwoState;
 };
 }
 

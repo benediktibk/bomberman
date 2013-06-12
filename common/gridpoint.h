@@ -2,6 +2,8 @@
 #define COMMON_GRIDPOINT_H
 
 #include "point.h"
+#include <vector>
+
 
 namespace Common
 {
@@ -15,14 +17,13 @@ public:
 	unsigned int getX() const;
 	void setY(unsigned int value);
 	unsigned int getY() const;
-
-	bool operator==(const GridPoint &gridPoint) const;
+        bool operator==(const GridPoint &gridPoint) const;
 	GridPoint operator*(unsigned int value) const;
 	GridPoint operator/(unsigned int value) const;
 	GridPoint operator+(const GridPoint &gridPoint) const;
 	GridPoint operator-(const GridPoint &gridPoint) const;
 	Point getPointPosition() const;
-
+    static std::vector<GridPoint> getCoveredGridPoints(Common::Point position);
 private:
 	unsigned int m_x;
 	unsigned int m_y;
