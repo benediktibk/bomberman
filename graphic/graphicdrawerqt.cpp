@@ -41,7 +41,7 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 	if (m_firstRedraw)
 	{
 		drawBorderWalls(gameState.getWidth(), gameState.getHeight());
-        drawCellBackgrounds(gameState.getWidth(), gameState.getHeight());
+		drawCellBackgrounds(gameState.getWidth(), gameState.getHeight());
 		updateViewArea(gameState);
 		setViewPositionToTheCenterOfPlayer(firstPlayer);
 	}
@@ -221,7 +221,8 @@ void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
 	QPolygonF maximumPlayerMovementInScenePolygon = m_view.mapToScene(maximumPlayerMovement);
 	QRectF maximumPlayerMovementInScene = maximumPlayerMovementInScenePolygon.boundingRect();
 	Point playerPosition(player.getPosition()*m_pixelPerMeter);
-	playerPosition.setX(playerPosition.getX() + player.getWidth()*m_pixelPerMeter);
+	playerPosition.setX(playerPosition.getX() + player.getWidth()/2*m_pixelPerMeter);
+	playerPosition.setY(playerPosition.getY() - player.getHeight()/2*m_pixelPerMeter);
 	playerPosition.switchIntoQtCoordinates();
 	QPointF centerOfView(maximumPlayerMovementInScene.center());
 	QPointF positionToCenterOn(centerOfView);
@@ -304,13 +305,13 @@ void GraphicDrawerQt::drawEdgeBorderWalls(unsigned int width, unsigned int heigh
 
 void GraphicDrawerQt::drawCellBackgrounds(unsigned int width, unsigned int height)
 {
-    for (unsigned int x = 0; x < width; ++x)
-    {
-        for (unsigned int y = 0; y < height; ++y)
-        {
-            m_cellBackgrounds.push_back(new CellBackground(*m_scene, Point(x, y), m_pixelPerMeter));
-        }
-    }
+	for (unsigned int x = 0; x < width; ++x)
+	{
+		for (unsigned int y = 0; y < height; ++y)
+		{
+			m_cellBackgrounds.push_back(new CellBackground(*m_scene, Point(x, y), m_pixelPerMeter));
+		}
+	}
 }
 
 void GraphicDrawerQt::deleteWalls()
