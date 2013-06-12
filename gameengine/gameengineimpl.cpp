@@ -345,7 +345,7 @@ void GameEngineImpl::playerGetsPowerUp()
                 }
             }
 
-            }
+        }
     }
 }
 
