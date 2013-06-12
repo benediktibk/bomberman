@@ -228,6 +228,8 @@ void GameState::resetChangedFlags()
 		(*i)->resetChanged();
 	for (vector<PowerUpState*>::iterator i = m_powerUps.begin(); i != m_powerUps.end(); ++i)
 		(*i)->resetChanged();
+	for (vector<ExplodedBombState*>::iterator i = m_explodedBombs.begin(); i != m_explodedBombs.end(); ++i)
+		(*i)->resetChanged();
 }
 
 void GameState::removeAllObjectsWithDestroyedFlag()

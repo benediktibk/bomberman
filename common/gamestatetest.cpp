@@ -265,6 +265,21 @@ void GameStateTest::resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged()
 	CPPUNIT_ASSERT(!powerUp->hasChanged());
 }
 
+void GameStateTest::resetChangedFlags_oneExplodedBombAdded_noChangedExplodedBombs()
+{
+	LevelDefinition level;
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
+	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	state.addBomb(bomb);
+	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
+	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
+
+	state.resetChangedFlags();
+
+	vector<const ExplodedBombState*> explodedBombs = state.getAllChangedExplodedBombs();
+	CPPUNIT_ASSERT_EQUAL((size_t)0, explodedBombs.size());
+}
+
 void GameStateTest::getAllPossiblePlayerIDs_onePlayerCreated_resultSizeIs1()
 {
 	LevelDefinition level;
