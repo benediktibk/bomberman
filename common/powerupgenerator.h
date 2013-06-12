@@ -8,12 +8,6 @@ namespace Common
 class PowerUpGenerator
 {
 public:
-    enum PowerUpType
-    {
-        PowerUpTypeNone,
-        PowerUpTypeMaxBomb
-    };
-
     PowerUpGenerator();
     PowerUpType getRandomPowerUpType();
 

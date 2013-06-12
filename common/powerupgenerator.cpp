@@ -9,7 +9,7 @@ PowerUpGenerator::PowerUpGenerator():
     m_randRange(100)
 { }
 
-PowerUpGenerator::PowerUpType PowerUpGenerator::getTypeForRand(unsigned int rand)
+PowerUpType PowerUpGenerator::getTypeForRand(unsigned int rand)
 {
     if (rand < getPropabilityOfType(PowerUpTypeMaxBomb)*m_randRange)
         return PowerUpTypeMaxBomb;
@@ -18,7 +18,7 @@ PowerUpGenerator::PowerUpType PowerUpGenerator::getTypeForRand(unsigned int rand
     return PowerUpTypeNone;
 }
 
-double PowerUpGenerator::getPropabilityOfType(PowerUpGenerator::PowerUpType type)
+double PowerUpGenerator::getPropabilityOfType(PowerUpType type)
 {
     switch (type) {
     case PowerUpTypeNone:
@@ -33,7 +33,7 @@ double PowerUpGenerator::getPropabilityOfType(PowerUpGenerator::PowerUpType type
     }
 }
 
-PowerUpGenerator::PowerUpType PowerUpGenerator::getRandomPowerUpType()
+PowerUpType PowerUpGenerator::getRandomPowerUpType()
 {
     unsigned int result;
     srand(time(NULL));
