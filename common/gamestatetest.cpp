@@ -374,3 +374,17 @@ void GameStateTest::getAllWallsWithDestroyedFlag_twoWallsAddedOneDestroyed_resul
 
     CPPUNIT_ASSERT_EQUAL((size_t)1, walls.size());
 }
+
+void GameStateTest::getAllPowerUpsWithDestroyedFlag_twoPowerUpsAddedOneDestroyed_resultIs1()
+{
+    LevelDefinition level;
+    GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
+
+    state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
+    state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
+    state.erasePowerUpById(0);
+
+    vector<const PowerUpState*> powerUps = state.getAllPowerUpsWithDestroyedFlag();
+
+    CPPUNIT_ASSERT_EQUAL((size_t)1, powerUps.size());
+}

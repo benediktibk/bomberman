@@ -54,7 +54,7 @@ void Grid::addPowerUpAtPlace(PowerUpState &powerUp)
     m_idMatrix[index] = powerUp.getId();
 }
 
-void Grid::removePowerUp(PowerUpState &powerUp)
+void Grid::removePowerUp(const PowerUpState &powerUp)
 {
     GridPoint position(powerUp.getPosition());
     unsigned int index = getVectorIndex(position);

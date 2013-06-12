@@ -381,3 +381,14 @@ vector<const WallState*> GameState::getAllWallsWithDestroyedFlag() const
 
     return result;
 }
+
+vector<const PowerUpState*> GameState::getAllPowerUpsWithDestroyedFlag() const
+{
+    vector<const PowerUpState*> result;
+
+    for (vector<PowerUpState*>::const_iterator i = m_powerUps.begin(); i != m_powerUps.end(); ++i)
+        if ((*i)->isDestroyed())
+            result.push_back(*i);
+
+    return result;
+}

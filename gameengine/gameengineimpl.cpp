@@ -362,7 +362,9 @@ void GameEngineImpl::removeAllObjectsWithDestroyedFlagFromGrid()
 
     vector<const WallState*> allWallsWithDestroyedFlag = m_gameState.getAllWallsWithDestroyedFlag();
     for(size_t i = 0;i < allWallsWithDestroyedFlag.size();i++)
-    {
         m_grid->removeWall(*allWallsWithDestroyedFlag[i]);
-    }
+
+    vector<const PowerUpState*> allPowerUpsWithDestroyedFlag = m_gameState.getAllPowerUpsWithDestroyedFlag();
+    for(size_t i = 0;i < allPowerUpsWithDestroyedFlag.size();i++)
+        m_grid->removePowerUp(*allPowerUpsWithDestroyedFlag[i]);
 }

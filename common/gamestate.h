@@ -50,6 +50,7 @@ public:
 	void erasePlayerById(unsigned int playerId);
     std::vector<const BombState*> getAllBombsWithDestroyedFlag() const;
     std::vector<const WallState*> getAllWallsWithDestroyedFlag() const;
+    std::vector<const PowerUpState*> getAllPowerUpsWithDestroyedFlag() const;
 
 private:
     void eraseBomb(size_t position);

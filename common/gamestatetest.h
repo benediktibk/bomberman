@@ -40,6 +40,7 @@ namespace Common
 		 CPPUNIT_TEST(erasePlayerById_onePlayersAddedOneDeleted_playerCountIs0);
          CPPUNIT_TEST(getAllBombsWithDestroyedFlag_twoBombsAddedOneDestroyed_resultIs1);
          CPPUNIT_TEST(getAllWallsWithDestroyedFlag_twoWallsAddedOneDestroyed_resultIs1);
+         CPPUNIT_TEST(getAllPowerUpsWithDestroyedFlag_twoPowerUpsAddedOneDestroyed_resultIs1);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -72,6 +73,7 @@ namespace Common
 		 void erasePlayerById_onePlayersAddedOneDeleted_playerCountIs0();
          void getAllBombsWithDestroyedFlag_twoBombsAddedOneDestroyed_resultIs1();
          void getAllWallsWithDestroyedFlag_twoWallsAddedOneDestroyed_resultIs1();
+         void getAllPowerUpsWithDestroyedFlag_twoPowerUpsAddedOneDestroyed_resultIs1();
 
 	private:
 		 UniqueIdCreator m_playerIDCreator;
