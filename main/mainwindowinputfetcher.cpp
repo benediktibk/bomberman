@@ -12,9 +12,7 @@ MainWindowInputFetcher::MainWindowInputFetcher() :
 void MainWindowInputFetcher::setAllPossiblePlayerIds(std::vector<unsigned int> allPossiblePlayerIds)
 {
     for(size_t i = 0; i < allPossiblePlayerIds.size(); i++)
-    {
-        m_allPossiblePlayerIds[i] = allPossiblePlayerIds[i];
-    }
+        m_playerIds = allPossiblePlayerIds;
 }
 
 InputState MainWindowInputFetcher::getInputState()
@@ -23,6 +21,16 @@ InputState MainWindowInputFetcher::getInputState()
 	InputState stateCopy = m_inputState;
 	m_inputStateMutex.unlock();
 	return stateCopy;
+}
+
+std::map<unsigned int, InputState> MainWindowInputFetcher::getInputStates()
+{
+    m_inputStateMutex.lock();
+    std::map<unsigned int, InputState> stateCopy;
+    stateCopy[m_playerIds.front()] = m_inputState;
+    stateCopy[m_playerIds.back()] = m_inputStatePlayer2;
+    m_inputStateMutex.unlock();
+    return stateCopy;
 }
 
 void MainWindowInputFetcher::keyPressEvent(QKeyEvent *event)
@@ -45,6 +53,23 @@ void MainWindowInputFetcher::keyPressEvent(QKeyEvent *event)
 	case Key_Space:
 		m_inputState.setSpaceKeyPressed();
 		break;
+
+    case Key_W:
+        m_inputStatePlayer2.setUpKeyPressed();
+        break;
+    case Key_S:
+        m_inputStatePlayer2.setDownKeyPressed();
+        break;
+    case Key_A:
+        m_inputStatePlayer2.setLeftKeyPressed();
+        break;
+    case Key_D:
+        m_inputStatePlayer2.setRightKeyPressed();
+        break;
+    case Key_Q:
+        m_inputStatePlayer2.setSpaceKeyPressed();
+        break;
+
 	default:
 		QMainWindow::keyPressEvent(event);
 		break;
@@ -72,6 +97,23 @@ void MainWindowInputFetcher::keyReleaseEvent(QKeyEvent *event)
 	case Key_Space:
 		m_inputState.setSpaceKeyNotPressed();
 		break;
+
+    case Key_W:
+        m_inputStatePlayer2.setUpKeyNotPressed();
+        break;
+    case Key_S:
+        m_inputStatePlayer2.setDownKeyNotPressed();
+        break;
+    case Key_A:
+        m_inputStatePlayer2.setLeftKeyNotPressed();
+        break;
+    case Key_D:
+        m_inputStatePlayer2.setRightKeyNotPressed();
+        break;
+    case Key_Q:
+        m_inputStatePlayer2.setSpaceKeyNotPressed();
+        break;
+
 	default:
 		QMainWindow::keyPressEvent(event);
 		break;
