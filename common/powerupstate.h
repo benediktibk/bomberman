@@ -12,7 +12,8 @@ namespace Common
 enum PowerUpType
     {
     PowerUpTypeNone,
-    PowerUpTypeMaxBomb
+    PowerUpTypeMaxBomb,
+    PowerUpTypeMaxVelocity
     };
 
 class PowerUpState :

@@ -15,6 +15,10 @@ PowerUpType PowerUpGenerator::getTypeForRand(unsigned int rand)
         return PowerUpTypeMaxBomb;
     rand -= getPropabilityOfType(PowerUpTypeMaxBomb)*m_randRange;
 
+    if (rand <= getPropabilityOfType(PowerUpTypeMaxVelocity)*m_randRange)
+        return PowerUpTypeMaxVelocity;
+    rand -= getPropabilityOfType(PowerUpTypeMaxVelocity)*m_randRange;
+
     return PowerUpTypeNone;
 }
 
@@ -22,7 +26,10 @@ double PowerUpGenerator::getPropabilityOfType(PowerUpType type)
 {
     switch (type) {
     case PowerUpTypeMaxBomb:
-        return 1;
+        return 0.5;
+        break;
+    case PowerUpTypeMaxVelocity:
+        return 0.5;
         break;
     default:
         return 0;

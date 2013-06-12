@@ -367,6 +367,11 @@ void GameEngineImpl::addRandomPowerUpAtPosition(Point position)
         PowerUpMaxBombState *powerUp = new PowerUpMaxBombState(m_powerUpIds, position);
         addPowerUp(powerUp);
     }
+    else if (randomType == PowerUpTypeMaxVelocity)
+    {
+        PowerUpMaxVelocityState *powerUp = new PowerUpMaxVelocityState(m_powerUpIds, position);
+        addPowerUp(powerUp);
+    }
     else
         assert(false);
 
