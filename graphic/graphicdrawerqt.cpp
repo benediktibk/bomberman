@@ -16,7 +16,7 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view) :
 	m_scene(new QGraphicsScene()),
 	m_pixelPerMeter(40),
 	m_firstRedraw(true),
-	m_minimumViewDistance(0),
+	m_minimumViewDistance(4),
 	m_minimumViewDistanceInPixel(m_minimumViewDistance*m_pixelPerMeter)
 {
 	m_view.setBackgroundBrush(QBrush(QColor(255, 255, 255)));
@@ -182,8 +182,6 @@ void GraphicDrawerQt::updateViewArea(const GameState &gameState)
 	m_view.setSceneRect(x, y, widthWithBordersInPixel, heightWithBordersInPixel);
 }
 
-#include <iostream>
-
 void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
 {
 	QRect maximumPlayerMovement;
@@ -221,7 +219,7 @@ void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
 	QPolygonF maximumPlayerMovementInScenePolygon = m_view.mapToScene(maximumPlayerMovement);
 	QRectF maximumPlayerMovementInScene = maximumPlayerMovementInScenePolygon.boundingRect();
 	Point playerPosition(player.getPosition()*m_pixelPerMeter);
-	playerPosition = playerPosition + Point(player.getWidth()/2, player.getHeight()/2)*m_pixelPerMeter;
+	playerPosition.setX(playerPosition.getX() + player.getWidth()*m_pixelPerMeter);
 	playerPosition.switchIntoQtCoordinates();
 	QPointF centerOfView(maximumPlayerMovementInScene.center());
 	QPointF positionToCenterOn(centerOfView);
@@ -244,7 +242,7 @@ void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
 	}
 	else if (playerPosition.getX() > maximumPlayerMovementInScene.right())
 	{
-		double difference = playerPosition.getX() - maximumPlayerMovementInScene.bottom();
+		double difference = playerPosition.getX() - maximumPlayerMovementInScene.right();
 		positionToCenterOn.setX(centerOfView.x() + difference);
 	}
 
