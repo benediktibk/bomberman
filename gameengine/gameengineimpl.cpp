@@ -309,12 +309,15 @@ void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &i
 {
     if (input.isSpaceKeyPressed() && player.canPlayerPlaceBomb())
     {
-        BombState *bombPlaced = new BombState(m_bombids, player.getId());
-        bombPlaced->setPosition(player.getCenterPosition());
-        m_grid->addBombAtPlace(*bombPlaced);
-        player.countBomb();
-        player.doNotCollideWith(bombPlaced);
-        m_gameState.addBomb(bombPlaced);
+        if(m_grid->isPlaceEmpty(player.getCenterPosition()))
+        {
+            BombState *bombPlaced = new BombState(m_bombids, player.getId());
+            bombPlaced->setPosition(player.getCenterPosition());
+            m_grid->addBombAtPlace(*bombPlaced);
+            player.countBomb();
+            player.doNotCollideWith(bombPlaced);
+            m_gameState.addBomb(bombPlaced);
+        }
     }
 }
 
@@ -353,7 +356,7 @@ void GameEngineImpl::applyPowerUp()
 
 void GameEngineImpl::removeAllObjectsWithDestroyedFlagFromGrid()
 {
-    vector<const BombState*> allBombsWithDestroyedFlag;
+    vector<const BombState*> allBombsWithDestroyedFlag = m_gameState.getAllBombsWithDestroyedFlag();
     for(size_t i = 0;i < allBombsWithDestroyedFlag.size();i++)
     {
         m_grid->removeBomb(*allBombsWithDestroyedFlag[i]);
