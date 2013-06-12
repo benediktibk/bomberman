@@ -53,6 +53,20 @@ void GameLoopTest::constructor_notStarted_graphicDrawerGotNoCallsToDraw()
 	delete gameLoop;
 }
 
+void GameLoopTest::constructor_notStarted_graphicDrawerGotNoCallsToSetResponsibleForPlayers()
+{
+	InputFetcherStub inputFetcher;
+	GameEngineStub gameEngine;
+	GraphicDrawerMock graphicDrawer;
+
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, graphicDrawer.getCallsToSetResponsibleForPlayers());
+	gameLoop->start();
+	gameLoop->stop();
+	delete gameLoop;
+}
+
 void GameLoopTest::execute_runSomeExecutions_inputFetcherGotAsMuchCallsAsGameEngine()
 {
 	InputFetcherMock inputFetcher;
@@ -98,6 +112,22 @@ void GameLoopTest::execute_runAround100ms_gameEngineGotAround6CallsToUpdateGameS
 	gameLoop->waitTillFinished();
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(6, gameEngine.getCallsToUpdateGameState(), 1);
+	delete gameLoop;
+}
+
+void GameLoopTest::execute_runSomeExecutions_graphicDrawerGotNoCallsToSetResponsibleForPlayers()
+{
+	InputFetcherStub inputFetcher;
+	GameEngineStub gameEngine;
+	GraphicDrawerMock graphicDrawer;
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
+
+	gameLoop->start();
+	usleep(1000*100);
+	gameLoop->stop();
+	gameLoop->waitTillFinished();
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, graphicDrawer.getCallsToSetResponsibleForPlayers());
 	delete gameLoop;
 }
 

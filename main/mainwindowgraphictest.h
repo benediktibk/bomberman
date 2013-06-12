@@ -5,6 +5,11 @@
 
 class QGraphicsView;
 
+namespace Common
+{
+	class GameState;
+}
+
 namespace Ui
 {
 	class MainWindowGraphicTest;
@@ -17,29 +22,29 @@ namespace Graphic
 
 namespace Main
 {
+	class MainWindowGraphicTest :
+			public QMainWindow
+	{
+		Q_OBJECT
 
-class MainWindowGraphicTest :
-		public QMainWindow
-{
-	Q_OBJECT
+	public:
+		MainWindowGraphicTest();
+		~MainWindowGraphicTest();
 
-public:
-	MainWindowGraphicTest();
-	~MainWindowGraphicTest();
+	private slots:
+		void selectGameState(int index);
 
-private slots:
-	void selectGameState(int index);
+	private:
+		void connectSlots();
+		void drawState1();
+		void drawState2();
+		void drawState3();
+		void drawState(const Common::GameState &game);
 
-private:
-	void connectSlots();
-	void drawState1();
-	void drawState2();
-	void drawState3();
-
-private:
-	Ui::MainWindowGraphicTest *m_ui;
-	Graphic::GraphicDrawerQt *m_drawer;
-};
+	private:
+		Ui::MainWindowGraphicTest *m_ui;
+		Graphic::GraphicDrawerQt *m_drawer;
+	};
 }
 
 #endif

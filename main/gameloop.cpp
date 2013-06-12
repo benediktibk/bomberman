@@ -98,7 +98,7 @@ void GameLoop::execute()
 		std::vector<unsigned int> playerIDs = m_gameEngine.getAllPossiblePlayerIDs();
 		std::map<unsigned int, InputState> inputStates;
 		inputStates[playerIDs.front()] = m_inputFetcher.getInputState();
-        inputStates[playerIDs.back()] = m_computerEnemyInputFetcher.getInputState();
+		inputStates[playerIDs.back()] = m_computerEnemyInputFetcher.getInputState();
 		m_gameEngine.updateGameState(inputStates, time);
 
 		// end of temporary code

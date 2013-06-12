@@ -282,7 +282,7 @@ void GameEngineImpl::updateBombs()
             m_gameState.erasePlayerById(playersInRange[j]);
     }
 
-    vector<const BombState*> destroyedBombs = m_gameState.setAllBombsWithNoLifeTimeDestroyed();
+    vector<const BombState*> destroyedBombs = m_gameState.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
 
     for (vector<const BombState*>::const_iterator i = destroyedBombs.begin(); i != destroyedBombs.end(); ++i)
     {
@@ -339,8 +339,7 @@ void GameEngineImpl::playerGetsPowerUp()
             GridPoint powerUpField(powerUpPosition);
             if(powerUpField==playerFields[0])
                 {
-                //apply PowerUp
-                //powerup->modifyPlayer(player);
+                powerup->modifyPlayer(player);
                 m_gameState.erasePowerUpById(*j);
                 }
             }
@@ -349,9 +348,9 @@ void GameEngineImpl::playerGetsPowerUp()
     }
 }
 
-void GameEngineImpl::applyPowerUp()
+void GameEngineImpl::addPowerUp(PowerUpState* powerUp)
 {
-
+    m_gameState.addPowerUp(powerUp);   
 }
 
 void GameEngineImpl::removeAllObjectsWithDestroyedFlagFromGrid()
@@ -368,3 +367,4 @@ void GameEngineImpl::removeAllObjectsWithDestroyedFlagFromGrid()
     for(size_t i = 0;i < allPowerUpsWithDestroyedFlag.size();i++)
         m_grid->removePowerUp(*allPowerUpsWithDestroyedFlag[i]);
 }
+

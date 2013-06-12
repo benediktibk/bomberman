@@ -11,7 +11,7 @@ class PowerUpMaxBombState :
 public:
     PowerUpMaxBombState(UniqueIdCreator &creator, const Point &position);
 
-    void modifyPlayer(PlayerState &player);
+    void modifyPlayer(PlayerState &player) const;
 
 private:
     unsigned int m_plusMaxBombs;

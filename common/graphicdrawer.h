@@ -5,13 +5,14 @@
 
 namespace Common
 {
-class GraphicDrawer
-{
-public:
-	virtual void draw(const GameState &gameState) = 0;
+	class GraphicDrawer
+	{
+	public:
+		virtual void setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs) = 0;
+		virtual void draw(const GameState &gameState) = 0;
 
-	virtual ~GraphicDrawer() { }
-};
+		virtual ~GraphicDrawer() { }
+	};
 }
 
 #endif

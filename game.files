@@ -292,3 +292,7 @@ common/powerupmaxvelocitystatetest.cpp
 common/powerupmaxvelocitystatetest.h
 resources/objects/explosion_flame.svg
 
+common/explodedbombstate.h
+common/explodedbombstate.cpp
+common/explodedbombstatetest.h
+common/explodedbombstatetest.cpp

@@ -7,20 +7,41 @@
 #include "graphic/cellbackground.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
+#include <QBrush>
+#include <QImage>
+#include <QPainter>
+#include <QtSvg/QtSvg>
+#include <QtOpenGL/QGLWidget>
+#include <assert.h>
 
 using namespace Graphic;
 using namespace Common;
 using namespace std;
+using namespace Qt;
 
-GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view) :
+GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 	m_view(view),
 	m_scene(new QGraphicsScene()),
 	m_pixelPerMeter(40),
 	m_firstRedraw(true),
 	m_minimumViewDistance(4),
-	m_minimumViewDistanceInPixel(m_minimumViewDistance*m_pixelPerMeter)
+	m_minimumViewDistanceInPixel(m_minimumViewDistance*m_pixelPerMeter),
+	m_responsibilityValid(false)
 {
-	m_view.setBackgroundBrush(QBrush(QColor(255, 255, 255)));
+	if (enableOpenGL)
+		m_view.setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
+
+	QSvgRenderer renderer(QString("resources/backgrounds/cell_pattern_1.svg"));
+	QImage image(m_pixelPerMeter, m_pixelPerMeter, QImage::Format_ARGB32);
+	QPainter painter(&image);
+	renderer.render(&painter);
+
+	QBrush *backgroundBrush = new QBrush(image);
+
+	m_view.setBackgroundBrush(*backgroundBrush);
+
+	m_view.setFocusPolicy(NoFocus);
+	m_view.setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
 	m_view.setScene(m_scene);
 }
 
@@ -34,19 +55,39 @@ GraphicDrawerQt::~GraphicDrawerQt()
 	delete m_scene;
 }
 
+void GraphicDrawerQt::setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs)
+{
+	assert(playerIDs.size() > 0);
+
+	if (playerIDs.size() == 1)
+	{
+		m_responsibleForOnePlayer = true;
+		m_playerIDResponsibleFor = playerIDs.front();
+	}
+	else
+		m_responsibleForOnePlayer = false;
+
+	m_responsibilityValid = true;
+}
+
 void GraphicDrawerQt::draw(const GameState &gameState)
 {
-	const PlayerState &firstPlayer = gameState.getFirstPlayerState();
+	assert(m_responsibilityValid);
 
 	if (m_firstRedraw)
 	{
 		drawBorderWalls(gameState.getWidth(), gameState.getHeight());
 		drawCellBackgrounds(gameState.getWidth(), gameState.getHeight());
 		updateViewArea(gameState);
-		setViewPositionToTheCenterOfPlayer(firstPlayer);
+	}
+
+	if (m_responsibleForOnePlayer)
+	{
+		const PlayerState &player = gameState.getPlayerStateById(m_playerIDResponsibleFor);
+		updateViewPositionForPlayer(player);
 	}
 	else
-		updateViewPositionForPlayer(firstPlayer);
+		m_view.fitInView(m_scene->sceneRect());
 
 	drawWalls(gameState.getAllChangedWalls());
 	drawBombs(gameState.getAllChangedBombs());

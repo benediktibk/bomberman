@@ -7,7 +7,7 @@ PowerUpMaxBombState::PowerUpMaxBombState(UniqueIdCreator &creator, const Point &
     m_plusMaxBombs(1)
 { }
 
-void PowerUpMaxBombState::modifyPlayer(PlayerState &player)
+void PowerUpMaxBombState::modifyPlayer(PlayerState &player) const
 {
     player.increaseMaxBombs(m_plusMaxBombs);
 }

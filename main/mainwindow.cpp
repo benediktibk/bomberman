@@ -1,48 +1,34 @@
-#include "mainwindow.h"
+#include "main/mainwindow.h"
 #include "ui_mainwindow.h"
-#include <QtOpenGL/QGLWidget>
-#include <QtCore/QTimer>
-#include <QtGui/QScrollBar>
 #include "graphic/graphicdrawerqt.h"
 #include "common/gamestate.h"
-#include "gameloop.h"
+#include "main/gameloop.h"
 #include "gameengine/gameengineimpl.h"
-#include <QBrush>
-#include <QImage>
-#include <QPainter>
-#include <QtSvg/QtSvg>
+#include <QtCore/QTimer>
+#include <QtGui/QScrollBar>
 
 using namespace Main;
-using namespace Qt;
 using namespace Graphic;
+using namespace std;
 
 MainWindow::MainWindow(bool enableOpenGL) :
 	m_statusBarUpdateTimeStep(250),
 	m_ui(new Ui::MainWindow),
 	m_drawer(0),
 	m_level(Common::LevelDefinition::createDefaultLevel()),
-    m_gameEngine(new GameEngine::GameEngineImpl(m_level, 2)),
+	m_gameEngine(new GameEngine::GameEngineImpl(m_level, 2)),
 	m_gameLoop(new GameLoop(*this, *m_gameEngine, *this)),
 	m_timerStatusBarUpdate(new QTimer(this)),
 	m_enableOpenGL(enableOpenGL)
 {
 	m_ui->setupUi(this);
 
-	if (m_enableOpenGL)
-		m_ui->graphicsView->setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
+	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), m_enableOpenGL);
+	vector<unsigned int> playerIDs = m_gameEngine->getAllPossiblePlayerIDs();
+	vector<unsigned int> playerIDsToShow;
+	playerIDsToShow.push_back(playerIDs.front());
+	setResponsibleForPlayers(playerIDsToShow);
 
-    QSvgRenderer renderer(QString("resources/backgrounds/cell_pattern_1.svg"));
-    QImage image(40, 40, QImage::Format_ARGB32);
-    QPainter painter(&image);
-    renderer.render(&painter);
-
-    QBrush *backgroundBrush = new QBrush(image);
-
-    m_ui->graphicsView->setBackgroundBrush(*backgroundBrush);
-
-	m_ui->graphicsView->setFocusPolicy(NoFocus);
-	m_ui->graphicsView->setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
-	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView));
 	connect(	this, SIGNAL(guiUpdateNecessary(const Common::GameState*)),
 				this, SLOT(updateGui(const Common::GameState*)));
 	connect(	m_timerStatusBarUpdate, SIGNAL(timeout()),
@@ -58,6 +44,11 @@ MainWindow::~MainWindow()
 	delete m_drawer;
 	delete m_gameEngine;
 	delete m_ui;
+}
+
+void MainWindow::setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs)
+{
+	m_drawer->setResponsibleForPlayers(playerIDs);
 }
 
 void MainWindow::draw(const Common::GameState &gameState)
