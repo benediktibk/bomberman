@@ -44,6 +44,7 @@ void GameEngineImpl::updateGameState(const std::map<unsigned int, Common::InputS
 
     if (!m_firstGameStateUpdate)
         m_gameState.resetChangedFlags();
+    removeAllObjectsWithDestroyedFlagFromGrid();
     m_gameState.removeAllObjectsWithDestroyedFlag();
     updateBombs();
     updatePlayerPositions();
@@ -350,3 +351,11 @@ void GameEngineImpl::applyPowerUp()
 
 }
 
+void GameEngineImpl::removeAllObjectsWithDestroyedFlagFromGrid()
+{
+    vector<const BombState*> allBombsWithDestroyedFlag;
+    for(size_t i = 0;i < allBombsWithDestroyedFlag.size();i++)
+    {
+        m_grid->removeBomb(*allBombsWithDestroyedFlag[i]);
+    }
+}

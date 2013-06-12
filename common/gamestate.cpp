@@ -359,3 +359,14 @@ void GameState::erasePlayerById(unsigned int playerId)
             m_players[i]->setDestroyed();
     }
 }
+
+vector<const BombState*> GameState::getAllBombsWithDestroyedFlag() const
+{
+    vector<const BombState*> result;
+
+    for (vector<BombState*>::const_iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
+        if ((*i)->isDestroyed())
+            result.push_back(*i);
+
+    return result;
+}

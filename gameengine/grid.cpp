@@ -62,7 +62,7 @@ void Grid::removePowerUp(PowerUpState &powerUp)
     m_idMatrix[index] = 0;
 }
 
-void Grid::removeBomb(BombState &bomb)
+void Grid::removeBomb(const BombState &bomb)
 {
     GridPoint position(bomb.getPosition());
     unsigned int index = getVectorIndex(position);

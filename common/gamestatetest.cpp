@@ -341,3 +341,22 @@ void GameStateTest::erasePlayerById_onePlayersAddedOneDeleted_playerCountIs0()
 
 	CPPUNIT_ASSERT_EQUAL((size_t)0, state.getPlayerCount());
 }
+
+void GameStateTest::getAllBombsWithDestroyedFlag_twoBombsAddedOneDestroyed_resultIs1()
+{
+    LevelDefinition level;
+    GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
+    PlayerState &playerState = state.getFirstPlayerState();
+
+    playerState.countBomb();
+    state.addBomb(new BombState(m_bombIDCreator, 0));
+    state.reduceAllBombsLifeTime(1);
+    playerState.countBomb();
+    state.addBomb(new BombState(m_bombIDCreator, 0));
+    state.reduceAllBombsLifeTime(2.1);
+    state.setAllBombsWithNoLifeTimeDestroyed();
+
+    vector<const BombState*> bombs = state.getAllBombsWithDestroyedFlag();
+
+    CPPUNIT_ASSERT_EQUAL((size_t)1, bombs.size());
+}

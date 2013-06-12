@@ -48,6 +48,7 @@ public:
     std::vector<const PowerUpState*> getAllChangedPowerUps() const;
 	size_t getPlayerCount() const;
 	void erasePlayerById(unsigned int playerId);
+    std::vector<const BombState*> getAllBombsWithDestroyedFlag() const;
 
 private:
     void eraseBomb(size_t position);

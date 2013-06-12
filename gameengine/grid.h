@@ -31,7 +31,7 @@ public:
     bool isPlaceEmpty(const Common::GridPoint &position) const;
     void addBombAtPlace(Common::BombState &bomb);
     void addWallAtPlace(const Common::WallState &wall);
-    void removeBomb(Common::BombState &bomb);
+    void removeBomb(const Common::BombState &bomb);
     void removeWall(Common::WallState &wall);
     void updatePlayer(const Common::PlayerState &player);
     void removePowerUp(Common::PowerUpState &powerUp);

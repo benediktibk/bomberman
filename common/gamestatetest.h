@@ -38,6 +38,7 @@ namespace Common
 		 CPPUNIT_TEST(setAllBombsWithNoLifeTimeDestroyed_oneBombWithNoLifeTime_resultIsAddedBomb);
 		 CPPUNIT_TEST(setAllBombsWithNoLifeTimeDestroyed_twoOfThreeBombsWithNoLifeTime_resultSizeIs2);
 		 CPPUNIT_TEST(erasePlayerById_onePlayersAddedOneDeleted_playerCountIs0);
+         CPPUNIT_TEST(getAllBombsWithDestroyedFlag_twoBombsAddedOneDestroyed_resultIs1);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -68,6 +69,7 @@ namespace Common
 		 void setAllBombsWithNoLifeTimeDestroyed_oneBombWithNoLifeTime_resultIsAddedBomb();
 		 void setAllBombsWithNoLifeTimeDestroyed_twoOfThreeBombsWithNoLifeTime_resultSizeIs2();
 		 void erasePlayerById_onePlayersAddedOneDeleted_playerCountIs0();
+         void getAllBombsWithDestroyedFlag_twoBombsAddedOneDestroyed_resultIs1();
 
 	private:
 		 UniqueIdCreator m_playerIDCreator;
