@@ -49,6 +49,7 @@ public:
 	size_t getPlayerCount() const;
 	void erasePlayerById(unsigned int playerId);
     std::vector<const BombState*> getAllBombsWithDestroyedFlag() const;
+    std::vector<const WallState*> getAllWallsWithDestroyedFlag() const;
 
 private:
     void eraseBomb(size_t position);

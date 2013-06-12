@@ -370,3 +370,14 @@ vector<const BombState*> GameState::getAllBombsWithDestroyedFlag() const
 
     return result;
 }
+
+vector<const WallState*> GameState::getAllWallsWithDestroyedFlag() const
+{
+    vector<const WallState*> result;
+
+    for (vector<WallState*>::const_iterator i = m_walls.begin(); i != m_walls.end(); ++i)
+        if ((*i)->isDestroyed())
+            result.push_back(*i);
+
+    return result;
+}

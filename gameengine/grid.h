@@ -32,7 +32,7 @@ public:
     void addBombAtPlace(Common::BombState &bomb);
     void addWallAtPlace(const Common::WallState &wall);
     void removeBomb(const Common::BombState &bomb);
-    void removeWall(Common::WallState &wall);
+    void removeWall(const Common::WallState &wall);
     void updatePlayer(const Common::PlayerState &player);
     void removePowerUp(Common::PowerUpState &powerUp);
     void addPowerUpAtPlace(Common::PowerUpState &powerUp);

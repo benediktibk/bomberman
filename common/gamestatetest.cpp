@@ -61,7 +61,7 @@ void GameStateTest::getAllChangedWalls_twoWallsAdded_resultSizeIs2()
 	CPPUNIT_ASSERT_EQUAL((size_t)2, walls.size());
 }
 
-void GameStateTest::getAllChangedWalls_oneWallAdedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1()
+void GameStateTest::getAllChangedWalls_oneWallAddedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1()
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
@@ -359,4 +359,18 @@ void GameStateTest::getAllBombsWithDestroyedFlag_twoBombsAddedOneDestroyed_resul
     vector<const BombState*> bombs = state.getAllBombsWithDestroyedFlag();
 
     CPPUNIT_ASSERT_EQUAL((size_t)1, bombs.size());
+}
+
+void GameStateTest::getAllWallsWithDestroyedFlag_twoWallsAddedOneDestroyed_resultIs1()
+{
+    LevelDefinition level;
+    GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
+
+    state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeLoose, Point()));
+    state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeLoose, Point()));
+    state.eraseWallById(0);
+
+    vector<const WallState*> walls = state.getAllWallsWithDestroyedFlag();
+
+    CPPUNIT_ASSERT_EQUAL((size_t)1, walls.size());
 }

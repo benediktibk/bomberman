@@ -70,7 +70,7 @@ void Grid::removeBomb(const BombState &bomb)
     m_idMatrix[index] = 0;
 }
 
-void Grid::removeWall(WallState &wall)
+void Grid::removeWall(const WallState &wall)
 {
     GridPoint position(wall.getPosition());
     unsigned int index = getVectorIndex(position);
