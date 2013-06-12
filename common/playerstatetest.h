@@ -50,6 +50,7 @@ namespace Common
 		CPPUNIT_TEST(doNotCollideWith_validBomb_oneBombNotToCollideWith);
 		CPPUNIT_TEST(doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideWith);
 		CPPUNIT_TEST(removeBombFromDoNotCollideList_twoBombsAddedAndFirstOneExploded_oneBombNotToCollideWith);
+        CPPUNIT_TEST(increaseMaxVelocity_maxVelocityplustwo);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -95,7 +96,7 @@ namespace Common
 		void doNotCollideWith_validBomb_oneBombNotToCollideWith();
 		void doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideWith();
 		void removeBombFromDoNotCollideList_twoBombsAddedAndFirstOneExploded_oneBombNotToCollideWith();
-
+        void increaseMaxVelocity_maxVelocityplustwo();
 	private:
 		UniqueIdCreator *m_playerIDCreator;
 		UniqueIdCreator *m_bombIDCreator;

@@ -375,3 +375,13 @@ void PlayerStateTest::removeBombFromDoNotCollideList_twoBombsAddedAndFirstOneExp
 	vector<const BombState*> result = player.getBombsNotToCollideWith();
 	CPPUNIT_ASSERT_EQUAL((size_t)1, result.size());
 }
+
+void PlayerStateTest::increaseMaxVelocity_maxVelocityplustwo()
+{
+    PlayerState player(*m_playerIDCreator);
+    double speed = player.getMaximumSpeed();
+    player.increaseMaximumSpeed();
+
+
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(speed+2.0,player.getMaximumSpeed(),0.001);
+}
