@@ -30,6 +30,7 @@
 #include "common/powerupgeneratortest.h"
 #include "common/playerstatetest.h"
 #include "common/powerupmaxvelocitystatetest.h"
+#include "common/comparetest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::GameStateTest);
@@ -49,6 +50,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Common::PlayerStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::ExplodedBombStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpGeneratorTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpMaxVelocityStateTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::CompareTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::PhysicalObjectTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::DynamicObjectTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::StaticObjectTest);

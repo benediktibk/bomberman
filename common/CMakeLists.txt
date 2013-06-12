@@ -47,6 +47,7 @@ set(COMMON_TEST_SRC
 	inputfetchermock.cpp
 	powerupmaxvelocitystatetest.cpp
 	explodedbombstatetest.cpp
+        comparetest.cpp
 )
 
 add_library(common ${COMMON_SRC})
