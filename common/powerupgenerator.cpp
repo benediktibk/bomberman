@@ -6,16 +6,17 @@ using namespace std;
 using namespace Common;
 
 PowerUpGenerator::PowerUpGenerator():
-    m_randRange(100)
+    m_randRange(100),
+    m_powerUpPropability(4)
 { }
 
 PowerUpType PowerUpGenerator::getTypeForRand(unsigned int rand)
 {
-    if (rand <= getPropabilityOfType(PowerUpTypeMaxBomb)*m_randRange)
+    if (rand < getPropabilityOfType(PowerUpTypeMaxBomb)*m_randRange)
         return PowerUpTypeMaxBomb;
     rand -= getPropabilityOfType(PowerUpTypeMaxBomb)*m_randRange;
 
-    if (rand <= getPropabilityOfType(PowerUpTypeMaxVelocity)*m_randRange)
+    if (rand < getPropabilityOfType(PowerUpTypeMaxVelocity)*m_randRange)
         return PowerUpTypeMaxVelocity;
     rand -= getPropabilityOfType(PowerUpTypeMaxVelocity)*m_randRange;
 
@@ -39,17 +40,20 @@ double PowerUpGenerator::getPropabilityOfType(PowerUpType type)
 
 PowerUpType PowerUpGenerator::getRandomPowerUpType()
 {
-    unsigned int result;
-    //srand(time(NULL));
-
-    result = rand() % 10;
-
-    if (result < 7)
+    if (!createNewPowerup())
         return PowerUpTypeNone;
 
-    result = rand() % m_randRange;
-    m_powerUpType = getTypeForRand(result);
+    m_powerUpType = getTypeForRand(rand() % m_randRange);
 
     const PowerUpType randomPowerUpResult = m_powerUpType;
     return randomPowerUpResult;
+}
+
+bool PowerUpGenerator::createNewPowerup()
+{
+
+    if ( (rand() % m_powerUpPropability) == 0)
+        return true;
+    return false;
+
 }

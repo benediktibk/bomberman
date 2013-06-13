@@ -11,10 +11,12 @@ class PowerUpGeneratorTest :
 {
     CPPUNIT_TEST_SUITE(PowerUpGeneratorTest);
     CPPUNIT_TEST(getRandomPowerUpType_PowerUpType);
+    CPPUNIT_TEST(getRandomPowerUpType_1000Times_PowerUpTypeNoneCountIsInRange);
     CPPUNIT_TEST_SUITE_END();
 
 private:
     void getRandomPowerUpType_PowerUpType();
+    void getRandomPowerUpType_1000Times_PowerUpTypeNoneCountIsInRange();
 
 };
 }
