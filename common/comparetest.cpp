@@ -28,12 +28,12 @@ void CompareTest::isStrictFuzzyGreater_twoPointOneAndTwoAndEpsilonZeroPointZeroF
 {
     Compare compare(0.05);
 
-    CPPUNIT_ASSERT(compare.isFuzzyGreater(2.1,2.0));
+    CPPUNIT_ASSERT(compare.isStrictFuzzyGreater(2.1,2.0));
 }
 
 void CompareTest::isStrictFuzzySmaller_towAndTwoPointOneAndEpsilonZeroPointZeroFife_resultIsStrictFuzzySmaller()
 {
     Compare compare(0.05);
 
-    CPPUNIT_ASSERT(compare.isFuzzySmaller(2.0,2.1));
+    CPPUNIT_ASSERT(compare.isStrictFuzzySmaller(2.0,2.1));
 }

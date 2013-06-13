@@ -1044,11 +1044,15 @@ void GameEngineImplTest::updateGameState_Create4x4LevelWithTwoPowerUpsOnePowerUp
     createGameEngine(level, 1);
     InputState input;
     UniqueIdCreator idcreator;
-
-    m_gameEngine->addPowerUp(new PowerUpMaxBombState(idcreator,Point(1,0)));
     GameState &game = m_gameEngine->getGameState();
+    PowerUpState *powerUp1 = new PowerUpMaxBombState(idcreator,Point(1,0));
+    //PowerUpState *powerUp2 = new PowerUpMaxBombState(idcreator,Point(1,2));
+
+    m_gameEngine->addPowerUp(powerUp1);
+    //m_gameEngine->addPowerUp(powerUp2);
     //game.addPowerUp(new PowerUpMaxBombState(idcreator,Point(1,0)));
     //wenn game.addpowerup oder zwei mal m_gameengine.addpowerup -> game chrashes with seg fault
+    //entfernt erstes powerup korrekt!!!
     input.setSpaceKeyPressed();
     setFirstPlayerInput(input);
     m_gameEngine->updateGameState(m_inputStates, 0);
