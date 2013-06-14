@@ -6,7 +6,7 @@ PowerUpMaxVelocityState::PowerUpMaxVelocityState(UniqueIdCreator &creator, const
     PowerUpState(creator, position)
 { }
 
-void PowerUpMaxVelocityState::modifyPlayer(PlayerState &player)
+void PowerUpMaxVelocityState::modifyPlayer(PlayerState &player) const
 {
     player.increaseMaximumSpeed();
 }

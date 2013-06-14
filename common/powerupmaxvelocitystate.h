@@ -11,7 +11,7 @@ class PowerUpMaxVelocityState :
 public:
     PowerUpMaxVelocityState(UniqueIdCreator &creator, const Point &position);
 
-    void modifyPlayer(PlayerState &player);
+    void modifyPlayer(PlayerState &player) const;
 
 private:
 
