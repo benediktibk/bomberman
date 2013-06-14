@@ -237,10 +237,13 @@ void GameState::resetChangedFlags()
 
 void GameState::removeAllObjectsWithDestroyedFlag()
 {
-	for (size_t i = 0; i < m_walls.size(); ++i)
+	size_t i = 0;
+	while (i < m_walls.size())
 	{
 		if (m_walls[i]->isDestroyed())
 			eraseWall(i);
+		else
+			i++;
 	}
 
 	for (size_t i = 0; i < m_bombs.size(); ++i)
@@ -261,7 +264,6 @@ void GameState::removeAllObjectsWithDestroyedFlag()
 			erasePlayer(i);
 	}
 
-	size_t i = 0;
 	while (i < m_explodedBombs.size())
 	{
 		if (m_explodedBombs[i]->isDestroyed())
