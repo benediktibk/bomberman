@@ -47,6 +47,7 @@ void GameEngineImpl::updateGameState(const std::map<unsigned int, Common::InputS
         m_gameState.resetChangedFlags();
     removeAllObjectsWithDestroyedFlagFromGrid();
     m_gameState.removeAllObjectsWithDestroyedFlag();
+    playerGetsPowerUp();
     updateBombs();
     updatePlayerPositions();
     placeBombs();
@@ -387,8 +388,11 @@ void GameEngineImpl::removeAllObjectsWithDestroyedFlagFromGrid()
     vector<const WallState*> allWallsWithDestroyedFlag = m_gameState.getAllWallsWithDestroyedFlag();
     for(size_t i = 0;i < allWallsWithDestroyedFlag.size();i++)
     {
-        addRandomPowerUpAtPosition(allWallsWithDestroyedFlag[i]->getPosition());
+        Point position;
+        position = allWallsWithDestroyedFlag[i]->getPosition();
         m_grid->removeWall(*allWallsWithDestroyedFlag[i]);
+        addRandomPowerUpAtPosition(position);
+
     }
 
     vector<const PowerUpState*> allPowerUpsWithDestroyedFlag = m_gameState.getAllPowerUpsWithDestroyedFlag();
