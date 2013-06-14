@@ -378,6 +378,22 @@ void GameEngineImpl::addRandomPowerUpAtPosition(Point position)
 
 }
 
+void GameEngineImpl::addPowerOfTypeAtPosition(PowerUpType powerUpType, Point position)
+{
+    if (powerUpType == PowerUpTypeMaxBomb)
+        {
+            PowerUpMaxBombState *powerUp = new PowerUpMaxBombState(m_powerUpIds, position);
+            addPowerUp(powerUp);
+        }
+        else if (powerUpType == PowerUpTypeMaxVelocity)
+        {
+            PowerUpMaxVelocityState *powerUp = new PowerUpMaxVelocityState(m_powerUpIds, position);
+            addPowerUp(powerUp);
+        }
+        else
+            assert(false);
+}
+
 void GameEngineImpl::removeAllObjectsWithDestroyedFlagFromGrid()
 {
     vector<const BombState*> allBombsWithDestroyedFlag = m_gameState.getAllBombsWithDestroyedFlag();
