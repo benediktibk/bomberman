@@ -9,7 +9,7 @@ using namespace std;
 PlayerState::PlayerState(UniqueIdCreator &creator) :
 	m_direction(PlayerDirectionUp),
 	m_placedBombCount(0),
-	m_maxBombs(1),
+    m_maxBombs(1),
 	m_maximumSpeed(5.0),
 	m_width(1),
 	m_height(1),
