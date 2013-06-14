@@ -378,40 +378,40 @@ void GameEngineImpl::addRandomPowerUpAtPosition(Point position)
 
 }
 
-void GameEngineImpl::addPowerOfTypeAtPosition(PowerUpType powerUpType, Point position)
+void GameEngineImpl::addPowerUpOfTypeAtPosition(PowerUpType powerUpType, Point position)
 {
-    if (powerUpType == PowerUpTypeMaxBomb)
-        {
-            PowerUpMaxBombState *powerUp = new PowerUpMaxBombState(m_powerUpIds, position);
-            addPowerUp(powerUp);
-        }
-        else if (powerUpType == PowerUpTypeMaxVelocity)
-        {
-            PowerUpMaxVelocityState *powerUp = new PowerUpMaxVelocityState(m_powerUpIds, position);
-            addPowerUp(powerUp);
-        }
-        else
-            assert(false);
+	if (powerUpType == PowerUpTypeMaxBomb)
+	{
+		PowerUpMaxBombState *powerUp = new PowerUpMaxBombState(m_powerUpIds, position);
+		addPowerUp(powerUp);
+	}
+	else if (powerUpType == PowerUpTypeMaxVelocity)
+	{
+		PowerUpMaxVelocityState *powerUp = new PowerUpMaxVelocityState(m_powerUpIds, position);
+		addPowerUp(powerUp);
+	}
+	else
+		assert(false);
 }
 
 void GameEngineImpl::removeAllObjectsWithDestroyedFlagFromGrid()
 {
-    vector<const BombState*> allBombsWithDestroyedFlag = m_gameState.getAllBombsWithDestroyedFlag();
-    for(size_t i = 0;i < allBombsWithDestroyedFlag.size();i++)
-        m_grid->removeBomb(*allBombsWithDestroyedFlag[i]);
+	vector<const BombState*> allBombsWithDestroyedFlag = m_gameState.getAllBombsWithDestroyedFlag();
+	for(size_t i = 0;i < allBombsWithDestroyedFlag.size();i++)
+		m_grid->removeBomb(*allBombsWithDestroyedFlag[i]);
 
-    vector<const WallState*> allWallsWithDestroyedFlag = m_gameState.getAllWallsWithDestroyedFlag();
-    for(size_t i = 0;i < allWallsWithDestroyedFlag.size();i++)
-    {
-        Point position;
-        position = allWallsWithDestroyedFlag[i]->getPosition();
-        m_grid->removeWall(*allWallsWithDestroyedFlag[i]);
-        addRandomPowerUpAtPosition(position);
+	vector<const WallState*> allWallsWithDestroyedFlag = m_gameState.getAllWallsWithDestroyedFlag();
+	for(size_t i = 0;i < allWallsWithDestroyedFlag.size();i++)
+	{
+		Point position;
+		position = allWallsWithDestroyedFlag[i]->getPosition();
+		m_grid->removeWall(*allWallsWithDestroyedFlag[i]);
+		addRandomPowerUpAtPosition(position);
 
-    }
+	}
 
-    vector<const PowerUpState*> allPowerUpsWithDestroyedFlag = m_gameState.getAllPowerUpsWithDestroyedFlag();
-    for(size_t i = 0;i < allPowerUpsWithDestroyedFlag.size();i++)
-        m_grid->removePowerUp(*allPowerUpsWithDestroyedFlag[i]);
+	vector<const PowerUpState*> allPowerUpsWithDestroyedFlag = m_gameState.getAllPowerUpsWithDestroyedFlag();
+	for(size_t i = 0;i < allPowerUpsWithDestroyedFlag.size();i++)
+		m_grid->removePowerUp(*allPowerUpsWithDestroyedFlag[i]);
 }
 

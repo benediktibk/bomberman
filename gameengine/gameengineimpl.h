@@ -29,7 +29,7 @@ namespace GameEngine
         double getTimeTillOnePlayerReachesGridPoint() const;
         double getTimeTillPlayerReachesGridPoint(const Common::PlayerState &player) const;
         void playerGetsPowerUp();
-        void addPowerOfTypeAtPosition(Common::PowerUpType powerUpType, Common::Point position);
+		void addPowerUpOfTypeAtPosition(Common::PowerUpType powerUpType, Common::Point position);
         void removeAllObjectsWithDestroyedFlagFromGrid();
 
     private:
