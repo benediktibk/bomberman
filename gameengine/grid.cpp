@@ -78,12 +78,20 @@ void Grid::removeWall(const WallState &wall)
     m_idMatrix[index] = 0;
  }
 
+void Grid::removePlayer(const PlayerState &player)
+{
+    GridPoint position(player.getPosition());
+    unsigned int index = getVectorIndex(position);
+    m_itemMatrix[index] = ItemPlayer;
+    m_idMatrix[index] = 0;
+}
+
 void Grid::updatePlayer(const PlayerState &player)
 {
     GridPoint position(player.getPosition());
     unsigned int index = getVectorIndex(position);
     m_itemMatrix[index] = ItemPlayer;
-    //m_idMatrix[index] = player.getPlayerId;
+    m_idMatrix[index] = player.getId();
 }
 
 vector<unsigned int> Grid::getItemsInRange(const BombState &bomb , Grid::Item item) const
