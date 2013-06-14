@@ -44,6 +44,7 @@ set(OBJECTS
 	powerup_v2.svg
 	explosion_center.svg
 	explosion_flame.svg
+    powerup.svg
 )
 
 foreach(file ${BACKGROUNDS})
