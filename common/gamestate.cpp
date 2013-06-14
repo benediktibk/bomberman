@@ -246,24 +246,34 @@ void GameState::removeAllObjectsWithDestroyedFlag()
 			i++;
 	}
 
-	for (size_t i = 0; i < m_bombs.size(); ++i)
+	i = 0;
+	while (i < m_bombs.size())
 	{
 		if (m_bombs[i]->isDestroyed())
 			eraseBomb(i);
+		else
+			i++;
 	}
 
-	for (size_t i = 0; i < m_powerUps.size(); ++i)
+	i = 0;
+	while (i < m_powerUps.size())
 	{
 		if (m_powerUps[i]->isDestroyed())
 			erasePowerUp(i);
+		else
+			i++;
 	}
 
-	for (size_t i = 0; i < m_players.size(); ++i)
+	i = 0;
+	while (i < m_players.size())
 	{
 		if (m_players[i]->isDestroyed())
 			erasePlayer(i);
+		else
+			i++;
 	}
 
+	i = 0;
 	while (i < m_explodedBombs.size())
 	{
 		if (m_explodedBombs[i]->isDestroyed())
