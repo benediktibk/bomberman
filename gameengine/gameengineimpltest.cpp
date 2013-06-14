@@ -1019,23 +1019,21 @@ void GameEngineImplTest::tearDown()
 
 void GameEngineImplTest::addPowerUp_PowerUpCount_Is_1_Player_Walks_on_PowerUP_PowerUpCount_Is_0()
 {
-	CPPUNIT_ASSERT(false); // test crashes with segmentation fault
+    CPPUNIT_ASSERT(false); // test crashes with segmentation fault
 	LevelDefinition level(4, 4);
 	createGameEngine(level, 1);
 	UniqueIdCreator idcreator;
 	GameState &game = m_gameEngine->getGameState();
-	PlayerState &player = game.getFirstPlayerState();
 	InputState input;
+    PlayerState &player = game.getFirstPlayerState();
+    PowerUpState *powerUp1 = new PowerUpMaxBombState(idcreator,Point(1,0));
 
-	game.addPowerUp(new PowerUpMaxBombState(idcreator,Point(1,2)));
+    m_gameEngine->addPowerUp(powerUp1);
+    input.setRightKeyPressed();
+    setFirstPlayerInput(input);
+    m_gameEngine->updateGameState(m_inputStates, (1/player.getMaximumSpeed()));
 
-
-	game.getPowerUpCount();
-	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getPowerUpCount());
-
-	player.setPosition(Point(1, 1));
-	input.setRightKeyPressed();
-	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getPowerUpCount());
+    CPPUNIT_ASSERT_EQUAL((size_t)0, game.getPowerUpCount());
 }
 
 void GameEngineImplTest::updateGameState_AddOnePowerUpInRangeOfBombAndLetBombExplode_powerUpCountIs0()
