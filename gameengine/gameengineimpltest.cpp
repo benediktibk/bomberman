@@ -1032,6 +1032,7 @@ void GameEngineImplTest::addPowerUp_powerUpCountIs1PlayerWalksOnPowerUp_powerUpC
 	input.setRightKeyNotPressed();
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 0);
+	m_gameEngine->updateGameState(m_inputStates, 0);
 
 	size_t result = game.getPowerUpCount();
 
