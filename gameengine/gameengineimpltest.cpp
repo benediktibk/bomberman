@@ -1019,43 +1019,41 @@ void GameEngineImplTest::tearDown()
 
 void GameEngineImplTest::addPowerUp_PowerUpCount_Is_1_Player_Walks_on_PowerUP_PowerUpCount_Is_0()
 {
-    LevelDefinition level(4, 4);
+	LevelDefinition level(4, 4);
 	createGameEngine(level, 1);
-	UniqueIdCreator idcreator;
 	GameState &game = m_gameEngine->getGameState();
 	InputState input;
-    PlayerState &player = game.getFirstPlayerState();
+	PlayerState &player = game.getFirstPlayerState();
 
-    m_gameEngine->addPowerOfTypeAtPosition(PowerUpTypeMaxBomb, Point(1,0));
-    input.setRightKeyPressed();
-    setFirstPlayerInput(input);
-    m_gameEngine->updateGameState(m_inputStates, (1/player.getMaximumSpeed()));
-    input.setRightKeyNotPressed();
-    setFirstPlayerInput(input);
-    m_gameEngine->updateGameState(m_inputStates, 0);
+	m_gameEngine->addPowerOfTypeAtPosition(PowerUpTypeMaxBomb, Point(1,0));
+	input.setRightKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, (1/player.getMaximumSpeed()));
+	input.setRightKeyNotPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
 
-    size_t result = game.getPowerUpCount();
+	size_t result = game.getPowerUpCount();
 
-    CPPUNIT_ASSERT_EQUAL((size_t)0, result);
+	CPPUNIT_ASSERT_EQUAL((size_t)0, result);
 }
 
 void GameEngineImplTest::updateGameState_AddTwoPowerUpsOneInRangeOfBombAndLetBombExplode_powerUpCountIs1()
 {
-    LevelDefinition level(4, 4);
-    createGameEngine(level, 1);
-    InputState input;
-    UniqueIdCreator idcreator;
-    GameState &game = m_gameEngine->getGameState();
+	LevelDefinition level(4, 4);
+	createGameEngine(level, 1);
+	InputState input;
+	GameState &game = m_gameEngine->getGameState();
 
-    m_gameEngine->addPowerOfTypeAtPosition(PowerUpTypeMaxBomb, Point(1,0));
-    m_gameEngine->addPowerOfTypeAtPosition(PowerUpTypeMaxBomb, Point(2,2));
-    input.setSpaceKeyPressed();
-    setFirstPlayerInput(input);
-    m_gameEngine->updateGameState(m_inputStates, 0);
-    m_gameEngine->updateGameState(m_inputStates, 3.1);
-    input.setSpaceKeyNotPressed();
-    setFirstPlayerInput(input);
-    m_gameEngine->updateGameState(m_inputStates, 0);
+	m_gameEngine->addPowerOfTypeAtPosition(PowerUpTypeMaxBomb, Point(1,0));
+	m_gameEngine->addPowerOfTypeAtPosition(PowerUpTypeMaxBomb, Point(2,2));
+	input.setSpaceKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	m_gameEngine->updateGameState(m_inputStates, 3.1);
+	input.setSpaceKeyNotPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
 
-    CPPUNIT_ASSERT_EQUAL((size_t)1, game.getPowerUpCount());
+	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getPowerUpCount());
 }
