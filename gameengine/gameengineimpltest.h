@@ -62,7 +62,7 @@ class GameEngineImplTest :
     CPPUNIT_TEST(getPlayerPosition_Create4x4LevelWithPlayerPosition2And2_PlayerPosition2And2);
     CPPUNIT_TEST(getPlayerCount_Create4x4LevelWith2Player_PlayerCountIs2);
     CPPUNIT_TEST(getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestroyed_PlayerCountIs1);
-    CPPUNIT_TEST(addPowerUp_PowerUpCount_Is_1_Player_Walks_on_PowerUP_PowerUpCount_Is_0);
+    CPPUNIT_TEST(addPowerUp_powerUpCountIs1PlayerWalksOnPowerUp_powerUpCountIs0);
     CPPUNIT_TEST(getPosition_getpositionaftercollisionwithotherplayer);
     CPPUNIT_TEST(updateGameState_AddTwoPowerUpsOneInRangeOfBombAndLetBombExplode_powerUpCountIs1);
 	CPPUNIT_TEST_SUITE_END();
@@ -120,7 +120,7 @@ private:
     void getPlayerPosition_Create4x4LevelWithPlayerPosition2And2_PlayerPosition2And2();
     void getPlayerCount_Create4x4LevelWith2Player_PlayerCountIs2();
     void getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestroyed_PlayerCountIs1();
-    void addPowerUp_PowerUpCount_Is_1_Player_Walks_on_PowerUP_PowerUpCount_Is_0();
+    void addPowerUp_powerUpCountIs1PlayerWalksOnPowerUp_powerUpCountIs0();
     void getPosition_getpositionaftercollisionwithotherplayer();
     void updateGameState_AddTwoPowerUpsOneInRangeOfBombAndLetBombExplode_powerUpCountIs1();
 

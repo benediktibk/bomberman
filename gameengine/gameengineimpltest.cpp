@@ -1017,7 +1017,7 @@ void GameEngineImplTest::tearDown()
 	m_gameEngine = 0;
 }
 
-void GameEngineImplTest::addPowerUp_PowerUpCount_Is_1_Player_Walks_on_PowerUP_PowerUpCount_Is_0()
+void GameEngineImplTest::addPowerUp_powerUpCountIs1PlayerWalksOnPowerUp_powerUpCountIs0()
 {
 	LevelDefinition level(4, 4);
 	createGameEngine(level, 1);
