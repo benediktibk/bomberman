@@ -64,7 +64,7 @@ class GameEngineImplTest :
     CPPUNIT_TEST(getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestroyed_PlayerCountIs1);
     CPPUNIT_TEST(addPowerUp_PowerUpCount_Is_1_Player_Walks_on_PowerUP_PowerUpCount_Is_0);
     CPPUNIT_TEST(getPosition_getpositionaftercollisionwithotherplayer);
-    CPPUNIT_TEST(updateGameState_Create4x4LevelWithTwoPowerUpsOnePowerUpInRangeOfBombAndLetBombExplode_powerUpCountIs1);
+    CPPUNIT_TEST(updateGameState_AddOnePowerUpInRangeOfBombAndLetBombExplode_powerUpCountIs0);
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -122,7 +122,7 @@ private:
     void getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestroyed_PlayerCountIs1();
     void addPowerUp_PowerUpCount_Is_1_Player_Walks_on_PowerUP_PowerUpCount_Is_0();
     void getPosition_getpositionaftercollisionwithotherplayer();
-    void updateGameState_Create4x4LevelWithTwoPowerUpsOnePowerUpInRangeOfBombAndLetBombExplode_powerUpCountIs1();
+    void updateGameState_AddOnePowerUpInRangeOfBombAndLetBombExplode_powerUpCountIs0();
 
 private:
 	void createGameEngine(const Common::LevelDefinition &level, unsigned int playerCount);

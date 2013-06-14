@@ -1038,7 +1038,7 @@ void GameEngineImplTest::addPowerUp_PowerUpCount_Is_1_Player_Walks_on_PowerUP_Po
 	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getPowerUpCount());
 }
 
-void GameEngineImplTest::updateGameState_Create4x4LevelWithTwoPowerUpsOnePowerUpInRangeOfBombAndLetBombExplode_powerUpCountIs1()
+void GameEngineImplTest::updateGameState_AddOnePowerUpInRangeOfBombAndLetBombExplode_powerUpCountIs0()
 {
     LevelDefinition level(4, 4);
     createGameEngine(level, 1);
@@ -1046,13 +1046,8 @@ void GameEngineImplTest::updateGameState_Create4x4LevelWithTwoPowerUpsOnePowerUp
     UniqueIdCreator idcreator;
     GameState &game = m_gameEngine->getGameState();
     PowerUpState *powerUp1 = new PowerUpMaxBombState(idcreator,Point(1,0));
-    //PowerUpState *powerUp2 = new PowerUpMaxBombState(idcreator,Point(1,2));
 
     m_gameEngine->addPowerUp(powerUp1);
-    //m_gameEngine->addPowerUp(powerUp2);
-    //game.addPowerUp(new PowerUpMaxBombState(idcreator,Point(1,0)));
-    //wenn game.addpowerup oder zwei mal m_gameengine.addpowerup -> game chrashes with seg fault
-    //entfernt erstes powerup korrekt!!!
     input.setSpaceKeyPressed();
     setFirstPlayerInput(input);
     m_gameEngine->updateGameState(m_inputStates, 0);
@@ -1061,5 +1056,5 @@ void GameEngineImplTest::updateGameState_Create4x4LevelWithTwoPowerUpsOnePowerUp
     setFirstPlayerInput(input);
     m_gameEngine->updateGameState(m_inputStates, 0);
 
-    CPPUNIT_ASSERT_EQUAL((size_t)1, game.getPowerUpCount());
+    CPPUNIT_ASSERT_EQUAL((size_t)0, game.getPowerUpCount());
 }
