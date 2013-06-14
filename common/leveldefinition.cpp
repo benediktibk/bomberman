@@ -60,9 +60,13 @@ LevelDefinition LevelDefinition::createDefaultLevel()
 	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 2);
 	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 4);
 	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 5, 2);
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 5, 4);
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 10, 2);
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 10, 3);
+    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 5, 4);
+    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 2);
+    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 4);
+    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 9, 2);
+    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 9, 4);
+    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 11, 2);
+    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 11, 3);
 
 	return result;
 }
