@@ -1019,33 +1019,36 @@ void GameEngineImplTest::tearDown()
 
 void GameEngineImplTest::addPowerUp_PowerUpCount_Is_1_Player_Walks_on_PowerUP_PowerUpCount_Is_0()
 {
-    CPPUNIT_ASSERT(false); // test crashes with segmentation fault
-	LevelDefinition level(4, 4);
+    LevelDefinition level(4, 4);
 	createGameEngine(level, 1);
 	UniqueIdCreator idcreator;
 	GameState &game = m_gameEngine->getGameState();
 	InputState input;
     PlayerState &player = game.getFirstPlayerState();
-    PowerUpState *powerUp1 = new PowerUpMaxBombState(idcreator,Point(1,0));
 
-    m_gameEngine->addPowerUp(powerUp1);
+    m_gameEngine->addPowerOfTypeAtPosition(PowerUpTypeMaxBomb, Point(1,0));
     input.setRightKeyPressed();
     setFirstPlayerInput(input);
     m_gameEngine->updateGameState(m_inputStates, (1/player.getMaximumSpeed()));
+    input.setRightKeyNotPressed();
+    setFirstPlayerInput(input);
+    m_gameEngine->updateGameState(m_inputStates, 0);
 
-    CPPUNIT_ASSERT_EQUAL((size_t)0, game.getPowerUpCount());
+    size_t result = game.getPowerUpCount();
+
+    CPPUNIT_ASSERT_EQUAL((size_t)0, result);
 }
 
-void GameEngineImplTest::updateGameState_AddOnePowerUpInRangeOfBombAndLetBombExplode_powerUpCountIs0()
+void GameEngineImplTest::updateGameState_AddTwoPowerUpsOneInRangeOfBombAndLetBombExplode_powerUpCountIs1()
 {
     LevelDefinition level(4, 4);
     createGameEngine(level, 1);
     InputState input;
     UniqueIdCreator idcreator;
     GameState &game = m_gameEngine->getGameState();
-    PowerUpState *powerUp1 = new PowerUpMaxBombState(idcreator,Point(1,0));
 
-    m_gameEngine->addPowerUp(powerUp1);
+    m_gameEngine->addPowerOfTypeAtPosition(PowerUpTypeMaxBomb, Point(1,0));
+    m_gameEngine->addPowerOfTypeAtPosition(PowerUpTypeMaxBomb, Point(2,2));
     input.setSpaceKeyPressed();
     setFirstPlayerInput(input);
     m_gameEngine->updateGameState(m_inputStates, 0);
@@ -1054,5 +1057,5 @@ void GameEngineImplTest::updateGameState_AddOnePowerUpInRangeOfBombAndLetBombExp
     setFirstPlayerInput(input);
     m_gameEngine->updateGameState(m_inputStates, 0);
 
-    CPPUNIT_ASSERT_EQUAL((size_t)0, game.getPowerUpCount());
+    CPPUNIT_ASSERT_EQUAL((size_t)1, game.getPowerUpCount());
 }
