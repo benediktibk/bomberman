@@ -199,3 +199,80 @@ vector<GridPoint> Grid::getPlayerFields(const Common::PlayerState &player) const
     vector<GridPoint> fields = GridPoint::getCoveredGridPoints(position);
     return fields;
 }
+
+std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::vector<const PlayerState*> allPlayers) const
+{
+    std::vector<unsigned int> playersInRange;
+    GridPoint position(bomb.getPosition());
+    int x = position.getX();
+    int y = position.getY();
+    int range = bomb.getDestructionRange();
+    bool isWallRight = false;
+    bool isWallLeft = false;
+    bool isWallUp = false;
+    bool isWallDown = false;
+    for( int i=1 ; i<=range ; ++i)
+    {
+        for(size_t p = 0; p < allPlayers.size(); p++)
+        {
+            GridPoint playerMainPosition(allPlayers[p]->getCenterPosition());
+            int playerX = playerMainPosition.getX();
+            int playerY = playerMainPosition.getY();
+            bool currentPlayerInRange = false;
+
+            if((x+i) < static_cast<int>(m_gridColumns))
+            {
+                if (isWallRight == false)
+                {
+                    if(m_itemMatrix[getVectorIndex(x+i-1,y)] == ItemWall)
+                        isWallRight = true;
+                    else if ((x+i) == playerX && currentPlayerInRange == false)
+                    {
+                        playersInRange.push_back(allPlayers[p]->getId());
+                        currentPlayerInRange = true;
+                    }
+                }
+            }
+            if((x-i) >= 0)
+            {
+                if (isWallLeft == false)
+                {
+                    if(m_itemMatrix[getVectorIndex(x-i+1,y)] == ItemWall)
+                        isWallLeft = true;
+                    else  if ((x-i) == playerX && currentPlayerInRange == false)
+                    {
+                        playersInRange.push_back(allPlayers[p]->getId());
+                        currentPlayerInRange = true;
+                    }
+                }
+            }
+            if((y+i) < static_cast<int>(m_gridRows))
+            {
+                if (isWallUp == false)
+                {
+                    if(m_itemMatrix[getVectorIndex(x,y+i-1)] == ItemWall)
+                        isWallUp = true;
+                    else  if ((y+i) == playerY && currentPlayerInRange == false)
+                    {
+                        playersInRange.push_back(allPlayers[p]->getId());
+                        currentPlayerInRange = true;
+                    }
+                }
+            }
+            if((y-i) >= 0)
+            {
+                if (isWallDown == false)
+                {
+                    if(m_itemMatrix[getVectorIndex(x,y-i+1)] == ItemWall)
+                        isWallDown = true;
+                    else if ((y-i) == playerY && currentPlayerInRange == false)
+                    {
+                        playersInRange.push_back(allPlayers[p]->getId());
+                        currentPlayerInRange = true;
+                    }
+                }
+            }
+        }
+    }
+    return playersInRange;
+}
