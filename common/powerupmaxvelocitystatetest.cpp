@@ -19,3 +19,17 @@ void PowerUpMaxVelocityStateTest::modifyPlayer_maxSpeed_7()
 
     CPPUNIT_ASSERT_DOUBLES_EQUAL(speed+2,player.getMaximumSpeed(),0.001);
 }
+
+void PowerUpMaxVelocityStateTest::modifyPlayer_baseClass_maxSpeed_7()
+{
+    UniqueIdCreator id;
+    UniqueIdCreator idPlayer;
+    PowerUpState *increaseMaxVel = new PowerUpMaxVelocityState(id, Point());
+    PlayerState player(idPlayer);
+    double speed = player.getMaximumSpeed();
+
+
+    increaseMaxVel->modifyPlayer(player);
+
+    CPPUNIT_ASSERT_DOUBLES_EQUAL(speed+2,player.getMaximumSpeed(),0.001);
+}
