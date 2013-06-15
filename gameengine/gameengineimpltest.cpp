@@ -1047,7 +1047,7 @@ void GameEngineImplTest::updateGameState_AddTwoPowerUpsOneInRangeOfBombAndLetBom
 	GameState &game = m_gameEngine->getGameState();
 
 	m_gameEngine->addPowerUpOfTypeAtPosition(PowerUpTypeMaxBomb, Point(1,0));
-	m_gameEngine->addPowerUpOfTypeAtPosition(PowerUpTypeMaxBomb, Point(2,2));
+	m_gameEngine->addPowerUpOfTypeAtPosition(PowerUpTypeMaxVelocity, Point(2,2));
 	input.setSpaceKeyPressed();
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 0);
