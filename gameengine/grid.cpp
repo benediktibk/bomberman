@@ -218,7 +218,6 @@ std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::ve
             GridPoint playerMainPosition(allPlayers[p]->getCenterPosition());
             int playerX = playerMainPosition.getX();
             int playerY = playerMainPosition.getY();
-            bool currentPlayerInRange = false;
 
             if((x+i) < static_cast<int>(m_gridColumns))
             {
@@ -226,10 +225,9 @@ std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::ve
                 {
                     if(m_itemMatrix[getVectorIndex(x+i-1,y)] == ItemWall)
                         isWallRight = true;
-                    else if ((x+i) == playerX && currentPlayerInRange == false)
+                    else if ((x+i) == playerX)
                     {
                         playersInRange.push_back(allPlayers[p]->getId());
-                        currentPlayerInRange = true;
                     }
                 }
             }
@@ -239,10 +237,9 @@ std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::ve
                 {
                     if(m_itemMatrix[getVectorIndex(x-i+1,y)] == ItemWall)
                         isWallLeft = true;
-                    else  if ((x-i) == playerX && currentPlayerInRange == false)
+                    else  if ((x-i) == playerX)
                     {
                         playersInRange.push_back(allPlayers[p]->getId());
-                        currentPlayerInRange = true;
                     }
                 }
             }
@@ -252,10 +249,9 @@ std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::ve
                 {
                     if(m_itemMatrix[getVectorIndex(x,y+i-1)] == ItemWall)
                         isWallUp = true;
-                    else  if ((y+i) == playerY && currentPlayerInRange == false)
+                    else  if ((y+i) == playerY)
                     {
                         playersInRange.push_back(allPlayers[p]->getId());
-                        currentPlayerInRange = true;
                     }
                 }
             }
@@ -265,10 +261,9 @@ std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::ve
                 {
                     if(m_itemMatrix[getVectorIndex(x,y-i+1)] == ItemWall)
                         isWallDown = true;
-                    else if ((y-i) == playerY && currentPlayerInRange == false)
+                    else if ((y-i) == playerY)
                     {
                         playersInRange.push_back(allPlayers[p]->getId());
-                        currentPlayerInRange = true;
                     }
                 }
             }

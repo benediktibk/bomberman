@@ -40,6 +40,7 @@ namespace GameEngine
 		 CPPUNIT_TEST(isPlaceEmtpy_coveredByNothing_true);
 		 CPPUNIT_TEST(isPlaceEmpty_coveredByWall_false);
 		 CPPUNIT_TEST(getPlayersinRange_bombat59gridsize1010_1);
+         CPPUNIT_TEST(getPlayersinRange_bombat59gridsize10x10_playersInRangeIs1);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -73,6 +74,7 @@ namespace GameEngine
 		 void isPlaceEmtpy_coveredByNothing_true();
 		 void isPlaceEmpty_coveredByWall_false();
 		 void getPlayersinRange_bombat59gridsize1010_1();
+         void getPlayersinRange_bombat59gridsize10x10_playersInRangeIs1();
 	};
 }
 
