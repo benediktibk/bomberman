@@ -288,9 +288,12 @@ void GameEngineImpl::updateBombs()
     for (vector<const BombState*>::const_iterator i = destroyedBombs.begin(); i != destroyedBombs.end(); ++i)
     {
         unsigned int playerID = (*i)->getPlayerID();
-        PlayerState &player = m_gameState.getPlayerStateById(playerID);
-        player.reduceBombCount();
-        player.removeBombFromDoNotCollideList(*i);
+        if(m_gameState.isPlayerAlife(playerID))
+        {
+            PlayerState &player = m_gameState.getPlayerStateById(playerID);
+            player.reduceBombCount();
+            player.removeBombFromDoNotCollideList(*i);
+        }
     }
 }
 

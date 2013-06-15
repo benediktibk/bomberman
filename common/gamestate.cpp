@@ -446,3 +446,13 @@ size_t GameState::getExplodedBombCount() const
 {
 	return m_explodedBombs.size();
 }
+
+bool GameState::isPlayerAlife(unsigned int playerId) const
+{
+    for(size_t i = 0; i < m_players.size(); i++)
+    {
+        if(m_players[i]->getId() == playerId)
+            return true;
+    }
+    return false;
+}

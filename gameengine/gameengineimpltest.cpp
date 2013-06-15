@@ -876,8 +876,8 @@ void GameEngineImplTest::setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTim
 	input.setUpKeyNotPressed();
 	input.setSpaceKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, 1);
-	input.setSpaceKeyNotPressed();
+    m_gameEngine->updateGameState(m_inputStates, 1);
+    input.setSpaceKeyNotPressed();
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 2.5);
 	m_gameEngine->updateGameState(m_inputStates, 0);
