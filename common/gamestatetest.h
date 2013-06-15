@@ -46,6 +46,9 @@ namespace Common
 		 CPPUNIT_TEST(getAllPowerUpsWithDestroyedFlag_twoPowerUpsAddedOneDestroyed_resultIs1);
 		 CPPUNIT_TEST(reduceAllBombsLifeTime_oneExplodedBomb_explodedBombsLifeTimeDecreased);
 		 CPPUNIT_TEST(removeAllObjectsWithDestroyedFlag_oneDestroyedExplodedBomb_explodedBombCountIs0);
+         CPPUNIT_TEST(isPlayersAlife_OnePlayerNotDestroyed_resultIsTrue);
+         CPPUNIT_TEST(isPlayersAlife_OnePlayerIsDestroyed_resultIsFalse);
+         CPPUNIT_TEST(isPlayersAlife_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -84,6 +87,9 @@ namespace Common
 		 void getAllPowerUpsWithDestroyedFlag_twoPowerUpsAddedOneDestroyed_resultIs1();
 		 void reduceAllBombsLifeTime_oneExplodedBomb_explodedBombsLifeTimeDecreased();
 		 void removeAllObjectsWithDestroyedFlag_oneDestroyedExplodedBomb_explodedBombCountIs0();
+         void isPlayersAlife_OnePlayerNotDestroyed_resultIsTrue();
+         void isPlayersAlife_OnePlayerIsDestroyed_resultIsFalse();
+         void isPlayersAlife_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse();
 
 	private:
 		 UniqueIdCreator m_playerIDCreator;
