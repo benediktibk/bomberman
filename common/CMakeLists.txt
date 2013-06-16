@@ -19,6 +19,7 @@ set(COMMON_SRC
 	powerupmaxvelocitystate.cpp
 	explodedbombstate.cpp
 	compare.cpp
+	leveldefinitionreader.cpp
 )
 
 set(COMMON_TEST_SRC

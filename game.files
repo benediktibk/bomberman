@@ -301,3 +301,5 @@ common/compare.cpp
 common/comparetest.h
 common/comparetest.cpp
 resources/objects/powerup.svg
+common/leveldefinitionreader.h
+common/leveldefinitionreader.cpp
