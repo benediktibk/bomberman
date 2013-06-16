@@ -303,3 +303,5 @@ common/comparetest.cpp
 resources/objects/powerup.svg
 common/leveldefinitionreader.h
 common/leveldefinitionreader.cpp
+resources/levels/levellist.csv
+resources/levels/defaultlevel.csv
