@@ -23,7 +23,7 @@ public:
 
     LevelDefinitionReader();
     LevelDefinition getLoadedLevel() const;
-    void readLevelFromLevelList(/*std::string levelName*/);
+    void readLevelFromLevelList(std::string levelName);
 
 private:
     LevelDefinition m_level;
