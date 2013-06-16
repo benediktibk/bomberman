@@ -33,9 +33,9 @@ void Wall::update(const Common::WallState &state, double pixelPerMeter)
 void Wall::createSVGItem(Common::WallState::WallType wallType)
 {
 	if (wallType == Common::WallState::WallTypeSolid)
-		m_svgItem = new QGraphicsSvgItem(QString("resources/objects/wall_solid.svg"));
+		m_svgItem = new QGraphicsSvgItem(QString("resources/graphics/wall_solid.svg"));
 	else
-		m_svgItem = new QGraphicsSvgItem(QString("resources/objects/wall_loose.svg"));
+		m_svgItem = new QGraphicsSvgItem(QString("resources/graphics/wall_loose.svg"));
 }
 
 void Wall::updateInternal(const Common::Point &position, double width, double height, double pixelPerMeter)

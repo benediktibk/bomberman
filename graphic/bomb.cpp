@@ -7,7 +7,7 @@
 using namespace Graphic;
 
 Bomb::Bomb(QGraphicsScene &scene) :
-	m_svgItem(new QGraphicsSvgItem(QString("resources/objects/bomb_planted.svg")))
+	m_svgItem(new QGraphicsSvgItem(QString("resources/graphics/bomb_planted.svg")))
 {
 	scene.addItem(m_svgItem);
 }

@@ -8,7 +8,7 @@ using namespace Graphic;
 using namespace Common;
 
 PowerUp::PowerUp(QGraphicsScene &scene) :
-    m_svgItem(new QGraphicsSvgItem(QString("resources/objects/powerup.svg")))
+	m_svgItem(new QGraphicsSvgItem(QString("resources/graphics/powerup.svg")))
 {
 	scene.addItem(m_svgItem);
 }

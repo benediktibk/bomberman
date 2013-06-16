@@ -184,10 +184,6 @@ graphic/point.h
 graphic/point.cpp
 graphic/wall.h
 graphic/wall.cpp
-resources/objects/wall_solid.svg
-resources/objects/wall_loose.svg
-resources/objects/player_standing.svg
-resources/objects/bomb_planted.svg
 common/uniqueidcreator.h
 common/uniqueidcreator.cpp
 common/uniqueidcreatortest.h
@@ -282,15 +278,10 @@ graphic/powerup.h
 graphic/powerup.cpp
 graphic/cellbackground.h
 graphic/cellbackground.cpp
-resources/objects/explosion_center.svg
-resources/backgrounds/cell_pattern_1.svg
-resources/objects/powerup_v2.svg
-resources/objects/powerup_v1.svg
 common/powerupmaxvelocitystate.cpp
 common/powerupmaxvelocitystate.h
 common/powerupmaxvelocitystatetest.cpp
 common/powerupmaxvelocitystatetest.h
-resources/objects/explosion_flame.svg
 
 common/explodedbombstate.h
 common/explodedbombstate.cpp
@@ -300,8 +291,18 @@ common/compare.h
 common/compare.cpp
 common/comparetest.h
 common/comparetest.cpp
-resources/objects/powerup.svg
 common/leveldefinitionreader.h
 common/leveldefinitionreader.cpp
 resources/levels/levellist.csv
 resources/levels/defaultlevel.csv
+resources/graphics/wall_solid.svg
+resources/graphics/wall_loose.svg
+resources/graphics/powerup_v2.svg
+resources/graphics/powerup_v1.svg
+resources/graphics/power_up.svg
+resources/graphics/powerup.svg
+resources/graphics/player_standing.svg
+resources/graphics/explosion_flame.svg
+resources/graphics/explosion_center.svg
+resources/graphics/bomb_planted.svg
+resources/graphics/bg_cell_pattern.svg

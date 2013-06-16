@@ -35,11 +35,7 @@ set(LEVELS
 	levellist.csv
 )
 
-set(BACKGROUNDS
-	cell_pattern_1.svg
-)
-
-set(OBJECTS
+set(GRAPHICS
 	bomb_planted.svg
 	player_standing.svg
 	wall_loose.svg
@@ -50,6 +46,7 @@ set(OBJECTS
 	explosion_center.svg
 	explosion_flame.svg
     powerup.svg
+	bg_cell_pattern.svg
 )
 
 foreach(file ${LEVELS})
@@ -58,16 +55,10 @@ foreach(file ${LEVELS})
 			DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/levels/)
 endforeach()
 
-foreach(file ${BACKGROUNDS})
+foreach(file ${GRAPHICS})
 	file(	COPY
-			${CMAKE_CURRENT_SOURCE_DIR}/resources/backgrounds/${file}
-			DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/backgrounds/)
-endforeach()
-
-foreach(file ${OBJECTS})
-	file(	COPY
-			${CMAKE_CURRENT_SOURCE_DIR}/resources/objects/${file}
-			DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/objects/)
+			${CMAKE_CURRENT_SOURCE_DIR}/resources/graphics/${file}
+			DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/graphics/)
 endforeach()
 
 add_custom_target(
