@@ -6,3 +6,8 @@ using namespace std;
 LevelDefinitionReader::LevelDefinitionReader()
 {
 }
+
+LevelDefinition LevelDefinitionReader::getLoadedLevel() const
+{
+    return m_level;
+}
