@@ -15,7 +15,7 @@ class LevelDefinitionReader
 public:
     struct Level
     {
-        std::string levelName;
+        std::string name;
         unsigned int width;
         unsigned int height;
         unsigned int playerMaximum;
@@ -27,6 +27,7 @@ public:
 
 private:
     LevelDefinition m_level;
+    Level m_levelParameters;
 };
 }
 

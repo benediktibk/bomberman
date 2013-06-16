@@ -14,21 +14,22 @@ LevelDefinition LevelDefinitionReader::getLoadedLevel() const
 
 void LevelDefinitionReader::readLevelFromLevelList(string levelName)
 {
-    std::ifstream ifs;
+    std::ifstream csvRead;
     string textInLine;
 
-    ifs.open ("recources/levels/levellist.csv", std::ifstream::in);
-    if(ifs)
+    csvRead.open ("recources/levels/levellist.csv", std::ifstream::in);
+    if(csvRead.is_open())
     {
-        while (!ifs.eof())
+        while (!csvRead.eof())
         {
-            getline(ifs, textInLine);
+            getline(csvRead, textInLine);
             if(textInLine.find(levelName) != string::npos)
+                getline(csvRead, m_levelParameters.name, ';');
                 break;
         }
     }
     else
-        cout << "ERROR Could not open file";
+        cerr << "ERROR could not read file" << endl;
 
-    ifs.close();
+    csvRead.close();
 }
