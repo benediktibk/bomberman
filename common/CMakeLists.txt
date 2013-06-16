@@ -49,6 +49,7 @@ set(COMMON_TEST_SRC
 	powerupmaxvelocitystatetest.cpp
 	explodedbombstatetest.cpp
 	comparetest.cpp
+	leveldefinitionreadertest.cpp
 )
 
 add_library(common ${COMMON_SRC})
