@@ -20,7 +20,7 @@ GameState::GameState(const LevelDefinition &level, unsigned int playerCount, Uni
 		m_playersConst.push_back(player);
 	}
 
-	unsigned int playerPositionCount = 0;
+	int playerPositionCount = 0;
 	for(unsigned int x = 0; x < level.getLevelWidth(); x++)
 	{
 		for(unsigned int y = 0; y < level.getLevelHeight(); y++)
@@ -40,7 +40,7 @@ GameState::GameState(const LevelDefinition &level, unsigned int playerCount, Uni
 			if(level.getObjectTypeAtPosition(x, y) == LevelDefinition::ObjectTypePlayer)
 			{
 				m_players[playerPositionCount]->setPosition(Point(x,y));
-				//playerPositionCount++; //This Line is missing for correct functionality. But with it, there are several segmentation faults in GameEngineImplTest
+				playerPositionCount++; //This Line is missing for correct functionality. But with it, there are several segmentation faults in GameEngineImplTest
 			}
 		}
 	}
