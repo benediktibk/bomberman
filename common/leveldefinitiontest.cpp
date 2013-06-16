@@ -36,6 +36,7 @@ void LevelDefinitionTest::setObjectTypeAtPosition_SolidWallAt3And5_resultIsObjec
 void LevelDefinitionTest::getPlayerStartPositionCount_twoPlayerStartPositions_2()
 {
 	LevelDefinition level(6, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 2);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)2, level.getPlayerStartPositionCount());
