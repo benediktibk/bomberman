@@ -12,12 +12,19 @@ LevelDefinition LevelDefinitionReader::getLoadedLevel() const
     return m_level;
 }
 
-/*std::istream& LevelDefinitionReader::readLevel( std::istream& in, Level& level)
+void LevelDefinitionReader::readLevelFromLevelList(/*string levelName*/)
 {
-    istream.getline(in, level.levelName, ';');
-    istream.getline( in, level.width, ';');
-    istream.getline( in, level.height, ';');
-    istream.getline( in, level.playerMaximum, '\n');
-    return in;
+    std::ifstream ifs;
+
+    ifs.open ("levellist.csv", std::ifstream::in);
+    if(ifs)
+    {
+        while (!ifs.eof())
+        {
+        }
+    }
+    else
+        cout << "";
+
+    ifs.close();
 }
-*/
