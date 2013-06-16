@@ -23,6 +23,7 @@ public:
 
     LevelDefinitionReader();
     LevelDefinition getLoadedLevel() const;
+    //std::istream& readLevel( std::istream& in, Level& level );
 
 private:
     LevelDefinition m_level;
