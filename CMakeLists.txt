@@ -30,6 +30,11 @@ add_custom_target(
 		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 	)
 
+set(LEVELS
+	defaultlevel.csv
+	levellist.csv
+)
+
 set(BACKGROUNDS
 	cell_pattern_1.svg
 )
@@ -46,6 +51,12 @@ set(OBJECTS
 	explosion_flame.svg
     powerup.svg
 )
+
+foreach(file ${LEVELS})
+	file(	COPY
+			${CMAKE_CURRENT_SOURCE_DIR}/resources/levels/${file}
+			DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/levels/)
+endforeach()
 
 foreach(file ${BACKGROUNDS})
 	file(	COPY
