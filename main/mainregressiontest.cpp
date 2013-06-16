@@ -18,7 +18,7 @@ LevelDefinition createRandomLevel()
 			if (placeItem.decide())
 				level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, x, y);
 
-	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeEmpty, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 
 	return level;
 }
