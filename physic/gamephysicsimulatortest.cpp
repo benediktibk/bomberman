@@ -9,6 +9,7 @@ using namespace Common;
 void GamePhysicSimulatorTest::simulateStep_movePlayerTowardsWall_playerCollidesWithWall()
 {
 	LevelDefinition level(5, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 0);
 	GameState gameState(level, 1, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &player = gameState.getFirstPlayerState();
@@ -27,6 +28,7 @@ void GamePhysicSimulatorTest::simulateStep_movePlayerTowardsWall_playerCollidesW
 void GamePhysicSimulatorTest::simulateStep_movePlayerTowardsBomb_playerCollidesWithBomb()
 {
 	LevelDefinition level(5, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState gameState(level, 1, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &player = gameState.getFirstPlayerState();
 	GamePhysicSimulator simulator(level);
@@ -47,6 +49,7 @@ void GamePhysicSimulatorTest::simulateStep_movePlayerTowardsBomb_playerCollidesW
 void GamePhysicSimulatorTest::simulateStep_twoPlayersAndOneMovesTowardsTheOther_playersCollide()
 {
 	LevelDefinition level(5, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 0);
 	GameState gameState(level, 2, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &playerOne = gameState.getFirstPlayerState();
@@ -68,6 +71,7 @@ void GamePhysicSimulatorTest::simulateStep_twoPlayersAndOneMovesTowardsTheOther_
 void GamePhysicSimulatorTest::simulateStep_twoPlayersAndOneMovesTowardsTheOther_playerTwoDoesntMove()
 {
 	LevelDefinition level(5, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 0);
 	GameState gameState(level, 2, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &playerOne = gameState.getFirstPlayerState();
