@@ -25,6 +25,7 @@ public:
     LevelDefinition getLoadedLevel() const;
     void readLevelFromLevelList(std::string levelName);
 	const struct Level getLevelParameters() const;
+	void buildLevel();
 
 private:
     LevelDefinition m_level;
