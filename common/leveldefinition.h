@@ -10,6 +10,7 @@ namespace Common
 class LevelDefinition
 {
 	public:
+		/// @todo are all types used?
 		enum ObjectType
 		{
 			ObjectTypeEmpty,

@@ -15,10 +15,10 @@ LevelDefinition LevelDefinitionReader::getLoadedLevel() const
 
 void LevelDefinitionReader::readLevelFromLevelList(string levelName)
 {
-	std::ifstream csvRead;
+	ifstream csvRead;
     string textInLine;
 
-	csvRead.open("resources/levels/levellist.csv", std::ifstream::in);
+	csvRead.open("resources/levels/levellist.csv", ifstream::in);
 	if(csvRead.is_open())
     {
         while (!csvRead.eof())
@@ -50,11 +50,11 @@ void LevelDefinitionReader::buildLevel()
 	unsigned int width = atoi(m_levelParameters.width.c_str());
 	unsigned int height = atoi(m_levelParameters.height.c_str());
 	LevelDefinition currentLevel(width, height);
-	std::ifstream csvRead;
-	std::string fileName = std::string("resources/levels/") + m_levelParameters.name + ".csv";
-	std::string objectAtPosition;
+	ifstream csvRead;
+	string fileName = string("resources/levels/") + m_levelParameters.name + ".csv";
+	string objectAtPosition;
 
-	csvRead.open(fileName.c_str(), std::ifstream::in);
+	csvRead.open(fileName.c_str(), ifstream::in);
 	if(csvRead.is_open())
 	{
 		while (!csvRead.eof())
@@ -64,7 +64,14 @@ void LevelDefinitionReader::buildLevel()
 				for (unsigned int y = 0; y < height; ++y)
 				{
 					getline(csvRead, objectAtPosition, ';');
-					//schleife
+					if(objectAtPosition == "free")
+						currentLevel.setObjectTypeAtPosition(LevelDefinition::ObjectTypeEmpty, x, y);
+					if(objectAtPosition == "player")
+						currentLevel.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, x, y);
+					if(objectAtPosition == "loose")
+						currentLevel.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, x, y);
+					if(objectAtPosition == "solid")
+						currentLevel.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, x, y);
 				}
 			}
 		}
