@@ -22,3 +22,29 @@ void PowerUpGeneratorTest::getRandomPowerUpType_1000Times_PowerUpTypeNoneCountIs
 
 	CPPUNIT_ASSERT(counter > 700 && counter < 800);
 }
+
+void PowerUpGeneratorTest::getRandomPowerUpType_1000Times_PowerUpTypeMaxBombIsInRange()
+{
+	int counter = 0;
+	PowerUpGenerator generator;
+
+	for (int x = 0; x < 1000; ++x) {
+		if (generator.getRandomPowerUpType() == PowerUpTypeMaxBomb)
+			counter++;
+	}
+
+	CPPUNIT_ASSERT(counter > 100 && counter < 150);
+}
+
+void PowerUpGeneratorTest::getRandomPowerUpType_1000Times_PowerUpTypeMaxVelocityIsInRange()
+{
+	int counter = 0;
+	PowerUpGenerator generator;
+
+	for (int x = 0; x < 1000; ++x) {
+		if (generator.getRandomPowerUpType() == PowerUpTypeMaxVelocity)
+			counter++;
+	}
+
+	CPPUNIT_ASSERT(counter > 100 && counter < 150);
+}
