@@ -15,18 +15,17 @@ LevelDefinition LevelDefinitionReader::getLoadedLevel() const
 
 void LevelDefinitionReader::readLevelFromLevelList(string levelName)
 {
-	ifstream csvRead;
+	ifstream csvRead("resources/levels/levellist.csv");
     string textInLine;
 
-	csvRead.open("resources/levels/levellist.csv", ifstream::in);
 	if(csvRead.is_open())
     {
 		while(!csvRead.eof() && csvRead.good())
         {
-            getline(csvRead, textInLine);
+			getline(csvRead, textInLine, ';');
             if(textInLine.find(levelName) != string::npos)
 			{
-				getline(csvRead, m_levelParameters.name, ';');
+				m_levelParameters.name = textInLine;
 				getline(csvRead, m_levelParameters.width, ';');
 				getline(csvRead, m_levelParameters.height, ';');
 				getline(csvRead, m_levelParameters.playerMaximum, ';');
