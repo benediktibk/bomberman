@@ -16,14 +16,15 @@ public:
     struct Level
     {
         std::string name;
-        unsigned int width;
-        unsigned int height;
-        unsigned int playerMaximum;
+		std::string width;
+		std::string height;
+		std::string playerMaximum;
     };
 
     LevelDefinitionReader();
     LevelDefinition getLoadedLevel() const;
     void readLevelFromLevelList(std::string levelName);
+	const struct Level getLevelParameters() const;
 
 private:
     LevelDefinition m_level;

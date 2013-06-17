@@ -17,14 +17,17 @@ void LevelDefinitionReader::readLevelFromLevelList(string levelName)
     std::ifstream csvRead;
     string textInLine;
 
-    csvRead.open ("recources/levels/levellist.csv", std::ifstream::in);
-    if(csvRead.is_open())
+	csvRead.open ("resources/levels/levellist.csv", std::ifstream::in);
+	if(csvRead.is_open())
     {
         while (!csvRead.eof())
         {
             getline(csvRead, textInLine);
             if(textInLine.find(levelName) != string::npos)
                 getline(csvRead, m_levelParameters.name, ';');
+				getline(csvRead, m_levelParameters.width, ';');
+				getline(csvRead, m_levelParameters.height, ';');
+				getline(csvRead, m_levelParameters.playerMaximum, ';');
                 break;
         }
     }
@@ -32,4 +35,9 @@ void LevelDefinitionReader::readLevelFromLevelList(string levelName)
         cerr << "ERROR could not read file" << endl;
 
     csvRead.close();
+}
+
+const struct LevelDefinitionReader::Level LevelDefinitionReader::getLevelParameters() const
+{
+	return m_levelParameters;
 }
