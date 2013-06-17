@@ -12,13 +12,11 @@ public:
     PowerUpType getRandomPowerUpType();
 
 private:
-    double getPropabilityOfType(PowerUpType type);
-    PowerUpType getTypeForRand(unsigned int rand);
+	PowerUpType getRandomType();
     bool createNewPowerup();
 
 private:
-    unsigned int m_randRange;
-    unsigned int m_powerUpPropability;
+	const double m_powerUpPropability;
     PowerUpType m_powerUpType;
 };
 }
