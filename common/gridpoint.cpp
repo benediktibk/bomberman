@@ -1,5 +1,6 @@
 #include "gridpoint.h"
 #include <math.h>
+#include "compare.h"
 
 using namespace Common;
 using namespace std;
@@ -18,13 +19,11 @@ GridPoint::GridPoint(const Point &point) :
 		m_x(static_cast<unsigned int>(point.getX())),
 		m_y(static_cast<unsigned int>(point.getY()))
 {
-
-	//! @todo replace with fuzzy
-	if (fabs((m_x + 1) - point.getX()) < 0.05)
+    Compare compare(0.05);
+    if (compare.isFuzzyEqual((m_x + 1), point.getX()))
 		++m_x;
 
-	//! @todo replace with fuzzy
-	if (fabs((m_y + 1) - point.getY()) < 0.05)
+    if (compare.isFuzzyEqual((m_y + 1), point.getY()))
 		++m_y;
 }
 
@@ -96,30 +95,28 @@ std::vector<GridPoint> GridPoint::getCoveredGridPoints(Common::Point position)
 {
     GridPoint positionGrid(position);
     vector<GridPoint> result;
+    Compare compare(0.05);
 
     double x = position.getX();
     double y = position.getY();
     double xGrid = positionGrid.getX();
     double yGrid = positionGrid.getY();
 
-    //! @todo replace with fuzzy
-    if (x - xGrid > 0.05)
+    if (compare.isStrictFuzzyGreater(x, xGrid))
     {
         result.push_back(positionGrid);
         GridPoint positionGrid2(positionGrid.getX()+1,positionGrid.getY());
         result.push_back(positionGrid2);
     }
 
-    //! @todo replace with fuzzy
-    if (y - yGrid > 0.05)
+    if (compare.isStrictFuzzyGreater(y, yGrid))
     {
         result.push_back(positionGrid);
         GridPoint positionGrid2(positionGrid.getX(),positionGrid.getY()+1);
         result.push_back(positionGrid2);
     }
 
-    //! @todo replace with fuzzy
-    if(fabs(x - xGrid) < 0.05 && fabs(y - yGrid) < 0.05)
+    if(compare.isFuzzyEqual(x, xGrid) && compare.isFuzzyEqual(y, yGrid))
     {
         result.push_back(positionGrid);
     }
