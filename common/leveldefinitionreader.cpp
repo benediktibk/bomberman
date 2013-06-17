@@ -25,6 +25,7 @@ void LevelDefinitionReader::readLevelFromLevelList(string levelName)
 			getline(csvRead, textInLine, ';');
             if(textInLine.find(levelName) != string::npos)
 			{
+				/// @todo newline muss raus
 				m_levelParameters.name = textInLine;
 				getline(csvRead, m_levelParameters.width, ';');
 				getline(csvRead, m_levelParameters.height, ';');
