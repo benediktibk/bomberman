@@ -6,6 +6,7 @@
 #include "physic/staticobject.h"
 #include "physic/collisiongroups.h"
 #include "common/powerupgenerator.h"
+#include "common/compare.h"
 #include <assert.h>
 #include <algorithm>
 #include <limits>
@@ -211,14 +212,14 @@ double GameEngineImpl::getTimeTillPlayerReachesGridPoint(const PlayerState &play
     const Point &position = player.getPosition();
     const GridPoint gridPosition(position);
     double time = 0;
+    Compare compare(0.05);
 
     if (velocityX != 0)
     {
         double positionX = position.getX();
         unsigned int gridPositionX = gridPosition.getX();
 
-        //! @todo replace with fuzzy
-        if (fabs(gridPositionX - positionX) < 0.05)
+        if (compare.isFuzzyEqual(gridPositionX, positionX))
             time = 1/fabs(velocityX);
         else
         {
@@ -234,8 +235,7 @@ double GameEngineImpl::getTimeTillPlayerReachesGridPoint(const PlayerState &play
         double positionY = position.getY();
         unsigned int gridPositionY = gridPosition.getY();
 
-        //! @todo replace with fuzzy
-        if (fabs(gridPositionY - positionY) < 0.05)
+        if (compare.isFuzzyEqual(gridPositionY, positionY))
             time = 1/fabs(velocityY);
         else
         {
