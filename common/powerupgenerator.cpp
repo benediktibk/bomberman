@@ -1,41 +1,21 @@
 #include "powerupgenerator.h"
 #include <stdlib.h>
 #include <time.h>
+#include "randomdecision.h"
 
 using namespace std;
 using namespace Common;
 
 PowerUpGenerator::PowerUpGenerator():
-    m_randRange(100),
-    m_powerUpPropability(4)
+	m_powerUpPropability(0.25)
 { }
 
-PowerUpType PowerUpGenerator::getTypeForRand(unsigned int rand)
+PowerUpType PowerUpGenerator::getRandomType()
 {
-    if (rand < getPropabilityOfType(PowerUpTypeMaxBomb)*m_randRange)
+	if (RandomDecision(0.5).decide())
         return PowerUpTypeMaxBomb;
-    rand -= getPropabilityOfType(PowerUpTypeMaxBomb)*m_randRange;
 
-    if (rand < getPropabilityOfType(PowerUpTypeMaxVelocity)*m_randRange)
-        return PowerUpTypeMaxVelocity;
-    rand -= getPropabilityOfType(PowerUpTypeMaxVelocity)*m_randRange;
-
-    return PowerUpTypeNone;
-}
-
-double PowerUpGenerator::getPropabilityOfType(PowerUpType type)
-{
-    switch (type) {
-    case PowerUpTypeMaxBomb:
-        return 0.5;
-        break;
-    case PowerUpTypeMaxVelocity:
-        return 0.5;
-        break;
-    default:
-        return 0;
-        break;
-    }
+	return PowerUpTypeMaxVelocity;
 }
 
 PowerUpType PowerUpGenerator::getRandomPowerUpType()
@@ -43,17 +23,12 @@ PowerUpType PowerUpGenerator::getRandomPowerUpType()
     if (!createNewPowerup())
         return PowerUpTypeNone;
 
-    m_powerUpType = getTypeForRand(rand() % m_randRange);
-
-    const PowerUpType randomPowerUpResult = m_powerUpType;
-    return randomPowerUpResult;
+	return getRandomType();
 }
 
 bool PowerUpGenerator::createNewPowerup()
 {
+	RandomDecision decision(0.25);
 
-    if ( (rand() % m_powerUpPropability) == 0)
-        return true;
-    return false;
-
+	return decision.decide();
 }
