@@ -21,7 +21,7 @@ void LevelDefinitionReader::readLevelFromLevelList(string levelName)
 	csvRead.open("resources/levels/levellist.csv", ifstream::in);
 	if(csvRead.is_open())
     {
-        while (!csvRead.eof())
+		while(!csvRead.eof() && csvRead.good())
         {
             getline(csvRead, textInLine);
             if(textInLine.find(levelName) != string::npos)
@@ -34,8 +34,8 @@ void LevelDefinitionReader::readLevelFromLevelList(string levelName)
 			}
         }
     }
-    else
-        cerr << "ERROR could not read file" << endl;
+	else
+		cerr << "ERROR could not read file" << endl;
 
     csvRead.close();
 }
@@ -61,7 +61,7 @@ void LevelDefinitionReader::buildLevel()
 		{
 			for (unsigned int x = 0; x < width; ++x)
 			{
-				for (unsigned int y = 0; y < height; ++y)
+				for (int y = (height - 1); y >= 0; --y)
 				{
 					getline(csvRead, objectAtPosition, ';');
 					if(objectAtPosition == "free")
