@@ -143,6 +143,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughRightBorder_playerPosit
 	const PlayerState &playerState = game.getFirstPlayerState();
 	Point positionShouldBe(3, 0);
 	Point positionReal(playerState.getPosition());
+
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
 
@@ -161,6 +162,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughUpperBorder_playerPosit
 	const PlayerState &playerState = game.getFirstPlayerState();
 	Point positionShouldBe(0, 3);
 	Point positionReal(playerState.getPosition());
+
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
 
@@ -179,6 +181,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughLowerBorder_playerPosit
 	const PlayerState &playerState = game.getFirstPlayerState();
 	Point positionShouldBe(0, 0);
 	Point positionReal(playerState.getPosition());
+
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
 
@@ -197,6 +200,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughLeftBorder_playerPositi
 	const PlayerState &playerState = game.getFirstPlayerState();
 	Point positionShouldBe(0, 0);
 	Point positionReal(playerState.getPosition());
+
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
 
@@ -386,6 +390,7 @@ void GameEngineImplTest::updateGameState_playerSurroundedByWallsAndTriesToMoveUp
 	m_gameEngine->updateGameState(m_inputStates, 10);
 
 	Point newPosition = playerState.getPosition();
+
 	CPPUNIT_ASSERT(newPosition.getY() > initialPosition.getY());
 }
 
@@ -405,6 +410,7 @@ void GameEngineImplTest::updateGameState_playerSurroundedByWallsAndTriesToMoveRi
 	m_gameEngine->updateGameState(m_inputStates, 10);
 
 	Point newPosition = playerState.getPosition();
+
 	CPPUNIT_ASSERT(newPosition.getX() > initialPosition.getX());
 }
 
@@ -442,6 +448,7 @@ void GameEngineImplTest::updateGameState_moveRightAndToUpperBorderAndBackAndTryT
 	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
 
 	Point newPosition = playerState.getPosition();
+
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(3, newPosition.getX(), 0.05);
 }
 
@@ -483,6 +490,7 @@ void GameEngineImplTest::updateGameState_moveTowardsWallAndAgainAway_playerPosit
 
 	Point realPosition = playerState.getPosition();
 	Point positionShouldBe(1, 1);
+
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(realPosition, 0.05));
 }
 
@@ -506,6 +514,7 @@ void GameEngineImplTest::updateGameState_pressRightAndThenUp_playerKeepsDirectio
 
 	Point positionShouldBe(2, 0);
 	Point positionReal(playerState.getPosition());
+
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
 
@@ -530,6 +539,7 @@ void GameEngineImplTest::updateGameState_pressLeftAndThenDown_playerKeepsDirecti
 
 	Point positionShouldBe(3, 1);
 	Point positionReal(playerState.getPosition());
+
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
 
@@ -553,6 +563,7 @@ void GameEngineImplTest::updateGameState_pressUpAndThenRight_playerKeepsDirectio
 
 	Point positionShouldBe(0, 2);
 	Point positionReal(playerState.getPosition());
+
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
 
@@ -577,6 +588,7 @@ void GameEngineImplTest::updateGamestate_pressDownAndThenLeft_playerKeepsDirecti
 
 	Point positionShouldBe(3, 3);
 	Point positionReal(playerState.getPosition());
+
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
 
@@ -602,6 +614,7 @@ void GameEngineImplTest::updateGameState_movementOfSecondPlayer_positionOfSecond
 
 	Point positionShouldBe(1, 1);
 	Point positionReal(secondPlayer.getPosition());
+
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
 
@@ -627,6 +640,7 @@ void GameEngineImplTest::updateGameState_movementOfSecondPlayer_firstPlayerDoesn
 
 	Point positionShouldBe(0, 0);
 	Point positionReal(firstPlayer.getPosition());
+
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
 
@@ -731,6 +745,7 @@ void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerIsMovingButD
 	const GameState &game = m_gameEngine->getGameState();
 	const PlayerState &player = game.getFirstPlayerState();
 	double timeShouldBe = 1/player.getMaximumSpeed();
+
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(timeShouldBe, time, 0.0001);
 }
 
@@ -753,6 +768,7 @@ void GameEngineImplTest::updateGameState_keyPressedHalfWayToGridFieldAndEnoughTi
 
 	Point positionShouldBe(1, 0);
 	Point positionReal(player.getPosition());
+
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
 
@@ -792,6 +808,7 @@ void GameEngineImplTest::updateGameState_placeBombAndStayAtPlace_playerDoesntMov
 	m_gameEngine->updateGameState(m_inputStates, 1);
 
 	const PlayerState &player = game.getFirstPlayerState();
+
 	CPPUNIT_ASSERT(Point(0, 0).fuzzyEqual(player.getPosition(), 0.05));
 }
 
@@ -966,7 +983,6 @@ void GameEngineImplTest::getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestro
 	m_gameEngine->updateGameState(m_inputStates, 2.1);
 	m_gameEngine->updateGameState(m_inputStates, 0);
 
-
 	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getPlayerCount());
 }
 
@@ -1004,6 +1020,7 @@ void GameEngineImplTest::getPosition_getpositionaftercollisionwithotherplayer()
 	m_gameEngine->updateGameState(m_inputStates, 0.1);
 	Point pointPositionEquals = secondPlayer.getPosition();
 	double x = pointPositionEquals.getX();
+
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(x,2.0,0.05);
 }
 
