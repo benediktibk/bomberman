@@ -39,6 +39,7 @@ namespace Main
 		void drawState1();
 		void drawState2();
 		void drawState3();
+		void drawState4();
 		void drawState(const Common::GameState &game);
 
 	private:

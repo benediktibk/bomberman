@@ -36,6 +36,9 @@ void MainWindowGraphicTest::selectGameState(int index)
 	case 3:
 		drawState3();
 		break;
+	case 4:
+		drawState4();
+		break;
 	default:
 		break;
 	}
@@ -93,6 +96,28 @@ void MainWindowGraphicTest::drawState3()
 
 	PowerUpState *powerUp = new PowerUpState(powerUpIDCreator, Point(0, 1));
 	gameState.addPowerUp(powerUp);
+
+	drawState(gameState);
+}
+
+void MainWindowGraphicTest::drawState4()
+{
+	UniqueIdCreator wallIDCreator;
+	UniqueIdCreator playerIDCreator;
+	UniqueIdCreator bombIDCreator;
+	LevelDefinition level(10, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	GameState gameState(level, 1, playerIDCreator, wallIDCreator);
+	WallState *wall = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(6, 3));
+	BombState *bomb = new BombState(bombIDCreator, 0);
+
+	bomb->setPosition(Point(2, 3));
+	bomb->setDestructionRange(4);
+	gameState.addBomb(bomb);
+	gameState.addWall(wall);
+	gameState.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
+	gameState.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
+	gameState.removeAllObjectsWithDestroyedFlag();
 
 	drawState(gameState);
 }

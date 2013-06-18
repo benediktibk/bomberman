@@ -20,6 +20,14 @@ namespace Graphic
 		~ExplodedBomb();
 
 	private:
+		void createCenterFlame(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter);
+		void createFlameEnds(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter);
+		void createFlamesToTheRight(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter);
+		void createFlamesToTheLeft(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter);
+		void createFlamesToTheUpper(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter);
+		void createFlamesToTheLower(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter);
+
+	private:
 		QGraphicsSvgItem *m_center;
 		QGraphicsSvgItem *m_upperEnd;
 		QGraphicsSvgItem *m_lowerEnd;

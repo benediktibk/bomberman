@@ -42,6 +42,11 @@
         <string>one power up</string>
        </property>
       </item>
+      <item>
+       <property name="text">
+        <string>exploded bomb</string>
+       </property>
+      </item>
      </widget>
     </item>
    </layout>
