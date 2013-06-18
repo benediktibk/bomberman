@@ -21,10 +21,14 @@ namespace Common
 		CPPUNIT_TEST(setDestroyedIfNoLifeTimeLeft_lifeTimeSmallerZero_destroyed);
 		CPPUNIT_TEST(constructor_bombWithCertainHeight_heightIsTheSame);
 		CPPUNIT_TEST(constructor_bombWithCertainWidth_widthIsTheSame);
-		CPPUNIT_TEST(constructor_ranges1And2And3And4_destructionRangeLeftIs1);
-		CPPUNIT_TEST(constructor_ranges1And2And3And4_destructionRangeUpIs2);
-		CPPUNIT_TEST(constructor_ranges1And2And3And4_destructionRangeRightIs3);
-		CPPUNIT_TEST(constructor_ranges1And2And3And4_destructionRangeDownIs4);
+		CPPUNIT_TEST(constructor_maximumDestructionRange3_destructionRangeLeftIs3);
+		CPPUNIT_TEST(constructor_maximumDestructionRange3_destructionRangeUpIs3);
+		CPPUNIT_TEST(constructor_maximumDestructionRange3_destructionRangeRightIs3);
+		CPPUNIT_TEST(constructor_maximumDestructionRange3_destructionRangeDownIs3);
+		CPPUNIT_TEST(setDestructionRangeLeft_2_destructionRangeLeftIs2);
+		CPPUNIT_TEST(setDestructionRangeUp_2_destructionRangeUpIs2);
+		CPPUNIT_TEST(setDestructionRangeRight_2_destructionRangeRightIs2);
+		CPPUNIT_TEST(setDestructionRangeDown_2_destructionRangeDownIs2);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -41,10 +45,14 @@ namespace Common
 		void setDestroyedIfNoLifeTimeLeft_lifeTimeSmallerZero_destroyed();
 		void constructor_bombWithCertainHeight_heightIsTheSame();
 		void constructor_bombWithCertainWidth_widthIsTheSame();
-		void constructor_ranges1And2And3And4_destructionRangeLeftIs1();
-		void constructor_ranges1And2And3And4_destructionRangeUpIs2();
-		void constructor_ranges1And2And3And4_destructionRangeRightIs3();
-		void constructor_ranges1And2And3And4_destructionRangeDownIs4();
+		void constructor_maximumDestructionRange3_destructionRangeLeftIs3();
+		void constructor_maximumDestructionRange3_destructionRangeUpIs3();
+		void constructor_maximumDestructionRange3_destructionRangeRightIs3();
+		void constructor_maximumDestructionRange3_destructionRangeDownIs3();
+		void setDestructionRangeLeft_2_destructionRangeLeftIs2();
+		void setDestructionRangeUp_2_destructionRangeUpIs2();
+		void setDestructionRangeRight_2_destructionRangeRightIs2();
+		void setDestructionRangeDown_2_destructionRangeDownIs2();
 
 	private:
 		UniqueIdCreator *m_bombIdCreator;

@@ -214,10 +214,7 @@ vector<const BombState*> GameState::setAllBombsWithNoLifeTimeDestroyedAndAddExpl
 		{
 			currentBomb->setDestroyed();
 			destroyedBombs.push_back(currentBomb);
-			m_explodedBombs.push_back(new ExplodedBombState(
-											*currentBomb,
-											currentBomb->getDestructionRange(), currentBomb->getDestructionRange(),
-											currentBomb->getDestructionRange(), currentBomb->getDestructionRange()));
+			m_explodedBombs.push_back(new ExplodedBombState(*currentBomb));
 		}
 	}
 

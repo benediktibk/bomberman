@@ -14,13 +14,15 @@ namespace Common
 			public DestroyableState
 	{
 	public:
-		ExplodedBombState(	const BombState &bomb,
-							unsigned int destructionRangeLeft, unsigned int destructionRangeUp,
-							unsigned int destructionRangeRight, unsigned int destructionRangeDown);
+		ExplodedBombState(const BombState &bomb);
 
 		void decreaseLifeTime(double time);
 		double getLifeTime() const;
 		unsigned int getMaximumDestructionRange() const;
+		void setDestructionRangeLeft(unsigned int value);
+		void setDestructionRangeUp(unsigned int value);
+		void setDestructionRangeRight(unsigned int value);
+		void setDestructionRangeDown(unsigned int value);
 		unsigned int getDestructionRangeLeft() const;
 		unsigned int getDestructionRangeUp() const;
 		unsigned int getDestructionRangeRight() const;
