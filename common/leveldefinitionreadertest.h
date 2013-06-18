@@ -10,11 +10,9 @@ class LevelDefinitionReaderTest :
         public CPPUNIT_NS::TestFixture
 {
     CPPUNIT_TEST_SUITE(LevelDefinitionReaderTest);
-	CPPUNIT_TEST(readLevelFromLevelList_defaultLevel_resultIsDefaultLevel);
     CPPUNIT_TEST_SUITE_END();
 
 private:
-	void readLevelFromLevelList_defaultLevel_resultIsDefaultLevel();
 
 };
 }
