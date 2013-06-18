@@ -18,7 +18,7 @@ namespace Common
 
 		void decreaseLifeTime(double time);
 		double getLifeTime() const;
-		unsigned int getDesructionRange() const;
+		unsigned int getMaximumDestructionRange() const;
 		void setDestroyedIfNoLifeTimeLeft();
 		const Point& getPosition() const;
 		double getWidth() const;
@@ -35,7 +35,7 @@ namespace Common
 	private:
 		double m_lifeTime;
 		Point m_position;
-		unsigned int m_destructionRange;
+		unsigned int m_maximumDestructionRange;
 		double m_height;
 		double m_width;
 	};

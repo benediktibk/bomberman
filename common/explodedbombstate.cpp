@@ -6,7 +6,7 @@ using namespace Common;
 ExplodedBombState::ExplodedBombState(const BombState &bomb) :
 	m_lifeTime(initialLifeTime()),
 	m_position(bomb.getPosition()),
-	m_destructionRange(bomb.getDestructionRange()),
+	m_maximumDestructionRange(bomb.getDestructionRange()),
 	m_height(bomb.getHeight()),
 	m_width(bomb.getWidth())
 { }
@@ -22,9 +22,9 @@ double ExplodedBombState::getLifeTime() const
 	return m_lifeTime;
 }
 
-unsigned int ExplodedBombState::getDesructionRange() const
+unsigned int ExplodedBombState::getMaximumDestructionRange() const
 {
-	return m_destructionRange;
+	return m_maximumDestructionRange;
 }
 
 void ExplodedBombState::setDestroyedIfNoLifeTimeLeft()

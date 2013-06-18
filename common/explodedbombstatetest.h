@@ -16,7 +16,7 @@ namespace Common
 		CPPUNIT_TEST(constructor_bombAtPosition4And5_positionIs4And5);
 		CPPUNIT_TEST(decreaseLifeTime_03_lifeTimeIs03Smaller);
 		CPPUNIT_TEST(decreaseLifeTime_4_hasChanged);
-		CPPUNIT_TEST(constructor_bombWithDestructionRange3_destructionRangeIs3);
+		CPPUNIT_TEST(constructor_bombWithDestructionRange3_maximumDestructionRangeIs3);
 		CPPUNIT_TEST(setDestroyedIfNoLifeTimeLeft_lifeTimeGreaterZero_notDestroyed);
 		CPPUNIT_TEST(setDestroyedIfNoLifeTimeLeft_lifeTimeSmallerZero_destroyed);
 		CPPUNIT_TEST(constructor_bombWithCertainHeight_heightIsTheSame);
@@ -32,7 +32,7 @@ namespace Common
 		void constructor_bombAtPosition4And5_positionIs4And5();
 		void decreaseLifeTime_03_lifeTimeIs03Smaller();
 		void decreaseLifeTime_4_hasChanged();
-		void constructor_bombWithDestructionRange3_destructionRangeIs3();
+		void constructor_bombWithDestructionRange3_maximumDestructionRangeIs3();
 		void setDestroyedIfNoLifeTimeLeft_lifeTimeGreaterZero_notDestroyed();
 		void setDestroyedIfNoLifeTimeLeft_lifeTimeSmallerZero_destroyed();
 		void constructor_bombWithCertainHeight_heightIsTheSame();

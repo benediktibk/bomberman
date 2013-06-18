@@ -44,13 +44,13 @@ void ExplodedBombStateTest::decreaseLifeTime_4_hasChanged()
 	CPPUNIT_ASSERT(explodedBomb.hasChanged());
 }
 
-void ExplodedBombStateTest::constructor_bombWithDestructionRange3_destructionRangeIs3()
+void ExplodedBombStateTest::constructor_bombWithDestructionRange3_maximumDestructionRangeIs3()
 {
 	BombState bomb(*m_bombIdCreator, 0);
 	bomb.setDestructionRange(3);
 	ExplodedBombState explodedBomb(bomb);
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)3, explodedBomb.getDesructionRange());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, explodedBomb.getMaximumDestructionRange());
 }
 
 void ExplodedBombStateTest::setDestroyedIfNoLifeTimeLeft_lifeTimeGreaterZero_notDestroyed()
