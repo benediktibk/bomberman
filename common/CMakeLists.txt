@@ -20,6 +20,7 @@ set(COMMON_SRC
 	explodedbombstate.cpp
 	compare.cpp
 	leveldefinitionreader.cpp
+	csvparser.cpp
 )
 
 set(COMMON_TEST_SRC
@@ -50,6 +51,7 @@ set(COMMON_TEST_SRC
 	explodedbombstatetest.cpp
 	comparetest.cpp
 	leveldefinitionreadertest.cpp
+	csvparsertest.cpp
 )
 
 add_library(common ${COMMON_SRC})

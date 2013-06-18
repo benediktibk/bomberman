@@ -308,3 +308,7 @@ resources/graphics/bomb_planted.svg
 resources/graphics/bg_cell_pattern.svg
 common/leveldefinitionreadertest.h
 common/leveldefinitionreadertest.cpp
+common/csvparser.h
+common/csvparser.cpp
+common/csvparsertest.h
+common/csvparsertest.cpp
