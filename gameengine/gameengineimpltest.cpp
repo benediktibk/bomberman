@@ -853,12 +853,61 @@ void GameEngineImplTest::updateGameState_playerWithDestructionRange5PlacesBomb_d
 	player.setDestructionRangeOfNewBombs(5);
 
 	input.setSpaceKeyPressed();
-	setSecondPlayerInput(input);
+	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 0);
 
 	vector<const BombState*> bombs = gameState.getAllChangedBombs();
 	const BombState &bomb = *(bombs.front());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)5, bomb.getDestructionRange());
+}
+
+void GameEngineImplTest::updateGameState_playerDiesByHisOwnBomb_playerCountIs0()
+{
+	InputState input;
+	LevelDefinition level(10, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
+	createGameEngine(level, 1);
+	const GameState &gameState = m_gameEngine->getGameState();
+	const PlayerState &player = gameState.getFirstPlayerState();
+	double timeForOneField = 1/player.getMaximumSpeed();
+
+	input.setSpaceKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	input.setSpaceKeyNotPressed();
+	input.setRightKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	input.setRightKeyNotPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, timeForOneField*100);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, gameState.getPlayerCount());
+}
+
+void GameEngineImplTest::updateGameState_bombAtLowerEndExplodes_bombCountIs0()
+{
+	InputState input;
+	LevelDefinition level(10, 15);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 0);
+	createGameEngine(level, 1);
+	const GameState &gameState = m_gameEngine->getGameState();
+	const PlayerState &player = gameState.getFirstPlayerState();
+	double timeForOneField = 1/player.getMaximumSpeed();
+
+	input.setSpaceKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	input.setSpaceKeyNotPressed();
+	input.setRightKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	input.setRightKeyNotPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, timeForOneField*100);
+	m_gameEngine->updateGameState(m_inputStates, 100);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, gameState.getBombCount());
 }
 
 void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints()

@@ -165,32 +165,32 @@ vector<unsigned int> Grid::getItemsInRange(const BombState &bomb , Grid::Item it
 
 vector<unsigned int> Grid::getWallsInRange(const BombState &bomb) const
 {
-	vector<unsigned int> result = getItemsInRange(bomb , ItemWall);
+	vector<unsigned int> result = getItemsInRange(bomb, ItemWall);
 	return result;
 }
 
 vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb) const
 {
-	vector<unsigned int> result = getItemsInRange(bomb , ItemPlayer);
+	vector<unsigned int> result = getItemsInRange(bomb, ItemPlayer);
 	return result;
 }
 
 vector<unsigned int> Grid::getBombsInRange(const BombState &bomb) const
 {
-	vector<unsigned int> result = getItemsInRange(bomb , ItemBomb);
+	vector<unsigned int> result = getItemsInRange(bomb, ItemBomb);
 	return result;
 }
 
 vector<unsigned int> Grid::getPowerUpsInRange(const BombState &bomb) const
 {
-	vector<unsigned int> result = getItemsInRange(bomb , ItemPowerUp);
+	vector<unsigned int> result = getItemsInRange(bomb, ItemPowerUp);
 	return result;
 }
 
 unsigned int Grid::getVectorIndex(const GridPoint &position) const
 {
-	assert(position.getX()< m_gridColumns);
-	assert(position.getY()< m_gridRows);
+	assert(position.getX() < m_gridColumns);
+	assert(position.getY() < m_gridRows);
 	unsigned int x = position.getX();
 	unsigned int y = position.getY();
 	unsigned int index = m_gridColumns*y+x;
@@ -319,11 +319,22 @@ unsigned int Grid::getDistanceToNextNotFreePlaceUp(const GridPoint &position) co
 
 unsigned int Grid::getDistanceToNextNotFreePlaceDown(const GridPoint &position) const
 {
+	unsigned int result;
 	unsigned int distance;
+	bool resultFound = false;
 
-	for (distance = 1; position.getY() - distance < m_gridRows; ++distance)
+	for (distance = 1; position.getY() - distance < m_gridRows && !resultFound; ++distance)
 		if (!isPlaceEmpty(position - GridPoint(0, distance)))
-			return distance - 1;
+		{
+			result = distance - 1;
+			resultFound = true;
+		}
 
-	return distance - 1;
+	if (!resultFound)
+		result = distance - 1;
+
+	if (result >= m_gridRows)
+		result = 0;
+
+	return result;
 }

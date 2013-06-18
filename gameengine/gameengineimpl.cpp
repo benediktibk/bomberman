@@ -333,7 +333,7 @@ void GameEngineImpl::updateBombs()
 		}
 		else
 			++maximumDistanceUp;
-		if (	bombPosition.getY() + maximumDistanceRight + 1 < m_levelWidth &&
+		if (	bombPosition.getX() + maximumDistanceRight + 1 < m_levelWidth &&
 				m_grid->isPlaceCoveredByWall(positionRight))
 		{
 			unsigned int wallId = m_grid->getId(positionRight);
