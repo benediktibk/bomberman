@@ -11,13 +11,21 @@ void CSVParser::parseFile(std::string filename)
 	string opneninngFile = "resources/levels/" + filename + ".csv";
 	ifstream csvRead(opneninngFile.c_str());
 	string textInLine;
+	string textInField;
 
 	if(csvRead.is_open())
 	{
 		while(!csvRead.eof() && csvRead.good())
 		{
-			getline(csvRead, textInLine, ';');
-			m_textInFile.push_back(textInLine);
+			while (getline(csvRead, textInLine))
+			{
+				istringstream record(textInLine);
+				m_height += 1;
+				while (getline(record, textInField, ';'))
+				{
+					m_textInFile.push_back(textInField);
+				}
+			}
 		}
 	}
 	else
@@ -26,12 +34,17 @@ void CSVParser::parseFile(std::string filename)
 	csvRead.close();
 }
 
-unsigned int CSVParser::getColumsFromFile() const
+unsigned int CSVParser::getWidthFromFile() const
 {
-	return m_colums;
+	return m_width;
 }
 
-unsigned int CSVParser::getRowsFromFile() const
+unsigned int CSVParser::getHeightFromFile() const
 {
-	return m_rows;
+	return m_height;
+}
+
+string CSVParser::getTextInField(unsigned int x, unsigned int y) const
+{
+	return m_textInFile[y * m_width + x];
 }

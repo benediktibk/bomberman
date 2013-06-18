@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -14,13 +15,14 @@ class CSVParser
 public:
 	CSVParser();
 	void parseFile(std::string filename);
-	unsigned int getRowsFromFile() const;
-	unsigned int getColumsFromFile() const;
+	unsigned int getHeightFromFile() const;
+	unsigned int getWidthFromFile() const;
+	std::string getTextInField(unsigned int x, unsigned int y) const;
 
 private:
 	std::vector<std::string> m_textInFile;
-	unsigned int m_rows;
-	unsigned int m_colums;
+	unsigned int m_height;
+	unsigned int m_width;
 };
 }
 #endif // CSVPARSER_H
