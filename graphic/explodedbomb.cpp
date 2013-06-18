@@ -53,7 +53,6 @@ void ExplodedBomb::createCenterFlame(QGraphicsScene &scene, const Common::Explod
 void ExplodedBomb::createFlameEnds(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter)
 {
 	double dimension = state.getHeight();
-	unsigned int destructionRange = state.getMaximumDestructionRange();
 
 	m_upperEnd = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
 	m_lowerEnd = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
@@ -69,10 +68,10 @@ void ExplodedBomb::createFlameEnds(QGraphicsScene &scene, const Common::Exploded
 	m_rightEnd->setScale(0.001*pixelPerMeter*dimension);
 	m_lowerEnd->setScale(0.001*pixelPerMeter*dimension);
 
-	Point rightEndPosition(state.getPosition() + Point(destructionRange*dimension, (-1)*dimension));
-	Point leftEndPosition(state.getPosition() + Point((-1.0)*(destructionRange - 1)*dimension, 0));
-	Point upperEndPosition(state.getPosition() + Point(0, destructionRange*dimension));
-	Point lowerEndPosition(state.getPosition() + Point(dimension, (-1.0)*(destructionRange + 1)*dimension));
+	Point rightEndPosition(state.getPosition() + Point(state.getDestructionRangeRight()*dimension, (-1)*dimension));
+	Point leftEndPosition(state.getPosition() + Point((-1.0)*(state.getDestructionRangeLeft() - 1)*dimension, 0));
+	Point upperEndPosition(state.getPosition() + Point(0, state.getDestructionRangeUp()*dimension));
+	Point lowerEndPosition(state.getPosition() + Point(dimension, (-1.0)*(state.getDestructionRangeDown() + 1)*dimension));
 
 	rightEndPosition *= pixelPerMeter;
 	leftEndPosition *= pixelPerMeter;
@@ -98,7 +97,7 @@ void ExplodedBomb::createFlameEnds(QGraphicsScene &scene, const Common::Exploded
 void ExplodedBomb::createFlamesToTheRight(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter)
 {
 	double dimension = state.getHeight();
-	unsigned int destructionRange = state.getMaximumDestructionRange();
+	unsigned int destructionRange = state.getDestructionRangeRight();
 
 	for (unsigned int i = 1; i < destructionRange; ++i)
 	{
@@ -117,7 +116,7 @@ void ExplodedBomb::createFlamesToTheRight(QGraphicsScene &scene, const Common::E
 void ExplodedBomb::createFlamesToTheLeft(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter)
 {
 	double dimension = state.getHeight();
-	unsigned int destructionRange = state.getMaximumDestructionRange();
+	unsigned int destructionRange = state.getDestructionRangeLeft();
 
 	for (unsigned int i = 1; i < destructionRange; ++i)
 	{
@@ -136,7 +135,7 @@ void ExplodedBomb::createFlamesToTheLeft(QGraphicsScene &scene, const Common::Ex
 void ExplodedBomb::createFlamesToTheUpper(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter)
 {
 	double dimension = state.getHeight();
-	unsigned int destructionRange = state.getMaximumDestructionRange();
+	unsigned int destructionRange = state.getDestructionRangeUp();
 
 	for (unsigned int i = 1; i < destructionRange; ++i)
 	{
@@ -154,7 +153,7 @@ void ExplodedBomb::createFlamesToTheUpper(QGraphicsScene &scene, const Common::E
 void ExplodedBomb::createFlamesToTheLower(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter)
 {
 	double dimension = state.getHeight();
-	unsigned int destructionRange = state.getMaximumDestructionRange();
+	unsigned int destructionRange = state.getDestructionRangeDown();
 
 	for (unsigned int i = 1; i < destructionRange; ++i)
 	{

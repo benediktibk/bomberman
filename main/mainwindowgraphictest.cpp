@@ -114,7 +114,11 @@ void MainWindowGraphicTest::drawState4()
 	bomb->setDestructionRange(4);
 	gameState.addBomb(bomb);
 	gameState.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
-	gameState.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
+	vector<const BombState*> bombs = gameState.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
+	ExplodedBombState &explodedBomb = gameState.getExplodedBombByBomb(bombs.front());
+	explodedBomb.setDestructionRangeDown(2);
+	explodedBomb.setDestructionRangeUp(1);
+	explodedBomb.setDestructionRangeLeft(3);
 	gameState.removeAllObjectsWithDestroyedFlag();
 
 	drawState(gameState);
