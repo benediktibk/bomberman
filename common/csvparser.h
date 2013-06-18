@@ -15,8 +15,8 @@ class CSVParser
 public:
 	CSVParser();
 	void parseFile(std::string filename);
-	unsigned int getHeightFromFile() const;
-	unsigned int getWidthFromFile() const;
+	unsigned int getHeightOfFile() const;
+	unsigned int getWidthOfFile() const;
 	std::string getTextInField(unsigned int x, unsigned int y) const;
 
 private:

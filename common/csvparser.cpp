@@ -12,6 +12,8 @@ void CSVParser::parseFile(std::string filename)
 	ifstream csvRead(opneninngFile.c_str());
 	string textInLine;
 	string textInField;
+	unsigned int height = 0;
+	unsigned int width;
 
 	if(csvRead.is_open())
 	{
@@ -20,10 +22,12 @@ void CSVParser::parseFile(std::string filename)
 			while (getline(csvRead, textInLine))
 			{
 				istringstream record(textInLine);
-				m_height += 1;
+				height += 1;
+				width = 0;
 				while (getline(record, textInField, ';'))
 				{
 					m_textInFile.push_back(textInField);
+					width +=1;
 				}
 			}
 		}
@@ -32,14 +36,16 @@ void CSVParser::parseFile(std::string filename)
 		cerr << "ERROR could not open file" << endl;
 
 	csvRead.close();
+	m_height = height;
+	m_width = width;
 }
 
-unsigned int CSVParser::getWidthFromFile() const
+unsigned int CSVParser::getWidthOfFile() const
 {
 	return m_width;
 }
 
-unsigned int CSVParser::getHeightFromFile() const
+unsigned int CSVParser::getHeightOfFile() const
 {
 	return m_height;
 }
