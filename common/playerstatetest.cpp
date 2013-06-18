@@ -28,6 +28,13 @@ void PlayerStateTest::constructor_idCreator_idFetched()
 	delete player;
 }
 
+void PlayerStateTest::constructor_validVParameter_destructionRangeIs1()
+{
+	PlayerState player(*m_playerIDCreator);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, player.getDestructionRangeOfNewBombs());
+}
+
 void PlayerStateTest::destructor_empty_idCountIsZero()
 {
 	PlayerState *player = new PlayerState(*m_playerIDCreator);
@@ -376,12 +383,21 @@ void PlayerStateTest::removeBombFromDoNotCollideList_twoBombsAddedAndFirstOneExp
 	CPPUNIT_ASSERT_EQUAL((size_t)1, result.size());
 }
 
-void PlayerStateTest::increaseMaxVelocity_maxVelocityplustwo()
+void PlayerStateTest::increaseMaximumSpeed_defaultSpeed_speedIncreasedByTwo()
 {
-    PlayerState player(*m_playerIDCreator);
-    double speed = player.getMaximumSpeed();
-    player.increaseMaximumSpeed();
+	PlayerState player(*m_playerIDCreator);
+	double speed = player.getMaximumSpeed();
 
+	player.increaseMaximumSpeed();
 
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(speed+2.0,player.getMaximumSpeed(),0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(speed + 2, player.getMaximumSpeed(), 0.001);
+}
+
+void PlayerStateTest::setDestructionRangeOfNewBombs_4_destructionRangeIs4()
+{
+	PlayerState player(*m_playerIDCreator);
+
+	player.setDestructionRangeOfNewBombs(4);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)4, player.getDestructionRangeOfNewBombs());
 }

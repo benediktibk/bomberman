@@ -9,13 +9,14 @@ using namespace std;
 PlayerState::PlayerState(UniqueIdCreator &creator) :
 	m_direction(PlayerDirectionUp),
 	m_placedBombCount(0),
-    m_maxBombs(1),
+	m_maxBombs(1),
 	m_maximumSpeed(5.0),
 	m_width(1),
 	m_height(1),
 	m_playerId(creator.getId()),
 	m_creatorId(creator),
-	m_moving(false)
+	m_moving(false),
+	m_destructionRangeOfNewBombs(1)
 {}
 
 PlayerState::~PlayerState()
@@ -219,7 +220,17 @@ void PlayerState::removeBombFromDoNotCollideList(const BombState *bomb)
 	m_bombsNotToCollideWith.erase(end, m_bombsNotToCollideWith.end());
 }
 
+unsigned int PlayerState::getDestructionRangeOfNewBombs() const
+{
+	return m_destructionRangeOfNewBombs;
+}
+
+void PlayerState::setDestructionRangeOfNewBombs(unsigned int value)
+{
+	m_destructionRangeOfNewBombs = value;
+}
+
 void PlayerState::increaseMaximumSpeed()
 {
-    m_maximumSpeed += 2;
+	m_maximumSpeed += 2;
 }

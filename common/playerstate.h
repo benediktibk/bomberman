@@ -11,7 +11,7 @@ namespace Common
 	class BombState;
 
 	class PlayerState :
-            public DestroyableState
+			public DestroyableState
 	{
 	public:
 		enum PlayerDirection
@@ -42,7 +42,7 @@ namespace Common
 		void reduceBombCount();
 		unsigned int getBombCount();
 		double getMaximumSpeed() const;
-        void increaseMaximumSpeed();
+		void increaseMaximumSpeed();
 		double getSpeedIntoX() const;
 		double getSpeedIntoY() const;
 		void setMoving();
@@ -57,12 +57,14 @@ namespace Common
 		void doNotCollideWith(const BombState *bomb);
 		std::vector<const BombState*> getBombsNotToCollideWith() const;
 		void removeBombFromDoNotCollideList(const BombState *bomb);
+		unsigned int getDestructionRangeOfNewBombs() const;
+		void setDestructionRangeOfNewBombs(unsigned int value);
 
 	private:
 		// forbid copies
 		PlayerState(const PlayerState &player);
 		void operator=(const PlayerState &player);
-        
+
 	private:
 		Point m_position;
 		PlayerDirection m_direction;
@@ -75,6 +77,7 @@ namespace Common
 		UniqueIdCreator &m_creatorId;
 		bool m_moving;
 		std::vector<const Common::BombState*> m_bombsNotToCollideWith;
+		unsigned int m_destructionRangeOfNewBombs;
 	};
 }
 

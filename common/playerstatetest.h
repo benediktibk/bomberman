@@ -13,6 +13,7 @@ namespace Common
 	{
 		CPPUNIT_TEST_SUITE(PlayerStateTest);
 		CPPUNIT_TEST(constructor_idCreator_idFetched);
+		CPPUNIT_TEST(constructor_validVParameter_destructionRangeIs1);
 		CPPUNIT_TEST(destructor_empty_idCountIsZero);
 		CPPUNIT_TEST(setPosition_4And5_positionIs4And5);
 		CPPUNIT_TEST(setDirectionUp_empty_directionIsUp);
@@ -50,7 +51,8 @@ namespace Common
 		CPPUNIT_TEST(doNotCollideWith_validBomb_oneBombNotToCollideWith);
 		CPPUNIT_TEST(doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideWith);
 		CPPUNIT_TEST(removeBombFromDoNotCollideList_twoBombsAddedAndFirstOneExploded_oneBombNotToCollideWith);
-        CPPUNIT_TEST(increaseMaxVelocity_maxVelocityplustwo);
+		CPPUNIT_TEST(increaseMaximumSpeed_defaultSpeed_speedIncreasedByTwo);
+		CPPUNIT_TEST(setDestructionRangeOfNewBombs_4_destructionRangeIs4);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -59,6 +61,7 @@ namespace Common
 
 	private:
 		void constructor_idCreator_idFetched();
+		void constructor_validVParameter_destructionRangeIs1();
 		void destructor_empty_idCountIsZero();
 		void setPosition_4And5_positionIs4And5();
 		void setDirectionUp_empty_directionIsUp();
@@ -96,7 +99,9 @@ namespace Common
 		void doNotCollideWith_validBomb_oneBombNotToCollideWith();
 		void doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideWith();
 		void removeBombFromDoNotCollideList_twoBombsAddedAndFirstOneExploded_oneBombNotToCollideWith();
-        void increaseMaxVelocity_maxVelocityplustwo();
+		void increaseMaximumSpeed_defaultSpeed_speedIncreasedByTwo();
+		void setDestructionRangeOfNewBombs_4_destructionRangeIs4();
+
 	private:
 		UniqueIdCreator *m_playerIDCreator;
 		UniqueIdCreator *m_bombIDCreator;
