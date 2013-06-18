@@ -3,6 +3,7 @@
 #include "graphic/wall.h"
 #include "graphic/bomb.h"
 #include "graphic/powerup.h"
+#include "graphic/explodedbomb.h"
 #include "graphic/point.h"
 #include "graphic/cellbackground.h"
 #include <QGraphicsScene>
@@ -92,6 +93,7 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 	drawWalls(gameState.getAllChangedWalls());
 	drawBombs(gameState.getAllChangedBombs());
 	drawPowerUps(gameState.getAllChangedPowerUps());
+	drawExplodedBombs(gameState.getAllChangedExplodedBombs());
 	drawPlayers(gameState);
 	m_firstRedraw = false;
 }
@@ -182,7 +184,7 @@ void GraphicDrawerQt::drawBomb(const BombState *bombState)
 	}
 }
 
-void GraphicDrawerQt::drawPowerUps(const std::vector<const PowerUpState *> &powerUps)
+void GraphicDrawerQt::drawPowerUps(const vector<const PowerUpState*> &powerUps)
 {
 	for (vector<const PowerUpState*>::const_iterator i = powerUps.begin(); i != powerUps.end(); ++i)
 		drawPowerUp(*i);
@@ -207,6 +209,29 @@ void GraphicDrawerQt::drawPowerUp(const PowerUpState *powerUpState)
 
 		if (!powerUpFound)
 			m_powerUps.insert(pair<const PowerUpState*, PowerUp*>(powerUpState, powerUp));
+	}
+}
+
+void GraphicDrawerQt::drawExplodedBombs(const vector<const ExplodedBombState*> &explodedBombs)
+{
+	for (vector<const ExplodedBombState*>::const_iterator i = explodedBombs.begin(); i != explodedBombs.end(); ++i)
+		drawExplodedBomb(*i);
+}
+
+void GraphicDrawerQt::drawExplodedBomb(const ExplodedBombState *explodedBombState)
+{
+	if (explodedBombState->isDestroyed())
+		deleteExplodedBomb(explodedBombState);
+	else
+	{
+		map<const ExplodedBombState*, ExplodedBomb*>::iterator explodedBombPosition = m_explodedBombs.find(explodedBombState);
+		bool explodedBombFound = explodedBombPosition != m_explodedBombs.end();
+
+		if (!explodedBombFound)
+		{
+			ExplodedBomb *explodedBomb = new ExplodedBomb(*m_scene, *explodedBombState, m_pixelPerMeter);
+			m_explodedBombs.insert(pair<const ExplodedBombState*, ExplodedBomb*>(explodedBombState, explodedBomb));
+		}
 	}
 }
 
@@ -376,7 +401,15 @@ void GraphicDrawerQt::deletePowerUps()
 	for (map<const PowerUpState*, PowerUp*>::iterator i = m_powerUps.begin(); i != m_powerUps.end(); ++i)
 		delete i->second;
 
-	m_bombs.clear();;
+	m_powerUps.clear();;
+}
+
+void GraphicDrawerQt::deleteExplodedBombs()
+{
+	for (map<const ExplodedBombState*, ExplodedBomb*>::iterator i = m_explodedBombs.begin(); i != m_explodedBombs.end(); ++i)
+		delete i->second;
+
+	m_explodedBombs.clear();;
 }
 
 void GraphicDrawerQt::deleteWall(const WallState *wall)
@@ -398,6 +431,13 @@ void GraphicDrawerQt::deletePowerUp(const PowerUpState *powerUp)
 	map<const PowerUpState*, PowerUp*>::iterator position = m_powerUps.find(powerUp);
 	delete position->second;
 	m_powerUps.erase(position);
+}
+
+void GraphicDrawerQt::deleteExplodedBomb(const ExplodedBombState *explodedBomb)
+{
+	map<const ExplodedBombState*, ExplodedBomb*>::iterator position = m_explodedBombs.find(explodedBomb);
+	delete position->second;
+	m_explodedBombs.erase(position);
 }
 
 void GraphicDrawerQt::deleteBorderWalls()

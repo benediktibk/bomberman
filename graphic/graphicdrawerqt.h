@@ -14,6 +14,7 @@ namespace Graphic
 	class Bomb;
 	class PowerUp;
 	class CellBackground;
+	class ExplodedBomb;
 
 	class GraphicDrawerQt :
 			public Common::GraphicDrawer
@@ -35,6 +36,8 @@ namespace Graphic
 		void drawBomb(const Common::BombState *bomb);
 		void drawPowerUps(const std::vector<const Common::PowerUpState*> &powerUps);
 		void drawPowerUp(const Common::PowerUpState *powerUp);
+		void drawExplodedBombs(const std::vector<const Common::ExplodedBombState*> &explodedBombs);
+		void drawExplodedBomb(const Common::ExplodedBombState *explodedBomb);
 		void updateViewArea(const Common::GameState &gameState);
 		void updateViewPositionForPlayer(const Common::PlayerState &player);
 		void setViewPositionToTheCenterOfPlayer(const Common::PlayerState &player);
@@ -48,9 +51,11 @@ namespace Graphic
 		void deleteWalls();
 		void deleteBombs();
 		void deletePowerUps();
+		void deleteExplodedBombs();
 		void deleteWall(const Common::WallState *wall);
 		void deleteBomb(const Common::BombState *bomb);
 		void deletePowerUp(const Common::PowerUpState *powerUp);
+		void deleteExplodedBomb(const Common::ExplodedBombState *explodedBomb);
 		void deleteBorderWalls();
 		void deletePlayers();
 
@@ -61,6 +66,7 @@ namespace Graphic
 		std::map<const Common::WallState*, Wall*> m_walls;
 		std::map<const Common::BombState*, Bomb*> m_bombs;
 		std::map<const Common::PowerUpState*, PowerUp*> m_powerUps;
+		std::map<const Common::ExplodedBombState*, ExplodedBomb*> m_explodedBombs;
 		const double m_pixelPerMeter;
 		bool m_firstRedraw;
 		std::vector<Wall*> m_borderWalls;

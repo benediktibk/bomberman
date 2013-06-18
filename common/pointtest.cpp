@@ -118,3 +118,12 @@ void PointTest::fuzzyEqual_nearlyEqual_true()
 
 	CPPUNIT_ASSERT(pointOne.fuzzyEqual(pointTwo, 0.001));
 }
+
+void PointTest::operatorMultpliyAndAssign_3And5With2_6And10()
+{
+	Point point(3, 5);
+
+	point *= 2;
+
+	CPPUNIT_ASSERT(Point(6, 10).fuzzyEqual(point, 0.0001));
+}

@@ -24,6 +24,7 @@ class PointTest :
 	 CPPUNIT_TEST(fuzzyEqual_totallyEqual_true);
 	 CPPUNIT_TEST(fuzzyEqual_totallyUnEqual_false);
 	 CPPUNIT_TEST(fuzzyEqual_nearlyEqual_true);
+	 CPPUNIT_TEST(operatorMultpliyAndAssign_3And5With2_6And10);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -41,6 +42,7 @@ private:
 	 void fuzzyEqual_totallyEqual_true();
 	 void fuzzyEqual_totallyUnEqual_false();
 	 void fuzzyEqual_nearlyEqual_true();
+	 void operatorMultpliyAndAssign_3And5With2_6And10();
 };
 }
 

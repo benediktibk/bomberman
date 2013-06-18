@@ -61,6 +61,11 @@ Point Point::operator-(const Point &point) const
 	return Point(getX() - point.getX(), getY() - point.getY());
 }
 
+void Point::operator*=(double value)
+{
+	*this = *this*value;
+}
+
 ostream& operator<<(ostream &stream, const Point &point)
 {
 	stream << "(" << point.getX() << ", " << point.getY() << ")";
@@ -69,6 +74,6 @@ ostream& operator<<(ostream &stream, const Point &point)
 
 bool Point::fuzzyEqual(const Point &point, double epsilon) const
 {
-    Compare compare(epsilon);
-    return	compare.isFuzzyEqual(getX(), point.getX()) && compare.isFuzzyEqual(getY(), point.getY());
+	Compare compare(epsilon);
+	return	compare.isFuzzyEqual(getX(), point.getX()) && compare.isFuzzyEqual(getY(), point.getY());
 }

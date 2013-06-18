@@ -6,6 +6,7 @@ set(GRAPHIC_SRC
 	point.cpp
 	powerup.cpp
 	cellbackground.cpp
+	explodedbomb.cpp
 )
 
 find_package(Qt4 REQUIRED)

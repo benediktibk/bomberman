@@ -22,6 +22,7 @@ public:
 	Point operator/(double value) const;
 	Point operator+(const Point &point) const;
 	Point operator-(const Point &point) const;
+	void operator*=(double value);
 	bool fuzzyEqual(const Point &point, double epsilon) const;
 
 private:

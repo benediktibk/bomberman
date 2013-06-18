@@ -1,7 +1,7 @@
 #ifndef COMMON_GRAPHICDRAWER_H
 #define COMMON_GRAPHICDRAWER_H
 
-#include "gamestate.h"
+#include "common/gamestate.h"
 
 namespace Common
 {
