@@ -734,13 +734,112 @@ void GameEngineImplTest::updateGameState_bombWithRange3ExplodesWithSolidWallTwoF
 	setSecondPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 0);
 	input.setSpaceKeyNotPressed();
-	input.setUpKeyPressed();
+	input.setDownKeyPressed();
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 100);
 
 	vector<const ExplodedBombState*> explodedBombs = gameState.getAllChangedExplodedBombs();
 	const ExplodedBombState &explodedBomb = *(explodedBombs.front());
 	CPPUNIT_ASSERT_EQUAL((unsigned int)1, explodedBomb.getDestructionRangeUp());
+}
+
+void GameEngineImplTest::updateGameState_bombWithRange3ExplodesWithLooseWallTwoFieldsRight_explodedBombRangeRightIs2()
+{
+	InputState input;
+	LevelDefinition level(10, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 6, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
+	createGameEngine(level, 1);
+	GameState &gameState = m_gameEngine->getGameState();
+	PlayerState &player = gameState.getFirstPlayerState();
+	player.setDestructionRangeOfNewBombs(3);
+
+	input.setSpaceKeyPressed();
+	setSecondPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	input.setSpaceKeyNotPressed();
+	input.setUpKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 100);
+
+	vector<const ExplodedBombState*> explodedBombs = gameState.getAllChangedExplodedBombs();
+	const ExplodedBombState &explodedBomb = *(explodedBombs.front());
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, explodedBomb.getDestructionRangeRight());
+}
+
+void GameEngineImplTest::updateGameState_bombWithRange3ExplodesWithLooseWallTwoFieldsLeft_explodedBombRangeLeftIs2()
+{
+	InputState input;
+	LevelDefinition level(10, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 2, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
+	createGameEngine(level, 1);
+	GameState &gameState = m_gameEngine->getGameState();
+	PlayerState &player = gameState.getFirstPlayerState();
+	player.setDestructionRangeOfNewBombs(3);
+
+	input.setSpaceKeyPressed();
+	setSecondPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	input.setSpaceKeyNotPressed();
+	input.setUpKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 100);
+
+	vector<const ExplodedBombState*> explodedBombs = gameState.getAllChangedExplodedBombs();
+	const ExplodedBombState &explodedBomb = *(explodedBombs.front());
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, explodedBomb.getDestructionRangeLeft());
+}
+
+void GameEngineImplTest::updateGameState_bombWithRange3ExplodesWithLooseWallTwoFieldsDown_explodedBombRangeDownIs2()
+{
+	InputState input;
+	LevelDefinition level(10, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 2);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
+	createGameEngine(level, 1);
+	GameState &gameState = m_gameEngine->getGameState();
+	PlayerState &player = gameState.getFirstPlayerState();
+	player.setDestructionRangeOfNewBombs(3);
+
+	input.setSpaceKeyPressed();
+	setSecondPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	input.setSpaceKeyNotPressed();
+	input.setUpKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 100);
+
+	vector<const ExplodedBombState*> explodedBombs = gameState.getAllChangedExplodedBombs();
+	const ExplodedBombState &explodedBomb = *(explodedBombs.front());
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, explodedBomb.getDestructionRangeDown());
+}
+
+void GameEngineImplTest::updateGameState_bombWithRange3ExplodesWithLooseWallTwoFieldsUp_explodedBombRangeUpIs2()
+{
+	InputState input;
+	LevelDefinition level(10, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 6);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
+	createGameEngine(level, 1);
+	GameState &gameState = m_gameEngine->getGameState();
+	PlayerState &player = gameState.getFirstPlayerState();
+	player.setDestructionRangeOfNewBombs(3);
+
+	input.setSpaceKeyPressed();
+	setSecondPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	input.setSpaceKeyNotPressed();
+	input.setDownKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 100);
+
+	vector<const ExplodedBombState*> explodedBombs = gameState.getAllChangedExplodedBombs();
+	const ExplodedBombState &explodedBomb = *(explodedBombs.front());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, explodedBomb.getDestructionRangeUp());
 }
 
 void GameEngineImplTest::updateGameState_playerWithDestructionRange5PlacesBomb_destructionRangeOfBombIs5()
