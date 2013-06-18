@@ -295,7 +295,38 @@ void GameEngineImpl::updateBombs()
 			player.removeBombFromDoNotCollideList(*i);
 		}
 
-		//ExplodedBombState &explodedBomb = m_gameState.getExplodedBombByBomb(*i);
+		ExplodedBombState &explodedBomb = m_gameState.getExplodedBombByBomb(*i);
+		GridPoint bombPosition(explodedBomb.getPosition());
+		unsigned int maximumDestructionRange = explodedBomb.getMaximumDestructionRange();
+
+		unsigned int maximumDistanceLeft = m_grid->getDistanceToNextNotFreePlaceLeft(bombPosition);
+		unsigned int maximumDistanceUp = m_grid->getDistanceToNextNotFreePlaceUp(bombPosition);
+		unsigned int maximumDistanceRight = m_grid->getDistanceToNextNotFreePlaceRight(bombPosition);
+		unsigned int maximumDistanceDown = m_grid->getDistanceToNextNotFreePlaceDown(bombPosition);
+
+		GridPoint positionLeft(bombPosition - Point(maximumDistanceLeft, 0));
+		GridPoint positionUp(bombPosition + Point(0, maximumDistanceUp));
+		GridPoint positionRight(bombPosition + Point(maximumDistanceRight, 0));
+		GridPoint positionDown(bombPosition - Point(0, maximumDistanceDown));
+
+		if (!m_grid->isPlaceCoveredBySolidWall(positionLeft))
+			++maximumDistanceLeft;
+		if (!m_grid->isPlaceCoveredBySolidWall(positionUp))
+			++maximumDistanceUp;
+		if (!m_grid->isPlaceCoveredBySolidWall(positionRight))
+			++maximumDistanceRight;
+		if (!m_grid->isPlaceCoveredBySolidWall(positionDown))
+			++maximumDistanceDown;
+
+		unsigned int destructionRangeLeft = min(maximumDistanceLeft, maximumDestructionRange);
+		unsigned int destructionRangeUp = min(maximumDistanceUp, maximumDestructionRange);
+		unsigned int destructionRangeRight = min(maximumDistanceRight, maximumDestructionRange);
+		unsigned int destructionRangeDown = min(maximumDistanceDown, maximumDestructionRange);
+
+		explodedBomb.setDestructionRangeLeft(destructionRangeLeft);
+		explodedBomb.setDestructionRangeUp(destructionRangeUp);
+		explodedBomb.setDestructionRangeRight(destructionRangeRight);
+		explodedBomb.setDestructionRangeDown(destructionRangeDown);
 	}
 }
 

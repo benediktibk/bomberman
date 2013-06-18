@@ -29,6 +29,12 @@ bool Grid::isPlaceEmpty(const GridPoint &position) const
 		return false;
 }
 
+bool Grid::isPlaceCoveredBySolidWall(const GridPoint &position) const
+{
+	unsigned int index = getVectorIndex(position);
+	return m_itemMatrix[index] == ItemWall; //! @todo check if the wall is solid
+}
+
 void Grid::addBombAtPlace(BombState &bomb)
 {
 	GridPoint position(bomb.getPosition());

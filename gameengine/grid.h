@@ -28,6 +28,7 @@ namespace GameEngine
 
 		bool isPlaceEmpty(const Common::Point &position) const;
 		bool isPlaceEmpty(const Common::GridPoint &position) const;
+		bool isPlaceCoveredBySolidWall(const Common::GridPoint &position) const;
 		void addBombAtPlace(Common::BombState &bomb);
 		void addWallAtPlace(const Common::WallState &wall);
 		void removeBomb(const Common::BombState &bomb);
