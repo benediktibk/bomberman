@@ -21,14 +21,23 @@ namespace Common
 		unsigned int getDesructionRange() const;
 		void setDestroyedIfNoLifeTimeLeft();
 		const Point& getPosition() const;
+		double getWidth() const;
+		double getHeight() const;
 
 	public:
 		static double initialLifeTime();
 
 	private:
+		// forbid copies
+		ExplodedBombState(const ExplodedBombState &);
+		void operator=(const ExplodedBombState &);
+
+	private:
 		double m_lifeTime;
 		Point m_position;
 		unsigned int m_destructionRange;
+		double m_height;
+		double m_width;
 	};
 }
 

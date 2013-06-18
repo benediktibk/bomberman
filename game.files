@@ -312,3 +312,5 @@ common/csvparser.h
 common/csvparser.cpp
 common/csvparsertest.h
 common/csvparsertest.cpp
+graphic/explodedbomb.h
+graphic/explodedbomb.cpp

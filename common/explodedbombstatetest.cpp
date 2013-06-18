@@ -75,6 +75,22 @@ void ExplodedBombStateTest::setDestroyedIfNoLifeTimeLeft_lifeTimeSmallerZero_des
 	CPPUNIT_ASSERT(explodedBomb.isDestroyed());
 }
 
+void ExplodedBombStateTest::constructor_bombWithCertainHeight_heightIsTheSame()
+{
+	BombState bomb(*m_bombIdCreator, 0);
+	ExplodedBombState explodedBomb(bomb);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(bomb.getHeight(), explodedBomb.getHeight(), 0.0001);
+}
+
+void ExplodedBombStateTest::constructor_bombWithCertainWidth_widthIsTheSame()
+{
+	BombState bomb(*m_bombIdCreator, 0);
+	ExplodedBombState explodedBomb(bomb);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(bomb.getWidth(), explodedBomb.getWidth(), 0.0001);
+}
+
 void ExplodedBombStateTest::setUp()
 {
 	delete m_bombIdCreator;

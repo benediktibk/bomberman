@@ -19,6 +19,8 @@ namespace Common
 		CPPUNIT_TEST(constructor_bombWithDestructionRange3_destructionRangeIs3);
 		CPPUNIT_TEST(setDestroyedIfNoLifeTimeLeft_lifeTimeGreaterZero_notDestroyed);
 		CPPUNIT_TEST(setDestroyedIfNoLifeTimeLeft_lifeTimeSmallerZero_destroyed);
+		CPPUNIT_TEST(constructor_bombWithCertainHeight_heightIsTheSame);
+		CPPUNIT_TEST(constructor_bombWithCertainWidth_widthIsTheSame);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -33,6 +35,8 @@ namespace Common
 		void constructor_bombWithDestructionRange3_destructionRangeIs3();
 		void setDestroyedIfNoLifeTimeLeft_lifeTimeGreaterZero_notDestroyed();
 		void setDestroyedIfNoLifeTimeLeft_lifeTimeSmallerZero_destroyed();
+		void constructor_bombWithCertainHeight_heightIsTheSame();
+		void constructor_bombWithCertainWidth_widthIsTheSame();
 
 	private:
 		UniqueIdCreator *m_bombIdCreator;
