@@ -10,37 +10,37 @@ LevelDefinitionReader::LevelDefinitionReader()
 
 LevelDefinition LevelDefinitionReader::getLoadedLevel() const
 {
-    return m_level;
+	return m_level;
 }
 
 void LevelDefinitionReader::readLevelFromLevelList(string levelName)
 {
 	ifstream csvRead("resources/levels/levellist.csv");
-    string textInLine;
+	string textInLine;
 
 	if(csvRead.is_open())
-    {
+	{
 		while(!csvRead.eof() && csvRead.good())
-        {
+		{
 			getline(csvRead, textInLine, ';');
-            if(textInLine.find(levelName) != string::npos)
+			if(textInLine.find(levelName) != string::npos)
 			{
 				/// @todo newline muss raus
 				m_levelParameters.name = textInLine;
 				getline(csvRead, m_levelParameters.width, ';');
 				getline(csvRead, m_levelParameters.height, ';');
 				getline(csvRead, m_levelParameters.playerMaximum, ';');
-                break;
+				break;
 			}
-        }
-    }
+		}
+	}
 	else
 		cerr << "ERROR could not read file" << endl;
 
-    csvRead.close();
+	csvRead.close();
 }
 
-const struct LevelDefinitionReader::Level LevelDefinitionReader::getLevelParameters() const
+const LevelDefinitionReader::Level &LevelDefinitionReader::getLevelParameter() const
 {
 	return m_levelParameters;
 }

@@ -13,23 +13,23 @@ namespace Common
 class LevelDefinitionReader
 {
 public:
-    struct Level
-    {
-        std::string name;
+	struct Level
+	{
+		std::string name;
 		std::string width;
 		std::string height;
 		std::string playerMaximum;
-    };
+	};
 
-    LevelDefinitionReader();
-    LevelDefinition getLoadedLevel() const;
-    void readLevelFromLevelList(std::string levelName);
-	const struct Level getLevelParameters() const;
+	LevelDefinitionReader();
+	LevelDefinition getLoadedLevel() const;
+	void readLevelFromLevelList(std::string levelName);
+	const Level& getLevelParameter() const;
 	void buildLevel();
 
 private:
-    LevelDefinition m_level;
-    Level m_levelParameters;
+	LevelDefinition m_level;
+	Level m_levelParameters;
 };
 }
 
