@@ -294,6 +294,8 @@ void GameEngineImpl::updateBombs()
 			player.reduceBombCount();
 			player.removeBombFromDoNotCollideList(*i);
 		}
+
+		//ExplodedBombState &explodedBomb = m_gameState.getExplodedBombByBomb(*i);
 	}
 }
 

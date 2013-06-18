@@ -663,23 +663,51 @@ void GridTest::getPlayerFields_PlayerAt1and1comma5_11and12()
 
 void GridTest::getPlayersinRange_bombat59gridsize10x10_playersInRangeIs1()
 {
-    UniqueIdCreator playerCreator;
-    vector<unsigned int> playersInRange;
-    UniqueIdCreator bombIDCreator;
-    Grid grid(10, 10);
+	UniqueIdCreator playerCreator;
+	vector<unsigned int> playersInRange;
+	UniqueIdCreator bombIDCreator;
+	Grid grid(10, 10);
 
-    Point position(5.0, 9.0);
-    BombState bomb(bombIDCreator, 0);
-    bomb.setPosition(position);
-    bomb.setDestructionRange(5);
-    grid.addBombAtPlace(bomb);
+	Point position(5.0, 9.0);
+	BombState bomb(bombIDCreator, 0);
+	bomb.setPosition(position);
+	bomb.setDestructionRange(5);
+	grid.addBombAtPlace(bomb);
 
-    std::vector<const PlayerState*> allPlayers;
-    PlayerState* player = new PlayerState(playerCreator);
-    player->setPosition(Point(5.0,8.0));
-    allPlayers.push_back(player);
+	std::vector<const PlayerState*> allPlayers;
+	PlayerState* player = new PlayerState(playerCreator);
+	player->setPosition(Point(5.0,8.0));
+	allPlayers.push_back(player);
 
-    playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+	playersInRange = grid.getPlayersInRange(bomb, allPlayers);
 
-    CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
+}
+
+void GridTest::getDistanceToNextNotFreePlaceLeft_nothingSet_distanceIsWayToEndOfLevel()
+{
+	Grid grid(15, 10);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)4, grid.getDistanceToNextNotFreePlaceLeft(GridPoint(4, 3)));
+}
+
+void GridTest::getDistanceToNextNotFreePlaceRight_nothingSet_distanceIsWayToEndOfLevel()
+{
+	Grid grid(15, 10);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)5, grid.getDistanceToNextNotFreePlaceRight(GridPoint(4, 3)));
+}
+
+void GridTest::getDistanceToNextNotFreePlaceUp_nothingSet_distanceIsWayToEndOfLevel()
+{
+	Grid grid(15, 10);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)11, grid.getDistanceToNextNotFreePlaceUp(GridPoint(4, 3)));
+}
+
+void GridTest::getDistanceToNextNotFreePlaceDown_nothingSet_distanceIsWayToEndOfLevel()
+{
+	Grid grid(15, 10);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, grid.getDistanceToNextNotFreePlaceDown(GridPoint(4, 3)));
 }
