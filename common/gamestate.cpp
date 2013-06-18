@@ -142,6 +142,16 @@ size_t GameState::getWallCount() const
 	return m_walls.size();
 }
 
+const WallState& GameState::getWallById(unsigned int id) const
+{
+	for (vector<WallState*>::const_iterator i = m_walls.begin(); i != m_walls.end(); ++i)
+		if (id == (*i)->getId())
+			return **i;
+
+	assert(false);
+	return *(m_walls.front());
+}
+
 void GameState::addWall(WallState* wall)
 {
 	m_walls.push_back(wall);

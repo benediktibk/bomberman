@@ -31,6 +31,7 @@ namespace Common
 		const std::vector<const PlayerState*>& getAllPlayers() const;
 		std::vector<const WallState*> getAllChangedWalls() const;
 		size_t getWallCount() const;
+		const WallState& getWallById(unsigned int id) const;
 		void addWall(WallState* wall);
 		std::vector<const BombState*> getAllChangedBombs() const;
 		size_t getBombCount() const;

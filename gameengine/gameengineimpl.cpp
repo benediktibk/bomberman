@@ -21,7 +21,9 @@ GameEngineImpl::GameEngineImpl(const LevelDefinition &level, unsigned int player
 	m_gameState(level, playerCount, m_playerIds, m_wallids),
 	m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
 	m_firstGameStateUpdate(true),
-	m_simulator(new GamePhysicSimulator(level))
+	m_simulator(new GamePhysicSimulator(level)),
+	m_levelWidth(level.getLevelWidth()),
+	m_levelHeight(level.getLevelHeight())
 {
 	vector<const WallState*> walls = m_gameState.getAllChangedWalls();
 
@@ -304,18 +306,54 @@ void GameEngineImpl::updateBombs()
 		unsigned int maximumDistanceRight = m_grid->getDistanceToNextNotFreePlaceRight(bombPosition);
 		unsigned int maximumDistanceDown = m_grid->getDistanceToNextNotFreePlaceDown(bombPosition);
 
-		GridPoint positionLeft(bombPosition - Point(maximumDistanceLeft, 0));
-		GridPoint positionUp(bombPosition + Point(0, maximumDistanceUp));
-		GridPoint positionRight(bombPosition + Point(maximumDistanceRight, 0));
-		GridPoint positionDown(bombPosition - Point(0, maximumDistanceDown));
+		GridPoint positionLeft(bombPosition - Point(maximumDistanceLeft + 1, 0));
+		GridPoint positionUp(bombPosition + Point(0, maximumDistanceUp + 1));
+		GridPoint positionRight(bombPosition + Point(maximumDistanceRight + 1, 0));
+		GridPoint positionDown(bombPosition - Point(0, maximumDistanceDown + 1));
 
-		if (!m_grid->isPlaceCoveredBySolidWall(positionLeft))
+		if (	bombPosition.getX() - maximumDistanceLeft - 1 < m_levelWidth &&
+				m_grid->isPlaceCoveredByWall(positionLeft))
+		{
+			unsigned int wallId = m_grid->getId(positionLeft);
+			const WallState &wall = m_gameState.getWallById(wallId);
+
+			if (WallState::WallTypeLoose == wall.getWallType())
+				++maximumDistanceLeft;
+		}
+		else
 			++maximumDistanceLeft;
-		if (!m_grid->isPlaceCoveredBySolidWall(positionUp))
+		if (	bombPosition.getY() + maximumDistanceUp + 1 < m_levelHeight &&
+				m_grid->isPlaceCoveredByWall(positionUp))
+		{
+			unsigned int wallId = m_grid->getId(positionUp);
+			const WallState &wall = m_gameState.getWallById(wallId);
+
+			if (WallState::WallTypeLoose == wall.getWallType())
+				++maximumDistanceUp;
+		}
+		else
 			++maximumDistanceUp;
-		if (!m_grid->isPlaceCoveredBySolidWall(positionRight))
+		if (	bombPosition.getY() + maximumDistanceRight + 1 < m_levelWidth &&
+				m_grid->isPlaceCoveredByWall(positionRight))
+		{
+			unsigned int wallId = m_grid->getId(positionRight);
+			const WallState &wall = m_gameState.getWallById(wallId);
+
+			if (WallState::WallTypeLoose == wall.getWallType())
+				++maximumDistanceRight;
+		}
+		else
 			++maximumDistanceRight;
-		if (!m_grid->isPlaceCoveredBySolidWall(positionDown))
+		if (	bombPosition.getY() - maximumDistanceDown - 1 < m_levelWidth &&
+				m_grid->isPlaceCoveredByWall(positionDown))
+		{
+			unsigned int wallId = m_grid->getId(positionDown);
+			const WallState &wall = m_gameState.getWallById(wallId);
+
+			if (WallState::WallTypeLoose == wall.getWallType())
+				++maximumDistanceDown;
+		}
+		else
 			++maximumDistanceDown;
 
 		unsigned int destructionRangeLeft = min(maximumDistanceLeft, maximumDestructionRange);
