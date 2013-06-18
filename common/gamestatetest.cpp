@@ -375,6 +375,21 @@ void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBom
 	CPPUNIT_ASSERT_EQUAL((size_t)1, state.getExplodedBombCount());
 }
 
+void GameStateTest::getExplodedBombByBomb_oneExplodedBombWithDestructionRange3_destructionRangeIs3()
+{
+	LevelDefinition level;
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
+	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	bomb->setDestructionRange(3);
+	state.addBomb(bomb);
+	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
+	vector<const BombState*> explodedBombs = state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
+
+	ExplodedBombState &explodedBomb = state.getExplodedBombByBomb(explodedBombs.front());
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, explodedBomb.getMaximumDestructionRange());
+}
+
 void GameStateTest::erasePlayerById_onePlayersAddedOneDeleted_playerCountIs0()
 {
 	LevelDefinition level;
@@ -467,33 +482,33 @@ void GameStateTest::removeAllObjectsWithDestroyedFlag_oneDestroyedExplodedBomb_e
 
 void GameStateTest::isPlayersAlife_OnePlayerNotDestroyed_resultIsTrue()
 {
-    LevelDefinition level;
-    GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
+	LevelDefinition level;
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
-    vector<unsigned int> playerIDs = state.getAllPossiblePlayerIDs();
+	vector<unsigned int> playerIDs = state.getAllPossiblePlayerIDs();
 
-    CPPUNIT_ASSERT(state.isPlayerAlife(playerIDs.front()));
+	CPPUNIT_ASSERT(state.isPlayerAlife(playerIDs.front()));
 }
 
 void GameStateTest::isPlayersAlife_OnePlayerIsDestroyed_resultIsFalse()
 {
-    LevelDefinition level;
-    GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
+	LevelDefinition level;
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
-    vector<unsigned int> playerIDs = state.getAllPossiblePlayerIDs();
-    state.erasePlayerById(playerIDs.front());
+	vector<unsigned int> playerIDs = state.getAllPossiblePlayerIDs();
+	state.erasePlayerById(playerIDs.front());
 
-    CPPUNIT_ASSERT(!state.isPlayerAlife(playerIDs.front()));
+	CPPUNIT_ASSERT(!state.isPlayerAlife(playerIDs.front()));
 }
 
 void GameStateTest::isPlayersAlife_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse()
 {
-    LevelDefinition level;
-    GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
+	LevelDefinition level;
+	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
-    vector<unsigned int> playerIDs = state.getAllPossiblePlayerIDs();
-    unsigned int playerIdNotInList = 3;
-    playerIDs.push_back(playerIdNotInList);
+	vector<unsigned int> playerIDs = state.getAllPossiblePlayerIDs();
+	unsigned int playerIdNotInList = 3;
+	playerIDs.push_back(playerIdNotInList);
 
-    CPPUNIT_ASSERT(!state.isPlayerAlife(playerIDs.back()));
+	CPPUNIT_ASSERT(!state.isPlayerAlife(playerIDs.back()));
 }

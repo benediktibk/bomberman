@@ -108,13 +108,11 @@ void MainWindowGraphicTest::drawState4()
 	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState gameState(level, 1, playerIDCreator, wallIDCreator);
-	WallState *wall = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(6, 3));
 	BombState *bomb = new BombState(bombIDCreator, 0);
 
-	bomb->setPosition(Point(2, 3));
+	bomb->setPosition(Point(4, 4));
 	bomb->setDestructionRange(4);
 	gameState.addBomb(bomb);
-	gameState.addWall(wall);
 	gameState.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 	gameState.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
 	gameState.removeAllObjectsWithDestroyedFlag();

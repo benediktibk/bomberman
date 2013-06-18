@@ -210,11 +210,15 @@ vector<const BombState*> GameState::setAllBombsWithNoLifeTimeDestroyedAndAddExpl
 	for(size_t i = 0; i < m_bombs.size(); i++)
 	{
 		BombState *currentBomb = m_bombs[i];
+
 		if (currentBomb->getLifeTime() <= 0)
 		{
+			ExplodedBombState *explodedBomb = new ExplodedBombState(*currentBomb);
 			currentBomb->setDestroyed();
 			destroyedBombs.push_back(currentBomb);
-			m_explodedBombs.push_back(new ExplodedBombState(*currentBomb));
+			m_explodedBombs.push_back(explodedBomb);
+			m_bombToExplodedBomb.insert(pair<BombState*, ExplodedBombState*>(currentBomb, explodedBomb));
+			m_explodedBombToBomb.insert(pair<ExplodedBombState*, BombState*>(explodedBomb, currentBomb));
 		}
 	}
 
@@ -222,6 +226,13 @@ vector<const BombState*> GameState::setAllBombsWithNoLifeTimeDestroyedAndAddExpl
 		(*i)->setDestroyedIfNoLifeTimeLeft();
 
 	return destroyedBombs;
+}
+
+ExplodedBombState& GameState::getExplodedBombByBomb(const BombState *bomb)
+{
+	assert(m_bombToExplodedBomb.find(bomb) != m_bombToExplodedBomb.end());
+
+	return *(m_bombToExplodedBomb[bomb]);
 }
 
 void GameState::resetChangedFlags()
@@ -279,7 +290,15 @@ void GameState::removeAllObjectsWithDestroyedFlag()
 	{
 		if (m_explodedBombs[i]->isDestroyed())
 		{
-			delete m_explodedBombs[i];
+			ExplodedBombState *explodedBomb = m_explodedBombs[i];
+			map<const ExplodedBombState*, const BombState*>::iterator explodedBombToBomb = m_explodedBombToBomb.find(explodedBomb);
+			assert(explodedBombToBomb != m_explodedBombToBomb.end());
+			map<const BombState*, ExplodedBombState*>::iterator bombToExplodedBomb = m_bombToExplodedBomb.find(explodedBombToBomb->second);
+			assert(bombToExplodedBomb != m_bombToExplodedBomb.end());
+			m_explodedBombToBomb.erase(explodedBombToBomb);
+			m_bombToExplodedBomb.erase(bombToExplodedBomb);
+
+			delete explodedBomb;
 			m_explodedBombs.erase(m_explodedBombs.begin() + i);
 		}
 		else

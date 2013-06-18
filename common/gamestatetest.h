@@ -40,15 +40,16 @@ namespace Common
 		 CPPUNIT_TEST(setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBombWithNoLifeTime_resultIsAddedBomb);
 		 CPPUNIT_TEST(setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_twoOfThreeBombsWithNoLifeTime_resultSizeIs2);
 		 CPPUNIT_TEST(setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBombWithNoLifeTime_explodedBombCountIs1);
+		 CPPUNIT_TEST(getExplodedBombByBomb_oneExplodedBombWithDestructionRange3_destructionRangeIs3);
 		 CPPUNIT_TEST(erasePlayerById_onePlayersAddedOneDeleted_playerCountIs0);
 		 CPPUNIT_TEST(getAllBombsWithDestroyedFlag_twoBombsAddedOneDestroyed_resultIs1);
 		 CPPUNIT_TEST(getAllWallsWithDestroyedFlag_twoWallsAddedOneDestroyed_resultIs1);
 		 CPPUNIT_TEST(getAllPowerUpsWithDestroyedFlag_twoPowerUpsAddedOneDestroyed_resultIs1);
 		 CPPUNIT_TEST(reduceAllBombsLifeTime_oneExplodedBomb_explodedBombsLifeTimeDecreased);
 		 CPPUNIT_TEST(removeAllObjectsWithDestroyedFlag_oneDestroyedExplodedBomb_explodedBombCountIs0);
-         CPPUNIT_TEST(isPlayersAlife_OnePlayerNotDestroyed_resultIsTrue);
-         CPPUNIT_TEST(isPlayersAlife_OnePlayerIsDestroyed_resultIsFalse);
-         CPPUNIT_TEST(isPlayersAlife_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse);
+		 CPPUNIT_TEST(isPlayersAlife_OnePlayerNotDestroyed_resultIsTrue);
+		 CPPUNIT_TEST(isPlayersAlife_OnePlayerIsDestroyed_resultIsFalse);
+		 CPPUNIT_TEST(isPlayersAlife_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -81,15 +82,16 @@ namespace Common
 		 void setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBombWithNoLifeTime_resultIsAddedBomb();
 		 void setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_twoOfThreeBombsWithNoLifeTime_resultSizeIs2();
 		 void setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBombWithNoLifeTime_explodedBombCountIs1();
+		 void getExplodedBombByBomb_oneExplodedBombWithDestructionRange3_destructionRangeIs3();
 		 void erasePlayerById_onePlayersAddedOneDeleted_playerCountIs0();
 		 void getAllBombsWithDestroyedFlag_twoBombsAddedOneDestroyed_resultIs1();
 		 void getAllWallsWithDestroyedFlag_twoWallsAddedOneDestroyed_resultIs1();
 		 void getAllPowerUpsWithDestroyedFlag_twoPowerUpsAddedOneDestroyed_resultIs1();
 		 void reduceAllBombsLifeTime_oneExplodedBomb_explodedBombsLifeTimeDecreased();
 		 void removeAllObjectsWithDestroyedFlag_oneDestroyedExplodedBomb_explodedBombCountIs0();
-         void isPlayersAlife_OnePlayerNotDestroyed_resultIsTrue();
-         void isPlayersAlife_OnePlayerIsDestroyed_resultIsFalse();
-         void isPlayersAlife_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse();
+		 void isPlayersAlife_OnePlayerNotDestroyed_resultIsTrue();
+		 void isPlayersAlife_OnePlayerIsDestroyed_resultIsFalse();
+		 void isPlayersAlife_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse();
 
 	private:
 		 UniqueIdCreator m_playerIDCreator;

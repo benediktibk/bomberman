@@ -11,6 +11,7 @@
 #include "common/powerupmaxvelocitystate.h"
 #include "common/explodedbombstate.h"
 #include <vector>
+#include <map>
 
 namespace Common
 {
@@ -37,6 +38,7 @@ namespace Common
 		void reduceAllBombsLifeTime(double time);
 		std::vector<const ExplodedBombState*> getAllChangedExplodedBombs() const;
 		std::vector<const BombState *> setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
+		ExplodedBombState& getExplodedBombByBomb(const BombState *bomb);
 		void resetChangedFlags();
 		void removeAllObjectsWithDestroyedFlag();
 		unsigned int getHeight() const;
@@ -56,7 +58,7 @@ namespace Common
 		std::vector<const WallState*> getAllWallsWithDestroyedFlag() const;
 		std::vector<const PowerUpState*> getAllPowerUpsWithDestroyedFlag() const;
 		size_t getExplodedBombCount() const;
-        bool isPlayerAlife(unsigned int playerId) const;
+		bool isPlayerAlife(unsigned int playerId) const;
 
 	private:
 		void eraseBomb(size_t position);
@@ -76,6 +78,8 @@ namespace Common
 		std::vector<BombState*> m_bombs;
 		std::vector<PowerUpState*> m_powerUps;
 		std::vector<ExplodedBombState*> m_explodedBombs;
+		std::map<const BombState*, ExplodedBombState*> m_bombToExplodedBomb;
+		std::map<const ExplodedBombState*, const BombState*> m_explodedBombToBomb;
 		unsigned int m_height;
 		unsigned int m_width;
 	};
