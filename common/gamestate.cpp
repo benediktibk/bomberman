@@ -214,7 +214,10 @@ vector<const BombState*> GameState::setAllBombsWithNoLifeTimeDestroyedAndAddExpl
 		{
 			currentBomb->setDestroyed();
 			destroyedBombs.push_back(currentBomb);
-			m_explodedBombs.push_back(new ExplodedBombState(*currentBomb));
+			m_explodedBombs.push_back(new ExplodedBombState(
+											*currentBomb,
+											currentBomb->getDestructionRange(), currentBomb->getDestructionRange(),
+											currentBomb->getDestructionRange(), currentBomb->getDestructionRange()));
 		}
 	}
 
@@ -449,11 +452,11 @@ size_t GameState::getExplodedBombCount() const
 
 bool GameState::isPlayerAlife(unsigned int playerId) const
 {
-    for(size_t i = 0; i < m_players.size(); i++)
-    {
-        if(m_players[i]->getId() == playerId)
-            if(m_players[i]->isDestroyed() == false)
-                return true;
-    }
-    return false;
+	for(size_t i = 0; i < m_players.size(); i++)
+	{
+		if(m_players[i]->getId() == playerId)
+			if(m_players[i]->isDestroyed() == false)
+				return true;
+	}
+	return false;
 }

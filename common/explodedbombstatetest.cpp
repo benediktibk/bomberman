@@ -8,7 +8,7 @@ using namespace Common;
 void ExplodedBombStateTest::constructor_validBombState_lifeTimeIsGreaterThanZero()
 {
 	BombState bomb(*m_bombIdCreator, 0);
-	ExplodedBombState explodedBomb(bomb);
+	ExplodedBombState explodedBomb(bomb, 1, 1, 1, 1);
 
 	CPPUNIT_ASSERT(explodedBomb.getLifeTime() > 0);
 }
@@ -17,7 +17,7 @@ void ExplodedBombStateTest::constructor_bombAtPosition4And5_positionIs4And5()
 {
 	BombState bomb(*m_bombIdCreator, 0);
 	bomb.setPosition(Point(4, 5));
-	ExplodedBombState explodedBomb(bomb);
+	ExplodedBombState explodedBomb(bomb, 1, 1, 1, 1);
 
 	CPPUNIT_ASSERT(Point(4, 5).fuzzyEqual(explodedBomb.getPosition(), 0.0001));
 }
@@ -25,7 +25,7 @@ void ExplodedBombStateTest::constructor_bombAtPosition4And5_positionIs4And5()
 void ExplodedBombStateTest::decreaseLifeTime_03_lifeTimeIs03Smaller()
 {
 	BombState bomb(*m_bombIdCreator, 0);
-	ExplodedBombState explodedBomb(bomb);
+	ExplodedBombState explodedBomb(bomb, 1, 1, 1, 1);
 	double oldLifeTime = explodedBomb.getLifeTime();
 
 	explodedBomb.decreaseLifeTime(0.3);
@@ -36,7 +36,7 @@ void ExplodedBombStateTest::decreaseLifeTime_03_lifeTimeIs03Smaller()
 void ExplodedBombStateTest::decreaseLifeTime_4_hasChanged()
 {
 	BombState bomb(*m_bombIdCreator, 0);
-	ExplodedBombState explodedBomb(bomb);
+	ExplodedBombState explodedBomb(bomb, 1, 1, 1, 1);
 	explodedBomb.resetChanged();
 
 	explodedBomb.decreaseLifeTime(4);
@@ -48,7 +48,7 @@ void ExplodedBombStateTest::constructor_bombWithDestructionRange3_maximumDestruc
 {
 	BombState bomb(*m_bombIdCreator, 0);
 	bomb.setDestructionRange(3);
-	ExplodedBombState explodedBomb(bomb);
+	ExplodedBombState explodedBomb(bomb, 1, 1, 1, 1);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)3, explodedBomb.getMaximumDestructionRange());
 }
@@ -56,7 +56,7 @@ void ExplodedBombStateTest::constructor_bombWithDestructionRange3_maximumDestruc
 void ExplodedBombStateTest::setDestroyedIfNoLifeTimeLeft_lifeTimeGreaterZero_notDestroyed()
 {
 	BombState bomb(*m_bombIdCreator, 0);
-	ExplodedBombState explodedBomb(bomb);
+	ExplodedBombState explodedBomb(bomb, 1, 1, 1, 1);
 
 	explodedBomb.setDestroyedIfNoLifeTimeLeft();
 
@@ -66,7 +66,7 @@ void ExplodedBombStateTest::setDestroyedIfNoLifeTimeLeft_lifeTimeGreaterZero_not
 void ExplodedBombStateTest::setDestroyedIfNoLifeTimeLeft_lifeTimeSmallerZero_destroyed()
 {
 	BombState bomb(*m_bombIdCreator, 0);
-	ExplodedBombState explodedBomb(bomb);
+	ExplodedBombState explodedBomb(bomb, 1, 1, 1, 1);
 	double initialLifeTime = explodedBomb.getLifeTime();
 	explodedBomb.decreaseLifeTime(initialLifeTime*2);
 
@@ -78,7 +78,7 @@ void ExplodedBombStateTest::setDestroyedIfNoLifeTimeLeft_lifeTimeSmallerZero_des
 void ExplodedBombStateTest::constructor_bombWithCertainHeight_heightIsTheSame()
 {
 	BombState bomb(*m_bombIdCreator, 0);
-	ExplodedBombState explodedBomb(bomb);
+	ExplodedBombState explodedBomb(bomb, 1, 1, 1, 1);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(bomb.getHeight(), explodedBomb.getHeight(), 0.0001);
 }
@@ -86,9 +86,45 @@ void ExplodedBombStateTest::constructor_bombWithCertainHeight_heightIsTheSame()
 void ExplodedBombStateTest::constructor_bombWithCertainWidth_widthIsTheSame()
 {
 	BombState bomb(*m_bombIdCreator, 0);
-	ExplodedBombState explodedBomb(bomb);
+	ExplodedBombState explodedBomb(bomb, 1, 1, 1, 1);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(bomb.getWidth(), explodedBomb.getWidth(), 0.0001);
+}
+
+void ExplodedBombStateTest::constructor_ranges1And2And3And4_destructionRangeLeftIs1()
+{
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setDestructionRange(10);
+	ExplodedBombState explodedBomb(bomb, 1, 2, 3, 4);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, explodedBomb.getDestructionRangeLeft());
+}
+
+void ExplodedBombStateTest::constructor_ranges1And2And3And4_destructionRangeUpIs2()
+{
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setDestructionRange(10);
+	ExplodedBombState explodedBomb(bomb, 1, 2, 3, 4);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, explodedBomb.getDestructionRangeUp());
+}
+
+void ExplodedBombStateTest::constructor_ranges1And2And3And4_destructionRangeRightIs3()
+{
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setDestructionRange(10);
+	ExplodedBombState explodedBomb(bomb, 1, 2, 3, 4);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, explodedBomb.getDestructionRangeRight());
+}
+
+void ExplodedBombStateTest::constructor_ranges1And2And3And4_destructionRangeDownIs4()
+{
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setDestructionRange(10);
+	ExplodedBombState explodedBomb(bomb, 1, 2, 3, 4);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)4, explodedBomb.getDestructionRangeDown());
 }
 
 void ExplodedBombStateTest::setUp()
