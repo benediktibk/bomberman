@@ -41,6 +41,7 @@ namespace GameEngine
 		 CPPUNIT_TEST(isPlaceEmpty_coveredByWall_false);
 		 CPPUNIT_TEST(getPlayersinRange_bombat59gridsize1010_1);
 		 CPPUNIT_TEST(getPlayersinRange_bombat59gridsize10x10_playersInRangeIs1);
+		 CPPUNIT_TEST(getPlayersinRange_bombat59gridsize10x10_playersInRangeIs0);
 		 CPPUNIT_TEST(getDistanceToNextNotFreePlaceLeft_nothingSet_distanceIsWayToEndOfLevel);
 		 CPPUNIT_TEST(getDistanceToNextNotFreePlaceRight_nothingSet_distanceIsWayToEndOfLevel);
 		 CPPUNIT_TEST(getDistanceToNextNotFreePlaceUp_nothingSet_distanceIsWayToEndOfLevel);
@@ -79,6 +80,7 @@ namespace GameEngine
 		 void isPlaceEmpty_coveredByWall_false();
 		 void getPlayersinRange_bombat59gridsize1010_1();
 		 void getPlayersinRange_bombat59gridsize10x10_playersInRangeIs1();
+		 void getPlayersinRange_bombat59gridsize10x10_playersInRangeIs0();
 		 void getDistanceToNextNotFreePlaceLeft_nothingSet_distanceIsWayToEndOfLevel();
 		 void getDistanceToNextNotFreePlaceRight_nothingSet_distanceIsWayToEndOfLevel();
 		 void getDistanceToNextNotFreePlaceUp_nothingSet_distanceIsWayToEndOfLevel();
