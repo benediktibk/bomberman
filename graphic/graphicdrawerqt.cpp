@@ -6,7 +6,7 @@
 #include "graphic/explodedbomb.h"
 #include "graphic/point.h"
 #include "graphic/cellbackground.h"
-#include "graphic/renderallsvggraphics.h"
+#include "graphic/svgrenderer.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QBrush>
@@ -29,7 +29,7 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 	m_minimumViewDistance(4),
 	m_minimumViewDistanceInPixel(m_minimumViewDistance*m_pixelPerMeter),
 	m_responsibilityValid(false),
-	m_graphicRenderer(new RenderAllSvgGraphics(m_pixelPerMeter))
+	m_graphicRenderer(new SvgRenderer(m_pixelPerMeter))
 {
 	if (enableOpenGL)
 		m_view.setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));

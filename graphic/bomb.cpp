@@ -1,7 +1,7 @@
 #include "bomb.h"
 #include "common/bombstate.h"
 #include "graphic/point.h"
-#include "graphic/renderallsvggraphics.h"
+#include "graphic/svgrenderer.h"
 #include <QGraphicsScene>
 #include <QtSvg/QtSvg>
 
@@ -14,7 +14,7 @@ Bomb::Bomb(QGraphicsScene &scene) :
 	scene.addItem(m_svgItem);
 }
 
-Bomb::Bomb(QGraphicsScene &scene, RenderAllSvgGraphics &renderer)
+Bomb::Bomb(QGraphicsScene &scene, SvgRenderer &renderer)
 {
 	m_svgItem = renderer.getNewBombItem();
 	scene.addItem(m_svgItem);

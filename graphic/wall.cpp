@@ -1,20 +1,20 @@
 #include "wall.h"
 #include "common/wallstate.h"
 #include "graphic/point.h"
-#include "graphic/renderallsvggraphics.h"
+#include "graphic/svgrenderer.h"
 #include <QGraphicsScene>
 #include <QtSvg/QGraphicsSvgItem>
 #include <assert.h>
 
 using namespace Graphic;
 
-Wall::Wall(QGraphicsScene &scene, RenderAllSvgGraphics &renderer, const Common::WallState &state)
+Wall::Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::WallState &state)
 {
 	createSVGItem(state.getWallType(), renderer);
 	scene.addItem(m_svgItem);
 }
 
-Wall::Wall(QGraphicsScene &scene, RenderAllSvgGraphics &renderer, const Common::Point &position, double pixelPerMeter)
+Wall::Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::Point &position, double pixelPerMeter)
 {
 	createSVGItem(Common::WallState::WallTypeSolid, renderer);
 	updateInternal(position, 1, 1, pixelPerMeter);
@@ -31,7 +31,7 @@ void Wall::update(const Common::WallState &state, double pixelPerMeter)
 	updateInternal(state.getPosition(), state.getWidth(), state.getHeight(), pixelPerMeter);
 }
 
-void Wall::createSVGItem(Common::WallState::WallType wallType, RenderAllSvgGraphics &renderer)
+void Wall::createSVGItem(Common::WallState::WallType wallType, SvgRenderer &renderer)
 {
 	if (wallType == Common::WallState::WallTypeSolid)
 		m_svgItem = renderer.getNewSolidWallItem();

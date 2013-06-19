@@ -1,7 +1,7 @@
 #include "graphic/explodedbomb.h"
 #include "common/explodedbombstate.h"
 #include "graphic/point.h"
-#include "graphic/renderallsvggraphics.h"
+#include "graphic/svgrenderer.h"
 #include <QGraphicsScene>
 #include <QtSvg/QtSvg>
 #include <assert.h>
@@ -9,7 +9,7 @@
 using namespace Graphic;
 using namespace std;
 
-ExplodedBomb::ExplodedBomb(QGraphicsScene &scene, RenderAllSvgGraphics &renderer, const Common::ExplodedBombState &state, double pixelPerMeter) :
+ExplodedBomb::ExplodedBomb(QGraphicsScene &scene, SvgRenderer &renderer, const Common::ExplodedBombState &state, double pixelPerMeter) :
 	m_renderer(&renderer),
 	m_center(0),
 	m_upperEnd(0),
