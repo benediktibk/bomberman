@@ -68,7 +68,7 @@ void GamePhysicSimulator::updateItems(const GameState &state)
 {
 	updateBombs(state);
 	updateWalls(state);
-	updateCollisionGroups(state.getFirstPlayerState());
+	updateCollisionGroups(state);
 }
 
 void GamePhysicSimulator::deleteAllWalls()
@@ -155,7 +155,15 @@ void GamePhysicSimulator::updateWall(const WallState *wall)
 	}
 }
 
-void GamePhysicSimulator::updateCollisionGroups(const PlayerState &player)
+void GamePhysicSimulator::updateCollisionGroups(const GameState &state)
+{
+	vector<const PlayerState*> allPlayers = state.getAllPlayers();
+
+	for (vector<const PlayerState*>::const_iterator i = allPlayers.begin(); i != allPlayers.end(); ++i)
+		updateCollisionGroupsForPlayer(**i);
+}
+
+void GamePhysicSimulator::updateCollisionGroupsForPlayer(const PlayerState &player)
 {
 	for (map<const BombState*, Bomb*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
 	{
