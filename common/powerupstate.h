@@ -13,7 +13,8 @@ enum PowerUpType
     {
     PowerUpTypeNone,
     PowerUpTypeMaxBomb,
-    PowerUpTypeMaxVelocity
+	PowerUpTypeMaxVelocity,
+	PowerUpTypeMaxBombRange
     };
 
 class PowerUpState :

@@ -403,6 +403,11 @@ void GameEngineImpl::addPowerUpOfTypeAtPosition(PowerUpType powerUpType, Point p
 		PowerUpMaxVelocityState *powerUp = new PowerUpMaxVelocityState(m_powerUpIds, position);
 		addPowerUp(powerUp);
 	}
+	else if (powerUpType == PowerUpTypeMaxBombRange)
+	{
+		PowerUpMaxBombRangeState *powerUp = new PowerUpMaxBombRangeState(m_powerUpIds, position);
+		addPowerUp(powerUp);
+	}
 	else
 		assert(false);
 }

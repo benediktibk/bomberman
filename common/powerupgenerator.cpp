@@ -1,7 +1,7 @@
 #include "powerupgenerator.h"
+#include "randomdecision.h"
 #include <stdlib.h>
 #include <time.h>
-#include "randomdecision.h"
 
 using namespace std;
 using namespace Common;
@@ -12,6 +12,9 @@ PowerUpGenerator::PowerUpGenerator():
 
 PowerUpType PowerUpGenerator::getRandomType()
 {
+	if (RandomDecision(1.0/3.0).decide())
+		return PowerUpTypeMaxBombRange;
+
 	if (RandomDecision(0.5).decide())
         return PowerUpTypeMaxBomb;
 
