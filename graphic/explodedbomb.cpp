@@ -9,8 +9,8 @@
 using namespace Graphic;
 using namespace std;
 
-ExplodedBomb::ExplodedBomb(QGraphicsScene &scene, RenderAllSvgGraphics *renderer, const Common::ExplodedBombState &state, double pixelPerMeter) :
-	m_renderer(renderer),
+ExplodedBomb::ExplodedBomb(QGraphicsScene &scene, RenderAllSvgGraphics &renderer, const Common::ExplodedBombState &state, double pixelPerMeter) :
+	m_renderer(&renderer),
 	m_center(0),
 	m_upperEnd(0),
 	m_lowerEnd(0),

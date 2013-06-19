@@ -17,7 +17,7 @@ namespace Graphic
 	class ExplodedBomb
 	{
 	public:
-		ExplodedBomb(QGraphicsScene &scene, RenderAllSvgGraphics *renderer, const Common::ExplodedBombState &state, double pixelPerMeter);
+		ExplodedBomb(QGraphicsScene &scene, RenderAllSvgGraphics &renderer, const Common::ExplodedBombState &state, double pixelPerMeter);
 		~ExplodedBomb();
 
 	private:

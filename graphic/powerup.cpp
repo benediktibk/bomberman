@@ -8,14 +8,14 @@
 using namespace Graphic;
 using namespace Common;
 
-PowerUp::PowerUp(QGraphicsScene &scene, RenderAllSvgGraphics *renderer) :
-	m_svgItem(renderer->getNewPowerUpItem())
+PowerUp::PowerUp(QGraphicsScene &scene, RenderAllSvgGraphics &renderer) :
+	m_svgItem(renderer.getNewPowerUpItem())
 {
 	m_svgItem->setZValue(0);
 	scene.addItem(m_svgItem);
 }
 
-PowerUp::PowerUp(QGraphicsScene &scene, RenderAllSvgGraphics *renderer, PowerUpState &state, double pixelPerMeter)
+PowerUp::PowerUp(QGraphicsScene &scene, RenderAllSvgGraphics &renderer, PowerUpState &state, double pixelPerMeter)
 {
 	createSvgItem(state, renderer);
 	scene.addItem(m_svgItem);
@@ -36,8 +36,8 @@ void PowerUp::update(const PowerUpState &state, double pixelPerMeter)
 	m_svgItem->setPos(position.toQPoint());
 }
 
-void PowerUp::createSvgItem(PowerUpState &/*state*/, RenderAllSvgGraphics *renderer)
+void PowerUp::createSvgItem(PowerUpState &/*state*/, RenderAllSvgGraphics &renderer)
 {
-	m_svgItem = renderer->getNewPowerUpItem();
+	m_svgItem = renderer.getNewPowerUpItem();
 	m_svgItem->setZValue(0);
 }

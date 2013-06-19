@@ -16,9 +16,9 @@ Player::Player(QGraphicsScene &scene) :
 	scene.addItem(m_svgItem);
 }
 
-Player::Player(QGraphicsScene &scene, RenderAllSvgGraphics *renderer)
+Player::Player(QGraphicsScene &scene, RenderAllSvgGraphics &renderer)
 {
-	m_svgItem = renderer->getNewPlayerItem();
+	m_svgItem = renderer.getNewPlayerItem();
 	scene.addItem(m_svgItem);
 }
 

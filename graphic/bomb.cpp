@@ -14,9 +14,9 @@ Bomb::Bomb(QGraphicsScene &scene) :
 	scene.addItem(m_svgItem);
 }
 
-Bomb::Bomb(QGraphicsScene &scene, RenderAllSvgGraphics *renderer)
+Bomb::Bomb(QGraphicsScene &scene, RenderAllSvgGraphics &renderer)
 {
-	m_svgItem = renderer->getNewBombItem();
+	m_svgItem = renderer.getNewBombItem();
 	scene.addItem(m_svgItem);
 }
 

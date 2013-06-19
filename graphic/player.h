@@ -17,7 +17,7 @@ class Player
 {
 public:
 	Player(QGraphicsScene &scene);
-	Player(QGraphicsScene &scene, RenderAllSvgGraphics *renderer);
+	Player(QGraphicsScene &scene, RenderAllSvgGraphics &renderer);
 	~Player();
 
 	void update(const Common::PlayerState &state, double pixelPerMeter);
