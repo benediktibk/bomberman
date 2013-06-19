@@ -1038,6 +1038,38 @@ void GameEngineImplTest::updateGameState_placeBombAndMoveOneFieldUpwards_playerI
 	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
 }
 
+void GameEngineImplTest::updateGameState_placeBombAndMoveOneFieldUpwardsAndSecondPlayer_playerIsOneFieldAboveTheBomb()
+{
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
+	createGameEngine(level, 2);
+	const GameState &game = m_gameEngine->getGameState();
+	const PlayerState &firstPlayer = game.getFirstPlayerState();
+	const PlayerState &secondPlayer = game.getSecondPlayerState();
+	const PlayerState *playerAsPointer = 0;
+	if (firstPlayer.getPosition().fuzzyEqual(Point(0, 0), 0.05))
+		playerAsPointer = &firstPlayer;
+	else
+		playerAsPointer = &secondPlayer;
+	const PlayerState &player = *playerAsPointer;
+	double timeForOneField = 1/player.getMaximumSpeed();
+	InputState input;
+
+	input.setSpaceKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	input.setSpaceKeyNotPressed();
+	input.setUpKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	input.setUpKeyNotPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+
+	CPPUNIT_ASSERT(Point(0, 1).fuzzyEqual(player.getPosition(), 0.05));
+}
+
 void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
 {
 	LevelDefinition level(4, 4);
