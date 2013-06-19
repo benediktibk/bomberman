@@ -51,8 +51,8 @@ void GameEngineImpl::updateGameState(const std::map<unsigned int, Common::InputS
 	removeAllObjectsWithDestroyedFlagFromGrid();
 	m_gameState.removeAllObjectsWithDestroyedFlag();
 	playerGetsPowerUp();
-	updateBombs();
 	updatePlayerPositions();
+	updateBombs();
 	placeBombs();
 	m_simulator->updateItems(m_gameState);
 

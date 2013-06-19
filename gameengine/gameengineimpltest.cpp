@@ -97,10 +97,11 @@ void GameEngineImplTest::updateGameState_twoBombsPlacedAndOneDestroyed_bombCount
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 0);
 	input.setSpaceKeyNotPressed();
+	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 3.1);
-	m_gameEngine->updateGameState(m_inputStates, 0);
 	input.setSpaceKeyPressed();
+	input.setRightKeyNotPressed();
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 1);
 	input.setSpaceKeyNotPressed();
