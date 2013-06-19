@@ -53,6 +53,7 @@ set(COMMON_TEST_SRC
 	comparetest.cpp
 	leveldefinitionreadertest.cpp
 	csvparsertest.cpp
+    powerupmaxbombrangestatetest.cpp
 )
 
 add_library(common ${COMMON_SRC})

@@ -20,16 +20,3 @@ void PowerUpMaxBombRangeStateTest::modifyPlayer_maxBombRange_2()
     CPPUNIT_ASSERT_EQUAL(maxBombRange+1,player.getDestructionRangeOfNewBombs());
 }
 
-void PowerUpMaxBombRangeStateTest::modifyPlayer_baseClass_maxSpeed_7()
-{
-    UniqueIdCreator id;
-    UniqueIdCreator idPlayer;
-    PowerUpState *increaseMaxVel = new PowerUpMaxBombRangeStateTest(id, Point());
-    PlayerState player(idPlayer);
-    double speed = player.getMaximumSpeed();
-
-
-    increaseMaxVel->modifyPlayer(player);
-
-    CPPUNIT_ASSERT_DOUBLES_EQUAL(speed+2,player.getMaximumSpeed(),0.001);
-}
