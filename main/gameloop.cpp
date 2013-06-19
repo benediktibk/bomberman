@@ -63,6 +63,7 @@ void GameLoop::execute()
 	StopWatch watch;
 	StopWatch watchRealCalculatingTime;
 	double realCalculatingTime = 0;
+	std::vector<unsigned int> playerIDs = m_gameEngine.getAllPossiblePlayerIDs();
 
 	while (run)
 	{
@@ -95,12 +96,10 @@ void GameLoop::execute()
 		 */
 
 		// begin of temporary code
-		std::vector<unsigned int> playerIDs = m_gameEngine.getAllPossiblePlayerIDs();
 		std::map<unsigned int, InputState> inputStates;
 		inputStates[playerIDs.front()] = m_inputFetcher.getInputState();
 		inputStates[playerIDs.back()] = m_computerEnemyInputFetcher.getInputState();
 		m_gameEngine.updateGameState(inputStates, time);
-
 		// end of temporary code
 
 		m_graphicDrawer.draw(m_gameEngine.getGameState());

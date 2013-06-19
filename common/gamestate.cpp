@@ -430,14 +430,13 @@ void GameState::erasePlayer(size_t position)
 	m_playersConst.erase(m_playersConst.begin() + position);
 }
 
-void GameState::erasePlayerById(unsigned int /*playerId*/)
+void GameState::erasePlayerById(unsigned int playerId)
 {
-	//! @todo enable this
-//	for(size_t i = 0; i < m_players.size(); i++)
-//	{
-//		if(m_players[i]->getId() == playerId)
-//			m_players[i]->setDestroyed();
-//	}
+	for(size_t i = 0; i < m_players.size(); i++)
+	{
+		if(m_players[i]->getId() == playerId)
+			m_players[i]->setDestroyed();
+	}
 }
 
 vector<const BombState*> GameState::getAllBombsWithDestroyedFlag() const
@@ -482,9 +481,9 @@ bool GameState::isPlayerAlife(unsigned int playerId) const
 {
 	for(size_t i = 0; i < m_players.size(); i++)
 	{
-		if(m_players[i]->getId() == playerId)
-			if(m_players[i]->isDestroyed() == false)
-				return true;
+		if(m_players[i]->getId() == playerId && !m_players[i]->isDestroyed())
+			return true;
 	}
+
 	return false;
 }

@@ -81,11 +81,6 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 	if (m_firstRedraw)
 	{
 		drawBorderWalls(gameState.getWidth(), gameState.getHeight());
-		/*!
-		 * @todo Check if background should be drawn cell by cell, or with a pattern, painted by a brush in constructor.
-		 *	Deactivated because background pattern is already set by brush in constructor.
-		 *	drawCellBackgrounds(gameState.getWidth(), gameState.getHeight());
-		*/
 		updateViewArea(gameState);
 	}
 
@@ -123,6 +118,17 @@ void GraphicDrawerQt::drawPlayer(const PlayerState *playerState)
 	map<const PlayerState*, Player*>::iterator playerPosition = m_players.find(playerState);
 	bool playerFound = playerPosition != m_players.end();
 	Player* player = 0;
+
+	if (playerState->isDestroyed())
+	{
+		if (playerFound)
+		{
+			delete playerPosition->second;
+			m_players.erase(playerPosition);
+		}
+
+		return;
+	}
 
 	if (!playerFound)
 		player = new Player(*m_scene, *m_svgRenderer);
