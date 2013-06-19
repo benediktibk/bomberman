@@ -50,6 +50,7 @@ void GamePhysicSimulator::simulateStep(GameState &game, double time)
 		}
 		else
 			player = playerPosition->second;
+
 		player->applyLinearVelocity(playerState.getSpeedIntoX(), playerState.getSpeedIntoY());
 		player->updateObstacle();
 	}
@@ -157,10 +158,12 @@ void GamePhysicSimulator::updateWall(const WallState *wall)
 
 void GamePhysicSimulator::updateCollisionGroups(const GameState &state)
 {
-	vector<const PlayerState*> allPlayers = state.getAllPlayers();
+	//! @todo update the collision groups for all players
+//	vector<const PlayerState*> allPlayers = state.getAllPlayers();
 
-	for (vector<const PlayerState*>::const_iterator i = allPlayers.begin(); i != allPlayers.end(); ++i)
-		updateCollisionGroupsForPlayer(**i);
+//	for (vector<const PlayerState*>::const_iterator i = allPlayers.begin(); i != allPlayers.end(); ++i)
+//		updateCollisionGroupsForPlayer(**i);
+	updateCollisionGroupsForPlayer(state.getFirstPlayerState());
 }
 
 void GamePhysicSimulator::updateCollisionGroupsForPlayer(const PlayerState &player)

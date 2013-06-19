@@ -92,6 +92,7 @@ void Player::applyLinearVelocity(double velocityIntoX, double velocityIntoY)
 	}
 
 	updateObjectToPhysicalDimensions(newPosition, m_object->getCollisionGroup());
+
 	if (isMoving())
 		m_dynamicObject->applyLinearVelocity(velocityIntoX, velocityIntoY);
 
