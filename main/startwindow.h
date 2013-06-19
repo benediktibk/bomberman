@@ -22,6 +22,7 @@ public:
 
 private slots:
 	void exitClicked();
+	void startClicked();
 
 private:
 	void connectButtons();
