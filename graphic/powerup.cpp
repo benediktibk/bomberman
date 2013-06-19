@@ -10,6 +10,7 @@ using namespace Common;
 PowerUp::PowerUp(QGraphicsScene &scene) :
 	m_svgItem(new QGraphicsSvgItem(QString("resources/graphics/powerup.svg")))
 {
+	m_svgItem->setZValue(0);
 	scene.addItem(m_svgItem);
 }
 
@@ -37,4 +38,5 @@ void PowerUp::update(const PowerUpState &state, double pixelPerMeter)
 void PowerUp::createSvgItem(PowerUpState &/*state*/)
 {
 	m_svgItem = new QGraphicsSvgItem(QString("resources/objects/powerup_v2.svg"));
+	m_svgItem->setZValue(0);
 }

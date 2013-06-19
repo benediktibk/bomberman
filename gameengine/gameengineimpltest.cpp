@@ -910,6 +910,54 @@ void GameEngineImplTest::updateGameState_bombAtLowerEndExplodes_bombCountIs0()
 	CPPUNIT_ASSERT_EQUAL((size_t)0, gameState.getBombCount());
 }
 
+void GameEngineImplTest::updateGameState_bombExplodesWithTwoLooseWallsDirectBehind_wallCountIs1()
+{
+	InputState input;
+	LevelDefinition level(10, 15);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 5, 3);
+	createGameEngine(level, 1);
+	GameState &gameState = m_gameEngine->getGameState();
+	PlayerState &player = gameState.getFirstPlayerState();
+	player.setDestructionRangeOfNewBombs(100);
+
+	input.setSpaceKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	input.setSpaceKeyNotPressed();
+	input.setLeftKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 100);
+	m_gameEngine->updateGameState(m_inputStates, 100);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, gameState.getWallCount());
+}
+
+void GameEngineImplTest::updateGameState_bombExplodesWithTwoLooseWallsBehindWithOneFieldFree_wallCountIs1()
+{
+	InputState input;
+	LevelDefinition level(10, 15);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 6, 3);
+	createGameEngine(level, 1);
+	GameState &gameState = m_gameEngine->getGameState();
+	PlayerState &player = gameState.getFirstPlayerState();
+	player.setDestructionRangeOfNewBombs(100);
+
+	input.setSpaceKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	input.setSpaceKeyNotPressed();
+	input.setLeftKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 100);
+	m_gameEngine->updateGameState(m_inputStates, 100);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, gameState.getWallCount());
+}
+
 void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
 {
 	LevelDefinition level(4, 4);
