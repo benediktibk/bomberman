@@ -5,7 +5,9 @@ using namespace Graphic;
 
 RenderAllSvgGraphics::RenderAllSvgGraphics(const double pixelPerMeter) :
 	m_pixelPerMeter(pixelPerMeter)
-{ }
+{
+	renderPlayerItem();
+}
 
 RenderAllSvgGraphics::~RenderAllSvgGraphics()
 {
