@@ -532,7 +532,7 @@ void GridTest::getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringet
 	CPPUNIT_ASSERT_EQUAL((size_t)0, wallsInRange.size());
 }
 
-void GridTest::getPlayersinRange_bombat59gridsize1010_1()
+void GridTest::getPlayersInRange_playerRightBesideABomb_resultSizeIs1()
 {
 	UniqueIdCreator playerCreator;
 	vector<const PlayerState*> players;
@@ -647,50 +647,383 @@ void GridTest::getPlayerFields_PlayerAt1and1comma5_11and12()
 	CPPUNIT_ASSERT(gridPoints == gridPointsShouldBe);
 }
 
-void GridTest::getPlayersinRange_bombat59gridsize10x10_playersInRangeIs1()
+void GridTest::getPlayersInRange_playerWithDifferentXAndYPosition_resultSizeIs0()
 {
-	UniqueIdCreator playerCreator;
-	vector<unsigned int> playersInRange;
-	UniqueIdCreator bombIDCreator;
 	Grid grid(10, 10);
-
-	Point position(5.0, 9.0);
-	BombState bomb(bombIDCreator, 0);
-	bomb.setPosition(position);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 9));
 	bomb.setDestructionRange(5);
 	grid.addBombAtPlace(bomb);
-
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(6, 8));
 	std::vector<const PlayerState*> allPlayers;
-	PlayerState* player = new PlayerState(playerCreator);
-	player->setPosition(Point(5.0,8.0));
 	allPlayers.push_back(player);
 
-	playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerAtLeftEndOfDestructionRange_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(2);
+	grid.addBombAtPlace(bomb);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(3, 4));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
 }
 
-void GridTest::getPlayersinRange_bombat59gridsize10x10_playersInRangeIs0()
+void GridTest::getPlayersInRange_playerAtRightEndOfDestructionRange_resultSizeIs1()
 {
-	UniqueIdCreator playerCreator;
-	vector<unsigned int> playersInRange;
-	UniqueIdCreator bombIDCreator;
 	Grid grid(10, 10);
-
-	Point position(5.0, 9.0);
-	BombState bomb(bombIDCreator, 0);
-	bomb.setPosition(position);
-	bomb.setDestructionRange(5);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(2);
 	grid.addBombAtPlace(bomb);
-
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(7, 4));
 	std::vector<const PlayerState*> allPlayers;
-	PlayerState* player = new PlayerState(playerCreator);
-	player->setPosition(Point(6.0,8.0));
 	allPlayers.push_back(player);
 
-	playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerAtUpperEndOfDestructionRange_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(2);
+	grid.addBombAtPlace(bomb);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(5, 6));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerAtLowerEndOfDestructionRange_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(2);
+	grid.addBombAtPlace(bomb);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(5, 2));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerAfterLeftEndOfDestructionRange_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(2);
+	grid.addBombAtPlace(bomb);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(2, 4));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)0, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerAfterRightEndOfDestructionRange_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(2);
+	grid.addBombAtPlace(bomb);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(8, 4));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerAfterUpperEndOfDestructionRange_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(2);
+	grid.addBombAtPlace(bomb);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(5, 7));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerAfterLowerEndOfDestructionRange_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(2);
+	grid.addBombAtPlace(bomb);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(5, 1));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerAboveInFrontOfWall_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(5);
+	grid.addBombAtPlace(bomb);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(5, 8));
+	grid.addWallAtPlace(wall);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(5, 7));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerBelowInFrontOfWall_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(5);
+	grid.addBombAtPlace(bomb);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(5, 2));
+	grid.addWallAtPlace(wall);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(5, 3));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerLeftInFrontOfWall_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(5);
+	grid.addBombAtPlace(bomb);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(1, 4));
+	grid.addWallAtPlace(wall);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(3, 4));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerRightInFrontOfWall_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(5);
+	grid.addBombAtPlace(bomb);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(9, 4));
+	grid.addWallAtPlace(wall);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(8, 4));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerAboveBehindOfLooseWall_resultSizeIs0()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(5);
+	grid.addBombAtPlace(bomb);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(5, 6));
+	grid.addWallAtPlace(wall);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(5, 7));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerBelowBehindOfLooseWall_resultSizeIs0()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(5);
+	grid.addBombAtPlace(bomb);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(5, 3));
+	grid.addWallAtPlace(wall);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(5, 1));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerLeftBehindOfLooseWall_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(5);
+	grid.addBombAtPlace(bomb);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(3, 4));
+	grid.addWallAtPlace(wall);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(2, 4));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerRightBehindOfLooseWall_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(5);
+	grid.addBombAtPlace(bomb);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(7, 4));
+	grid.addWallAtPlace(wall);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(8, 4));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerRightOnTheBomb_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(5);
+	grid.addBombAtPlace(bomb);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(5, 4));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_twoOfTwoPlayersInRange_resultSizeIs2()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(5);
+	grid.addBombAtPlace(bomb);
+	PlayerState* firstPlayer = new PlayerState(*m_playerIdCreator);
+	firstPlayer->setPosition(Point(6, 4));
+	PlayerState* secondPlayer = new PlayerState(*m_playerIdCreator);
+	secondPlayer->setPosition(Point(7, 4));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(firstPlayer);
+	allPlayers.push_back(secondPlayer);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)2, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_oneOfTwoPlayersInRange_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(5);
+	grid.addBombAtPlace(bomb);
+	PlayerState* firstPlayer = new PlayerState(*m_playerIdCreator);
+	firstPlayer->setPosition(Point(6, 4));
+	PlayerState* secondPlayer = new PlayerState(*m_playerIdCreator);
+	secondPlayer->setPosition(Point(7, 5));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(firstPlayer);
+	allPlayers.push_back(secondPlayer);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
+}
+
+void GridTest::getPlayersInRange_playerOnlyHalfInRange_resultSizeIs1()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 4));
+	bomb.setDestructionRange(5);
+	grid.addBombAtPlace(bomb);
+	PlayerState* player = new PlayerState(*m_playerIdCreator);
+	player->setPosition(Point(7, 4.5));
+	std::vector<const PlayerState*> allPlayers;
+	allPlayers.push_back(player);
+
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
 }
 
 void GridTest::getDistanceToNextWallLeft_nothingSet_distanceIsWayToEndOfLevel()
@@ -839,6 +1172,7 @@ void GridTest::setUp()
 	m_powerUpIdCreator = new UniqueIdCreator();
 	m_wallIdCreator = new UniqueIdCreator();
 	m_bombIdCreator = new UniqueIdCreator();
+	m_playerIdCreator = new UniqueIdCreator();
 }
 
 void GridTest::tearDown()
@@ -849,4 +1183,6 @@ void GridTest::tearDown()
 	m_wallIdCreator = 0;
 	delete m_bombIdCreator;
 	m_bombIdCreator = 0;
+	delete m_playerIdCreator;
+	m_playerIdCreator = 0;
 }
