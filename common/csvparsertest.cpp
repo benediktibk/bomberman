@@ -34,3 +34,11 @@ void CSVParserTest::isFileCorrect_parseFileDefaultLevelError_resulIsFalse()
 
 	CPPUNIT_ASSERT(!testRead.isFileCorrect());
 }
+
+void CSVParserTest::couldOpenFile_parseFileWithNotExistingFileName_couldOpenFileIsFalse()
+{
+	CSVParser testRead;
+	testRead.parseFile("default");
+
+	CPPUNIT_ASSERT(!testRead.couldOpenFile());
+}
