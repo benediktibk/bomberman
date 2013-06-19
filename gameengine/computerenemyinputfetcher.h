@@ -16,6 +16,7 @@ namespace GameEngine
 
 public:
     ComputerEnemyInputFetcher();
+    virtual std::map<unsigned int, Common::InputState> getInputStates();        
     virtual Common::InputState getInputState();
 private:
     Common::InputState m_inputState;

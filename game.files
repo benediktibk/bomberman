@@ -309,6 +309,8 @@ common/csvparsertest.h
 common/csvparsertest.cpp
 graphic/explodedbomb.h
 graphic/explodedbomb.cpp
+common/allplayerinputfetcher.h
+common/allplayerinputfetcher.cpp
 common/powerupmaxbombrangestate.cpp
 common/powerupmaxbombrangestate.h
 common/powerupmaxbombrangestatetest.h

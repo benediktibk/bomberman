@@ -10,6 +10,7 @@ namespace Common
 			public InputFetcher
 	{
 	public:
+        virtual std::map<unsigned int, Common::InputState> getInputStates() ;
 		virtual InputState getInputState();
 	};
 }

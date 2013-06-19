@@ -77,7 +77,7 @@ namespace Graphic
 		bool m_responsibleForOnePlayer;
 		unsigned int m_playerIDResponsibleFor;
 		bool m_responsibilityValid;
-		SvgRenderer *m_graphicRenderer;
+		SvgRenderer *m_svgRenderer;
 	};
 }
 

@@ -1425,10 +1425,11 @@ void GameEngineImplTest::setUp()
 
 void GameEngineImplTest::tearDown()
 {
-	m_inputStates.clear();
+    m_inputStates.clear();
 	delete m_gameEngine;
 	m_gameEngine = 0;
 }
+
 
 void GameEngineImplTest::addPowerUp_powerUpCountIs1PlayerWalksOnPowerUp_powerUpCountIs0()
 {
@@ -1438,7 +1439,6 @@ void GameEngineImplTest::addPowerUp_powerUpCountIs1PlayerWalksOnPowerUp_powerUpC
 	GameState &game = m_gameEngine->getGameState();
 	InputState input;
 	PlayerState &player = game.getFirstPlayerState();
-
 	m_gameEngine->addPowerUpOfTypeAtPosition(PowerUpTypeMaxBomb, Point(1,0));
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
