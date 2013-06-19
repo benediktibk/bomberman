@@ -684,30 +684,160 @@ void GridTest::getPlayersinRange_bombat59gridsize10x10_playersInRangeIs1()
 	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
 }
 
-void GridTest::getDistanceToNextNotFreePlaceLeft_nothingSet_distanceIsWayToEndOfLevel()
+void GridTest::getDistanceToNextWallLeft_nothingSet_distanceIsWayToEndOfLevel()
 {
 	Grid grid(15, 10);
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)4, grid.getDistanceToNextNotFreePlaceLeft(GridPoint(4, 3)));
+	CPPUNIT_ASSERT_EQUAL((unsigned int)4, grid.getDistanceToNextWallLeft(GridPoint(4, 3)));
 }
 
-void GridTest::getDistanceToNextNotFreePlaceRight_nothingSet_distanceIsWayToEndOfLevel()
+void GridTest::getDistanceToNextWallRight_nothingSet_distanceIsWayToEndOfLevel()
 {
 	Grid grid(15, 10);
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)5, grid.getDistanceToNextNotFreePlaceRight(GridPoint(4, 3)));
+	CPPUNIT_ASSERT_EQUAL((unsigned int)5, grid.getDistanceToNextWallRight(GridPoint(4, 3)));
 }
 
-void GridTest::getDistanceToNextNotFreePlaceUp_nothingSet_distanceIsWayToEndOfLevel()
+void GridTest::getDistanceToNextWallUp_nothingSet_distanceIsWayToEndOfLevel()
 {
 	Grid grid(15, 10);
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)11, grid.getDistanceToNextNotFreePlaceUp(GridPoint(4, 3)));
+	CPPUNIT_ASSERT_EQUAL((unsigned int)11, grid.getDistanceToNextWallUp(GridPoint(4, 3)));
 }
 
-void GridTest::getDistanceToNextNotFreePlaceDown_nothingSet_distanceIsWayToEndOfLevel()
+void GridTest::getDistanceToNextWallDown_nothingSet_distanceIsWayToEndOfLevel()
 {
 	Grid grid(15, 10);
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)3, grid.getDistanceToNextNotFreePlaceDown(GridPoint(4, 3)));
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, grid.getDistanceToNextWallDown(GridPoint(4, 3)));
+}
+
+void GridTest::getDistanceToNextWallLeft_wallInRange_distanceIsWayToWall()
+{
+	Grid grid(15, 10);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(2, 3));
+	grid.addWallAtPlace(wall);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, grid.getDistanceToNextWallLeft(Point(4, 3)));
+}
+
+void GridTest::getDistanceToNextWallRight_wallInRange_distanceIsWayToWall()
+{
+	Grid grid(15, 10);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(6, 3));
+	grid.addWallAtPlace(wall);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, grid.getDistanceToNextWallRight(Point(4, 3)));
+}
+
+void GridTest::getDistanceToNextWallUp_wallInRange_distanceIsWayToWall()
+{
+	Grid grid(15, 10);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(4, 5));
+	grid.addWallAtPlace(wall);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, grid.getDistanceToNextWallUp(Point(4, 3)));
+}
+
+void GridTest::getDistanceToNextWallDown_wallInRange_distanceIsWayToWall()
+{
+	Grid grid(15, 10);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(4, 1));
+	grid.addWallAtPlace(wall);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, grid.getDistanceToNextWallDown(Point(4, 3)));
+}
+
+void GridTest::getDistanceToNextWallLeft_powerUpInRange_distanceIsWayToEndOfLevel()
+{
+	Grid grid(15, 10);
+	PowerUpState powerUp(*m_powerUpIdCreator, Point(3, 3));
+	grid.addPowerUpAtPlace(powerUp);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)4, grid.getDistanceToNextWallLeft(GridPoint(4, 3)));
+}
+
+void GridTest::getDistanceToNextWallRight_powerUpInRange_distanceIsWayToEndOfLevel()
+{
+	Grid grid(15, 10);
+	PowerUpState powerUp(*m_powerUpIdCreator, Point(5, 3));
+	grid.addPowerUpAtPlace(powerUp);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)5, grid.getDistanceToNextWallRight(GridPoint(4, 3)));
+}
+
+void GridTest::getDistanceToNextWallUp_powerUpInRange_distanceIsWayToEndOfLevel()
+{
+	Grid grid(15, 10);
+	PowerUpState powerUp(*m_powerUpIdCreator, Point(4, 4));
+	grid.addPowerUpAtPlace(powerUp);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)11, grid.getDistanceToNextWallUp(GridPoint(4, 3)));
+}
+
+void GridTest::getDistanceToNextWallDown_powerUpInRange_distanceIsWayToEndOfLevel()
+{
+	Grid grid(15, 10);
+	PowerUpState powerUp(*m_powerUpIdCreator, Point(4, 2));
+	grid.addPowerUpAtPlace(powerUp);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, grid.getDistanceToNextWallDown(GridPoint(4, 3)));
+}
+
+void GridTest::getDistanceToNextWallLeft_bombInRange_distanceIsWayToEndOfLevel()
+{
+	Grid grid(15, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(3, 3));
+	grid.addBombAtPlace(bomb);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)4, grid.getDistanceToNextWallLeft(GridPoint(4, 3)));
+}
+
+void GridTest::getDistanceToNextWallRight_bombInRange_distanceIsWayToEndOfLevel()
+{
+	Grid grid(15, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(5, 3));
+	grid.addBombAtPlace(bomb);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)5, grid.getDistanceToNextWallRight(GridPoint(4, 3)));
+}
+
+void GridTest::getDistanceToNextWallUp_bombInRange_distanceIsWayToEndOfLevel()
+{
+	Grid grid(15, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(4, 4));
+	grid.addBombAtPlace(bomb);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)11, grid.getDistanceToNextWallUp(GridPoint(4, 3)));
+}
+
+void GridTest::getDistanceToNextWallDown_bombInRange_distanceIsWayToEndOfLevel()
+{
+	Grid grid(15, 10);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(4, 2));
+	grid.addBombAtPlace(bomb);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, grid.getDistanceToNextWallDown(GridPoint(4, 3)));
+}
+
+
+void GridTest::setUp()
+{
+	m_powerUpIdCreator = new UniqueIdCreator();
+	m_wallIdCreator = new UniqueIdCreator();
+	m_bombIdCreator = new UniqueIdCreator();
+}
+
+void GridTest::tearDown()
+{
+	delete m_powerUpIdCreator;
+	m_powerUpIdCreator = 0;
+	delete m_wallIdCreator;
+	m_wallIdCreator = 0;
+	delete m_bombIdCreator;
+	m_bombIdCreator = 0;
 }
