@@ -321,3 +321,6 @@ graphic/svgrenderer.h
 graphic/svgrenderer.cpp
 resources/testfiles/testlevelonerowtoshort.csv
 resources/testfiles/testlevelwrongtypeinfile.csv
+main/startwindow.h
+main/startwindow.cpp
+main/gui/startwindow.ui

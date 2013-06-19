@@ -18,12 +18,14 @@ set(MAIN_QT_SRC
 	mainwindowinputfetcher.cpp
 	mainwindowinputtest.cpp
 	mainwindowgraphictest.cpp
+	startwindow.cpp
 )
 
 set(MAIN_FORMS
 	gui/mainwindow.ui
 	gui/mainwindowinputtest.ui
 	gui/mainwindowgraphictest.ui
+	gui/startwindow.ui
 )
 
 set(MAIN_QT_INCL
