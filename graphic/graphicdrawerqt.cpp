@@ -23,7 +23,7 @@ using namespace Qt;
 GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 	m_view(view),
 	m_scene(new QGraphicsScene()),
-	m_pixelPerMeter(40),
+    m_pixelPerMeter(40),
 	m_firstRedraw(true),
 	m_minimumViewDistance(4),
 	m_minimumViewDistanceInPixel(m_minimumViewDistance*m_pixelPerMeter),
