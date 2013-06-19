@@ -315,3 +315,5 @@ graphic/explodedbomb.h
 graphic/explodedbomb.cpp
 common/powerupmaxbombrangestate.cpp
 common/powerupmaxbombrangestate.h
+common/powerupmaxbombrangestatetest.h
+common/powerupmaxbombrangestatetest.cpp
