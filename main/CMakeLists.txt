@@ -33,6 +33,7 @@ set(MAIN_QT_INCL
 	mainwindowinputfetcher.h
 	mainwindowinputtest.h
 	mainwindowgraphictest.h
+	startwindow.h
 )
 
 include_directories(
