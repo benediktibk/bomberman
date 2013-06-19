@@ -3,7 +3,9 @@
 using namespace Common;
 using namespace std;
 
-CSVParser::CSVParser()
+CSVParser::CSVParser() :
+	m_height(0),
+	m_width(0)
 { }
 
 void CSVParser::parseFile(std::string filename)
@@ -52,5 +54,5 @@ unsigned int CSVParser::getHeightOfFile() const
 
 string CSVParser::getTextInField(unsigned int x, unsigned int y) const
 {
-	return m_textInFile[y * m_width + x];
+	return m_textInFile[(m_height * m_width - 1) - (y * m_width) - (m_width - 1 - x)];
 }
