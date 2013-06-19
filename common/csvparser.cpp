@@ -3,25 +3,24 @@
 using namespace Common;
 using namespace std;
 
-CSVParser::CSVParser() :
+CSVParser::CSVParser(std::string filename) :
+	m_filename(filename),
 	m_height(0),
 	m_width(0),
 	m_isFileCorrect(true),
 	m_couldOpenFile(true)
-{ }
-
-void CSVParser::parseFile(std::string filename)
 {
-	string opneninngFile = "resources/testfiles/" + filename + ".csv";
+	parseFile();
+}
+
+void CSVParser::parseFile()
+{
+	string opneninngFile = "resources/testfiles/" + m_filename + ".csv";
 	ifstream csvRead(opneninngFile.c_str());
 	string textInLine;
 	string textInField;
 	unsigned int width;
 	bool firstLine = false;
-	m_width = 0;
-	m_height = 0;
-	m_couldOpenFile = true;
-	m_isFileCorrect = true;
 
 	if(csvRead.is_open())
 	{
