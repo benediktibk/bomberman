@@ -313,7 +313,7 @@ common/powerupmaxbombrangestate.cpp
 common/powerupmaxbombrangestate.h
 common/powerupmaxbombrangestatetest.h
 common/powerupmaxbombrangestatetest.cpp
-resources/testfiles/levellist.csv
+resources/testfiles/testlevellist.csv
 resources/testfiles/testlevel.csv
 graphic/svgrenderer.h
 graphic/svgrenderer.cpp
