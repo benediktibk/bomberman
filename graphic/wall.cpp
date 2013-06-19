@@ -36,6 +36,7 @@ void Wall::createSVGItem(Common::WallState::WallType wallType)
 		m_svgItem = new QGraphicsSvgItem(QString("resources/graphics/wall_solid.svg"));
 	else
 		m_svgItem = new QGraphicsSvgItem(QString("resources/graphics/wall_loose.svg"));
+	m_svgItem->setZValue(1);
 }
 
 void Wall::updateInternal(const Common::Point &position, double width, double height, double pixelPerMeter)

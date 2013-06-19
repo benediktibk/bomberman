@@ -47,6 +47,7 @@ void ExplodedBomb::createCenterFlame(QGraphicsScene &scene, const Common::Explod
 	centerPosition *= pixelPerMeter;
 	centerPosition.switchIntoQtCoordinates();
 	m_center->setPos(centerPosition.toQPoint());
+	m_center->setZValue(5);
 	scene.addItem(m_center);
 }
 
@@ -87,6 +88,11 @@ void ExplodedBomb::createFlameEnds(QGraphicsScene &scene, const Common::Exploded
 	m_rightEnd->setPos(rightEndPosition.toQPoint());
 	m_lowerEnd->setPos(lowerEndPosition.toQPoint());
 	m_upperEnd->setPos(upperEndPosition.toQPoint());
+
+	m_leftEnd->setZValue(5);
+	m_rightEnd->setZValue(5);
+	m_lowerEnd->setZValue(5);
+	m_upperEnd->setZValue(5);
 
 	scene.addItem(m_upperEnd);
 	scene.addItem(m_leftEnd);
