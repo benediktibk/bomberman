@@ -71,12 +71,12 @@ string CSVParser::getTextInField(unsigned int x, unsigned int y) const
 	return m_textInFile[(m_height * m_width - 1) - (y * m_width) - (m_width - 1 - x)];
 }
 
-bool CSVParser::isFileCorrect()
+bool CSVParser::isFileCorrect() const
 {
 	return m_isFileCorrect;
 }
 
-bool CSVParser::couldOpenFile()
+bool CSVParser::couldOpenFile() const
 {
 	return m_couldOpenFile;
 }

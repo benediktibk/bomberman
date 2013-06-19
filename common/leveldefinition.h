@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <stddef.h>
+#include "csvparser.h"
 
 namespace Common
 {
@@ -23,6 +24,7 @@ class LevelDefinition
 
 		LevelDefinition();
 		LevelDefinition(unsigned int width, unsigned int height);
+		LevelDefinition(const CSVParser &parsedFile);
 
 		ObjectType getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY) const;
 		unsigned int getLevelWidth() const;
@@ -36,6 +38,7 @@ class LevelDefinition
 		unsigned int m_width;
 		unsigned int m_height;
 		std::vector<ObjectType> m_objectMatrix;
+		bool m_levelBuildingCorrect;
 	};
 }
 

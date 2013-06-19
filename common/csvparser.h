@@ -17,8 +17,8 @@ public:
 	unsigned int getHeightOfFile() const;
 	unsigned int getWidthOfFile() const;
 	std::string getTextInField(unsigned int x, unsigned int y) const;
-	bool isFileCorrect();
-	bool couldOpenFile();
+	bool isFileCorrect() const;
+	bool couldOpenFile() const;
 
 private:
 	void parseFile();

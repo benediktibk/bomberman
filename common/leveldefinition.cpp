@@ -17,6 +17,30 @@ LevelDefinition::LevelDefinition(unsigned int width, unsigned int height) :
 	m_objectMatrix(m_width*m_height, ObjectTypeEmpty)
 { }
 
+LevelDefinition::LevelDefinition(const CSVParser &parsedFile) :
+	m_width(parsedFile.getWidthOfFile()),
+	m_height(parsedFile.getHeightOfFile()),
+	m_objectMatrix(m_width*m_height, ObjectTypeEmpty)
+{
+	std::string objectType;
+	m_levelBuildingCorrect = parsedFile.isFileCorrect() && parsedFile.couldOpenFile();
+	for (unsigned int y = 0; y < m_height; ++y)
+		for (unsigned int x = 0; x < m_width; ++x)
+		{
+			objectType = parsedFile.getTextInField(x,y);
+			if (objectType == "free")
+				m_objectMatrix[m_width * y + x] = ObjectTypeEmpty;
+			else if(objectType == "loose")
+				m_objectMatrix[m_width * y + x] = ObjectTypeLooseWall;
+			else if(objectType == "solid")
+				m_objectMatrix[m_width * y + x] = ObjectTypeSolidWall;
+			else if(objectType == "player")
+				m_objectMatrix[m_width * y + x] = ObjectTypePlayer;
+			else
+				m_levelBuildingCorrect = false;
+		}
+}
+
 LevelDefinition::ObjectType LevelDefinition::getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY) const
 {
 	return m_objectMatrix[m_width*positionY+positionX];

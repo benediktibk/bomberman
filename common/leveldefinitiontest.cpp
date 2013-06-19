@@ -41,3 +41,10 @@ void LevelDefinitionTest::getPlayerStartPositionCount_twoPlayerStartPositions_2(
 
 	CPPUNIT_ASSERT_EQUAL((size_t)2, level.getPlayerStartPositionCount());
 }
+
+void LevelDefinitionTest::getObjectTypeAtPosition_buildLevelFromCSVFilePosition3And2_resultIsObjectTypeLooseWall()
+{
+	LevelDefinition level(CSVParser("defaultlevel"));
+
+	CPPUNIT_ASSERT_EQUAL(LevelDefinition::ObjectTypeLooseWall, level.getObjectTypeAtPosition(3,2));
+}
