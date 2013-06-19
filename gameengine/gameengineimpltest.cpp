@@ -881,6 +881,7 @@ void GameEngineImplTest::updateGameState_playerDiesByHisOwnBomb_playerCountIs0()
 	input.setRightKeyNotPressed();
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, timeForOneField*100);
+	m_gameEngine->updateGameState(m_inputStates, timeForOneField*100);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)0, gameState.getPlayerCount());
 }
