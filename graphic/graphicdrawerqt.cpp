@@ -378,7 +378,7 @@ void GraphicDrawerQt::drawCellBackgrounds(unsigned int width, unsigned int heigh
 	{
 		for (unsigned int y = 0; y < height; ++y)
 		{
-			m_cellBackgrounds.push_back(new CellBackground(*m_scene, Point(x, y), m_pixelPerMeter));
+			m_cellBackgrounds.push_back(new CellBackground(*m_scene, *m_graphicRenderer, Point(x, y), m_pixelPerMeter));
 		}
 	}
 }

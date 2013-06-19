@@ -9,11 +9,12 @@ class QGraphicsSvgItem;
 
 namespace Graphic
 {
+	class SvgRenderer;
     class CellBackground
     {
     public:
-        CellBackground(QGraphicsScene &scene);
-        CellBackground(QGraphicsScene &scene, const Common::Point &position, double pixelPerMeter);
+		CellBackground(QGraphicsScene &scene, SvgRenderer &renderer);
+		CellBackground(QGraphicsScene &scene, SvgRenderer &renderer, const Common::Point &position, double pixelPerMeter);
         ~CellBackground();
 
         void update(const Common::Point &position, double pixelPerMeter);
