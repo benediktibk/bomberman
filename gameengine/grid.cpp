@@ -123,40 +123,36 @@ vector<unsigned int> Grid::getItemsInRange(const BombState &bomb , Grid::Item it
 		{
 			if (m_itemMatrix[getVectorIndex(x+i,y)] == item && isWallRight == false)
 			{
-				if(m_itemMatrix[getVectorIndex(x+i-1,y)] == ItemWall)
+                itemsInRange.push_back(m_idMatrix[getVectorIndex(x+i,y)]);
+                if(m_itemMatrix[getVectorIndex(x+i,y)] == ItemWall)
 					isWallRight = true;
-				else
-					itemsInRange.push_back(m_idMatrix[getVectorIndex(x+i,y)]);
 			}
 		}
 		if((x-i) >= 0)
 		{
 			if (m_itemMatrix[getVectorIndex(x-i,y)] == item && isWallLeft == false)
 			{
-				if(m_itemMatrix[getVectorIndex(x-i+1,y)] == ItemWall)
-					isWallLeft = true;
-				else
-					itemsInRange.push_back(m_idMatrix[getVectorIndex(x-i,y)]);
+                itemsInRange.push_back(m_idMatrix[getVectorIndex(x-i,y)]);
+                if(m_itemMatrix[getVectorIndex(x-i,y)] == ItemWall)
+					isWallLeft = true;	
 			}
 		}
 		if((y+i) < static_cast<int>(m_gridRows))
 		{
 			if (m_itemMatrix[getVectorIndex(x,y+i)] == item && isWallUp == false)
 			{
-				if(m_itemMatrix[getVectorIndex(x,y+i-1)] == ItemWall)
-					isWallUp = true;
-				else
-					itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y+i)]);
+                itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y+i)]);
+                if(m_itemMatrix[getVectorIndex(x,y+i)] == ItemWall)
+                    isWallUp = true;
 			}
 		}
 		if((y-i) >= 0)
 		{
 			if (m_itemMatrix[getVectorIndex(x,y-i)] == item && isWallDown == false)
 			{
-				if(m_itemMatrix[getVectorIndex(x,y-i+1)] == ItemWall)
+                itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y-i)]);
+                if(m_itemMatrix[getVectorIndex(x,y-i)] == ItemWall)
 					isWallDown = true;
-				else
-					itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y-i)]);
 			}
 		}
 	}
