@@ -113,51 +113,43 @@ vector<unsigned int> Grid::getItemsInRange(const BombState &bomb , Grid::Item it
 	int x = position.getX();
 	int y = position.getY();
 	int range = bomb.getDestructionRange();
-	bool isWallRight = false;
-	bool isWallLeft = false;
-	bool isWallUp = false;
-	bool isWallDown = false;
+    bool isWallRightReached = false;
+    bool isWallLeftReached = false;
+    bool isWallUpReached = false;
+    bool isWallDownReached = false;
 	for( int i=1 ; i<=range ; ++i)
 	{
 		if((x+i) < static_cast<int>(m_gridColumns))
 		{
-			if (m_itemMatrix[getVectorIndex(x+i,y)] == item && isWallRight == false)
-			{
-				if(m_itemMatrix[getVectorIndex(x+i-1,y)] == ItemWall)
-					isWallRight = true;
-				else
-					itemsInRange.push_back(m_idMatrix[getVectorIndex(x+i,y)]);
-			}
+            if (m_itemMatrix[getVectorIndex(x+i,y)] == item && !isWallRightReached)
+                itemsInRange.push_back(m_idMatrix[getVectorIndex(x+i,y)]);
+
+            if(m_itemMatrix[getVectorIndex(x+i,y)] == ItemWall)
+                isWallRightReached = true;
 		}
 		if((x-i) >= 0)
 		{
-			if (m_itemMatrix[getVectorIndex(x-i,y)] == item && isWallLeft == false)
-			{
-				if(m_itemMatrix[getVectorIndex(x-i+1,y)] == ItemWall)
-					isWallLeft = true;
-				else
-					itemsInRange.push_back(m_idMatrix[getVectorIndex(x-i,y)]);
-			}
+            if (m_itemMatrix[getVectorIndex(x-i,y)] == item && !isWallLeftReached)
+                itemsInRange.push_back(m_idMatrix[getVectorIndex(x-i,y)]);
+
+            if(m_itemMatrix[getVectorIndex(x-i,y)] == ItemWall)
+                isWallLeftReached = true;
 		}
 		if((y+i) < static_cast<int>(m_gridRows))
 		{
-			if (m_itemMatrix[getVectorIndex(x,y+i)] == item && isWallUp == false)
-			{
-				if(m_itemMatrix[getVectorIndex(x,y+i-1)] == ItemWall)
-					isWallUp = true;
-				else
-					itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y+i)]);
-			}
+            if (m_itemMatrix[getVectorIndex(x,y+i)] == item && !isWallUpReached)
+                itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y+i)]);
+
+            if(m_itemMatrix[getVectorIndex(x,y+i)] == ItemWall)
+                isWallUpReached = true;
 		}
 		if((y-i) >= 0)
 		{
-			if (m_itemMatrix[getVectorIndex(x,y-i)] == item && isWallDown == false)
-			{
-				if(m_itemMatrix[getVectorIndex(x,y-i+1)] == ItemWall)
-					isWallDown = true;
-				else
-					itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y-i)]);
-			}
+            if (m_itemMatrix[getVectorIndex(x,y-i)] == item && !isWallDownReached)
+                itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y-i)]);
+
+            if(m_itemMatrix[getVectorIndex(x,y-i)] == ItemWall)
+                isWallDownReached = true;
 		}
 	}
 	return itemsInRange;
