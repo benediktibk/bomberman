@@ -14,14 +14,26 @@ RenderAllSvgGraphics::~RenderAllSvgGraphics()
 	delete m_playerRenderer;
 }
 
-QGraphicsSvgItem *RenderAllSvgGraphics::getNewPlayerItem()
+void RenderAllSvgGraphics::renderPlayerItem()
+{
+	m_playerRenderer = new QSvgRenderer(QString("resources/graphics/player_standing.svg"));
+}
+
+void RenderAllSvgGraphics::renderBombItem()
+{
+	m_bombRenderer = new QSvgRenderer(QString("resources/graphics/bomb_planted.svg"));
+}
+
+QGraphicsSvgItem* RenderAllSvgGraphics::getNewPlayerItem()
 {
 	QGraphicsSvgItem *player = new QGraphicsSvgItem();
 	player->setSharedRenderer(m_playerRenderer);
 	return player;
 }
 
-void RenderAllSvgGraphics::renderPlayerItem()
+QGraphicsSvgItem* RenderAllSvgGraphics::getNewBombItem()
 {
-	m_playerRenderer = new QSvgRenderer(QString("resources/graphics/player_standing.svg"));
+	QGraphicsSvgItem *bomb = new QGraphicsSvgItem();
+	bomb->setSharedRenderer(m_bombRenderer);
+	return bomb;
 }
