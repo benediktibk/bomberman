@@ -76,25 +76,3 @@ bool LevelDefinition::isLevelBuildingCorrect() const
 {
 	return m_levelBuildingCorrect;
 }
-
-LevelDefinition LevelDefinition::createDefaultLevel()
-{
-	LevelDefinition result(15, 10);
-
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 0, 3);
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 7);
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 2);
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 4);
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 5, 2);
-    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 5, 4);
-    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 2);
-    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 4);
-    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 9, 2);
-    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 9, 4);
-    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 11, 2);
-    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 11, 3);
-
-	return result;
-}

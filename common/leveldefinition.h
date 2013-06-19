@@ -33,8 +33,6 @@ class LevelDefinition
 		size_t getPlayerStartPositionCount() const;
 		bool isLevelBuildingCorrect() const;
 
-		static LevelDefinition createDefaultLevel();
-
 	private:
 		unsigned int m_width;
 		unsigned int m_height;
