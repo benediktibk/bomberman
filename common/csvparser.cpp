@@ -6,7 +6,8 @@ using namespace std;
 CSVParser::CSVParser() :
 	m_height(0),
 	m_width(0),
-	m_isFileCorrect(true)
+	m_isFileCorrect(true),
+	m_couldOpenFile(true)
 { }
 
 void CSVParser::parseFile(std::string filename)
@@ -15,9 +16,12 @@ void CSVParser::parseFile(std::string filename)
 	ifstream csvRead(opneninngFile.c_str());
 	string textInLine;
 	string textInField;
-	unsigned int height = 0;
 	unsigned int width;
 	bool firstLine = false;
+	m_width = 0;
+	m_height = 0;
+	m_couldOpenFile = true;
+	m_isFileCorrect = true;
 
 	if(csvRead.is_open())
 	{
@@ -26,7 +30,7 @@ void CSVParser::parseFile(std::string filename)
 			while (getline(csvRead, textInLine))
 			{
 				istringstream record(textInLine);
-				height += 1;
+				m_height += 1;
 				width = 0;
 				while (getline(record, textInField, ';'))
 				{
@@ -47,10 +51,9 @@ void CSVParser::parseFile(std::string filename)
 		}
 	}
 	else
-		cerr << "ERROR could not open file" << endl;
+		m_couldOpenFile = false;
 
 	csvRead.close();
-	m_height = height;
 	m_width = width;
 }
 
@@ -72,4 +75,9 @@ string CSVParser::getTextInField(unsigned int x, unsigned int y) const
 bool CSVParser::isFileCorrect()
 {
 	return m_isFileCorrect;
+}
+
+bool CSVParser::couldOpenFile()
+{
+	return m_couldOpenFile;
 }
