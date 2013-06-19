@@ -11,10 +11,13 @@ namespace Common
 
 namespace Graphic
 {
+	class RenderAllSvgGraphics;
+
 	class Bomb
 	{
 	public:
 		Bomb(QGraphicsScene &scene);
+		Bomb(QGraphicsScene &scene, RenderAllSvgGraphics *renderer);
 		~Bomb();
 
 		void update(const Common::BombState &state, double pixelPerMeter);

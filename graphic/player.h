@@ -11,10 +11,13 @@ namespace Common
 
 namespace Graphic
 {
+class RenderAllSvgGraphics;
+
 class Player
 {
 public:
 	Player(QGraphicsScene &scene);
+	Player(QGraphicsScene &scene, RenderAllSvgGraphics *renderer);
 	~Player();
 
 	void update(const Common::PlayerState &state, double pixelPerMeter);

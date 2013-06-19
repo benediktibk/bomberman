@@ -21,6 +21,7 @@ set(COMMON_SRC
 	compare.cpp
 	leveldefinitionreader.cpp
 	csvparser.cpp
+    powerupmaxbombrangestate.cpp
 )
 
 set(COMMON_TEST_SRC
@@ -52,6 +53,7 @@ set(COMMON_TEST_SRC
 	comparetest.cpp
 	leveldefinitionreadertest.cpp
 	csvparsertest.cpp
+    powerupmaxbombrangestatetest.cpp
 )
 
 add_library(common ${COMMON_SRC})

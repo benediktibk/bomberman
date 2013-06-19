@@ -1,22 +1,23 @@
 #include "graphic/powerup.h"
 #include "graphic/point.h"
 #include "common/powerupstate.h"
+#include "graphic/renderallsvggraphics.h"
 #include <QGraphicsScene>
 #include <QtSvg/QtSvg>
 
 using namespace Graphic;
 using namespace Common;
 
-PowerUp::PowerUp(QGraphicsScene &scene) :
-	m_svgItem(new QGraphicsSvgItem(QString("resources/graphics/powerup.svg")))
+PowerUp::PowerUp(QGraphicsScene &scene, RenderAllSvgGraphics *renderer) :
+	m_svgItem(renderer->getNewPowerUpItem())
 {
 	m_svgItem->setZValue(0);
 	scene.addItem(m_svgItem);
 }
 
-PowerUp::PowerUp(QGraphicsScene &scene, PowerUpState &state, double pixelPerMeter)
+PowerUp::PowerUp(QGraphicsScene &scene, RenderAllSvgGraphics *renderer, PowerUpState &state, double pixelPerMeter)
 {
-	createSvgItem(state);
+	createSvgItem(state, renderer);
 	scene.addItem(m_svgItem);
 	update(state, pixelPerMeter);
 }
@@ -35,8 +36,8 @@ void PowerUp::update(const PowerUpState &state, double pixelPerMeter)
 	m_svgItem->setPos(position.toQPoint());
 }
 
-void PowerUp::createSvgItem(PowerUpState &/*state*/)
+void PowerUp::createSvgItem(PowerUpState &/*state*/, RenderAllSvgGraphics *renderer)
 {
-	m_svgItem = new QGraphicsSvgItem(QString("resources/objects/powerup_v2.svg"));
+	m_svgItem = renderer->getNewPowerUpItem();
 	m_svgItem->setZValue(0);
 }

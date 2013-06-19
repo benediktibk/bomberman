@@ -1,6 +1,7 @@
 #include "player.h"
 #include "graphic/point.h"
 #include "common/playerstate.h"
+#include "graphic/renderallsvggraphics.h"
 #include <QGraphicsScene>
 #include <QtSvg/QtSvg>
 
@@ -12,6 +13,12 @@ Player::Player(QGraphicsScene &scene) :
 	m_svgItem(new QGraphicsSvgItem(QString("resources/graphics/player_standing.svg")))
 {
 	m_svgItem->setZValue(2);
+	scene.addItem(m_svgItem);
+}
+
+Player::Player(QGraphicsScene &scene, RenderAllSvgGraphics *renderer)
+{
+	m_svgItem = renderer->getNewPlayerItem();
 	scene.addItem(m_svgItem);
 }
 

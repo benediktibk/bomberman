@@ -1,6 +1,7 @@
 #include "bomb.h"
 #include "common/bombstate.h"
 #include "graphic/point.h"
+#include "graphic/renderallsvggraphics.h"
 #include <QGraphicsScene>
 #include <QtSvg/QtSvg>
 
@@ -10,6 +11,12 @@ Bomb::Bomb(QGraphicsScene &scene) :
 	m_svgItem(new QGraphicsSvgItem(QString("resources/graphics/bomb_planted.svg")))
 {
 	m_svgItem->setZValue(1);
+	scene.addItem(m_svgItem);
+}
+
+Bomb::Bomb(QGraphicsScene &scene, RenderAllSvgGraphics *renderer)
+{
+	m_svgItem = renderer->getNewBombItem();
 	scene.addItem(m_svgItem);
 }
 

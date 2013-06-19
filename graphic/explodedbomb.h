@@ -13,10 +13,11 @@ namespace Common
 
 namespace Graphic
 {
+	class RenderAllSvgGraphics;
 	class ExplodedBomb
 	{
 	public:
-		ExplodedBomb(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter);
+		ExplodedBomb(QGraphicsScene &scene, RenderAllSvgGraphics *renderer, const Common::ExplodedBombState &state, double pixelPerMeter);
 		~ExplodedBomb();
 
 	private:
@@ -28,6 +29,7 @@ namespace Graphic
 		void createFlamesToTheLower(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter);
 
 	private:
+		RenderAllSvgGraphics *m_renderer;
 		QGraphicsSvgItem *m_center;
 		QGraphicsSvgItem *m_upperEnd;
 		QGraphicsSvgItem *m_lowerEnd;

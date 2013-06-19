@@ -1,6 +1,7 @@
 #include "graphic/explodedbomb.h"
 #include "common/explodedbombstate.h"
 #include "graphic/point.h"
+#include "graphic/renderallsvggraphics.h"
 #include <QGraphicsScene>
 #include <QtSvg/QtSvg>
 #include <assert.h>
@@ -8,7 +9,8 @@
 using namespace Graphic;
 using namespace std;
 
-ExplodedBomb::ExplodedBomb(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter) :
+ExplodedBomb::ExplodedBomb(QGraphicsScene &scene, RenderAllSvgGraphics *renderer, const Common::ExplodedBombState &state, double pixelPerMeter) :
+	m_renderer(renderer),
 	m_center(0),
 	m_upperEnd(0),
 	m_lowerEnd(0),
@@ -41,7 +43,7 @@ ExplodedBomb::~ExplodedBomb()
 void ExplodedBomb::createCenterFlame(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter)
 {
 	double dimension = state.getHeight();
-	m_center = new QGraphicsSvgItem(QString("resources/graphics/explosion_center.svg"));
+	m_center = m_renderer->getNewExplodedBombCenterItem();
 	m_center->setScale(0.001*pixelPerMeter*dimension);
 	Point centerPosition(state.getPosition());
 	centerPosition *= pixelPerMeter;
@@ -55,10 +57,10 @@ void ExplodedBomb::createFlameEnds(QGraphicsScene &scene, const Common::Exploded
 {
 	double dimension = state.getHeight();
 
-	m_upperEnd = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
-	m_lowerEnd = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
-	m_leftEnd = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
-	m_rightEnd = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
+	m_upperEnd = m_renderer->getNewExplodedBombFlameItem();
+	m_lowerEnd = m_renderer->getNewExplodedBombFlameItem();
+	m_leftEnd = m_renderer->getNewExplodedBombFlameItem();
+	m_rightEnd = m_renderer->getNewExplodedBombFlameItem();
 
 	m_lowerEnd->rotate(180);
 	m_leftEnd->rotate(90);
