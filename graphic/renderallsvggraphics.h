@@ -2,6 +2,7 @@
 #define GRAPHIC_RENDERALLSVGGRAPHICS_H
 
 class QGraphicsSvgItem;
+class QSvgRenderer;
 
 namespace Graphic
 {
@@ -9,14 +10,15 @@ class RenderAllSvgGraphics
 {
 public:
 	RenderAllSvgGraphics(const double pixelPerMeter);
-	QGraphicsSvgItem* getPlayerItem();
+	QGraphicsSvgItem *getNewPlayerItem();
+	~RenderAllSvgGraphics();
 
 private:
 	void renderPlayerItem();
 
 private:
 	const double m_pixelPerMeter;
-	QGraphicsSvgItem *m_playerItem;
+	QSvgRenderer *m_playerRenderer;
 
 };
 }

@@ -7,13 +7,19 @@ RenderAllSvgGraphics::RenderAllSvgGraphics(const double pixelPerMeter) :
 	m_pixelPerMeter(pixelPerMeter)
 { }
 
-QGraphicsSvgItem* RenderAllSvgGraphics::getPlayerItem()
+RenderAllSvgGraphics::~RenderAllSvgGraphics()
 {
-	return m_playerItem;
+	delete m_playerRenderer;
+}
+
+QGraphicsSvgItem *RenderAllSvgGraphics::getNewPlayerItem()
+{
+	QGraphicsSvgItem *player = new QGraphicsSvgItem();
+	player->setSharedRenderer(m_playerRenderer);
+	return player;
 }
 
 void RenderAllSvgGraphics::renderPlayerItem()
 {
-	m_playerItem = new QGraphicsSvgItem(QString("resources/graphics/player_standing.svg"));
-	m_playerItem->setZValue(2);
+	m_playerRenderer = new QSvgRenderer(QString("resources/graphics/player_standing.svg"));
 }
