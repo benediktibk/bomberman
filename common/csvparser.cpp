@@ -11,7 +11,7 @@ CSVParser::CSVParser() :
 
 void CSVParser::parseFile(std::string filename)
 {
-	string opneninngFile = "resources/levels/" + filename + ".csv";
+	string opneninngFile = "resources/testfiles/" + filename + ".csv";
 	ifstream csvRead(opneninngFile.c_str());
 	string textInLine;
 	string textInField;
