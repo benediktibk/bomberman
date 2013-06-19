@@ -35,10 +35,14 @@ void allPlayerInputFetcher::setGameMode(unsigned int playerCount)
         m_gameModeIsSinglePlayer=true;
         m_inputStatePlayer1 = m_inputFetcher.getInputState();
         
-        for(vector<GameEngine::ComputerEnemyInputFetcher>::const_iterator i = CompInputFetcher.begin(); i != CompInputFetcher.end(); ++i)
-        m_computerInputStates.push_back((*i)->getInputState());  
+        for(vector<GameEngine::ComputerEnemyInputFetcher*>::const_iterator i = CompInputFetcher.begin(); i != CompInputFetcher.end(); ++i)
+        {           
+            m_computerInputStates.push_back((*i)->getInputState());  
+        }
         
         //ID anders implementieren        
+        //ID auch auf Enemies 
+        //Enemies in m_inputStates pushen
         m_inputStates[m_playerIds.front()] = m_inputStatePlayer1;
         m_inputStates[m_playerIds.back()] = m_inputStatePlayer2;
                 
@@ -48,7 +52,10 @@ void allPlayerInputFetcher::setGameMode(unsigned int playerCount)
     {   
         m_gameModeIsSinglePlayer=false;  
         m_inputStates = m_inputFetcher.getInputStates();  
-        //m_computerInputStates = 
+        for(vector<GameEngine::ComputerEnemyInputFetcher*>::const_iterator i = CompInputFetcher.begin(); i != CompInputFetcher.end(); ++i)
+        {           
+            m_computerInputStates.push_back((*i)->getInputState());  
+        }
     }
     
 }
