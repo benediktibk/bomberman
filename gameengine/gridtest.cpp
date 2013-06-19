@@ -476,7 +476,7 @@ void GridTest::getPowerUpsInRange_bombat33rangeis4BombEmptyWallPowerUp_sizeofwal
 }
 
 
-void GridTest::getPowerUpsInRange_bombat33rangeis5PowerUpBombPowerUpPowerUpWallPowerUp_sizeofwallsinrangeis3()
+void GridTest::getPowerUpsInRange_bombat33RangeIs10PowerUpBombPowerUpPowerUpWallPowerUp_sizeOfPowerUpsInRangeIs3()
 {
 	UniqueIdCreator bombIDCreator;
 	UniqueIdCreator wallcreator;
@@ -487,7 +487,7 @@ void GridTest::getPowerUpsInRange_bombat33rangeis5PowerUpBombPowerUpPowerUpWallP
 	Point position(2.0, 3.0);
 	BombState bomb(bombIDCreator, 0);
 	bomb.setPosition(position);
-	bomb.setDestructionRange(5);
+    bomb.setDestructionRange(10);
 	grid.addBombAtPlace(bomb);
 
 	Point position1(1.0, 3.0);

@@ -8,14 +8,14 @@ using namespace Graphic;
 CellBackground::CellBackground(QGraphicsScene &scene) :
 	m_svgItem(new QGraphicsSvgItem(QString("resources/graphics/bg_cell_pattern.svg")))
 {
-    m_svgItem->setZValue(-10);
+	m_svgItem->setZValue(-5);
     scene.addItem(m_svgItem);
 }
 
 CellBackground::CellBackground(QGraphicsScene &scene, const Common::Point &position, double pixelPerMeter) :
 	m_svgItem(new QGraphicsSvgItem(QString("resources/graphics/bg_cell_pattern.svg")))
 {
-    m_svgItem->setZValue(-10);
+	m_svgItem->setZValue(-5);
     updateInternal(position, 1, 1, pixelPerMeter);
     scene.addItem(m_svgItem);
 }

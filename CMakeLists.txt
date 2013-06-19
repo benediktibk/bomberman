@@ -35,6 +35,11 @@ set(LEVELS
 	levellist.csv
 )
 
+set(TESTFILES
+	defaultlevel.csv
+	levellist.csv
+)
+
 set(GRAPHICS
 	bomb_planted.svg
 	player_standing.svg
@@ -53,6 +58,12 @@ foreach(file ${LEVELS})
 	file(	COPY
 			${CMAKE_CURRENT_SOURCE_DIR}/resources/levels/${file}
 			DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/levels/)
+endforeach()
+
+foreach(file ${TESTFILES})
+	file(	COPY
+			${CMAKE_CURRENT_SOURCE_DIR}/resources/testfiles/${file}
+			DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/testfiles/)
 endforeach()
 
 foreach(file ${GRAPHICS})

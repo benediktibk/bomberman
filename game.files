@@ -314,3 +314,5 @@ common/csvparsertest.h
 common/csvparsertest.cpp
 graphic/explodedbomb.h
 graphic/explodedbomb.cpp
+resources/testfiles/levellist.csv
+resources/testfiles/defaultlevel.csv
