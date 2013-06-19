@@ -31,6 +31,7 @@ class LevelDefinition
 		unsigned int getLevelHeight() const;
 		void setObjectTypeAtPosition(ObjectType objectType, unsigned int positionX, unsigned int positionY);
 		size_t getPlayerStartPositionCount() const;
+		bool isLevelBuildingCorrect() const;
 
 		static LevelDefinition createDefaultLevel();
 

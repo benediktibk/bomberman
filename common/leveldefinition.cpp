@@ -72,6 +72,11 @@ size_t LevelDefinition::getPlayerStartPositionCount() const
 	return result;
 }
 
+bool LevelDefinition::isLevelBuildingCorrect() const
+{
+	return m_levelBuildingCorrect;
+}
+
 LevelDefinition LevelDefinition::createDefaultLevel()
 {
 	LevelDefinition result(15, 10);
