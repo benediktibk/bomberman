@@ -46,7 +46,7 @@ namespace Common
 		unsigned int getWidth() const;
 		std::vector<const BombState*> getAllBombsWithNoLifeTime() const;
 		void eraseWallById(unsigned int wallId);
-		void setBombsLifeTimeToZero(unsigned int bombId);
+		void setBombsLifeTimeToZeroIfPositive(unsigned int bombId);
 		std::vector<unsigned int> getAllPossiblePowerUpIDs() const;
 		const PowerUpState* getPowerUpById(unsigned int powerUpId);
 		void erasePowerUpById(unsigned int powerUpId);

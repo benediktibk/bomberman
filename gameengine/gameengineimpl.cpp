@@ -274,7 +274,7 @@ void GameEngineImpl::updateBombs()
 		vector<unsigned int> bombsInRange;
 		bombsInRange = m_grid->getBombsInRange(bomb);
 		for(size_t j = 0; j < bombsInRange.size(); j++)
-			m_gameState.setBombsLifeTimeToZero(bombsInRange[j]);
+			m_gameState.setBombsLifeTimeToZeroIfPositive(bombsInRange[j]);
 
 		vector<unsigned int> powerUpsInRange;
 		powerUpsInRange = m_grid->getPowerUpsInRange(bomb);

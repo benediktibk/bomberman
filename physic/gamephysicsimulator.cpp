@@ -50,8 +50,8 @@ void GamePhysicSimulator::simulateStep(GameState &game, double time)
 		}
 		else
 			player = playerPosition->second;
-        player->applyLinearVelocity(playerState.getSpeedIntoX(), playerState.getSpeedIntoY());
-        player->updateObstacle();
+		player->applyLinearVelocity(playerState.getSpeedIntoX(), playerState.getSpeedIntoY());
+		player->updateObstacle();
 	}
 
 	m_simulator->simulateStep(time);
@@ -160,13 +160,18 @@ void GamePhysicSimulator::updateCollisionGroups(const PlayerState &player)
 	for (map<const BombState*, Bomb*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
 	{
 		Bomb *bomb = i->second;
-		bomb->collideWithEverything();
+		if (!(i->first)->isDestroyed())
+			bomb->collideWithEverything();
 	}
 
 	vector<const BombState*> bombsNotToCollideWith = player.getBombsNotToCollideWith();
 	for (vector<const BombState*>::const_iterator i = bombsNotToCollideWith.begin(); i != bombsNotToCollideWith.end(); ++i)
 	{
-		Bomb *bomb = m_bombs.at(*i);
-		bomb->doNotCollideWith(player);
+		const BombState &bombState = **i;
+		if (!bombState.isDestroyed())
+		{
+			Bomb *bomb = m_bombs.at(&bombState);
+			bomb->doNotCollideWith(player);
+		}
 	}
 }
