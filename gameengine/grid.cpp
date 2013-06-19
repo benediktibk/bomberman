@@ -113,46 +113,46 @@ vector<unsigned int> Grid::getItemsInRange(const BombState &bomb , Grid::Item it
 	int x = position.getX();
 	int y = position.getY();
 	int range = bomb.getDestructionRange();
-	bool isWallRight = false;
-	bool isWallLeft = false;
-	bool isWallUp = false;
-	bool isWallDown = false;
+    bool isWallRightReached = false;
+    bool isWallLeftReached = false;
+    bool isWallUpReached = false;
+    bool isWallDownReached = false;
 	for( int i=1 ; i<=range ; ++i)
 	{
 		if((x+i) < static_cast<int>(m_gridColumns))
 		{
-            if (m_itemMatrix[getVectorIndex(x+i,y)] == item && !isWallRight)
+            if (m_itemMatrix[getVectorIndex(x+i,y)] == item && !isWallRightReached)
 			{
                 itemsInRange.push_back(m_idMatrix[getVectorIndex(x+i,y)]);
                 if(m_itemMatrix[getVectorIndex(x+i,y)] == ItemWall)
-					isWallRight = true;
+                    isWallRightReached = true;
 			}
 		}
 		if((x-i) >= 0)
 		{
-            if (m_itemMatrix[getVectorIndex(x-i,y)] == item && !isWallLeft)
+            if (m_itemMatrix[getVectorIndex(x-i,y)] == item && !isWallLeftReached)
 			{
                 itemsInRange.push_back(m_idMatrix[getVectorIndex(x-i,y)]);
                 if(m_itemMatrix[getVectorIndex(x-i,y)] == ItemWall)
-					isWallLeft = true;	
+                    isWallLeftReached = true;
 			}
 		}
 		if((y+i) < static_cast<int>(m_gridRows))
 		{
-            if (m_itemMatrix[getVectorIndex(x,y+i)] == item && !isWallUp)
+            if (m_itemMatrix[getVectorIndex(x,y+i)] == item && !isWallUpReached)
 			{
                 itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y+i)]);
                 if(m_itemMatrix[getVectorIndex(x,y+i)] == ItemWall)
-                    isWallUp = true;
+                    isWallUpReached = true;
 			}
 		}
 		if((y-i) >= 0)
 		{
-            if (m_itemMatrix[getVectorIndex(x,y-i)] == item && !isWallDown)
+            if (m_itemMatrix[getVectorIndex(x,y-i)] == item && !isWallDownReached)
 			{
                 itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y-i)]);
                 if(m_itemMatrix[getVectorIndex(x,y-i)] == ItemWall)
-					isWallDown = true;
+                    isWallDownReached = true;
 			}
 		}
 	}
