@@ -45,6 +45,10 @@ namespace GameEngine
 		std::vector<unsigned int> getPowerUpsInRange(const Common::BombState &bomb) const;
 		std::vector<Common::GridPoint> getPlayerFields(const Common::PlayerState &player) const;
 		std::vector<unsigned int> getPlayersInRange(const Common::BombState &bomb, std::vector<const Common::PlayerState*> allPlayers) const;
+		unsigned int getBombMaximumRangeLeft(const Common::GridPoint &position) const;
+		unsigned int getBombMaximumRangeUp(const Common::GridPoint &position) const;
+		unsigned int getBombMaximumRangeRight(const Common::GridPoint &position) const;
+		unsigned int getBombMaximumRangeDown(const Common::GridPoint &position) const;
 		unsigned int getDistanceToNextWallLeft(const Common::GridPoint &position) const;
 		unsigned int getDistanceToNextWallRight(const Common::GridPoint &position) const;
 		unsigned int getDistanceToNextWallUp(const Common::GridPoint &position) const;

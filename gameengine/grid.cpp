@@ -326,3 +326,71 @@ unsigned int Grid::getDistanceToNextWallDown(const GridPoint &position) const
 
 	return distance - 1;
 }
+
+unsigned int Grid::getBombMaximumRangeLeft(const GridPoint &position) const
+{
+	unsigned int distanceToNextWall = getDistanceToNextWallLeft(position);
+
+	if (position.getX() - distanceToNextWall - 1 < m_gridColumns)
+	{
+		GridPoint endPosition(position - GridPoint(distanceToNextWall + 1, 0));
+		unsigned int vectorIndex = getVectorIndex(endPosition);
+		Item itemType = m_itemMatrix[vectorIndex];
+
+		if (itemType == ItemLooseWall)
+			return distanceToNextWall + 1;
+	}
+
+	return distanceToNextWall;
+}
+
+unsigned int Grid::getBombMaximumRangeUp(const GridPoint &position) const
+{
+	unsigned int distanceToNextWall = getDistanceToNextWallUp(position);
+
+	if (position.getY() + distanceToNextWall + 1 < m_gridRows)
+	{
+		GridPoint endPosition(position + GridPoint(0, distanceToNextWall + 1));
+		unsigned int vectorIndex = getVectorIndex(endPosition);
+		Item itemType = m_itemMatrix[vectorIndex];
+
+		if (itemType == ItemLooseWall)
+			return distanceToNextWall + 1;
+	}
+
+	return distanceToNextWall;
+}
+
+unsigned int Grid::getBombMaximumRangeRight(const GridPoint &position) const
+{
+	unsigned int distanceToNextWall = getDistanceToNextWallRight(position);
+
+	if (position.getX() + distanceToNextWall + 1 < m_gridColumns)
+	{
+		GridPoint endPosition(position + GridPoint(distanceToNextWall + 1, 0));
+		unsigned int vectorIndex = getVectorIndex(endPosition);
+		Item itemType = m_itemMatrix[vectorIndex];
+
+		if (itemType == ItemLooseWall)
+			return distanceToNextWall + 1;
+	}
+
+	return distanceToNextWall;
+}
+
+unsigned int Grid::getBombMaximumRangeDown(const GridPoint &position) const
+{
+	unsigned int distanceToNextWall = getDistanceToNextWallDown(position);
+
+	if (position.getY() - distanceToNextWall - 1 < m_gridRows)
+	{
+		GridPoint endPosition(position - GridPoint(0, distanceToNextWall + 1));
+		unsigned int vectorIndex = getVectorIndex(endPosition);
+		Item itemType = m_itemMatrix[vectorIndex];
+
+		if (itemType == ItemLooseWall)
+			return distanceToNextWall + 1;
+	}
+
+	return distanceToNextWall;
+}
