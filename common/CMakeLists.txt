@@ -19,7 +19,6 @@ set(COMMON_SRC
 	powerupmaxvelocitystate.cpp
 	explodedbombstate.cpp
 	compare.cpp
-	leveldefinitionreader.cpp
 	csvparser.cpp
     powerupmaxbombrangestate.cpp
 )
@@ -51,7 +50,6 @@ set(COMMON_TEST_SRC
 	powerupmaxvelocitystatetest.cpp
 	explodedbombstatetest.cpp
 	comparetest.cpp
-	leveldefinitionreadertest.cpp
 	csvparsertest.cpp
     powerupmaxbombrangestatetest.cpp
 )
