@@ -32,7 +32,7 @@ bool Grid::isPlaceEmpty(const GridPoint &position) const
 bool Grid::isPlaceCoveredByWall(const GridPoint &position) const
 {
 	unsigned int index = getVectorIndex(position);
-	return m_itemMatrix[index] == ItemWall;
+	return m_itemMatrix[index] == ItemSolidWall || m_itemMatrix[index] == ItemLooseWall;
 }
 
 unsigned Grid::getId(const GridPoint &position) const
@@ -54,7 +54,12 @@ void Grid::addWallAtPlace(const WallState &wall)
 {
 	GridPoint position(wall.getPosition());
 	unsigned int index = getVectorIndex(position);
-	m_itemMatrix[index] = ItemWall;
+
+	if (WallState::WallTypeSolid == wall.getWallType())
+		m_itemMatrix[index] = ItemSolidWall;
+	else
+		m_itemMatrix[index] = ItemLooseWall;
+
 	m_idMatrix[index] = wall.getId();
 }
 
@@ -106,77 +111,78 @@ void Grid::updatePlayer(const PlayerState &player)
 	m_idMatrix[index] = player.getId();
 }
 
-vector<unsigned int> Grid::getItemsInRange(const BombState &bomb , Grid::Item item) const
+vector<unsigned int> Grid::getItemsInRange(const BombState &bomb, Grid::Item item) const
 {
 	vector<unsigned int> itemsInRange;
 	GridPoint position(bomb.getPosition());
 	int x = position.getX();
 	int y = position.getY();
 	int range = bomb.getDestructionRange();
-    bool isWallRightReached = false;
-    bool isWallLeftReached = false;
-    bool isWallUpReached = false;
-    bool isWallDownReached = false;
-	for( int i=1 ; i<=range ; ++i)
+	bool isWallRightReached = false;
+	bool isWallLeftReached = false;
+	bool isWallUpReached = false;
+	bool isWallDownReached = false;
+
+	for(int i = 1 ; i <= range ; ++i)
 	{
-		if((x+i) < static_cast<int>(m_gridColumns))
+		if((x + i) < static_cast<int>(m_gridColumns))
 		{
-            if (m_itemMatrix[getVectorIndex(x+i,y)] == item && !isWallRightReached)
-                itemsInRange.push_back(m_idMatrix[getVectorIndex(x+i,y)]);
+			if (m_itemMatrix[getVectorIndex(x + i, y)] == item && !isWallRightReached)
+				itemsInRange.push_back(m_idMatrix[getVectorIndex(x + i, y)]);
 
-            if(m_itemMatrix[getVectorIndex(x+i,y)] == ItemWall)
-                isWallRightReached = true;
+			if(isPlaceCoveredByWall(GridPoint(x + i, y)))
+				isWallRightReached = true;
 		}
-		if((x-i) >= 0)
-		{
-            if (m_itemMatrix[getVectorIndex(x-i,y)] == item && !isWallLeftReached)
-                itemsInRange.push_back(m_idMatrix[getVectorIndex(x-i,y)]);
 
-            if(m_itemMatrix[getVectorIndex(x-i,y)] == ItemWall)
-                isWallLeftReached = true;
+		if((x - i) >= 0)
+		{
+			if (m_itemMatrix[getVectorIndex(x - i, y)] == item && !isWallLeftReached)
+				itemsInRange.push_back(m_idMatrix[getVectorIndex(x - i, y)]);
+
+			if(isPlaceCoveredByWall(GridPoint(x - i, y)))
+				isWallLeftReached = true;
 		}
-		if((y+i) < static_cast<int>(m_gridRows))
-		{
-            if (m_itemMatrix[getVectorIndex(x,y+i)] == item && !isWallUpReached)
-                itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y+i)]);
 
-            if(m_itemMatrix[getVectorIndex(x,y+i)] == ItemWall)
-                isWallUpReached = true;
+		if((y + i) < static_cast<int>(m_gridRows))
+		{
+			if (m_itemMatrix[getVectorIndex(x, y + i)] == item && !isWallUpReached)
+				itemsInRange.push_back(m_idMatrix[getVectorIndex(x, y + i)]);
+
+			if(isPlaceCoveredByWall(GridPoint(x, y + i)))
+				isWallUpReached = true;
 		}
-		if((y-i) >= 0)
-		{
-            if (m_itemMatrix[getVectorIndex(x,y-i)] == item && !isWallDownReached)
-                itemsInRange.push_back(m_idMatrix[getVectorIndex(x,y-i)]);
 
-            if(m_itemMatrix[getVectorIndex(x,y-i)] == ItemWall)
-                isWallDownReached = true;
+		if((y - i) >= 0)
+		{
+			if (m_itemMatrix[getVectorIndex(x, y - i)] == item && !isWallDownReached)
+				itemsInRange.push_back(m_idMatrix[getVectorIndex(x, y - i)]);
+
+			if(isPlaceCoveredByWall(GridPoint(x, y - i)))
+				isWallDownReached = true;
 		}
 	}
+
 	return itemsInRange;
 }
 
-vector<unsigned int> Grid::getWallsInRange(const BombState &bomb) const
+vector<unsigned int> Grid::getLooseWallsInRange(const BombState &bomb) const
 {
-	vector<unsigned int> result = getItemsInRange(bomb, ItemWall);
-	return result;
+	return getItemsInRange(bomb, ItemLooseWall);
 }
 
 vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb) const
 {
-	vector<unsigned int> result = getItemsInRange(bomb, ItemPlayer);
-	return result;
+	return getItemsInRange(bomb, ItemPlayer);
 }
 
 vector<unsigned int> Grid::getBombsInRange(const BombState &bomb) const
 {
-	vector<unsigned int> result = getItemsInRange(bomb, ItemBomb);
-	return result;
+	return getItemsInRange(bomb, ItemBomb);
 }
 
 vector<unsigned int> Grid::getPowerUpsInRange(const BombState &bomb) const
 {
-	vector<unsigned int> result = getItemsInRange(bomb, ItemPowerUp);
-	return result;
+	return getItemsInRange(bomb, ItemPowerUp);
 }
 
 unsigned int Grid::getVectorIndex(const GridPoint &position) const
@@ -227,7 +233,7 @@ std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::ve
 			{
 				if (isWallRight == false)
 				{
-					if(m_itemMatrix[getVectorIndex(x+i-1,y)] == ItemWall)
+					if(m_itemMatrix[getVectorIndex(x+i-1,y)] == ItemSolidWall)
 						isWallRight = true;
 					else if ((x+i) == playerX)
 					{
@@ -239,7 +245,7 @@ std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::ve
 			{
 				if (isWallLeft == false)
 				{
-					if(m_itemMatrix[getVectorIndex(x-i+1,y)] == ItemWall)
+					if(m_itemMatrix[getVectorIndex(x-i+1,y)] == ItemSolidWall)
 						isWallLeft = true;
 					else  if ((x-i) == playerX)
 					{
@@ -251,7 +257,7 @@ std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::ve
 			{
 				if (isWallUp == false)
 				{
-					if(m_itemMatrix[getVectorIndex(x,y+i-1)] == ItemWall)
+					if(m_itemMatrix[getVectorIndex(x,y+i-1)] == ItemSolidWall)
 						isWallUp = true;
 					else  if ((y+i) == playerY)
 					{
@@ -263,7 +269,7 @@ std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::ve
 			{
 				if (isWallDown == false)
 				{
-					if(m_itemMatrix[getVectorIndex(x,y-i+1)] == ItemWall)
+					if(m_itemMatrix[getVectorIndex(x,y-i+1)] == ItemSolidWall)
 						isWallDown = true;
 					else if ((y-i) == playerY)
 					{

@@ -16,7 +16,8 @@ namespace GameEngine
 	private:
 		enum Item
 		{
-			ItemWall,
+			ItemSolidWall,
+			ItemLooseWall,
 			ItemBomb,
 			ItemPlayer,
 			ItemPowerUp,
@@ -38,7 +39,7 @@ namespace GameEngine
 		void removePlayer(const Common::PlayerState &player);
 		void removePowerUp(const Common::PowerUpState &powerUp);
 		void addPowerUpAtPlace(Common::PowerUpState &powerUp);
-		std::vector<unsigned int> getWallsInRange(const Common::BombState &bomb) const;
+		std::vector<unsigned int> getLooseWallsInRange(const Common::BombState &bomb) const;
 		std::vector<unsigned int> getPlayersInRange(const Common::BombState &bomb) const;
 		std::vector<unsigned int> getBombsInRange(const Common::BombState &bomb) const;
 		std::vector<unsigned int> getPowerUpsInRange(const Common::BombState &bomb) const;
