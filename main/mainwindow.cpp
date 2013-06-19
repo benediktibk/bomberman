@@ -15,7 +15,7 @@ MainWindow::MainWindow(bool enableOpenGL) :
 	m_statusBarUpdateTimeStep(250),
 	m_ui(new Ui::MainWindow),
 	m_drawer(0),
-	m_level(Common::CSVParser("levels/neighbourship")),
+	m_level(Common::CSVParser("levels/defaultlevel")),
 	m_gameEngine(new GameEngine::GameEngineImpl(m_level, 2)),
 	m_gameLoop(new GameLoop(*this, *m_gameEngine, *this)),
 	m_timerStatusBarUpdate(new QTimer(this)),
