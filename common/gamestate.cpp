@@ -392,7 +392,7 @@ void GameState::erasePowerUpById(unsigned int powerUpId)
 
 void GameState::addPowerUp(PowerUpState *powerUp)
 {
-	m_powerUps.push_back(powerUp);
+	m_powerUps.push_back(powerUp);   
 }
 
 void GameState::erasePowerUp(size_t position)
