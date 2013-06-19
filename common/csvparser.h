@@ -13,16 +13,19 @@ namespace Common
 class CSVParser
 {
 public:
-	CSVParser();
-	void parseFile(std::string filename);
+	CSVParser(std::string filename);
 	unsigned int getHeightOfFile() const;
 	unsigned int getWidthOfFile() const;
 	std::string getTextInField(unsigned int x, unsigned int y) const;
-	bool isFileCorrect();
-	bool couldOpenFile();
+	bool isFileCorrect() const;
+	bool couldOpenFile() const;
+
+private:
+	void parseFile();
 
 private:
 	std::vector<std::string> m_textInFile;
+	std::string m_filename;
 	unsigned int m_height;
 	unsigned int m_width;
 	bool m_isFileCorrect;

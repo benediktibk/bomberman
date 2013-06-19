@@ -2,16 +2,20 @@
 
 #include <assert.h>
 #include <algorithm>
+#include <vector>
 
 using namespace Common;
+using namespace std ;
 
-allPlayerInputFetcher::allPlayerInputFetcher(InputFetcher &input, GameEngine::ComputerEnemyInputFetcher* computer):
+
+
+allPlayerInputFetcher::allPlayerInputFetcher(InputFetcher &input,vector<GameEngine::ComputerEnemyInputFetcher*> computer):
     m_inputFetcher(input),
-  m_computerInputFetcher(computer)
+    CompInputFetcher(computer)
 {
 }
 
-void allPlayerInputFetcher::setAllPossiblePlayerIds(std::vector<unsigned int> allPossiblePlayerIds)
+void allPlayerInputFetcher::setAllPossiblePlayerIds(vector<unsigned int> allPossiblePlayerIds)
 {
     for(size_t i = 0; i < allPossiblePlayerIds.size(); i++)
         m_playerIds = allPossiblePlayerIds;
@@ -30,15 +34,28 @@ void allPlayerInputFetcher::setGameMode(unsigned int playerCount)
     {
         m_gameModeIsSinglePlayer=true;
         m_inputStatePlayer1 = m_inputFetcher.getInputState();
-        m_inputStatePlayer2 = m_computerInputFetcher->getInputState();  
+        
+        for(vector<GameEngine::ComputerEnemyInputFetcher*>::const_iterator i = CompInputFetcher.begin(); i != CompInputFetcher.end(); ++i)
+        {           
+            m_computerInputStates.push_back((*i)->getInputState());  
+        }
+        
+        //ID anders implementieren        
+        //ID auch auf Enemies 
+        //Enemies in m_inputStates pushen
         m_inputStates[m_playerIds.front()] = m_inputStatePlayer1;
         m_inputStates[m_playerIds.back()] = m_inputStatePlayer2;
                 
     } 
 
-    if(playerCount<1)
-    {   m_gameModeIsSinglePlayer=false;  
-        m_inputStates = m_inputFetcher.getInputStates();     
+    if(playerCount>1)
+    {   
+        m_gameModeIsSinglePlayer=false;  
+        m_inputStates = m_inputFetcher.getInputStates();  
+        for(vector<GameEngine::ComputerEnemyInputFetcher*>::const_iterator i = CompInputFetcher.begin(); i != CompInputFetcher.end(); ++i)
+        {           
+            m_computerInputStates.push_back((*i)->getInputState());  
+        }
     }
     
 }

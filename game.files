@@ -290,8 +290,6 @@ common/compare.h
 common/compare.cpp
 common/comparetest.h
 common/comparetest.cpp
-common/leveldefinitionreader.h
-common/leveldefinitionreader.cpp
 resources/levels/levellist.csv
 resources/levels/defaultlevel.csv
 resources/graphics/wall_solid.svg
@@ -305,25 +303,21 @@ resources/graphics/explosion_flame.svg
 resources/graphics/explosion_center.svg
 resources/graphics/bomb_planted.svg
 resources/graphics/bg_cell_pattern.svg
-common/leveldefinitionreadertest.h
-common/leveldefinitionreadertest.cpp
 common/csvparser.h
 common/csvparser.cpp
 common/csvparsertest.h
 common/csvparsertest.cpp
 graphic/explodedbomb.h
 graphic/explodedbomb.cpp
-<<<<<<< local
 common/allplayerinputfetcher.h
 common/allplayerinputfetcher.cpp
-=======
 common/powerupmaxbombrangestate.cpp
 common/powerupmaxbombrangestate.h
 common/powerupmaxbombrangestatetest.h
 common/powerupmaxbombrangestatetest.cpp
-resources/testfiles/levellist.csv
-resources/testfiles/defaultlevel.csv
+resources/testfiles/testlevellist.csv
+resources/testfiles/testlevel.csv
 graphic/svgrenderer.h
 graphic/svgrenderer.cpp
-resources/testfiles/defaultlevelerror.csv
->>>>>>> other
+resources/testfiles/testlevelonerowtoshort.csv
+resources/testfiles/testlevelwrongtypeinfile.csv

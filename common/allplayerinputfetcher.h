@@ -12,7 +12,7 @@ namespace Common
             public InputFetcher
     {
     public:
-    allPlayerInputFetcher(InputFetcher &input, GameEngine::ComputerEnemyInputFetcher* computer );
+    allPlayerInputFetcher(InputFetcher &input,std::vector<GameEngine::ComputerEnemyInputFetcher*> computer );
         
     virtual std::map<unsigned int, InputState> getInputStates();
     virtual Common::InputState getInputState();     
@@ -24,7 +24,8 @@ namespace Common
     Common::InputState m_inputStatePlayer1;
     Common::InputState m_inputStatePlayer2;
     Common::InputFetcher &m_inputFetcher;
-    GameEngine::ComputerEnemyInputFetcher* m_computerInputFetcher;    
+    std::vector<GameEngine::ComputerEnemyInputFetcher*> CompInputFetcher;
+    std::vector<Common::InputState> m_computerInputStates;    
     std::vector<unsigned int> m_playerIds;
     bool m_gameModeIsSinglePlayer;
 

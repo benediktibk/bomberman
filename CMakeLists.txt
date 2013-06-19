@@ -36,9 +36,10 @@ set(LEVELS
 )
 
 set(TESTFILES
-	defaultlevel.csv
-	defaultlevelerror.csv
-	levellist.csv
+	testlevel.csv
+	testlevelonerowtoshort.csv
+	testlevelwrongtypeinfile.csv
+	testlevellist.csv
 )
 
 set(GRAPHICS
