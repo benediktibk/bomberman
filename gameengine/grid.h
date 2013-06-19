@@ -35,12 +35,9 @@ namespace GameEngine
 		void addWallAtPlace(const Common::WallState &wall);
 		void removeBomb(const Common::BombState &bomb);
 		void removeWall(const Common::WallState &wall);
-		void updatePlayer(const Common::PlayerState &player);
-		void removePlayer(const Common::PlayerState &player);
 		void removePowerUp(const Common::PowerUpState &powerUp);
 		void addPowerUpAtPlace(Common::PowerUpState &powerUp);
 		std::vector<unsigned int> getLooseWallsInRange(const Common::BombState &bomb) const;
-		std::vector<unsigned int> getPlayersInRange(const Common::BombState &bomb) const;
 		std::vector<unsigned int> getBombsInRange(const Common::BombState &bomb) const;
 		std::vector<unsigned int> getPowerUpsInRange(const Common::BombState &bomb) const;
 		std::vector<Common::GridPoint> getPlayerFields(const Common::PlayerState &player) const;

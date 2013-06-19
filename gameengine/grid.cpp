@@ -93,22 +93,6 @@ void Grid::removeWall(const WallState &wall)
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemFree;
 	m_idMatrix[index] = 0;
- }
-
-void Grid::removePlayer(const PlayerState &player)
-{
-	GridPoint position(player.getPosition());
-	unsigned int index = getVectorIndex(position);
-	m_itemMatrix[index] = ItemPlayer;
-	m_idMatrix[index] = 0;
-}
-
-void Grid::updatePlayer(const PlayerState &player)
-{
-	GridPoint position(player.getPosition());
-	unsigned int index = getVectorIndex(position);
-	m_itemMatrix[index] = ItemPlayer;
-	m_idMatrix[index] = player.getId();
 }
 
 vector<unsigned int> Grid::getItemsInRange(const BombState &bomb, Grid::Item item) const
@@ -168,11 +152,6 @@ vector<unsigned int> Grid::getItemsInRange(const BombState &bomb, Grid::Item ite
 vector<unsigned int> Grid::getLooseWallsInRange(const BombState &bomb) const
 {
 	return getItemsInRange(bomb, ItemLooseWall);
-}
-
-vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb) const
-{
-	return getItemsInRange(bomb, ItemPlayer);
 }
 
 vector<unsigned int> Grid::getBombsInRange(const BombState &bomb) const

@@ -282,7 +282,7 @@ void GameEngineImpl::updateBombs()
 			m_gameState.erasePowerUpById(powerUpsInRange[j]);
 
 		vector<unsigned int> playersInRange;
-		playersInRange = m_grid->getPlayersInRange(bomb);
+		playersInRange = m_grid->getPlayersInRange(bomb, m_gameState.getAllPlayers());
 		for(size_t j = 0; j < playersInRange.size(); j++)
 			m_gameState.erasePlayerById(playersInRange[j]);
 	}

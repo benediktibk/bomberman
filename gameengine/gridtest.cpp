@@ -535,22 +535,18 @@ void GridTest::getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringet
 void GridTest::getPlayersinRange_bombat59gridsize1010_1()
 {
 	UniqueIdCreator playerCreator;
-	vector<unsigned int> playersInRange;
+	vector<const PlayerState*> players;
 	UniqueIdCreator bombIDCreator;
 	Grid grid(10, 10);
-
-	Point position(5.0, 9.0);
 	BombState bomb(bombIDCreator, 0);
-	bomb.setPosition(position);
+	PlayerState player(playerCreator);
+	bomb.setPosition(Point(5, 9));
 	bomb.setDestructionRange(5);
 	grid.addBombAtPlace(bomb);
+	player.setPosition(Point(5, 8));
+	players.push_back(&player);
 
-	Point position2(5.0, 8.0);
-	PlayerState player(playerCreator);
-	player.setPosition(position2);
-	grid.updatePlayer(player);
-
-	playersInRange = grid.getPlayersInRange(bomb);
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, players);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
 }
@@ -626,18 +622,13 @@ void GridTest::getPlayerFields_PlayerAt1comm5and1_11and21()
 	Grid grid(3, 3);
 	UniqueIdCreator playerCreator;
 	PlayerState player(playerCreator);
-	vector<GridPoint> gridPoints;
+	player.setPosition(Point(1.5, 1));
+
+	vector<GridPoint> gridPoints = grid.getPlayerFields(player);
+
 	vector<GridPoint> gridPointsShouldBe;
-	Point position(1.5, 1.0);
-	player.setPosition(position);
-	grid.updatePlayer(player);
-	gridPoints=grid.getPlayerFields(player);
-
-	GridPoint point1(1, 1);
-	GridPoint point2(2, 1);
-	gridPointsShouldBe.push_back(point1);
-	gridPointsShouldBe.push_back(point2);
-
+	gridPointsShouldBe.push_back(GridPoint(1, 1));
+	gridPointsShouldBe.push_back(GridPoint(2, 1));
 	CPPUNIT_ASSERT(gridPoints == gridPointsShouldBe);
 }
 
@@ -646,18 +637,13 @@ void GridTest::getPlayerFields_PlayerAt1and1comma5_11and12()
 	Grid grid(3, 3);
 	UniqueIdCreator playerCreator;
 	PlayerState player(playerCreator);
-	vector<GridPoint> gridPoints;
+	player.setPosition(Point(1, 1.5));
+
+	vector<GridPoint> gridPoints = grid.getPlayerFields(player);
+
 	vector<GridPoint> gridPointsShouldBe;
-	Point position(1.0, 1.5);
-	player.setPosition(position);
-	grid.updatePlayer(player);
-	gridPoints=grid.getPlayerFields(player);
-
-	GridPoint point1(1, 1);
-	GridPoint point2(1, 2);
-	gridPointsShouldBe.push_back(point1);
-	gridPointsShouldBe.push_back(point2);
-
+	gridPointsShouldBe.push_back(GridPoint(1, 1));
+	gridPointsShouldBe.push_back(GridPoint(1, 2));
 	CPPUNIT_ASSERT(gridPoints == gridPointsShouldBe);
 }
 
