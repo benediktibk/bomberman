@@ -133,12 +133,14 @@ void GameEngineImpl::updatePlayerVelocities()
 
 	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
 	{
-		PlayerState &player = m_gameState.getPlayerStateById(*i);
+		unsigned int playerID = *i;
+		PlayerState &player = m_gameState.getPlayerStateById(playerID);
 		vector<GridPoint> playerFields = m_grid->getPlayerFields(player);
+		size_t byPlayerCoveredFieldCount = playerFields.size();
 
-		if (playerFields.size() == 1)
+		if (byPlayerCoveredFieldCount == 1)
 		{
-			updatePlayerVelocity(player, m_inputStates.at(*i));
+			updatePlayerVelocity(player, m_inputStates.at(playerID));
 			GridPoint gridPosition(player.getPosition());
 			player.setPosition(gridPosition.getPointPosition());
 		}
@@ -353,20 +355,21 @@ void GameEngineImpl::playerGetsPowerUp()
 	{
 		PlayerState &player = m_gameState.getPlayerStateById(*i);
 		vector<GridPoint> playerFields = m_grid->getPlayerFields(player);
+
 		if(playerFields.size() == 1)
 		{
-		for(vector<unsigned int>::const_iterator j = powerUpIDs.begin(); j != powerUpIDs.end(); ++j)
+			for(vector<unsigned int>::const_iterator j = powerUpIDs.begin(); j != powerUpIDs.end(); ++j)
 			{
-			const PowerUpState *powerup = m_gameState.getPowerUpById(*j);
-			const Point powerUpPosition = powerup->getPosition();
-			GridPoint powerUpField(powerUpPosition);
-			if(powerUpField==playerFields[0])
+				const PowerUpState *powerup = m_gameState.getPowerUpById(*j);
+				const Point powerUpPosition = powerup->getPosition();
+				GridPoint powerUpField(powerUpPosition);
+
+				if(powerUpField == playerFields[0])
 				{
-				powerup->modifyPlayer(player);
-				m_gameState.erasePowerUpById(*j);
+					powerup->modifyPlayer(player);
+					m_gameState.erasePowerUpById(*j);
 				}
 			}
-
 		}
 	}
 }
@@ -386,8 +389,6 @@ void GameEngineImpl::addRandomPowerUpAtPosition(Point position)
 			return;
 	else
 		addPowerUpOfTypeAtPosition(randomType, position);
-
-
 }
 
 void GameEngineImpl::addPowerUpOfTypeAtPosition(PowerUpType powerUpType, Point position)

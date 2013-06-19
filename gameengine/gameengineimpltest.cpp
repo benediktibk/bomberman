@@ -1010,6 +1010,34 @@ void GameEngineImplTest::updateGameState_bombExplodesWithBombInRange_explosionRa
 	CPPUNIT_ASSERT(5 == firstExplodedBomb.getDestructionRangeRight() || 5 == secondExplodedBomb.getDestructionRangeRight());
 }
 
+void GameEngineImplTest::updateGameState_placeBombAndMoveOneFieldUpwards_playerIsOneFieldAboveTheBomb()
+{
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	createGameEngine(level, 1);
+	const GameState &game = m_gameEngine->getGameState();
+	const PlayerState &player = game.getFirstPlayerState();
+	InputState input;
+	double halfTimeToReachGridPoint = 1/(2*player.getMaximumSpeed());
+
+	input.setSpaceKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	input.setSpaceKeyNotPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, halfTimeToReachGridPoint);
+	input.setUpKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, halfTimeToReachGridPoint);
+	input.setUpKeyNotPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 1.1*halfTimeToReachGridPoint);
+
+	Point positionShouldBe(0, 1);
+	Point positionReal(player.getPosition());
+	CPPUNIT_ASSERT(positionShouldBe.fuzzyEqual(positionReal, 0.05));
+}
+
 void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
 {
 	LevelDefinition level(4, 4);
@@ -1425,7 +1453,7 @@ void GameEngineImplTest::setUp()
 
 void GameEngineImplTest::tearDown()
 {
-    m_inputStates.clear();
+	m_inputStates.clear();
 	delete m_gameEngine;
 	m_gameEngine = 0;
 }
