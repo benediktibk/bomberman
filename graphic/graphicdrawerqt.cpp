@@ -148,7 +148,7 @@ void GraphicDrawerQt::drawWall(const WallState *wallState)
 		Wall* wall = 0;
 
 		if (!wallFound)
-			wall = new Wall(*m_scene, *wallState);
+			wall = new Wall(*m_scene, m_graphicRenderer, *wallState);
 		else
 			wall = wallPosition->second;
 
@@ -343,33 +343,33 @@ void GraphicDrawerQt::drawBorderWalls(unsigned int width, unsigned int height)
 void GraphicDrawerQt::drawLeftBorderWalls(unsigned int height)
 {
 	for (unsigned int y = 0; y < height; ++y)
-		m_borderWalls.push_back(new Wall(*m_scene, Point(-1, y), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(-1, y), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::drawRightBorderWalls(unsigned int width, unsigned int height)
 {
 	for (unsigned int y = 0; y < height; ++y)
-		m_borderWalls.push_back(new Wall(*m_scene, Point(width, y), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(width, y), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::drawUpperBorderWalls(unsigned int width, unsigned int height)
 {
 	for (unsigned int x = 0; x < width; ++x)
-		m_borderWalls.push_back(new Wall(*m_scene, Point(x, height), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(x, height), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::drawLowerBorderWalls(unsigned int width)
 {
 	for (unsigned int x = 0; x < width; ++x)
-		m_borderWalls.push_back(new Wall(*m_scene, Point(x, -1), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(x, -1), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::drawEdgeBorderWalls(unsigned int width, unsigned int height)
 {
-	m_borderWalls.push_back(new Wall(*m_scene, Point(-1, -1), m_pixelPerMeter));
-	m_borderWalls.push_back(new Wall(*m_scene, Point(-1, height), m_pixelPerMeter));
-	m_borderWalls.push_back(new Wall(*m_scene, Point(width, -1), m_pixelPerMeter));
-	m_borderWalls.push_back(new Wall(*m_scene, Point(width, height), m_pixelPerMeter));
+	m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(-1, -1), m_pixelPerMeter));
+	m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(-1, height), m_pixelPerMeter));
+	m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(width, -1), m_pixelPerMeter));
+	m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(width, height), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::drawCellBackgrounds(unsigned int width, unsigned int height)
