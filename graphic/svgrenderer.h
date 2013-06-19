@@ -1,15 +1,15 @@
-#ifndef GRAPHIC_RENDERALLSVGGRAPHICS_H
-#define GRAPHIC_RENDERALLSVGGRAPHICS_H
+#ifndef GRAPHIC_SVGRENDERER_H
+#define GRAPHIC_SVGRENDERER_H
 
 class QGraphicsSvgItem;
 class QSvgRenderer;
 
 namespace Graphic
 {
-class RenderAllSvgGraphics
+class SvgRenderer
 {
 public:
-	RenderAllSvgGraphics(const double pixelPerMeter);
+	SvgRenderer(const double pixelPerMeter);
 	QGraphicsSvgItem *getNewPlayerItem();
 	QGraphicsSvgItem *getNewBombItem();
 	QGraphicsSvgItem *getNewSolidWallItem();
@@ -18,7 +18,7 @@ public:
 	QGraphicsSvgItem *getNewCellBackgroundItem();
 	QGraphicsSvgItem *getNewExplodedBombCenterItem();
 	QGraphicsSvgItem *getNewExplodedBombFlameItem();
-	~RenderAllSvgGraphics();
+	~SvgRenderer();
 
 private:
 	void renderPlayerItem();

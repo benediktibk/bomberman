@@ -6,7 +6,7 @@
 #include "graphic/explodedbomb.h"
 #include "graphic/point.h"
 #include "graphic/cellbackground.h"
-#include "graphic/renderallsvggraphics.h"
+#include "graphic/svgrenderer.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QBrush>
@@ -29,7 +29,7 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 	m_minimumViewDistance(4),
 	m_minimumViewDistanceInPixel(m_minimumViewDistance*m_pixelPerMeter),
 	m_responsibilityValid(false),
-	m_graphicRenderer(new RenderAllSvgGraphics(m_pixelPerMeter))
+	m_graphicRenderer(new SvgRenderer(m_pixelPerMeter))
 {
 	if (enableOpenGL)
 		m_view.setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
@@ -121,7 +121,7 @@ void GraphicDrawerQt::drawPlayer(const PlayerState *playerState)
 	Player* player = 0;
 
 	if (!playerFound)
-		player = new Player(*m_scene, m_graphicRenderer);
+		player = new Player(*m_scene, *m_graphicRenderer);
 	else
 		player = playerPosition->second;
 
@@ -148,7 +148,7 @@ void GraphicDrawerQt::drawWall(const WallState *wallState)
 		Wall* wall = 0;
 
 		if (!wallFound)
-			wall = new Wall(*m_scene, m_graphicRenderer, *wallState);
+			wall = new Wall(*m_scene, *m_graphicRenderer, *wallState);
 		else
 			wall = wallPosition->second;
 
@@ -176,7 +176,7 @@ void GraphicDrawerQt::drawBomb(const BombState *bombState)
 		Bomb* bomb = 0;
 
 		if (!bombFound)
-			bomb = new Bomb(*m_scene, m_graphicRenderer);
+			bomb = new Bomb(*m_scene, *m_graphicRenderer);
 		else
 			bomb = bombPosition->second;
 
@@ -204,7 +204,7 @@ void GraphicDrawerQt::drawPowerUp(const PowerUpState *powerUpState)
 		PowerUp* powerUp = 0;
 
 		if (!powerUpFound)
-			powerUp = new PowerUp(*m_scene, m_graphicRenderer);
+			powerUp = new PowerUp(*m_scene, *m_graphicRenderer);
 		else
 			powerUp = powerUpPosition->second;
 
@@ -232,7 +232,7 @@ void GraphicDrawerQt::drawExplodedBomb(const ExplodedBombState *explodedBombStat
 
 		if (!explodedBombFound)
 		{
-			ExplodedBomb *explodedBomb = new ExplodedBomb(*m_scene, m_graphicRenderer, *explodedBombState, m_pixelPerMeter);
+			ExplodedBomb *explodedBomb = new ExplodedBomb(*m_scene, *m_graphicRenderer, *explodedBombState, m_pixelPerMeter);
 			m_explodedBombs.insert(pair<const ExplodedBombState*, ExplodedBomb*>(explodedBombState, explodedBomb));
 		}
 	}
@@ -343,33 +343,33 @@ void GraphicDrawerQt::drawBorderWalls(unsigned int width, unsigned int height)
 void GraphicDrawerQt::drawLeftBorderWalls(unsigned int height)
 {
 	for (unsigned int y = 0; y < height; ++y)
-		m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(-1, y), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(-1, y), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::drawRightBorderWalls(unsigned int width, unsigned int height)
 {
 	for (unsigned int y = 0; y < height; ++y)
-		m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(width, y), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(width, y), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::drawUpperBorderWalls(unsigned int width, unsigned int height)
 {
 	for (unsigned int x = 0; x < width; ++x)
-		m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(x, height), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(x, height), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::drawLowerBorderWalls(unsigned int width)
 {
 	for (unsigned int x = 0; x < width; ++x)
-		m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(x, -1), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(x, -1), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::drawEdgeBorderWalls(unsigned int width, unsigned int height)
 {
-	m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(-1, -1), m_pixelPerMeter));
-	m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(-1, height), m_pixelPerMeter));
-	m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(width, -1), m_pixelPerMeter));
-	m_borderWalls.push_back(new Wall(*m_scene, m_graphicRenderer, Point(width, height), m_pixelPerMeter));
+	m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(-1, -1), m_pixelPerMeter));
+	m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(-1, height), m_pixelPerMeter));
+	m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(width, -1), m_pixelPerMeter));
+	m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(width, height), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::drawCellBackgrounds(unsigned int width, unsigned int height)

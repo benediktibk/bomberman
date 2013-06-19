@@ -9,7 +9,7 @@ class QGraphicsView;
 
 namespace Graphic
 {
-	class RenderAllSvgGraphics;
+	class SvgRenderer;
 	class Player;
 	class Wall;
 	class Bomb;
@@ -77,7 +77,7 @@ namespace Graphic
 		bool m_responsibleForOnePlayer;
 		unsigned int m_playerIDResponsibleFor;
 		bool m_responsibilityValid;
-		RenderAllSvgGraphics *m_graphicRenderer;
+		SvgRenderer *m_graphicRenderer;
 	};
 }
 
