@@ -12,6 +12,12 @@ public:
 	RenderAllSvgGraphics(const double pixelPerMeter);
 	QGraphicsSvgItem *getNewPlayerItem();
 	QGraphicsSvgItem *getNewBombItem();
+	QGraphicsSvgItem *getNewSolidWallItem();
+	QGraphicsSvgItem *getNewLooseWallItem();
+	QGraphicsSvgItem *getNewPowerUpItem();
+	QGraphicsSvgItem *getNewCellBackgroundItem();
+	QGraphicsSvgItem *getNewExplodedBombCenterItem();
+	QGraphicsSvgItem *getNewExplodedBombFlameItem();
 	~RenderAllSvgGraphics();
 
 private:

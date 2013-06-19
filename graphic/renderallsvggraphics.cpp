@@ -71,3 +71,45 @@ QGraphicsSvgItem* RenderAllSvgGraphics::getNewBombItem()
 	bomb->setSharedRenderer(m_bombRenderer);
 	return bomb;
 }
+
+QGraphicsSvgItem* RenderAllSvgGraphics::getNewSolidWallItem()
+{
+	QGraphicsSvgItem *solidWall = new QGraphicsSvgItem();
+	solidWall->setSharedRenderer(m_wallSolidRenderer);
+	return solidWall;
+}
+
+QGraphicsSvgItem* RenderAllSvgGraphics::getNewLooseWallItem()
+{
+	QGraphicsSvgItem *looseWall = new QGraphicsSvgItem();
+	looseWall->setSharedRenderer(m_wallLooseRenderer);
+	return looseWall;
+}
+
+QGraphicsSvgItem* RenderAllSvgGraphics::getNewPowerUpItem()
+{
+	QGraphicsSvgItem *powerUp = new QGraphicsSvgItem();
+	powerUp->setSharedRenderer(m_powerUpRenderer);
+	return powerUp;
+}
+
+QGraphicsSvgItem* RenderAllSvgGraphics::getNewCellBackgroundItem()
+{
+	QGraphicsSvgItem *cellBG = new QGraphicsSvgItem();
+	cellBG->setSharedRenderer(m_cellBackgroundRenderer);
+	return cellBG;
+}
+
+QGraphicsSvgItem* RenderAllSvgGraphics::getNewExplodedBombCenterItem()
+{
+	QGraphicsSvgItem *explosionCenter = new QGraphicsSvgItem();
+	explosionCenter->setSharedRenderer(m_explodedBombCenterRenderer);
+	return explosionCenter;
+}
+
+QGraphicsSvgItem* RenderAllSvgGraphics::getNewExplodedBombFlameItem()
+{
+	QGraphicsSvgItem *explosionFlame = new QGraphicsSvgItem();
+	explosionFlame->setSharedRenderer(m_explodedBombFlameRenderer);
+	return explosionFlame;
+}
