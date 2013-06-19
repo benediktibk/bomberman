@@ -29,7 +29,7 @@ namespace GameEngine
 		CPPUNIT_TEST(getWallsInRange_bombat32andwallssurroundingdistance2rangeis1_sizeofwallsinrangeis0);
 		CPPUNIT_TEST(getWallsInRange_bombat60rangeis1_sizeofwallsinrangeis2);
 		CPPUNIT_TEST(getPowerUpsInRange_bombat33rangeis4BombEmptyWallPowerUp_sizeofwallsinrangeis3);
-		 CPPUNIT_TEST(getPowerUpsInRange_bombat33RangeIs10PowerUpBombPowerUpPowerUpWallPowerUp_sizeOfPowerUpsInRangeIs3);
+		CPPUNIT_TEST(getPowerUpsInRange_bombat33RangeIs10PowerUpBombPowerUpPowerUpWallPowerUp_sizeOfPowerUpsInRangeIs3);
 		CPPUNIT_TEST(getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringetIndex);
 		CPPUNIT_TEST(isPlaceEmpty_itemat33_false);
 		CPPUNIT_TEST(isPlaceEmpty_itemat33_true);
@@ -46,6 +46,7 @@ namespace GameEngine
 		CPPUNIT_TEST(isPlaceEmpty_coveredByWall_false);
 		CPPUNIT_TEST(getPlayersinRange_bombat59gridsize1010_1);
 		CPPUNIT_TEST(getPlayersinRange_bombat59gridsize10x10_playersInRangeIs1);
+		CPPUNIT_TEST(getPlayersinRange_bombat59gridsize10x10_playersInRangeIs0);
 		CPPUNIT_TEST(getDistanceToNextWallLeft_nothingSet_distanceIsWayToEndOfLevel);
 		CPPUNIT_TEST(getDistanceToNextWallRight_nothingSet_distanceIsWayToEndOfLevel);
 		CPPUNIT_TEST(getDistanceToNextWallUp_nothingSet_distanceIsWayToEndOfLevel);
@@ -86,7 +87,7 @@ namespace GameEngine
 		void getWallsInRange_bombat32andwallssurroundingdistance2rangeis1_sizeofwallsinrangeis0();
 		void getWallsInRange_bombat60rangeis1_sizeofwallsinrangeis2();
 		void getPowerUpsInRange_bombat33rangeis4BombEmptyWallPowerUp_sizeofwallsinrangeis3();
-		 void getPowerUpsInRange_bombat33RangeIs10PowerUpBombPowerUpPowerUpWallPowerUp_sizeOfPowerUpsInRangeIs3();
+		void getPowerUpsInRange_bombat33RangeIs10PowerUpBombPowerUpPowerUpWallPowerUp_sizeOfPowerUpsInRangeIs3();
 		void getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringetIndex();
 		void isPlaceEmpty_itemat33_false();
 		void isPlaceEmpty_itemat33_true();
@@ -100,6 +101,7 @@ namespace GameEngine
 		void isPlaceEmpty_coveredByWall_false();
 		void getPlayersinRange_bombat59gridsize1010_1();
 		void getPlayersinRange_bombat59gridsize10x10_playersInRangeIs1();
+		void getPlayersinRange_bombat59gridsize10x10_playersInRangeIs0();
 		void getDistanceToNextWallLeft_nothingSet_distanceIsWayToEndOfLevel();
 		void getDistanceToNextWallRight_nothingSet_distanceIsWayToEndOfLevel();
 		void getDistanceToNextWallUp_nothingSet_distanceIsWayToEndOfLevel();

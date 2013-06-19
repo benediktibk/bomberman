@@ -684,6 +684,29 @@ void GridTest::getPlayersinRange_bombat59gridsize10x10_playersInRangeIs1()
 	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
 }
 
+void GridTest::getPlayersinRange_bombat59gridsize10x10_playersInRangeIs0()
+{
+	UniqueIdCreator playerCreator;
+	vector<unsigned int> playersInRange;
+	UniqueIdCreator bombIDCreator;
+	Grid grid(10, 10);
+
+	Point position(5.0, 9.0);
+	BombState bomb(bombIDCreator, 0);
+	bomb.setPosition(position);
+	bomb.setDestructionRange(5);
+	grid.addBombAtPlace(bomb);
+
+	std::vector<const PlayerState*> allPlayers;
+	PlayerState* player = new PlayerState(playerCreator);
+	player->setPosition(Point(6.0,8.0));
+	allPlayers.push_back(player);
+
+	playersInRange = grid.getPlayersInRange(bomb, allPlayers);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, playersInRange.size());
+}
+
 void GridTest::getDistanceToNextWallLeft_nothingSet_distanceIsWayToEndOfLevel()
 {
 	Grid grid(15, 10);
