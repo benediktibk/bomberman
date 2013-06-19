@@ -1,0 +1,4 @@
+name;width;height;maxPlayer
+testlevel;15;10;1
+testlevelonerowtoshort;15;10;1
+testlevelwrongtypeinfile;15;10;1

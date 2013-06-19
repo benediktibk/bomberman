@@ -17,6 +17,30 @@ LevelDefinition::LevelDefinition(unsigned int width, unsigned int height) :
 	m_objectMatrix(m_width*m_height, ObjectTypeEmpty)
 { }
 
+LevelDefinition::LevelDefinition(const CSVParser &parsedFile) :
+	m_width(parsedFile.getWidthOfFile()),
+	m_height(parsedFile.getHeightOfFile()),
+	m_objectMatrix(m_width*m_height, ObjectTypeEmpty)
+{
+	std::string objectType;
+	m_levelBuildingCorrect = parsedFile.isFileCorrect() && parsedFile.couldOpenFile();
+	for (unsigned int y = 0; y < m_height; ++y)
+		for (unsigned int x = 0; x < m_width; ++x)
+		{
+			objectType = parsedFile.getTextInField(x,y);
+			if (objectType == "free")
+				m_objectMatrix[m_width * y + x] = ObjectTypeEmpty;
+			else if(objectType == "loose")
+				m_objectMatrix[m_width * y + x] = ObjectTypeLooseWall;
+			else if(objectType == "solid")
+				m_objectMatrix[m_width * y + x] = ObjectTypeSolidWall;
+			else if(objectType == "player")
+				m_objectMatrix[m_width * y + x] = ObjectTypePlayer;
+			else
+				m_levelBuildingCorrect = false;
+		}
+}
+
 LevelDefinition::ObjectType LevelDefinition::getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY) const
 {
 	return m_objectMatrix[m_width*positionY+positionX];
@@ -48,24 +72,7 @@ size_t LevelDefinition::getPlayerStartPositionCount() const
 	return result;
 }
 
-LevelDefinition LevelDefinition::createDefaultLevel()
+bool LevelDefinition::isLevelBuildingCorrect() const
 {
-	LevelDefinition result(15, 10);
-
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 0, 3);
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 7);
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 2);
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 4);
-	result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 5, 2);
-    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 5, 4);
-    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 2);
-    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 4);
-    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 9, 2);
-    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 9, 4);
-    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 11, 2);
-    result.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 11, 3);
-
-	return result;
+	return m_levelBuildingCorrect;
 }
