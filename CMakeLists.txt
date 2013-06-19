@@ -36,9 +36,9 @@ set(LEVELS
 )
 
 set(TESTFILES
-	defaultlevel.csv
-	defaultlevelerror.csv
-	defaultlevelerror2.csv
+	testlevel.csv
+	testlevelonerowtoshort.csv
+	testlevelwrongtypeinfile.csv
 	levellist.csv
 )
 

@@ -314,8 +314,8 @@ common/powerupmaxbombrangestate.h
 common/powerupmaxbombrangestatetest.h
 common/powerupmaxbombrangestatetest.cpp
 resources/testfiles/levellist.csv
-resources/testfiles/defaultlevel.csv
+resources/testfiles/testlevel.csv
 graphic/svgrenderer.h
 graphic/svgrenderer.cpp
-resources/testfiles/defaultlevelerror.csv
-resources/testfiles/defaultlevelerror2.csv
+resources/testfiles/testlevelonerowtoshort.csv
+resources/testfiles/testlevelwrongtypeinfile.csv
