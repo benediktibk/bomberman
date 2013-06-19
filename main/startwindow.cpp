@@ -11,4 +11,15 @@ StartWindow::StartWindow() :
 	m_ui(new Ui::StartWindow)
 {
 	m_ui->setupUi(this);
+	connectButtons();
+}
+
+void StartWindow::connectButtons()
+{
+	connect(m_ui->exitButton, SIGNAL(clicked()), this, SLOT(exitClicked()));
+}
+
+void StartWindow::exitClicked()
+{
+	this->close();
 }

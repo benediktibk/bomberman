@@ -20,6 +20,12 @@ class StartWindow :
 public:
 	StartWindow();
 
+private slots:
+	void exitClicked();
+
+private:
+	void connectButtons();
+
 private:
 	Ui::StartWindow* m_ui;
 };

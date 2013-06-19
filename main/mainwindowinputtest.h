@@ -24,9 +24,6 @@ private slots:
 	void inputStateCalled();
 
 private:
-	void connectButtons();
-
-private:
 	Ui::MainWindowInputTest* m_ui;
 	QTimer *m_timer;
 };
