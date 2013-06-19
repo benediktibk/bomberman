@@ -49,7 +49,7 @@ void ExplodedBomb::createCenterFlame(QGraphicsScene &scene, const Common::Explod
 	centerPosition *= pixelPerMeter;
 	centerPosition.switchIntoQtCoordinates();
 	m_center->setPos(centerPosition.toQPoint());
-	m_center->setZValue(5);
+	m_center->setZValue(5.5);
 	scene.addItem(m_center);
 }
 

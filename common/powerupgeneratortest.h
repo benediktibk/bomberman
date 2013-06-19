@@ -14,6 +14,7 @@ class PowerUpGeneratorTest :
     CPPUNIT_TEST(getRandomPowerUpType_1000Times_PowerUpTypeNoneCountIsInRange);
 	CPPUNIT_TEST(getRandomPowerUpType_1000Times_PowerUpTypeMaxBombIsInRange);
 	CPPUNIT_TEST(getRandomPowerUpType_1000Times_PowerUpTypeMaxVelocityIsInRange);
+	CPPUNIT_TEST(getRandomPowerUpType_1000Times_PowerUpTypeMaxBombRangeIsInRange);
     CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -21,6 +22,7 @@ private:
     void getRandomPowerUpType_1000Times_PowerUpTypeNoneCountIsInRange();
 	void getRandomPowerUpType_1000Times_PowerUpTypeMaxBombIsInRange();
 	void getRandomPowerUpType_1000Times_PowerUpTypeMaxVelocityIsInRange();
+	void getRandomPowerUpType_1000Times_PowerUpTypeMaxBombRangeIsInRange();
 
 };
 }

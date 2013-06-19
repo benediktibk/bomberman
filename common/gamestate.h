@@ -9,6 +9,7 @@
 #include "common/powerupstate.h"
 #include "common/powerupmaxbombstate.h"
 #include "common/powerupmaxvelocitystate.h"
+#include "common/powerupmaxbombrangestate.h"
 #include "common/explodedbombstate.h"
 #include <vector>
 #include <map>

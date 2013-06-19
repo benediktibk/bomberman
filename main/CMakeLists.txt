@@ -18,12 +18,14 @@ set(MAIN_QT_SRC
 	mainwindowinputfetcher.cpp
 	mainwindowinputtest.cpp
 	mainwindowgraphictest.cpp
+	startwindow.cpp
 )
 
 set(MAIN_FORMS
 	gui/mainwindow.ui
 	gui/mainwindowinputtest.ui
 	gui/mainwindowgraphictest.ui
+	gui/startwindow.ui
 )
 
 set(MAIN_QT_INCL
@@ -31,6 +33,7 @@ set(MAIN_QT_INCL
 	mainwindowinputfetcher.h
 	mainwindowinputtest.h
 	mainwindowgraphictest.h
+	startwindow.h
 )
 
 include_directories(
@@ -66,10 +69,12 @@ add_library(maintest ${MAIN_TEST_SRC})
 add_executable(game main.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
 add_executable(inputtest maininputtest.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
 add_executable(graphictest maingraphictest.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
+add_executable(startwindowtest startwindowtest.cpp ${MAIN_QT_SRC} ${MAIN_QT_INCL_MOC} ${MAIN_FORMS_MOC})
 add_executable(regressiontest mainregressiontest.cpp)
 add_executable(testrunner testrunner.cpp testregistration.cpp)
 target_link_libraries(game ${LIBRARIES} ${QT_LIBRARIES} boost_thread-mt)
 target_link_libraries(inputtest ${LIBRARIES} ${QT_LIBRARIES} boost_thread-mt)
 target_link_libraries(graphictest ${LIBRARIES} ${QT_LIBRARIES} boost_thread-mt)
+target_link_libraries(startwindowtest ${LIBRARIES} ${QT_LIBRARIES} boost_thread-mt)
 target_link_libraries(regressiontest ${LIBRARIES} boost_thread-mt)
 target_link_libraries(testrunner ${LIBRARIES_TEST} ${LIBRARIES} ${CPPUNIT_LIBRARY} boost_thread-mt)
