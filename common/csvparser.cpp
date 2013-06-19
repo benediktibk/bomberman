@@ -16,6 +16,7 @@ void CSVParser::parseFile(std::string filename)
 	string textInField;
 	unsigned int height = 0;
 	unsigned int width;
+	bool firstLine = false;
 
 	if(csvRead.is_open())
 	{
@@ -30,6 +31,16 @@ void CSVParser::parseFile(std::string filename)
 				{
 					m_textInFile.push_back(textInField);
 					width +=1;
+					if(!firstLine)
+					{
+						m_width = width;
+						firstLine = true;
+					}
+					if(m_width != width)
+					{
+						cerr << "Error in file" << endl;
+						break;
+					}
 				}
 			}
 		}
