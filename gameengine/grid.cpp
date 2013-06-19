@@ -273,60 +273,50 @@ std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::ve
 			}
 		}
 	}
+
 	return playersInRange;
 }
 
-unsigned int Grid::getDistanceToNextNotFreePlaceLeft(const GridPoint &position) const
+unsigned int Grid::getDistanceToNextWallLeft(const GridPoint &position) const
 {
 	unsigned int distance;
 
 	for (distance = 1; position.getX() - distance < m_gridColumns; ++distance)
-		if (!isPlaceEmpty(position - GridPoint(distance, 0)))
+		if (isPlaceCoveredByWall(position - GridPoint(distance, 0)))
 			return distance - 1;
 
 	return distance - 1;
 }
 
-unsigned int Grid::getDistanceToNextNotFreePlaceRight(const GridPoint &position) const
+unsigned int Grid::getDistanceToNextWallRight(const GridPoint &position) const
 {
 	unsigned int distance;
 
 	for (distance = 1; position.getX() + distance < m_gridColumns; ++distance)
-		if (!isPlaceEmpty(position + GridPoint(distance, 0)))
+		if (isPlaceCoveredByWall(position + GridPoint(distance, 0)))
 			return distance - 1;
 
 	return distance - 1;
 }
 
-unsigned int Grid::getDistanceToNextNotFreePlaceUp(const GridPoint &position) const
+unsigned int Grid::getDistanceToNextWallUp(const GridPoint &position) const
 {
 	unsigned int distance;
 
 	for (distance = 1; position.getY() + distance < m_gridRows; ++distance)
-		if (!isPlaceEmpty(position + GridPoint(0, distance)))
+		if (isPlaceCoveredByWall(position + GridPoint(0, distance)))
 			return distance - 1;
 
 	return distance - 1;
 }
 
-unsigned int Grid::getDistanceToNextNotFreePlaceDown(const GridPoint &position) const
+unsigned int Grid::getDistanceToNextWallDown(const GridPoint &position) const
 {
-	unsigned int result;
 	unsigned int distance;
-	bool resultFound = false;
 
-	for (distance = 1; position.getY() - distance < m_gridRows && !resultFound; ++distance)
-		if (!isPlaceEmpty(position - GridPoint(0, distance)))
-		{
-			result = distance - 1;
-			resultFound = true;
-		}
+	for (distance = 1; position.getY() - distance < m_gridRows; ++distance)
+		if (isPlaceCoveredByWall(position - GridPoint(0, distance)))
+			return distance - 1;
 
-	if (!resultFound)
-		result = distance - 1;
-
-	if (result >= m_gridRows)
-		result = 0;
-
-	return result;
+	return distance - 1;
 }

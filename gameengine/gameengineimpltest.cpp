@@ -958,6 +958,58 @@ void GameEngineImplTest::updateGameState_bombExplodesWithTwoLooseWallsBehindWith
 	CPPUNIT_ASSERT_EQUAL((size_t)1, gameState.getWallCount());
 }
 
+void GameEngineImplTest::updateGameState_bombExplodesWithPowerUpInRange_explosionRangeGoesThroughPowerUp()
+{
+	InputState input;
+	LevelDefinition level(10, 15);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 8, 3);
+	createGameEngine(level, 1);
+	GameState &gameState = m_gameEngine->getGameState();
+	PlayerState &player = gameState.getFirstPlayerState();
+	player.setDestructionRangeOfNewBombs(100);
+	m_gameEngine->addPowerUpOfTypeAtPosition(PowerUpTypeMaxBomb, Point(5, 3));
+
+	input.setSpaceKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	input.setSpaceKeyNotPressed();
+	input.setLeftKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 100);
+
+	vector<const ExplodedBombState*> explodedBombs = gameState.getAllChangedExplodedBombs();
+	const ExplodedBombState &explodedBomb = *(explodedBombs.front());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)5, explodedBomb.getDestructionRangeRight());
+}
+
+void GameEngineImplTest::updateGameState_bombExplodesWithBombInRange_explosionRangeGoesThroughBomb()
+{
+	InputState input;
+	LevelDefinition level(10, 15);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 8, 3);
+	createGameEngine(level, 1);
+	GameState &gameState = m_gameEngine->getGameState();
+	PlayerState &player = gameState.getFirstPlayerState();
+	double initialBombLifeTime = BombState::initialLifeTime();
+	player.setDestructionRangeOfNewBombs(100);
+	player.increaseMaxBombs();
+
+	input.setSpaceKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	input.setRightKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, initialBombLifeTime/2);
+	m_gameEngine->updateGameState(m_inputStates, initialBombLifeTime*2);
+
+	vector<const ExplodedBombState*> explodedBombs = gameState.getAllChangedExplodedBombs();
+	const ExplodedBombState &firstExplodedBomb = *(explodedBombs.front());
+	const ExplodedBombState &secondExplodedBomb = *(explodedBombs[1]);
+	CPPUNIT_ASSERT(5 == firstExplodedBomb.getDestructionRangeRight() || 5 == secondExplodedBomb.getDestructionRangeRight());
+}
+
 void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
 {
 	LevelDefinition level(4, 4);

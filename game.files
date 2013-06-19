@@ -317,3 +317,6 @@ common/powerupmaxbombrangestate.cpp
 common/powerupmaxbombrangestate.h
 common/powerupmaxbombrangestatetest.h
 common/powerupmaxbombrangestatetest.cpp
+resources/testfiles/levellist.csv
+resources/testfiles/defaultlevel.csv
+resources/testfiles/defaultlevelerror.csv

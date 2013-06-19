@@ -26,3 +26,11 @@ void CSVParserTest::getTextInField_position3And2_resultIsLoose()
 
 	CPPUNIT_ASSERT_EQUAL((std::string)"loose", testRead.getTextInField(3,2));
 }
+
+void CSVParserTest::isFileCorrect_parseFileDefaultLevelError_resulIsFalse()
+{
+	CSVParser testRead;
+	testRead.parseFile("defaultlevelerror");
+
+	CPPUNIT_ASSERT(!testRead.isFileCorrect());
+}
