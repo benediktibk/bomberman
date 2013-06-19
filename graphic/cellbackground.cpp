@@ -1,19 +1,20 @@
 #include "cellbackground.h"
 #include "graphic/point.h"
+#include "graphic/svgrenderer.h"
 #include "QGraphicsScene"
 #include "QtSvg/QtSvg"
 
 using namespace Graphic;
 
-CellBackground::CellBackground(QGraphicsScene &scene) :
-	m_svgItem(new QGraphicsSvgItem(QString("resources/graphics/bg_cell_pattern.svg")))
+CellBackground::CellBackground(QGraphicsScene &scene, SvgRenderer &renderer) :
+	m_svgItem(renderer.getNewCellBackgroundItem())
 {
 	m_svgItem->setZValue(-5);
     scene.addItem(m_svgItem);
 }
 
-CellBackground::CellBackground(QGraphicsScene &scene, const Common::Point &position, double pixelPerMeter) :
-	m_svgItem(new QGraphicsSvgItem(QString("resources/graphics/bg_cell_pattern.svg")))
+CellBackground::CellBackground(QGraphicsScene &scene, SvgRenderer &renderer, const Common::Point &position, double pixelPerMeter) :
+	m_svgItem(renderer.getNewCellBackgroundItem())
 {
 	m_svgItem->setZValue(-5);
     updateInternal(position, 1, 1, pixelPerMeter);

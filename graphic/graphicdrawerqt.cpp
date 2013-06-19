@@ -6,7 +6,7 @@
 #include "graphic/explodedbomb.h"
 #include "graphic/point.h"
 #include "graphic/cellbackground.h"
-#include "graphic/renderallsvggraphics.h"
+#include "graphic/svgrenderer.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QBrush>
@@ -24,12 +24,12 @@ using namespace Qt;
 GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 	m_view(view),
 	m_scene(new QGraphicsScene()),
-    m_pixelPerMeter(40),
+	m_pixelPerMeter(40),
 	m_firstRedraw(true),
 	m_minimumViewDistance(4),
 	m_minimumViewDistanceInPixel(m_minimumViewDistance*m_pixelPerMeter),
 	m_responsibilityValid(false),
-	m_graphicRenderer(new RenderAllSvgGraphics(m_pixelPerMeter))
+	m_svgRenderer(new SvgRenderer(m_pixelPerMeter))
 {
 	if (enableOpenGL)
 		m_view.setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
@@ -56,7 +56,7 @@ GraphicDrawerQt::~GraphicDrawerQt()
 	deleteBorderWalls();
 	deletePlayers();
 	delete m_scene;
-	delete m_graphicRenderer;
+	delete m_svgRenderer;
 }
 
 void GraphicDrawerQt::setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs)
@@ -81,11 +81,15 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 	if (m_firstRedraw)
 	{
 		drawBorderWalls(gameState.getWidth(), gameState.getHeight());
-		drawCellBackgrounds(gameState.getWidth(), gameState.getHeight());
+		/*!
+		 * @todo Check if background should be drawn cell by cell, or with a pattern, painted by a brush in constructor.
+		 *	Deactivated because background pattern is already set by brush in constructor.
+		 *	drawCellBackgrounds(gameState.getWidth(), gameState.getHeight());
+		*/
 		updateViewArea(gameState);
 	}
 
-	if (m_responsibleForOnePlayer)
+	if (m_responsibleForOnePlayer && gameState.isPlayerAlife(m_playerIDResponsibleFor))
 	{
 		const PlayerState &player = gameState.getPlayerStateById(m_playerIDResponsibleFor);
 		updateViewPositionForPlayer(player);
@@ -121,7 +125,7 @@ void GraphicDrawerQt::drawPlayer(const PlayerState *playerState)
 	Player* player = 0;
 
 	if (!playerFound)
-		player = new Player(*m_scene, *m_graphicRenderer);
+		player = new Player(*m_scene, *m_svgRenderer);
 	else
 		player = playerPosition->second;
 
@@ -148,7 +152,7 @@ void GraphicDrawerQt::drawWall(const WallState *wallState)
 		Wall* wall = 0;
 
 		if (!wallFound)
-			wall = new Wall(*m_scene, *m_graphicRenderer, *wallState);
+			wall = new Wall(*m_scene, *m_svgRenderer, *wallState);
 		else
 			wall = wallPosition->second;
 
@@ -176,7 +180,7 @@ void GraphicDrawerQt::drawBomb(const BombState *bombState)
 		Bomb* bomb = 0;
 
 		if (!bombFound)
-			bomb = new Bomb(*m_scene, *m_graphicRenderer);
+			bomb = new Bomb(*m_scene, *m_svgRenderer);
 		else
 			bomb = bombPosition->second;
 
@@ -204,7 +208,7 @@ void GraphicDrawerQt::drawPowerUp(const PowerUpState *powerUpState)
 		PowerUp* powerUp = 0;
 
 		if (!powerUpFound)
-			powerUp = new PowerUp(*m_scene, *m_graphicRenderer);
+			powerUp = new PowerUp(*m_scene, *m_svgRenderer);
 		else
 			powerUp = powerUpPosition->second;
 
@@ -232,7 +236,7 @@ void GraphicDrawerQt::drawExplodedBomb(const ExplodedBombState *explodedBombStat
 
 		if (!explodedBombFound)
 		{
-			ExplodedBomb *explodedBomb = new ExplodedBomb(*m_scene, *m_graphicRenderer, *explodedBombState, m_pixelPerMeter);
+			ExplodedBomb *explodedBomb = new ExplodedBomb(*m_scene, *m_svgRenderer, *explodedBombState, m_pixelPerMeter);
 			m_explodedBombs.insert(pair<const ExplodedBombState*, ExplodedBomb*>(explodedBombState, explodedBomb));
 		}
 	}
@@ -343,33 +347,33 @@ void GraphicDrawerQt::drawBorderWalls(unsigned int width, unsigned int height)
 void GraphicDrawerQt::drawLeftBorderWalls(unsigned int height)
 {
 	for (unsigned int y = 0; y < height; ++y)
-		m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(-1, y), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(-1, y), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::drawRightBorderWalls(unsigned int width, unsigned int height)
 {
 	for (unsigned int y = 0; y < height; ++y)
-		m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(width, y), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(width, y), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::drawUpperBorderWalls(unsigned int width, unsigned int height)
 {
 	for (unsigned int x = 0; x < width; ++x)
-		m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(x, height), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(x, height), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::drawLowerBorderWalls(unsigned int width)
 {
 	for (unsigned int x = 0; x < width; ++x)
-		m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(x, -1), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(x, -1), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::drawEdgeBorderWalls(unsigned int width, unsigned int height)
 {
-	m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(-1, -1), m_pixelPerMeter));
-	m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(-1, height), m_pixelPerMeter));
-	m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(width, -1), m_pixelPerMeter));
-	m_borderWalls.push_back(new Wall(*m_scene, *m_graphicRenderer, Point(width, height), m_pixelPerMeter));
+	m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(-1, -1), m_pixelPerMeter));
+	m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(-1, height), m_pixelPerMeter));
+	m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(width, -1), m_pixelPerMeter));
+	m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(width, height), m_pixelPerMeter));
 }
 
 void GraphicDrawerQt::drawCellBackgrounds(unsigned int width, unsigned int height)
@@ -378,7 +382,7 @@ void GraphicDrawerQt::drawCellBackgrounds(unsigned int width, unsigned int heigh
 	{
 		for (unsigned int y = 0; y < height; ++y)
 		{
-			m_cellBackgrounds.push_back(new CellBackground(*m_scene, Point(x, y), m_pixelPerMeter));
+			m_cellBackgrounds.push_back(new CellBackground(*m_scene, *m_svgRenderer, Point(x, y), m_pixelPerMeter));
 		}
 	}
 }

@@ -11,7 +11,7 @@ namespace Common
 	{
 	public:
 		InputFetcherMock();
-
+        virtual std::map<unsigned int, Common::InputState> getInputStates() ;        
 		virtual InputState getInputState();
 
 		unsigned int getCallsToGetInputState() const;

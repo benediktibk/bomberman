@@ -30,3 +30,9 @@ InputState ComputerEnemyInputFetcher::getInputState()
     }
     return m_inputState;
 }
+
+std::map<unsigned int, InputState> ComputerEnemyInputFetcher::getInputStates()
+{
+    std::map<unsigned int, InputState> result;
+    return result;
+}

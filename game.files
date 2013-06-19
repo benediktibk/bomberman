@@ -313,12 +313,17 @@ common/csvparsertest.h
 common/csvparsertest.cpp
 graphic/explodedbomb.h
 graphic/explodedbomb.cpp
+<<<<<<< local
+common/allplayerinputfetcher.h
+common/allplayerinputfetcher.cpp
+=======
 common/powerupmaxbombrangestate.cpp
 common/powerupmaxbombrangestate.h
 common/powerupmaxbombrangestatetest.h
 common/powerupmaxbombrangestatetest.cpp
 resources/testfiles/levellist.csv
 resources/testfiles/defaultlevel.csv
-graphic/renderallsvggraphics.h
-graphic/renderallsvggraphics.cpp
+graphic/svgrenderer.h
+graphic/svgrenderer.cpp
 resources/testfiles/defaultlevelerror.csv
+>>>>>>> other

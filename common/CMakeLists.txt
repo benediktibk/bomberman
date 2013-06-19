@@ -1,4 +1,4 @@
-set(COMMON_SRC
+set(COMMON_SRC    
 	gamestate.cpp
 	inputstate.cpp
 	stopwatch.cpp
@@ -19,6 +19,7 @@ set(COMMON_SRC
 	powerupmaxvelocitystate.cpp
 	explodedbombstate.cpp
 	compare.cpp
+	allplayerinputfetcher.cpp
 	leveldefinitionreader.cpp
 	csvparser.cpp
     powerupmaxbombrangestate.cpp

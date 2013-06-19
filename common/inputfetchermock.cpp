@@ -16,3 +16,9 @@ unsigned int InputFetcherMock::getCallsToGetInputState() const
 {
 	return m_callsToGetInputState;
 }
+
+std::map<unsigned int, InputState> InputFetcherMock::getInputStates()
+{
+    std::map<unsigned int, InputState> result;
+    return result;;
+}

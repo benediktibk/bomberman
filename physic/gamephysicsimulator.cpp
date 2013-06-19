@@ -168,8 +168,7 @@ void GamePhysicSimulator::updateCollisionGroupsForPlayer(const PlayerState &play
 	for (map<const BombState*, Bomb*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
 	{
 		Bomb *bomb = i->second;
-		if (!(i->first)->isDestroyed())
-			bomb->collideWithEverything();
+		bomb->collideWithEverything();
 	}
 
 	vector<const BombState*> bombsNotToCollideWith = player.getBombsNotToCollideWith();
