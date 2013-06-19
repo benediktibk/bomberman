@@ -204,7 +204,7 @@ void GraphicDrawerQt::drawPowerUp(const PowerUpState *powerUpState)
 		PowerUp* powerUp = 0;
 
 		if (!powerUpFound)
-			powerUp = new PowerUp(*m_scene);
+			powerUp = new PowerUp(*m_scene, m_graphicRenderer);
 		else
 			powerUp = powerUpPosition->second;
 
@@ -232,7 +232,7 @@ void GraphicDrawerQt::drawExplodedBomb(const ExplodedBombState *explodedBombStat
 
 		if (!explodedBombFound)
 		{
-			ExplodedBomb *explodedBomb = new ExplodedBomb(*m_scene, *explodedBombState, m_pixelPerMeter);
+			ExplodedBomb *explodedBomb = new ExplodedBomb(*m_scene, m_graphicRenderer, *explodedBombState, m_pixelPerMeter);
 			m_explodedBombs.insert(pair<const ExplodedBombState*, ExplodedBomb*>(explodedBombState, explodedBomb));
 		}
 	}
