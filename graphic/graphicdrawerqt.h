@@ -6,6 +6,7 @@
 
 class QGraphicsScene;
 class QGraphicsView;
+class QBrush;
 
 namespace Graphic
 {
@@ -78,6 +79,7 @@ namespace Graphic
 		unsigned int m_playerIDResponsibleFor;
 		bool m_responsibilityValid;
 		SvgRenderer *m_svgRenderer;
+		QBrush *m_backgroundBrush;
 	};
 }
 

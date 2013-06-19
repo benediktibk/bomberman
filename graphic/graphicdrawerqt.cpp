@@ -29,7 +29,8 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 	m_minimumViewDistance(4),
 	m_minimumViewDistanceInPixel(m_minimumViewDistance*m_pixelPerMeter),
 	m_responsibilityValid(false),
-	m_svgRenderer(new SvgRenderer(m_pixelPerMeter))
+	m_svgRenderer(new SvgRenderer(m_pixelPerMeter)),
+	m_backgroundBrush(0)
 {
 	if (enableOpenGL)
 		m_view.setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
@@ -39,9 +40,9 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 	QPainter painter(&image);
 	renderer.render(&painter);
 
-	QBrush *backgroundBrush = new QBrush(image);
+	QBrush *m_backgroundBrush = new QBrush(image);
 
-	m_view.setBackgroundBrush(*backgroundBrush);
+	m_view.setBackgroundBrush(*m_backgroundBrush);
 
 	m_view.setFocusPolicy(NoFocus);
 	m_view.setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
@@ -57,6 +58,7 @@ GraphicDrawerQt::~GraphicDrawerQt()
 	deletePlayers();
 	delete m_scene;
 	delete m_svgRenderer;
+	delete m_backgroundBrush;
 }
 
 void GraphicDrawerQt::setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs)
