@@ -324,3 +324,4 @@ resources/testfiles/testlevelwrongtypeinfile.csv
 main/startwindow.h
 main/startwindow.cpp
 main/gui/startwindow.ui
+main/startwindowtest.cpp
