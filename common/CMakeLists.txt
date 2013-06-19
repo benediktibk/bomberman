@@ -21,6 +21,7 @@ set(COMMON_SRC
 	compare.cpp
 	leveldefinitionreader.cpp
 	csvparser.cpp
+    powerupmaxbombrangestate.cpp
 )
 
 set(COMMON_TEST_SRC

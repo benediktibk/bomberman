@@ -235,7 +235,7 @@ void PlayerState::increaseMaximumSpeed()
 	m_maximumSpeed += 2;
 }
 
-void PlayerState::increaseMaximumBombRange()
+void PlayerState::increaseMaximumBombRange(unsigned int number)
 {
-    m_destructionRangeOfNewBombs += 1;
+    m_destructionRangeOfNewBombs += number;
 }

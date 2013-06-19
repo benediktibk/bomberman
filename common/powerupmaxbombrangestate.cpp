@@ -7,7 +7,7 @@ PowerUpMaxBombRangeState::PowerUpMaxBombRangeState(UniqueIdCreator &creator, con
     m_plusBombRange(1)
 { }
 
-void PowerUpMaxBombState::modifyPlayer(PlayerState &player) const
+void PowerUpMaxBombRangeState::modifyPlayer(PlayerState &player) const
 {
-    player.increaseMaxBombs(m_plusMaxBombs);
+    player.increaseMaximumBombRange(m_plusBombRange);
 }

@@ -43,7 +43,7 @@ namespace Common
 		unsigned int getBombCount();
 		double getMaximumSpeed() const;
 		void increaseMaximumSpeed();
-        void increaseMaximumBombRange();
+        void increaseMaximumBombRange(unsigned int number);
 		double getSpeedIntoX() const;
 		double getSpeedIntoY() const;
 		void setMoving();
