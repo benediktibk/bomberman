@@ -158,22 +158,19 @@ void GamePhysicSimulator::updateWall(const WallState *wall)
 
 void GamePhysicSimulator::updateCollisionGroups(const GameState &state)
 {
-	//! @todo update the collision groups for all players
-//	vector<const PlayerState*> allPlayers = state.getAllPlayers();
-
-//	for (vector<const PlayerState*>::const_iterator i = allPlayers.begin(); i != allPlayers.end(); ++i)
-//		updateCollisionGroupsForPlayer(**i);
-	updateCollisionGroupsForPlayer(state.getFirstPlayerState());
-}
-
-void GamePhysicSimulator::updateCollisionGroupsForPlayer(const PlayerState &player)
-{
 	for (map<const BombState*, Bomb*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
 	{
 		Bomb *bomb = i->second;
 		bomb->collideWithEverything();
 	}
 
+	vector<const PlayerState*> allPlayers = state.getAllPlayers();
+	for (vector<const PlayerState*>::const_iterator i = allPlayers.begin(); i != allPlayers.end(); ++i)
+		updateCollisionGroupsForPlayer(**i);
+}
+
+void GamePhysicSimulator::updateCollisionGroupsForPlayer(const PlayerState &player)
+{
 	vector<const BombState*> bombsNotToCollideWith = player.getBombsNotToCollideWith();
 	for (vector<const BombState*>::const_iterator i = bombsNotToCollideWith.begin(); i != bombsNotToCollideWith.end(); ++i)
 	{
