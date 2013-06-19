@@ -3,7 +3,10 @@
 using namespace Common;
 using namespace std;
 
-CSVParser::CSVParser()
+CSVParser::CSVParser() :
+	m_height(0),
+	m_width(0),
+	m_isFileCorrect(true)
 { }
 
 void CSVParser::parseFile(std::string filename)
@@ -14,6 +17,7 @@ void CSVParser::parseFile(std::string filename)
 	string textInField;
 	unsigned int height = 0;
 	unsigned int width;
+	bool firstLine = false;
 
 	if(csvRead.is_open())
 	{
@@ -28,6 +32,16 @@ void CSVParser::parseFile(std::string filename)
 				{
 					m_textInFile.push_back(textInField);
 					width +=1;
+				}
+				if(!firstLine)
+				{
+					m_width = width;
+					firstLine = true;
+				}
+				if(m_width != width)
+				{
+					m_isFileCorrect = false;
+					break;
 				}
 			}
 		}
@@ -52,5 +66,10 @@ unsigned int CSVParser::getHeightOfFile() const
 
 string CSVParser::getTextInField(unsigned int x, unsigned int y) const
 {
-	return m_textInFile[y * m_width + x];
+	return m_textInFile[(m_height * m_width - 1) - (y * m_width) - (m_width - 1 - x)];
+}
+
+bool CSVParser::isFileCorrect()
+{
+	return m_isFileCorrect;
 }
