@@ -44,10 +44,10 @@ namespace GameEngine
 		std::vector<unsigned int> getPowerUpsInRange(const Common::BombState &bomb) const;
 		std::vector<Common::GridPoint> getPlayerFields(const Common::PlayerState &player) const;
 		std::vector<unsigned int> getPlayersInRange(const Common::BombState &bomb, std::vector<const Common::PlayerState*> allPlayers) const;
-		unsigned int getDistanceToNextNotFreePlaceLeft(const Common::GridPoint &position) const;
-		unsigned int getDistanceToNextNotFreePlaceRight(const Common::GridPoint &position) const;
-		unsigned int getDistanceToNextNotFreePlaceUp(const Common::GridPoint &position) const;
-		unsigned int getDistanceToNextNotFreePlaceDown(const Common::GridPoint &position) const;
+		unsigned int getDistanceToNextWallLeft(const Common::GridPoint &position) const;
+		unsigned int getDistanceToNextWallRight(const Common::GridPoint &position) const;
+		unsigned int getDistanceToNextWallUp(const Common::GridPoint &position) const;
+		unsigned int getDistanceToNextWallDown(const Common::GridPoint &position) const;
 
 	private:
 		unsigned int getVectorIndex(const Common::GridPoint &position) const;

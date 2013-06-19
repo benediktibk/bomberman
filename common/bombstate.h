@@ -27,6 +27,9 @@ namespace Common
 		double getHeight() const;
 		unsigned int getPlayerID() const;
 
+	public:
+		static double initialLifeTime();
+
 	private:
 		// forbid copies
 		BombState(const BombState &bomb);
