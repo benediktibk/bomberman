@@ -18,11 +18,13 @@ public:
 	unsigned int getHeightOfFile() const;
 	unsigned int getWidthOfFile() const;
 	std::string getTextInField(unsigned int x, unsigned int y) const;
+	bool isFileCorrect();
 
 private:
 	std::vector<std::string> m_textInFile;
 	unsigned int m_height;
 	unsigned int m_width;
+	bool m_isFileCorrect;
 };
 }
 #endif // CSVPARSER_H

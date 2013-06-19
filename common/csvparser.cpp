@@ -5,7 +5,8 @@ using namespace std;
 
 CSVParser::CSVParser() :
 	m_height(0),
-	m_width(0)
+	m_width(0),
+	m_isFileCorrect(true)
 { }
 
 void CSVParser::parseFile(std::string filename)
@@ -39,7 +40,7 @@ void CSVParser::parseFile(std::string filename)
 				}
 				if(m_width != width)
 				{
-					cerr << "Error in file" << endl;
+					m_isFileCorrect = false;
 					break;
 				}
 			}
@@ -66,4 +67,9 @@ unsigned int CSVParser::getHeightOfFile() const
 string CSVParser::getTextInField(unsigned int x, unsigned int y) const
 {
 	return m_textInFile[(m_height * m_width - 1) - (y * m_width) - (m_width - 1 - x)];
+}
+
+bool CSVParser::isFileCorrect()
+{
+	return m_isFileCorrect;
 }
