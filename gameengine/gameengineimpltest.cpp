@@ -918,9 +918,9 @@ void GameEngineImplTest::updateGameState_bombExplodesWithTwoLooseWallsDirectBehi
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 5, 3);
 	createGameEngine(level, 1);
-	const GameState &gameState = m_gameEngine->getGameState();
-	const PlayerState &player = gameState.getFirstPlayerState();
-	double timeForOneField = 1/player.getMaximumSpeed();
+	GameState &gameState = m_gameEngine->getGameState();
+	PlayerState &player = gameState.getFirstPlayerState();
+	player.setDestructionRangeOfNewBombs(100);
 
 	input.setSpaceKeyPressed();
 	setFirstPlayerInput(input);
@@ -928,7 +928,32 @@ void GameEngineImplTest::updateGameState_bombExplodesWithTwoLooseWallsDirectBehi
 	input.setSpaceKeyNotPressed();
 	input.setLeftKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField*100);
+	m_gameEngine->updateGameState(m_inputStates, 100);
+	m_gameEngine->updateGameState(m_inputStates, 100);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, gameState.getWallCount());
+}
+
+void GameEngineImplTest::updateGameState_bombExplodesWithTwoLooseWallsBehindWithOneFieldFree_wallCountIs1()
+{
+	InputState input;
+	LevelDefinition level(10, 15);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 6, 3);
+	createGameEngine(level, 1);
+	GameState &gameState = m_gameEngine->getGameState();
+	PlayerState &player = gameState.getFirstPlayerState();
+	player.setDestructionRangeOfNewBombs(100);
+
+	input.setSpaceKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+	input.setSpaceKeyNotPressed();
+	input.setLeftKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 100);
+	m_gameEngine->updateGameState(m_inputStates, 100);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, gameState.getWallCount());
 }

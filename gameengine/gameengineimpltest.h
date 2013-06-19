@@ -54,6 +54,7 @@ namespace GameEngine
 		CPPUNIT_TEST(updateGameState_playerDiesByHisOwnBomb_playerCountIs0);
 		CPPUNIT_TEST(updateGameState_bombAtLowerEndExplodes_bombCountIs0);
 		CPPUNIT_TEST(updateGameState_bombExplodesWithTwoLooseWallsDirectBehind_wallCountIs1);
+		CPPUNIT_TEST(updateGameState_bombExplodesWithTwoLooseWallsBehindWithOneFieldFree_wallCountIs1);
 		CPPUNIT_TEST(getHeight_HeightOfLevelDefinition_HeightOfGamestate);
 		CPPUNIT_TEST(getWidth_WidthOfLevelDefinition_WidthOfGamestate);
 		CPPUNIT_TEST(getWallCount_Create4x4LevelWith2Wall_WallCountIs2);
@@ -127,6 +128,7 @@ namespace GameEngine
 		void updateGameState_playerDiesByHisOwnBomb_playerCountIs0();
 		void updateGameState_bombAtLowerEndExplodes_bombCountIs0();
 		void updateGameState_bombExplodesWithTwoLooseWallsDirectBehind_wallCountIs1();
+		void updateGameState_bombExplodesWithTwoLooseWallsBehindWithOneFieldFree_wallCountIs1();
 		void getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayRightToGridPoint_halfTimeToMoveBetweenTwoGridPoints();
 		void getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayLeftToGridPoint_halfTimeToMoveBetweenTwoGridPoints();
 		void getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayUpToGridPoint_halfTimeToMoveBetweenTwoGridPoints();
