@@ -325,3 +325,4 @@ main/startwindow.h
 main/startwindow.cpp
 main/gui/startwindow.ui
 main/startwindowtest.cpp
+resources/levels/neighbourship.csv

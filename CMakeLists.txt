@@ -32,6 +32,7 @@ add_custom_target(
 
 set(LEVELS
 	defaultlevel.csv
+	neighbourship.csv
 	levellist.csv
 )
 
@@ -52,7 +53,7 @@ set(GRAPHICS
 	powerup_v2.svg
 	explosion_center.svg
 	explosion_flame.svg
-    powerup.svg
+	powerup.svg
 	bg_cell_pattern.svg
 )
 
