@@ -318,3 +318,4 @@ resources/testfiles/defaultlevel.csv
 graphic/svgrenderer.h
 graphic/svgrenderer.cpp
 resources/testfiles/defaultlevelerror.csv
+resources/testfiles/defaultlevelerror2.csv

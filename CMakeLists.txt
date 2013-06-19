@@ -38,6 +38,7 @@ set(LEVELS
 set(TESTFILES
 	defaultlevel.csv
 	defaultlevelerror.csv
+	defaultlevelerror2.csv
 	levellist.csv
 )
 

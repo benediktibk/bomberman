@@ -48,3 +48,10 @@ void LevelDefinitionTest::getObjectTypeAtPosition_buildLevelFromCSVFilePosition3
 
 	CPPUNIT_ASSERT_EQUAL(LevelDefinition::ObjectTypeLooseWall, level.getObjectTypeAtPosition(3,2));
 }
+
+void LevelDefinitionTest::isLevelBuildingCorrect_freeeeInsteadOfFreeInFile_isLevelBuildingIsFalse()
+{
+	LevelDefinition level(CSVParser("defaultlevelerror2"));
+
+	CPPUNIT_ASSERT(!level.isLevelBuildingCorrect());
+}

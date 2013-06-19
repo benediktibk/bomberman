@@ -16,6 +16,7 @@ namespace Common
 		CPPUNIT_TEST(setObjectTypeAtPosition_SolidWallAt3And5_resultIsObjectTypeSolidWall);
 		CPPUNIT_TEST(getPlayerStartPositionCount_twoPlayerStartPositions_2);
 		CPPUNIT_TEST(getObjectTypeAtPosition_buildLevelFromCSVFilePosition3And2_resultIsObjectTypeLooseWall);
+		CPPUNIT_TEST(isLevelBuildingCorrect_freeeeInsteadOfFreeInFile_isLevelBuildingIsFalse);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -25,6 +26,7 @@ namespace Common
 		void setObjectTypeAtPosition_SolidWallAt3And5_resultIsObjectTypeSolidWall();
 		void getPlayerStartPositionCount_twoPlayerStartPositions_2();
 		void getObjectTypeAtPosition_buildLevelFromCSVFilePosition3And2_resultIsObjectTypeLooseWall();
+		void isLevelBuildingCorrect_freeeeInsteadOfFreeInFile_isLevelBuildingIsFalse();
 	};
 }
 
