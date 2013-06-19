@@ -197,7 +197,7 @@ void GameStateTest::setBombsLifeTimeToZero_oneBombAddedAndSetLifeTimeZero_lifeTi
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	const BombState* bomb;
 	state.addBomb(new BombState(m_bombIDCreator, 0));
-	state.setBombsLifeTimeToZero(0);
+	state.setBombsLifeTimeToZeroIfPositive(0);
 
 	vector<const BombState*> bombs = state.getAllChangedBombs();
 	bomb = bombs[0];

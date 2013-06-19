@@ -111,7 +111,7 @@ void GridTest::isPlaceEmpty_coveredByWall_false()
 	CPPUNIT_ASSERT(!grid.isPlaceEmpty(position));
 }
 
-void GridTest::getWallsInRange_bombat32_twowallsup()
+void GridTest::getLooseWallsInRange_bombat32_twowallsup()
 {
 	UniqueIdCreator bombIDCreator;
 	UniqueIdCreator wallcreator;
@@ -124,19 +124,19 @@ void GridTest::getWallsInRange_bombat32_twowallsup()
 	grid.addBombAtPlace(bomb);
 
 	Point position1(3.0, 3.0);
-	WallState wall1(wallcreator,WallState::WallTypeLoose,position1);
+	WallState wall1(wallcreator,WallState::WallTypeLoose, position1);
 	grid.addWallAtPlace(wall1);
 
 	Point position2(4.0, 2.0);
-	WallState wall2(wallcreator,WallState::WallTypeLoose,position2);
+	WallState wall2(wallcreator,WallState::WallTypeLoose, position2);
 	grid.addWallAtPlace(wall2);
 
-	wallsinrange = grid.getWallsInRange(bomb);
+	wallsinrange = grid.getLooseWallsInRange(bomb);
 
 	CPPUNIT_ASSERT(count(wallsinrange.begin(), wallsinrange.end(), 0) == 1);
 }
 
-void GridTest::getWallsInRange_bombat32_twowallsright()
+void GridTest::getLooseWallsInRange_bombat32_twowallsright()
 {
 	UniqueIdCreator bombIDCreator;
 	UniqueIdCreator wallcreator;
@@ -156,12 +156,12 @@ void GridTest::getWallsInRange_bombat32_twowallsright()
 	WallState wall2(wallcreator,WallState::WallTypeLoose,position2);
 	grid.addWallAtPlace(wall2);
 
-	wallsinrange = grid.getWallsInRange(bomb);
+	wallsinrange = grid.getLooseWallsInRange(bomb);
 
 	CPPUNIT_ASSERT(count(wallsinrange.begin(), wallsinrange.end(), 1) == 1);
 }
 
-void GridTest::getWallsInRange_bombat32_twowallsleft()
+void GridTest::getLooseWallsInRange_bombat32_twowallsleft()
 {
 	UniqueIdCreator bombIDCreator;
 	UniqueIdCreator wallcreator;
@@ -189,12 +189,12 @@ void GridTest::getWallsInRange_bombat32_twowallsleft()
 	WallState wall4(wallcreator,WallState::WallTypeLoose,position4);
 	grid.addWallAtPlace(wall4);
 
-	wallsinrange = grid.getWallsInRange(bomb);
+	wallsinrange = grid.getLooseWallsInRange(bomb);
 
 	CPPUNIT_ASSERT(count(wallsinrange.begin(), wallsinrange.end(), 2) == 1);
 }
 
-void GridTest::getWallsInRange_bombat32_twowallsdown()
+void GridTest::getLooseWallsInRange_bombat32_twowallsdown()
 {
 	UniqueIdCreator bombIDCreator;
 	UniqueIdCreator wallcreator;
@@ -222,12 +222,12 @@ void GridTest::getWallsInRange_bombat32_twowallsdown()
 	WallState wall4(wallcreator,WallState::WallTypeLoose,position4);
 	grid.addWallAtPlace(wall4);
 
-	wallsinrange = grid.getWallsInRange(bomb);
+	wallsinrange = grid.getLooseWallsInRange(bomb);
 
 	CPPUNIT_ASSERT(count(wallsinrange.begin(), wallsinrange.end(), 3) == 1);
 }
 
-void GridTest::getWallsInRange_bombat32and4wallssurrounding_sizeofwallsinrangeis4()
+void GridTest::getLooseWallsInRange_bombat32and4wallssurrounding_sizeofwallsinrangeis4()
 {
 	UniqueIdCreator bombIDCreator;
 	UniqueIdCreator wallcreator;
@@ -255,12 +255,12 @@ void GridTest::getWallsInRange_bombat32and4wallssurrounding_sizeofwallsinrangeis
 	WallState wall4(wallcreator,WallState::WallTypeLoose,position4);
 	grid.addWallAtPlace(wall4);
 
-	wallsinrange = grid.getWallsInRange(bomb);
+	wallsinrange = grid.getLooseWallsInRange(bomb);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)4 , wallsinrange.size());
 }
 
-void GridTest::getWallsInRange_bombat32and8wallssurroundingrangeis2_sizeofwallsinrangeis4()
+void GridTest::getLooseWallsInRange_bombat32and8wallssurroundingrangeis2_sizeofwallsinrangeis4()
 {
 	UniqueIdCreator bombIDCreator;
 	UniqueIdCreator wallcreator;
@@ -305,12 +305,12 @@ void GridTest::getWallsInRange_bombat32and8wallssurroundingrangeis2_sizeofwallsi
 	WallState wall8(wallcreator,WallState::WallTypeLoose,position8);
 	grid.addWallAtPlace(wall8);
 
-	wallsinrange = grid.getWallsInRange(bomb);
+	wallsinrange = grid.getLooseWallsInRange(bomb);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)4 , wallsinrange.size());
 }
 
-void GridTest::getWallsInRange_bombat32andwallssurroundingdistance2rangeis2_sizeofwallsinrangeis4()
+void GridTest::getLooseWallsInRange_bombat32andwallssurroundingdistance2rangeis2_sizeofwallsinrangeis4()
 {
 	UniqueIdCreator bombIDCreator;
 	UniqueIdCreator wallcreator;
@@ -343,12 +343,12 @@ void GridTest::getWallsInRange_bombat32andwallssurroundingdistance2rangeis2_size
 	WallState wall8(wallcreator,WallState::WallTypeLoose,position8);
 	grid.addWallAtPlace(wall8);
 
-	wallsinrange = grid.getWallsInRange(bomb);
+	wallsinrange = grid.getLooseWallsInRange(bomb);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)4 , wallsinrange.size());
 }
 
-void GridTest::getWallsInRange_bombat32andwallssurroundingdistance2rangeis1_sizeofwallsinrangeis0()
+void GridTest::getLooseWallsInRange_bombat32andwallssurroundingdistance2rangeis1_sizeofwallsinrangeis0()
 {
 	UniqueIdCreator bombIDCreator;
 	UniqueIdCreator wallcreator;
@@ -376,12 +376,12 @@ void GridTest::getWallsInRange_bombat32andwallssurroundingdistance2rangeis1_size
 	WallState wall8(wallcreator,WallState::WallTypeLoose,position8);
 	grid.addWallAtPlace(wall8);
 
-	wallsinrange = grid.getWallsInRange(bomb);
+	wallsinrange = grid.getLooseWallsInRange(bomb);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)0, wallsinrange.size());
 }
 
-void GridTest::getWallsInRange_bombat60rangeis1_sizeofwallsinrangeis2()
+void GridTest::getLooseWallsInRange_bombat60rangeis1_sizeofwallsinrangeis2()
 {
 	UniqueIdCreator bombIDCreator;
 	UniqueIdCreator wallcreator;
@@ -409,12 +409,12 @@ void GridTest::getWallsInRange_bombat60rangeis1_sizeofwallsinrangeis2()
 	WallState wall8(wallcreator,WallState::WallTypeLoose,position8);
 	grid.addWallAtPlace(wall8);
 
-	wallsinrange = grid.getWallsInRange(bomb);
+	wallsinrange = grid.getLooseWallsInRange(bomb);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)2 , wallsinrange.size());
 }
 
-void GridTest::getWallsInRange_bombat61rangeis2_sizeofwallsinrangeis3()
+void GridTest::getLooseWallsInRange_bombat61rangeis2_sizeofwallsinrangeis3()
 {
 	UniqueIdCreator bombIDCreator;
 	UniqueIdCreator wallcreator;
@@ -443,7 +443,7 @@ void GridTest::getWallsInRange_bombat61rangeis2_sizeofwallsinrangeis3()
 	WallState wall8(wallcreator,WallState::WallTypeLoose,position8);
 	grid.addWallAtPlace(wall8);
 
-	wallsinrange = grid.getWallsInRange(bomb);
+	wallsinrange = grid.getLooseWallsInRange(bomb);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)3, wallsinrange.size());
 }
@@ -487,7 +487,7 @@ void GridTest::getPowerUpsInRange_bombat33RangeIs10PowerUpBombPowerUpPowerUpWall
 	Point position(2.0, 3.0);
 	BombState bomb(bombIDCreator, 0);
 	bomb.setPosition(position);
-    bomb.setDestructionRange(10);
+	bomb.setDestructionRange(10);
 	grid.addBombAtPlace(bomb);
 
 	Point position1(1.0, 3.0);
@@ -527,7 +527,7 @@ void GridTest::getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringet
 	bomb.setDestructionRange(5);
 	grid.addBombAtPlace(bomb);
 
-	wallsInRange = grid.getWallsInRange(bomb);
+	wallsInRange = grid.getLooseWallsInRange(bomb);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)0, wallsInRange.size());
 }
@@ -535,22 +535,18 @@ void GridTest::getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringet
 void GridTest::getPlayersinRange_bombat59gridsize1010_1()
 {
 	UniqueIdCreator playerCreator;
-	vector<unsigned int> playersInRange;
+	vector<const PlayerState*> players;
 	UniqueIdCreator bombIDCreator;
 	Grid grid(10, 10);
-
-	Point position(5.0, 9.0);
 	BombState bomb(bombIDCreator, 0);
-	bomb.setPosition(position);
+	PlayerState player(playerCreator);
+	bomb.setPosition(Point(5, 9));
 	bomb.setDestructionRange(5);
 	grid.addBombAtPlace(bomb);
+	player.setPosition(Point(5, 8));
+	players.push_back(&player);
 
-	Point position2(5.0, 8.0);
-	PlayerState player(playerCreator);
-	player.setPosition(position2);
-	grid.updatePlayer(player);
-
-	playersInRange = grid.getPlayersInRange(bomb);
+	vector<unsigned int> playersInRange = grid.getPlayersInRange(bomb, players);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, playersInRange.size());
 }
@@ -626,18 +622,13 @@ void GridTest::getPlayerFields_PlayerAt1comm5and1_11and21()
 	Grid grid(3, 3);
 	UniqueIdCreator playerCreator;
 	PlayerState player(playerCreator);
-	vector<GridPoint> gridPoints;
+	player.setPosition(Point(1.5, 1));
+
+	vector<GridPoint> gridPoints = grid.getPlayerFields(player);
+
 	vector<GridPoint> gridPointsShouldBe;
-	Point position(1.5, 1.0);
-	player.setPosition(position);
-	grid.updatePlayer(player);
-	gridPoints=grid.getPlayerFields(player);
-
-	GridPoint point1(1, 1);
-	GridPoint point2(2, 1);
-	gridPointsShouldBe.push_back(point1);
-	gridPointsShouldBe.push_back(point2);
-
+	gridPointsShouldBe.push_back(GridPoint(1, 1));
+	gridPointsShouldBe.push_back(GridPoint(2, 1));
 	CPPUNIT_ASSERT(gridPoints == gridPointsShouldBe);
 }
 
@@ -646,18 +637,13 @@ void GridTest::getPlayerFields_PlayerAt1and1comma5_11and12()
 	Grid grid(3, 3);
 	UniqueIdCreator playerCreator;
 	PlayerState player(playerCreator);
-	vector<GridPoint> gridPoints;
+	player.setPosition(Point(1, 1.5));
+
+	vector<GridPoint> gridPoints = grid.getPlayerFields(player);
+
 	vector<GridPoint> gridPointsShouldBe;
-	Point position(1.0, 1.5);
-	player.setPosition(position);
-	grid.updatePlayer(player);
-	gridPoints=grid.getPlayerFields(player);
-
-	GridPoint point1(1, 1);
-	GridPoint point2(1, 2);
-	gridPointsShouldBe.push_back(point1);
-	gridPointsShouldBe.push_back(point2);
-
+	gridPointsShouldBe.push_back(GridPoint(1, 1));
+	gridPointsShouldBe.push_back(GridPoint(1, 2));
 	CPPUNIT_ASSERT(gridPoints == gridPointsShouldBe);
 }
 

@@ -50,8 +50,9 @@ void GamePhysicSimulator::simulateStep(GameState &game, double time)
 		}
 		else
 			player = playerPosition->second;
-        player->applyLinearVelocity(playerState.getSpeedIntoX(), playerState.getSpeedIntoY());
-        player->updateObstacle();
+
+		player->applyLinearVelocity(playerState.getSpeedIntoX(), playerState.getSpeedIntoY());
+		player->updateObstacle();
 	}
 
 	m_simulator->simulateStep(time);
@@ -68,7 +69,7 @@ void GamePhysicSimulator::updateItems(const GameState &state)
 {
 	updateBombs(state);
 	updateWalls(state);
-	updateCollisionGroups(state.getFirstPlayerState());
+	updateCollisionGroups(state);
 }
 
 void GamePhysicSimulator::deleteAllWalls()
@@ -155,7 +156,7 @@ void GamePhysicSimulator::updateWall(const WallState *wall)
 	}
 }
 
-void GamePhysicSimulator::updateCollisionGroups(const PlayerState &player)
+void GamePhysicSimulator::updateCollisionGroups(const GameState &state)
 {
 	for (map<const BombState*, Bomb*>::iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
 	{
@@ -163,10 +164,21 @@ void GamePhysicSimulator::updateCollisionGroups(const PlayerState &player)
 		bomb->collideWithEverything();
 	}
 
+	vector<const PlayerState*> allPlayers = state.getAllPlayers();
+	for (vector<const PlayerState*>::const_iterator i = allPlayers.begin(); i != allPlayers.end(); ++i)
+		updateCollisionGroupsForPlayer(**i);
+}
+
+void GamePhysicSimulator::updateCollisionGroupsForPlayer(const PlayerState &player)
+{
 	vector<const BombState*> bombsNotToCollideWith = player.getBombsNotToCollideWith();
 	for (vector<const BombState*>::const_iterator i = bombsNotToCollideWith.begin(); i != bombsNotToCollideWith.end(); ++i)
 	{
-		Bomb *bomb = m_bombs.at(*i);
-		bomb->doNotCollideWith(player);
+		const BombState &bombState = **i;
+		if (!bombState.isDestroyed())
+		{
+			Bomb *bomb = m_bombs.at(&bombState);
+			bomb->doNotCollideWith(player);
+		}
 	}
 }

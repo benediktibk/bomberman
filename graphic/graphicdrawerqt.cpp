@@ -24,7 +24,7 @@ using namespace Qt;
 GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 	m_view(view),
 	m_scene(new QGraphicsScene()),
-    m_pixelPerMeter(40),
+	m_pixelPerMeter(40),
 	m_firstRedraw(true),
 	m_minimumViewDistance(4),
 	m_minimumViewDistanceInPixel(m_minimumViewDistance*m_pixelPerMeter),
@@ -89,7 +89,7 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 		updateViewArea(gameState);
 	}
 
-	if (m_responsibleForOnePlayer)
+	if (m_responsibleForOnePlayer && gameState.isPlayerAlife(m_playerIDResponsibleFor))
 	{
 		const PlayerState &player = gameState.getPlayerStateById(m_playerIDResponsibleFor);
 		updateViewPositionForPlayer(player);

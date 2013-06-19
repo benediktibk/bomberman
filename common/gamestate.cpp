@@ -349,11 +349,11 @@ void GameState::eraseWallById(unsigned int wallId)
 	}
 }
 
-void GameState::setBombsLifeTimeToZero(unsigned int bombId)
+void GameState::setBombsLifeTimeToZeroIfPositive(unsigned int bombId)
 {
 	for(size_t i = 0; i < m_bombs.size(); i++)
 	{
-		if((m_bombs[i]->getID() == bombId))
+		if(m_bombs[i]->getID() == bombId && m_bombs[i]->getLifeTime() >= 0)
 			m_bombs[i]->setLifeTime(0);
 	}
 }
@@ -392,7 +392,7 @@ void GameState::erasePowerUpById(unsigned int powerUpId)
 
 void GameState::addPowerUp(PowerUpState *powerUp)
 {
-	m_powerUps.push_back(powerUp);   
+	m_powerUps.push_back(powerUp);
 }
 
 void GameState::erasePowerUp(size_t position)
@@ -427,15 +427,17 @@ void GameState::erasePlayer(size_t position)
 {
 	delete m_players[position];
 	m_players.erase(m_players.begin() + position);
+	m_playersConst.erase(m_playersConst.begin() + position);
 }
 
-void GameState::erasePlayerById(unsigned int playerId)
+void GameState::erasePlayerById(unsigned int /*playerId*/)
 {
-	for(size_t i = 0; i < m_players.size(); i++)
-	{
-		if(m_players[i]->getId() == playerId)
-			m_players[i]->setDestroyed();
-	}
+	//! @todo enable this
+//	for(size_t i = 0; i < m_players.size(); i++)
+//	{
+//		if(m_players[i]->getId() == playerId)
+//			m_players[i]->setDestroyed();
+//	}
 }
 
 vector<const BombState*> GameState::getAllBombsWithDestroyedFlag() const

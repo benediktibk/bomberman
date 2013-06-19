@@ -16,7 +16,8 @@ namespace GameEngine
 	private:
 		enum Item
 		{
-			ItemWall,
+			ItemSolidWall,
+			ItemLooseWall,
 			ItemBomb,
 			ItemPlayer,
 			ItemPowerUp,
@@ -34,16 +35,17 @@ namespace GameEngine
 		void addWallAtPlace(const Common::WallState &wall);
 		void removeBomb(const Common::BombState &bomb);
 		void removeWall(const Common::WallState &wall);
-		void updatePlayer(const Common::PlayerState &player);
-		void removePlayer(const Common::PlayerState &player);
 		void removePowerUp(const Common::PowerUpState &powerUp);
 		void addPowerUpAtPlace(Common::PowerUpState &powerUp);
-		std::vector<unsigned int> getWallsInRange(const Common::BombState &bomb) const;
-		std::vector<unsigned int> getPlayersInRange(const Common::BombState &bomb) const;
+		std::vector<unsigned int> getLooseWallsInRange(const Common::BombState &bomb) const;
 		std::vector<unsigned int> getBombsInRange(const Common::BombState &bomb) const;
 		std::vector<unsigned int> getPowerUpsInRange(const Common::BombState &bomb) const;
 		std::vector<Common::GridPoint> getPlayerFields(const Common::PlayerState &player) const;
 		std::vector<unsigned int> getPlayersInRange(const Common::BombState &bomb, std::vector<const Common::PlayerState*> allPlayers) const;
+		unsigned int getBombMaximumRangeLeft(const Common::GridPoint &position) const;
+		unsigned int getBombMaximumRangeUp(const Common::GridPoint &position) const;
+		unsigned int getBombMaximumRangeRight(const Common::GridPoint &position) const;
+		unsigned int getBombMaximumRangeDown(const Common::GridPoint &position) const;
 		unsigned int getDistanceToNextWallLeft(const Common::GridPoint &position) const;
 		unsigned int getDistanceToNextWallRight(const Common::GridPoint &position) const;
 		unsigned int getDistanceToNextWallUp(const Common::GridPoint &position) const;

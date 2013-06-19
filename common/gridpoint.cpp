@@ -19,11 +19,11 @@ GridPoint::GridPoint(const Point &point) :
 		m_x(static_cast<unsigned int>(point.getX())),
 		m_y(static_cast<unsigned int>(point.getY()))
 {
-    Compare compare(0.05);
-    if (compare.isFuzzyEqual((m_x + 1), point.getX()))
+	Compare compare(0.05);
+	if (compare.isFuzzyEqual((m_x + 1), point.getX()))
 		++m_x;
 
-    if (compare.isFuzzyEqual((m_y + 1), point.getY()))
+	if (compare.isFuzzyEqual((m_y + 1), point.getY()))
 		++m_y;
 }
 
@@ -80,8 +80,6 @@ Point GridPoint::getPointPosition() const
 	double y = static_cast<double>(m_y);
 	point.setX(x);
 	point.setY(y);
-
-
 	return point;
 }
 
@@ -93,33 +91,33 @@ ostream& operator<<(ostream &stream, const GridPoint &point)
 
 std::vector<GridPoint> GridPoint::getCoveredGridPoints(Common::Point position)
 {
-    GridPoint positionGrid(position);
-    vector<GridPoint> result;
-    Compare compare(0.05);
+	GridPoint positionGrid(position);
+	vector<GridPoint> result;
+	Compare compare(0.05);
 
-    double x = position.getX();
-    double y = position.getY();
-    double xGrid = positionGrid.getX();
-    double yGrid = positionGrid.getY();
+	double x = position.getX();
+	double y = position.getY();
+	double xGrid = positionGrid.getX();
+	double yGrid = positionGrid.getY();
 
-    if (compare.isStrictFuzzyGreater(x, xGrid))
-    {
-        result.push_back(positionGrid);
-        GridPoint positionGrid2(positionGrid.getX()+1,positionGrid.getY());
-        result.push_back(positionGrid2);
-    }
+	if (compare.isStrictFuzzyGreater(x, xGrid))
+	{
+		result.push_back(positionGrid);
+		GridPoint positionGrid2(positionGrid.getX()+1,positionGrid.getY());
+		result.push_back(positionGrid2);
+	}
 
-    if (compare.isStrictFuzzyGreater(y, yGrid))
-    {
-        result.push_back(positionGrid);
-        GridPoint positionGrid2(positionGrid.getX(),positionGrid.getY()+1);
-        result.push_back(positionGrid2);
-    }
+	if (compare.isStrictFuzzyGreater(y, yGrid))
+	{
+		result.push_back(positionGrid);
+		GridPoint positionGrid2(positionGrid.getX(),positionGrid.getY()+1);
+		result.push_back(positionGrid2);
+	}
 
-    if(compare.isFuzzyEqual(x, xGrid) && compare.isFuzzyEqual(y, yGrid))
-    {
-        result.push_back(positionGrid);
-    }
+	if(compare.isFuzzyEqual(x, xGrid) && compare.isFuzzyEqual(y, yGrid))
+	{
+		result.push_back(positionGrid);
+	}
 
-    return result;
+	return result;
 }
