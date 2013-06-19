@@ -1,2 +1,3 @@
-name;width;height;maxPlayer;
-defaultlevel;15;10;1;
+name;width;height;maxPlayer
+defaultlevel;15;10;1
+defaultlevelerror;15;10;1

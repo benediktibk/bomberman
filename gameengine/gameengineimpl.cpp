@@ -301,10 +301,10 @@ void GameEngineImpl::updateBombs()
 		GridPoint bombPosition(explodedBomb.getPosition());
 		unsigned int maximumDestructionRange = explodedBomb.getMaximumDestructionRange();
 
-		unsigned int maximumDistanceLeft = m_grid->getDistanceToNextNotFreePlaceLeft(bombPosition);
-		unsigned int maximumDistanceUp = m_grid->getDistanceToNextNotFreePlaceUp(bombPosition);
-		unsigned int maximumDistanceRight = m_grid->getDistanceToNextNotFreePlaceRight(bombPosition);
-		unsigned int maximumDistanceDown = m_grid->getDistanceToNextNotFreePlaceDown(bombPosition);
+		unsigned int maximumDistanceLeft = m_grid->getDistanceToNextWallLeft(bombPosition);
+		unsigned int maximumDistanceUp = m_grid->getDistanceToNextWallUp(bombPosition);
+		unsigned int maximumDistanceRight = m_grid->getDistanceToNextWallRight(bombPosition);
+		unsigned int maximumDistanceDown = m_grid->getDistanceToNextWallDown(bombPosition);
 
 		GridPoint positionLeft(bombPosition - Point(maximumDistanceLeft + 1, 0));
 		GridPoint positionUp(bombPosition + Point(0, maximumDistanceUp + 1));

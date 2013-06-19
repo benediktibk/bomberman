@@ -4,7 +4,7 @@ using namespace Common;
 
 BombState::BombState(UniqueIdCreator &creator, unsigned int playerID) :
 	m_playerID(playerID),
-	m_lifeTime(3.0),
+	m_lifeTime(initialLifeTime()),
 	m_width(1.0),
 	m_height(1.0),
 	m_destructionRange(1),
@@ -62,6 +62,11 @@ double BombState::getHeight() const
 unsigned int BombState::getPlayerID() const
 {
 	return m_playerID;
+}
+
+double BombState::initialLifeTime()
+{
+	return 3;
 }
 
 double BombState::getWidth() const

@@ -225,9 +225,9 @@ std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::ve
 
 			if((x+i) < static_cast<int>(m_gridColumns))
 			{
-				if (isWallRight == false)
+                if (!isWallRight)
 				{
-					if(m_itemMatrix[getVectorIndex(x+i-1,y)] == ItemWall)
+                    if(m_itemMatrix[getVectorIndex(x+i,y)] == ItemWall)
 						isWallRight = true;
 					else if ((x+i) == playerX)
 					{
@@ -237,9 +237,9 @@ std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::ve
 			}
 			if((x-i) >= 0)
 			{
-				if (isWallLeft == false)
+                if (!isWallLeft)
 				{
-					if(m_itemMatrix[getVectorIndex(x-i+1,y)] == ItemWall)
+                    if(m_itemMatrix[getVectorIndex(x-i,y)] == ItemWall)
 						isWallLeft = true;
 					else  if ((x-i) == playerX)
 					{
@@ -249,9 +249,9 @@ std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::ve
 			}
 			if((y+i) < static_cast<int>(m_gridRows))
 			{
-				if (isWallUp == false)
+                if (!isWallUp)
 				{
-					if(m_itemMatrix[getVectorIndex(x,y+i-1)] == ItemWall)
+                    if(m_itemMatrix[getVectorIndex(x,y+i)] == ItemWall)
 						isWallUp = true;
 					else  if ((y+i) == playerY)
 					{
@@ -261,9 +261,9 @@ std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::ve
 			}
 			if((y-i) >= 0)
 			{
-				if (isWallDown == false)
+                if (!isWallDown)
 				{
-					if(m_itemMatrix[getVectorIndex(x,y-i+1)] == ItemWall)
+                    if(m_itemMatrix[getVectorIndex(x,y-i)] == ItemWall)
 						isWallDown = true;
 					else if ((y-i) == playerY)
 					{
@@ -273,50 +273,60 @@ std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::ve
 			}
 		}
 	}
-
 	return playersInRange;
 }
 
-unsigned int Grid::getDistanceToNextWallLeft(const GridPoint &position) const
+unsigned int Grid::getDistanceToNextNotFreePlaceLeft(const GridPoint &position) const
 {
 	unsigned int distance;
 
 	for (distance = 1; position.getX() - distance < m_gridColumns; ++distance)
-		if (isPlaceCoveredByWall(position - GridPoint(distance, 0)))
+		if (!isPlaceEmpty(position - GridPoint(distance, 0)))
 			return distance - 1;
 
 	return distance - 1;
 }
 
-unsigned int Grid::getDistanceToNextWallRight(const GridPoint &position) const
+unsigned int Grid::getDistanceToNextNotFreePlaceRight(const GridPoint &position) const
 {
 	unsigned int distance;
 
 	for (distance = 1; position.getX() + distance < m_gridColumns; ++distance)
-		if (isPlaceCoveredByWall(position + GridPoint(distance, 0)))
+		if (!isPlaceEmpty(position + GridPoint(distance, 0)))
 			return distance - 1;
 
 	return distance - 1;
 }
 
-unsigned int Grid::getDistanceToNextWallUp(const GridPoint &position) const
+unsigned int Grid::getDistanceToNextNotFreePlaceUp(const GridPoint &position) const
 {
 	unsigned int distance;
 
 	for (distance = 1; position.getY() + distance < m_gridRows; ++distance)
-		if (isPlaceCoveredByWall(position + GridPoint(0, distance)))
+		if (!isPlaceEmpty(position + GridPoint(0, distance)))
 			return distance - 1;
 
 	return distance - 1;
 }
 
-unsigned int Grid::getDistanceToNextWallDown(const GridPoint &position) const
+unsigned int Grid::getDistanceToNextNotFreePlaceDown(const GridPoint &position) const
 {
+	unsigned int result;
 	unsigned int distance;
+	bool resultFound = false;
 
-	for (distance = 1; position.getY() - distance < m_gridRows; ++distance)
-		if (isPlaceCoveredByWall(position - GridPoint(0, distance)))
-			return distance - 1;
+	for (distance = 1; position.getY() - distance < m_gridRows && !resultFound; ++distance)
+		if (!isPlaceEmpty(position - GridPoint(0, distance)))
+		{
+			result = distance - 1;
+			resultFound = true;
+		}
 
-	return distance - 1;
+	if (!resultFound)
+		result = distance - 1;
+
+	if (result >= m_gridRows)
+		result = 0;
+
+	return result;
 }

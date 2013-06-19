@@ -282,7 +282,6 @@ common/powerupmaxvelocitystate.cpp
 common/powerupmaxvelocitystate.h
 common/powerupmaxvelocitystatetest.cpp
 common/powerupmaxvelocitystatetest.h
-
 common/explodedbombstate.h
 common/explodedbombstate.cpp
 common/explodedbombstatetest.h
@@ -314,7 +313,12 @@ common/csvparsertest.h
 common/csvparsertest.cpp
 graphic/explodedbomb.h
 graphic/explodedbomb.cpp
+common/powerupmaxbombrangestate.cpp
+common/powerupmaxbombrangestate.h
+common/powerupmaxbombrangestatetest.h
+common/powerupmaxbombrangestatetest.cpp
 resources/testfiles/levellist.csv
 resources/testfiles/defaultlevel.csv
 graphic/renderallsvggraphics.h
 graphic/renderallsvggraphics.cpp
+resources/testfiles/defaultlevelerror.csv

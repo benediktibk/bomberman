@@ -33,6 +33,7 @@
 #include "common/comparetest.h"
 #include "common/csvparsertest.h"
 #include "common/leveldefinitionreadertest.h"
+#include "common/powerupmaxbombrangestatetest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::GameStateTest);
@@ -45,6 +46,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Common::DestroyableStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::LevelDefinitionTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpMaxBombStateTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpMaxBombRangeStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::UniqueIdCreatorTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::ChangeableStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::RandomDecisionTest);
