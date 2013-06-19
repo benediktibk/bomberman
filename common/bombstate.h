@@ -9,7 +9,7 @@
 namespace Common
 {
 	class BombState :
-			public ChangeableState,
+			public  ChangeableState,
 			public DestroyableState
 	{
 	public:
