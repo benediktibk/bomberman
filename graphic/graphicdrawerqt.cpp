@@ -175,7 +175,7 @@ void GraphicDrawerQt::drawBomb(const BombState *bombState)
 		Bomb* bomb = 0;
 
 		if (!bombFound)
-			bomb = new Bomb(*m_scene);
+			bomb = new Bomb(*m_scene, m_graphicRenderer);
 		else
 			bomb = bombPosition->second;
 

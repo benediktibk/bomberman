@@ -7,6 +7,7 @@ RenderAllSvgGraphics::RenderAllSvgGraphics(const double pixelPerMeter) :
 	m_pixelPerMeter(pixelPerMeter)
 {
 	renderPlayerItem();
+	renderBombItem();
 }
 
 RenderAllSvgGraphics::~RenderAllSvgGraphics()
