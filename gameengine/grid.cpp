@@ -1,6 +1,7 @@
 #include "grid.h"
 #include <assert.h>
 #include <math.h>
+#include <set>
 
 using namespace Common;
 using namespace GameEngine;
@@ -189,77 +190,59 @@ vector<GridPoint> Grid::getPlayerFields(const Common::PlayerState &player) const
 	return fields;
 }
 
-std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, std::vector<const PlayerState*> allPlayers) const
+std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, vector<const PlayerState*> allPlayers) const
 {
-	std::vector<unsigned int> playersInRange;
-	GridPoint position(bomb.getPosition());
-	int x = position.getX();
-	int y = position.getY();
-	int range = bomb.getDestructionRange();
-	bool isWallRight = false;
-	bool isWallLeft = false;
-	bool isWallUp = false;
-	bool isWallDown = false;
-	for( int i=1 ; i<=range ; ++i)
-	{
-		for(size_t p = 0; p < allPlayers.size(); p++)
-		{
-			GridPoint playerMainPosition(allPlayers[p]->getCenterPosition());
-			int playerX = playerMainPosition.getX();
-			int playerY = playerMainPosition.getY();
+	typedef pair<GridPoint, unsigned int> PositionAndID;
+	vector<PositionAndID> playerPositionsAndID;
+	GridPoint bombPosition(bomb.getPosition());
+	set<unsigned int> playersInRange;
 
-			if((x+i) < static_cast<int>(m_gridColumns))
-			{
-				if (isWallRight == false)
-				{
-					if(m_itemMatrix[getVectorIndex(x+i-1,y)] == ItemSolidWall)
-						isWallRight = true;
-					else if ((x+i) == playerX)
-					{
-						playersInRange.push_back(allPlayers[p]->getId());
-					}
-				}
-			}
-			if((x-i) >= 0)
-			{
-				if (isWallLeft == false)
-				{
-					if(m_itemMatrix[getVectorIndex(x-i+1,y)] == ItemSolidWall)
-						isWallLeft = true;
-					else  if ((x-i) == playerX)
-					{
-						playersInRange.push_back(allPlayers[p]->getId());
-					}
-				}
-			}
-			if((y+i) < static_cast<int>(m_gridRows))
-			{
-				if (isWallUp == false)
-				{
-					if(m_itemMatrix[getVectorIndex(x,y+i-1)] == ItemSolidWall)
-						isWallUp = true;
-					else  if ((y+i) == playerY)
-					{
-						playersInRange.push_back(allPlayers[p]->getId());
-					}
-				}
-			}
-			if((y-i) >= 0)
-			{
-				if (isWallDown == false)
-				{
-					if(m_itemMatrix[getVectorIndex(x,y-i+1)] == ItemSolidWall)
-						isWallDown = true;
-					else if ((y-i) == playerY)
-					{
-						playersInRange.push_back(allPlayers[p]->getId());
-					}
-				}
-			}
+	for (vector<const PlayerState*>::const_iterator i = allPlayers.begin(); i != allPlayers.end(); ++i)
+	{
+		const PlayerState &player = **i;
+		vector<GridPoint> positions = getPlayerFields(player);
+
+		for (vector<GridPoint>::const_iterator j = positions.begin(); j != positions.end(); ++j)
+			playerPositionsAndID.push_back(PositionAndID(*j, player.getId()));
+	}
+
+	unsigned int maximumDestructionRange = bomb.getDestructionRange();
+	unsigned int destructionRangeLeft = min(getBombMaximumRangeLeft(bombPosition), maximumDestructionRange);
+	unsigned int destructionRangeUp = min(getBombMaximumRangeUp(bombPosition), maximumDestructionRange);
+	unsigned int destructionRangeRight = min(getBombMaximumRangeRight(bombPosition), maximumDestructionRange);
+	unsigned int destructionRangeDown = min(getBombMaximumRangeDown(bombPosition), maximumDestructionRange);
+
+	for (vector<PositionAndID>::const_iterator i = playerPositionsAndID.begin(); i != playerPositionsAndID.end(); ++i)
+	{
+		GridPoint playerPosition = i->first;
+
+		if (	playerPosition.getY() == bombPosition.getY() &&
+				bombPosition.getX() - destructionRangeLeft <= playerPosition.getX() &&
+				bombPosition.getX() + destructionRangeRight >= playerPosition.getX())
+		{
+			unsigned int playerID = i->second;
+			playersInRange.insert(playerID);
 		}
 	}
 
-	return playersInRange;
+	for (vector<PositionAndID>::const_iterator i = playerPositionsAndID.begin(); i != playerPositionsAndID.end(); ++i)
+	{
+		GridPoint playerPosition = i->first;
+
+		if (	playerPosition.getX() == bombPosition.getX() &&
+				bombPosition.getY() - destructionRangeDown <= playerPosition.getY() &&
+				bombPosition.getY() + destructionRangeUp >= playerPosition.getY())
+		{
+			unsigned int playerID = i->second;
+			playersInRange.insert(playerID);
+		}
+	}
+
+	vector<unsigned int> result;
+	result.reserve(playersInRange.size());
+	for (set<unsigned int>::const_iterator i = playersInRange.begin(); i != playersInRange.end(); ++i)
+		result.push_back(*i);
+	return result;
 }
 
 unsigned int Grid::getDistanceToNextWallLeft(const GridPoint &position) const
