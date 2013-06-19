@@ -56,6 +56,7 @@ GraphicDrawerQt::~GraphicDrawerQt()
 	deleteBorderWalls();
 	deletePlayers();
 	delete m_scene;
+	delete m_graphicRenderer;
 }
 
 void GraphicDrawerQt::setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs)
