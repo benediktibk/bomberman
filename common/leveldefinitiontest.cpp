@@ -44,14 +44,14 @@ void LevelDefinitionTest::getPlayerStartPositionCount_twoPlayerStartPositions_2(
 
 void LevelDefinitionTest::getObjectTypeAtPosition_buildLevelFromCSVFilePosition3And2_resultIsObjectTypeLooseWall()
 {
-	LevelDefinition level(CSVParser("defaultlevel"));
+	LevelDefinition level(CSVParser("testfiles/defaultlevel"));
 
 	CPPUNIT_ASSERT_EQUAL(LevelDefinition::ObjectTypeLooseWall, level.getObjectTypeAtPosition(3,2));
 }
 
 void LevelDefinitionTest::isLevelBuildingCorrect_freeeeInsteadOfFreeInFile_isLevelBuildingIsFalse()
 {
-	LevelDefinition level(CSVParser("defaultlevelerror2"));
+	LevelDefinition level(CSVParser("testfiles/defaultlevelerror2"));
 
 	CPPUNIT_ASSERT(!level.isLevelBuildingCorrect());
 }
