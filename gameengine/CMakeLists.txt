@@ -4,6 +4,7 @@ set(GAMEENGINE_SRC
 	computerenemyinputfetcher.cpp
 	gridobserver.cpp
 	routergrid.cpp
+	routergridfield.cpp
 )
 
 set(GAMEENGINE_TEST_SRC
@@ -13,6 +14,7 @@ set(GAMEENGINE_TEST_SRC
 	gridobserverstub.cpp
 	gridobservertest.cpp
 	routergridtest.cpp
+	routergridfieldtest.cpp
 )
 
 add_library(gameengine ${GAMEENGINE_SRC})

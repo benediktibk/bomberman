@@ -338,3 +338,7 @@ gameengine/routergrid.h
 gameengine/routergrid.cpp
 gameengine/routergridtest.h
 gameengine/routergridtest.cpp
+gameengine/routergridfield.h
+gameengine/routergridfield.cpp
+gameengine/routergridfieldtest.h
+gameengine/routergridfieldtest.cpp
