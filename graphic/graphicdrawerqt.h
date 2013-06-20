@@ -3,6 +3,7 @@
 
 #include <map>
 #include "common/graphicdrawer.h"
+#include <QtCore/QRectF>
 
 class QGraphicsScene;
 class QGraphicsView;
@@ -40,7 +41,7 @@ namespace Graphic
 		void drawPowerUp(const Common::PowerUpState *powerUp);
 		void drawExplodedBombs(const std::vector<const Common::ExplodedBombState*> &explodedBombs);
 		void drawExplodedBomb(const Common::ExplodedBombState *explodedBomb);
-		void updateViewArea(const Common::GameState &gameState);
+		void updateViewArea();
 		void updateViewPositionForPlayer(const Common::PlayerState &player);
 		void setViewPositionToTheCenterOfPlayer(const Common::PlayerState &player);
 		void drawBorderWalls(unsigned int width, unsigned int height);
@@ -60,6 +61,7 @@ namespace Graphic
 		void deleteExplodedBomb(const Common::ExplodedBombState *explodedBomb);
 		void deleteBorderWalls();
 		void deletePlayers();
+		QRectF calculateSceneRect(const Common::GameState &gameState);
 
 	private:
 		QGraphicsView &m_view;
@@ -80,6 +82,7 @@ namespace Graphic
 		bool m_responsibilityValid;
 		SvgRenderer *m_svgRenderer;
 		QBrush *m_backgroundBrush;
+		QRectF m_sceneRect;
 	};
 }
 

@@ -83,7 +83,8 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 	if (m_firstRedraw)
 	{
 		drawBorderWalls(gameState.getWidth(), gameState.getHeight());
-		updateViewArea(gameState);
+		m_sceneRect = calculateSceneRect(gameState);
+		updateViewArea();
 	}
 
 	if (m_responsibleForOnePlayer && gameState.isPlayerAlife(m_playerIDResponsibleFor))
@@ -92,7 +93,7 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 		updateViewPositionForPlayer(player);
 	}
 	else
-		m_view.fitInView(m_scene->sceneRect());
+		m_view.fitInView(m_sceneRect);
 
 	drawWalls(gameState.getAllChangedWalls());
 	drawBombs(gameState.getAllChangedBombs());
@@ -250,19 +251,9 @@ void GraphicDrawerQt::drawExplodedBomb(const ExplodedBombState *explodedBombStat
 	}
 }
 
-void GraphicDrawerQt::updateViewArea(const GameState &gameState)
+void GraphicDrawerQt::updateViewArea()
 {
-	unsigned int width = gameState.getWidth();
-	unsigned int widthWithBorders = width + 2;
-	unsigned int height = gameState.getHeight();
-	unsigned int heightWithBorders = height + 2;
-	unsigned int widthWithBordersInPixel = widthWithBorders*m_pixelPerMeter;
-	unsigned int heightInPixel = height*m_pixelPerMeter;
-	unsigned int heightWithBordersInPixel = heightWithBorders*m_pixelPerMeter;
-	qreal x = (-1)*m_pixelPerMeter;
-	qreal y = (-1)*static_cast<double>(heightInPixel);
-
-	m_view.setSceneRect(x, y, widthWithBordersInPixel, heightWithBordersInPixel);
+	m_view.setSceneRect(m_sceneRect);
 }
 
 void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
@@ -469,4 +460,18 @@ void GraphicDrawerQt::deletePlayers()
 		delete i->second;
 
 	m_players.clear();
+}
+
+QRectF GraphicDrawerQt::calculateSceneRect(const GameState &gameState)
+{
+	unsigned int width = gameState.getWidth();
+	unsigned int widthWithBorders = width + 2;
+	unsigned int height = gameState.getHeight();
+	unsigned int heightWithBorders = height + 2;
+	unsigned int widthWithBordersInPixel = widthWithBorders*m_pixelPerMeter;
+	unsigned int heightInPixel = height*m_pixelPerMeter;
+	unsigned int heightWithBordersInPixel = heightWithBorders*m_pixelPerMeter;
+	qreal x = (-1)*m_pixelPerMeter;
+	qreal y = (-1)*static_cast<double>(heightInPixel);
+	return QRectF(x, y, widthWithBordersInPixel, heightWithBordersInPixel);
 }
