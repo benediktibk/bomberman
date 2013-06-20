@@ -1,6 +1,7 @@
 #include "startwindow.h"
 #include "ui_startwindow.h"
 #include <QStandardItemModel>
+#include "common/csvparser.h"
 
 using namespace std;
 using namespace Main;
@@ -21,10 +22,16 @@ void StartWindow::connectButtons()
 
 void StartWindow::connectTableView()
 {
-	QStandardItemModel *model = new QStandardItemModel(2,3,this); //2 Rows and 3 Columns
-	model->setHorizontalHeaderItem(0, new QStandardItem(QString("Column1 Header")));
-	model->setHorizontalHeaderItem(1, new QStandardItem(QString("Column2 Header")));
-	model->setHorizontalHeaderItem(2, new QStandardItem(QString("Column3 Header")));
+	Common::CSVParser levellist("levels/levellist");
+
+	QStandardItemModel *model = new QStandardItemModel(levellist.getHeightOfFile()-1,4,this);
+	model->setHorizontalHeaderItem(0, new QStandardItem(QString("Level")));
+	model->setHorizontalHeaderItem(1, new QStandardItem(QString("Height")));
+	model->setHorizontalHeaderItem(2, new QStandardItem(QString("Width")));
+	model->setHorizontalHeaderItem(3, new QStandardItem(QString("Maximum Player")));
+
+	QStandardItem *firstRow = new QStandardItem(QString("ColumnValue"));
+	model->setItem(0,0, firstRow);
 
 	m_ui->levelTableView->setModel(model);
 }
