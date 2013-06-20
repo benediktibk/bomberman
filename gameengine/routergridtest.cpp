@@ -457,3 +457,78 @@ void RouterGridTest::constructor_bombWithRange10At5And4AndWallAt5And3_5And2IsNot
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(5, 2));
 	CPPUNIT_ASSERT(!gridField.isDangerous());
 }
+
+void RouterGridTest::fieldHasChanged_bombAt4And3Removed_noBombAt4And3()
+{
+	BombState *bomb = new BombState(*m_bombIdCreator, 0);
+	bomb->setPosition(Point(4, 3));
+	m_grid->addBombAtPlace(*bomb);
+	m_gameState->addBomb(bomb);
+	RouterGrid routerGrid(*m_grid, *m_gameState);
+
+	m_grid->removeBomb(*bomb);
+
+	const RouterGridField &gridField = routerGrid.getField(GridPoint(4, 3));
+	CPPUNIT_ASSERT(!gridField.isBomb());
+}
+
+void RouterGridTest::fieldHasChanged_bombAt4And3Removed_5And3IsNotDangerous()
+{
+	BombState *bomb = new BombState(*m_bombIdCreator, 0);
+	bomb->setPosition(Point(4, 3));
+	m_grid->addBombAtPlace(*bomb);
+	m_gameState->addBomb(bomb);
+	RouterGrid routerGrid(*m_grid, *m_gameState);
+
+	m_grid->removeBomb(*bomb);
+
+	const RouterGridField &gridField = routerGrid.getField(GridPoint(5, 3));
+	CPPUNIT_ASSERT(!gridField.isDangerous());
+}
+
+void RouterGridTest::fieldHasChanged_bombAt4And3RemovedAndBombAt7And4_7And3IsDangerous()
+{
+	BombState *bombOne = new BombState(*m_bombIdCreator, 0);
+	bombOne->setPosition(Point(4, 3));
+	m_grid->addBombAtPlace(*bombOne);
+	m_gameState->addBomb(bombOne);
+	BombState *bombTwo = new BombState(*m_bombIdCreator, 0);
+	bombTwo->setPosition(Point(7, 4));
+	m_grid->addBombAtPlace(*bombTwo);
+	m_gameState->addBomb(bombTwo);
+	RouterGrid routerGrid(*m_grid, *m_gameState);
+
+	m_grid->removeBomb(*bombOne);
+
+	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 3));
+	CPPUNIT_ASSERT(gridField.isDangerous());
+}
+
+void RouterGridTest::fieldHasChanged_looseWallAt8And6Removed_noLooseWallAt8And6()
+{
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(8, 6));
+	m_grid->addWallAtPlace(wall);
+	RouterGrid routerGrid(*m_grid, *m_gameState);
+
+	m_grid->removeWall(wall);
+
+	const RouterGridField &gridField = routerGrid.getField(GridPoint(8, 6));
+	CPPUNIT_ASSERT(!gridField.isLooseWall());
+}
+
+void RouterGridTest::fieldHasChanged_looseWallAt8And6RemovedAndBombWithRange10At7And6_9And6IsDangerous()
+{
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(8, 6));
+	m_grid->addWallAtPlace(wall);
+	BombState *bomb = new BombState(*m_bombIdCreator, 0);
+	bomb->setPosition(Point(7, 6));
+	bomb->setDestructionRange(10);
+	m_grid->addBombAtPlace(*bomb);
+	m_gameState->addBomb(bomb);
+	RouterGrid routerGrid(*m_grid, *m_gameState);
+
+	m_grid->removeWall(wall);
+
+	const RouterGridField &gridField = routerGrid.getField(GridPoint(9, 6));
+	CPPUNIT_ASSERT(gridField.isDangerous());
+}

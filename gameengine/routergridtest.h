@@ -52,6 +52,11 @@ namespace GameEngine
 		CPPUNIT_TEST(constructor_bombWithRange2At5And4_5And2IsDangerous);
 		CPPUNIT_TEST(constructor_bombWithRange2At5And4_5And1IsNotDangerous);
 		CPPUNIT_TEST(constructor_bombWithRange10At5And4AndWallAt5And3_5And2IsNotDangerous);
+		CPPUNIT_TEST(fieldHasChanged_bombAt4And3Removed_noBombAt4And3);
+		CPPUNIT_TEST(fieldHasChanged_bombAt4And3Removed_5And3IsNotDangerous);
+		CPPUNIT_TEST(fieldHasChanged_bombAt4And3RemovedAndBombAt7And4_7And3IsDangerous);
+		CPPUNIT_TEST(fieldHasChanged_looseWallAt8And6Removed_noLooseWallAt8And6);
+		CPPUNIT_TEST(fieldHasChanged_looseWallAt8And6RemovedAndBombWithRange10At7And6_9And6IsDangerous);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -93,6 +98,11 @@ namespace GameEngine
 		void constructor_bombWithRange2At5And4_5And2IsDangerous();
 		void constructor_bombWithRange2At5And4_5And1IsNotDangerous();
 		void constructor_bombWithRange10At5And4AndWallAt5And3_5And2IsNotDangerous();
+		void fieldHasChanged_bombAt4And3Removed_noBombAt4And3();
+		void fieldHasChanged_bombAt4And3Removed_5And3IsNotDangerous();
+		void fieldHasChanged_bombAt4And3RemovedAndBombAt7And4_7And3IsDangerous();
+		void fieldHasChanged_looseWallAt8And6Removed_noLooseWallAt8And6();
+		void fieldHasChanged_looseWallAt8And6RemovedAndBombWithRange10At7And6_9And6IsDangerous();
 
 	private:
 		Grid *m_grid;

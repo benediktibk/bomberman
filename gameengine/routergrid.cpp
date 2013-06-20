@@ -20,15 +20,14 @@ RouterGrid::RouterGrid(Grid &grid, const GameState &gameState) :
 		for (unsigned int y = 0; y < m_height; ++y)
 			updateFieldInternal(GridPoint(x, y));
 
-	for (unsigned int x = 0; x < m_width; ++x)
-		for (unsigned int y = 0; y < m_height; ++y)
-			markFieldsAsDangerousIfCoveredByBomb(GridPoint(x, y));
+	updateDangerousFlags();
 }
 
 void RouterGrid::fieldHasChanged(const GridPoint &position)
 {
 	updateFieldInternal(position);
-	updateDangerousFor(position);
+	removeDangerousFlags();
+	updateDangerousFlags();
 }
 
 unsigned int RouterGrid::getWidth() const
@@ -100,6 +99,17 @@ void RouterGrid::updateFieldInternal(const GridPoint &position)
 	m_fields[row][column].setPlayer(player);
 }
 
-void RouterGrid::updateDangerousFor(const GridPoint &/*position*/)
+void RouterGrid::removeDangerousFlags()
 {
+	for (unsigned int x = 0; x < m_width; ++x)
+		for (unsigned int y = 0; y < m_height; ++y)
+			if (!m_fields[y][x].isBomb())
+				m_fields[y][x].setDangerous(false);
+}
+
+void RouterGrid::updateDangerousFlags()
+{
+	for (unsigned int x = 0; x < m_width; ++x)
+		for (unsigned int y = 0; y < m_height; ++y)
+			markFieldsAsDangerousIfCoveredByBomb(GridPoint(x, y));
 }

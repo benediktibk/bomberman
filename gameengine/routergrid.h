@@ -29,7 +29,8 @@ namespace GameEngine
 	private:
 		void markFieldsAsDangerousIfCoveredByBomb(const Common::GridPoint &position);
 		void updateFieldInternal(const Common::GridPoint &position);
-		void updateDangerousFor(const Common::GridPoint &position);
+		void removeDangerousFlags();
+		void updateDangerousFlags();
 
 	private:
 		const Grid &m_grid;
