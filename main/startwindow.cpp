@@ -50,9 +50,12 @@ void StartWindow::exitClicked()
 
 void StartWindow::startClicked()
 {
-	m_selectedLevel = "defaultlevel";
-
+	if(m_selectedLevel == "")
+		m_ui->infoLabel->setText(tr("please select a level from the upper table !!!"));
+	else
+	{
 	string levelpath = "levels/" + m_selectedLevel;
 	MainWindow mainWindow(m_enableOpenGL, levelpath);
 	mainWindow.show();
+	}
 }
