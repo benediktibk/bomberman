@@ -72,6 +72,7 @@ namespace Common
 		unsigned int m_placedBombCount;
 		unsigned int m_maxBombs;
 		double m_maximumSpeed;
+		const double m_maxMaxSpeed;
 		double m_width;
 		double m_height;
 		unsigned int m_playerId;

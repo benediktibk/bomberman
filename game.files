@@ -326,3 +326,7 @@ main/startwindow.cpp
 main/gui/startwindow.ui
 main/startwindowtest.cpp
 resources/levels/neighbourship.csv
+resources/graphics/player_moving_up.svg
+resources/graphics/player_moving_right.svg
+resources/graphics/player_moving_left.svg
+resources/graphics/player_moving_down.svg
