@@ -328,6 +328,16 @@ size_t Grid::getObserverCount() const
 	return m_observers.size();
 }
 
+unsigned int Grid::getRows() const
+{
+	return m_gridRows;
+}
+
+unsigned int Grid::getColumns() const
+{
+	return m_gridColumns;
+}
+
 unsigned int Grid::getBombMaximumRangeLeft(const GridPoint &position) const
 {
 	unsigned int distanceToNextWall = getDistanceToNextWallLeft(position);

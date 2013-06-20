@@ -12,6 +12,8 @@ namespace GameEngine
 			public CPPUNIT_NS::TestFixture
 	{
 		CPPUNIT_TEST_SUITE(RouterGridTest);
+		CPPUNIT_TEST(constructor_gridWith4RowsAnd3Columns_widthIs3);
+		CPPUNIT_TEST(constructor_gridWith4RowsAnd3Columns_heightIs4);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -19,6 +21,8 @@ namespace GameEngine
 		virtual void tearDown();
 
 	private:
+		void constructor_gridWith4RowsAnd3Columns_widthIs3();
+		void constructor_gridWith4RowsAnd3Columns_heightIs4();
 
 	private:
 		Grid *m_grid;

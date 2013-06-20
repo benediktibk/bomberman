@@ -31,7 +31,7 @@ namespace GameEngine
 		};
 
 	public:
-		Grid(unsigned int rows,unsigned int cols);
+		Grid(unsigned int rows, unsigned int cols);
 		~Grid();
 
 		bool isPlaceEmpty(const Common::Point &position) const;
@@ -60,6 +60,8 @@ namespace GameEngine
 		void unregisterObserver(GridObserver &observer);
 		void registerObserver(GridObserver &observer);
 		size_t getObserverCount() const;
+		unsigned int getRows() const;
+		unsigned int getColumns() const;
 
 	private:
 		unsigned int getVectorIndex(const Common::GridPoint &position) const;
