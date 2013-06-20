@@ -435,8 +435,11 @@ void GraphicDrawerQt::deleteBomb(const BombState *bomb)
 void GraphicDrawerQt::deletePowerUp(const PowerUpState *powerUp)
 {
 	map<const PowerUpState*, PowerUp*>::iterator position = m_powerUps.find(powerUp);
-	delete position->second;
-	m_powerUps.erase(position);
+	if (position != m_powerUps.end())
+	{
+		delete position->second;
+		m_powerUps.erase(position);
+	}
 }
 
 void GraphicDrawerQt::deleteExplodedBomb(const ExplodedBombState *explodedBomb)
