@@ -35,13 +35,13 @@ bool RouterGridField::isDangerous() const
 
 void RouterGridField::setLooseWall(bool value)
 {
-	assert(!m_player && !m_solidWall && !m_bomb);
+	assert(!m_player && !m_solidWall && !m_bomb && !m_dangerous);
 	m_looseWall = value;
 }
 
 void RouterGridField::setSolidWall(bool value)
 {
-	assert(!m_player && !m_looseWall && !m_bomb);
+	assert(!m_player && !m_looseWall && !m_bomb && !m_dangerous);
 	m_solidWall = value;
 }
 
@@ -61,7 +61,7 @@ void RouterGridField::setPlayer(bool value)
 
 void RouterGridField::setDangerous(bool value)
 {
-	assert(!(m_bomb && !value));
+	assert(!(m_bomb && !value) && !m_solidWall);
 	m_dangerous = value;
 }
 
