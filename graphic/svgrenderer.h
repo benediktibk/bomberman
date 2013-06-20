@@ -10,7 +10,11 @@ class SvgRenderer
 {
 public:
 	SvgRenderer(const double pixelPerMeter);
-	QGraphicsSvgItem *getNewPlayerItem();
+	QGraphicsSvgItem *getNewPlayerStandingItem();
+	QGraphicsSvgItem *getNewPlayerMovingLeftItem();
+	QGraphicsSvgItem *getNewPlayerMovingUpItem();
+	QGraphicsSvgItem *getNewPlayerMovingRightItem();
+	QGraphicsSvgItem *getNewPlayerMovingDownItem();
 	QGraphicsSvgItem *getNewBombItem();
 	QGraphicsSvgItem *getNewSolidWallItem();
 	QGraphicsSvgItem *getNewLooseWallItem();
@@ -21,7 +25,7 @@ public:
 	~SvgRenderer();
 
 private:
-	void renderPlayerItem();
+	void renderPlayerItems();
 	void renderBombItem();
 	void renderWallItems();
 	void renderPowerUpItems();
@@ -30,7 +34,11 @@ private:
 
 private:
 	const double m_pixelPerMeter;
-	QSvgRenderer *m_playerRenderer;
+	QSvgRenderer *m_playerStandingRenderer;
+	QSvgRenderer *m_playerMovingLeftRenderer;
+	QSvgRenderer *m_playerMovingUpRenderer;
+	QSvgRenderer *m_playerMovingRightRenderer;
+	QSvgRenderer *m_playerMovingDownRenderer;
 	QSvgRenderer *m_bombRenderer;
 	QSvgRenderer *m_wallSolidRenderer;
 	QSvgRenderer *m_wallLooseRenderer;

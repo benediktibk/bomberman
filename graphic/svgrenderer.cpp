@@ -6,7 +6,7 @@ using namespace Graphic;
 SvgRenderer::SvgRenderer(const double pixelPerMeter) :
 	m_pixelPerMeter(pixelPerMeter)
 {
-	renderPlayerItem();
+	renderPlayerItems();
 	renderBombItem();
 	renderExplodedBombItems();
 	renderPowerUpItems();
@@ -16,7 +16,7 @@ SvgRenderer::SvgRenderer(const double pixelPerMeter) :
 
 SvgRenderer::~SvgRenderer()
 {
-	delete m_playerRenderer;
+	delete m_playerStandingRenderer;
 	delete m_bombRenderer;
 	delete m_explodedBombCenterRenderer;
 	delete m_explodedBombFlameRenderer;
@@ -26,9 +26,13 @@ SvgRenderer::~SvgRenderer()
 	delete m_cellBackgroundRenderer;
 }
 
-void SvgRenderer::renderPlayerItem()
+void SvgRenderer::renderPlayerItems()
 {
-	m_playerRenderer = new QSvgRenderer(QString("resources/graphics/player_standing.svg"));
+	m_playerStandingRenderer = new QSvgRenderer(QString("resources/graphics/player_standing.svg"));
+	m_playerMovingLeftRenderer = new QSvgRenderer(QString("resources/graphics/player_moving_left.svg"));
+	m_playerMovingUpRenderer = new QSvgRenderer(QString("resources/graphics/player_moving_up.svg"));
+	m_playerMovingRightRenderer = new QSvgRenderer(QString("resources/graphics/player_moving_right.svg"));
+	m_playerMovingDownRenderer = new QSvgRenderer(QString("resources/graphics/player_moving_down.svg"));
 }
 
 void SvgRenderer::renderBombItem()
@@ -58,10 +62,38 @@ void SvgRenderer::renderCellBackgroundItem()
 	m_cellBackgroundRenderer = new QSvgRenderer(QString("resources/graphics/bg_cell_pattern.svg"));
 }
 
-QGraphicsSvgItem* SvgRenderer::getNewPlayerItem()
+QGraphicsSvgItem* SvgRenderer::getNewPlayerStandingItem()
 {
 	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-	player->setSharedRenderer(m_playerRenderer);
+	player->setSharedRenderer(m_playerStandingRenderer);
+	return player;
+}
+
+QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingLeftItem()
+{
+	QGraphicsSvgItem *player = new QGraphicsSvgItem();
+	player->setSharedRenderer(m_playerMovingLeftRenderer);
+	return player;
+}
+
+QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingUpItem()
+{
+	QGraphicsSvgItem *player = new QGraphicsSvgItem();
+	player->setSharedRenderer(m_playerMovingUpRenderer);
+	return player;
+}
+
+QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingRightItem()
+{
+	QGraphicsSvgItem *player = new QGraphicsSvgItem();
+	player->setSharedRenderer(m_playerMovingRightRenderer);
+	return player;
+}
+
+QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingDownItem()
+{
+	QGraphicsSvgItem *player = new QGraphicsSvgItem();
+	player->setSharedRenderer(m_playerMovingDownRenderer);
 	return player;
 }
 

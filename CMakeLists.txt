@@ -46,6 +46,10 @@ set(TESTFILES
 set(GRAPHICS
 	bomb_planted.svg
 	player_standing.svg
+	player_moving_left.svg
+	player_moving_up.svg
+	player_moving_right.svg
+	player_moving_down.svg
 	wall_loose.svg
 	wall_solid.svg
 	power_up.svg
