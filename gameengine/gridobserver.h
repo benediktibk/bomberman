@@ -15,6 +15,9 @@ namespace GameEngine
 
 		virtual void fieldHasChanged(const Common::GridPoint &position) = 0;
 
+	protected:
+		const Grid& getGrid() const;
+
 	private:
 		Grid * const m_source;
 	};
