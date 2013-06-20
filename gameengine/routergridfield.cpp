@@ -3,13 +3,10 @@
 
 using namespace GameEngine;
 
-RouterGridField::RouterGridField() :
-	m_looseWall(false),
-	m_solidWall(false),
-	m_bomb(false),
-	m_player(false),
-	m_dangerous(false)
-{ }
+RouterGridField::RouterGridField()
+{
+	clear();
+}
 
 bool RouterGridField::isLooseWall() const
 {
@@ -66,4 +63,13 @@ void RouterGridField::setDangerous(bool value)
 {
 	assert(!(m_bomb && !value));
 	m_dangerous = value;
+}
+
+void RouterGridField::clear()
+{
+	m_looseWall = false;
+	m_solidWall = false;
+	m_bomb = false;
+	m_player = false;
+	m_dangerous = false;
 }

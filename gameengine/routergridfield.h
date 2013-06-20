@@ -18,6 +18,7 @@ namespace GameEngine
 		void setBomb(bool value);
 		void setPlayer(bool value);
 		void setDangerous(bool value);
+		void clear();
 
 	private:
 		bool m_looseWall;
