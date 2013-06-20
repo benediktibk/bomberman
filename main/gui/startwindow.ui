@@ -58,7 +58,7 @@
        <item>
         <widget class="QCheckBox" name="openGlCheckBox">
          <property name="text">
-          <string>play with openGl</string>
+          <string>play with openGL</string>
          </property>
         </widget>
        </item>
