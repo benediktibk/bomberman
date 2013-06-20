@@ -1166,6 +1166,12 @@ void GridTest::getDistanceToNextWallDown_bombInRange_distanceIsWayToEndOfLevel()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)3, grid.getDistanceToNextWallDown(GridPoint(4, 3)));
 }
 
+void GridTest::constructor_validValues_observerCountIs0()
+{
+	Grid grid(10, 12);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, grid.getObserverCount());
+}
 
 void GridTest::setUp()
 {

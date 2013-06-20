@@ -1,7 +1,12 @@
-#include "grid.h"
+#include "gameengine/grid.h"
+#include "common/bombstate.h"
+#include "common/wallstate.h"
+#include "common/playerstate.h"
+#include "common/powerupstate.h"
 #include <assert.h>
 #include <math.h>
 #include <set>
+#include <algorithm>
 
 using namespace Common;
 using namespace GameEngine;
@@ -287,6 +292,24 @@ unsigned int Grid::getDistanceToNextWallDown(const GridPoint &position) const
 			return distance - 1;
 
 	return distance - 1;
+}
+
+void Grid::unregisterObserver(GridObserver &observer)
+{
+	assert(count(m_observer.begin(), m_observer.end(), &observer) == 1);
+	vector<GridObserver*>::iterator newEnd = remove(m_observer.begin(), m_observer.end(), &observer);
+	m_observer.erase(newEnd, m_observer.end());
+}
+
+void Grid::registerObserver(GridObserver &observer)
+{
+	assert(count(m_observer.begin(), m_observer.end(), &observer) == 0);
+	m_observer.push_back(&observer);
+}
+
+size_t Grid::getObserverCount() const
+{
+	return m_observer.size();
 }
 
 unsigned int Grid::getBombMaximumRangeLeft(const GridPoint &position) const

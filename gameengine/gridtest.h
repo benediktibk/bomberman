@@ -82,6 +82,7 @@ namespace GameEngine
 		CPPUNIT_TEST(getDistanceToNextWallRight_bombInRange_distanceIsWayToEndOfLevel);
 		CPPUNIT_TEST(getDistanceToNextWallUp_bombInRange_distanceIsWayToEndOfLevel);
 		CPPUNIT_TEST(getDistanceToNextWallDown_bombInRange_distanceIsWayToEndOfLevel);
+		CPPUNIT_TEST(constructor_validValues_observerCountIs0);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -156,6 +157,7 @@ namespace GameEngine
 		void getDistanceToNextWallRight_bombInRange_distanceIsWayToEndOfLevel();
 		void getDistanceToNextWallUp_bombInRange_distanceIsWayToEndOfLevel();
 		void getDistanceToNextWallDown_bombInRange_distanceIsWayToEndOfLevel();
+		void constructor_validValues_observerCountIs0();
 
 	private:
 		Common::UniqueIdCreator *m_powerUpIdCreator;

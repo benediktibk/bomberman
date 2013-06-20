@@ -31,6 +31,7 @@
 #include "threading/signaltest.h"
 #include "gameengine/gameengineimpltest.h"
 #include "gameengine/gridtest.h"
+#include "gameengine/gridobservertest.h"
 #include "main/gamelooptest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
@@ -66,4 +67,5 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Threading::MutexTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Threading::SignalTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GameEngineImplTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GridTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GridObserverTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Main::GameLoopTest);

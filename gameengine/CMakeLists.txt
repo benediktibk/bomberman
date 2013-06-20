@@ -1,12 +1,16 @@
 set(GAMEENGINE_SRC
 	gameengineimpl.cpp
-    grid.cpp
-    computerenemyinputfetcher.cpp
+	grid.cpp
+	computerenemyinputfetcher.cpp
+	gridobserver.cpp
 )
 
 set(GAMEENGINE_TEST_SRC
 	gameengineimpltest.cpp
-    gridtest.cpp
+	gridtest.cpp
+	gridobservermock.cpp
+	gridobserverstub.cpp
+	gridobservertest.cpp
 )
 
 add_library(gameengine ${GAMEENGINE_SRC})

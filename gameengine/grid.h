@@ -3,14 +3,20 @@
 
 #include <vector>
 #include "common/point.h"
-#include "common/bombstate.h"
-#include "common/wallstate.h"
-#include "common/playerstate.h"
 #include "common/gridpoint.h"
-#include "common/powerupstate.h"
+
+namespace Common
+{
+	class BombState;
+	class WallState;
+	class PlayerState;
+	class PowerUpState;
+}
 
 namespace GameEngine
 {
+	class GridObserver;
+
 	class Grid
 	{
 	private:
@@ -50,6 +56,9 @@ namespace GameEngine
 		unsigned int getDistanceToNextWallRight(const Common::GridPoint &position) const;
 		unsigned int getDistanceToNextWallUp(const Common::GridPoint &position) const;
 		unsigned int getDistanceToNextWallDown(const Common::GridPoint &position) const;
+		void unregisterObserver(GridObserver &observer);
+		void registerObserver(GridObserver &observer);
+		size_t getObserverCount() const;
 
 	private:
 		unsigned int getVectorIndex(const Common::GridPoint &position) const;
@@ -62,6 +71,7 @@ namespace GameEngine
 		unsigned int m_numberOfItems;
 		std::vector<Item> m_itemMatrix;
 		std::vector<unsigned int> m_idMatrix;
+		std::vector<GridObserver*> m_observer;
 	};
 }
 

@@ -326,3 +326,11 @@ resources/graphics/player_moving_up.svg
 resources/graphics/player_moving_right.svg
 resources/graphics/player_moving_left.svg
 resources/graphics/player_moving_down.svg
+gameengine/gridobserver.h
+gameengine/gridobservermock.h
+gameengine/gridobservermock.cpp
+gameengine/gridobserver.cpp
+gameengine/gridobserverstub.h
+gameengine/gridobserverstub.cpp
+gameengine/gridobservertest.h
+gameengine/gridobservertest.cpp
