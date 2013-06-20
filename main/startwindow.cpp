@@ -30,8 +30,12 @@ void StartWindow::connectTableView()
 	model->setHorizontalHeaderItem(2, new QStandardItem(QString("Width")));
 	model->setHorizontalHeaderItem(3, new QStandardItem(QString("Maximum Player")));
 
-	QStandardItem *firstRow = new QStandardItem(QString("ColumnValue"));
-	model->setItem(0,0, firstRow);
+	for (unsigned int row = 0; row < levellist.getHeightOfFile()-1; ++row)
+		for (unsigned int column = 0; column < 4; ++column)
+		{
+			QStandardItem *currentItem = new QStandardItem(QString(levellist.getTextInField(column, row).c_str()));
+			model->setItem(row, column, currentItem);
+		}
 
 	m_ui->levelTableView->setModel(model);
 }
