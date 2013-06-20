@@ -334,3 +334,7 @@ gameengine/gridobserverstub.h
 gameengine/gridobserverstub.cpp
 gameengine/gridobservertest.h
 gameengine/gridobservertest.cpp
+gameengine/routergrid.h
+gameengine/routergrid.cpp
+gameengine/routergridtest.h
+gameengine/routergridtest.cpp
