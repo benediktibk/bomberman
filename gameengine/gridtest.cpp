@@ -1,5 +1,6 @@
-#include "gridtest.h"
-#include "grid.h"
+#include "gameengine/gridtest.h"
+#include "gameengine/grid.h"
+#include "gameengine/gridobservermock.h"
 #include "common/point.h"
 #include "common/bombstate.h"
 #include "common/wallstate.h"
@@ -1171,6 +1172,114 @@ void GridTest::constructor_validValues_observerCountIs0()
 	Grid grid(10, 12);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)0, grid.getObserverCount());
+}
+
+void GridTest::addBombAtPlace_oneObserverMock_observerGotOneCallToFieldHasChanged()
+{
+	Grid grid(10, 12);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(3, 4));
+	GridObserverMock observer(grid);
+
+	grid.addBombAtPlace(bomb);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, observer.getCallsToFieldHasChanged());
+}
+
+void GridTest::addBombAtPlace_bombPosition3And4AndOneObserverMock_observerGotCallToFieldHasChangedWithParam3And4()
+{
+	Grid grid(10, 12);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(3, 4));
+	GridObserverMock observer(grid);
+
+	grid.addBombAtPlace(bomb);
+
+	CPPUNIT_ASSERT_EQUAL(GridPoint(3, 4), observer.getLastParamOfCallToFieldHasChanged());
+}
+
+void GridTest::addWallAtPlace_oneObserverMock_observerGotOneCallToFieldHasChanged()
+{
+	Grid grid(10, 12);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(3, 4));
+	GridObserverMock observer(grid);
+
+	grid.addWallAtPlace(wall);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, observer.getCallsToFieldHasChanged());
+}
+
+void GridTest::addWallAtPlace_wallPosition3And4AndOneObserverMock_observerGotCallToFieldHasChangedWithParam3And4()
+{
+	Grid grid(10, 12);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(3, 4));
+	GridObserverMock observer(grid);
+
+	grid.addWallAtPlace(wall);
+
+	CPPUNIT_ASSERT_EQUAL(GridPoint(3, 4), observer.getLastParamOfCallToFieldHasChanged());
+}
+
+void GridTest::removeBomb_bombPosition3And4AndOneObserverMock_observerGotOneCallToFieldHasChanged()
+{
+	Grid grid(10, 12);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(3, 4));
+	grid.addBombAtPlace(bomb);
+	GridObserverMock observer(grid);
+
+	grid.removeBomb(bomb);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, observer.getCallsToFieldHasChanged());
+}
+
+void GridTest::removeBomb_bombPosition3And4AndOneObserverMock_observerGotCallToFieldHasChangedWithParam3And4()
+{
+	Grid grid(10, 12);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(3, 4));
+	grid.addBombAtPlace(bomb);
+	GridObserverMock observer(grid);
+
+	grid.removeBomb(bomb);
+
+	CPPUNIT_ASSERT_EQUAL(GridPoint(3, 4), observer.getLastParamOfCallToFieldHasChanged());
+}
+
+void GridTest::removeWall_oneObserverMock_observerGotOneCallToFieldHasChanged()
+{
+	Grid grid(10, 12);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(3, 4));
+	grid.addWallAtPlace(wall);
+	GridObserverMock observer(grid);
+
+	grid.removeWall(wall);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)1, observer.getCallsToFieldHasChanged());
+}
+
+void GridTest::removeWall_wallPosition1And0AndOneObserverMock_observerGotCallToFieldHasChangedWithParam1And0()
+{
+	Grid grid(10, 12);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(3, 4));
+	grid.addWallAtPlace(wall);
+	GridObserverMock observer(grid);
+
+	grid.removeWall(wall);
+
+	CPPUNIT_ASSERT_EQUAL(GridPoint(3, 4), observer.getLastParamOfCallToFieldHasChanged());
+}
+
+void GridTest::removeWall_wallAddedPreviouslyAndOneObserverMock_observerGotTwoCallsToFieldHasChanged()
+{
+	Grid grid(10, 12);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(3, 4));
+	GridObserverMock observer(grid);
+	grid.addWallAtPlace(wall);
+
+	grid.removeWall(wall);
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, observer.getCallsToFieldHasChanged());
 }
 
 void GridTest::setUp()

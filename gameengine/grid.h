@@ -32,6 +32,7 @@ namespace GameEngine
 
 	public:
 		Grid(unsigned int rows,unsigned int cols);
+		~Grid();
 
 		bool isPlaceEmpty(const Common::Point &position) const;
 		bool isPlaceEmpty(const Common::GridPoint &position) const;
@@ -64,6 +65,7 @@ namespace GameEngine
 		unsigned int getVectorIndex(const Common::GridPoint &position) const;
 		unsigned int getVectorIndex(unsigned int x, unsigned int y) const;
 		std::vector<unsigned int> getItemsInRange(const Common::BombState &bomb, Grid::Item item) const;
+		void notifyObservers(const Common::GridPoint &position);
 
 	private:
 		unsigned int m_gridRows;
@@ -71,7 +73,7 @@ namespace GameEngine
 		unsigned int m_numberOfItems;
 		std::vector<Item> m_itemMatrix;
 		std::vector<unsigned int> m_idMatrix;
-		std::vector<GridObserver*> m_observer;
+		std::vector<GridObserver*> m_observers;
 	};
 }
 

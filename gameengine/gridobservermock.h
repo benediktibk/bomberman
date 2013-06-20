@@ -14,9 +14,11 @@ namespace GameEngine
 		virtual void fieldHasChanged(const Common::GridPoint &position);
 
 		unsigned int getCallsToFieldHasChanged() const;
+		const Common::GridPoint& getLastParamOfCallToFieldHasChanged() const;
 
 	private:
 		unsigned int m_callsToFieldHasChanged;
+		Common::GridPoint m_lastParamOfCallToFieldHasChanged;
 	};
 }
 

@@ -1,4 +1,5 @@
 #include "gameengine/grid.h"
+#include "gameengine/gridobserver.h"
 #include "common/bombstate.h"
 #include "common/wallstate.h"
 #include "common/playerstate.h"
@@ -19,6 +20,11 @@ Grid::Grid(unsigned int rows, unsigned int cols) :
 	m_itemMatrix(m_numberOfItems,ItemFree),
 	m_idMatrix(m_numberOfItems,0)
 { }
+
+Grid::~Grid()
+{
+	assert(m_observers.size() == 0);
+}
 
 bool Grid::isPlaceEmpty(const Point &position) const
 {
@@ -54,6 +60,7 @@ void Grid::addBombAtPlace(BombState &bomb)
 	m_itemMatrix[index] = ItemBomb;
 	m_idMatrix[index] = bomb.getID();
 	bomb.setPosition(position.getPointPosition());
+	notifyObservers(position);
 }
 
 void Grid::addWallAtPlace(const WallState &wall)
@@ -67,6 +74,7 @@ void Grid::addWallAtPlace(const WallState &wall)
 		m_itemMatrix[index] = ItemLooseWall;
 
 	m_idMatrix[index] = wall.getId();
+	notifyObservers(position);
 }
 
 void Grid::addPowerUpAtPlace(PowerUpState &powerUp)
@@ -91,6 +99,7 @@ void Grid::removeBomb(const BombState &bomb)
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemFree;
 	m_idMatrix[index] = 0;
+	notifyObservers(position);
 }
 
 void Grid::removeWall(const WallState &wall)
@@ -99,6 +108,7 @@ void Grid::removeWall(const WallState &wall)
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemFree;
 	m_idMatrix[index] = 0;
+	notifyObservers(position);
 }
 
 vector<unsigned int> Grid::getItemsInRange(const BombState &bomb, Grid::Item item) const
@@ -153,6 +163,12 @@ vector<unsigned int> Grid::getItemsInRange(const BombState &bomb, Grid::Item ite
 	}
 
 	return itemsInRange;
+}
+
+void Grid::notifyObservers(const GridPoint &position)
+{
+	for (vector<GridObserver*>::const_iterator i = m_observers.begin(); i != m_observers.end(); ++i)
+		(*i)->fieldHasChanged(position);
 }
 
 vector<unsigned int> Grid::getLooseWallsInRange(const BombState &bomb) const
@@ -296,20 +312,20 @@ unsigned int Grid::getDistanceToNextWallDown(const GridPoint &position) const
 
 void Grid::unregisterObserver(GridObserver &observer)
 {
-	assert(count(m_observer.begin(), m_observer.end(), &observer) == 1);
-	vector<GridObserver*>::iterator newEnd = remove(m_observer.begin(), m_observer.end(), &observer);
-	m_observer.erase(newEnd, m_observer.end());
+	assert(count(m_observers.begin(), m_observers.end(), &observer) == 1);
+	vector<GridObserver*>::iterator newEnd = remove(m_observers.begin(), m_observers.end(), &observer);
+	m_observers.erase(newEnd, m_observers.end());
 }
 
 void Grid::registerObserver(GridObserver &observer)
 {
-	assert(count(m_observer.begin(), m_observer.end(), &observer) == 0);
-	m_observer.push_back(&observer);
+	assert(count(m_observers.begin(), m_observers.end(), &observer) == 0);
+	m_observers.push_back(&observer);
 }
 
 size_t Grid::getObserverCount() const
 {
-	return m_observer.size();
+	return m_observers.size();
 }
 
 unsigned int Grid::getBombMaximumRangeLeft(const GridPoint &position) const
