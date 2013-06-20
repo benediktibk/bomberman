@@ -10,8 +10,8 @@ PlayerState::PlayerState(UniqueIdCreator &creator) :
 	m_direction(PlayerDirectionUp),
 	m_placedBombCount(0),
 	m_maxBombs(1),
-	m_maximumSpeed(5.0),
-	m_maxMaxSpeed(7.0),
+	m_speed(5.0),
+	m_maximumSpeed(7.0),
 	m_width(1),
 	m_height(1),
 	m_playerId(creator.getId()),
@@ -80,9 +80,9 @@ unsigned int PlayerState::getBombCount()
 	return m_placedBombCount;
 }
 
-double PlayerState::getMaximumSpeed() const
+double PlayerState::getSpeed() const
 {
-	return m_maximumSpeed;
+	return m_speed;
 }
 
 double PlayerState::getSpeedIntoX() const
@@ -98,10 +98,10 @@ double PlayerState::getSpeedIntoX() const
 		result = 0;
 		break;
 	case PlayerState::PlayerDirectionLeft:
-		result = (-1)*getMaximumSpeed();
+		result = (-1)*getSpeed();
 		break;
 	case PlayerState::PlayerDirectionRight:
-		result = getMaximumSpeed();
+		result = getSpeed();
 		break;
 	}
 
@@ -117,10 +117,10 @@ double PlayerState::getSpeedIntoY() const
 	switch(m_direction)
 	{
 	case PlayerState::PlayerDirectionDown:
-		result = (-1)*getMaximumSpeed();
+		result = (-1)*getSpeed();
 		break;
 	case PlayerState::PlayerDirectionUp:
-		result = getMaximumSpeed();
+		result = getSpeed();
 		break;
 	case PlayerState::PlayerDirectionLeft:
 	case PlayerState::PlayerDirectionRight:
@@ -231,10 +231,10 @@ void PlayerState::setDestructionRangeOfNewBombs(unsigned int value)
 	m_destructionRangeOfNewBombs = value;
 }
 
-void PlayerState::increaseMaximumSpeed()
+void PlayerState::increaseSpeed()
 {
-	if (m_maximumSpeed + 2 <= m_maxMaxSpeed)
-		m_maximumSpeed += 2;
+	if (m_speed + 2 <= m_maximumSpeed)
+		m_speed += 2;
 }
 
 void PlayerState::increaseMaximumBombRange(unsigned int number)

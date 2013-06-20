@@ -41,9 +41,9 @@ namespace Common
 		void countBomb();
 		void reduceBombCount();
 		unsigned int getBombCount();
-		double getMaximumSpeed() const;
-		void increaseMaximumSpeed();
-        void increaseMaximumBombRange(unsigned int number);
+		double getSpeed() const;
+		void increaseSpeed();
+		void increaseMaximumBombRange(unsigned int number);
 		double getSpeedIntoX() const;
 		double getSpeedIntoY() const;
 		void setMoving();
@@ -71,8 +71,8 @@ namespace Common
 		PlayerDirection m_direction;
 		unsigned int m_placedBombCount;
 		unsigned int m_maxBombs;
-		double m_maximumSpeed;
-		const double m_maxMaxSpeed;
+		double m_speed;
+		const double m_maximumSpeed;
 		double m_width;
 		double m_height;
 		unsigned int m_playerId;

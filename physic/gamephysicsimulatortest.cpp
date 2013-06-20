@@ -59,7 +59,7 @@ void GamePhysicSimulatorTest::simulateStep_twoPlayersAndOneMovesTowardsTheOther_
 	playerOne.setMoving();
 	playerOne.setPosition(Point(0, 0));
 	playerTwo.setPosition(Point(3, 0));
-	double timeForOneField = 1/playerOne.getMaximumSpeed();
+	double timeForOneField = 1/playerOne.getSpeed();
 
 	simulator.simulateStep(gameState, 4*timeForOneField);
 
@@ -81,7 +81,7 @@ void GamePhysicSimulatorTest::simulateStep_twoPlayersAndOneMovesTowardsTheOther_
 	playerOne.setMoving();
 	playerOne.setPosition(Point(0, 0));
 	playerTwo.setPosition(Point(3, 0));
-	double timeForOneField = 1/playerOne.getMaximumSpeed();
+	double timeForOneField = 1/playerOne.getSpeed();
 
 	simulator.simulateStep(gameState, 4*timeForOneField);
 

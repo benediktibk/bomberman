@@ -8,6 +8,6 @@ PowerUpMaxVelocityState::PowerUpMaxVelocityState(UniqueIdCreator &creator, const
 
 void PowerUpMaxVelocityState::modifyPlayer(PlayerState &player) const
 {
-    player.increaseMaximumSpeed();
+    player.increaseSpeed();
 }
 

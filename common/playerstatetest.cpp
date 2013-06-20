@@ -186,7 +186,7 @@ void PlayerStateTest::constructor_idCreator_maximumSpeedIs5()
 {
 	PlayerState player(*m_playerIDCreator);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(5, player.getMaximumSpeed(), 0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(5, player.getSpeed(), 0.0001);
 }
 
 void PlayerStateTest::getSpeedIntoX_notMoving_0()
@@ -275,7 +275,7 @@ void PlayerStateTest::getSpeedIntoX_movingAndDirectionRight_maximumSpeed()
 	player.setMoving();
 	player.setDirectionRight();
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(player.getMaximumSpeed(), player.getSpeedIntoX(), 0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(player.getSpeed(), player.getSpeedIntoX(), 0.0001);
 }
 
 void PlayerStateTest::getSpeedIntoX_movingAndDirectionLeft_minusMaximumSpeed()
@@ -284,7 +284,7 @@ void PlayerStateTest::getSpeedIntoX_movingAndDirectionLeft_minusMaximumSpeed()
 	player.setMoving();
 	player.setDirectionLeft();
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL((-1)*player.getMaximumSpeed(), player.getSpeedIntoX(), 0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL((-1)*player.getSpeed(), player.getSpeedIntoX(), 0.0001);
 }
 
 void PlayerStateTest::getSpeedIntoY_movingAndDirectionUp_maximumSpeed()
@@ -293,7 +293,7 @@ void PlayerStateTest::getSpeedIntoY_movingAndDirectionUp_maximumSpeed()
 	player.setMoving();
 	player.setDirectionUp();
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(player.getMaximumSpeed(), player.getSpeedIntoY(), 0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(player.getSpeed(), player.getSpeedIntoY(), 0.0001);
 }
 
 void PlayerStateTest::getSpeedIntoY_movingAndDirectionDown_minusMaximumSpeed()
@@ -302,7 +302,7 @@ void PlayerStateTest::getSpeedIntoY_movingAndDirectionDown_minusMaximumSpeed()
 	player.setMoving();
 	player.setDirectionDown();
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL((-1)*player.getMaximumSpeed(), player.getSpeedIntoY(), 0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL((-1)*player.getSpeed(), player.getSpeedIntoY(), 0.0001);
 }
 
 void PlayerStateTest::getSpeedIntoY_movingAndDirectionLeft_0()
@@ -383,14 +383,14 @@ void PlayerStateTest::removeBombFromDoNotCollideList_twoBombsAddedAndFirstOneExp
 	CPPUNIT_ASSERT_EQUAL((size_t)1, result.size());
 }
 
-void PlayerStateTest::increaseMaximumSpeed_defaultSpeed_speedIncreasedByTwo()
+void PlayerStateTest::increaseSpeed_defaultSpeed_speedIncreasedByTwo()
 {
 	PlayerState player(*m_playerIDCreator);
-	double speed = player.getMaximumSpeed();
+	double speed = player.getSpeed();
 
-	player.increaseMaximumSpeed();
+	player.increaseSpeed();
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(speed + 2, player.getMaximumSpeed(), 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(speed + 2, player.getSpeed(), 0.001);
 }
 
 void PlayerStateTest::setDestructionRangeOfNewBombs_4_destructionRangeIs4()
