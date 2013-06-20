@@ -175,6 +175,16 @@ size_t GameState::getBombCount() const
 	return m_bombs.size();
 }
 
+const BombState &GameState::getBombById(unsigned int id) const
+{
+	for (vector<BombState*>::const_iterator i = m_bombs.begin(); i != m_bombs.end(); ++i)
+		if (id == (*i)->getID())
+			return **i;
+
+	assert(false);
+	return *(m_bombs.front());
+}
+
 void GameState::addBomb(BombState* bomb)
 {
 	m_bombs.push_back(bomb);

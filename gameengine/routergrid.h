@@ -27,6 +27,7 @@ namespace GameEngine
 		const RouterGridField& getField(const Common::GridPoint &position) const;
 
 	private:
+		void markFieldsAsDangerousIfCoveredByBomb(const Common::GridPoint &position);
 		void updateFieldInternal(const Common::GridPoint &position);
 		void updateDangerousFor(const Common::GridPoint &position);
 

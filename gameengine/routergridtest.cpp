@@ -54,9 +54,10 @@ void RouterGridTest::constructor_gridWith15RowsAnd10Columns_heightIs15()
 
 void RouterGridTest::constructor_bombAt3And5InGrid_bombAt3And5()
 {
-	BombState bomb(*m_bombIdCreator, 0);
-	bomb.setPosition(Point(3, 5));
-	m_grid->addBombAtPlace(bomb);
+	BombState *bomb = new BombState(*m_bombIdCreator, 0);
+	bomb->setPosition(Point(3, 5));
+	m_grid->addBombAtPlace(*bomb);
+	m_gameState->addBomb(bomb);
 
 	RouterGrid routerGrid(*m_grid, *m_gameState);
 
@@ -66,9 +67,10 @@ void RouterGridTest::constructor_bombAt3And5InGrid_bombAt3And5()
 
 void RouterGridTest::constructor_bombAt3And5InGrid_noSolidWallAt3And5()
 {
-	BombState bomb(*m_bombIdCreator, 0);
-	bomb.setPosition(Point(3, 5));
-	m_grid->addBombAtPlace(bomb);
+	BombState *bomb = new BombState(*m_bombIdCreator, 0);
+	bomb->setPosition(Point(3, 5));
+	m_grid->addBombAtPlace(*bomb);
+	m_gameState->addBomb(bomb);
 
 	RouterGrid routerGrid(*m_grid, *m_gameState);
 
@@ -78,9 +80,10 @@ void RouterGridTest::constructor_bombAt3And5InGrid_noSolidWallAt3And5()
 
 void RouterGridTest::constructor_bombAt3And5InGrid_noLooseWallAt3And5()
 {
-	BombState bomb(*m_bombIdCreator, 0);
-	bomb.setPosition(Point(3, 5));
-	m_grid->addBombAtPlace(bomb);
+	BombState *bomb = new BombState(*m_bombIdCreator, 0);
+	bomb->setPosition(Point(3, 5));
+	m_grid->addBombAtPlace(*bomb);
+	m_gameState->addBomb(bomb);
 
 	RouterGrid routerGrid(*m_grid, *m_gameState);
 
@@ -90,9 +93,10 @@ void RouterGridTest::constructor_bombAt3And5InGrid_noLooseWallAt3And5()
 
 void RouterGridTest::constructor_bombAt3And5InGrid_dangerousAt3And5()
 {
-	BombState bomb(*m_bombIdCreator, 0);
-	bomb.setPosition(Point(3, 5));
-	m_grid->addBombAtPlace(bomb);
+	BombState *bomb = new BombState(*m_bombIdCreator, 0);
+	bomb->setPosition(Point(3, 5));
+	m_grid->addBombAtPlace(*bomb);
+	m_gameState->addBomb(bomb);
 
 	RouterGrid routerGrid(*m_grid, *m_gameState);
 
@@ -102,9 +106,10 @@ void RouterGridTest::constructor_bombAt3And5InGrid_dangerousAt3And5()
 
 void RouterGridTest::constructor_bombAt3And5InGrid_noPlayerAt3And5()
 {
-	BombState bomb(*m_bombIdCreator, 0);
-	bomb.setPosition(Point(3, 5));
-	m_grid->addBombAtPlace(bomb);
+	BombState *bomb = new BombState(*m_bombIdCreator, 0);
+	bomb->setPosition(Point(3, 5));
+	m_grid->addBombAtPlace(*bomb);
+	m_gameState->addBomb(bomb);
 
 	RouterGrid routerGrid(*m_grid, *m_gameState);
 

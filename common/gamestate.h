@@ -36,6 +36,7 @@ namespace Common
 		void addWall(WallState* wall);
 		std::vector<const BombState*> getAllChangedBombs() const;
 		size_t getBombCount() const;
+		const BombState& getBombById(unsigned int id) const;
 		void addBomb(BombState* bomb);
 		void reduceAllBombsLifeTime(double time);
 		std::vector<const ExplodedBombState*> getAllChangedExplodedBombs() const;
