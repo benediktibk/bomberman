@@ -199,6 +199,5 @@ void GamePhysicSimulator::updatePlayer(const PlayerState &player)
 		map<const PlayerState*, Player*>::iterator position = m_players.find(&player);
 		delete position->second;
 		m_players.erase(position);
-		m_players.erase(position);
 	}
 }
