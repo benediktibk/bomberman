@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 	else
 		enableOpenGL = false;
 
-	MainWindow mainWindow(enableOpenGL);
+	MainWindow mainWindow(enableOpenGL, "levels/defaultlevel");
 	mainWindow.show();
 	return application.exec();
 }

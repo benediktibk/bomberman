@@ -11,11 +11,11 @@ using namespace Main;
 using namespace Graphic;
 using namespace std;
 
-MainWindow::MainWindow(bool enableOpenGL) :
+MainWindow::MainWindow(bool enableOpenGL, string levelname) :
 	m_statusBarUpdateTimeStep(250),
 	m_ui(new Ui::MainWindow),
 	m_drawer(0),
-	m_level(Common::CSVParser("levels/defaultlevel")),
+	m_level(Common::CSVParser(levelname)),
 	m_gameEngine(new GameEngine::GameEngineImpl(m_level, 2)),
 	m_gameLoop(new GameLoop(*this, *m_gameEngine, *this)),
 	m_timerStatusBarUpdate(new QTimer(this)),

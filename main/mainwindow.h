@@ -32,7 +32,7 @@ class MainWindow :
 	Q_OBJECT
 
 public:
-	MainWindow(bool enableOpenGL);
+	MainWindow(bool enableOpenGL, std::string levelname);
 	~MainWindow();
 
 	virtual void setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs);
