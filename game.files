@@ -162,14 +162,10 @@ main/maingraphictest.cpp
 main/mainwindowgraphictest.h
 main/mainwindowgraphictest.cpp
 main/gui/mainwindowgraphictest.ui
-common/enemystate.h
 common/point.h
 common/point.cpp
 common/pointtest.h
 common/pointtest.cpp
-common/enemystate.cpp
-common/enemystatetest.h
-common/enemystatetest.cpp
 common/bombstate.h
 common/bombstatetest.h
 common/bombstate.cpp

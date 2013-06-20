@@ -1,10 +1,9 @@
-set(COMMON_SRC    
+set(COMMON_SRC
 	gamestate.cpp
 	inputstate.cpp
 	stopwatch.cpp
 	playerstate.cpp
 	point.cpp
-	enemystate.cpp
 	bombstate.cpp
 	wallstate.cpp
 	uniqueidcreator.cpp
@@ -21,7 +20,7 @@ set(COMMON_SRC
 	compare.cpp
 	allplayerinputfetcher.cpp
 	csvparser.cpp
-    powerupmaxbombrangestate.cpp
+	powerupmaxbombrangestate.cpp
 )
 
 set(COMMON_TEST_SRC
@@ -29,7 +28,6 @@ set(COMMON_TEST_SRC
 	inputstatetest.cpp
 	pointtest.cpp
 	gridpointtest.cpp
-	enemystatetest.cpp
 	bombstatetest.cpp
 	wallstatetest.cpp
 	uniqueidcreatortest.cpp
@@ -52,7 +50,7 @@ set(COMMON_TEST_SRC
 	explodedbombstatetest.cpp
 	comparetest.cpp
 	csvparsertest.cpp
-    powerupmaxbombrangestatetest.cpp
+	powerupmaxbombrangestatetest.cpp
 )
 
 add_library(common ${COMMON_SRC})
