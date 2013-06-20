@@ -1,3 +1,3 @@
-shwoname;filename;width;height;maxPlayer
-defaultlevel;defaultlevel;15;10;1
-neighbourship;neighbourship;25;25;4
+shwoname;width;height;maxPlayer;filename
+Defaultlevel;15;10;1;defaultlevel
+Neighbourship;25;25;4;neighbourship
