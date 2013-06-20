@@ -11,12 +11,13 @@ PlayerState::PlayerState(UniqueIdCreator &creator) :
 	m_placedBombCount(0),
 	m_maxBombs(1),
 	m_maximumSpeed(5.0),
+	m_maxMaxSpeed(7.0),
 	m_width(1),
 	m_height(1),
 	m_playerId(creator.getId()),
 	m_creatorId(creator),
 	m_moving(false),
-    m_destructionRangeOfNewBombs(1)
+	m_destructionRangeOfNewBombs(1)
 {}
 
 PlayerState::~PlayerState()
@@ -232,7 +233,8 @@ void PlayerState::setDestructionRangeOfNewBombs(unsigned int value)
 
 void PlayerState::increaseMaximumSpeed()
 {
-	m_maximumSpeed += 2;
+	if (m_maximumSpeed + 2 <= m_maxMaxSpeed)
+		m_maximumSpeed += 2;
 }
 
 void PlayerState::increaseMaximumBombRange(unsigned int number)
