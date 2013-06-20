@@ -57,6 +57,8 @@ namespace GameEngine
 		CPPUNIT_TEST(fieldHasChanged_bombAt4And3RemovedAndBombAt7And4_7And3IsDangerous);
 		CPPUNIT_TEST(fieldHasChanged_looseWallAt8And6Removed_noLooseWallAt8And6);
 		CPPUNIT_TEST(fieldHasChanged_looseWallAt8And6RemovedAndBombWithRange10At7And6_9And6IsDangerous);
+		CPPUNIT_TEST(updatePlayerFlags_playerMovementFrom4And5To4And6_noPlayerAt4And5);
+		CPPUNIT_TEST(updatePlayerFlags_playerMovementFrom4And5To4And6_playerAt4And6);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -103,6 +105,8 @@ namespace GameEngine
 		void fieldHasChanged_bombAt4And3RemovedAndBombAt7And4_7And3IsDangerous();
 		void fieldHasChanged_looseWallAt8And6Removed_noLooseWallAt8And6();
 		void fieldHasChanged_looseWallAt8And6RemovedAndBombWithRange10At7And6_9And6IsDangerous();
+		void updatePlayerFlags_playerMovementFrom4And5To4And6_noPlayerAt4And5();
+		void updatePlayerFlags_playerMovementFrom4And5To4And6_playerAt4And6();
 
 	private:
 		Grid *m_grid;

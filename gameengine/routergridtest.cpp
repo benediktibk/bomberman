@@ -5,6 +5,7 @@
 #include "common/bombstate.h"
 #include "common/wallstate.h"
 #include "common/powerupstate.h"
+#include "common/playerstate.h"
 #include "common/uniqueidcreator.h"
 
 using namespace GameEngine;
@@ -531,4 +532,32 @@ void RouterGridTest::fieldHasChanged_looseWallAt8And6RemovedAndBombWithRange10At
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(9, 6));
 	CPPUNIT_ASSERT(gridField.isDangerous());
+}
+
+void RouterGridTest::updatePlayerFlags_playerMovementFrom4And5To4And6_noPlayerAt4And5()
+{
+	PlayerState &player = m_gameState->getFirstPlayerState();
+	RouterGrid routerGrid(*m_grid, *m_gameState);
+
+	player.setPosition(Point(4, 5));
+	routerGrid.updatePlayerFlags();
+	player.setPosition(Point(4, 6));
+	routerGrid.updatePlayerFlags();
+
+	const RouterGridField &gridField = routerGrid.getField(GridPoint(4, 5));
+	CPPUNIT_ASSERT(!gridField.isPlayer());
+}
+
+void RouterGridTest::updatePlayerFlags_playerMovementFrom4And5To4And6_playerAt4And6()
+{
+	PlayerState &player = m_gameState->getFirstPlayerState();
+	RouterGrid routerGrid(*m_grid, *m_gameState);
+
+	player.setPosition(Point(4, 5));
+	routerGrid.updatePlayerFlags();
+	player.setPosition(Point(4, 6));
+	routerGrid.updatePlayerFlags();
+
+	const RouterGridField &gridField = routerGrid.getField(GridPoint(4, 6));
+	CPPUNIT_ASSERT(gridField.isPlayer());
 }

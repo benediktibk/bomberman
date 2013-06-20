@@ -40,7 +40,27 @@ unsigned int RouterGrid::getHeight() const
 	return m_height;
 }
 
-const RouterGridField &RouterGrid::getField(const GridPoint &position) const
+const RouterGridField& RouterGrid::getField(const GridPoint &position) const
+{
+	assert(position.getX() < m_width);
+	assert(position.getY() < m_height);
+
+	return m_fields[position.getY()][position.getX()];
+}
+
+void RouterGrid::updatePlayerFlags()
+{
+	removePlayerFlags();
+	vector<GridPoint> playerFields = getAllPlayerFields();
+
+	for (vector<GridPoint>::const_iterator i = playerFields.begin(); i != playerFields.end(); ++i)
+	{
+		RouterGridField &field = getFieldInternal(*i);
+		field.setPlayer(true);
+	}
+}
+
+RouterGridField& RouterGrid::getFieldInternal(const GridPoint &position)
 {
 	assert(position.getX() < m_width);
 	assert(position.getY() < m_height);
@@ -112,4 +132,25 @@ void RouterGrid::updateDangerousFlags()
 	for (unsigned int x = 0; x < m_width; ++x)
 		for (unsigned int y = 0; y < m_height; ++y)
 			markFieldsAsDangerousIfCoveredByBomb(GridPoint(x, y));
+}
+
+void RouterGrid::removePlayerFlags()
+{
+	for (unsigned int x = 0; x < m_width; ++x)
+		for (unsigned int y = 0; y < m_height; ++y)
+			m_fields[y][x].setPlayer(false);
+}
+
+vector<GridPoint> RouterGrid::getAllPlayerFields() const
+{
+	vector<GridPoint> result;
+	vector<const PlayerState*> players = m_gameState.getAllPlayers();
+
+	for (vector<const PlayerState*>::const_iterator i = players.begin(); i != players.end(); ++i)
+	{
+		vector<GridPoint> resultPart = m_grid.getPlayerFields(**i);
+		result.insert(result.end(), resultPart.begin(), resultPart.end());
+	}
+
+	return result;
 }

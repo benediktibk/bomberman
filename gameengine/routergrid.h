@@ -25,12 +25,16 @@ namespace GameEngine
 		unsigned int getWidth() const;
 		unsigned int getHeight() const;
 		const RouterGridField& getField(const Common::GridPoint &position) const;
+		void updatePlayerFlags();
 
 	private:
+		RouterGridField& getFieldInternal(const Common::GridPoint &position);
 		void markFieldsAsDangerousIfCoveredByBomb(const Common::GridPoint &position);
 		void updateFieldInternal(const Common::GridPoint &position);
 		void removeDangerousFlags();
 		void updateDangerousFlags();
+		void removePlayerFlags();
+		std::vector<Common::GridPoint> getAllPlayerFields() const;
 
 	private:
 		const Grid &m_grid;
