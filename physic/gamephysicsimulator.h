@@ -39,6 +39,8 @@ namespace Physic
 		void updateWall(const Common::WallState *wall);
 		void updateCollisionGroups(const Common::GameState &state);
 		void updateCollisionGroupsForPlayer(const Common::PlayerState &player);
+		void updatePlayers(const Common::GameState &state);
+		void updatePlayer(const Common::PlayerState &player);
 
 	private:
 		Physic::PhysicSimulator *m_simulator;
