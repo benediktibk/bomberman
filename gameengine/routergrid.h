@@ -22,7 +22,8 @@ namespace GameEngine
 		const RouterGridField& getField(const Common::GridPoint &position) const;
 
 	private:
-		void updateDangerousFor(unsigned int row, unsigned int column);
+		void updateFieldInternal(const Common::GridPoint &position);
+		void updateDangerousFor(const Common::GridPoint &position);
 
 	private:
 		const Grid &m_grid;

@@ -3,6 +3,7 @@
 
 using namespace GameEngine;
 using namespace boost;
+using namespace Common;
 
 RouterGrid::RouterGrid(Grid &grid) :
 	GridObserver(grid),
@@ -10,9 +11,37 @@ RouterGrid::RouterGrid(Grid &grid) :
 	m_width(grid.getColumns()),
 	m_height(grid.getRows()),
 	m_fields(extents[m_height][m_width])
-{ }
+{
+	for (unsigned int x = 0; x < m_width; ++x)
+		for (unsigned int y = 0; y < m_height; ++y)
+			updateFieldInternal(GridPoint(x, y));
+}
 
-void RouterGrid::fieldHasChanged(const Common::GridPoint &position)
+void RouterGrid::fieldHasChanged(const GridPoint &position)
+{
+	updateFieldInternal(position);
+	updateDangerousFor(position);
+}
+
+unsigned int RouterGrid::getWidth() const
+{
+	return m_width;
+}
+
+unsigned int RouterGrid::getHeight() const
+{
+	return m_height;
+}
+
+const RouterGridField &RouterGrid::getField(const GridPoint &position) const
+{
+	assert(position.getX() < m_width);
+	assert(position.getY() < m_height);
+
+	return m_fields[position.getY()][position.getX()];
+}
+
+void RouterGrid::updateFieldInternal(const GridPoint &position)
 {
 	unsigned int row = position.getY();
 	unsigned int column = position.getX();
@@ -31,28 +60,8 @@ void RouterGrid::fieldHasChanged(const Common::GridPoint &position)
 		m_fields[row][column].setSolidWall(true);
 
 	m_fields[row][column].setPlayer(player);
-
-	updateDangerousFor(row, column);
 }
 
-unsigned int RouterGrid::getWidth() const
-{
-	return m_width;
-}
-
-unsigned int RouterGrid::getHeight() const
-{
-	return m_height;
-}
-
-const RouterGridField &RouterGrid::getField(const Common::GridPoint &position) const
-{
-	assert(position.getX() < m_width);
-	assert(position.getY() < m_height);
-
-	return m_fields[position.getY()][position.getX()];
-}
-
-void RouterGrid::updateDangerousFor(unsigned int /*row*/, unsigned int /*column*/)
+void RouterGrid::updateDangerousFor(const GridPoint &/*position*/)
 {
 }

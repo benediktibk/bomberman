@@ -55,7 +55,7 @@ void RouterGridField::setBomb(bool value)
 
 void RouterGridField::setPlayer(bool value)
 {
-	assert(!m_looseWall && !m_solidWall);
+	assert((!m_looseWall && !m_solidWall) || !value);
 	m_player = value;
 }
 
