@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>573</width>
-    <height>337</height>
+    <height>496</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -46,11 +46,30 @@
       </attribute>
      </widget>
     </item>
-    <item row="3" column="1">
-     <widget class="QPushButton" name="exitButton">
-      <property name="text">
-       <string>Exit</string>
+    <item row="2" column="0" colspan="2">
+     <widget class="QGroupBox" name="groupBox">
+      <property name="enabled">
+       <bool>true</bool>
       </property>
+      <property name="title">
+       <string>Settings</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QCheckBox" name="openGlCheckBox">
+         <property name="text">
+          <string>play with openGl</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="infoLabel">
+         <property name="text">
+          <string>Please selcet a level and press Start to play</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
     <item row="3" column="0">
@@ -60,10 +79,18 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="0" colspan="2">
-     <widget class="QLabel" name="Levelselection">
+    <item row="3" column="1">
+     <widget class="QPushButton" name="exitButton">
       <property name="text">
-       <string>Ultimate BOMBERMAN</string>
+       <string>Exit</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="2">
+     <widget class="QLabel" name="levelselectionLabel">
+      <property name="text">
+       <string>Ultimate BOMBERMAN
+Levelselection</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignCenter</set>
