@@ -26,12 +26,6 @@ Grid::~Grid()
 	assert(m_observers.size() == 0);
 }
 
-bool Grid::isPlaceEmpty(const Point &position) const
-{
-	GridPoint gridPosition(position);
-	return isPlaceEmpty(gridPosition);
-}
-
 bool Grid::isPlaceEmpty(const GridPoint &position) const
 {
 	unsigned int index = getVectorIndex(position);
@@ -45,6 +39,24 @@ bool Grid::isPlaceCoveredByWall(const GridPoint &position) const
 {
 	unsigned int index = getVectorIndex(position);
 	return m_itemMatrix[index] == ItemSolidWall || m_itemMatrix[index] == ItemLooseWall;
+}
+
+bool Grid::isPlaceCoveredByLooseWall(const GridPoint &position) const
+{
+	unsigned int index = getVectorIndex(position);
+	return m_itemMatrix[index] == ItemLooseWall;
+}
+
+bool Grid::isPlaceCoveredBySolidWall(const GridPoint &position) const
+{
+	unsigned int index = getVectorIndex(position);
+	return m_itemMatrix[index] == ItemSolidWall;
+}
+
+bool Grid::isPlaceCoveredByBomb(const GridPoint &position) const
+{
+	unsigned int index = getVectorIndex(position);
+	return m_itemMatrix[index] == ItemBomb;
 }
 
 unsigned Grid::getId(const GridPoint &position) const

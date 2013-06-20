@@ -13,8 +13,3 @@ GridObserver::~GridObserver()
 {
 	m_source->unregisterObserver(*this);
 }
-
-const Grid &GridObserver::getGrid() const
-{
-	return *m_source;
-}

@@ -92,6 +92,12 @@ namespace GameEngine
 		CPPUNIT_TEST(removeWall_oneObserverMock_observerGotOneCallToFieldHasChanged);
 		CPPUNIT_TEST(removeWall_wallPosition1And0AndOneObserverMock_observerGotCallToFieldHasChangedWithParam1And0);
 		CPPUNIT_TEST(removeWall_wallAddedPreviouslyAndOneObserverMock_observerGotTwoCallsToFieldHasChanged);
+		CPPUNIT_TEST(isPlaceCoveredBySolidWall_coveredByLooseWall_false);
+		CPPUNIT_TEST(isPlaceCoveredBySolidWall_coveredBySolidWall_true);
+		CPPUNIT_TEST(isPlaceCoveredByLooseWall_coveredByLooseWall_true);
+		CPPUNIT_TEST(isPlaceCoveredByLooseWall_coveredBySolidWall_false);
+		CPPUNIT_TEST(isPlaceCoveredByBomb_free_false);
+		CPPUNIT_TEST(isPlaceCoveredByBomb_coveredByBomb_true);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -176,6 +182,12 @@ namespace GameEngine
 		void removeWall_oneObserverMock_observerGotOneCallToFieldHasChanged();
 		void removeWall_wallPosition1And0AndOneObserverMock_observerGotCallToFieldHasChangedWithParam1And0();
 		void removeWall_wallAddedPreviouslyAndOneObserverMock_observerGotTwoCallsToFieldHasChanged();
+		void isPlaceCoveredBySolidWall_coveredByLooseWall_false();
+		void isPlaceCoveredBySolidWall_coveredBySolidWall_true();
+		void isPlaceCoveredByLooseWall_coveredByLooseWall_true();
+		void isPlaceCoveredByLooseWall_coveredBySolidWall_false();
+		void isPlaceCoveredByBomb_free_false();
+		void isPlaceCoveredByBomb_coveredByBomb_true();
 
 	private:
 		Common::UniqueIdCreator *m_powerUpIdCreator;

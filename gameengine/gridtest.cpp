@@ -1282,6 +1282,59 @@ void GridTest::removeWall_wallAddedPreviouslyAndOneObserverMock_observerGotTwoCa
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, observer.getCallsToFieldHasChanged());
 }
 
+void GridTest::isPlaceCoveredBySolidWall_coveredByLooseWall_false()
+{
+	Grid grid(15, 13);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(1, 6));
+	grid.addWallAtPlace(wall);
+
+	CPPUNIT_ASSERT(!grid.isPlaceCoveredBySolidWall(GridPoint(1, 6)));
+}
+
+void GridTest::isPlaceCoveredBySolidWall_coveredBySolidWall_true()
+{
+	Grid grid(15, 13);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(1, 6));
+	grid.addWallAtPlace(wall);
+
+	CPPUNIT_ASSERT(grid.isPlaceCoveredBySolidWall(GridPoint(1, 6)));
+}
+
+void GridTest::isPlaceCoveredByLooseWall_coveredByLooseWall_true()
+{
+	Grid grid(15, 13);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(1, 6));
+	grid.addWallAtPlace(wall);
+
+	CPPUNIT_ASSERT(grid.isPlaceCoveredByLooseWall(GridPoint(1, 6)));
+}
+
+void GridTest::isPlaceCoveredByLooseWall_coveredBySolidWall_false()
+{
+	Grid grid(15, 13);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(1, 6));
+	grid.addWallAtPlace(wall);
+
+	CPPUNIT_ASSERT(!grid.isPlaceCoveredByLooseWall(GridPoint(1, 6)));
+}
+
+void GridTest::isPlaceCoveredByBomb_free_false()
+{
+	Grid grid(15, 13);
+
+	CPPUNIT_ASSERT(!grid.isPlaceCoveredByBomb(GridPoint(12, 11)));
+}
+
+void GridTest::isPlaceCoveredByBomb_coveredByBomb_true()
+{
+	Grid grid(15, 13);
+	BombState bomb(*m_bombIdCreator, 0);
+	bomb.setPosition(Point(12, 11));
+	grid.addBombAtPlace(bomb);
+
+	CPPUNIT_ASSERT(grid.isPlaceCoveredByBomb(GridPoint(12, 11)));
+}
+
 void GridTest::setUp()
 {
 	m_powerUpIdCreator = new UniqueIdCreator();

@@ -19,8 +19,13 @@ namespace GameEngine
 		virtual void fieldHasChanged(const Common::GridPoint &position);
 		unsigned int getWidth() const;
 		unsigned int getHeight() const;
+		const RouterGridField& getField(const Common::GridPoint &position) const;
 
 	private:
+		void updateDangerousFor(unsigned int row, unsigned int column);
+
+	private:
+		const Grid &m_grid;
 		unsigned int m_width;
 		unsigned int m_height;
 		GridFieldMatrix m_fields;
