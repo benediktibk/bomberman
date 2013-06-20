@@ -5,9 +5,10 @@ using namespace GameEngine;
 using namespace boost;
 using namespace Common;
 
-RouterGrid::RouterGrid(Grid &grid) :
+RouterGrid::RouterGrid(Grid &grid, const GameState &gameState) :
 	GridObserver(grid),
 	m_grid(grid),
+	m_gameState(gameState),
 	m_width(grid.getColumns()),
 	m_height(grid.getRows()),
 	m_fields(extents[m_height][m_width])

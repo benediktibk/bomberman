@@ -7,6 +7,7 @@
 namespace Common
 {
 	class UniqueIdCreator;
+	class GameState;
 }
 
 namespace GameEngine
@@ -39,6 +40,18 @@ namespace GameEngine
 		CPPUNIT_TEST(constructor_powerUpAt8And9InGrid_noPlayerAt8And9);
 		CPPUNIT_TEST(constructor_powerUpAt8And9InGrid_noBombAt8And9);
 		CPPUNIT_TEST(constructor_powerUpAt8And9InGrid_notDangerousAt8And9);
+		CPPUNIT_TEST(constructor_bombWithRange2At5And4_7And4IsDangerous);
+		CPPUNIT_TEST(constructor_bombWithRange2At5And4_8And4IsNotDangerous);
+		CPPUNIT_TEST(constructor_bombWithRange10At5And4AndWallAt6And4_7And4IsNotDangerous);
+		CPPUNIT_TEST(constructor_bombWithRange2At5And4_3And4IsDangerous);
+		CPPUNIT_TEST(constructor_bombWithRange2At5And4_2And4IsNotDangerous);
+		CPPUNIT_TEST(constructor_bombWithRange10At5And4AndWallAt4And4_3And4IsNotDangerous);
+		CPPUNIT_TEST(constructor_bombWithRange2At5And4_5And6IsDangerous);
+		CPPUNIT_TEST(constructor_bombWithRange2At5And4_5And7IsNotDangerous);
+		CPPUNIT_TEST(constructor_bombWithRange10At5And4AndWallAt5And5_5And6IsNotDangerous);
+		CPPUNIT_TEST(constructor_bombWithRange2At5And4_5And2IsDangerous);
+		CPPUNIT_TEST(constructor_bombWithRange2At5And4_5And1IsNotDangerous);
+		CPPUNIT_TEST(constructor_bombWithRange10At5And4AndWallAt5And3_5And2IsNotDangerous);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -68,12 +81,26 @@ namespace GameEngine
 		void constructor_powerUpAt8And9InGrid_noPlayerAt8And9();
 		void constructor_powerUpAt8And9InGrid_noBombAt8And9();
 		void constructor_powerUpAt8And9InGrid_notDangerousAt8And9();
+		void constructor_bombWithRange2At5And4_7And4IsDangerous();
+		void constructor_bombWithRange2At5And4_8And4IsNotDangerous();
+		void constructor_bombWithRange10At5And4AndWallAt6And4_7And4IsNotDangerous();
+		void constructor_bombWithRange2At5And4_3And4IsDangerous();
+		void constructor_bombWithRange2At5And4_2And4IsNotDangerous();
+		void constructor_bombWithRange10At5And4AndWallAt4And4_3And4IsNotDangerous();
+		void constructor_bombWithRange2At5And4_5And6IsDangerous();
+		void constructor_bombWithRange2At5And4_5And7IsNotDangerous();
+		void constructor_bombWithRange10At5And4AndWallAt5And5_5And6IsNotDangerous();
+		void constructor_bombWithRange2At5And4_5And2IsDangerous();
+		void constructor_bombWithRange2At5And4_5And1IsNotDangerous();
+		void constructor_bombWithRange10At5And4AndWallAt5And3_5And2IsNotDangerous();
 
 	private:
 		Grid *m_grid;
+		Common::GameState *m_gameState;
 		Common::UniqueIdCreator *m_bombIdCreator;
 		Common::UniqueIdCreator *m_wallIdCreator;
 		Common::UniqueIdCreator *m_powerUpIdCreator;
+		Common::UniqueIdCreator *m_playerIdCreator;
 	};
 }
 

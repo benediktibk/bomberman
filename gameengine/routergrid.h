@@ -5,6 +5,11 @@
 #include "gameengine/gridobserver.h"
 #include "gameengine/routergridfield.h"
 
+namespace Common
+{
+	class GameState;
+}
+
 namespace GameEngine
 {
 	class RouterGrid :
@@ -14,7 +19,7 @@ namespace GameEngine
 		typedef boost::multi_array<RouterGridField, 2> GridFieldMatrix;
 
 	public:
-		RouterGrid(Grid &grid);
+		RouterGrid(Grid &grid, const Common::GameState &gameState);
 
 		virtual void fieldHasChanged(const Common::GridPoint &position);
 		unsigned int getWidth() const;
@@ -27,6 +32,7 @@ namespace GameEngine
 
 	private:
 		const Grid &m_grid;
+		const Common::GameState &m_gameState;
 		unsigned int m_width;
 		unsigned int m_height;
 		GridFieldMatrix m_fields;
