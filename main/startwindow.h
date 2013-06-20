@@ -26,6 +26,7 @@ private slots:
 
 private:
 	void connectButtons();
+	void connectTableView();
 
 private:
 	Ui::StartWindow* m_ui;
