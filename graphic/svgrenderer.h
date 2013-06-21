@@ -22,6 +22,7 @@ public:
 	QGraphicsSvgItem *getNewCellBackgroundItem();
 	QGraphicsSvgItem *getNewExplodedBombCenterItem();
 	QGraphicsSvgItem *getNewExplodedBombFlameItem();
+	QGraphicsSvgItem *getNewExplodedBombEndItem();
 	~SvgRenderer();
 
 private:
@@ -46,6 +47,7 @@ private:
 	QSvgRenderer *m_cellBackgroundRenderer;
 	QSvgRenderer *m_explodedBombCenterRenderer;
 	QSvgRenderer *m_explodedBombFlameRenderer;
+	QSvgRenderer *m_explodedBombEndRenderer;
 
 };
 }
