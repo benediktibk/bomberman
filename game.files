@@ -366,3 +366,5 @@ gameengine/freedecider.h
 gameengine/freedecider.cpp
 gameengine/freedecidertest.h
 gameengine/freedecidertest.cpp
+gameengine/routertest.h
+gameengine/routertest.cpp

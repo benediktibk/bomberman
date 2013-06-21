@@ -39,6 +39,7 @@
 #include "gameengine/coveredbyloosewalldecidertest.h"
 #include "gameengine/freedecidertest.h"
 #include "gameengine/routetest.h"
+#include "gameengine/routertest.h"
 #include "main/gamelooptest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
@@ -82,4 +83,5 @@ CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::CoveredByPlayerDeciderTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::CoveredByLooseWallDeciderTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::FreeDeciderTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::RouteTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::RouterTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Main::GameLoopTest);

@@ -26,6 +26,7 @@ set(GAMEENGINE_TEST_SRC
 	coveredbyloosewalldecidertest.cpp
 	freedecidertest.cpp
 	routetest.cpp
+	routertest.cpp
 )
 
 add_library(gameengine ${GAMEENGINE_SRC})
