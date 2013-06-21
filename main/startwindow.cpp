@@ -8,12 +8,13 @@ using namespace std;
 using namespace Main;
 
 StartWindow::StartWindow(bool enableOpenGL) :
-	m_ui(new Ui::StartWindow),
-	m_enableOpenGL(enableOpenGL)
+	m_ui(new Ui::StartWindow)
 {
 	m_ui->setupUi(this);
 	connectButtons();
 	connectTableView();
+	if(enableOpenGL)
+		m_ui->openGlCheckBox->setChecked(true);
 }
 
 void StartWindow::connectButtons()
@@ -54,7 +55,6 @@ void StartWindow::startClicked()
 		m_ui->infoLabel->setText(tr("please select a level from the upper table !!!"));
 	else
 	{
-		emit startGameSignal(m_enableOpenGL, m_selectedLevel.c_str());
+		emit startGameSignal(m_ui->openGlCheckBox->isChecked(), m_selectedLevel.c_str());
 	}
 }
-
