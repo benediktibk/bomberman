@@ -57,22 +57,22 @@ void ExplodedBomb::createFlameEnds(QGraphicsScene &scene, const Common::Exploded
 {
 	double dimension = state.getHeight();
 
-	m_upperEnd = m_renderer->getNewExplodedBombFlameItem();
-	m_lowerEnd = m_renderer->getNewExplodedBombFlameItem();
-	m_leftEnd = m_renderer->getNewExplodedBombFlameItem();
-	m_rightEnd = m_renderer->getNewExplodedBombFlameItem();
+	m_upperEnd = m_renderer->getNewExplodedBombEndItem();
+	m_lowerEnd = m_renderer->getNewExplodedBombEndItem();
+	m_leftEnd = m_renderer->getNewExplodedBombEndItem();
+	m_rightEnd = m_renderer->getNewExplodedBombEndItem();
 
 	m_lowerEnd->rotate(180);
-	m_leftEnd->rotate(90);
-	m_rightEnd->rotate(-90);
+	m_leftEnd->rotate(-90);
+	m_rightEnd->rotate(90);
 
 	m_upperEnd->setScale(0.001*pixelPerMeter*dimension);
 	m_leftEnd->setScale(0.001*pixelPerMeter*dimension);
 	m_rightEnd->setScale(0.001*pixelPerMeter*dimension);
 	m_lowerEnd->setScale(0.001*pixelPerMeter*dimension);
 
-	Point rightEndPosition(state.getPosition() + Point(state.getDestructionRangeRight()*dimension, (-1)*dimension));
-	Point leftEndPosition(state.getPosition() + Point((-1.0)*(state.getDestructionRangeLeft() - 1)*dimension, 0));
+	Point rightEndPosition(state.getPosition() + Point((state.getDestructionRangeRight() + 1)*dimension, 0));
+	Point leftEndPosition(state.getPosition() + Point((-1.0)*(state.getDestructionRangeLeft())*dimension, (-1.0)*dimension));
 	Point upperEndPosition(state.getPosition() + Point(0, state.getDestructionRangeUp()*dimension));
 	Point lowerEndPosition(state.getPosition() + Point(dimension, (-1.0)*(state.getDestructionRangeDown() + 1)*dimension));
 
