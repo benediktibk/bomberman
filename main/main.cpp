@@ -1,6 +1,7 @@
 #include <QApplication>
 #include <QtCore/QStringList>
 #include "mainwindow.h"
+#include "startwindow.h"
 
 using namespace Main;
 
@@ -15,7 +16,10 @@ int main(int argc, char **argv)
 	else
 		enableOpenGL = false;
 
-	MainWindow mainWindow(enableOpenGL, "levels/defaultlevel");
-	mainWindow.show();
+	MainWindow mainWindow;
+	StartWindow startWindow(enableOpenGL);
+	QObject::connect(	&startWindow, SIGNAL(startGameSignal(bool,const char*)),
+						&mainWindow, SLOT(startGame(bool,const char*)));
+	startWindow.show();
 	return application.exec();
 }

@@ -6,7 +6,7 @@ using namespace Main;
 int main(int argc, char **argv)
 {
 	QApplication a(argc, argv);
-	StartWindow startWindowTest;
+	StartWindow startWindowTest(false);
 
 	startWindowTest.show();
 	int result = a.exec();

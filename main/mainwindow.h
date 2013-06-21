@@ -32,11 +32,14 @@ class MainWindow :
 	Q_OBJECT
 
 public:
-	MainWindow(bool enableOpenGL, std::string levelname);
+	MainWindow();
 	~MainWindow();
 
 	virtual void setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs);
 	virtual void draw(const Common::GameState &gameState);
+
+public slots:
+	void startGame(bool enableOpenGL, const char* levelname);
 
 private slots:
 	void updateGui(const Common::GameState *gameState);
@@ -46,15 +49,19 @@ signals:
 	void guiUpdateNecessary(const Common::GameState *gameState);
 
 private:
+	void finishGame();
+
+private:
 	const unsigned int m_statusBarUpdateTimeStep;
 	Ui::MainWindow *m_ui;
 	Common::GraphicDrawer *m_drawer;
-	Common::LevelDefinition m_level;
+	Common::LevelDefinition *m_level;
 	Common::GameEngine *m_gameEngine;
 	GameLoop *m_gameLoop;
 	QTimer *m_timerStatusBarUpdate;
 	Threading::Signal m_guiUpdateFinished;
 	bool m_enableOpenGL;
+	bool m_gameStarted;
 };
 }
 
