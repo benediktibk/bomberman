@@ -44,17 +44,24 @@ void MainWindow::setResponsibleForPlayers(const std::vector<unsigned int> &playe
 
 void MainWindow::draw(const Common::GameState &gameState)
 {
+	m_gameStartMutex.lock();
 	if (!m_gameStarted)
+	{
+		m_gameStartMutex.unlock();
 		return;
+	}
 
 	emit guiUpdateNecessary(&gameState);
 	m_guiUpdateFinished.wait();
 	m_guiUpdateFinished.reset();
+	m_gameStartMutex.unlock();
 }
 
 void MainWindow::startGame(bool enableOpenGL, const char* levelname)
 {
+	m_gameStartMutex.lock();
 	m_gameStarted = false;
+	m_gameStartMutex.unlock();
 	finishGame();
 
 	string levelpath = "levels/" + string(levelname);
@@ -62,7 +69,9 @@ void MainWindow::startGame(bool enableOpenGL, const char* levelname)
 	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, 2);
 	m_gameLoop = new GameLoop(*this, *m_gameEngine, *this);
 	m_enableOpenGL = enableOpenGL;
+	m_gameStartMutex.lock();
 	m_gameStarted = true;
+	m_gameStartMutex.unlock();
 
 	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), m_enableOpenGL);
 	vector<unsigned int> playerIDs = m_gameEngine->getAllPossiblePlayerIDs();
@@ -90,6 +99,7 @@ void MainWindow::updateStatusBar()
 
 	if(!m_gameStarted)
 		return;
+
 	double framesPerSecond = m_gameLoop->getFramesPerSecond();
 	double percentageOfTimeNotSleeping = m_gameLoop->percentageOfTimeNotSleeping() * 100;
 	QString framesPerSecondString = QString().setNum(framesPerSecond, 'f', 0);

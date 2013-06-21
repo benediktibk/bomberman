@@ -5,6 +5,7 @@
 #include "common/leveldefinition.h"
 #include "common/graphicdrawer.h"
 #include "threading/signal.h"
+#include "threading/mutex.h"
 
 class QGraphicsView;
 class QTimer;
@@ -62,6 +63,7 @@ private:
 	Threading::Signal m_guiUpdateFinished;
 	bool m_enableOpenGL;
 	bool m_gameStarted;
+	Threading::Mutex m_gameStartMutex;
 };
 }
 
