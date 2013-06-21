@@ -13,6 +13,14 @@ void RouterTest::constructor_validGrid_gridHasOneObserver()
 	CPPUNIT_ASSERT_EQUAL((size_t)1, m_grid->getObserverCount());
 }
 
+void RouterTest::destructor_empty_gridHasNoObserver()
+{
+	delete m_router;
+	m_router = 0;
+
+	CPPUNIT_ASSERT_EQUAL((size_t)0, m_grid->getObserverCount());
+}
+
 void RouterTest::setUp()
 {
 	m_playerIdCreator = new UniqueIdCreator();

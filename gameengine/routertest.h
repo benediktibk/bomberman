@@ -21,6 +21,7 @@ namespace GameEngine
 	{
 		CPPUNIT_TEST_SUITE(RouterTest);
 		CPPUNIT_TEST(constructor_validGrid_gridHasOneObserver);
+		CPPUNIT_TEST(destructor_empty_gridHasNoObserver);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -29,6 +30,7 @@ namespace GameEngine
 
 	private:
 		void constructor_validGrid_gridHasOneObserver();
+		void destructor_empty_gridHasNoObserver();
 
 	private:
 		void createRouter(const Common::LevelDefinition &level);
