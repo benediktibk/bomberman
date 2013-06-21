@@ -9,6 +9,7 @@ namespace Common
 	class LevelDefinition;
 	class GameState;
 	class UniqueIdCreator;
+	class PlayerState;
 }
 
 namespace GameEngine
@@ -22,6 +23,12 @@ namespace GameEngine
 		CPPUNIT_TEST_SUITE(RouterTest);
 		CPPUNIT_TEST(constructor_validGrid_gridHasOneObserver);
 		CPPUNIT_TEST(destructor_empty_gridHasNoObserver);
+		CPPUNIT_TEST(getRouteToPlayer_secondPlayerTwoFieldsLeft_distanceIs2);
+		CPPUNIT_TEST(getRouteToPlayer_secondPlayerTwoFieldsLeft_directionIsLeft);
+		CPPUNIT_TEST(getRouteToPlayer_secondPlayerIsRightAndDirectWayBlocked_distanceIsWayAroundObstacle);
+		CPPUNIT_TEST(getRouteToPlayer_secondPlayerIsRightButRightAndBelowIsWall_directionIsUp);
+		CPPUNIT_TEST(getRouteToPlayer_noWayPossible_directionIsNone);
+		CPPUNIT_TEST(getRouteToPlayer_noWayPossible_distanceIs0);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -31,9 +38,17 @@ namespace GameEngine
 	private:
 		void constructor_validGrid_gridHasOneObserver();
 		void destructor_empty_gridHasNoObserver();
+		void getRouteToPlayer_secondPlayerTwoFieldsLeft_distanceIs2();
+		void getRouteToPlayer_secondPlayerTwoFieldsLeft_directionIsLeft();
+		void getRouteToPlayer_secondPlayerIsRightAndDirectWayBlocked_distanceIsWayAroundObstacle();
+		void getRouteToPlayer_secondPlayerIsRightButRightAndBelowIsWall_directionIsUp();
+		void getRouteToPlayer_noWayPossible_directionIsNone();
+		void getRouteToPlayer_noWayPossible_distanceIs0();
 
 	private:
 		void createRouter(const Common::LevelDefinition &level);
+		Common::PlayerState& getFirstPlayer();
+		Common::PlayerState& getSecondPlayer();
 
 	private:
 		Grid *m_grid;
