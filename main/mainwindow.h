@@ -39,7 +39,7 @@ public:
 	virtual void draw(const Common::GameState &gameState);
 
 public slots:
-	void startGame(bool enableOpenGL, std::string levelname);
+	void startGame(bool enableOpenGL, const char* levelname);
 
 private slots:
 	void updateGui(const Common::GameState *gameState);
@@ -47,6 +47,9 @@ private slots:
 
 signals:
 	void guiUpdateNecessary(const Common::GameState *gameState);
+
+private:
+	void finishGame();
 
 private:
 	const unsigned int m_statusBarUpdateTimeStep;
@@ -58,6 +61,7 @@ private:
 	QTimer *m_timerStatusBarUpdate;
 	Threading::Signal m_guiUpdateFinished;
 	bool m_enableOpenGL;
+	bool m_gameStarted;
 };
 }
 

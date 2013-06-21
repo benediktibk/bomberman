@@ -3,14 +3,13 @@
 #include "mainwindow.h"
 #include <QStandardItemModel>
 #include "common/csvparser.h"
-#include <QApplication>
 
 using namespace std;
 using namespace Main;
 
-StartWindow::StartWindow() :
+StartWindow::StartWindow(bool enableOpenGL) :
 	m_ui(new Ui::StartWindow),
-	m_enableOpenGL(false)
+	m_enableOpenGL(enableOpenGL)
 {
 	m_ui->setupUi(this);
 	connectButtons();
@@ -50,9 +49,12 @@ void StartWindow::exitClicked()
 
 void StartWindow::startClicked()
 {
+	m_selectedLevel = "defaultlevel";
 	if(m_selectedLevel == "")
 		m_ui->infoLabel->setText(tr("please select a level from the upper table !!!"));
 	else
 	{
+		emit startGameSignal(m_enableOpenGL, m_selectedLevel.c_str());
 	}
 }
+

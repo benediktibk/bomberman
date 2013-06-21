@@ -18,7 +18,8 @@ MainWindow::MainWindow() :
 	m_level(0),
 	m_gameEngine(0),
 	m_gameLoop(0),
-	m_timerStatusBarUpdate(new QTimer(this))
+	m_timerStatusBarUpdate(new QTimer(this)),
+	m_gameStarted(false)
 {
 	m_ui->setupUi(this);
 
@@ -31,10 +32,7 @@ MainWindow::MainWindow() :
 
 MainWindow::~MainWindow()
 {
-	m_guiUpdateFinished.send();
-	delete m_gameLoop;
-	delete m_drawer;
-	delete m_gameEngine;
+	finishGame();
 	delete m_ui;
 }
 
@@ -50,18 +48,16 @@ void MainWindow::draw(const Common::GameState &gameState)
 	m_guiUpdateFinished.reset();
 }
 
-void MainWindow::startGame(bool enableOpenGL, string levelname)
+void MainWindow::startGame(bool enableOpenGL, const char* levelname)
 {
-	delete m_drawer;
-	delete m_level;
-	delete m_gameEngine;
-	delete m_gameLoop;
+	finishGame();
 
-	string levelpath = "levels/" + levelname;
+	string levelpath = "levels/" + string(levelname);
 	m_level = new Common::LevelDefinition(Common::CSVParser(levelpath));
 	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, 2);
 	m_gameLoop = new GameLoop(*this, *m_gameEngine, *this);
 	m_enableOpenGL = enableOpenGL;
+	m_gameStarted = true;
 
 	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), m_enableOpenGL);
 	vector<unsigned int> playerIDs = m_gameEngine->getAllPossiblePlayerIDs();
@@ -70,6 +66,7 @@ void MainWindow::startGame(bool enableOpenGL, string levelname)
 	setResponsibleForPlayers(playerIDsToShow);
 
 	m_gameLoop->start();
+	show();
 }
 
 void MainWindow::updateGui(const Common::GameState *gameState)
@@ -86,6 +83,8 @@ void MainWindow::updateStatusBar()
 	if (!m_enableOpenGL)
 		messageTemplate += QString(", %2\% of time calculating");
 
+	if(!m_gameStarted)
+		return;
 	double framesPerSecond = m_gameLoop->getFramesPerSecond();
 	double percentageOfTimeNotSleeping = m_gameLoop->percentageOfTimeNotSleeping() * 100;
 	QString framesPerSecondString = QString().setNum(framesPerSecond, 'f', 0);
@@ -97,4 +96,14 @@ void MainWindow::updateStatusBar()
 
 	m_ui->statusBar->showMessage(completeMessage);
 	m_timerStatusBarUpdate->start(m_statusBarUpdateTimeStep);
+}
+
+
+void MainWindow::finishGame()
+{
+	m_guiUpdateFinished.send();
+	delete m_gameLoop;
+	delete m_drawer;
+	delete m_level;
+	delete m_gameEngine;
 }
