@@ -21,4 +21,5 @@ namespace GameEngine
 		void decide_notDangerousAndFree_true();
 	};
 }
+
 #endif
