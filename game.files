@@ -342,6 +342,7 @@ gameengine/routergridfield.h
 gameengine/routergridfield.cpp
 gameengine/routergridfieldtest.h
 gameengine/routergridfieldtest.cpp
+resources/graphics/explosion_end.svg
 gameengine/routergridfielddecider.h
 gameengine/notdangerousandfreedecider.h
 gameengine/notdangerousandfreedecider.cpp

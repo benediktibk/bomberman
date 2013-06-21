@@ -24,6 +24,7 @@ SvgRenderer::~SvgRenderer()
 	delete m_wallLooseRenderer;
 	delete m_wallSolidRenderer;
 	delete m_cellBackgroundRenderer;
+	delete m_explodedBombEndRenderer;
 }
 
 void SvgRenderer::renderPlayerItems()
@@ -44,6 +45,7 @@ void SvgRenderer::renderExplodedBombItems()
 {
 	m_explodedBombCenterRenderer = new QSvgRenderer(QString("resources/graphics/explosion_center.svg"));
 	m_explodedBombFlameRenderer = new QSvgRenderer(QString("resources/graphics/explosion_flame.svg"));
+	m_explodedBombEndRenderer = new QSvgRenderer(QString("resources/graphics/explosion_end.svg"));
 }
 
 void SvgRenderer::renderPowerUpItems()
@@ -144,4 +146,11 @@ QGraphicsSvgItem* SvgRenderer::getNewExplodedBombFlameItem()
 	QGraphicsSvgItem *explosionFlame = new QGraphicsSvgItem();
 	explosionFlame->setSharedRenderer(m_explodedBombFlameRenderer);
 	return explosionFlame;
+}
+
+QGraphicsSvgItem* SvgRenderer::getNewExplodedBombEndItem()
+{
+	QGraphicsSvgItem *explosionEnd = new QGraphicsSvgItem();
+	explosionEnd->setSharedRenderer(m_explodedBombEndRenderer);
+	return explosionEnd;
 }

@@ -16,6 +16,8 @@
    version="1.1"
    inkscape:version="0.48.4 r9939"
    sodipodi:docname="wall_loose.svg">
+  <title
+     id="title5136">Ultimate Bomberman - wall loose</title>
   <defs
      id="defs4">
     <linearGradient
@@ -632,7 +634,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.75575672"
-     inkscape:cx="491.3531"
+     inkscape:cx="101.67744"
      inkscape:cy="468.86522"
      inkscape:document-units="px"
      inkscape:current-layer="layer2"
@@ -653,7 +655,14 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title>Ultimate Bomberman - wall loose</dc:title>
+        <cc:license
+           rdf:resource="" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>M. Hofbauer, K. Meyer, B. Schmidt, T. Shau, F. Wirnshofer</dc:title>
+          </cc:Agent>
+        </dc:creator>
       </cc:Work>
     </rdf:RDF>
   </metadata>

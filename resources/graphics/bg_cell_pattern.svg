@@ -15,7 +15,9 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="bg_pattern.svg">
+   sodipodi:docname="bg_cell_pattern.svg">
+  <title
+     id="title4716">Ultimate Bomberman - cell background</title>
   <defs
      id="defs4">
     <linearGradient
@@ -319,7 +321,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.51"
-     inkscape:cx="456.59478"
+     inkscape:cx="-120.8562"
      inkscape:cy="543.48692"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -340,7 +342,14 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title>Ultimate Bomberman - cell background</dc:title>
+        <cc:license
+           rdf:resource="" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>M. Hofbauer, K. Meyer, B. Schmidt, T. Shau, F. Wirnshofer</dc:title>
+          </cc:Agent>
+        </dc:creator>
       </cc:Work>
     </rdf:RDF>
   </metadata>
