@@ -29,6 +29,11 @@ namespace GameEngine
 		CPPUNIT_TEST(getRouteToPlayer_secondPlayerIsRightButRightAndBelowIsWall_directionIsUp);
 		CPPUNIT_TEST(getRouteToPlayer_noWayPossible_directionIsNone);
 		CPPUNIT_TEST(getRouteToPlayer_noWayPossible_distanceIs0);
+		CPPUNIT_TEST(getRouteToPlayer_bombInTheWay_distanceIsWayAroundBomb);
+		CPPUNIT_TEST(getRouteToPlayer_wayBlockedByBomb_distanceIs0);
+		CPPUNIT_TEST(getRouteToPlayer_wayBlockedByBomb_directionIsNone);
+		CPPUNIT_TEST(getRouteToPlayer_jailedByWallsAtBorder_distanceIs0);
+		CPPUNIT_TEST(getRouteToPlayer_jailedByWallsAtBorder_directionIsNone);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -44,6 +49,11 @@ namespace GameEngine
 		void getRouteToPlayer_secondPlayerIsRightButRightAndBelowIsWall_directionIsUp();
 		void getRouteToPlayer_noWayPossible_directionIsNone();
 		void getRouteToPlayer_noWayPossible_distanceIs0();
+		void getRouteToPlayer_bombInTheWay_distanceIsWayAroundBomb();
+		void getRouteToPlayer_wayBlockedByBomb_distanceIs0();
+		void getRouteToPlayer_wayBlockedByBomb_directionIsNone();
+		void getRouteToPlayer_jailedByWallsAtBorder_distanceIs0();
+		void getRouteToPlayer_jailedByWallsAtBorder_directionIsNone();
 
 	private:
 		void createRouter(const Common::LevelDefinition &level);
@@ -54,6 +64,7 @@ namespace GameEngine
 		Grid *m_grid;
 		Common::UniqueIdCreator *m_playerIdCreator;
 		Common::UniqueIdCreator *m_wallIdCreator;
+		Common::UniqueIdCreator *m_bombIdCreator;
 		Router *m_router;
 		Common::GameState *m_gameState;
 	};

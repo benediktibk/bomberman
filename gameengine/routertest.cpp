@@ -4,6 +4,7 @@
 #include "common/leveldefinition.h"
 #include "common/gamestate.h"
 #include "common/uniqueidcreator.h"
+#include "common/bombstate.h"
 
 using namespace GameEngine;
 using namespace Common;
@@ -124,10 +125,99 @@ void RouterTest::getRouteToPlayer_noWayPossible_distanceIs0()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, route.getDistance());
 }
 
+void RouterTest::getRouteToPlayer_bombInTheWay_distanceIsWayAroundBomb()
+{
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	createRouter(level);
+	PlayerState &playerTwo = getSecondPlayer();
+	playerTwo.setPosition(Point(10, 5));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0);
+	bomb->setPosition(Point(7, 5));
+	m_gameState->addBomb(bomb);
+	m_grid->addBombAtPlace(*bomb);
+
+	Route route = m_router->getRouteToPlayer(GridPoint(5, 5));
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)9, route.getDistance());
+}
+
+void RouterTest::getRouteToPlayer_wayBlockedByBomb_distanceIs0()
+{
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	createRouter(level);
+	PlayerState &playerTwo = getSecondPlayer();
+	playerTwo.setPosition(Point(10, 5));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0);
+	bomb->setPosition(Point(7, 6));
+	bomb->setDestructionRange(100);
+	m_gameState->addBomb(bomb);
+	m_grid->addBombAtPlace(*bomb);
+
+	Route route = m_router->getRouteToPlayer(GridPoint(5, 5));
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, route.getDistance());
+}
+
+void RouterTest::getRouteToPlayer_wayBlockedByBomb_directionIsNone()
+{
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	createRouter(level);
+	PlayerState &playerTwo = getSecondPlayer();
+	playerTwo.setPosition(Point(10, 5));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0);
+	bomb->setPosition(Point(7, 6));
+	bomb->setDestructionRange(100);
+	m_gameState->addBomb(bomb);
+	m_grid->addBombAtPlace(*bomb);
+
+	Route route = m_router->getRouteToPlayer(GridPoint(5, 5));
+
+	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionNone, route.getDirection());
+}
+
+void RouterTest::getRouteToPlayer_jailedByWallsAtBorder_distanceIs0()
+{
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 1, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 0, 1);
+	createRouter(level);
+	PlayerState &playerTwo = getSecondPlayer();
+	playerTwo.setPosition(Point(10, 8));
+
+	Route route = m_router->getRouteToPlayer(GridPoint(0, 0));
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, route.getDistance());
+}
+
+void RouterTest::getRouteToPlayer_jailedByWallsAtBorder_directionIsNone()
+{
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 1, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 0, 1);
+	createRouter(level);
+	PlayerState &playerTwo = getSecondPlayer();
+	playerTwo.setPosition(Point(10, 8));
+
+	Route route = m_router->getRouteToPlayer(GridPoint(0, 0));
+
+	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionNone, route.getDirection());
+}
+
 void RouterTest::setUp()
 {
 	m_playerIdCreator = new UniqueIdCreator();
 	m_wallIdCreator = new UniqueIdCreator();
+	m_bombIdCreator = new UniqueIdCreator();
 	LevelDefinition level(15, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 8);
 	createRouter(level);
@@ -145,6 +235,8 @@ void RouterTest::tearDown()
 	m_wallIdCreator = 0;
 	delete m_playerIdCreator;
 	m_playerIdCreator = 0;
+	delete m_bombIdCreator;
+	m_bombIdCreator = 0;
 }
 
 void RouterTest::createRouter(const LevelDefinition &level)
