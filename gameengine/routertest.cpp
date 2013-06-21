@@ -213,6 +213,43 @@ void RouterTest::getRouteToPlayer_jailedByWallsAtBorder_directionIsNone()
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionNone, route.getDirection());
 }
 
+void RouterTest::getRouteToNotDangerousField_playerRightAtBomb_distanceIs2()
+{
+	const PlayerState &player = getFirstPlayer();
+	BombState *bomb = new BombState(*m_bombIdCreator, 0);
+	bomb->setPosition(Point(player.getPosition()));
+	m_gameState->addBomb(bomb);
+	m_grid->addBombAtPlace(*bomb);
+
+	Route route = m_router->getRouteToNotDangerousField(player.getPosition());
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, route.getDistance());
+}
+
+void RouterTest::getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_distanceIs3()
+{
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 6);
+	createRouter(level);
+
+	Route route = m_router->getRouteToLooseWall(GridPoint(7, 3));
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, route.getDistance());
+}
+
+void RouterTest::getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_directionIsUp()
+{
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 6);
+	createRouter(level);
+
+	Route route = m_router->getRouteToLooseWall(GridPoint(7, 3));
+
+	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionUp, route.getDirection());
+}
+
 void RouterTest::setUp()
 {
 	m_playerIdCreator = new UniqueIdCreator();
