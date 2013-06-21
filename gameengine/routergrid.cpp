@@ -8,13 +8,14 @@ using namespace Common;
 using namespace std;
 using namespace boost;
 
-RouterGrid::RouterGrid(Grid &grid, const GameState &gameState) :
+RouterGrid::RouterGrid(Grid &grid, const GameState &gameState, unsigned int playerID) :
 	GridObserver(grid),
 	m_grid(grid),
 	m_gameState(gameState),
 	m_width(grid.getColumns()),
 	m_height(grid.getRows()),
-	m_fields(extents[m_height][m_width])
+	m_fields(extents[m_height][m_width]),
+	m_ownPlayerId(playerID)
 {
 	for (unsigned int x = 0; x < m_width; ++x)
 		for (unsigned int y = 0; y < m_height; ++y)
@@ -148,6 +149,9 @@ vector<GridPoint> RouterGrid::getAllPlayerFields() const
 
 	for (vector<const PlayerState*>::const_iterator i = players.begin(); i != players.end(); ++i)
 	{
+		if ((*i)->getId() == m_ownPlayerId)
+			continue;
+
 		vector<GridPoint> resultPart = m_grid.getPlayerFields(**i);
 		result.insert(result.end(), resultPart.begin(), resultPart.end());
 	}

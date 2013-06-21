@@ -19,7 +19,7 @@ namespace GameEngine
 		typedef boost::multi_array<RouterGridField, 2> GridFieldMatrix;
 
 	public:
-		RouterGrid(Grid &grid, const Common::GameState &gameState);
+		RouterGrid(Grid &grid, const Common::GameState &gameState, unsigned int playerID);
 
 		virtual void fieldHasChanged(const Common::GridPoint &position);
 		unsigned int getWidth() const;
@@ -42,6 +42,7 @@ namespace GameEngine
 		unsigned int m_width;
 		unsigned int m_height;
 		GridFieldMatrix m_fields;
+		unsigned int m_ownPlayerId;
 	};
 }
 

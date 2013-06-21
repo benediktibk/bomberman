@@ -52,6 +52,7 @@ void RouterTest::createRouter(const LevelDefinition &level)
 
 	m_grid = new Grid(level.getLevelHeight(), level.getLevelWidth());
 	m_gameState = new GameState(level, level.getPlayerStartPositionCount(), *m_playerIdCreator, *m_wallIdCreator);
-	m_router = new Router(*m_grid, *m_gameState);
+	const PlayerState &player = m_gameState->getFirstPlayerState();
+	m_router = new Router(*m_grid, *m_gameState, player.getId());
 }
 

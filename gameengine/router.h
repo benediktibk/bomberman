@@ -18,7 +18,7 @@ namespace GameEngine
 	class Router
 	{
 	public:
-		Router(Grid &grid, const Common::GameState &gameState);
+		Router(Grid &grid, const Common::GameState &gameState, unsigned int playerID);
 		~Router();
 
 		Route getRouteToPlayer(const Common::GridPoint &position) const;

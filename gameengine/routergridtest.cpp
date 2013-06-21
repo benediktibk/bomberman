@@ -19,8 +19,9 @@ void RouterGridTest::setUp()
 	m_playerIdCreator = new UniqueIdCreator();
 	LevelDefinition level(10, 15);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
 	m_grid = new Grid(level.getLevelHeight(), level.getLevelWidth());
-	m_gameState = new GameState(level, 1, *m_playerIdCreator, *m_wallIdCreator);
+	m_gameState = new GameState(level, 2, *m_playerIdCreator, *m_wallIdCreator);
 }
 
 void RouterGridTest::tearDown()
@@ -41,14 +42,14 @@ void RouterGridTest::tearDown()
 
 void RouterGridTest::constructor_gridWith15RowsAnd10Columns_widthIs10()
 {
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)10, routerGrid.getWidth());
 }
 
 void RouterGridTest::constructor_gridWith15RowsAnd10Columns_heightIs15()
 {
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)15, routerGrid.getHeight());
 }
@@ -60,7 +61,7 @@ void RouterGridTest::constructor_bombAt3And5InGrid_bombAt3And5()
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(3, 5));
 	CPPUNIT_ASSERT(gridField.isBomb());
@@ -73,7 +74,7 @@ void RouterGridTest::constructor_bombAt3And5InGrid_noSolidWallAt3And5()
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(3, 5));
 	CPPUNIT_ASSERT(!gridField.isSolidWall());
@@ -86,7 +87,7 @@ void RouterGridTest::constructor_bombAt3And5InGrid_noLooseWallAt3And5()
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(3, 5));
 	CPPUNIT_ASSERT(!gridField.isLooseWall());
@@ -99,7 +100,7 @@ void RouterGridTest::constructor_bombAt3And5InGrid_dangerousAt3And5()
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(3, 5));
 	CPPUNIT_ASSERT(gridField.isDangerous());
@@ -112,7 +113,7 @@ void RouterGridTest::constructor_bombAt3And5InGrid_noPlayerAt3And5()
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(3, 5));
 	CPPUNIT_ASSERT(!gridField.isPlayer());
@@ -123,7 +124,7 @@ void RouterGridTest::constructor_looseWallAt7And5InGrid_looseWallAt7And5()
 	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(7, 5));
 	m_grid->addWallAtPlace(wall);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 5));
 	CPPUNIT_ASSERT(gridField.isLooseWall());
@@ -134,7 +135,7 @@ void RouterGridTest::constructor_looseWallAt7And5InGrid_noSolidWallAt7And5()
 	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(7, 5));
 	m_grid->addWallAtPlace(wall);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 5));
 	CPPUNIT_ASSERT(!gridField.isSolidWall());
@@ -145,7 +146,7 @@ void RouterGridTest::constructor_looseWallAt7And5InGrid_noBombAt7And5()
 	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(7, 5));
 	m_grid->addWallAtPlace(wall);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 5));
 	CPPUNIT_ASSERT(!gridField.isBomb());
@@ -156,7 +157,7 @@ void RouterGridTest::constructor_looseWallAt7And5InGrid_notDangerousAt7And5()
 	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(7, 5));
 	m_grid->addWallAtPlace(wall);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 5));
 	CPPUNIT_ASSERT(!gridField.isDangerous());
@@ -167,7 +168,7 @@ void RouterGridTest::constructor_looseWallAt7And5InGrid_noPlayerAt7And5()
 	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(7, 5));
 	m_grid->addWallAtPlace(wall);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 5));
 	CPPUNIT_ASSERT(!gridField.isPlayer());
@@ -178,7 +179,7 @@ void RouterGridTest::constructor_solidWallAt7And5InGrid_noLooseWallAt7And5()
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(7, 5));
 	m_grid->addWallAtPlace(wall);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 5));
 	CPPUNIT_ASSERT(!gridField.isLooseWall());
@@ -189,7 +190,7 @@ void RouterGridTest::constructor_solidWallAt7And5InGrid_solidWallAt7And5()
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(7, 5));
 	m_grid->addWallAtPlace(wall);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 5));
 	CPPUNIT_ASSERT(gridField.isSolidWall());
@@ -200,7 +201,7 @@ void RouterGridTest::constructor_solidWallAt7And5InGrid_noBombAt7And5()
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(7, 5));
 	m_grid->addWallAtPlace(wall);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 5));
 	CPPUNIT_ASSERT(!gridField.isBomb());
@@ -211,7 +212,7 @@ void RouterGridTest::constructor_solidWallAt7And5InGrid_notDangerousAt7And5()
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(7, 5));
 	m_grid->addWallAtPlace(wall);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 5));
 	CPPUNIT_ASSERT(!gridField.isDangerous());
@@ -222,7 +223,7 @@ void RouterGridTest::constructor_solidWallAt7And5InGrid_noPlayerAt7And5()
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(7, 5));
 	m_grid->addWallAtPlace(wall);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 5));
 	CPPUNIT_ASSERT(!gridField.isPlayer());
@@ -233,7 +234,7 @@ void RouterGridTest::constructor_powerUpAt8And9InGrid_noSolidWallAt8And9()
 	PowerUpState powerUp(*m_powerUpIdCreator, Point(8, 9));
 	m_grid->addPowerUpAtPlace(powerUp);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(8, 9));
 	CPPUNIT_ASSERT(!gridField.isSolidWall());
@@ -244,7 +245,7 @@ void RouterGridTest::constructor_powerUpAt8And9InGrid_noLooseWallAt8And9()
 	PowerUpState powerUp(*m_powerUpIdCreator, Point(8, 9));
 	m_grid->addPowerUpAtPlace(powerUp);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(8, 9));
 	CPPUNIT_ASSERT(!gridField.isLooseWall());
@@ -255,7 +256,7 @@ void RouterGridTest::constructor_powerUpAt8And9InGrid_noPlayerAt8And9()
 	PowerUpState powerUp(*m_powerUpIdCreator, Point(8, 9));
 	m_grid->addPowerUpAtPlace(powerUp);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(8, 9));
 	CPPUNIT_ASSERT(!gridField.isPlayer());
@@ -266,7 +267,7 @@ void RouterGridTest::constructor_powerUpAt8And9InGrid_noBombAt8And9()
 	PowerUpState powerUp(*m_powerUpIdCreator, Point(8, 9));
 	m_grid->addPowerUpAtPlace(powerUp);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(8, 9));
 	CPPUNIT_ASSERT(!gridField.isBomb());
@@ -277,7 +278,7 @@ void RouterGridTest::constructor_powerUpAt8And9InGrid_notDangerousAt8And9()
 	PowerUpState powerUp(*m_powerUpIdCreator, Point(8, 9));
 	m_grid->addPowerUpAtPlace(powerUp);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(8, 9));
 	CPPUNIT_ASSERT(!gridField.isDangerous());
@@ -291,7 +292,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_7And4IsDangerous()
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 4));
 	CPPUNIT_ASSERT(gridField.isDangerous());
@@ -305,7 +306,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_8And4IsNotDangerous()
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(8, 4));
 	CPPUNIT_ASSERT(!gridField.isDangerous());
@@ -321,7 +322,7 @@ void RouterGridTest::constructor_bombWithRange10At5And4AndWallAt6And4_7And4IsNot
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(6, 4));
 	m_grid->addWallAtPlace(wall);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 4));
 	CPPUNIT_ASSERT(!gridField.isDangerous());
@@ -335,7 +336,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_3And4IsDangerous()
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(3, 4));
 	CPPUNIT_ASSERT(gridField.isDangerous());
@@ -349,7 +350,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_2And4IsNotDangerous()
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(2, 4));
 	CPPUNIT_ASSERT(!gridField.isDangerous());
@@ -365,7 +366,7 @@ void RouterGridTest::constructor_bombWithRange10At5And4AndWallAt4And4_3And4IsNot
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(4, 4));
 	m_grid->addWallAtPlace(wall);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(3, 4));
 	CPPUNIT_ASSERT(!gridField.isDangerous());
@@ -379,7 +380,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_5And6IsDangerous()
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(5, 6));
 	CPPUNIT_ASSERT(gridField.isDangerous());
@@ -393,7 +394,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_5And7IsNotDangerous()
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(5, 7));
 	CPPUNIT_ASSERT(!gridField.isDangerous());
@@ -409,7 +410,7 @@ void RouterGridTest::constructor_bombWithRange10At5And4AndWallAt5And5_5And6IsNot
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(5, 5));
 	m_grid->addWallAtPlace(wall);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(5, 6));
 	CPPUNIT_ASSERT(!gridField.isDangerous());
@@ -423,7 +424,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_5And2IsDangerous()
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(5, 2));
 	CPPUNIT_ASSERT(gridField.isDangerous());
@@ -437,7 +438,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_5And1IsNotDangerous()
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(5, 1));
 	CPPUNIT_ASSERT(!gridField.isDangerous());
@@ -453,7 +454,7 @@ void RouterGridTest::constructor_bombWithRange10At5And4AndWallAt5And3_5And2IsNot
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(5, 3));
 	m_grid->addWallAtPlace(wall);
 
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(5, 2));
 	CPPUNIT_ASSERT(!gridField.isDangerous());
@@ -465,7 +466,7 @@ void RouterGridTest::fieldHasChanged_bombAt4And3Removed_noBombAt4And3()
 	bomb->setPosition(Point(4, 3));
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	m_grid->removeBomb(*bomb);
 
@@ -479,7 +480,7 @@ void RouterGridTest::fieldHasChanged_bombAt4And3Removed_5And3IsNotDangerous()
 	bomb->setPosition(Point(4, 3));
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	m_grid->removeBomb(*bomb);
 
@@ -497,7 +498,7 @@ void RouterGridTest::fieldHasChanged_bombAt4And3RemovedAndBombAt7And4_7And3IsDan
 	bombTwo->setPosition(Point(7, 4));
 	m_grid->addBombAtPlace(*bombTwo);
 	m_gameState->addBomb(bombTwo);
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	m_grid->removeBomb(*bombOne);
 
@@ -509,7 +510,7 @@ void RouterGridTest::fieldHasChanged_looseWallAt8And6Removed_noLooseWallAt8And6(
 {
 	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(8, 6));
 	m_grid->addWallAtPlace(wall);
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	m_grid->removeWall(wall);
 
@@ -526,7 +527,7 @@ void RouterGridTest::fieldHasChanged_looseWallAt8And6RemovedAndBombWithRange10At
 	bomb->setDestructionRange(10);
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
 
 	m_grid->removeWall(wall);
 
@@ -537,7 +538,7 @@ void RouterGridTest::fieldHasChanged_looseWallAt8And6RemovedAndBombWithRange10At
 void RouterGridTest::updatePlayerFlags_playerMovementFrom4And5To4And6_noPlayerAt4And5()
 {
 	PlayerState &player = m_gameState->getFirstPlayerState();
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getSecondPlayerId());
 
 	player.setPosition(Point(4, 5));
 	routerGrid.updatePlayerFlags();
@@ -551,7 +552,7 @@ void RouterGridTest::updatePlayerFlags_playerMovementFrom4And5To4And6_noPlayerAt
 void RouterGridTest::updatePlayerFlags_playerMovementFrom4And5To4And6_playerAt4And6()
 {
 	PlayerState &player = m_gameState->getFirstPlayerState();
-	RouterGrid routerGrid(*m_grid, *m_gameState);
+	RouterGrid routerGrid(*m_grid, *m_gameState, getSecondPlayerId());
 
 	player.setPosition(Point(4, 5));
 	routerGrid.updatePlayerFlags();
@@ -560,4 +561,28 @@ void RouterGridTest::updatePlayerFlags_playerMovementFrom4And5To4And6_playerAt4A
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(4, 6));
 	CPPUNIT_ASSERT(gridField.isPlayer());
+}
+
+void RouterGridTest::updatePlayerFlags_ownPlayerAt5And6_noPlayerAt5And6()
+{
+	PlayerState &player = m_gameState->getFirstPlayerState();
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
+
+	player.setPosition(Point(5, 6));
+	routerGrid.updatePlayerFlags();
+
+	const RouterGridField &gridField = routerGrid.getField(GridPoint(5, 6));
+	CPPUNIT_ASSERT(!gridField.isPlayer());
+}
+
+unsigned int RouterGridTest::getFirstPlayerId() const
+{
+	const PlayerState &player = m_gameState->getFirstPlayerState();
+	return player.getId();
+}
+
+unsigned int RouterGridTest::getSecondPlayerId() const
+{
+	const PlayerState &player = m_gameState->getSecondPlayerState();
+	return player.getId();
 }

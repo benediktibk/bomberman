@@ -8,8 +8,8 @@
 using namespace GameEngine;
 using namespace Common;
 
-Router::Router(Grid &grid, const GameState &gameState) :
-	m_grid(new RouterGrid(grid, gameState))
+Router::Router(Grid &grid, const GameState &gameState, unsigned int playerID) :
+	m_grid(new RouterGrid(grid, gameState, playerID))
 { }
 
 Router::~Router()
