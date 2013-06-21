@@ -11,29 +11,21 @@ using namespace Main;
 using namespace Graphic;
 using namespace std;
 
-MainWindow::MainWindow(bool enableOpenGL, string levelname) :
+MainWindow::MainWindow() :
 	m_statusBarUpdateTimeStep(250),
 	m_ui(new Ui::MainWindow),
 	m_drawer(0),
-	m_level(Common::CSVParser(levelname)),
-	m_gameEngine(new GameEngine::GameEngineImpl(m_level, 2)),
-	m_gameLoop(new GameLoop(*this, *m_gameEngine, *this)),
-	m_timerStatusBarUpdate(new QTimer(this)),
-	m_enableOpenGL(enableOpenGL)
+	m_level(0),
+	m_gameEngine(0),
+	m_gameLoop(0),
+	m_timerStatusBarUpdate(new QTimer(this))
 {
 	m_ui->setupUi(this);
-
-	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), m_enableOpenGL);
-	vector<unsigned int> playerIDs = m_gameEngine->getAllPossiblePlayerIDs();
-	vector<unsigned int> playerIDsToShow;
-	playerIDsToShow.push_back(playerIDs.front());
-	setResponsibleForPlayers(playerIDsToShow);
 
 	connect(	this, SIGNAL(guiUpdateNecessary(const Common::GameState*)),
 				this, SLOT(updateGui(const Common::GameState*)));
 	connect(	m_timerStatusBarUpdate, SIGNAL(timeout()),
 				this, SLOT(updateStatusBar()));
-	m_gameLoop->start();
 	m_timerStatusBarUpdate->start(m_statusBarUpdateTimeStep);
 }
 
@@ -56,6 +48,28 @@ void MainWindow::draw(const Common::GameState &gameState)
 	emit guiUpdateNecessary(&gameState);
 	m_guiUpdateFinished.wait();
 	m_guiUpdateFinished.reset();
+}
+
+void MainWindow::startGame(bool enableOpenGL, string levelname)
+{
+	delete m_drawer;
+	delete m_level;
+	delete m_gameEngine;
+	delete m_gameLoop;
+
+	string levelpath = "levels/" + levelname;
+	m_level = new Common::LevelDefinition(Common::CSVParser(levelpath));
+	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, 2);
+	m_gameLoop = new GameLoop(*this, *m_gameEngine, *this);
+	m_enableOpenGL = enableOpenGL;
+
+	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), m_enableOpenGL);
+	vector<unsigned int> playerIDs = m_gameEngine->getAllPossiblePlayerIDs();
+	vector<unsigned int> playerIDsToShow;
+	playerIDsToShow.push_back(playerIDs.front());
+	setResponsibleForPlayers(playerIDsToShow);
+
+	m_gameLoop->start();
 }
 
 void MainWindow::updateGui(const Common::GameState *gameState)
