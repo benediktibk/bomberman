@@ -32,6 +32,7 @@ MainWindow::MainWindow() :
 
 MainWindow::~MainWindow()
 {
+	m_guiUpdateFinished.send();
 	finishGame();
 	delete m_ui;
 }
@@ -43,6 +44,9 @@ void MainWindow::setResponsibleForPlayers(const std::vector<unsigned int> &playe
 
 void MainWindow::draw(const Common::GameState &gameState)
 {
+	if (!m_gameStarted)
+		return;
+
 	emit guiUpdateNecessary(&gameState);
 	m_guiUpdateFinished.wait();
 	m_guiUpdateFinished.reset();
@@ -50,6 +54,7 @@ void MainWindow::draw(const Common::GameState &gameState)
 
 void MainWindow::startGame(bool enableOpenGL, const char* levelname)
 {
+	m_gameStarted = false;
 	finishGame();
 
 	string levelpath = "levels/" + string(levelname);
@@ -101,7 +106,6 @@ void MainWindow::updateStatusBar()
 
 void MainWindow::finishGame()
 {
-	m_guiUpdateFinished.send();
 	delete m_gameLoop;
 	delete m_drawer;
 	delete m_level;
