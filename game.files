@@ -351,3 +351,7 @@ gameengine/coveredbyplayerdecider.h
 gameengine/coveredbyplayerdecider.cpp
 gameengine/coveredbyplayerdecidertest.h
 gameengine/coveredbyplayerdecidertest.cpp
+gameengine/coveredbyloosewalldecider.h
+gameengine/coveredbyloosewalldecider.cpp
+gameengine/coveredbyloosewalldecidertest.h
+gameengine/coveredbyloosewalldecidertest.cpp

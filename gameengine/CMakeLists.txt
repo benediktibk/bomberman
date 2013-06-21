@@ -7,6 +7,7 @@ set(GAMEENGINE_SRC
 	routergridfield.cpp
 	notdangerousandfreedecider.cpp
 	coveredbyplayerdecider.cpp
+	coveredbyloosewalldecider.cpp
 )
 
 set(GAMEENGINE_TEST_SRC
@@ -19,6 +20,7 @@ set(GAMEENGINE_TEST_SRC
 	routergridfieldtest.cpp
 	notdangerousandfreedecidertest.cpp
 	coveredbyplayerdecidertest.cpp
+	coveredbyloosewalldecidertest.cpp
 )
 
 add_library(gameengine ${GAMEENGINE_SRC})
