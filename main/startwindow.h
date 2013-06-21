@@ -34,7 +34,6 @@ private:
 private:
 	Ui::StartWindow* m_ui;
 	std::string m_selectedLevel;
-	bool m_enableOpenGL;
 };
 }
 #endif // STARTWINDOW_H
