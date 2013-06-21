@@ -59,6 +59,7 @@ set(GRAPHICS
 	explosion_flame.svg
 	powerup.svg
 	bg_cell_pattern.svg
+	explosion_end.svg
 )
 
 foreach(file ${LEVELS})
