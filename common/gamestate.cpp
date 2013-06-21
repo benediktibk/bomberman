@@ -119,11 +119,13 @@ const PlayerState &GameState::getFirstPlayerState() const
 
 PlayerState &GameState::getSecondPlayerState()
 {
+	assert(m_players.size() > 1);
 	return *(m_players[1]);
 }
 
 const PlayerState &GameState::getSecondPlayerState() const
 {
+	assert(m_players.size() > 1);
 	return *(m_players[1]);
 }
 

@@ -3,6 +3,7 @@
 #include <assert.h>
 
 using namespace Common;
+using namespace std;
 
 UniqueIdCreator::UniqueIdCreator()
 { }
@@ -10,8 +11,8 @@ UniqueIdCreator::UniqueIdCreator()
 void UniqueIdCreator::removeId(unsigned int id)
 {
 	assert(count(m_idList.begin(), m_idList.end(), id) == 1);
-	std::list<unsigned int>::iterator index;
-	index=std::find(m_idList.begin(),m_idList.end(),id);
+	list<unsigned int>::iterator index = find(m_idList.begin(), m_idList.end(), id);
+	assert(index != m_idList.end());
 	m_idList.erase(index);
 }
 

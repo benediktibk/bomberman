@@ -185,7 +185,7 @@ void RouterTest::getRouteToPlayer_jailedByWallsAtBorder_distanceIs0()
 {
 	LevelDefinition level(15, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 1, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 0, 1);
 	createRouter(level);
@@ -201,7 +201,7 @@ void RouterTest::getRouteToPlayer_jailedByWallsAtBorder_directionIsNone()
 {
 	LevelDefinition level(15, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 1, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 0, 1);
 	createRouter(level);
