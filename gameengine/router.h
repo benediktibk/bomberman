@@ -26,7 +26,7 @@ namespace GameEngine
 		Route getRouteToLooseWall(const Common::GridPoint &position) const;
 
 	private:
-		Route getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target) const;
+		Route getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target, const Common::GridPoint &startPosition) const;
 
 	private:
 		RouterGrid *m_grid;
