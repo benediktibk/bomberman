@@ -21,6 +21,12 @@ namespace GameEngine
 		CPPUNIT_TEST(setBomb_true_isDangerous);
 		CPPUNIT_TEST(setPlayer_true_isPlayer);
 		CPPUNIT_TEST(setDangerous_true_isDangerous);
+		CPPUNIT_TEST(isFree_nothingSet_true);
+		CPPUNIT_TEST(isFree_bombSet_false);
+		CPPUNIT_TEST(isFree_playerSet_false);
+		CPPUNIT_TEST(isFree_looseWallSet_false);
+		CPPUNIT_TEST(isFree_solidWallSet_false);
+		CPPUNIT_TEST(isFree_dangerousSet_true);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -35,6 +41,12 @@ namespace GameEngine
 		void setBomb_true_isDangerous();
 		void setPlayer_true_isPlayer();
 		void setDangerous_true_isDangerous();
+		void isFree_nothingSet_true();
+		void isFree_bombSet_false();
+		void isFree_playerSet_false();
+		void isFree_looseWallSet_false();
+		void isFree_solidWallSet_false();
+		void isFree_dangerousSet_true();
 	};
 }
 

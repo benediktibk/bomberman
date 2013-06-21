@@ -34,6 +34,7 @@
 #include "gameengine/gridobservertest.h"
 #include "gameengine/routergridfieldtest.h"
 #include "gameengine/routergridtest.h"
+#include "gameengine/notdangerousandfreedecidertest.h"
 #include "main/gamelooptest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
@@ -72,4 +73,5 @@ CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GridTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GridObserverTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::RouterGridFieldTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::RouterGridTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::NotDangerousAndFreeDeciderTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Main::GameLoopTest);

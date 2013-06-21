@@ -342,3 +342,8 @@ gameengine/routergridfield.h
 gameengine/routergridfield.cpp
 gameengine/routergridfieldtest.h
 gameengine/routergridfieldtest.cpp
+gameengine/routergridfielddecider.h
+gameengine/notdangerousandfreedecider.h
+gameengine/notdangerousandfreedecider.cpp
+gameengine/notdangerousandfreedecidertest.h
+gameengine/notdangerousandfreedecidertest.cpp

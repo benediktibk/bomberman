@@ -5,6 +5,7 @@ set(GAMEENGINE_SRC
 	gridobserver.cpp
 	routergrid.cpp
 	routergridfield.cpp
+	notdangerousandfreedecider.cpp
 )
 
 set(GAMEENGINE_TEST_SRC
@@ -15,6 +16,7 @@ set(GAMEENGINE_TEST_SRC
 	gridobservertest.cpp
 	routergridtest.cpp
 	routergridfieldtest.cpp
+	notdangerousandfreedecidertest.cpp
 )
 
 add_library(gameengine ${GAMEENGINE_SRC})
