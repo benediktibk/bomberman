@@ -18,16 +18,16 @@ MainWindow::MainWindow() :
 	m_level(0),
 	m_gameEngine(0),
 	m_gameLoop(0),
-	m_timerStatusBarUpdate(new QTimer(this)),
+	m_timerUserInfoUpdate(new QTimer(this)),
 	m_gameStarted(false)
 {
 	m_ui->setupUi(this);
 
 	connect(	this, SIGNAL(guiUpdateNecessary(const Common::GameState*)),
 				this, SLOT(updateGui(const Common::GameState*)));
-	connect(	m_timerStatusBarUpdate, SIGNAL(timeout()),
-				this, SLOT(updateStatusBar()));
-	m_timerStatusBarUpdate->start(m_statusBarUpdateTimeStep);
+	connect(	m_timerUserInfoUpdate, SIGNAL(timeout()),
+				this, SLOT(updateUserInfo()));
+	m_timerUserInfoUpdate->start(m_statusBarUpdateTimeStep);
 }
 
 MainWindow::~MainWindow()
@@ -90,6 +90,13 @@ void MainWindow::updateGui(const Common::GameState *gameState)
 	m_guiUpdateFinished.send();
 }
 
+void MainWindow::updateUserInfo()
+{
+	updateStatusBar();
+	updatePlayerStateInfo();
+	m_timerUserInfoUpdate->start(m_statusBarUpdateTimeStep);
+}
+
 void MainWindow::updateStatusBar()
 {
 	QString messageTemplate = QString("%1 fps");
@@ -110,7 +117,13 @@ void MainWindow::updateStatusBar()
 		completeMessage = completeMessage.arg(percentageOfTimeNotSleepingString);
 
 	m_ui->statusBar->showMessage(completeMessage);
-	m_timerStatusBarUpdate->start(m_statusBarUpdateTimeStep);
+}
+
+void MainWindow::updatePlayerStateInfo()
+{
+	if (!m_gameStarted)
+		return;
+	m_ui->playerStateInfo->setText(QString("P1: Bombs:1 Range:1"));
 }
 
 
