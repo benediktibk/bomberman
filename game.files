@@ -355,3 +355,9 @@ gameengine/coveredbyloosewalldecider.h
 gameengine/coveredbyloosewalldecider.cpp
 gameengine/coveredbyloosewalldecidertest.h
 gameengine/coveredbyloosewalldecidertest.cpp
+gameengine/router.h
+gameengine/router.cpp
+gameengine/route.h
+gameengine/route.cpp
+gameengine/routetest.h
+gameengine/routetest.cpp

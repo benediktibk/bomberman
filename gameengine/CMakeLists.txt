@@ -8,6 +8,7 @@ set(GAMEENGINE_SRC
 	notdangerousandfreedecider.cpp
 	coveredbyplayerdecider.cpp
 	coveredbyloosewalldecider.cpp
+	route.cpp
 )
 
 set(GAMEENGINE_TEST_SRC
@@ -21,6 +22,7 @@ set(GAMEENGINE_TEST_SRC
 	notdangerousandfreedecidertest.cpp
 	coveredbyplayerdecidertest.cpp
 	coveredbyloosewalldecidertest.cpp
+	routetest.cpp
 )
 
 add_library(gameengine ${GAMEENGINE_SRC})
