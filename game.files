@@ -361,3 +361,7 @@ gameengine/route.h
 gameengine/route.cpp
 gameengine/routetest.h
 gameengine/routetest.cpp
+gameengine/freedecider.h
+gameengine/freedecider.cpp
+gameengine/freedecidertest.h
+gameengine/freedecidertest.cpp

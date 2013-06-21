@@ -8,6 +8,7 @@ set(GAMEENGINE_SRC
 	notdangerousandfreedecider.cpp
 	coveredbyplayerdecider.cpp
 	coveredbyloosewalldecider.cpp
+	freedecider.cpp
 	route.cpp
 )
 
@@ -22,6 +23,7 @@ set(GAMEENGINE_TEST_SRC
 	notdangerousandfreedecidertest.cpp
 	coveredbyplayerdecidertest.cpp
 	coveredbyloosewalldecidertest.cpp
+	freedecidertest.cpp
 	routetest.cpp
 )
 
