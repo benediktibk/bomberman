@@ -34,6 +34,8 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 {
 	if (enableOpenGL)
 		m_view.setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
+	else
+		m_view.setViewport(new QWidget());
 
 	QSvgRenderer renderer(QString("resources/graphics/bg_cell_pattern.svg"));
 	QImage image(m_pixelPerMeter, m_pixelPerMeter, QImage::Format_ARGB32);
