@@ -15,7 +15,9 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="loosebrick.svg">
+   sodipodi:docname="wall_solid.svg">
+  <title
+     id="title5349">Ultimate Bomberman - wall solid</title>
   <defs
      id="defs4">
     <linearGradient
@@ -294,7 +296,14 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title>Ultimate Bomberman - wall solid</dc:title>
+        <cc:license
+           rdf:resource="" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>M. Hofbauer, K. Meyer, B. Schmidt, T. Shau, F. Wirnshofer</dc:title>
+          </cc:Agent>
+        </dc:creator>
       </cc:Work>
     </rdf:RDF>
   </metadata>
