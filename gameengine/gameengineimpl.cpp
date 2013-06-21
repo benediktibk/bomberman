@@ -152,14 +152,13 @@ void GameEngineImpl::setPlayerSpeedIfMoreThanOneDirectionIsSelected(PlayerState 
 	assert(input.isMoreThanOneMovementButtonPressed());
 	assert(input.isMovementButtonPressed());
 
-	if (input.isUpKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionUp)
-		player.setMoving();
-	else if (input.isDownKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionDown)
-		player.setMoving();
-	else if (input.isLeftKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionLeft)
-		player.setMoving();
-	else if (input.isRightKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionRight)
-		player.setMoving();
+	if (	(input.isUpKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionUp) ||
+			(input.isDownKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionDown) ||
+			(input.isLeftKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionLeft) ||
+			(input.isRightKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionRight))
+		return;
+
+	setPlayerSpeedIntoIntoDirection(player, input);
 }
 
 void GameEngineImpl::setPlayerSpeedIntoOnlySelectedDirection(PlayerState &player, const InputState &input)
@@ -167,26 +166,19 @@ void GameEngineImpl::setPlayerSpeedIntoOnlySelectedDirection(PlayerState &player
 	assert(!input.isMoreThanOneMovementButtonPressed());
 	assert(input.isMovementButtonPressed());
 
+	setPlayerSpeedIntoIntoDirection(player, input);
+}
+
+void GameEngineImpl::setPlayerSpeedIntoIntoDirection(PlayerState &player, const InputState &input)
+{
 	if (input.isUpKeyPressed())
-	{
 		player.setDirectionUp();
-		player.setMoving();
-	}
 	else if (input.isDownKeyPressed())
-	{
 		player.setDirectionDown();
-		player.setMoving();
-	}
 	else if (input.isLeftKeyPressed())
-	{
 		player.setDirectionLeft();
-		player.setMoving();
-	}
 	else if (input.isRightKeyPressed())
-	{
 		player.setDirectionRight();
-		player.setMoving();
-	}
 }
 
 void GameEngineImpl::setPlayerSpeedToNull(Common::PlayerState &player)

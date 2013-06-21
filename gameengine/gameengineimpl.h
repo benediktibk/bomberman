@@ -39,6 +39,7 @@ namespace GameEngine
 		void updatePlayerWithBombCollisions();
 		void setPlayerSpeedIfMoreThanOneDirectionIsSelected(Common::PlayerState &player, const Common::InputState &input);
 		void setPlayerSpeedIntoOnlySelectedDirection(Common::PlayerState &player, const Common::InputState &input);
+		void setPlayerSpeedIntoIntoDirection(Common::PlayerState &player, const Common::InputState &input);
 		void setPlayerSpeedToNull(Common::PlayerState &player);
 		void updateBombs();
 		void placeBombs();

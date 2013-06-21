@@ -19,7 +19,8 @@ namespace Common
 			PlayerDirectionUp,
 			PlayerDirectionDown,
 			PlayerDirectionLeft,
-			PlayerDirectionRight
+			PlayerDirectionRight,
+			PlayerDirectionNone
 		};
 
 		PlayerState(UniqueIdCreator &creator);
@@ -46,7 +47,6 @@ namespace Common
 		void increaseMaximumBombRange(unsigned int number);
 		double getSpeedIntoX() const;
 		double getSpeedIntoY() const;
-		void setMoving();
 		void setNotMoving();
 		bool isMoving() const;
 		double getWidth() const;
@@ -77,7 +77,6 @@ namespace Common
 		double m_height;
 		unsigned int m_playerId;
 		UniqueIdCreator &m_creatorId;
-		bool m_moving;
 		std::vector<const Common::BombState*> m_bombsNotToCollideWith;
 		unsigned int m_destructionRangeOfNewBombs;
 	};
