@@ -10,6 +10,7 @@ set(GAMEENGINE_SRC
 	coveredbyloosewalldecider.cpp
 	freedecider.cpp
 	route.cpp
+	router.cpp
 )
 
 set(GAMEENGINE_TEST_SRC
