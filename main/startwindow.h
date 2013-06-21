@@ -18,11 +18,14 @@ class StartWindow :
 	Q_OBJECT
 
 public:
-	StartWindow();
+	StartWindow(bool enableOpenGL);
 
 private slots:
 	void exitClicked();
 	void startClicked();
+
+signals:
+	void startGameSignal(bool enableOpenGL, const char* levelname);
 
 private:
 	void connectButtons();
@@ -31,7 +34,6 @@ private:
 private:
 	Ui::StartWindow* m_ui;
 	std::string m_selectedLevel;
-	bool m_enableOpenGL;
 };
 }
 #endif // STARTWINDOW_H

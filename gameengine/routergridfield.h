@@ -13,6 +13,7 @@ namespace GameEngine
 		bool isBomb() const;
 		bool isPlayer() const;
 		bool isDangerous() const;
+		bool isFree() const;
 		void setLooseWall(bool value);
 		void setSolidWall(bool value);
 		void setBomb(bool value);

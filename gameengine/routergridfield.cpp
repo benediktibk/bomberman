@@ -33,6 +33,11 @@ bool RouterGridField::isDangerous() const
 	return m_dangerous;
 }
 
+bool RouterGridField::isFree() const
+{
+	return !isBomb() && !isPlayer() && !isLooseWall() && !isSolidWall();
+}
+
 void RouterGridField::setLooseWall(bool value)
 {
 	assert(!m_player && !m_solidWall && !m_bomb && !m_dangerous);

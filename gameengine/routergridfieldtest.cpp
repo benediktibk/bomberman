@@ -91,3 +91,56 @@ void RouterGridFieldTest::setDangerous_true_isDangerous()
 
 	CPPUNIT_ASSERT(field.isDangerous());
 }
+
+void RouterGridFieldTest::isFree_nothingSet_true()
+{
+	RouterGridField field;
+
+	CPPUNIT_ASSERT(field.isFree());
+}
+
+void RouterGridFieldTest::isFree_bombSet_false()
+{
+	RouterGridField field;
+
+	field.setBomb(true);
+
+	CPPUNIT_ASSERT(!field.isFree());
+}
+
+void RouterGridFieldTest::isFree_playerSet_false()
+{
+	RouterGridField field;
+
+	field.setPlayer(true);
+
+	CPPUNIT_ASSERT(!field.isFree());
+}
+
+void RouterGridFieldTest::isFree_looseWallSet_false()
+{
+	RouterGridField field;
+
+	field.setLooseWall(true);
+
+	CPPUNIT_ASSERT(!field.isFree());
+}
+
+void RouterGridFieldTest::isFree_solidWallSet_false()
+{
+	RouterGridField field;
+
+	field.setSolidWall(true);
+
+	CPPUNIT_ASSERT(!field.isFree());
+}
+
+void RouterGridFieldTest::isFree_dangerousSet_true()
+{
+	RouterGridField field;
+
+	field.setDangerous(true);
+
+	CPPUNIT_ASSERT(field.isFree());
+}
+

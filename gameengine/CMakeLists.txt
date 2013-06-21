@@ -5,6 +5,10 @@ set(GAMEENGINE_SRC
 	gridobserver.cpp
 	routergrid.cpp
 	routergridfield.cpp
+	notdangerousandfreedecider.cpp
+	coveredbyplayerdecider.cpp
+	coveredbyloosewalldecider.cpp
+	route.cpp
 )
 
 set(GAMEENGINE_TEST_SRC
@@ -15,6 +19,10 @@ set(GAMEENGINE_TEST_SRC
 	gridobservertest.cpp
 	routergridtest.cpp
 	routergridfieldtest.cpp
+	notdangerousandfreedecidertest.cpp
+	coveredbyplayerdecidertest.cpp
+	coveredbyloosewalldecidertest.cpp
+	routetest.cpp
 )
 
 add_library(gameengine ${GAMEENGINE_SRC})
