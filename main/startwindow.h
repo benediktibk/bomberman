@@ -23,6 +23,7 @@ public:
 private slots:
 	void exitClicked();
 	void startClicked();
+	void levelBuildingNotCorrect();
 
 signals:
 	void startGameSignal(bool enableOpenGL, const char* levelname);

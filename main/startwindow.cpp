@@ -58,3 +58,8 @@ void StartWindow::startClicked()
 		emit startGameSignal(m_ui->openGlCheckBox->isChecked(), m_selectedLevel.c_str());
 	}
 }
+
+void StartWindow::levelBuildingNotCorrect()
+{
+	m_ui->infoLabel->setText(tr("levelbuilding was not correct!!! \nerror in file or filename!!!"));
+}

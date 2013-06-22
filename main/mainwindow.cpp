@@ -66,6 +66,11 @@ void MainWindow::startGame(bool enableOpenGL, const char* levelname)
 
 	string levelpath = "levels/" + string(levelname);
 	m_level = new Common::LevelDefinition(Common::CSVParser(levelpath));
+	if(!m_level->isLevelBuildingCorrect())
+	{
+		emit levelBuildingNotCorectSignal();
+		return;
+	}
 	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, 2);
 	m_gameLoop = new GameLoop(*this, *m_gameEngine, *this);
 	m_enableOpenGL = enableOpenGL;

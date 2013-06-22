@@ -48,6 +48,7 @@ private slots:
 
 signals:
 	void guiUpdateNecessary(const Common::GameState *gameState);
+	void levelBuildingNotCorectSignal();
 
 private:
 	void finishGame();
