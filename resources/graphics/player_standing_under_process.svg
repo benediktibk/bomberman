@@ -748,14 +748,6 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-52.362183)">
-    <image
-       y="-12.849932"
-       x="1146.7926"
-       id="image3042"
-       height="971.28571"
-       width="612.25018"
-       xlink:href="file:///home/wirnshofer/Desktop/bomberman.jpg"
-       style="fill:url(#radialGradient3879);fill-opacity:1" />
     <path
        transform="matrix(1.0534523,0,0,1.0534523,-24.7874,33.040566)"
        d="m 435.71428,597.85712 a 53.57143,52.142857 0 1 1 -107.14286,0 53.57143,52.142857 0 1 1 107.14286,0 z"
