@@ -43,6 +43,7 @@ void StartWindow::connectTableView()
 	m_ui->levelTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	m_ui->levelTableView->horizontalHeader()->setResizeMode(QHeaderView::Fixed);
 	m_ui->levelTableView->verticalHeader()->setResizeMode(QHeaderView::Fixed);
+	m_ui->levelTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 	m_ui->levelTableView->setModel(model);
 }
 
