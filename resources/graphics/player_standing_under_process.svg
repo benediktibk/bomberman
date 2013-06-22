@@ -107,6 +107,30 @@
          stdDeviation="7.6776642"
          id="feGaussianBlur3979" />
     </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter4011">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.8176083"
+         id="feGaussianBlur4013" />
+    </filter>
+    <inkscape:perspective
+       id="perspective4023"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:collect="always"
+       id="filter4011-6">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.8176083"
+         id="feGaussianBlur4013-1" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -115,9 +139,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="1010.4702"
-     inkscape:cy="269.26524"
+     inkscape:zoom="0.7"
+     inkscape:cx="267.32149"
+     inkscape:cy="-76.627539"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -144,8 +168,8 @@
      id="layer1"
      transform="translate(0,-52.362183)">
     <image
-       y="64.137024"
-       x="1405.6298"
+       y="50.320492"
+       x="278.48517"
        id="image3042"
        height="971.28571"
        width="612.25018"
@@ -177,5 +201,21 @@
        sodipodi:ry="52.142857"
        d="m 435.71428,597.85712 a 53.57143,52.142857 0 1 1 -107.14286,0 53.57143,52.142857 0 1 1 107.14286,0 z"
        transform="matrix(0.45861362,0,0,0.45861362,175.17265,375.17252)" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:4.24715519;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;filter:url(#filter4011)"
+       id="rect4005"
+       width="45.038559"
+       height="239.32426"
+       x="727.67096"
+       y="452.76825"
+       transform="matrix(0.92035213,0.32920207,-0.32920207,0.92035213,12.901896,19.274752)" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:4.24715519;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;filter:url(#filter4011-6)"
+       id="rect4005-5"
+       width="45.038559"
+       height="239.32426"
+       x="727.67096"
+       y="452.76825"
+       transform="matrix(0.85606871,-0.28124711,0.28124711,0.85606871,-175.33335,523.59682)" />
   </g>
 </svg>
