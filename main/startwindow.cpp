@@ -40,6 +40,9 @@ void StartWindow::connectTableView()
 			model->setItem(row, column, currentItem);
 		}
 
+	m_ui->levelTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	m_ui->levelTableView->horizontalHeader()->setResizeMode(QHeaderView::Fixed);
+	m_ui->levelTableView->verticalHeader()->setResizeMode(QHeaderView::Fixed);
 	m_ui->levelTableView->setModel(model);
 }
 
