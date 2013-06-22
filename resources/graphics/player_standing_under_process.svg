@@ -7,6 +7,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="1000"
@@ -14,9 +15,21 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="New document 1">
+   sodipodi:docname="player_standing_under_process.svg">
   <defs
      id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3873">
+      <stop
+         style="stop-color:#a94466;stop-opacity:1;"
+         offset="0"
+         id="stop3875" />
+      <stop
+         style="stop-color:#e4749f;stop-opacity:1"
+         offset="1"
+         id="stop3877" />
+    </linearGradient>
     <inkscape:perspective
        sodipodi:type="inkscape:persp3d"
        inkscape:vp_x="0 : 526.18109 : 1"
@@ -24,6 +37,76 @@
        inkscape:vp_z="744.09448 : 526.18109 : 1"
        inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
        id="perspective10" />
+    <inkscape:perspective
+       id="perspective3040"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <filter
+       inkscape:collect="always"
+       id="filter3867"
+       x="-0.39953909"
+       width="1.7990782"
+       y="-0.41048538"
+       height="1.8209708">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="17.836567"
+         id="feGaussianBlur3869" />
+    </filter>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3873"
+       id="radialGradient3879"
+       cx="407.09671"
+       cy="617.58893"
+       fx="407.09671"
+       fy="617.58893"
+       r="306.12509"
+       gradientTransform="matrix(0.30633431,-0.54130701,0.45300649,0.25636363,5.5205225,727.25636)"
+       gradientUnits="userSpaceOnUse" />
+    <filter
+       inkscape:collect="always"
+       id="filter3936">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="1.0571429"
+         id="feGaussianBlur3938" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3940">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="3.1528788"
+         id="feGaussianBlur3942" />
+    </filter>
+    <inkscape:perspective
+       id="perspective3952"
+       inkscape:persp3d-origin="0.5 : 0.33333333 : 1"
+       inkscape:vp_z="1 : 0.5 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 0.5 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <filter
+       color-interpolation-filters="sRGB"
+       inkscape:collect="always"
+       id="filter3940-9">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="3.1528788"
+         id="feGaussianBlur3942-7" />
+    </filter>
+    <filter
+       inkscape:collect="always"
+       id="filter3977">
+      <feGaussianBlur
+         inkscape:collect="always"
+         stdDeviation="7.6776642"
+         id="feGaussianBlur3979" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -32,9 +115,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="375"
-     inkscape:cy="520"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="1010.4702"
+     inkscape:cy="269.26524"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -59,5 +142,40 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-52.362183)" />
+     transform="translate(0,-52.362183)">
+    <image
+       y="64.137024"
+       x="1405.6298"
+       id="image3042"
+       height="971.28571"
+       width="612.25018"
+       xlink:href="file:///home/wirnshofer/Desktop/bomberman.jpg"
+       style="fill:url(#radialGradient3879);fill-opacity:1" />
+    <path
+       transform="matrix(1.0534523,0,0,1.0534523,-24.7874,33.040566)"
+       d="m 435.71428,597.85712 a 53.57143,52.142857 0 1 1 -107.14286,0 53.57143,52.142857 0 1 1 107.14286,0 z"
+       sodipodi:ry="52.142857"
+       sodipodi:rx="53.57143"
+       sodipodi:cy="597.85712"
+       sodipodi:cx="382.14285"
+       id="path3830"
+       style="fill:#e376a0;fill-opacity:1;stroke:#000000;stroke-width:4.55119085;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;filter:url(#filter3936)"
+       sodipodi:type="arc" />
+    <path
+       transform="matrix(0.20915035,0.31602502,-0.38858998,0.27543459,192.10881,164.0918)"
+       style="fill:#9d3558;fill-opacity:1;stroke:none;filter:url(#filter3977)"
+       d="m 1492.8571,254.28572 c 0,60.75132 -61.7207,110 -137.8571,110 -76.1364,0 -137.8571,-49.24868 -137.8571,-110 0,-19.30903 6.3698,-38.27788 18.4693,-55 27.4074,36.60094 35.0359,57.07128 118.5222,79.49311 74.5263,16.5735 94.5018,-12.59621 138.7227,-24.49311 z"
+       id="path3930-0"
+       sodipodi:nodetypes="cssccc" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter3867)"
+       id="path3845"
+       sodipodi:cx="382.14285"
+       sodipodi:cy="597.85712"
+       sodipodi:rx="53.57143"
+       sodipodi:ry="52.142857"
+       d="m 435.71428,597.85712 a 53.57143,52.142857 0 1 1 -107.14286,0 53.57143,52.142857 0 1 1 107.14286,0 z"
+       transform="matrix(0.45861362,0,0,0.45861362,175.17265,375.17252)" />
+  </g>
 </svg>
