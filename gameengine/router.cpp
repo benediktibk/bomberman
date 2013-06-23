@@ -4,7 +4,8 @@
 #include "gameengine/coveredbyloosewalldecider.h"
 #include "gameengine/freedecider.h"
 #include "gameengine/routergrid.h"
-#include <boost/multi_array.hpp>
+#include <fstream>
+#include <assert.h>
 
 using namespace GameEngine;
 using namespace Common;
@@ -40,9 +41,22 @@ Route Router::getRouteToLooseWall(const Common::GridPoint &position) const
 	return getRoute(NotDangerousAndFreeDecider(), CoveredByLooseWallDecider(), position);
 }
 
+void Router::writeDebuggingInformationToFile(const Router::DistanceMatrix &distances, unsigned int width, unsigned int height)
+{
+	string fileName = "/var/tmp/ultimatebomberman_distances.csv";
+	fstream file(fileName.c_str(), ios_base::out);
+
+	for (unsigned int y = 0; y < height; ++y)
+	{
+		for (unsigned int x = 0; x < width; ++x)
+			file << distances[y][x] << ";";
+
+		file << endl;
+	}
+}
+
 Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target, const GridPoint &startPosition) const
 {
-	typedef multi_array<unsigned int, 2> DistanceMatrix;
 	unsigned int height = m_grid->getHeight();
 	unsigned int width = m_grid->getWidth();
 	DistanceMatrix distances(extents[height][width]);
@@ -151,6 +165,10 @@ Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGrid
 	GridPoint targetPosition;
 	targetFound = false;
 
+//#ifdef NDEBUG
+	writeDebuggingInformationToFile(distances, m_grid->getWidth(), m_grid->getHeight());
+//#endif
+
 	for (vector<GridPoint>::const_iterator i = lastFront.begin(); i != lastFront.end() && !targetFound; ++i)
 	{
 		targetPosition = *i;
@@ -183,7 +201,7 @@ Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGrid
 			}
 		}
 
-		if (position.getX() > 0 && !foundSmallerDistance)
+		if (position.getY() > 0 && !foundSmallerDistance)
 		{
 			unsigned int newDistance = distances[position.getY() - 1][position.getX()];
 			if (newDistance == lastDistance - 1)
@@ -215,7 +233,7 @@ Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGrid
 				foundSmallerDistance = true;
 				--lastDistance;
 				lastDirection = PlayerState::PlayerDirectionDown;
-				position.setX(position.getX() + 1);
+				position.setY(position.getY() + 1);
 			}
 		}
 	}
