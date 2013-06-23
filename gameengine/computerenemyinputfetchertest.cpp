@@ -11,7 +11,7 @@ using namespace Common;
 void ComputerEnemyInputFetcherTest::getInputState_movingToFieldRightBesidePlayerButNotYetAtPositionToPlaceBomb_spaceKeyNotPressed()
 {
 	m_otherPlayer->setPosition(Point(0, 0));
-	m_ownPlayer->setPosition(Point(0.7, 0));
+	m_ownPlayer->setPosition(Point(1.7, 0));
 	m_ownPlayer->setDirectionLeft();
 
 	InputState input = m_inputFetcher->getInputState();
@@ -22,7 +22,7 @@ void ComputerEnemyInputFetcherTest::getInputState_movingToFieldRightBesidePlayer
 void ComputerEnemyInputFetcherTest::getInputState_movingToFieldRightBesidePlayerCloseEnoughToPlaceBomb_spaceKeyPressed()
 {
 	m_otherPlayer->setPosition(Point(0, 0));
-	m_ownPlayer->setPosition(Point(0.3, 0));
+	m_ownPlayer->setPosition(Point(1.3, 0));
 	m_ownPlayer->setDirectionLeft();
 
 	InputState input = m_inputFetcher->getInputState();
