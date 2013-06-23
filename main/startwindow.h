@@ -2,6 +2,7 @@
 #define MAIN_STARTWINDOW_H
 
 #include <QMainWindow>
+#include "common/csvparser.h"
 
 namespace Ui
 {
@@ -37,6 +38,7 @@ private:
 private:
 	Ui::StartWindow* m_ui;
 	std::string m_selectedLevel;
+	Common::CSVParser m_levelList;
 };
 }
 #endif // STARTWINDOW_H
