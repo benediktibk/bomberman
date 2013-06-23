@@ -89,6 +89,24 @@ void GameEngineImplTest::updateGameState_oneBombPlaced_bombLifeTimeIs2()
 	CPPUNIT_ASSERT_EQUAL((double)2, bomb->getLifeTime());
 }
 
+void GameEngineImplTest::updateGameState_onlyOneBombPlaced_whenPressingSpacebar()
+{
+    InputState input;  
+    GameState &game = m_gameEngine->getGameState();
+    PlayerState &player = game.getFirstPlayerState();
+    player.increaseMaxBombs();
+    
+    input.setSpaceKeyPressed();
+    setFirstPlayerInput(input);
+    m_gameEngine->updateGameState(m_inputStates, 1);  
+    input.setRightKeyPressed();
+    setFirstPlayerInput(input);
+    m_gameEngine->updateGameState(m_inputStates, (1.5/player.getSpeed()));
+
+    
+    CPPUNIT_ASSERT_EQUAL((size_t)1, game.getBombCount());    
+}
+
 void GameEngineImplTest::updateGameState_twoBombsPlacedAndOneDestroyed_bombCountIs1()
 {
 	InputState input;

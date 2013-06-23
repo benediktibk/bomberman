@@ -2,6 +2,7 @@
 #define MAIN_STARTWINDOW_H
 
 #include <QMainWindow>
+#include "common/csvparser.h"
 
 namespace Ui
 {
@@ -23,9 +24,12 @@ public:
 private slots:
 	void exitClicked();
 	void startClicked();
+	void closeGameClicked();
+	void levelBuildingNotCorrect();
 
 signals:
 	void startGameSignal(bool enableOpenGL, const char* levelname);
+	void closeGameSignal();
 
 private:
 	void connectButtons();
@@ -34,6 +38,7 @@ private:
 private:
 	Ui::StartWindow* m_ui;
 	std::string m_selectedLevel;
+	Common::CSVParser m_levelList;
 };
 }
 #endif // STARTWINDOW_H

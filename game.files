@@ -292,7 +292,6 @@ resources/graphics/wall_solid.svg
 resources/graphics/wall_loose.svg
 resources/graphics/powerup_v2.svg
 resources/graphics/powerup_v1.svg
-resources/graphics/power_up.svg
 resources/graphics/powerup.svg
 resources/graphics/player_standing.svg
 resources/graphics/explosion_flame.svg
@@ -367,6 +366,11 @@ gameengine/freedecider.cpp
 gameengine/freedecidertest.h
 gameengine/freedecidertest.cpp
 gameengine/routertest.h
+resources/graphics/powerup_speed.svg
+resources/graphics/powerup_range.svg
+resources/graphics/powerup_maxbombs.svg
+resources/graphics/bomb_planted.gif
+resources/sounds/explosion.flac
 gameengine/routertest.cpp
 common/grid.cpp
 common/grid.h

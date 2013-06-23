@@ -44,13 +44,17 @@ public slots:
 
 private slots:
 	void updateGui(const Common::GameState *gameState);
-	void updateStatusBar();
+	void updateUserInfo();
+	void closeGame();
 
 signals:
 	void guiUpdateNecessary(const Common::GameState *gameState);
+	void levelBuildingNotCorectSignal();
 
 private:
 	void finishGame();
+	void updateStatusBar();
+	void updatePlayerStateInfo();
 
 private:
 	const unsigned int m_statusBarUpdateTimeStep;
@@ -59,7 +63,7 @@ private:
 	Common::LevelDefinition *m_level;
 	Common::GameEngine *m_gameEngine;
 	GameLoop *m_gameLoop;
-	QTimer *m_timerStatusBarUpdate;
+	QTimer *m_timerUserInfoUpdate;
 	Threading::Signal m_guiUpdateFinished;
 	bool m_enableOpenGL;
 	bool m_gameStarted;

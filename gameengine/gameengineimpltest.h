@@ -94,6 +94,7 @@ namespace GameEngine
 		void updateGameState_RightKeyPressed_PlayerDirectionRight();
 		void updateGameState_oneBombPlaced_bombPositionIsSameAsPlayerPosition();
 		void updateGameState_oneBombPlaced_bombLifeTimeIs2();
+        void updateGameState_onlyOneBombPlaced_whenPressingSpacebar();
 		void updateGameState_twoBombsPlacedAndOneDestroyed_bombCountIs1();
 		void getHeight_HeightOfLevelDefinition_HeightOfGamestate();
 		void getWidth_WidthOfLevelDefinition_WidthOfGamestate();
