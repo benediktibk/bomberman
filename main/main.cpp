@@ -20,6 +20,10 @@ int main(int argc, char **argv)
 	StartWindow startWindow(enableOpenGL);
 	QObject::connect(	&startWindow, SIGNAL(startGameSignal(bool,const char*)),
 						&mainWindow, SLOT(startGame(bool,const char*)));
+	QObject::connect(	&startWindow, SIGNAL(closeGameSignal()),
+						&mainWindow, SLOT(closeGame()));
+	QObject::connect(	&mainWindow, SIGNAL(levelBuildingNotCorectSignal()),
+						&startWindow, SLOT(levelBuildingNotCorrect()));
 	startWindow.show();
 	return application.exec();
 }

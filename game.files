@@ -292,7 +292,6 @@ resources/graphics/wall_solid.svg
 resources/graphics/wall_loose.svg
 resources/graphics/powerup_v2.svg
 resources/graphics/powerup_v1.svg
-resources/graphics/power_up.svg
 resources/graphics/powerup.svg
 resources/graphics/player_standing.svg
 resources/graphics/explosion_flame.svg
@@ -362,3 +361,7 @@ gameengine/route.h
 gameengine/route.cpp
 gameengine/routetest.h
 gameengine/routetest.cpp
+resources/graphics/powerup_speed.svg
+resources/graphics/powerup_range.svg
+resources/graphics/powerup_maxbombs.svg
+resources/graphics/bomb_planted.gif

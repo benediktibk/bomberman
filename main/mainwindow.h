@@ -45,9 +45,11 @@ public slots:
 private slots:
 	void updateGui(const Common::GameState *gameState);
 	void updateUserInfo();
+	void closeGame();
 
 signals:
 	void guiUpdateNecessary(const Common::GameState *gameState);
+	void levelBuildingNotCorectSignal();
 
 private:
 	void finishGame();

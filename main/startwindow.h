@@ -23,9 +23,12 @@ public:
 private slots:
 	void exitClicked();
 	void startClicked();
+	void closeGameClicked();
+	void levelBuildingNotCorrect();
 
 signals:
 	void startGameSignal(bool enableOpenGL, const char* levelname);
+	void closeGameSignal();
 
 private:
 	void connectButtons();

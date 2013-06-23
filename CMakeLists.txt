@@ -52,9 +52,6 @@ set(GRAPHICS
 	player_moving_down.svg
 	wall_loose.svg
 	wall_solid.svg
-	power_up.svg
-	powerup_v1.svg
-	powerup_v2.svg
 	explosion_center.svg
 	explosion_flame.svg
 	powerup.svg

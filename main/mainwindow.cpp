@@ -66,6 +66,11 @@ void MainWindow::startGame(bool enableOpenGL, const char* levelname)
 
 	string levelpath = "levels/" + string(levelname);
 	m_level = new Common::LevelDefinition(Common::CSVParser(levelpath));
+	if(!m_level->isLevelBuildingCorrect())
+	{
+		emit levelBuildingNotCorectSignal();
+		return;
+	}
 	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, 2);
 	m_gameLoop = new GameLoop(*this, *m_gameEngine, *this);
 	m_enableOpenGL = enableOpenGL;
@@ -126,11 +131,15 @@ void MainWindow::updatePlayerStateInfo()
 	m_ui->playerStateInfo->setText(QString("P1: Bombs:1 Range:1"));
 }
 
-
 void MainWindow::finishGame()
 {
 	delete m_gameLoop;
 	delete m_drawer;
 	delete m_level;
 	delete m_gameEngine;
+}
+
+void MainWindow::closeGame()
+{
+	this->close();
 }

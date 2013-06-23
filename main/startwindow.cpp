@@ -21,6 +21,7 @@ void StartWindow::connectButtons()
 {
 	connect(m_ui->exitButton, SIGNAL(clicked()), this, SLOT(exitClicked()));
 	connect(m_ui->startButton, SIGNAL(clicked()), this, SLOT(startClicked()));
+	connect(m_ui->closeGameButton, SIGNAL(clicked()), this, SLOT(closeGameClicked()));
 }
 
 void StartWindow::connectTableView()
@@ -40,11 +41,17 @@ void StartWindow::connectTableView()
 			model->setItem(row, column, currentItem);
 		}
 
+	m_ui->levelTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	m_ui->levelTableView->horizontalHeader()->setResizeMode(QHeaderView::Stretch);
+	m_ui->levelTableView->verticalHeader()->setResizeMode(QHeaderView::Fixed);
+	m_ui->levelTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+	m_ui->levelTableView->setSelectionMode(QAbstractItemView::SingleSelection);
 	m_ui->levelTableView->setModel(model);
 }
 
 void StartWindow::exitClicked()
 {
+	emit closeGameSignal();
 	this->close();
 }
 
@@ -57,4 +64,14 @@ void StartWindow::startClicked()
 	{
 		emit startGameSignal(m_ui->openGlCheckBox->isChecked(), m_selectedLevel.c_str());
 	}
+}
+
+void StartWindow::closeGameClicked()
+{
+	emit closeGameSignal();
+}
+
+void StartWindow::levelBuildingNotCorrect()
+{
+	m_ui->infoLabel->setText(tr("levelbuilding was not correct!!! \nerror in file or filename!!!"));
 }
