@@ -336,10 +336,10 @@ void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &i
 		BombState *bombPlaced = new BombState(m_bombids, player.getId());
 		bombPlaced->setPosition(player.getCenterPosition());
 		bombPlaced->setDestructionRange(player.getDestructionRangeOfNewBombs());
+		m_gameState.addBomb(bombPlaced);
 		m_grid->addBombAtPlace(*bombPlaced);
 		player.countBomb();
 		player.doNotCollideWith(bombPlaced);
-		m_gameState.addBomb(bombPlaced);
 	}
 }
 
