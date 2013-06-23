@@ -342,8 +342,13 @@ void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &i
 		m_grid->addBombAtPlace(*bombPlaced);
 		player.countBomb();
 		player.doNotCollideWith(bombPlaced);
-		m_gameState.addBomb(bombPlaced);
+        player.setPlacedBombAlready(true);
+		m_gameState.addBomb(bombPlaced);       
 	}
+    if (!input.isSpaceKeyPressed())
+    {
+        player.setPlacedBombAlready(false);
+    }
 }
 
 void GameEngineImpl::playerGetsPowerUp()

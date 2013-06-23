@@ -43,6 +43,8 @@ void allPlayerInputFetcher::setGameMode(unsigned int playerCount)
         //ID anders implementieren        
         //ID auch auf Enemies 
         //Enemies in m_inputStates pushen
+        // klasse in Gameloop implementieren
+        
         m_inputStates[m_playerIds.front()] = m_inputStatePlayer1;
         m_inputStates[m_playerIds.back()] = m_inputStatePlayer2;
                 

@@ -194,7 +194,7 @@ unsigned int PlayerState::getRemainingBombs() const
 
 bool PlayerState::canPlayerPlaceBomb() const
 {
-	if(getRemainingBombs() == 0)
+    if((getRemainingBombs() == 0)||(m_placedBombAlready == true))
 		return false;
 	else
 		return true;
@@ -240,4 +240,9 @@ void PlayerState::increaseSpeed()
 void PlayerState::increaseMaximumBombRange(unsigned int number)
 {
     m_destructionRangeOfNewBombs += number;
+}
+
+void PlayerState::setPlacedBombAlready(bool value)
+{
+    m_placedBombAlready = value;
 }

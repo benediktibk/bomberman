@@ -60,6 +60,7 @@ namespace Common
 		void removeBombFromDoNotCollideList(const BombState *bomb);
 		unsigned int getDestructionRangeOfNewBombs() const;
 		void setDestructionRangeOfNewBombs(unsigned int value);
+        void setPlacedBombAlready(bool value);
 
 	private:
 		// forbid copies
@@ -80,6 +81,7 @@ namespace Common
 		bool m_moving;
 		std::vector<const Common::BombState*> m_bombsNotToCollideWith;
 		unsigned int m_destructionRangeOfNewBombs;
+        bool m_placedBombAlready;
 	};
 }
 
