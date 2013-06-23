@@ -1334,6 +1334,50 @@ void GridTest::isPlaceCoveredByBomb_coveredByBomb_true()
 	CPPUNIT_ASSERT(grid.isPlaceCoveredByBomb(GridPoint(12, 11)));
 }
 
+void GridTest::getTargetPoint_onlyField5And6Covered_5And6()
+{
+	PlayerState player(*m_playerIdCreator);
+	player.setPosition(Point(5, 6));
+
+	CPPUNIT_ASSERT_EQUAL(GridPoint(5, 6), Grid::getTargetPoint(player));
+}
+
+void GridTest::getTargetPoint_between5And6And6And6AndMovingRight_6And6()
+{
+	PlayerState player(*m_playerIdCreator);
+	player.setPosition(Point(5.5, 6));
+	player.setDirectionRight();
+
+	CPPUNIT_ASSERT_EQUAL(GridPoint(6, 6), Grid::getTargetPoint(player));
+}
+
+void GridTest::getTargetPoint_between5And6And6And6AndMovingLeft_5And6()
+{
+	PlayerState player(*m_playerIdCreator);
+	player.setPosition(Point(5.5, 6));
+	player.setDirectionLeft();
+
+	CPPUNIT_ASSERT_EQUAL(GridPoint(5, 6), Grid::getTargetPoint(player));
+}
+
+void GridTest::getTargetPoint_between5And6And5And7AndMovingUp_5And7()
+{
+	PlayerState player(*m_playerIdCreator);
+	player.setPosition(Point(5, 6.5));
+	player.setDirectionUp();
+
+	CPPUNIT_ASSERT_EQUAL(GridPoint(5, 7), Grid::getTargetPoint(player));
+}
+
+void GridTest::getTargetPoint_between5And6And5And7AndMovingDown_5And6()
+{
+	PlayerState player(*m_playerIdCreator);
+	player.setPosition(Point(5, 6.5));
+	player.setDirectionDown();
+
+	CPPUNIT_ASSERT_EQUAL(GridPoint(5, 6), Grid::getTargetPoint(player));
+}
+
 void GridTest::setUp()
 {
 	m_powerUpIdCreator = new UniqueIdCreator();

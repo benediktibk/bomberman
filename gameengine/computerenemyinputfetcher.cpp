@@ -1,12 +1,16 @@
 #include "gameengine/computerenemyinputfetcher.h"
-#include "gameengine/routergrid.h"
-#include "common/randomdecision.h"
+#include "gameengine/router.h"
+#include "common/grid.h"
+#include "common/gamestate.h"
 
 using namespace Common;
 using namespace GameEngine;
+using namespace std;
 
-ComputerEnemyInputFetcher::ComputerEnemyInputFetcher(Grid &grid, const Common::GameState &gameState, unsigned int playerId) :
-	m_router(new RouterGrid(grid, gameState, playerId))
+ComputerEnemyInputFetcher::ComputerEnemyInputFetcher(Grid &grid, const GameState &gameState, unsigned int playerID) :
+	m_router(new Router(grid, gameState, playerID)),
+	m_gameState(gameState),
+	m_playerID(playerID)
 { }
 
 ComputerEnemyInputFetcher::~ComputerEnemyInputFetcher()
@@ -16,27 +20,79 @@ ComputerEnemyInputFetcher::~ComputerEnemyInputFetcher()
 
 InputState ComputerEnemyInputFetcher::getInputState()
 {
-	RandomDecision noKeyPressed(0.75);
-	RandomDecision KeyPressed(0.25);
+	m_inputState.setSpaceKeyNotPressed();
 
-	if(KeyPressed.decide())
-		m_inputState.setDownKeyPressed();
-	if(KeyPressed.decide())
-		m_inputState.setUpKeyPressed();
-	if(KeyPressed.decide())
-		m_inputState.setLeftKeyPressed();
-	if(KeyPressed.decide())
-		m_inputState.setRightKeyPressed();
+	if (!m_gameState.isPlayerAlife(m_playerID))
+		return m_inputState;
 
-	if(noKeyPressed.decide())
+	const PlayerState &player = m_gameState.getPlayerStateById(m_playerID);
+	GridPoint playerPosition = Grid::getTargetPoint(player);
+	m_router->updatePlayerFields();
+
+	Route routeToNotDangerousField = m_router->getRouteToNotDangerousField(playerPosition);
+	if (routeToNotDangerousField.getDirection() != PlayerState::PlayerDirectionNone)
 	{
-		m_inputState.setDownKeyNotPressed();
-		m_inputState.setLeftKeyNotPressed();
-		m_inputState.setRightKeyNotPressed();
-		m_inputState.setUpKeyNotPressed();
+		setInputStateIntoDirection(routeToNotDangerousField.getDirection());
+		return m_inputState;
+	}
+
+	Route routeToPlayer = m_router->getRouteToPlayer(playerPosition);
+	if (routeToPlayer.getDirection() != PlayerState::PlayerDirectionNone)
+	{
+		if (routeToPlayer.getDistance() > 1)
+		{
+			setInputStateIntoDirection(routeToPlayer.getDirection());
+			return m_inputState;
+		}
+		else
+		{
+			m_inputState.setSpaceKeyPressed();
+			return m_inputState;
+		}
+	}
+
+	Route routeToLooseWall = m_router->getRouteToLooseWall(playerPosition);
+	if (routeToLooseWall.getDirection() != PlayerState::PlayerDirectionNone)
+	{
+		if (routeToLooseWall.getDistance() > 1)
+		{
+			setInputStateIntoDirection(routeToLooseWall.getDirection());
+			return m_inputState;
+		}
+		else
+		{
+			m_inputState.setSpaceKeyPressed();
+			return m_inputState;
+		}
 	}
 
 	return m_inputState;
+}
+
+void ComputerEnemyInputFetcher::setInputStateIntoDirection(PlayerState::PlayerDirection direction)
+{
+	m_inputState.setDownKeyNotPressed();
+	m_inputState.setRightKeyNotPressed();
+	m_inputState.setLeftKeyNotPressed();
+	m_inputState.setUpKeyNotPressed();
+
+	switch(direction)
+	{
+	case PlayerState::PlayerDirectionLeft:
+		m_inputState.setLeftKeyPressed();
+		break;
+	case PlayerState::PlayerDirectionUp:
+		m_inputState.setUpKeyPressed();
+		break;
+	case PlayerState::PlayerDirectionRight:
+		m_inputState.setRightKeyPressed();
+		break;
+	case PlayerState::PlayerDirectionDown:
+		m_inputState.setDownKeyPressed();
+		break;
+	case PlayerState::PlayerDirectionNone:
+		break;
+	}
 }
 
 std::map<unsigned int, InputState> ComputerEnemyInputFetcher::getInputStates()

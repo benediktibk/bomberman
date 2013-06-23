@@ -95,6 +95,11 @@ namespace Common
 		CPPUNIT_TEST(isPlaceCoveredByLooseWall_coveredBySolidWall_false);
 		CPPUNIT_TEST(isPlaceCoveredByBomb_free_false);
 		CPPUNIT_TEST(isPlaceCoveredByBomb_coveredByBomb_true);
+		CPPUNIT_TEST(getTargetPoint_onlyField5And6Covered_5And6);
+		CPPUNIT_TEST(getTargetPoint_between5And6And6And6AndMovingRight_6And6);
+		CPPUNIT_TEST(getTargetPoint_between5And6And6And6AndMovingLeft_5And6);
+		CPPUNIT_TEST(getTargetPoint_between5And6And5And7AndMovingUp_5And7);
+		CPPUNIT_TEST(getTargetPoint_between5And6And5And7AndMovingDown_5And6);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -185,6 +190,11 @@ namespace Common
 		void isPlaceCoveredByLooseWall_coveredBySolidWall_false();
 		void isPlaceCoveredByBomb_free_false();
 		void isPlaceCoveredByBomb_coveredByBomb_true();
+		void getTargetPoint_onlyField5And6Covered_5And6();
+		void getTargetPoint_between5And6And6And6AndMovingRight_6And6();
+		void getTargetPoint_between5And6And6And6AndMovingLeft_5And6();
+		void getTargetPoint_between5And6And5And7AndMovingUp_5And7();
+		void getTargetPoint_between5And6And5And7AndMovingDown_5And6();
 
 	private:
 		Common::UniqueIdCreator *m_powerUpIdCreator;

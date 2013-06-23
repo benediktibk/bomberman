@@ -49,7 +49,6 @@ namespace Common
 		std::vector<unsigned int> getLooseWallsInRange(const Common::BombState &bomb) const;
 		std::vector<unsigned int> getBombsInRange(const Common::BombState &bomb) const;
 		std::vector<unsigned int> getPowerUpsInRange(const Common::BombState &bomb) const;
-		std::vector<Common::GridPoint> getPlayerFields(const Common::PlayerState &player) const;
 		std::vector<unsigned int> getPlayersInRange(const Common::BombState &bomb, std::vector<const Common::PlayerState*> allPlayers) const;
 		unsigned int getBombMaximumRangeLeft(const Common::GridPoint &position) const;
 		unsigned int getBombMaximumRangeUp(const Common::GridPoint &position) const;
@@ -64,6 +63,10 @@ namespace Common
 		size_t getObserverCount() const;
 		unsigned int getRows() const;
 		unsigned int getColumns() const;
+
+	public:
+		static std::vector<Common::GridPoint> getPlayerFields(const Common::PlayerState &player);
+		static Common::GridPoint getTargetPoint(const Common::PlayerState &player);
 
 	private:
 		unsigned int getVectorIndex(const Common::GridPoint &position) const;
