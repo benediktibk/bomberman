@@ -333,7 +333,7 @@ void GameEngineImpl::placeBombs()
 }
 
 void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &input)
-{
+{  
 	if (input.isSpaceKeyPressed() && player.canPlayerPlaceBomb() && m_grid->isPlaceEmpty(player.getCenterPosition()))
 	{
 		BombState *bombPlaced = new BombState(m_bombids, player.getId());
@@ -345,7 +345,7 @@ void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &i
         player.setPlacedBombAlready(true);
 		m_gameState.addBomb(bombPlaced);       
 	}
-    if (!input.isSpaceKeyPressed())
+    if (!input.isSpaceKeyPressed()&&(m_grid->isPlaceEmpty(player.getCenterPosition())))
     {
         player.setPlacedBombAlready(false);
     }
