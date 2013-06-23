@@ -21,6 +21,7 @@ namespace GameEngine
 		Router(Grid &grid, const Common::GameState &gameState, unsigned int playerID);
 		~Router();
 
+		void updatePlayerFields();
 		Route getRouteToPlayer(const Common::GridPoint &position) const;
 		Route getRouteToNotDangerousField(const Common::GridPoint &position) const;
 		Route getRouteToLooseWall(const Common::GridPoint &position) const;

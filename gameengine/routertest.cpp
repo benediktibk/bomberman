@@ -30,6 +30,7 @@ void RouterTest::getRouteToPlayer_secondPlayerTwoFieldsLeft_distanceIs2()
 	createRouter(level);
 	PlayerState &playerTwo = getSecondPlayer();
 	playerTwo.setPosition(Point(5, 4));
+	m_router->updatePlayerFields();
 
 	Route route = m_router->getRouteToPlayer(GridPoint(7, 4));
 
@@ -44,6 +45,7 @@ void RouterTest::getRouteToPlayer_secondPlayerTwoFieldsLeft_directionIsLeft()
 	createRouter(level);
 	PlayerState &playerTwo = getSecondPlayer();
 	playerTwo.setPosition(Point(5, 4));
+	m_router->updatePlayerFields();
 
 	Route route = m_router->getRouteToPlayer(GridPoint(7, 4));
 
@@ -67,6 +69,7 @@ void RouterTest::getRouteToPlayer_secondPlayerIsRightAndDirectWayBlocked_distanc
 	createRouter(level);
 	PlayerState &playerTwo = getSecondPlayer();
 	playerTwo.setPosition(Point(10, 5));
+	m_router->updatePlayerFields();
 
 	Route route = m_router->getRouteToPlayer(GridPoint(5, 4));
 
@@ -83,6 +86,7 @@ void RouterTest::getRouteToPlayer_secondPlayerIsRightButRightAndBelowIsWall_dire
 	createRouter(level);
 	PlayerState &playerTwo = getSecondPlayer();
 	playerTwo.setPosition(Point(6, 5));
+	m_router->updatePlayerFields();
 
 	Route route = m_router->getRouteToPlayer(GridPoint(4, 5));
 
@@ -101,6 +105,7 @@ void RouterTest::getRouteToPlayer_noWayPossible_directionIsNone()
 	createRouter(level);
 	PlayerState &playerTwo = getSecondPlayer();
 	playerTwo.setPosition(Point(10, 8));
+	m_router->updatePlayerFields();
 
 	Route route = m_router->getRouteToPlayer(GridPoint(5, 5));
 
@@ -119,6 +124,7 @@ void RouterTest::getRouteToPlayer_noWayPossible_distanceIs0()
 	createRouter(level);
 	PlayerState &playerTwo = getSecondPlayer();
 	playerTwo.setPosition(Point(10, 8));
+	m_router->updatePlayerFields();
 
 	Route route = m_router->getRouteToPlayer(GridPoint(5, 5));
 
@@ -137,6 +143,7 @@ void RouterTest::getRouteToPlayer_bombInTheWay_distanceIsWayAroundBomb()
 	bomb->setPosition(Point(7, 5));
 	m_gameState->addBomb(bomb);
 	m_grid->addBombAtPlace(*bomb);
+	m_router->updatePlayerFields();
 
 	Route route = m_router->getRouteToPlayer(GridPoint(5, 5));
 
@@ -156,6 +163,7 @@ void RouterTest::getRouteToPlayer_wayBlockedByBomb_distanceIs0()
 	bomb->setDestructionRange(100);
 	m_gameState->addBomb(bomb);
 	m_grid->addBombAtPlace(*bomb);
+	m_router->updatePlayerFields();
 
 	Route route = m_router->getRouteToPlayer(GridPoint(5, 5));
 
@@ -175,6 +183,7 @@ void RouterTest::getRouteToPlayer_wayBlockedByBomb_directionIsNone()
 	bomb->setDestructionRange(100);
 	m_gameState->addBomb(bomb);
 	m_grid->addBombAtPlace(*bomb);
+	m_router->updatePlayerFields();
 
 	Route route = m_router->getRouteToPlayer(GridPoint(5, 5));
 
@@ -191,6 +200,7 @@ void RouterTest::getRouteToPlayer_jailedByWallsAtBorder_distanceIs0()
 	createRouter(level);
 	PlayerState &playerTwo = getSecondPlayer();
 	playerTwo.setPosition(Point(10, 8));
+	m_router->updatePlayerFields();
 
 	Route route = m_router->getRouteToPlayer(GridPoint(0, 0));
 
@@ -207,6 +217,7 @@ void RouterTest::getRouteToPlayer_jailedByWallsAtBorder_directionIsNone()
 	createRouter(level);
 	PlayerState &playerTwo = getSecondPlayer();
 	playerTwo.setPosition(Point(10, 8));
+	m_router->updatePlayerFields();
 
 	Route route = m_router->getRouteToPlayer(GridPoint(0, 0));
 
@@ -220,6 +231,7 @@ void RouterTest::getRouteToNotDangerousField_playerRightAtBomb_distanceIs2()
 	bomb->setPosition(Point(player.getPosition()));
 	m_gameState->addBomb(bomb);
 	m_grid->addBombAtPlace(*bomb);
+	m_router->updatePlayerFields();
 
 	Route route = m_router->getRouteToNotDangerousField(player.getPosition());
 
@@ -232,6 +244,7 @@ void RouterTest::getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_distanceIs3
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 6);
 	createRouter(level);
+	m_router->updatePlayerFields();
 
 	Route route = m_router->getRouteToLooseWall(GridPoint(7, 3));
 
@@ -244,6 +257,7 @@ void RouterTest::getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_directionIs
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 6);
 	createRouter(level);
+	m_router->updatePlayerFields();
 
 	Route route = m_router->getRouteToLooseWall(GridPoint(7, 3));
 
