@@ -45,6 +45,7 @@ public slots:
 private slots:
 	void updateGui(const Common::GameState *gameState);
 	void updateUserInfo();
+	void pauseButtonPushed();
 	void closeGame();
 
 signals:
