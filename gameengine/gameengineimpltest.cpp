@@ -117,7 +117,7 @@ void GameEngineImplTest::getHeight_HeightOfLevelDefinition_HeightOfGamestate()
 	createGameEngine(level, 1);
 	const GameState &game = m_gameEngine->getGameState();
 
-	CPPUNIT_ASSERT_EQUAL(level.getLevelHeight(), game.getHeight());
+	CPPUNIT_ASSERT_EQUAL(level.getHeight(), game.getHeight());
 }
 
 void GameEngineImplTest::getWidth_WidthOfLevelDefinition_WidthOfGamestate()
@@ -126,7 +126,7 @@ void GameEngineImplTest::getWidth_WidthOfLevelDefinition_WidthOfGamestate()
 	createGameEngine(level, 1);
 	const GameState &game = m_gameEngine->getGameState();
 
-	CPPUNIT_ASSERT_EQUAL(level.getLevelWidth(), game.getWidth());
+	CPPUNIT_ASSERT_EQUAL(level.getWidth(), game.getWidth());
 }
 
 void GameEngineImplTest::updateGameState_tryToMoveThroughRightBorder_playerPositionIsAtRightBorder()

@@ -19,11 +19,11 @@ using namespace std;
 
 GameEngineImpl::GameEngineImpl(const LevelDefinition &level, unsigned int playerCount) :
 	m_gameState(level, playerCount, m_playerIds, m_wallids),
-	m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
+	m_grid(new Grid(level.getHeight(), level.getWidth())),
 	m_firstGameStateUpdate(true),
 	m_simulator(new GamePhysicSimulator(level)),
-	m_levelWidth(level.getLevelWidth()),
-	m_levelHeight(level.getLevelHeight())
+	m_levelWidth(level.getWidth()),
+	m_levelHeight(level.getHeight())
 {
 	vector<const WallState*> walls = m_gameState.getAllChangedWalls();
 

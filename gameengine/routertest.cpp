@@ -318,7 +318,7 @@ void RouterTest::createRouter(const LevelDefinition &level)
 	delete m_grid;
 	delete m_gameState;
 
-	m_grid = new Grid(level.getLevelHeight(), level.getLevelWidth());
+	m_grid = new Grid(level.getHeight(), level.getWidth());
 	m_gameState = new GameState(level, level.getPlayerStartPositionCount(), *m_playerIdCreator, *m_wallIdCreator);
 	const PlayerState &player = m_gameState->getFirstPlayerState();
 	vector<const WallState*> walls = m_gameState->getAllChangedWalls();

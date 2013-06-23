@@ -372,3 +372,5 @@ common/grid.cpp
 common/grid.h
 common/gridtest.cpp
 common/gridtest.h
+gameengine/computerenemyinputfetchertest.h
+gameengine/computerenemyinputfetchertest.cpp

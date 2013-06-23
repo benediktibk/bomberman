@@ -20,7 +20,7 @@ void RouterGridTest::setUp()
 	LevelDefinition level(10, 15);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
-	m_grid = new Grid(level.getLevelHeight(), level.getLevelWidth());
+	m_grid = new Grid(level.getHeight(), level.getWidth());
 	m_gameState = new GameState(level, 2, *m_playerIdCreator, *m_wallIdCreator);
 }
 

@@ -21,6 +21,7 @@ set(GAMEENGINE_TEST_SRC
 	freedecidertest.cpp
 	routetest.cpp
 	routertest.cpp
+	computerenemyinputfetchertest.cpp
 )
 
 add_library(gameengine ${GAMEENGINE_SRC})
