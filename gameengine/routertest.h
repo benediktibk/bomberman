@@ -35,6 +35,8 @@ namespace GameEngine
 		CPPUNIT_TEST(getRouteToPlayer_jailedByWallsAtBorder_distanceIs0);
 		CPPUNIT_TEST(getRouteToPlayer_jailedByWallsAtBorder_directionIsNone);
 		CPPUNIT_TEST(getRouteToNotDangerousField_playerRightAtBomb_distanceIs2);
+		CPPUNIT_TEST(getRouteToNotDangerousField_playerPositionNotDangerous_directionIsNone);
+		CPPUNIT_TEST(getRouteToNotDangerousField_playerPositionNotDangerous_distanceIs0);
 		CPPUNIT_TEST(getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_distanceIs3);
 		CPPUNIT_TEST(getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_directionIsUp);
 		CPPUNIT_TEST_SUITE_END();
@@ -58,6 +60,8 @@ namespace GameEngine
 		void getRouteToPlayer_jailedByWallsAtBorder_distanceIs0();
 		void getRouteToPlayer_jailedByWallsAtBorder_directionIsNone();
 		void getRouteToNotDangerousField_playerRightAtBomb_distanceIs2();
+		void getRouteToNotDangerousField_playerPositionNotDangerous_directionIsNone();
+		void getRouteToNotDangerousField_playerPositionNotDangerous_distanceIs0();
 		void getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_distanceIs3();
 		void getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_directionIsUp();
 

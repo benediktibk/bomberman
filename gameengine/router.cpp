@@ -67,6 +67,10 @@ Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGrid
 	unsigned int width = m_grid->getWidth();
 	DistanceMatrix distances(extents[height][width]);
 	vector<GridPoint> lastFront;
+	const RouterGridField &startField = m_grid->getField(startPosition);
+
+	if (target.decide(startField))
+		return Route(0, PlayerState::PlayerDirectionNone);
 
 	for (unsigned int x = 0; x < width; ++x)
 		for (unsigned int y = 0; y < height; ++y)

@@ -240,6 +240,26 @@ void RouterTest::getRouteToNotDangerousField_playerRightAtBomb_distanceIs2()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, route.getDistance());
 }
 
+void RouterTest::getRouteToNotDangerousField_playerPositionNotDangerous_directionIsNone()
+{
+	const PlayerState &player = getFirstPlayer();
+	m_router->updatePlayerFields();
+
+	Route route = m_router->getRouteToNotDangerousField(player.getPosition());
+
+	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionNone, route.getDirection());
+}
+
+void RouterTest::getRouteToNotDangerousField_playerPositionNotDangerous_distanceIs0()
+{
+	const PlayerState &player = getFirstPlayer();
+	m_router->updatePlayerFields();
+
+	Route route = m_router->getRouteToNotDangerousField(player.getPosition());
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, route.getDistance());
+}
+
 void RouterTest::getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_distanceIs3()
 {
 	LevelDefinition level(15, 10);
