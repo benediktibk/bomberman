@@ -5,9 +5,11 @@
 #include "common/gamestate.h"
 #include "common/uniqueidcreator.h"
 #include "common/bombstate.h"
+#include <vector>
 
 using namespace GameEngine;
 using namespace Common;
+using namespace std;
 
 void RouterTest::constructor_validGrid_gridHasOneObserver()
 {
@@ -299,6 +301,11 @@ void RouterTest::createRouter(const LevelDefinition &level)
 	m_grid = new Grid(level.getLevelHeight(), level.getLevelWidth());
 	m_gameState = new GameState(level, level.getPlayerStartPositionCount(), *m_playerIdCreator, *m_wallIdCreator);
 	const PlayerState &player = m_gameState->getFirstPlayerState();
+	vector<const WallState*> walls = m_gameState->getAllChangedWalls();
+
+	for (vector<const WallState*>::const_iterator i = walls.begin(); i != walls.end(); ++i)
+		m_grid->addWallAtPlace(**i);
+
 	m_router = new Router(*m_grid, *m_gameState, player.getId());
 }
 

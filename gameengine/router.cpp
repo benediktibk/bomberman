@@ -46,8 +46,14 @@ void Router::writeDebuggingInformationToFile(const Router::DistanceMatrix &dista
 	string fileName = "/var/tmp/ultimatebomberman_distances.csv";
 	fstream file(fileName.c_str(), ios_base::out);
 
+	file << ";";
+	for (unsigned int x = 0; x < width; ++x)
+		file << x << ";";
+	file << endl;
+
 	for (unsigned int y = 0; y < height; ++y)
 	{
+		file << y << ";";
 		for (unsigned int x = 0; x < width; ++x)
 			file << distances[y][x] << ";";
 
