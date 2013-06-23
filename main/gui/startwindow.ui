@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>573</width>
+    <width>584</width>
     <height>496</height>
    </rect>
   </property>
@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0" colspan="2">
+    <item row="1" column="0" colspan="3">
      <widget class="QTableView" name="levelTableView">
       <property name="minimumSize">
        <size>
@@ -49,7 +49,7 @@
       </attribute>
      </widget>
     </item>
-    <item row="2" column="0" colspan="2">
+    <item row="2" column="0" colspan="3">
      <widget class="QGroupBox" name="groupBox">
       <property name="enabled">
        <bool>true</bool>
@@ -62,6 +62,13 @@
         <widget class="QCheckBox" name="openGlCheckBox">
          <property name="text">
           <string>play with openGL</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="muteCheckBox">
+         <property name="text">
+          <string>Mute</string>
          </property>
         </widget>
        </item>
@@ -83,13 +90,20 @@
      </widget>
     </item>
     <item row="3" column="1">
+     <widget class="QPushButton" name="closeGameButton">
+      <property name="text">
+       <string>Close Game</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
      <widget class="QPushButton" name="exitButton">
       <property name="text">
        <string>Exit</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="0" colspan="2">
+    <item row="0" column="0" colspan="3">
      <widget class="QLabel" name="levelselectionLabel">
       <property name="text">
        <string>Ultimate BOMBERMAN
@@ -108,7 +122,7 @@ Levelselection</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>573</width>
+     <width>584</width>
      <height>25</height>
     </rect>
    </property>

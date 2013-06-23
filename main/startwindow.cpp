@@ -21,6 +21,7 @@ void StartWindow::connectButtons()
 {
 	connect(m_ui->exitButton, SIGNAL(clicked()), this, SLOT(exitClicked()));
 	connect(m_ui->startButton, SIGNAL(clicked()), this, SLOT(startClicked()));
+	connect(m_ui->closeGameButton, SIGNAL(clicked()), this, SLOT(closeGameClicked()));
 }
 
 void StartWindow::connectTableView()
@@ -49,6 +50,7 @@ void StartWindow::connectTableView()
 
 void StartWindow::exitClicked()
 {
+	emit closeGameSignal();
 	this->close();
 }
 
@@ -61,6 +63,11 @@ void StartWindow::startClicked()
 	{
 		emit startGameSignal(m_ui->openGlCheckBox->isChecked(), m_selectedLevel.c_str());
 	}
+}
+
+void StartWindow::closeGameClicked()
+{
+	emit closeGameSignal();
 }
 
 void StartWindow::levelBuildingNotCorrect()

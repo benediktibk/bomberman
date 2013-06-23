@@ -118,11 +118,15 @@ void MainWindow::updateStatusBar()
 	m_timerStatusBarUpdate->start(m_statusBarUpdateTimeStep);
 }
 
-
 void MainWindow::finishGame()
 {
 	delete m_gameLoop;
 	delete m_drawer;
 	delete m_level;
 	delete m_gameEngine;
+}
+
+void MainWindow::closeGame()
+{
+	this->close();
 }
