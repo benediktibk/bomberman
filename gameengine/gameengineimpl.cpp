@@ -330,23 +330,23 @@ void GameEngineImpl::placeBombs()
 }
 
 void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &input)
-{  
+{
 	if (input.isSpaceKeyPressed() && player.canPlayerPlaceBomb() && m_grid->isPlaceEmpty(player.getCenterPosition()))
 	{
 		BombState *bombPlaced = new BombState(m_bombids, player.getId());
 		bombPlaced->setPosition(player.getCenterPosition());
 		bombPlaced->setDestructionRange(player.getDestructionRangeOfNewBombs());
-		m_gameState.addBomb(bombPlaced);		
-		m_gameState.addBomb(bombPlaced);   
+		m_gameState.addBomb(bombPlaced);
 		m_grid->addBombAtPlace(*bombPlaced);
 		player.countBomb();
 		player.doNotCollideWith(bombPlaced);
-        player.setPlacedBombAlready(true);    
+		player.setPlacedBombAlready(true);
 	}
-    if (!input.isSpaceKeyPressed()&&(m_grid->isPlaceEmpty(player.getCenterPosition())))
-    {
-        player.setPlacedBombAlready(false);
-    }
+
+	if (!input.isSpaceKeyPressed() && m_grid->isPlaceEmpty(player.getCenterPosition()))
+	{
+		player.setPlacedBombAlready(false);
+	}
 }
 
 void GameEngineImpl::playerGetsPowerUp()
