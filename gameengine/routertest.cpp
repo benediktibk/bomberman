@@ -59,15 +59,15 @@ void RouterTest::getRouteToPlayer_secondPlayerIsRightAndDirectWayBlocked_distanc
 	LevelDefinition level(15, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
-	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 0, 4);
-	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 1, 4);
-	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 2, 4);
-	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 4);
-	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 4);
-	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 5, 4);
-	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 6, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 1);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 2);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 4);
-	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 8, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 5);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 6);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 7);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 8);
 	createRouter(level);
 	PlayerState &playerTwo = getSecondPlayer();
 	playerTwo.setPosition(Point(10, 5));
@@ -75,7 +75,7 @@ void RouterTest::getRouteToPlayer_secondPlayerIsRightAndDirectWayBlocked_distanc
 
 	Route route = m_router->getRouteToPlayer(GridPoint(5, 4));
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)13, route.getDistance());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)14, route.getDistance());
 }
 
 void RouterTest::getRouteToPlayer_secondPlayerIsRightButRightAndBelowIsWall_directionIsUp()
