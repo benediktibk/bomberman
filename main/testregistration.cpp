@@ -30,8 +30,8 @@
 #include "threading/mutextest.h"
 #include "threading/signaltest.h"
 #include "gameengine/gameengineimpltest.h"
-#include "gameengine/gridtest.h"
-#include "gameengine/gridobservertest.h"
+#include "common/gridtest.h"
+#include "common/gridobservertest.h"
 #include "gameengine/routergridfieldtest.h"
 #include "gameengine/routergridtest.h"
 #include "gameengine/notdangerousandfreedecidertest.h"
@@ -62,6 +62,8 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpGeneratorTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpMaxVelocityStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::CompareTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::CSVParserTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::GridTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::GridObserverTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::PhysicalObjectTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::DynamicObjectTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::StaticObjectTest);
@@ -74,8 +76,6 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Threading::ThreadTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Threading::MutexTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Threading::SignalTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GameEngineImplTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GridTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GridObserverTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::RouterGridFieldTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::RouterGridTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::NotDangerousAndFreeDeciderTest);

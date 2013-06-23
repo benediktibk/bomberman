@@ -10,11 +10,11 @@ namespace Common
 	class GameState;
 	class UniqueIdCreator;
 	class PlayerState;
+	class Grid;
 }
 
 namespace GameEngine
 {
-	class Grid;
 	class Router;
 
 	class RouterTest :
@@ -67,7 +67,7 @@ namespace GameEngine
 		Common::PlayerState& getSecondPlayer();
 
 	private:
-		Grid *m_grid;
+		Common::Grid *m_grid;
 		Common::UniqueIdCreator *m_playerIdCreator;
 		Common::UniqueIdCreator *m_wallIdCreator;
 		Common::UniqueIdCreator *m_bombIdCreator;

@@ -1,6 +1,6 @@
 #include "gameengine/routertest.h"
 #include "gameengine/router.h"
-#include "gameengine/grid.h"
+#include "common/grid.h"
 #include "common/leveldefinition.h"
 #include "common/gamestate.h"
 #include "common/uniqueidcreator.h"

@@ -8,12 +8,11 @@ namespace Common
 {
 	class UniqueIdCreator;
 	class GameState;
+	class Grid;
 }
 
 namespace GameEngine
 {
-	class Grid;
-
 	class RouterGridTest :
 			public CPPUNIT_NS::TestFixture
 	{
@@ -115,7 +114,7 @@ namespace GameEngine
 		unsigned int getSecondPlayerId() const;
 
 	private:
-		Grid *m_grid;
+		Common::Grid *m_grid;
 		Common::GameState *m_gameState;
 		Common::UniqueIdCreator *m_bombIdCreator;
 		Common::UniqueIdCreator *m_wallIdCreator;

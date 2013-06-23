@@ -1,5 +1,5 @@
-#include "gameengine/grid.h"
-#include "gameengine/gridobserver.h"
+#include "common/grid.h"
+#include "common/gridobserver.h"
 #include "common/bombstate.h"
 #include "common/wallstate.h"
 #include "common/playerstate.h"
@@ -10,7 +10,6 @@
 #include <algorithm>
 
 using namespace Common;
-using namespace GameEngine;
 using namespace std;
 
 Grid::Grid(unsigned int rows, unsigned int cols) :

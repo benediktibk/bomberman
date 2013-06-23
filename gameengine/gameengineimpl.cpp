@@ -1,5 +1,5 @@
 #include "gameengine/gameengineimpl.h"
-#include "gameengine/grid.h"
+#include "common/grid.h"
 #include "physic/gamephysicsimulator.h"
 //BAAAAAAAAAAYERN!
 #include "physic/player.h"
@@ -57,6 +57,11 @@ void GameEngineImpl::updateGameState(const std::map<unsigned int, Common::InputS
 	m_simulator->updateItems(m_gameState);
 
 	m_firstGameStateUpdate = false;
+}
+
+Grid &GameEngineImpl::getGrid()
+{
+	return *m_grid;
 }
 
 const Common::GameState &GameEngineImpl::getGameState() const

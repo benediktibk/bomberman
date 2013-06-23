@@ -33,7 +33,6 @@ protected:
 
 private:
 	Common::InputFetcher &m_inputFetcher;
-    GameEngine::ComputerEnemyInputFetcher m_computerEnemyInputFetcher;
 	Common::GameEngine &m_gameEngine;
 	Common::GraphicDrawer &m_graphicDrawer;
 	Threading::Mutex m_stoppedMutex;
@@ -44,7 +43,8 @@ private:
 	unsigned int m_framesPerSecond;
 	Threading::Mutex m_performanceInformationMutex;
 	double m_percentageOfTimeNotSleeping;
-	Threading::Signal m_start;  
+	Threading::Signal m_start;
+	GameEngine::ComputerEnemyInputFetcher m_computerEnemyInputFetcher;
 };
 }
 

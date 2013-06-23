@@ -1,5 +1,5 @@
-#ifndef GAMEENGINE_GRIDTEST_H
-#define GAMEENGINE_GRIDTEST_H
+#ifndef COMMON_GRIDTEST_H
+#define COMMON_GRIDTEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -7,10 +7,7 @@
 namespace Common
 {
 	class UniqueIdCreator;
-}
 
-namespace GameEngine
-{
 	class GridTest :
 			public CPPUNIT_NS::TestFixture
 	{

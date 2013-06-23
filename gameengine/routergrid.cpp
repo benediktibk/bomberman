@@ -1,5 +1,5 @@
 #include "gameengine/routergrid.h"
-#include "gameengine/grid.h"
+#include "common/grid.h"
 #include "common/gamestate.h"
 #include <algorithm>
 

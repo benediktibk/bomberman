@@ -1,8 +1,6 @@
 set(GAMEENGINE_SRC
 	gameengineimpl.cpp
-	grid.cpp
 	computerenemyinputfetcher.cpp
-	gridobserver.cpp
 	routergrid.cpp
 	routergridfield.cpp
 	notdangerousandfreedecider.cpp
@@ -15,10 +13,6 @@ set(GAMEENGINE_SRC
 
 set(GAMEENGINE_TEST_SRC
 	gameengineimpltest.cpp
-	gridtest.cpp
-	gridobservermock.cpp
-	gridobserverstub.cpp
-	gridobservertest.cpp
 	routergridtest.cpp
 	routergridfieldtest.cpp
 	notdangerousandfreedecidertest.cpp

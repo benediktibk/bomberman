@@ -9,11 +9,11 @@
 namespace Common
 {
 	class GameState;
+	class Grid;
 }
 
 namespace GameEngine
 {
-	class Grid;
 	class RouterGrid;
 
 	class Router
@@ -22,7 +22,7 @@ namespace GameEngine
 		typedef boost::multi_array<unsigned int, 2> DistanceMatrix;
 
 	public:
-		Router(Grid &grid, const Common::GameState &gameState, unsigned int playerID);
+		Router(Common::Grid &grid, const Common::GameState &gameState, unsigned int playerID);
 		~Router();
 
 		void updatePlayerFields();

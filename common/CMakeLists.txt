@@ -21,6 +21,8 @@ set(COMMON_SRC
 	allplayerinputfetcher.cpp
 	csvparser.cpp
 	powerupmaxbombrangestate.cpp
+	grid.cpp
+	gridobserver.cpp
 )
 
 set(COMMON_TEST_SRC
@@ -51,6 +53,10 @@ set(COMMON_TEST_SRC
 	comparetest.cpp
 	csvparsertest.cpp
 	powerupmaxbombrangestatetest.cpp
+	gridtest.cpp
+	gridobservermock.cpp
+	gridobserverstub.cpp
+	gridobservertest.cpp
 )
 
 add_library(common ${COMMON_SRC})

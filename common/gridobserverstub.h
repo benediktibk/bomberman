@@ -1,9 +1,9 @@
-#ifndef GAMEENGINE_GRIDOBSERVERSTUB_H
-#define GAMEENGINE_GRIDOBSERVERSTUB_H
+#ifndef COMMON_GRIDOBSERVERSTUB_H
+#define COMMON_GRIDOBSERVERSTUB_H
 
-#include "gameengine/gridobserver.h"
+#include "common/gridobserver.h"
 
-namespace GameEngine
+namespace Common
 {
 	class GridObserverStub :
 			public GridObserver

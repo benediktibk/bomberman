@@ -5,6 +5,7 @@
 #include "common/gamestate.h"
 #include "common/uniqueidcreator.h"
 #include "common/leveldefinition.h"
+#include "common/grid.h"
 
 namespace Common
 {
@@ -16,6 +17,7 @@ namespace Common
 
 		virtual void updateGameState(const std::map<unsigned int, InputState> &inputStates, double time);
 		virtual const GameState& getGameState() const;
+		virtual Grid &getGrid();
 		virtual std::vector<unsigned int> getAllPossiblePlayerIDs() const;
 
 		unsigned int getCallsToUpdateGameState() const;
@@ -24,6 +26,7 @@ namespace Common
 		LevelDefinition m_level;
 		UniqueIdCreator m_idCreator;
 		GameState m_state;
+		Grid m_grid;
 		unsigned int m_callsToUpdateGameState;
 	};
 }

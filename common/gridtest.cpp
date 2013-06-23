@@ -1,6 +1,6 @@
-#include "gameengine/gridtest.h"
-#include "gameengine/grid.h"
-#include "gameengine/gridobservermock.h"
+#include "common/gridtest.h"
+#include "common/grid.h"
+#include "common/gridobservermock.h"
 #include "common/point.h"
 #include "common/bombstate.h"
 #include "common/wallstate.h"
@@ -8,7 +8,6 @@
 #include "common/powerupstate.h"
 #include <algorithm>
 
-using namespace GameEngine;
 using namespace Common;
 using namespace std;
 

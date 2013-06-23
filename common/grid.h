@@ -1,5 +1,5 @@
-#ifndef GAMEENGINE_GRID_H
-#define GAMEENGINE_GRID_H
+#ifndef COMMON_GRID_H
+#define COMMON_GRID_H
 
 #include <vector>
 #include "common/point.h"
@@ -13,7 +13,7 @@ namespace Common
 	class PowerUpState;
 }
 
-namespace GameEngine
+namespace Common
 {
 	class GridObserver;
 
