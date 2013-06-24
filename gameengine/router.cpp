@@ -72,9 +72,7 @@ Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGrid
 	if (target.decide(startField))
 		return Route(0, PlayerState::PlayerDirectionNone);
 
-	for (unsigned int x = 0; x < width; ++x)
-		for (unsigned int y = 0; y < height; ++y)
-			distances[y][x] = 0;
+	initializeDistances(distances, width, height);
 
 	Route result(0, PlayerState::PlayerDirectionNone);
 	bool targetFound = false;
@@ -162,6 +160,13 @@ Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGrid
 	result = Route(distanceToTarget - 1, lastDirection);
 
 	return result;
+}
+
+void Router::initializeDistances(Router::DistanceMatrix &distances, unsigned int width, unsigned int height) const
+{
+	for (unsigned int x = 0; x < width; ++x)
+		for (unsigned int y = 0; y < height; ++y)
+			distances[y][x] = 0;
 }
 
 void Router::updateDistanceForPosition(

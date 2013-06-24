@@ -38,6 +38,7 @@ namespace GameEngine
 				const RouterGridFieldDecider &canWalkOn,
 				const RouterGridFieldDecider &target,
 				const Common::GridPoint &startPosition) const;
+		void initializeDistances(DistanceMatrix &distances, unsigned int width, unsigned int height) const;
 		void updateDistanceForPosition(
 				DistanceMatrix &distances, std::vector<Common::GridPoint> &lastFront, unsigned int actualDistance,
 				const Common::GridPoint &position, bool &targetFound,
