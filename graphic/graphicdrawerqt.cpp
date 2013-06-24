@@ -30,7 +30,9 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 	m_minimumViewDistanceInPixel(m_minimumViewDistance*m_pixelPerMeter),
 	m_responsibilityValid(false),
 	m_svgRenderer(new SvgRenderer(m_pixelPerMeter)),
-	m_backgroundBrush(0)
+	m_backgroundBrush(0),
+	m_currentScale(1),
+	m_scaleCompare(0.01)
 {
 	if (enableOpenGL)
 		m_view.setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
@@ -53,6 +55,7 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 
 GraphicDrawerQt::~GraphicDrawerQt()
 {
+	scale(1);
 	deleteWalls();
 	deleteBombs();
 	deletePowerUps();
@@ -95,7 +98,7 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 		updateViewPositionForPlayer(player);
 	}
 	else
-		m_view.fitInView(m_sceneRect);
+		fitWholeAreaInView();
 
 	drawWalls(gameState.getAllChangedWalls());
 	drawBombs(gameState.getAllChangedBombs());
@@ -256,6 +259,16 @@ void GraphicDrawerQt::drawExplodedBomb(const ExplodedBombState *explodedBombStat
 void GraphicDrawerQt::updateViewArea()
 {
 	m_view.setSceneRect(m_sceneRect);
+}
+
+void GraphicDrawerQt::fitWholeAreaInView()
+{
+	double scaleX = m_view.width()/m_sceneRect.width();
+	double scaleY = m_view.height()/m_sceneRect.height();
+	double scaleMax = min(scaleX, scaleY);
+
+	if (!m_scaleCompare.isFuzzyEqual(scaleMax, m_currentScale))
+		scale(scaleMax);
 }
 
 void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
@@ -479,4 +492,11 @@ QRectF GraphicDrawerQt::calculateSceneRect(const GameState &gameState)
 	qreal x = (-1)*m_pixelPerMeter;
 	qreal y = (-1)*static_cast<double>(heightInPixel);
 	return QRectF(x, y, widthWithBordersInPixel, heightWithBordersInPixel);
+}
+
+void GraphicDrawerQt::scale(double factor)
+{
+	double scaleBy = factor/m_currentScale;
+	m_view.scale(scaleBy, scaleBy);
+	m_currentScale = factor;
 }
