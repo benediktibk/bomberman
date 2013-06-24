@@ -34,8 +34,18 @@ namespace GameEngine
 		static void writeDebuggingInformationToFile(const DistanceMatrix &distances, unsigned int width, unsigned int height);
 
 	private:
-		Route getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target, const Common::GridPoint &startPosition) const;
-		void updateDistanceForPosition(DistanceMatrix &distances, std::vector<Common::GridPoint> &lastFront, unsigned int actualDistance, const Common::GridPoint &position, bool &targetFound, const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target) const;
+		Route getRoute(
+				const RouterGridFieldDecider &canWalkOn,
+				const RouterGridFieldDecider &target,
+				const Common::GridPoint &startPosition) const;
+		void updateDistanceForPosition(
+				DistanceMatrix &distances, std::vector<Common::GridPoint> &lastFront, unsigned int actualDistance,
+				const Common::GridPoint &position, bool &targetFound,
+				const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target) const;
+		void calculateDistances(
+				DistanceMatrix &distances, std::vector<Common::GridPoint> &lastFront,
+				const Common::GridPoint &startPosition, bool &targetFound,
+				const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target) const;
 
 	private:
 		RouterGrid *m_grid;
