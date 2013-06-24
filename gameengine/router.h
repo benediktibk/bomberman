@@ -48,6 +48,7 @@ namespace GameEngine
 				const Common::GridPoint &startPosition, bool &targetFound,
 				const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target) const;
 		Common::GridPoint findTargetPositionInLastFront(const std::vector<Common::GridPoint> &lastFront, const RouterGridFieldDecider &target) const;
+		Route findWayBackToSourceFromTarget(const DistanceMatrix &distances, const Common::GridPoint &targetPosition) const;
 
 	private:
 		RouterGrid *m_grid;

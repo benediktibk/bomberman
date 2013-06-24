@@ -74,79 +74,18 @@ Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGrid
 
 	initializeDistances(distances, width, height);
 
-	Route result(0, PlayerState::PlayerDirectionNone);
 	bool targetFound = false;
 	calculateDistances(distances, lastFront, startPosition, targetFound, canWalkOn, target);
 
 	if (!targetFound)
-		return result;
+		return Route(0, PlayerState::PlayerDirectionNone);;
 
 #ifndef NDEBUG
 	writeDebuggingInformationToFile(distances, m_grid->getWidth(), m_grid->getHeight());
 #endif
 
 	GridPoint targetPosition = findTargetPositionInLastFront(lastFront, target);
-	PlayerState::PlayerDirection lastDirection = PlayerState::PlayerDirectionNone;
-	unsigned int distanceToTarget = distances[targetPosition.getY()][targetPosition.getX()];
-	unsigned int lastDistance = distanceToTarget;
-	GridPoint position = targetPosition;
-
-	while (lastDistance != 1)
-	{
-		bool foundSmallerDistance = false;
-
-		if (position.getX() > 0)
-		{
-			unsigned int newDistance = distances[position.getY()][position.getX() - 1];
-			if (newDistance == lastDistance - 1)
-			{
-				foundSmallerDistance = true;
-				--lastDistance;
-				lastDirection = PlayerState::PlayerDirectionRight;
-				position.setX(position.getX() - 1);
-			}
-		}
-
-		if (position.getY() > 0 && !foundSmallerDistance)
-		{
-			unsigned int newDistance = distances[position.getY() - 1][position.getX()];
-			if (newDistance == lastDistance - 1)
-			{
-				foundSmallerDistance = true;
-				--lastDistance;
-				lastDirection = PlayerState::PlayerDirectionUp;
-				position.setY(position.getY() - 1);
-			}
-		}
-
-		if (position.getX() < m_grid->getWidth() - 1 && !foundSmallerDistance)
-		{
-			unsigned int newDistance = distances[position.getY()][position.getX() + 1];
-			if (newDistance == lastDistance - 1)
-			{
-				foundSmallerDistance = true;
-				--lastDistance;
-				lastDirection = PlayerState::PlayerDirectionLeft;
-				position.setX(position.getX() + 1);
-			}
-		}
-
-		if (position.getY() < m_grid->getHeight() - 1 && !foundSmallerDistance)
-		{
-			unsigned int newDistance = distances[position.getY() + 1][position.getX()];
-			if (newDistance == lastDistance - 1)
-			{
-				foundSmallerDistance = true;
-				--lastDistance;
-				lastDirection = PlayerState::PlayerDirectionDown;
-				position.setY(position.getY() + 1);
-			}
-		}
-	}
-
-	result = Route(distanceToTarget - 1, lastDirection);
-
-	return result;
+	return findWayBackToSourceFromTarget(distances, targetPosition);
 }
 
 void Router::initializeDistances(Router::DistanceMatrix &distances, unsigned int width, unsigned int height) const
@@ -244,4 +183,67 @@ GridPoint Router::findTargetPositionInLastFront(const std::vector<GridPoint> &la
 	assert(targetFound);
 
 	return targetPosition;
+}
+
+Route Router::findWayBackToSourceFromTarget(const Router::DistanceMatrix &distances, const GridPoint &targetPosition) const
+{
+	PlayerState::PlayerDirection lastDirection = PlayerState::PlayerDirectionNone;
+	unsigned int distanceToTarget = distances[targetPosition.getY()][targetPosition.getX()];
+	unsigned int lastDistance = distanceToTarget;
+	GridPoint position = targetPosition;
+
+	while (lastDistance != 1)
+	{
+		bool foundSmallerDistance = false;
+
+		if (position.getX() > 0)
+		{
+			unsigned int newDistance = distances[position.getY()][position.getX() - 1];
+			if (newDistance == lastDistance - 1)
+			{
+				foundSmallerDistance = true;
+				--lastDistance;
+				lastDirection = PlayerState::PlayerDirectionRight;
+				position.setX(position.getX() - 1);
+			}
+		}
+
+		if (position.getY() > 0 && !foundSmallerDistance)
+		{
+			unsigned int newDistance = distances[position.getY() - 1][position.getX()];
+			if (newDistance == lastDistance - 1)
+			{
+				foundSmallerDistance = true;
+				--lastDistance;
+				lastDirection = PlayerState::PlayerDirectionUp;
+				position.setY(position.getY() - 1);
+			}
+		}
+
+		if (position.getX() < m_grid->getWidth() - 1 && !foundSmallerDistance)
+		{
+			unsigned int newDistance = distances[position.getY()][position.getX() + 1];
+			if (newDistance == lastDistance - 1)
+			{
+				foundSmallerDistance = true;
+				--lastDistance;
+				lastDirection = PlayerState::PlayerDirectionLeft;
+				position.setX(position.getX() + 1);
+			}
+		}
+
+		if (position.getY() < m_grid->getHeight() - 1 && !foundSmallerDistance)
+		{
+			unsigned int newDistance = distances[position.getY() + 1][position.getX()];
+			if (newDistance == lastDistance - 1)
+			{
+				foundSmallerDistance = true;
+				--lastDistance;
+				lastDirection = PlayerState::PlayerDirectionDown;
+				position.setY(position.getY() + 1);
+			}
+		}
+	}
+
+	return Route(distanceToTarget - 1, lastDirection);
 }
