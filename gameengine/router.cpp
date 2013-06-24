@@ -13,11 +13,13 @@ using namespace std;
 using namespace boost;
 
 Router::Router(Grid &grid, const GameState &gameState, unsigned int playerID) :
-	m_grid(new RouterGrid(grid, gameState, playerID))
+	m_grid(new RouterGrid(grid, gameState, playerID)),
+	m_distances(new DistanceMatrix(extents[m_grid->getHeight()][m_grid->getWidth()]))
 { }
 
 Router::~Router()
 {
+	delete m_distances;
 	delete m_grid;
 }
 
@@ -26,25 +28,27 @@ void Router::updatePlayerFields()
 	m_grid->updatePlayerFlags();
 }
 
-Route Router::getRouteToPlayer(const Common::GridPoint &position) const
+Route Router::getRouteToPlayer(const Common::GridPoint &position)
 {
 	return getRoute(NotDangerousAndFreeDecider(), CoveredByPlayerDecider(), position);
 }
 
-Route Router::getRouteToNotDangerousField(const Common::GridPoint &position) const
+Route Router::getRouteToNotDangerousField(const Common::GridPoint &position)
 {
 	return getRoute(FreeDecider(), NotDangerousAndFreeDecider(), position);
 }
 
-Route Router::getRouteToLooseWall(const Common::GridPoint &position) const
+Route Router::getRouteToLooseWall(const Common::GridPoint &position)
 {
 	return getRoute(NotDangerousAndFreeDecider(), CoveredByLooseWallDecider(), position);
 }
 
-void Router::writeDebuggingInformationToFile(const Router::DistanceMatrix &distances, unsigned int width, unsigned int height)
+void Router::writeDebuggingInformationToFile() const
 {
 	string fileName = "/var/tmp/ultimatebomberman_distances.csv";
 	fstream file(fileName.c_str(), ios_base::out);
+	unsigned int height = m_grid->getHeight();
+	unsigned int width = m_grid->getWidth();
 
 	file << ";";
 	for (unsigned int x = 0; x < width; ++x)
@@ -55,74 +59,72 @@ void Router::writeDebuggingInformationToFile(const Router::DistanceMatrix &dista
 	{
 		file << y << ";";
 		for (unsigned int x = 0; x < width; ++x)
-			file << distances[y][x] << ";";
+			file << (*m_distances)[y][x] << ";";
 
 		file << endl;
 	}
 }
 
-Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target, const GridPoint &startPosition) const
+Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target, const GridPoint &startPosition)
 {
-	unsigned int height = m_grid->getHeight();
-	unsigned int width = m_grid->getWidth();
-	DistanceMatrix distances(extents[height][width]);
 	vector<GridPoint> lastFront;
 	const RouterGridField &startField = m_grid->getField(startPosition);
 
 	if (target.decide(startField))
 		return Route(0, PlayerState::PlayerDirectionNone);
 
-	initializeDistances(distances, width, height);
+	initializeDistances();
 
-	bool targetFound = false;
-	calculateDistances(distances, lastFront, startPosition, targetFound, canWalkOn, target);
+	bool targetFound;
+	calculateDistances(lastFront, startPosition, targetFound, canWalkOn, target);
 
 	if (!targetFound)
 		return Route(0, PlayerState::PlayerDirectionNone);;
 
 #ifndef NDEBUG
-	writeDebuggingInformationToFile(distances, m_grid->getWidth(), m_grid->getHeight());
+	writeDebuggingInformationToFile();
 #endif
 
 	GridPoint targetPosition = findTargetPositionInLastFront(lastFront, target);
-	return findWayBackToSourceFromTarget(distances, targetPosition);
+	return findWayBackToSourceFromTarget(targetPosition);
 }
 
-void Router::initializeDistances(Router::DistanceMatrix &distances, unsigned int width, unsigned int height) const
+void Router::initializeDistances()
 {
+	unsigned int height = m_grid->getHeight();
+	unsigned int width = m_grid->getWidth();
+
 	for (unsigned int x = 0; x < width; ++x)
 		for (unsigned int y = 0; y < height; ++y)
-			distances[y][x] = 0;
+			(*m_distances)[y][x] = 0;
 }
 
-void Router::updateDistanceForPosition(
-		Router::DistanceMatrix &distances, vector<GridPoint> &lastFront, unsigned int actualDistance,
+void Router::updateDistanceForPosition(vector<GridPoint> &lastFront, unsigned int actualDistance,
 		const GridPoint &position, bool &targetFound,
-		const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target) const
+		const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target)
 {
 	const RouterGridField &newField = m_grid->getField(position);
-	if (distances[position.getY()][position.getX()] == 0 && canWalkOn.decide(newField))
+	if ((*m_distances)[position.getY()][position.getX()] == 0 && canWalkOn.decide(newField))
 	{
-		distances[position.getY()][position.getX()] = actualDistance;
+		(*m_distances)[position.getY()][position.getX()] = actualDistance;
 		lastFront.push_back(position);
 	}
 
 	if (target.decide(newField))
 	{
-		distances[position.getY()][position.getX()] = actualDistance;
+		(*m_distances)[position.getY()][position.getX()] = actualDistance;
 		lastFront.push_back(position);
 		targetFound = true;
 	}
 }
 
-void Router::calculateDistances(
-		Router::DistanceMatrix &distances, std::vector<GridPoint> &lastFront,
+void Router::calculateDistances(std::vector<GridPoint> &lastFront,
 		const GridPoint &startPosition, bool &targetFound,
-		const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target) const
+		const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target)
 {
 	lastFront.clear();
 	lastFront.push_back(startPosition);
-	distances[startPosition.getY()][startPosition.getX()] = 1;
+	(*m_distances)[startPosition.getY()][startPosition.getX()] = 1;
 	unsigned int distance = 1;
 	targetFound = false;
 
@@ -140,25 +142,25 @@ void Router::calculateDistances(
 			if (x > 0)
 			{
 				GridPoint newPosition(x - 1, y);
-				updateDistanceForPosition(distances, newLastFront, distance, newPosition, targetFound, canWalkOn, target);
+				updateDistanceForPosition(newLastFront, distance, newPosition, targetFound, canWalkOn, target);
 			}
 
 			if (y > 0)
 			{
 				GridPoint newPosition(x, y - 1);
-				updateDistanceForPosition(distances, newLastFront, distance, newPosition, targetFound, canWalkOn, target);
+				updateDistanceForPosition(newLastFront, distance, newPosition, targetFound, canWalkOn, target);
 			}
 
 			if (x < m_grid->getWidth() - 1)
 			{
 				GridPoint newPosition(x + 1, y);
-				updateDistanceForPosition(distances, newLastFront, distance, newPosition, targetFound, canWalkOn, target);
+				updateDistanceForPosition(newLastFront, distance, newPosition, targetFound, canWalkOn, target);
 			}
 
 			if (y < m_grid->getHeight() - 1)
 			{
 				GridPoint newPosition(x, y + 1);
-				updateDistanceForPosition(distances, newLastFront, distance, newPosition, targetFound, canWalkOn, target);
+				updateDistanceForPosition(newLastFront, distance, newPosition, targetFound, canWalkOn, target);
 			}
 		}
 
@@ -166,7 +168,7 @@ void Router::calculateDistances(
 	} while (!targetFound && lastFront.size() > 0);
 }
 
-GridPoint Router::findTargetPositionInLastFront(const std::vector<GridPoint> &lastFront, const RouterGridFieldDecider &target) const
+GridPoint Router::findTargetPositionInLastFront(const vector<GridPoint> &lastFront, const RouterGridFieldDecider &target) const
 {
 	GridPoint targetPosition;
 	bool targetFound = false;
@@ -185,10 +187,10 @@ GridPoint Router::findTargetPositionInLastFront(const std::vector<GridPoint> &la
 	return targetPosition;
 }
 
-Route Router::findWayBackToSourceFromTarget(const Router::DistanceMatrix &distances, const GridPoint &targetPosition) const
+Route Router::findWayBackToSourceFromTarget(const GridPoint &targetPosition) const
 {
 	PlayerState::PlayerDirection lastDirection = PlayerState::PlayerDirectionNone;
-	unsigned int distanceToTarget = distances[targetPosition.getY()][targetPosition.getX()];
+	unsigned int distanceToTarget = (*m_distances)[targetPosition.getY()][targetPosition.getX()];
 	unsigned int lastDistance = distanceToTarget;
 	GridPoint position = targetPosition;
 
@@ -198,7 +200,7 @@ Route Router::findWayBackToSourceFromTarget(const Router::DistanceMatrix &distan
 
 		if (position.getX() > 0)
 		{
-			unsigned int newDistance = distances[position.getY()][position.getX() - 1];
+			unsigned int newDistance = (*m_distances)[position.getY()][position.getX() - 1];
 			if (newDistance == lastDistance - 1)
 			{
 				foundSmallerDistance = true;
@@ -210,7 +212,7 @@ Route Router::findWayBackToSourceFromTarget(const Router::DistanceMatrix &distan
 
 		if (position.getY() > 0 && !foundSmallerDistance)
 		{
-			unsigned int newDistance = distances[position.getY() - 1][position.getX()];
+			unsigned int newDistance = (*m_distances)[position.getY() - 1][position.getX()];
 			if (newDistance == lastDistance - 1)
 			{
 				foundSmallerDistance = true;
@@ -222,7 +224,7 @@ Route Router::findWayBackToSourceFromTarget(const Router::DistanceMatrix &distan
 
 		if (position.getX() < m_grid->getWidth() - 1 && !foundSmallerDistance)
 		{
-			unsigned int newDistance = distances[position.getY()][position.getX() + 1];
+			unsigned int newDistance = (*m_distances)[position.getY()][position.getX() + 1];
 			if (newDistance == lastDistance - 1)
 			{
 				foundSmallerDistance = true;
@@ -234,7 +236,7 @@ Route Router::findWayBackToSourceFromTarget(const Router::DistanceMatrix &distan
 
 		if (position.getY() < m_grid->getHeight() - 1 && !foundSmallerDistance)
 		{
-			unsigned int newDistance = distances[position.getY() + 1][position.getX()];
+			unsigned int newDistance = (*m_distances)[position.getY() + 1][position.getX()];
 			if (newDistance == lastDistance - 1)
 			{
 				foundSmallerDistance = true;

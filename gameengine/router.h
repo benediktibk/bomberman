@@ -26,32 +26,34 @@ namespace GameEngine
 		~Router();
 
 		void updatePlayerFields();
-		Route getRouteToPlayer(const Common::GridPoint &position) const;
-		Route getRouteToNotDangerousField(const Common::GridPoint &position) const;
-		Route getRouteToLooseWall(const Common::GridPoint &position) const;
+		Route getRouteToPlayer(const Common::GridPoint &position);
+		Route getRouteToNotDangerousField(const Common::GridPoint &position);
+		Route getRouteToLooseWall(const Common::GridPoint &position);
 
 	private:
-		static void writeDebuggingInformationToFile(const DistanceMatrix &distances, unsigned int width, unsigned int height);
+		void writeDebuggingInformationToFile() const;
 
 	private:
 		Route getRoute(
 				const RouterGridFieldDecider &canWalkOn,
 				const RouterGridFieldDecider &target,
-				const Common::GridPoint &startPosition) const;
-		void initializeDistances(DistanceMatrix &distances, unsigned int width, unsigned int height) const;
+				const Common::GridPoint &startPosition);
+		void initializeDistances();
 		void updateDistanceForPosition(
-				DistanceMatrix &distances, std::vector<Common::GridPoint> &lastFront, unsigned int actualDistance,
+				std::vector<Common::GridPoint> &lastFront, unsigned int actualDistance,
 				const Common::GridPoint &position, bool &targetFound,
-				const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target) const;
+				const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target);
 		void calculateDistances(
-				DistanceMatrix &distances, std::vector<Common::GridPoint> &lastFront,
+				std::vector<Common::GridPoint> &lastFront,
 				const Common::GridPoint &startPosition, bool &targetFound,
-				const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target) const;
-		Common::GridPoint findTargetPositionInLastFront(const std::vector<Common::GridPoint> &lastFront, const RouterGridFieldDecider &target) const;
-		Route findWayBackToSourceFromTarget(const DistanceMatrix &distances, const Common::GridPoint &targetPosition) const;
+				const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target);
+		Common::GridPoint findTargetPositionInLastFront(
+				const std::vector<Common::GridPoint> &lastFront, const RouterGridFieldDecider &target) const;
+		Route findWayBackToSourceFromTarget(const Common::GridPoint &targetPosition) const;
 
 	private:
 		RouterGrid *m_grid;
+		DistanceMatrix *m_distances;
 	};
 }
 
