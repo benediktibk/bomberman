@@ -35,6 +35,7 @@ namespace GameEngine
 
 	private:
 		Route getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target, const Common::GridPoint &startPosition) const;
+		void updateDistanceForPosition(DistanceMatrix &distances, std::vector<Common::GridPoint> &lastFront, unsigned int actualDistance, const Common::GridPoint &position, bool &targetFound, const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target) const;
 
 	private:
 		RouterGrid *m_grid;

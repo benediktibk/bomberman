@@ -96,73 +96,25 @@ Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGrid
 			if (x > 0)
 			{
 				GridPoint newPosition(x - 1, y);
-				const RouterGridField &newField = m_grid->getField(newPosition);
-				if (distances[newPosition.getY()][newPosition.getX()] == 0 && canWalkOn.decide(newField))
-				{
-					distances[newPosition.getY()][newPosition.getX()] = distance;
-					newLastFront.push_back(newPosition);
-				}
-
-				if (target.decide(newField))
-				{
-					distances[newPosition.getY()][newPosition.getX()] = distance;
-					newLastFront.push_back(newPosition);
-					targetFound = true;
-				}
+				updateDistanceForPosition(distances, newLastFront, distance, newPosition, targetFound, canWalkOn, target);
 			}
 
 			if (y > 0)
 			{
 				GridPoint newPosition(x, y - 1);
-				const RouterGridField &newField = m_grid->getField(newPosition);
-				if (distances[newPosition.getY()][newPosition.getX()] == 0 && canWalkOn.decide(newField))
-				{
-					distances[newPosition.getY()][newPosition.getX()] = distance;
-					newLastFront.push_back(newPosition);
-				}
-
-				if (target.decide(newField))
-				{
-					distances[newPosition.getY()][newPosition.getX()] = distance;
-					newLastFront.push_back(newPosition);
-					targetFound = true;
-				}
+				updateDistanceForPosition(distances, newLastFront, distance, newPosition, targetFound, canWalkOn, target);
 			}
 
 			if (x < m_grid->getWidth() - 1)
 			{
 				GridPoint newPosition(x + 1, y);
-				const RouterGridField &newField = m_grid->getField(newPosition);
-				if (distances[newPosition.getY()][newPosition.getX()] == 0 && canWalkOn.decide(newField))
-				{
-					distances[newPosition.getY()][newPosition.getX()] = distance;
-					newLastFront.push_back(newPosition);
-				}
-
-				if (target.decide(newField))
-				{
-					distances[newPosition.getY()][newPosition.getX()] = distance;
-					newLastFront.push_back(newPosition);
-					targetFound = true;
-				}
+				updateDistanceForPosition(distances, newLastFront, distance, newPosition, targetFound, canWalkOn, target);
 			}
 
 			if (y < m_grid->getHeight() - 1)
 			{
 				GridPoint newPosition(x, y + 1);
-				const RouterGridField &newField = m_grid->getField(newPosition);
-				if (distances[newPosition.getY()][newPosition.getX()] == 0 && canWalkOn.decide(newField))
-				{
-					distances[newPosition.getY()][newPosition.getX()] = distance;
-					newLastFront.push_back(newPosition);
-				}
-
-				if (target.decide(newField))
-				{
-					distances[newPosition.getY()][newPosition.getX()] = distance;
-					newLastFront.push_back(newPosition);
-					targetFound = true;
-				}
+				updateDistanceForPosition(distances, newLastFront, distance, newPosition, targetFound, canWalkOn, target);
 			}
 		}
 
@@ -251,4 +203,21 @@ Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGrid
 	result = Route(distance - 1, lastDirection);
 
 	return result;
+}
+
+void Router::updateDistanceForPosition(Router::DistanceMatrix &distances, vector<GridPoint> &lastFront, unsigned int actualDistance, const GridPoint &position, bool &targetFound, const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target) const
+{
+	const RouterGridField &newField = m_grid->getField(position);
+	if (distances[position.getY()][position.getX()] == 0 && canWalkOn.decide(newField))
+	{
+		distances[position.getY()][position.getX()] = actualDistance;
+		lastFront.push_back(position);
+	}
+
+	if (target.decide(newField))
+	{
+		distances[position.getY()][position.getX()] = actualDistance;
+		lastFront.push_back(position);
+		targetFound = true;
+	}
 }
