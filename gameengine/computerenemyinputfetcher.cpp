@@ -50,6 +50,11 @@ InputState ComputerEnemyInputFetcher::getInputState()
 			m_inputState.setSpaceKeyPressed();
 			return m_inputState;
 		}
+		else if (routeToPlayer.getDistance() == 1)
+		{
+			setInputStateIntoDirection(PlayerState::PlayerDirectionNone);
+			return m_inputState;
+		}
 		else
 		{
 			setInputStateIntoDirection(routeToPlayer.getDirection());
@@ -71,6 +76,11 @@ InputState ComputerEnemyInputFetcher::getInputState()
 			m_inputState.setSpaceKeyPressed();
 			return m_inputState;
 		}
+		else if (routeToLooseWall.getDistance() == 1)
+		{
+			setInputStateIntoDirection(PlayerState::PlayerDirectionNone);
+			return m_inputState;
+		}
 		else
 		{
 			setInputStateIntoDirection(routeToLooseWall.getDirection());
@@ -78,6 +88,7 @@ InputState ComputerEnemyInputFetcher::getInputState()
 		}
 	}
 
+	setInputStateIntoDirection(PlayerState::PlayerDirectionNone);
 	return m_inputState;
 }
 
