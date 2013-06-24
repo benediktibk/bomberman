@@ -10,6 +10,7 @@ namespace Common
 	class GameState;
 	class UniqueIdCreator;
 	class PlayerState;
+	class LevelDefinition;
 }
 
 namespace GameEngine
@@ -22,6 +23,8 @@ namespace GameEngine
 		CPPUNIT_TEST_SUITE(ComputerEnemyInputFetcherTest);
 		CPPUNIT_TEST(getInputState_movingToFieldRightBesidePlayerButNotYetAtPositionToPlaceBomb_spaceKeyNotPressed);
 		CPPUNIT_TEST(getInputState_movingToFieldRightBesidePlayerCloseEnoughToPlaceBomb_spaceKeyPressed);
+		CPPUNIT_TEST(getInputState_movingToFieldRightBesideLooseFieldButNotYetAtPositionToPlaceBomb_spaceKeyNotPressed);
+		CPPUNIT_TEST(getInputState_movingToFieldRightBesideLooseFieldCloseEnoughToPlaceBomb_spaceKeyPressed);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -31,6 +34,11 @@ namespace GameEngine
 	public:
 		void getInputState_movingToFieldRightBesidePlayerButNotYetAtPositionToPlaceBomb_spaceKeyNotPressed();
 		void getInputState_movingToFieldRightBesidePlayerCloseEnoughToPlaceBomb_spaceKeyPressed();
+		void getInputState_movingToFieldRightBesideLooseFieldButNotYetAtPositionToPlaceBomb_spaceKeyNotPressed();
+		void getInputState_movingToFieldRightBesideLooseFieldCloseEnoughToPlaceBomb_spaceKeyPressed();
+
+	private:
+		void createInputFetcher(const Common::LevelDefinition &level);
 
 	private:
 		Common::UniqueIdCreator *m_playerIdCreator;
