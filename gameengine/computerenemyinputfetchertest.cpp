@@ -52,7 +52,7 @@ void ComputerEnemyInputFetcherTest::getInputState_movingToFieldRightBesideLooseF
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 1);
 	createInputFetcher(level);
 	m_ownPlayer->setPosition(Point(1.7, 1));
-	m_ownPlayer->setDirectionLeft();
+	m_ownPlayer->setDirectionRight();
 
 	InputState input = m_inputFetcher->getInputState();
 
