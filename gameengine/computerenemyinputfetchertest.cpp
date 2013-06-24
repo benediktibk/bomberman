@@ -7,6 +7,7 @@
 
 using namespace GameEngine;
 using namespace Common;
+using namespace std;
 
 void ComputerEnemyInputFetcherTest::getInputState_movingToFieldRightBesidePlayerButNotYetAtPositionToPlaceBomb_spaceKeyNotPressed()
 {
@@ -128,6 +129,9 @@ void ComputerEnemyInputFetcherTest::createInputFetcher(const LevelDefinition &le
 	m_ownPlayer = &(m_gameState->getFirstPlayerState());
 	if (level.getPlayerStartPositionCount() > 1)
 		m_otherPlayer = &(m_gameState->getSecondPlayerState());
+	vector<const WallState*> walls = m_gameState->getAllChangedWalls();
+	for (vector<const WallState*>::const_iterator i = walls.begin(); i != walls.end(); ++i)
+		m_grid->addWallAtPlace(**i);
 	m_inputFetcher = new ComputerEnemyInputFetcher(*m_grid, *m_gameState, m_ownPlayer->getId());
 }
 

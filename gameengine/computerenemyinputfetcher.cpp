@@ -60,14 +60,20 @@ InputState ComputerEnemyInputFetcher::getInputState()
 	Route routeToLooseWall = m_router->getRouteToLooseWall(playerPosition);
 	if (routeToLooseWall.getDirection() != PlayerState::PlayerDirectionNone)
 	{
-		if (routeToLooseWall.getDistance() > 1)
+		Point realPosition = player.getPosition();
+		Point positionToTargetDifference = realPosition - playerPosition.getPointPosition();
+		bool closeEnoughForBombPlacement =	routeToLooseWall.getDistance() <= 1 &&
+											abs(positionToTargetDifference.getX()) < 0.5 &&
+											abs(positionToTargetDifference.getY()) < 0.5;
+
+		if (closeEnoughForBombPlacement)
 		{
-			setInputStateIntoDirection(routeToLooseWall.getDirection());
+			m_inputState.setSpaceKeyPressed();
 			return m_inputState;
 		}
 		else
 		{
-			m_inputState.setSpaceKeyPressed();
+			setInputStateIntoDirection(routeToLooseWall.getDirection());
 			return m_inputState;
 		}
 	}
