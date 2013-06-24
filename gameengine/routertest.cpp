@@ -338,6 +338,31 @@ void RouterTest::getRouteToLooseWall_looseWallTwoFieldsBelowOfPlayer_directionIs
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionDown, route.getDirection());
 }
 
+void RouterTest::getRouteToLooseWall_routeNeedsEveryDirectionToGetThroughTheMaze_distanceIsCorrect()
+{
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 5);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 6, 5);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 8, 5);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 7, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 8, 6);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 7, 7);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 6, 7);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 5, 7);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 4, 6);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 4, 5);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 5, 3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 6, 2);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 3);
+	createRouter(level);
+	m_router->updatePlayerFields();
+
+	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5));
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)8, route.getDistance());
+}
+
 void RouterTest::setUp()
 {
 	m_playerIdCreator = new UniqueIdCreator();
