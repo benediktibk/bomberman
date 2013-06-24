@@ -379,3 +379,4 @@ common/gridtest.h
 gameengine/computerenemyinputfetchertest.h
 gameengine/computerenemyinputfetchertest.cpp
 resources/levels/classic_middle.csv
+resources/levels/no_place_to_hide.csv

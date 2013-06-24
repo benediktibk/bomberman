@@ -35,6 +35,7 @@ set(LEVELS
 	neighbourship.csv
 	levellist.csv
 	classic_middle.csv
+	no_place_to_hide.csv
 )
 
 set(TESTFILES
