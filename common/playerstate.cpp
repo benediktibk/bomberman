@@ -16,7 +16,8 @@ PlayerState::PlayerState(UniqueIdCreator &creator) :
 	m_height(1),
 	m_playerId(creator.getId()),
 	m_creatorId(creator),
-	m_destructionRangeOfNewBombs(1)
+	m_destructionRangeOfNewBombs(1),
+	m_placedBombAlready(false)
 {}
 
 PlayerState::~PlayerState()
