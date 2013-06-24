@@ -286,6 +286,58 @@ void RouterTest::getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_directionIs
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionUp, route.getDirection());
 }
 
+void RouterTest::getRouteToLooseWall_looseWallTwoFieldsLeftOfPlayer_distanceIs2()
+{
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 5);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 5, 5);
+	createRouter(level);
+	m_router->updatePlayerFields();
+
+	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5));
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, route.getDistance());
+}
+
+void RouterTest::getRouteToLooseWall_looseWallTwoFieldsLeftOfPlayer_directionIsLeft()
+{
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 5);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 5, 5);
+	createRouter(level);
+	m_router->updatePlayerFields();
+
+	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5));
+
+	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionLeft, route.getDirection());
+}
+
+void RouterTest::getRouteToLooseWall_looseWallTwoFieldsBelowOfPlayer_distanceIs2()
+{
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 5);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 3);
+	createRouter(level);
+	m_router->updatePlayerFields();
+
+	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5));
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, route.getDistance());
+}
+
+void RouterTest::getRouteToLooseWall_looseWallTwoFieldsBelowOfPlayer_directionIsDown()
+{
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 5);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 7, 3);
+	createRouter(level);
+	m_router->updatePlayerFields();
+
+	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5));
+
+	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionDown, route.getDirection());
+}
+
 void RouterTest::setUp()
 {
 	m_playerIdCreator = new UniqueIdCreator();

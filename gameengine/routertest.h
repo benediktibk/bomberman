@@ -39,6 +39,10 @@ namespace GameEngine
 		CPPUNIT_TEST(getRouteToNotDangerousField_playerPositionNotDangerous_distanceIs0);
 		CPPUNIT_TEST(getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_distanceIs3);
 		CPPUNIT_TEST(getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_directionIsUp);
+		CPPUNIT_TEST(getRouteToLooseWall_looseWallTwoFieldsLeftOfPlayer_distanceIs2);
+		CPPUNIT_TEST(getRouteToLooseWall_looseWallTwoFieldsLeftOfPlayer_directionIsLeft);
+		CPPUNIT_TEST(getRouteToLooseWall_looseWallTwoFieldsBelowOfPlayer_distanceIs2);
+		CPPUNIT_TEST(getRouteToLooseWall_looseWallTwoFieldsBelowOfPlayer_directionIsDown);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -64,6 +68,10 @@ namespace GameEngine
 		void getRouteToNotDangerousField_playerPositionNotDangerous_distanceIs0();
 		void getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_distanceIs3();
 		void getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_directionIsUp();
+		void getRouteToLooseWall_looseWallTwoFieldsLeftOfPlayer_distanceIs2();
+		void getRouteToLooseWall_looseWallTwoFieldsLeftOfPlayer_directionIsLeft();
+		void getRouteToLooseWall_looseWallTwoFieldsBelowOfPlayer_distanceIs2();
+		void getRouteToLooseWall_looseWallTwoFieldsBelowOfPlayer_directionIsDown();
 
 	private:
 		void createRouter(const Common::LevelDefinition &level);
