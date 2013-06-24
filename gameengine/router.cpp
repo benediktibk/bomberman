@@ -67,23 +67,21 @@ void Router::writeDebuggingInformationToFile() const
 
 Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target, const GridPoint &startPosition)
 {
-	vector<GridPoint> lastFront;
-	const RouterGridField &startField = m_grid->getField(startPosition);
-
-	if (target.decide(startField))
+	if (target.decide(m_grid->getField(startPosition)))
 		return Route(0, PlayerState::PlayerDirectionNone);
 
-	initializeDistances();
-
 	bool targetFound;
-	calculateDistances(lastFront, startPosition, targetFound, canWalkOn, target);
+	vector<GridPoint> lastFront;
 
-	if (!targetFound)
-		return Route(0, PlayerState::PlayerDirectionNone);;
+	initializeDistances();
+	calculateDistances(lastFront, startPosition, targetFound, canWalkOn, target);
 
 #ifndef NDEBUG
 	writeDebuggingInformationToFile();
 #endif
+
+	if (!targetFound)
+		return Route(0, PlayerState::PlayerDirectionNone);
 
 	GridPoint targetPosition = findTargetPositionInLastFront(lastFront, target);
 	return findWayBackToSourceFromTarget(targetPosition);
