@@ -378,3 +378,4 @@ common/gridtest.cpp
 common/gridtest.h
 gameengine/computerenemyinputfetchertest.h
 gameengine/computerenemyinputfetchertest.cpp
+resources/levels/classic_middle.csv

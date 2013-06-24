@@ -34,6 +34,7 @@ set(LEVELS
 	defaultlevel.csv
 	neighbourship.csv
 	levellist.csv
+	classic_middle.csv
 )
 
 set(TESTFILES
