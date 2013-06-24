@@ -175,9 +175,9 @@ Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGrid
 	GridPoint targetPosition;
 	targetFound = false;
 
-//#ifdef NDEBUG
+#ifndef NDEBUG
 	writeDebuggingInformationToFile(distances, m_grid->getWidth(), m_grid->getHeight());
-//#endif
+#endif
 
 	for (vector<GridPoint>::const_iterator i = lastFront.begin(); i != lastFront.end() && !targetFound; ++i)
 	{
@@ -190,7 +190,7 @@ Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGrid
 
 	assert(targetFound);
 
-	PlayerState::PlayerDirection lastDirection;
+	PlayerState::PlayerDirection lastDirection = PlayerState::PlayerDirectionNone;
 	distance = distances[targetPosition.getY()][targetPosition.getX()];
 	unsigned int lastDistance = distance;
 	GridPoint position = targetPosition;

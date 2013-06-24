@@ -87,7 +87,7 @@ double PlayerState::getSpeed() const
 
 double PlayerState::getSpeedIntoX() const
 {
-	double result;
+	double result = 0;
 
 	switch(m_direction)
 	{
@@ -111,7 +111,7 @@ double PlayerState::getSpeedIntoX() const
 
 double PlayerState::getSpeedIntoY() const
 {
-	double result;
+	double result = 0;
 
 	switch(m_direction)
 	{
@@ -191,7 +191,7 @@ unsigned int PlayerState::getRemainingBombs() const
 
 bool PlayerState::canPlayerPlaceBomb() const
 {
-    if((getRemainingBombs() == 0)||(m_placedBombAlready == true))
+	if((getRemainingBombs() == 0)||(m_placedBombAlready == true))
 		return false;
 	else
 		return true;
@@ -241,5 +241,5 @@ void PlayerState::increaseMaximumBombRange(unsigned int number)
 
 void PlayerState::setPlacedBombAlready(bool value)
 {
-    m_placedBombAlready = value;
+	m_placedBombAlready = value;
 }
