@@ -81,24 +81,11 @@ Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGrid
 	if (!targetFound)
 		return result;
 
-	GridPoint targetPosition;
-	targetFound = false;
-
 #ifndef NDEBUG
 	writeDebuggingInformationToFile(distances, m_grid->getWidth(), m_grid->getHeight());
 #endif
 
-	for (vector<GridPoint>::const_iterator i = lastFront.begin(); i != lastFront.end() && !targetFound; ++i)
-	{
-		targetPosition = *i;
-		const RouterGridField &targetField = m_grid->getField(targetPosition);
-
-		if (target.decide(targetField))
-			targetFound = true;
-	}
-
-	assert(targetFound);
-
+	GridPoint targetPosition = findTargetPositionInLastFront(lastFront, target);
 	PlayerState::PlayerDirection lastDirection = PlayerState::PlayerDirectionNone;
 	unsigned int distanceToTarget = distances[targetPosition.getY()][targetPosition.getX()];
 	unsigned int lastDistance = distanceToTarget;
@@ -238,4 +225,23 @@ void Router::calculateDistances(
 
 		lastFront = newLastFront;
 	} while (!targetFound && lastFront.size() > 0);
+}
+
+GridPoint Router::findTargetPositionInLastFront(const std::vector<GridPoint> &lastFront, const RouterGridFieldDecider &target) const
+{
+	GridPoint targetPosition;
+	bool targetFound = false;
+
+	for (vector<GridPoint>::const_iterator i = lastFront.begin(); i != lastFront.end() && !targetFound; ++i)
+	{
+		targetPosition = *i;
+		const RouterGridField &targetField = m_grid->getField(targetPosition);
+
+		if (target.decide(targetField))
+			targetFound = true;
+	}
+
+	assert(targetFound);
+
+	return targetPosition;
 }
