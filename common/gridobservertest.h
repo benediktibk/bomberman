@@ -1,10 +1,10 @@
-#ifndef GAMEENGINE_GRIDOBSERVERTEST_H
-#define GAMEENGINE_GRIDOBSERVERTEST_H
+#ifndef COMMON_GRIDOBSERVERTEST_H
+#define COMMON_GRIDOBSERVERTEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
 
-namespace GameEngine
+namespace Common
 {
 	class Grid;
 

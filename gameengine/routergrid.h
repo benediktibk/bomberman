@@ -2,7 +2,7 @@
 #define GAMEENGINE_ROUTERGRID_H
 
 #include <boost/multi_array.hpp>
-#include "gameengine/gridobserver.h"
+#include "common/gridobserver.h"
 #include "gameengine/routergridfield.h"
 
 namespace Common
@@ -13,13 +13,13 @@ namespace Common
 namespace GameEngine
 {
 	class RouterGrid :
-			public GridObserver
+			public Common::GridObserver
 	{
 	private:
 		typedef boost::multi_array<RouterGridField, 2> GridFieldMatrix;
 
 	public:
-		RouterGrid(Grid &grid, const Common::GameState &gameState);
+		RouterGrid(Common::Grid &grid, const Common::GameState &gameState, unsigned int playerID);
 
 		virtual void fieldHasChanged(const Common::GridPoint &position);
 		unsigned int getWidth() const;
@@ -37,11 +37,12 @@ namespace GameEngine
 		std::vector<Common::GridPoint> getAllPlayerFields() const;
 
 	private:
-		const Grid &m_grid;
+		const Common::Grid &m_grid;
 		const Common::GameState &m_gameState;
 		unsigned int m_width;
 		unsigned int m_height;
 		GridFieldMatrix m_fields;
+		unsigned int m_ownPlayerId;
 	};
 }
 

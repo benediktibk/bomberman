@@ -6,8 +6,8 @@ using namespace Common;
 using namespace std;
 
 GameState::GameState(const LevelDefinition &level, unsigned int playerCount, UniqueIdCreator &playerIDCreator, UniqueIdCreator &wallIDCreator) :
-	m_height(level.getLevelHeight()),
-	m_width(level.getLevelWidth())
+	m_height(level.getHeight()),
+	m_width(level.getWidth())
 {
 	assert(playerCount > 0);
 	assert(playerCount <= level.getPlayerStartPositionCount());
@@ -20,9 +20,9 @@ GameState::GameState(const LevelDefinition &level, unsigned int playerCount, Uni
 	}
 
 	unsigned int playerPositionCount = 0;
-	for(unsigned int x = 0; x < level.getLevelWidth(); x++)
+	for(unsigned int x = 0; x < level.getWidth(); x++)
 	{
-		for(unsigned int y = 0; y < level.getLevelHeight(); y++)
+		for(unsigned int y = 0; y < level.getHeight(); y++)
 		{
 			if(level.getObjectTypeAtPosition(x, y) == LevelDefinition::ObjectTypeSolidWall)
 			{
@@ -119,11 +119,13 @@ const PlayerState &GameState::getFirstPlayerState() const
 
 PlayerState &GameState::getSecondPlayerState()
 {
+	assert(m_players.size() > 1);
 	return *(m_players[1]);
 }
 
 const PlayerState &GameState::getSecondPlayerState() const
 {
+	assert(m_players.size() > 1);
 	return *(m_players[1]);
 }
 

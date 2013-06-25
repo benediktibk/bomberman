@@ -8,12 +8,11 @@ namespace Common
 {
 	class UniqueIdCreator;
 	class GameState;
+	class Grid;
 }
 
 namespace GameEngine
 {
-	class Grid;
-
 	class RouterGridTest :
 			public CPPUNIT_NS::TestFixture
 	{
@@ -59,6 +58,7 @@ namespace GameEngine
 		CPPUNIT_TEST(fieldHasChanged_looseWallAt8And6RemovedAndBombWithRange10At7And6_9And6IsDangerous);
 		CPPUNIT_TEST(updatePlayerFlags_playerMovementFrom4And5To4And6_noPlayerAt4And5);
 		CPPUNIT_TEST(updatePlayerFlags_playerMovementFrom4And5To4And6_playerAt4And6);
+		CPPUNIT_TEST(updatePlayerFlags_ownPlayerAt5And6_noPlayerAt5And6);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -107,9 +107,14 @@ namespace GameEngine
 		void fieldHasChanged_looseWallAt8And6RemovedAndBombWithRange10At7And6_9And6IsDangerous();
 		void updatePlayerFlags_playerMovementFrom4And5To4And6_noPlayerAt4And5();
 		void updatePlayerFlags_playerMovementFrom4And5To4And6_playerAt4And6();
+		void updatePlayerFlags_ownPlayerAt5And6_noPlayerAt5And6();
 
 	private:
-		Grid *m_grid;
+		unsigned int getFirstPlayerId() const;
+		unsigned int getSecondPlayerId() const;
+
+	private:
+		Common::Grid *m_grid;
 		Common::GameState *m_gameState;
 		Common::UniqueIdCreator *m_bombIdCreator;
 		Common::UniqueIdCreator *m_wallIdCreator;

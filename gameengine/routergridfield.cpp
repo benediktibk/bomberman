@@ -66,7 +66,7 @@ void RouterGridField::setPlayer(bool value)
 
 void RouterGridField::setDangerous(bool value)
 {
-	assert(!(m_bomb && !value) && !m_solidWall);
+	assert(!(m_bomb && !value));
 	m_dangerous = value;
 }
 

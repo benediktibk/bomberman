@@ -15,14 +15,14 @@ void LevelDefinitionTest::getLevelHeight_resultIs50()
 {
 	LevelDefinition level;
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)50, level.getLevelHeight());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)50, level.getHeight());
 }
 
 void LevelDefinitionTest::getLevelWidth_resultIs50()
 {
 	LevelDefinition level;
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)50, level.getLevelWidth());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)50, level.getWidth());
 }
 
 void LevelDefinitionTest::setObjectTypeAtPosition_SolidWallAt3And5_resultIsObjectTypeSolidWall()

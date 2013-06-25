@@ -1,5 +1,5 @@
 #include "gameengine/gameengineimpl.h"
-#include "gameengine/grid.h"
+#include "common/grid.h"
 #include "physic/gamephysicsimulator.h"
 //BAAAAAAAAAAYERN!
 #include "physic/player.h"
@@ -19,11 +19,11 @@ using namespace std;
 
 GameEngineImpl::GameEngineImpl(const LevelDefinition &level, unsigned int playerCount) :
 	m_gameState(level, playerCount, m_playerIds, m_wallids),
-	m_grid(new Grid(level.getLevelHeight(), level.getLevelWidth())),
+	m_grid(new Grid(level.getHeight(), level.getWidth())),
 	m_firstGameStateUpdate(true),
 	m_simulator(new GamePhysicSimulator(level)),
-	m_levelWidth(level.getLevelWidth()),
-	m_levelHeight(level.getLevelHeight())
+	m_levelWidth(level.getWidth()),
+	m_levelHeight(level.getHeight())
 {
 	vector<const WallState*> walls = m_gameState.getAllChangedWalls();
 
@@ -57,6 +57,11 @@ void GameEngineImpl::updateGameState(const std::map<unsigned int, Common::InputS
 	m_simulator->updateItems(m_gameState);
 
 	m_firstGameStateUpdate = false;
+}
+
+Grid &GameEngineImpl::getGrid()
+{
+	return *m_grid;
 }
 
 const Common::GameState &GameEngineImpl::getGameState() const
@@ -152,14 +157,13 @@ void GameEngineImpl::setPlayerSpeedIfMoreThanOneDirectionIsSelected(PlayerState 
 	assert(input.isMoreThanOneMovementButtonPressed());
 	assert(input.isMovementButtonPressed());
 
-	if (input.isUpKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionUp)
-		player.setMoving();
-	else if (input.isDownKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionDown)
-		player.setMoving();
-	else if (input.isLeftKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionLeft)
-		player.setMoving();
-	else if (input.isRightKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionRight)
-		player.setMoving();
+	if (	(input.isUpKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionUp) ||
+			(input.isDownKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionDown) ||
+			(input.isLeftKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionLeft) ||
+			(input.isRightKeyPressed() && player.getDirection() == PlayerState::PlayerDirectionRight))
+		return;
+
+	setPlayerSpeedIntoIntoDirection(player, input);
 }
 
 void GameEngineImpl::setPlayerSpeedIntoOnlySelectedDirection(PlayerState &player, const InputState &input)
@@ -167,26 +171,19 @@ void GameEngineImpl::setPlayerSpeedIntoOnlySelectedDirection(PlayerState &player
 	assert(!input.isMoreThanOneMovementButtonPressed());
 	assert(input.isMovementButtonPressed());
 
+	setPlayerSpeedIntoIntoDirection(player, input);
+}
+
+void GameEngineImpl::setPlayerSpeedIntoIntoDirection(PlayerState &player, const InputState &input)
+{
 	if (input.isUpKeyPressed())
-	{
 		player.setDirectionUp();
-		player.setMoving();
-	}
 	else if (input.isDownKeyPressed())
-	{
 		player.setDirectionDown();
-		player.setMoving();
-	}
 	else if (input.isLeftKeyPressed())
-	{
 		player.setDirectionLeft();
-		player.setMoving();
-	}
 	else if (input.isRightKeyPressed())
-	{
 		player.setDirectionRight();
-		player.setMoving();
-	}
 }
 
 void GameEngineImpl::setPlayerSpeedToNull(Common::PlayerState &player)
@@ -339,10 +336,16 @@ void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &i
 		BombState *bombPlaced = new BombState(m_bombids, player.getId());
 		bombPlaced->setPosition(player.getCenterPosition());
 		bombPlaced->setDestructionRange(player.getDestructionRangeOfNewBombs());
+		m_gameState.addBomb(bombPlaced);
 		m_grid->addBombAtPlace(*bombPlaced);
 		player.countBomb();
 		player.doNotCollideWith(bombPlaced);
-		m_gameState.addBomb(bombPlaced);
+		player.setPlacedBombAlready(true);
+	}
+
+	if (!input.isSpaceKeyPressed() && m_grid->isPlaceEmpty(player.getCenterPosition()))
+	{
+		player.setPlacedBombAlready(false);
 	}
 }
 

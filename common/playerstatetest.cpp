@@ -210,25 +210,6 @@ void PlayerStateTest::constructor_idCreator_isNotMoving()
 	CPPUNIT_ASSERT(!player.isMoving());
 }
 
-void PlayerStateTest::setMoving_empty_isMoving()
-{
-	PlayerState player(*m_playerIDCreator);
-
-	player.setMoving();
-
-	CPPUNIT_ASSERT(player.isMoving());
-}
-
-void PlayerStateTest::setNotMoving_empty_isNotMoving()
-{
-	PlayerState player(*m_playerIDCreator);
-	player.setMoving();
-
-	player.setNotMoving();
-
-	CPPUNIT_ASSERT(!player.isMoving());
-}
-
 void PlayerStateTest::constructor_idCreator_widthIs1()
 {
 	PlayerState player(*m_playerIDCreator);
@@ -254,7 +235,6 @@ void PlayerStateTest::getCenterPosition_positionIs3And4_35And45()
 void PlayerStateTest::getSpeedIntoX_movingAndDirectionUp_0()
 {
 	PlayerState player(*m_playerIDCreator);
-	player.setMoving();
 	player.setDirectionUp();
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getSpeedIntoX(), 0.0001);
@@ -263,7 +243,6 @@ void PlayerStateTest::getSpeedIntoX_movingAndDirectionUp_0()
 void PlayerStateTest::getSpeedIntoX_movingAndDirectionDown_0()
 {
 	PlayerState player(*m_playerIDCreator);
-	player.setMoving();
 	player.setDirectionDown();
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getSpeedIntoX(), 0.0001);
@@ -272,7 +251,6 @@ void PlayerStateTest::getSpeedIntoX_movingAndDirectionDown_0()
 void PlayerStateTest::getSpeedIntoX_movingAndDirectionRight_maximumSpeed()
 {
 	PlayerState player(*m_playerIDCreator);
-	player.setMoving();
 	player.setDirectionRight();
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(player.getSpeed(), player.getSpeedIntoX(), 0.0001);
@@ -281,7 +259,6 @@ void PlayerStateTest::getSpeedIntoX_movingAndDirectionRight_maximumSpeed()
 void PlayerStateTest::getSpeedIntoX_movingAndDirectionLeft_minusMaximumSpeed()
 {
 	PlayerState player(*m_playerIDCreator);
-	player.setMoving();
 	player.setDirectionLeft();
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL((-1)*player.getSpeed(), player.getSpeedIntoX(), 0.0001);
@@ -290,7 +267,6 @@ void PlayerStateTest::getSpeedIntoX_movingAndDirectionLeft_minusMaximumSpeed()
 void PlayerStateTest::getSpeedIntoY_movingAndDirectionUp_maximumSpeed()
 {
 	PlayerState player(*m_playerIDCreator);
-	player.setMoving();
 	player.setDirectionUp();
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(player.getSpeed(), player.getSpeedIntoY(), 0.0001);
@@ -299,7 +275,6 @@ void PlayerStateTest::getSpeedIntoY_movingAndDirectionUp_maximumSpeed()
 void PlayerStateTest::getSpeedIntoY_movingAndDirectionDown_minusMaximumSpeed()
 {
 	PlayerState player(*m_playerIDCreator);
-	player.setMoving();
 	player.setDirectionDown();
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL((-1)*player.getSpeed(), player.getSpeedIntoY(), 0.0001);
@@ -308,7 +283,6 @@ void PlayerStateTest::getSpeedIntoY_movingAndDirectionDown_minusMaximumSpeed()
 void PlayerStateTest::getSpeedIntoY_movingAndDirectionLeft_0()
 {
 	PlayerState player(*m_playerIDCreator);
-	player.setMoving();
 	player.setDirectionLeft();
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getSpeedIntoY(), 0.0001);
@@ -317,7 +291,6 @@ void PlayerStateTest::getSpeedIntoY_movingAndDirectionLeft_0()
 void PlayerStateTest::getSpeedIntoY_movingAndDirectionRight_0()
 {
 	PlayerState player(*m_playerIDCreator);
-	player.setMoving();
 	player.setDirectionRight();
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getSpeedIntoY(), 0.0001);

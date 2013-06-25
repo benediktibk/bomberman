@@ -1,7 +1,7 @@
-#include "gameengine/gridobserver.h"
-#include "gameengine/grid.h"
+#include "common/gridobserver.h"
+#include "common/grid.h"
 
-using namespace GameEngine;
+using namespace Common;
 
 GridObserver::GridObserver(Grid &grid) :
 	m_source(&grid)

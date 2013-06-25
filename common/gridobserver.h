@@ -1,9 +1,9 @@
-#ifndef GAMEENGINE_GRIDOBSERVER_H
-#define GAMEENGINE_GRIDOBSERVER_H
+#ifndef COMMON_GRIDOBSERVER_H
+#define COMMON_GRIDOBSERVER_H
 
 #include "common/gridpoint.h"
 
-namespace GameEngine
+namespace Common
 {
 	class Grid;
 

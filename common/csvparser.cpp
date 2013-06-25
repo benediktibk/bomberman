@@ -19,7 +19,7 @@ void CSVParser::parseFile()
 	ifstream csvRead(opneninngFile.c_str());
 	string textInLine;
 	string textInField;
-	unsigned int width;
+	unsigned int width = 0;
 	bool firstLine = false;
 
 	if(csvRead.is_open())

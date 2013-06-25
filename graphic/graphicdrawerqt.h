@@ -3,6 +3,7 @@
 
 #include <map>
 #include "common/graphicdrawer.h"
+#include "common/compare.h"
 #include <QtCore/QRectF>
 
 class QGraphicsScene;
@@ -42,6 +43,7 @@ namespace Graphic
 		void drawExplodedBombs(const std::vector<const Common::ExplodedBombState*> &explodedBombs);
 		void drawExplodedBomb(const Common::ExplodedBombState *explodedBomb);
 		void updateViewArea();
+		void fitWholeAreaInView();
 		void updateViewPositionForPlayer(const Common::PlayerState &player);
 		void setViewPositionToTheCenterOfPlayer(const Common::PlayerState &player);
 		void drawBorderWalls(unsigned int width, unsigned int height);
@@ -62,6 +64,7 @@ namespace Graphic
 		void deleteBorderWalls();
 		void deletePlayers();
 		QRectF calculateSceneRect(const Common::GameState &gameState);
+		void scale(double factor);
 
 	private:
 		QGraphicsView &m_view;
@@ -83,6 +86,8 @@ namespace Graphic
 		SvgRenderer *m_svgRenderer;
 		QBrush *m_backgroundBrush;
 		QRectF m_sceneRect;
+		double m_currentScale;
+		Common::Compare m_scaleCompare;
 	};
 }
 

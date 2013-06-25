@@ -1,6 +1,5 @@
-#include "gameengine/gridobservermock.h"
+#include "common/gridobservermock.h"
 
-using namespace GameEngine;
 using namespace Common;
 
 GridObserverMock::GridObserverMock(Grid &grid) :

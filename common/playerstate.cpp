@@ -7,7 +7,7 @@ using namespace Common;
 using namespace std;
 
 PlayerState::PlayerState(UniqueIdCreator &creator) :
-	m_direction(PlayerDirectionUp),
+	m_direction(PlayerDirectionNone),
 	m_placedBombCount(0),
 	m_maxBombs(1),
 	m_speed(5.0),
@@ -16,8 +16,8 @@ PlayerState::PlayerState(UniqueIdCreator &creator) :
 	m_height(1),
 	m_playerId(creator.getId()),
 	m_creatorId(creator),
-	m_moving(false),
-	m_destructionRangeOfNewBombs(1)
+	m_destructionRangeOfNewBombs(1),
+	m_placedBombAlready(false)
 {}
 
 PlayerState::~PlayerState()
@@ -87,10 +87,8 @@ double PlayerState::getSpeed() const
 
 double PlayerState::getSpeedIntoX() const
 {
-	if (!m_moving)
-		return 0;
-
 	double result = 0;
+
 	switch(m_direction)
 	{
 	case PlayerState::PlayerDirectionDown:
@@ -102,6 +100,9 @@ double PlayerState::getSpeedIntoX() const
 		break;
 	case PlayerState::PlayerDirectionRight:
 		result = getSpeed();
+		break;
+	case PlayerState::PlayerDirectionNone:
+		result = 0;
 		break;
 	}
 
@@ -110,10 +111,8 @@ double PlayerState::getSpeedIntoX() const
 
 double PlayerState::getSpeedIntoY() const
 {
-	if (!m_moving)
-		return 0;
-
 	double result = 0;
+
 	switch(m_direction)
 	{
 	case PlayerState::PlayerDirectionDown:
@@ -126,24 +125,22 @@ double PlayerState::getSpeedIntoY() const
 	case PlayerState::PlayerDirectionRight:
 		result = 0;
 		break;
+	case PlayerState::PlayerDirectionNone:
+		result = 0;
+		break;
 	}
 
 	return result;
 }
 
-void PlayerState::setMoving()
-{
-	m_moving = true;
-}
-
 void PlayerState::setNotMoving()
 {
-	m_moving = false;
+	m_direction = PlayerDirectionNone;
 }
 
 bool PlayerState::isMoving() const
 {
-	return m_moving;
+	return m_direction != PlayerDirectionNone;
 }
 
 double PlayerState::getHeight() const
@@ -194,7 +191,7 @@ unsigned int PlayerState::getRemainingBombs() const
 
 bool PlayerState::canPlayerPlaceBomb() const
 {
-	if(getRemainingBombs() == 0)
+	if((getRemainingBombs() == 0)||(m_placedBombAlready == true))
 		return false;
 	else
 		return true;
@@ -239,5 +236,10 @@ void PlayerState::increaseSpeed()
 
 void PlayerState::increaseMaximumBombRange(unsigned int number)
 {
-    m_destructionRangeOfNewBombs += number;
+	m_destructionRangeOfNewBombs += number;
+}
+
+void PlayerState::setPlacedBombAlready(bool value)
+{
+	m_placedBombAlready = value;
 }

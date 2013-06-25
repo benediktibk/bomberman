@@ -11,7 +11,7 @@ using namespace std ;
 
 allPlayerInputFetcher::allPlayerInputFetcher(InputFetcher &input,vector<GameEngine::ComputerEnemyInputFetcher*> computer):
     m_inputFetcher(input),
-    CompInputFetcher(computer)
+	m_compInputFetcher(computer)
 {
 }
 
@@ -35,7 +35,7 @@ void allPlayerInputFetcher::setGameMode(unsigned int playerCount)
         m_gameModeIsSinglePlayer=true;
         m_inputStatePlayer1 = m_inputFetcher.getInputState();
         
-        for(vector<GameEngine::ComputerEnemyInputFetcher*>::const_iterator i = CompInputFetcher.begin(); i != CompInputFetcher.end(); ++i)
+		for(vector<GameEngine::ComputerEnemyInputFetcher*>::const_iterator i = m_compInputFetcher.begin(); i != m_compInputFetcher.end(); ++i)
         {           
             m_computerInputStates.push_back((*i)->getInputState());  
         }
@@ -43,6 +43,8 @@ void allPlayerInputFetcher::setGameMode(unsigned int playerCount)
         //ID anders implementieren        
         //ID auch auf Enemies 
         //Enemies in m_inputStates pushen
+        // klasse in Gameloop implementieren
+        
         m_inputStates[m_playerIds.front()] = m_inputStatePlayer1;
         m_inputStates[m_playerIds.back()] = m_inputStatePlayer2;
                 
@@ -52,7 +54,7 @@ void allPlayerInputFetcher::setGameMode(unsigned int playerCount)
     {   
         m_gameModeIsSinglePlayer=false;  
         m_inputStates = m_inputFetcher.getInputStates();  
-        for(vector<GameEngine::ComputerEnemyInputFetcher*>::const_iterator i = CompInputFetcher.begin(); i != CompInputFetcher.end(); ++i)
+		for(vector<GameEngine::ComputerEnemyInputFetcher*>::const_iterator i = m_compInputFetcher.begin(); i != m_compInputFetcher.end(); ++i)
         {           
             m_computerInputStates.push_back((*i)->getInputState());  
         }

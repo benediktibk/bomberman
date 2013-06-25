@@ -1,8 +1,8 @@
-#include "gameengine/gridobservertest.h"
-#include "gameengine/gridobserverstub.h"
-#include "gameengine/grid.h"
+#include "common/gridobservertest.h"
+#include "common/gridobserverstub.h"
+#include "common/grid.h"
 
-using namespace GameEngine;
+using namespace Common;
 
 void GridObserverTest::setUp()
 {

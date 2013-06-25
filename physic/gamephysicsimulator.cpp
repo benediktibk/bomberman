@@ -15,10 +15,10 @@ using namespace std;
 
 GamePhysicSimulator::GamePhysicSimulator(const LevelDefinition &level) :
 	m_simulator(new PhysicSimulator),
-	m_upperBorder(new StaticObject(*m_simulator, Point(0, level.getLevelHeight()), level.getLevelWidth(), 1)),
-	m_lowerBorder(new StaticObject(*m_simulator, Point(0, -1), level.getLevelWidth(), 1)),
-	m_leftBorder(new StaticObject(*m_simulator, Point(-1, 0), 1, level.getLevelHeight())),
-	m_rightBorder(new StaticObject(*m_simulator, Point(level.getLevelWidth(), 0), 1, level.getLevelHeight()))
+	m_upperBorder(new StaticObject(*m_simulator, Point(0, level.getHeight()), level.getWidth(), 1)),
+	m_lowerBorder(new StaticObject(*m_simulator, Point(0, -1), level.getWidth(), 1)),
+	m_leftBorder(new StaticObject(*m_simulator, Point(-1, 0), 1, level.getHeight())),
+	m_rightBorder(new StaticObject(*m_simulator, Point(level.getWidth(), 0), 1, level.getHeight()))
 { }
 
 GamePhysicSimulator::~GamePhysicSimulator()

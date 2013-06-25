@@ -13,8 +13,8 @@ LevelDefinition createRandomLevel()
 	LevelDefinition level(46, 53);
 	RandomDecision placeItem(0.1);
 
-	for (unsigned int x = 0; x < level.getLevelHeight(); ++x)
-		for (unsigned int y = 0; y < level.getLevelWidth(); ++y)
+	for (unsigned int x = 0; x < level.getHeight(); ++x)
+		for (unsigned int y = 0; y < level.getWidth(); ++y)
 			if (placeItem.decide())
 				level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, x, y);
 

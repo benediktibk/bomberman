@@ -11,15 +11,12 @@ namespace Common
 class LevelDefinition
 {
 	public:
-		/// @todo are all types used?
 		enum ObjectType
 		{
 			ObjectTypeEmpty,
 			ObjectTypePlayer,
 			ObjectTypeSolidWall,
-			ObjectTypeLooseWall,
-			ObjectTypeEnemy,
-			ObjectTypeKIEnemy
+			ObjectTypeLooseWall
 		};
 
 		LevelDefinition();
@@ -27,8 +24,8 @@ class LevelDefinition
 		LevelDefinition(const CSVParser &parsedFile);
 
 		ObjectType getObjectTypeAtPosition(unsigned int positionX, unsigned int positionY) const;
-		unsigned int getLevelWidth() const;
-		unsigned int getLevelHeight() const;
+		unsigned int getWidth() const;
+		unsigned int getHeight() const;
 		void setObjectTypeAtPosition(ObjectType objectType, unsigned int positionX, unsigned int positionY);
 		size_t getPlayerStartPositionCount() const;
 		bool isLevelBuildingCorrect() const;

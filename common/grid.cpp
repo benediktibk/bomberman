@@ -1,5 +1,5 @@
-#include "gameengine/grid.h"
-#include "gameengine/gridobserver.h"
+#include "common/grid.h"
+#include "common/gridobserver.h"
 #include "common/bombstate.h"
 #include "common/wallstate.h"
 #include "common/playerstate.h"
@@ -10,7 +10,6 @@
 #include <algorithm>
 
 using namespace Common;
-using namespace GameEngine;
 using namespace std;
 
 Grid::Grid(unsigned int rows, unsigned int cols) :
@@ -216,11 +215,52 @@ unsigned int Grid::getVectorIndex(unsigned int x,unsigned int y) const
 	return index;
 }
 
-vector<GridPoint> Grid::getPlayerFields(const Common::PlayerState &player) const
+vector<GridPoint> Grid::getPlayerFields(const Common::PlayerState &player)
 {
 	Point position = player.getPosition();
 	vector<GridPoint> fields = GridPoint::getCoveredGridPoints(position);
 	return fields;
+}
+
+bool xIsSmaller(const GridPoint &rhs, const GridPoint &lhs)
+{
+	return rhs.getX() < lhs.getX();
+}
+
+bool yIsSmaller(const GridPoint &rhs, const GridPoint &lhs)
+{
+	return rhs.getY() < lhs.getY();
+}
+
+GridPoint Grid::getTargetPoint(const PlayerState &player)
+{
+	vector<GridPoint> fields = getPlayerFields(player);
+
+	if (fields.size() == 1)
+		return fields[0];
+
+	GridPoint result;
+
+	if (player.getDirection() == PlayerState::PlayerDirectionLeft || player.getDirection() == PlayerState::PlayerDirectionRight)
+	{
+		sort(fields.begin(), fields.end(), &xIsSmaller);
+
+		if (player.getDirection() == PlayerState::PlayerDirectionLeft)
+			result = fields[0];
+		else
+			result = fields[1];
+	}
+	else
+	{
+		sort(fields.begin(), fields.end(), &yIsSmaller);
+
+		if (player.getDirection() == PlayerState::PlayerDirectionDown)
+			result = fields[0];
+		else
+			result = fields[1];
+	}
+
+	return result;
 }
 
 std::vector<unsigned int> Grid::getPlayersInRange(const BombState &bomb, vector<const PlayerState*> allPlayers) const

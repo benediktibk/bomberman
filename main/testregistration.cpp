@@ -30,14 +30,17 @@
 #include "threading/mutextest.h"
 #include "threading/signaltest.h"
 #include "gameengine/gameengineimpltest.h"
-#include "gameengine/gridtest.h"
-#include "gameengine/gridobservertest.h"
+#include "common/gridtest.h"
+#include "common/gridobservertest.h"
 #include "gameengine/routergridfieldtest.h"
 #include "gameengine/routergridtest.h"
 #include "gameengine/notdangerousandfreedecidertest.h"
 #include "gameengine/coveredbyplayerdecidertest.h"
 #include "gameengine/coveredbyloosewalldecidertest.h"
+#include "gameengine/freedecidertest.h"
 #include "gameengine/routetest.h"
+#include "gameengine/routertest.h"
+#include "gameengine/computerenemyinputfetchertest.h"
 #include "main/gamelooptest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
@@ -60,6 +63,8 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpGeneratorTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::PowerUpMaxVelocityStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::CompareTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::CSVParserTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::GridTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::GridObserverTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::PhysicalObjectTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::DynamicObjectTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::StaticObjectTest);
@@ -72,12 +77,13 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Threading::ThreadTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Threading::MutexTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Threading::SignalTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GameEngineImplTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GridTest);
-CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GridObserverTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::RouterGridFieldTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::RouterGridTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::NotDangerousAndFreeDeciderTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::CoveredByPlayerDeciderTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::CoveredByLooseWallDeciderTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::FreeDeciderTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::RouteTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::RouterTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::ComputerEnemyInputFetcherTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Main::GameLoopTest);

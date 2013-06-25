@@ -6,6 +6,11 @@
 #include "common/leveldefinition.h"
 #include "common/gridpoint.h"
 
+namespace Common
+{
+	class Grid;
+}
+
 namespace Physic
 {
 	class GamePhysicSimulator;
@@ -13,8 +18,6 @@ namespace Physic
 
 namespace GameEngine
 {
-	class Grid;
-
 	class GameEngineImpl :
 			public Common::GameEngine
 	{
@@ -23,6 +26,7 @@ namespace GameEngine
 		virtual ~GameEngineImpl();
 
 		virtual void updateGameState(const std::map<unsigned int, Common::InputState> &inputStates, double time);
+		virtual Common::Grid &getGrid();
 		virtual const Common::GameState& getGameState() const;
 		virtual std::vector<unsigned int> getAllPossiblePlayerIDs() const;
 		Common::GameState& getGameState();
@@ -39,6 +43,7 @@ namespace GameEngine
 		void updatePlayerWithBombCollisions();
 		void setPlayerSpeedIfMoreThanOneDirectionIsSelected(Common::PlayerState &player, const Common::InputState &input);
 		void setPlayerSpeedIntoOnlySelectedDirection(Common::PlayerState &player, const Common::InputState &input);
+		void setPlayerSpeedIntoIntoDirection(Common::PlayerState &player, const Common::InputState &input);
 		void setPlayerSpeedToNull(Common::PlayerState &player);
 		void updateBombs();
 		void placeBombs();
@@ -54,7 +59,7 @@ namespace GameEngine
 		Common::UniqueIdCreator m_powerUpIds;
 		Common::GameState m_gameState;
 		double m_elapsedTime;
-		Grid *m_grid;
+		Common::Grid *m_grid;
 		bool m_firstGameStateUpdate;
 		Physic::GamePhysicSimulator *m_simulator;
 		unsigned int m_levelWidth;

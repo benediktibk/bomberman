@@ -15,7 +15,6 @@ void GamePhysicSimulatorTest::simulateStep_movePlayerTowardsWall_playerCollidesW
 	PlayerState &player = gameState.getFirstPlayerState();
 	GamePhysicSimulator simulator(level);
 	player.setDirectionRight();
-	player.setMoving();
 	simulator.updateItems(gameState);
 
 	simulator.simulateStep(gameState, 100);
@@ -33,7 +32,6 @@ void GamePhysicSimulatorTest::simulateStep_movePlayerTowardsBomb_playerCollidesW
 	PlayerState &player = gameState.getFirstPlayerState();
 	GamePhysicSimulator simulator(level);
 	player.setDirectionRight();
-	player.setMoving();
 	BombState *bomb = new BombState(m_bombIDCreator, player.getId());
 	bomb->setPosition(Point(3, 0));
 	gameState.addBomb(bomb);
@@ -56,7 +54,6 @@ void GamePhysicSimulatorTest::simulateStep_twoPlayersAndOneMovesTowardsTheOther_
 	PlayerState &playerTwo = gameState.getSecondPlayerState();
 	GamePhysicSimulator simulator(level);
 	playerOne.setDirectionRight();
-	playerOne.setMoving();
 	playerOne.setPosition(Point(0, 0));
 	playerTwo.setPosition(Point(3, 0));
 	double timeForOneField = 1/playerOne.getSpeed();
@@ -78,7 +75,6 @@ void GamePhysicSimulatorTest::simulateStep_twoPlayersAndOneMovesTowardsTheOther_
 	PlayerState &playerTwo = gameState.getSecondPlayerState();
 	GamePhysicSimulator simulator(level);
 	playerOne.setDirectionRight();
-	playerOne.setMoving();
 	playerOne.setPosition(Point(0, 0));
 	playerTwo.setPosition(Point(3, 0));
 	double timeForOneField = 1/playerOne.getSpeed();

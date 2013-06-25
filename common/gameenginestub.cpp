@@ -4,7 +4,8 @@ using namespace Common;
 using namespace std;
 
 GameEngineStub::GameEngineStub() :
-	m_state(m_level, 1, m_idCreator, m_idCreator)
+	m_state(m_level, 1, m_idCreator, m_idCreator),
+	m_grid(1, 1)
 { }
 
 void GameEngineStub::updateGameState(const map<unsigned int, InputState> &, double)
@@ -13,6 +14,11 @@ void GameEngineStub::updateGameState(const map<unsigned int, InputState> &, doub
 const GameState &GameEngineStub::getGameState() const
 {
 	return m_state;
+}
+
+Grid &GameEngineStub::getGrid()
+{
+	return m_grid;
 }
 
 vector<unsigned int> GameEngineStub::getAllPossiblePlayerIDs() const

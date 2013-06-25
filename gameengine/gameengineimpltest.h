@@ -19,6 +19,7 @@ namespace GameEngine
 		CPPUNIT_TEST(updateGameState_RightKeyPressed_PlayerDirectionRight);
 		CPPUNIT_TEST(updateGameState_oneBombPlaced_bombPositionIsSameAsPlayerPosition);
 		CPPUNIT_TEST(updateGameState_oneBombPlaced_bombLifeTimeIs2);
+		CPPUNIT_TEST(updateGameState_onlyOneBombPlaced_whenPressingSpacebar);
 		CPPUNIT_TEST(updateGameState_twoBombsPlacedAndOneDestroyed_bombCountIs1);
 		CPPUNIT_TEST(updateGameState_tryToMoveThroughRightBorder_playerPositionIsAtRightBorder);
 		CPPUNIT_TEST(updateGameState_tryToMoveThroughUpperBorder_playerPositionIsAtUpperBorder);
@@ -94,6 +95,7 @@ namespace GameEngine
 		void updateGameState_RightKeyPressed_PlayerDirectionRight();
 		void updateGameState_oneBombPlaced_bombPositionIsSameAsPlayerPosition();
 		void updateGameState_oneBombPlaced_bombLifeTimeIs2();
+        void updateGameState_onlyOneBombPlaced_whenPressingSpacebar();
 		void updateGameState_twoBombsPlacedAndOneDestroyed_bombCountIs1();
 		void getHeight_HeightOfLevelDefinition_HeightOfGamestate();
 		void getWidth_WidthOfLevelDefinition_WidthOfGamestate();

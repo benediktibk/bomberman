@@ -62,24 +62,22 @@ void Player::update(const PlayerState &state, double pixelPerMeter)
 	m_movingRight->hide();
 	m_movingDown->hide();
 
-	if (state.isMoving())
+	switch(state.getDirection())
 	{
-		switch(state.getDirection())
-		{
-		case PlayerState::PlayerDirectionLeft:
-			m_movingLeft->show();
-			break;
-		case PlayerState::PlayerDirectionUp:
-			m_movingUp->show();
-			break;
-		case PlayerState::PlayerDirectionRight:
-			m_movingRight->show();
-			break;
-		case PlayerState::PlayerDirectionDown:
-			m_movingDown->show();
-			break;
-		}
-	}
-	else
+	case PlayerState::PlayerDirectionLeft:
+		m_movingLeft->show();
+		break;
+	case PlayerState::PlayerDirectionUp:
+		m_movingUp->show();
+		break;
+	case PlayerState::PlayerDirectionRight:
+		m_movingRight->show();
+		break;
+	case PlayerState::PlayerDirectionDown:
+		m_movingDown->show();
+		break;
+	case PlayerState::PlayerDirectionNone:
 		m_standing->show();
+		break;
+	}
 }

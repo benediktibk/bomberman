@@ -1,9 +1,9 @@
-#ifndef GAMEENGINE_GRIDOBSERVERMOCK_H
-#define GAMEENGINE_GRIDOBSERVERMOCK_H
+#ifndef COMMON_GRIDOBSERVERMOCK_H
+#define COMMON_GRIDOBSERVERMOCK_H
 
-#include "gameengine/gridobserver.h"
+#include "common/gridobserver.h"
 
-namespace GameEngine
+namespace Common
 {
 	class GridObserverMock :
 			public GridObserver

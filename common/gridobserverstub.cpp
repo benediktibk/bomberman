@@ -1,6 +1,6 @@
-#include "gameengine/gridobserverstub.h"
+#include "common/gridobserverstub.h"
 
-using namespace GameEngine;
+using namespace Common;
 
 GridObserverStub::GridObserverStub(Grid &grid) :
 	GridObserver(grid)
