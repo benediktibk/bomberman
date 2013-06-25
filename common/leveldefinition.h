@@ -11,15 +11,12 @@ namespace Common
 class LevelDefinition
 {
 	public:
-		/// @todo are all types used?
 		enum ObjectType
 		{
 			ObjectTypeEmpty,
 			ObjectTypePlayer,
 			ObjectTypeSolidWall,
-			ObjectTypeLooseWall,
-			ObjectTypeEnemy,
-			ObjectTypeKIEnemy
+			ObjectTypeLooseWall
 		};
 
 		LevelDefinition();
