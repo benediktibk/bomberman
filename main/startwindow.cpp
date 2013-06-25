@@ -71,7 +71,7 @@ void StartWindow::startClicked()
 void StartWindow::closeGameClicked()
 {
 	emit closeGameSignal();
-	m_ui->infoLabel->setText(tr("Please select a level and press Start to play"));
+	m_ui->infoLabel->setText(tr("GAME OVER\nPlease select a level and press Start to play"));
 }
 
 void StartWindow::levelBuildingNotCorrect()

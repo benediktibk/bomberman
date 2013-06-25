@@ -24,7 +24,7 @@ namespace Common
     Common::InputState m_inputStatePlayer1;
     Common::InputState m_inputStatePlayer2;
     Common::InputFetcher &m_inputFetcher;
-    std::vector<GameEngine::ComputerEnemyInputFetcher*> CompInputFetcher;
+	std::vector<GameEngine::ComputerEnemyInputFetcher*> m_compInputFetcher;
     std::vector<Common::InputState> m_computerInputStates;    
     std::vector<unsigned int> m_playerIds;
     bool m_gameModeIsSinglePlayer;
