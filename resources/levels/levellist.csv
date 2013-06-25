@@ -1,4 +1,4 @@
-shwoname;width;height;maxPlayer;filename
+showname;height;width;maxPlayer;filename
 Default level;15;10;1;defaultlevel
 Neighbourship;25;25;4;neighbourship
 Classic middle;21;21;4;classic_middle
