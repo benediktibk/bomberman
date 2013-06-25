@@ -19,6 +19,7 @@ namespace GameEngine
 		CPPUNIT_TEST(updateGameState_RightKeyPressed_PlayerDirectionRight);
 		CPPUNIT_TEST(updateGameState_oneBombPlaced_bombPositionIsSameAsPlayerPosition);
 		CPPUNIT_TEST(updateGameState_oneBombPlaced_bombLifeTimeIs2);
+		CPPUNIT_TEST(updateGameState_onlyOneBombPlaced_whenPressingSpacebar);
 		CPPUNIT_TEST(updateGameState_twoBombsPlacedAndOneDestroyed_bombCountIs1);
 		CPPUNIT_TEST(updateGameState_tryToMoveThroughRightBorder_playerPositionIsAtRightBorder);
 		CPPUNIT_TEST(updateGameState_tryToMoveThroughUpperBorder_playerPositionIsAtUpperBorder);
