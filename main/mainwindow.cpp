@@ -27,6 +27,8 @@ MainWindow::MainWindow() :
 				this, SLOT(updateGui(const Common::GameState*)));
 	connect(	m_timerUserInfoUpdate, SIGNAL(timeout()),
 				this, SLOT(updateUserInfo()));
+	connect(	m_ui->pauseButton, SIGNAL(clicked()),
+				this, SLOT(pauseButtonPushed()));
 	m_timerUserInfoUpdate->start(m_statusBarUpdateTimeStep);
 }
 
@@ -142,4 +144,9 @@ void MainWindow::finishGame()
 void MainWindow::closeGame()
 {
 	this->close();
+}
+
+void MainWindow::pauseButtonPushed()
+{
+
 }
