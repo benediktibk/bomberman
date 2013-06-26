@@ -38,6 +38,13 @@ void RouterGridFieldTest::constructor_empty_isNotDangerous()
 	CPPUNIT_ASSERT(!field.isDangerous());
 }
 
+void RouterGridFieldTest::constructor_empty_isNotPowerUp()
+{
+	RouterGridField field;
+
+	CPPUNIT_ASSERT(!field.isPowerUp());
+}
+
 void RouterGridFieldTest::setSolidWall_true_isSolidWall()
 {
 	RouterGridField field;
@@ -92,6 +99,15 @@ void RouterGridFieldTest::setDangerous_true_isDangerous()
 	CPPUNIT_ASSERT(field.isDangerous());
 }
 
+void RouterGridFieldTest::setPowerUp_true_isPowerUp()
+{
+	RouterGridField field;
+
+	field.setPowerUp(true);
+
+	CPPUNIT_ASSERT(field.isPowerUp());
+}
+
 void RouterGridFieldTest::isFree_nothingSet_true()
 {
 	RouterGridField field;
@@ -140,6 +156,15 @@ void RouterGridFieldTest::isFree_dangerousSet_true()
 	RouterGridField field;
 
 	field.setDangerous(true);
+
+	CPPUNIT_ASSERT(field.isFree());
+}
+
+void RouterGridFieldTest::isFree_powerUpSet_true()
+{
+	RouterGridField field;
+
+	field.setPowerUp(true);
 
 	CPPUNIT_ASSERT(field.isFree());
 }
