@@ -10,31 +10,30 @@
 
 namespace Main
 {
-class MainWindowInputFetcher :
-	public QMainWindow,
-	public Common::InputFetcher
-{
-Q_OBJECT
+	class MainWindowInputFetcher :
+		public QMainWindow,
+		public Common::InputFetcher
+	{
+	Q_OBJECT
 
-public:
-	MainWindowInputFetcher();
+	public:
+		MainWindowInputFetcher();
 
-    void setAllPossiblePlayerIds(std::vector<unsigned int> allPossiblePlayerIds);
-    
-    virtual std::map<unsigned int, Common::InputState> getInputStates();
-	virtual Common::InputState getInputState();
+		void setAllPossiblePlayerIds(std::vector<unsigned int> allPossiblePlayerIds);
 
-protected:
-	virtual void keyPressEvent(QKeyEvent *event);
-	virtual void keyReleaseEvent(QKeyEvent *event);
+		virtual std::map<unsigned int, Common::InputState> getInputStates();
+		virtual Common::InputState getInputState();
 
-private:
-	Common::InputState m_inputState;
-    Common::InputState m_inputStatePlayer2;
-	Threading::Mutex m_inputStateMutex;
-    std::vector<unsigned int> m_playerIds;
-};
+	protected:
+		virtual void keyPressEvent(QKeyEvent *event);
+		virtual void keyReleaseEvent(QKeyEvent *event);
+
+	private:
+		Common::InputState m_inputState;
+		Common::InputState m_inputStatePlayer2;
+		Threading::Mutex m_inputStateMutex;
+		std::vector<unsigned int> m_playerIds;
+	};
 }
-
 
 #endif

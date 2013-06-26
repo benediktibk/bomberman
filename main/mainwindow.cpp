@@ -5,7 +5,7 @@
 #include "main/gameloop.h"
 #include "gameengine/gameengineimpl.h"
 #include <QtCore/QTimer>
-#include <QtGui/QScrollBar>
+#include <QScrollBar>
 
 using namespace Main;
 using namespace Graphic;
