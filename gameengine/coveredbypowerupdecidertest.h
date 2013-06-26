@@ -12,12 +12,14 @@ class CoveredByPowerUpDeciderTest :
 {
 	CPPUNIT_TEST_SUITE(CoveredByPowerUpDeciderTest);
 	CPPUNIT_TEST(decide_defaultField_false);
-	CPPUNIT_TEST(decide_playerAtField_true);
+	CPPUNIT_TEST(decide_powerUpAtField_true);
+	CPPUNIT_TEST(decide_powerUpAtFieldAndDangerous_false);
 	CPPUNIT_TEST_SUITE_END();
 
 private:
 	void decide_defaultField_false();
-	void decide_playerAtField_true();
+	void decide_powerUpAtField_true();
+	void decide_powerUpAtFieldAndDangerous_false();
 
 };
 }
