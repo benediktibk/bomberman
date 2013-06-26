@@ -15,8 +15,9 @@ Written by:
 -   Florian Wirnshofer  
   
   
-Find this project [on bitbucket](https://bitbucket.org/grundkurscpp/game)  
-and our [discussion board](http://kevin-meyer.de/forum/).
+Find this project [on bitbucket](https://bitbucket.org/grundkurscpp/game),  
+our [discussion board](http://kevin-meyer.de/forum/)  
+and the [doxygen documentation](http://kevin-meyer.de/docu/).
 
 ### License
 
