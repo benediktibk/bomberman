@@ -25,6 +25,8 @@ public:
 
 	void start();
 	void stop();
+	void pause();
+	bool isPaused();
 	unsigned int getFramesPerSecond();
 	double percentageOfTimeNotSleeping();
 	std::vector<unsigned int> getPlayerInformation();
@@ -40,7 +42,9 @@ private:
 	Common::GameEngine &m_gameEngine;
 	Common::GraphicDrawer &m_graphicDrawer;
 	Threading::Mutex m_stoppedMutex;
+	Threading::Mutex m_pausedMutex;
 	bool m_stopped;
+	bool m_paused;
 	const unsigned int m_maximumFramesPerSecond;
 	//! we need a minimum time step, otherwise the physic simulator has problems
 	const double m_minimumTimeStep;

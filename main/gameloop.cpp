@@ -13,6 +13,7 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 	m_gameEngine(gameEngine),
 	m_graphicDrawer(graphicDrawer),
 	m_stopped(false),
+	m_paused(false),
 	m_maximumFramesPerSecond(60),
 	m_minimumTimeStep(1.0/m_maximumFramesPerSecond),
 	m_framesPerSecond(0),
@@ -29,6 +30,9 @@ GameLoop::~GameLoop()
 
 void GameLoop::start()
 {
+	m_pausedMutex.lock();
+	m_paused = false;
+	m_pausedMutex.unlock();
 	m_start.send();
 }
 
@@ -37,6 +41,22 @@ void GameLoop::stop()
 	m_stoppedMutex.lock();
 	m_stopped = true;
 	m_stoppedMutex.unlock();
+	m_start.send(); // we need to start again, because otherwise the thread will never stop
+}
+
+void GameLoop::pause()
+{
+	m_pausedMutex.lock();
+	m_paused = true;
+	m_pausedMutex.unlock();
+}
+
+bool GameLoop::isPaused()
+{
+	m_pausedMutex.lock();
+	bool paused = m_paused;
+	m_pausedMutex.unlock();
+	return paused;
 }
 
 unsigned int GameLoop::getFramesPerSecond()
@@ -61,6 +81,7 @@ void GameLoop::execute()
 	bool run = true;
 
 	m_start.wait();
+	m_start.reset();
 	StopWatch watch;
 	StopWatch watchRealCalculatingTime;
 	double realCalculatingTime = 0;
@@ -104,10 +125,24 @@ void GameLoop::execute()
         // allPlayerInputFetcher input(m_inputFetcher,m_computerEnemyInputFetcherVECTOR);
 		// end of temporary code
 
-		//catchPlayerInformation(m_gameEngine.getAllPossiblePlayerIDs());
+		/*!
+		 * @todo catchPlayerInformation should only get PlayerIDs of local Players, not all.
+		 */
+
+		catchPlayerInformation(m_gameEngine.getAllPossiblePlayerIDs());
 
 		m_graphicDrawer.draw(m_gameEngine.getGameState());
 		realCalculatingTime = watchRealCalculatingTime.getTimeAndRestart();
+
+		m_pausedMutex.lock();
+		bool pause = m_paused;
+		m_pausedMutex.unlock();
+
+		if (pause)
+		{
+			m_start.wait();
+			m_start.reset();
+		}
 
 		m_stoppedMutex.lock();
 		if (m_stopped)
@@ -120,8 +155,12 @@ void GameLoop::catchPlayerInformation(std::vector<unsigned int> playerIDs)
 {
 	m_playerInformationMutex.lock();
 	m_playerInformation.clear();
-	m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.front()).getMaxBombs());
-	m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.front()).getDestructionRangeOfNewBombs());
+
+	for (size_t y = 0; y < playerIDs.size(); y++)
+	{
+		m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getMaxBombs());
+		m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getDestructionRangeOfNewBombs());
+	}
 	m_playerInformationMutex.unlock();
 }
 

@@ -12,11 +12,13 @@ class PowerUpMaxBombRangeStateTest :
     CPPUNIT_TEST_SUITE(PowerUpMaxBombRangeStateTest);
     CPPUNIT_TEST(modifyPlayer_maxBombRange_2);
 	CPPUNIT_TEST(modifyPlayer_baseClass_maxBombRangeIs2);
+	CPPUNIT_TEST(getPowerUpType_isMaxBombRange);
     CPPUNIT_TEST_SUITE_END();
 
 private:
     void modifyPlayer_maxBombRange_2();
 	void modifyPlayer_baseClass_maxBombRangeIs2();
+	void getPowerUpType_isMaxBombRange();
 
 };
 }

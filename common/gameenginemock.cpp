@@ -26,9 +26,7 @@ Grid &GameEngineMock::getGrid()
 
 vector<unsigned int> GameEngineMock::getAllPossiblePlayerIDs() const
 {
-	vector<unsigned int> result;
-	result.push_back(23);
-	return result;
+	return m_state.getAllPossiblePlayerIDs();
 }
 
 unsigned int GameEngineMock::getCallsToUpdateGameState() const

@@ -162,3 +162,58 @@ void GameLoopTest::percentageOfTimeNotSleeping_running_0()
 	gameLoop->waitTillFinished();
 	delete gameLoop;
 }
+
+void GameLoopTest::pause_gameAlreadyRunSomeExecutionsAndWaitOf100ms_callsToMocksDidnotIncrease()
+{
+	InputFetcherMock inputFetcher;
+	GameEngineMock *gameEngine = new GameEngineMock();
+	GraphicDrawerMock graphicDrawer;
+	GameLoop *gameLoop = new GameLoop(inputFetcher, *gameEngine, graphicDrawer);
+
+	gameLoop->start();
+	usleep(1000*100);
+	gameLoop->pause();
+	usleep(1000*100);
+	unsigned int previousCallsToGetInputState = inputFetcher.getCallsToGetInputState();
+	unsigned int previousCallsToUpdateGameState = gameEngine->getCallsToUpdateGameState();
+	unsigned int previousCallsToDraw = graphicDrawer.getCallsToDraw();
+	usleep(1000*100);
+	gameLoop->stop();
+	gameLoop->waitTillFinished();
+
+	CPPUNIT_ASSERT_EQUAL(previousCallsToGetInputState, inputFetcher.getCallsToGetInputState());
+	CPPUNIT_ASSERT_EQUAL(previousCallsToUpdateGameState, gameEngine->getCallsToUpdateGameState());
+	CPPUNIT_ASSERT_EQUAL(previousCallsToDraw, graphicDrawer.getCallsToDraw());
+	delete gameLoop;
+	delete gameEngine;
+}
+
+void GameLoopTest::pause_gameAlreadyRunSomeExecutions_isPaused()
+{
+	InputFetcherStub inputFetcher;
+	GameEngineStub gameEngine;
+	GraphicDrawerStub graphicDrawer;
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
+	gameLoop->start();
+
+	usleep(1000*100);
+	gameLoop->pause();
+
+	CPPUNIT_ASSERT(gameLoop->isPaused());
+	gameLoop->stop();
+	delete gameLoop;
+}
+
+void GameLoopTest::constructor_notStarted_notPaused()
+{
+	InputFetcherStub inputFetcher;
+	GameEngineStub gameEngine;
+	GraphicDrawerStub graphicDrawer;
+
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
+
+	CPPUNIT_ASSERT(!gameLoop->isPaused());
+	gameLoop->start();
+	gameLoop->stop();
+	delete gameLoop;
+}

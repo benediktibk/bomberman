@@ -23,7 +23,5 @@ Grid &GameEngineStub::getGrid()
 
 vector<unsigned int> GameEngineStub::getAllPossiblePlayerIDs() const
 {
-	 vector<unsigned int> result;
-	 result.push_back(23);
-	 return result;
+	 return m_state.getAllPossiblePlayerIDs();
 }
