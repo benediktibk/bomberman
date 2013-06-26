@@ -52,14 +52,10 @@ namespace Common
 		std::vector<unsigned int> getBombsInRange(const Common::BombState &bomb) const;
 		std::vector<unsigned int> getPowerUpsInRange(const Common::BombState &bomb) const;
 		std::vector<unsigned int> getPlayersInRange(const Common::BombState &bomb, std::vector<const Common::PlayerState*> allPlayers) const;
-		unsigned int getBombMaximumRangeLeft(const Common::GridPoint &position) const;
-		unsigned int getBombMaximumRangeUp(const Common::GridPoint &position) const;
-		unsigned int getBombMaximumRangeRight(const Common::GridPoint &position) const;
-		unsigned int getBombMaximumRangeDown(const Common::GridPoint &position) const;
-		unsigned int getBombRangeLeft(const BombState &bomb);
-		unsigned int getBombRangeRight(const BombState &bomb);
-		unsigned int getBombRangeUp(const BombState &bomb);
-		unsigned int getBombRangeDown(const BombState &bomb);
+		unsigned int getBombRangeLeft(const BombState &bomb) const;
+		unsigned int getBombRangeRight(const BombState &bomb) const;
+		unsigned int getBombRangeUp(const BombState &bomb) const;
+		unsigned int getBombRangeDown(const BombState &bomb) const;
 		unsigned int getDistanceToNextWallLeft(const Common::GridPoint &position) const;
 		unsigned int getDistanceToNextWallRight(const Common::GridPoint &position) const;
 		unsigned int getDistanceToNextWallUp(const Common::GridPoint &position) const;
@@ -87,6 +83,10 @@ namespace Common
 		void decreaseOwnPositionDangerousCounter(const Common::BombState &bomb);
 		std::vector<const BombState*> getBombsOnHorizontalLine(const GridPoint &position) const;
 		std::vector<const BombState*> getBombsOnVerticalLine(const GridPoint &position) const;
+		unsigned int getBombMaximumRangeLeft(const Common::GridPoint &position) const;
+		unsigned int getBombMaximumRangeUp(const Common::GridPoint &position) const;
+		unsigned int getBombMaximumRangeRight(const Common::GridPoint &position) const;
+		unsigned int getBombMaximumRangeDown(const Common::GridPoint &position) const;
 
 	private:
 		unsigned int m_gridRows;

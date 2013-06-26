@@ -80,14 +80,10 @@ void RouterGrid::markFieldsAsDangerousIfCoveredByBomb(const GridPoint &position)
 	assert(m_grid.isPlaceCoveredByBomb(position));
 	unsigned int bombID = m_grid.getId(position);
 	const BombState &bomb = m_gameState.getBombById(bombID);
-	unsigned int maximumRangeLeft = m_grid.getBombMaximumRangeLeft(position);
-	unsigned int maximumRangeUp = m_grid.getBombMaximumRangeUp(position);
-	unsigned int maximumRangeRight = m_grid.getBombMaximumRangeRight(position);
-	unsigned int maximumRangeDown = m_grid.getBombMaximumRangeDown(position);
-	unsigned int rangeLeft = min(maximumRangeLeft, bomb.getDestructionRange());
-	unsigned int rangeUp = min(maximumRangeUp, bomb.getDestructionRange());
-	unsigned int rangeRight = min(maximumRangeRight, bomb.getDestructionRange());
-	unsigned int rangeDown = min(maximumRangeDown, bomb.getDestructionRange());
+	unsigned int rangeLeft = m_grid.getBombRangeLeft(bomb);
+	unsigned int rangeUp = m_grid.getBombRangeUp(bomb);
+	unsigned int rangeRight = m_grid.getBombRangeRight(bomb);
+	unsigned int rangeDown = m_grid.getBombRangeDown(bomb);
 
 	for (unsigned int i = 0; i <= rangeLeft; ++i)
 		m_fields[row][column - i].setDangerous(true);

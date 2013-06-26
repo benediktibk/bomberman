@@ -616,22 +616,22 @@ unsigned int Grid::getBombMaximumRangeDown(const GridPoint &position) const
 	return distanceToNextWall;
 }
 
-unsigned int Grid::getBombRangeLeft(const BombState &bomb)
+unsigned int Grid::getBombRangeLeft(const BombState &bomb) const
 {
 	return min(getBombMaximumRangeLeft(bomb.getPosition()), bomb.getDestructionRange());
 }
 
-unsigned int Grid::getBombRangeRight(const BombState &bomb)
+unsigned int Grid::getBombRangeRight(const BombState &bomb) const
 {
 	return min(getBombMaximumRangeRight(bomb.getPosition()), bomb.getDestructionRange());
 }
 
-unsigned int Grid::getBombRangeUp(const BombState &bomb)
+unsigned int Grid::getBombRangeUp(const BombState &bomb) const
 {
 	return min(getBombMaximumRangeUp(bomb.getPosition()), bomb.getDestructionRange());
 }
 
-unsigned int Grid::getBombRangeDown(const BombState &bomb)
+unsigned int Grid::getBombRangeDown(const BombState &bomb) const
 {
 	return min(getBombMaximumRangeDown(bomb.getPosition()), bomb.getDestructionRange());
 }
