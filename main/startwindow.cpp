@@ -53,7 +53,7 @@ void StartWindow::createTableView()
 void StartWindow::createSilder()
 {
 	connect( m_ui->playerCountHorizontalSlider, SIGNAL( valueChanged(int)), this, SLOT(showHorizontalSliderValue()));
-	m_ui->playerCountHorizontalSlider->setTickPosition(QSlider::TicksBelow);
+	m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->model()->index(0,3)).toInt());
 }
 
 void StartWindow::exitClicked()
