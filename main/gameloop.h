@@ -27,6 +27,7 @@ public:
 	void stop();
 	unsigned int getFramesPerSecond();
 	double percentageOfTimeNotSleeping();
+	std::vector<unsigned int> getPlayerInformation();
 
 private:
 	void catchPlayerInformation(std::vector<unsigned int> playerIDs);

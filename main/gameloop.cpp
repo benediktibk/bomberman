@@ -123,3 +123,12 @@ void GameLoop::catchPlayerInformation(std::vector<unsigned int> playerIDs)
 	m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.front()).getDestructionRangeOfNewBombs());
 	m_playerInformationMutex.unlock();
 }
+
+std::vector<unsigned int> GameLoop::getPlayerInformation()
+{
+	m_playerInformationMutex.lock();
+	std::vector<unsigned int> result;
+	result = m_playerInformation;
+	m_playerInformationMutex.unlock();
+	return result;
+}
