@@ -37,6 +37,7 @@ set(LEVELS
 	classic_middle.csv
 	no_place_to_hide.csv
 	can_see_you.csv
+	battlefield.csv
 )
 
 set(TESTFILES
