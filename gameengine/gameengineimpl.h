@@ -32,9 +32,7 @@ namespace GameEngine
 		Common::GameState& getGameState();
 		double getTimeTillOnePlayerReachesGridPoint() const;
 		double getTimeTillPlayerReachesGridPoint(const Common::PlayerState &player) const;
-		void playerGetsPowerUp();
 		void addPowerUpOfTypeAtPosition(Common::PowerUpType powerUpType, Common::Point position);
-		void removeAllObjectsWithDestroyedFlagFromGrid();
 
 	private:
 		void updatePlayerPositions();
@@ -50,6 +48,8 @@ namespace GameEngine
 		void placeBombForPlayer(Common::PlayerState &player, const Common::InputState &input);
 		void addPowerUp(Common::PowerUpState *powerUp);
 		void addRandomPowerUpAtPosition(Common::Point position);
+		void removeAllObjectsWithDestroyedFlagFromGrid();
+		void playerGetsPowerUp();
 
 	private:
 		std::map<unsigned int, Common::InputState> m_inputStates;

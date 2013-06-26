@@ -7,9 +7,7 @@ LevelDefinition::LevelDefinition() :
 	m_width(50),
 	m_height(50),
 	m_objectMatrix(m_width*m_height, ObjectTypeEmpty)
-{
-	m_objectMatrix[0] = ObjectTypePlayer;
-}
+{ }
 
 LevelDefinition::LevelDefinition(unsigned int width, unsigned int height) :
 	m_width(width),

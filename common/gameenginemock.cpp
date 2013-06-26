@@ -4,10 +4,19 @@ using namespace Common;
 using namespace std;
 
 GameEngineMock::GameEngineMock() :
-	m_state(m_level, 1, m_idCreator, m_idCreator),
-	m_grid(1, 1),
+	m_state(0),
+	m_grid(2, 2),
 	m_callsToUpdateGameState(0)
-{ }
+{
+	m_level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	m_level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	m_state = new GameState(m_level, 2, m_idCreator, m_idCreator);
+}
+
+GameEngineMock::~GameEngineMock()
+{
+	delete m_state;
+}
 
 void GameEngineMock::updateGameState(const map<unsigned int, InputState> &, double)
 {
@@ -16,7 +25,7 @@ void GameEngineMock::updateGameState(const map<unsigned int, InputState> &, doub
 
 const GameState &GameEngineMock::getGameState() const
 {
-	return m_state;
+	return *m_state;
 }
 
 Grid &GameEngineMock::getGrid()
@@ -26,7 +35,7 @@ Grid &GameEngineMock::getGrid()
 
 vector<unsigned int> GameEngineMock::getAllPossiblePlayerIDs() const
 {
-	return m_state.getAllPossiblePlayerIDs();
+	return m_state->getAllPossiblePlayerIDs();
 }
 
 unsigned int GameEngineMock::getCallsToUpdateGameState() const

@@ -14,22 +14,26 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 	m_graphicDrawer(graphicDrawer),
 	m_stopped(false),
 	m_paused(false),
+	m_onceStarted(false),
 	m_maximumFramesPerSecond(60),
 	m_minimumTimeStep(1.0/m_maximumFramesPerSecond),
 	m_framesPerSecond(0),
 	m_percentageOfTimeNotSleeping(0),
 	m_computerEnemyInputFetcher(m_gameEngine.getGrid(), m_gameEngine.getGameState(), m_gameEngine.getAllPossiblePlayerIDs()[1])
-{ }
+{
+	setConstructionFinished();
+}
 
 GameLoop::~GameLoop()
 {
 	stop();
-	if (m_start.isSignalSent())
+	if (m_onceStarted)
 		waitTillFinished();
 }
 
 void GameLoop::start()
 {
+	m_onceStarted = true;
 	m_pausedMutex.lock();
 	m_paused = false;
 	m_pausedMutex.unlock();
@@ -142,6 +146,9 @@ void GameLoop::execute()
 			m_start.wait();
 			m_start.reset();
 		}
+
+		if(m_gameEngine.getAllPossiblePlayerIDs().size() <= 1)
+			run = false;
 
 		m_stoppedMutex.lock();
 		if (m_stopped)

@@ -4,16 +4,25 @@ using namespace Common;
 using namespace std;
 
 GameEngineStub::GameEngineStub() :
-	m_state(m_level, 1, m_idCreator, m_idCreator),
-	m_grid(1, 1)
-{ }
+	m_state(0),
+	m_grid(2, 2)
+{
+	m_level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	m_level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	m_state = new GameState(m_level, 2, m_idCreator, m_idCreator);
+}
+
+GameEngineStub::~GameEngineStub()
+{
+	delete m_state;
+}
 
 void GameEngineStub::updateGameState(const map<unsigned int, InputState> &, double)
 { }
 
 const GameState &GameEngineStub::getGameState() const
 {
-	return m_state;
+	return *m_state;
 }
 
 Grid &GameEngineStub::getGrid()
@@ -23,5 +32,5 @@ Grid &GameEngineStub::getGrid()
 
 vector<unsigned int> GameEngineStub::getAllPossiblePlayerIDs() const
 {
-	 return m_state.getAllPossiblePlayerIDs();
+	 return m_state->getAllPossiblePlayerIDs();
 }
