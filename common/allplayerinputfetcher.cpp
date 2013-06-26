@@ -47,6 +47,7 @@ void allPlayerInputFetcher::setGameMode(unsigned int humanPlayerCount)
         //Enemies in m_inputStates pushen 
         // klasse in Gameloop implementieren
         
+        
         // to do: id aus mainWindowInputfetcher holen wenn nur 1 player (getInputState())
         // to do: ComputerEnemyInputfetcher als vecter als Argument dieser Klasse übergeben          
         
@@ -64,7 +65,8 @@ void allPlayerInputFetcher::setGameMode(unsigned int humanPlayerCount)
         m_inputStates = m_inputFetcher.getInputStates();  
 		for(vector<GameEngine::ComputerEnemyInputFetcher*>::const_iterator i = m_compInputFetcher.begin(); i != m_compInputFetcher.end(); ++i)
         {           
-            m_computerInputStates.push_back((*i)->getInputState());  
+            m_computerInputStates.push_back((*i)->getInputState()); 
+            m_enemyIds.push_back((*i)->getPlayerID());
         }
     }
     
