@@ -123,3 +123,8 @@ std::map<unsigned int, InputState> ComputerEnemyInputFetcher::getInputStates()
 	std::map<unsigned int, InputState> result;
 	return result;
 }
+
+unsigned int ComputerEnemyInputFetcher::getPlayerID()
+{
+    return m_playerID;
+}

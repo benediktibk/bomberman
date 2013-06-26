@@ -26,6 +26,7 @@ namespace GameEngine
 
 		virtual std::map<unsigned int, Common::InputState> getInputStates();
 		virtual Common::InputState getInputState();
+        unsigned int getPlayerID();
 
 	private:
 		void setInputStateIntoDirection(Common::PlayerState::PlayerDirection direction);
