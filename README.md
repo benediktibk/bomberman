@@ -4,7 +4,8 @@ Ultimate Bomberman  {#mainpage}
 C++ Project, Group 1, SS2013
 ---------------------
 
-This is the documentation of a project of students of the Technical University of Munich.
+This is a project of students of *Electrical Engineering and Information Technology* at [Technical University of Munich](http://www.tum.de) (TUM).  
+The Project is part of [LDV's](http://www.ldv.ei.tum.de/en/homepage/) course [*Grundkurs C++*](http://www.ldv.ei.tum.de/en/lehre/grundkurs-c/).
 
 Written by:     
 
