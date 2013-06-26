@@ -119,6 +119,19 @@ void RouterGridTest::constructor_bombAt3And5InGrid_noPlayerAt3And5()
 	CPPUNIT_ASSERT(!gridField.isPlayer());
 }
 
+void RouterGridTest::constructor_bombAt3And5InGrid_noPowerUpAt3And5()
+{
+	BombState *bomb = new BombState(*m_bombIdCreator, 0);
+	bomb->setPosition(Point(3, 5));
+	m_grid->addBombAtPlace(*bomb);
+	m_gameState->addBomb(bomb);
+
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
+
+	const RouterGridField &gridField = routerGrid.getField(GridPoint(3, 5));
+	CPPUNIT_ASSERT(!gridField.isPowerUp());
+}
+
 void RouterGridTest::constructor_looseWallAt7And5InGrid_looseWallAt7And5()
 {
 	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(7, 5));
@@ -174,6 +187,17 @@ void RouterGridTest::constructor_looseWallAt7And5InGrid_noPlayerAt7And5()
 	CPPUNIT_ASSERT(!gridField.isPlayer());
 }
 
+void RouterGridTest::constructor_looseWallAt7And5InGrid_noPowerUpAt7And5()
+{
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(7, 5));
+	m_grid->addWallAtPlace(wall);
+
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
+
+	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 5));
+	CPPUNIT_ASSERT(!gridField.isPowerUp());
+}
+
 void RouterGridTest::constructor_solidWallAt7And5InGrid_noLooseWallAt7And5()
 {
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(7, 5));
@@ -227,6 +251,28 @@ void RouterGridTest::constructor_solidWallAt7And5InGrid_noPlayerAt7And5()
 
 	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 5));
 	CPPUNIT_ASSERT(!gridField.isPlayer());
+}
+
+void RouterGridTest::constructor_solidWallAt7And5InGrid_noPowerUpAt7And5()
+{
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(7, 5));
+	m_grid->addWallAtPlace(wall);
+
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
+
+	const RouterGridField &gridField = routerGrid.getField(GridPoint(7, 5));
+	CPPUNIT_ASSERT(!gridField.isPowerUp());
+}
+
+void RouterGridTest::constructor_powerUpAt8And9InGrid_powerUpAt8And9()
+{
+	PowerUpState powerUp(*m_powerUpIdCreator, Point(8, 9));
+	m_grid->addPowerUpAtPlace(powerUp);
+
+	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
+
+	const RouterGridField &gridField = routerGrid.getField(GridPoint(8, 9));
+	CPPUNIT_ASSERT(gridField.isPowerUp());
 }
 
 void RouterGridTest::constructor_powerUpAt8And9InGrid_noSolidWallAt8And9()
