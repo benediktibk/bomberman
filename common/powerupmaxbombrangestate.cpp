@@ -3,7 +3,7 @@
 using namespace Common;
 
 PowerUpMaxBombRangeState::PowerUpMaxBombRangeState(UniqueIdCreator &creator, const Point &position):
-    PowerUpState(creator, position),
+	PowerUpState(creator, position, PowerUpTypeMaxBombRange),
     m_plusBombRange(1)
 { }
 
