@@ -1,6 +1,8 @@
 #ifndef GRAPHIC_SVGRENDERER_H
 #define GRAPHIC_SVGRENDERER_H
 
+#include "common/powerupstate.h"
+
 class QGraphicsSvgItem;
 class QSvgRenderer;
 
@@ -18,7 +20,7 @@ public:
 	QGraphicsSvgItem *getNewBombItem();
 	QGraphicsSvgItem *getNewSolidWallItem();
 	QGraphicsSvgItem *getNewLooseWallItem();
-	QGraphicsSvgItem *getNewPowerUpItem();
+	QGraphicsSvgItem *getNewPowerUpItem(Common::PowerUpType powerUpType = Common::PowerUpTypeNone);
 	QGraphicsSvgItem *getNewCellBackgroundItem();
 	QGraphicsSvgItem *getNewExplodedBombCenterItem();
 	QGraphicsSvgItem *getNewExplodedBombFlameItem();
@@ -44,6 +46,9 @@ private:
 	QSvgRenderer *m_wallSolidRenderer;
 	QSvgRenderer *m_wallLooseRenderer;
 	QSvgRenderer *m_powerUpRenderer;
+	QSvgRenderer *m_powerUpMaxBombRenderer;
+	QSvgRenderer *m_powerUpMaxVelocityRenderer;
+	QSvgRenderer *m_powerUpMaxBombRangeRenderer;
 	QSvgRenderer *m_cellBackgroundRenderer;
 	QSvgRenderer *m_explodedBombCenterRenderer;
 	QSvgRenderer *m_explodedBombFlameRenderer;

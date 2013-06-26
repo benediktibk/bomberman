@@ -91,20 +91,19 @@ void GameEngineImplTest::updateGameState_oneBombPlaced_bombLifeTimeIs2()
 
 void GameEngineImplTest::updateGameState_onlyOneBombPlaced_whenPressingSpacebar()
 {
-    InputState input;  
-    GameState &game = m_gameEngine->getGameState();
-    PlayerState &player = game.getFirstPlayerState();
-    player.increaseMaxBombs();
-    
-    input.setSpaceKeyPressed();
-    setFirstPlayerInput(input);
-    m_gameEngine->updateGameState(m_inputStates, 1);  
-    input.setRightKeyPressed();
-    setFirstPlayerInput(input);
-    m_gameEngine->updateGameState(m_inputStates, (1.5/player.getSpeed()));
+	InputState input;
+	GameState &game = m_gameEngine->getGameState();
+	PlayerState &player = game.getFirstPlayerState();
+	player.increaseMaxBombs();
 
-    
-    CPPUNIT_ASSERT_EQUAL((size_t)1, game.getBombCount());    
+	input.setSpaceKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 1);
+	input.setRightKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, 1.5*m_defaultTimeForOneField);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getBombCount());
 }
 
 void GameEngineImplTest::updateGameState_twoBombsPlacedAndOneDestroyed_bombCountIs1()
@@ -273,14 +272,13 @@ void GameEngineImplTest::updateGameState_halfTheTimeOfTheMovementToTheNextGridFi
 	InputState input;
 	const GameState &game = m_gameEngine->getGameState();
 	const PlayerState &player = game.getFirstPlayerState();
-	const double timeForField = 1/player.getSpeed();
 
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setRightKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 
 	Point positionShouldBe(1, 0);
 	Point positionReal(player.getPosition());
@@ -298,11 +296,11 @@ void GameEngineImplTest::updateGameState_playerVerticalBetweenTwoFieldsAndUpPres
 
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, 1/(2*player.getSpeed()));
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setRightKeyNotPressed();
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, 1/(2*player.getSpeed()));
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 
 	Point positionShouldBe(1, 0);
 	Point positionReal(player.getPosition());
@@ -443,28 +441,26 @@ void GameEngineImplTest::updateGameState_moveRightAndToUpperBorderAndBackAndTryT
 	InputState input;
 	const GameState &gameState = m_gameEngine->getGameState();
 	const PlayerState &playerState = gameState.getFirstPlayerState();
-	const double timeForOneField = 1/playerState.getSpeed();
-
 
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, 1.5*timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, 1.5*m_defaultTimeForOneField);
 	input.setRightKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, 20*timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, 20*m_defaultTimeForOneField);
 	input.setUpKeyNotPressed();
 	input.setDownKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, 5.5*timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, 5.5*m_defaultTimeForOneField);
 	input.setDownKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 
 	Point newPosition = playerState.getPosition();
 
@@ -480,32 +476,31 @@ void GameEngineImplTest::updateGameState_moveTowardsWallAndAgainAway_playerPosit
 	InputState input;
 	const GameState &gameState = m_gameEngine->getGameState();
 	const PlayerState &playerState = gameState.getFirstPlayerState();
-	const double timeForOneField = 1/playerState.getSpeed();
 
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setRightKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setUpKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 	input.setLeftKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField*2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField*2);
 	input.setLeftKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField*2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField*2);
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setRightKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 
 	Point realPosition = playerState.getPosition();
 	Point positionShouldBe(1, 1);
@@ -518,18 +513,17 @@ void GameEngineImplTest::updateGameState_pressRightAndThenUp_playerKeepsDirectio
 	InputState input;
 	const GameState &gameState = m_gameEngine->getGameState();
 	const PlayerState &playerState = gameState.getFirstPlayerState();
-	const double timeForOneField = 1/playerState.getSpeed();
 
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 	input.setRightKeyNotPressed();
 	input.setUpKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 
 	Point positionShouldBe(2, 0);
 	Point positionReal(playerState.getPosition());
@@ -542,19 +536,18 @@ void GameEngineImplTest::updateGameState_pressLeftAndThenDown_playerKeepsDirecti
 	InputState input;
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &playerState = gameState.getFirstPlayerState();
-	const double timeForOneField = 1/playerState.getSpeed();
 	playerState.setPosition(Point(5, 1));
 
 	input.setLeftKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setDownKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 	input.setLeftKeyNotPressed();
 	input.setDownKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 
 	Point positionShouldBe(3, 1);
 	Point positionReal(playerState.getPosition());
@@ -567,18 +560,17 @@ void GameEngineImplTest::updateGameState_pressUpAndThenRight_playerKeepsDirectio
 	InputState input;
 	const GameState &gameState = m_gameEngine->getGameState();
 	const PlayerState &playerState = gameState.getFirstPlayerState();
-	const double timeForOneField = 1/playerState.getSpeed();
 
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 	input.setUpKeyNotPressed();
 	input.setRightKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 
 	Point positionShouldBe(0, 2);
 	Point positionReal(playerState.getPosition());
@@ -591,19 +583,18 @@ void GameEngineImplTest::updateGamestate_pressDownAndThenLeft_playerKeepsDirecti
 	InputState input;
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &playerState = gameState.getFirstPlayerState();
-	const double timeForOneField = 1/playerState.getSpeed();
 	playerState.setPosition(Point(3, 5));
 
 	input.setDownKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setLeftKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 	input.setDownKeyNotPressed();
 	input.setLeftKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 
 	Point positionShouldBe(3, 3);
 	Point positionReal(playerState.getPosition());
@@ -620,16 +611,15 @@ void GameEngineImplTest::updateGameState_movementOfSecondPlayer_positionOfSecond
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &firstPlayer = gameState.getFirstPlayerState();
 	PlayerState &secondPlayer = gameState.getSecondPlayerState();
-	const double timeForOneField = 1/secondPlayer.getSpeed();
 	firstPlayer.setPosition(Point(0, 0));
 	secondPlayer.setPosition(Point(0, 1));
 
 	input.setRightKeyPressed();
 	setSecondPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setRightKeyNotPressed();
 	setSecondPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 
 	Point positionShouldBe(1, 1);
 	Point positionReal(secondPlayer.getPosition());
@@ -646,16 +636,15 @@ void GameEngineImplTest::updateGameState_movementOfSecondPlayer_firstPlayerDoesn
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &firstPlayer = gameState.getFirstPlayerState();
 	PlayerState &secondPlayer = gameState.getSecondPlayerState();
-	const double timeForOneField = 1/secondPlayer.getSpeed();
 	firstPlayer.setPosition(Point(0, 0));
 	secondPlayer.setPosition(Point(0, 1));
 
 	input.setRightKeyPressed();
 	setSecondPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setRightKeyNotPressed();
 	setSecondPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 
 	Point positionShouldBe(0, 0);
 	Point positionReal(firstPlayer.getPosition());
@@ -886,9 +875,6 @@ void GameEngineImplTest::updateGameState_playerDiesByHisOwnBomb_playerCountIs0()
 	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
 	createGameEngine(level, 1);
-	const GameState &gameState = m_gameEngine->getGameState();
-	const PlayerState &player = gameState.getFirstPlayerState();
-	double timeForOneField = 1/player.getSpeed();
 
 	input.setSpaceKeyPressed();
 	setFirstPlayerInput(input);
@@ -896,12 +882,13 @@ void GameEngineImplTest::updateGameState_playerDiesByHisOwnBomb_playerCountIs0()
 	input.setSpaceKeyNotPressed();
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setRightKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField*100);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField*100);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField*100);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField*100);
 
+	const GameState &gameState = m_gameEngine->getGameState();
 	CPPUNIT_ASSERT_EQUAL((size_t)0, gameState.getPlayerCount());
 }
 
@@ -911,9 +898,6 @@ void GameEngineImplTest::updateGameState_bombAtLowerEndExplodes_bombCountIs0()
 	LevelDefinition level(10, 15);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 0);
 	createGameEngine(level, 1);
-	const GameState &gameState = m_gameEngine->getGameState();
-	const PlayerState &player = gameState.getFirstPlayerState();
-	double timeForOneField = 1/player.getSpeed();
 
 	input.setSpaceKeyPressed();
 	setFirstPlayerInput(input);
@@ -921,12 +905,13 @@ void GameEngineImplTest::updateGameState_bombAtLowerEndExplodes_bombCountIs0()
 	input.setSpaceKeyNotPressed();
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setRightKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField*100);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField*100);
 	m_gameEngine->updateGameState(m_inputStates, 100);
 
+	const GameState &gameState = m_gameEngine->getGameState();
 	CPPUNIT_ASSERT_EQUAL((size_t)0, gameState.getBombCount());
 }
 
@@ -1038,20 +1023,19 @@ void GameEngineImplTest::updateGameState_placeBombAndMoveOneFieldUpwards_playerI
 	const GameState &game = m_gameEngine->getGameState();
 	const PlayerState &player = game.getFirstPlayerState();
 	InputState input;
-	double halfTimeToReachGridPoint = 1/(2*player.getSpeed());
 
 	input.setSpaceKeyPressed();
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 0);
 	input.setSpaceKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, halfTimeToReachGridPoint);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, halfTimeToReachGridPoint);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setUpKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, 1.1*halfTimeToReachGridPoint);
+	m_gameEngine->updateGameState(m_inputStates, 1.1*m_defaultTimeForOneField/2);
 
 	Point positionShouldBe(0, 1);
 	Point positionReal(player.getPosition());
@@ -1073,7 +1057,6 @@ void GameEngineImplTest::updateGameState_placeBombAndMoveOneFieldUpwardsAndSecon
 	else
 		playerAsPointer = &secondPlayer;
 	const PlayerState &player = *playerAsPointer;
-	double timeForOneField = 1/player.getSpeed();
 	InputState input;
 
 	input.setSpaceKeyPressed();
@@ -1082,10 +1065,10 @@ void GameEngineImplTest::updateGameState_placeBombAndMoveOneFieldUpwardsAndSecon
 	input.setSpaceKeyNotPressed();
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setUpKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 
 	CPPUNIT_ASSERT(Point(0, 1).fuzzyEqual(player.getPosition(), 0.05));
 }
@@ -1095,16 +1078,13 @@ void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWay
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	createGameEngine(level, 1);
-	const GameState &game = m_gameEngine->getGameState();
-	const PlayerState &player = game.getFirstPlayerState();
 	InputState input;
-	double halfTimeToReachGridPoint = 1/(2*player.getSpeed());
 
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, halfTimeToReachGridPoint);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(halfTimeToReachGridPoint, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(m_defaultTimeForOneField/2, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.0001);
 }
 
 void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayLeftToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
@@ -1112,20 +1092,17 @@ void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWay
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	createGameEngine(level, 1);
-	const GameState &game = m_gameEngine->getGameState();
-	const PlayerState &player = game.getFirstPlayerState();
 	InputState input;
-	double halfTimeToReachGridPoint = 1/(2*player.getSpeed());
 
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, halfTimeToReachGridPoint*10);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2*10);
 	input.setRightKeyNotPressed();
 	input.setLeftKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, halfTimeToReachGridPoint);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(halfTimeToReachGridPoint, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.05);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(m_defaultTimeForOneField/2, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.05);
 }
 
 void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayUpToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
@@ -1133,16 +1110,13 @@ void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWay
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	createGameEngine(level, 1);
-	const GameState &game = m_gameEngine->getGameState();
-	const PlayerState &player = game.getFirstPlayerState();
 	InputState input;
-	double halfTimeToReachGridPoint = 1/(2*player.getSpeed());
 
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, halfTimeToReachGridPoint);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(halfTimeToReachGridPoint, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(m_defaultTimeForOneField/2, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.0001);
 }
 
 void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayDownToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
@@ -1150,20 +1124,17 @@ void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWay
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	createGameEngine(level, 1);
-	const GameState &game = m_gameEngine->getGameState();
-	const PlayerState &player = game.getFirstPlayerState();
 	InputState input;
-	double halfTimeToReachGridPoint = 1/(2*player.getSpeed());
 
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, halfTimeToReachGridPoint*10);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2*10);
 	input.setUpKeyNotPressed();
 	input.setDownKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, halfTimeToReachGridPoint);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(halfTimeToReachGridPoint, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.05);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(m_defaultTimeForOneField/2, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.05);
 }
 
 void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerStaysOnGridPoint_veryLong()
@@ -1188,11 +1159,8 @@ void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerIsMovingButD
 	m_gameEngine->updateGameState(m_inputStates, 0);
 
 	double time = m_gameEngine->getTimeTillOnePlayerReachesGridPoint();
-	const GameState &game = m_gameEngine->getGameState();
-	const PlayerState &player = game.getFirstPlayerState();
-	double timeShouldBe = 1/player.getSpeed();
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(timeShouldBe, time, 0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(m_defaultTimeForOneField, time, 0.0001);
 }
 
 void GameEngineImplTest::updateGameState_keyPressedHalfWayToGridFieldAndEnoughTimeToReachIt_playerPositionIsGridField()
@@ -1203,14 +1171,13 @@ void GameEngineImplTest::updateGameState_keyPressedHalfWayToGridFieldAndEnoughTi
 	const GameState &game = m_gameEngine->getGameState();
 	const PlayerState &player = game.getFirstPlayerState();
 	InputState input;
-	double timeForOneField = 1/player.getSpeed();
 
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setRightKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 
 	Point positionShouldBe(1, 0);
 	Point positionReal(player.getPosition());
@@ -1265,7 +1232,6 @@ void GameEngineImplTest::updateGameState_placeBombMoveAwayAndTryToMoveThroughBom
 	createGameEngine(level, 1);
 	const GameState &game = m_gameEngine->getGameState();
 	const PlayerState &player = game.getFirstPlayerState();
-	double timeForOneField = 1/player.getSpeed();
 	InputState input;
 
 	input.setSpaceKeyPressed();
@@ -1274,13 +1240,13 @@ void GameEngineImplTest::updateGameState_placeBombMoveAwayAndTryToMoveThroughBom
 	m_gameEngine->updateGameState(m_inputStates, 0);
 	input.setSpaceKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setRightKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 	input.setLeftKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField);
 
 	CPPUNIT_ASSERT(Point(1, 0).fuzzyEqual(player.getPosition(), 0.05));
 }
@@ -1301,7 +1267,7 @@ void GameEngineImplTest::increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCou
 	input.setSpaceKeyNotPressed();
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, (1.5/player.getSpeed()));
+	m_gameEngine->updateGameState(m_inputStates, (1.5*m_defaultTimeForOneField));
 	input.setUpKeyNotPressed();
 	input.setSpaceKeyPressed();
 	setFirstPlayerInput(input);
@@ -1329,7 +1295,7 @@ void GameEngineImplTest::increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombC
 	input.setSpaceKeyNotPressed();
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, (1.5/player.getSpeed()));
+	m_gameEngine->updateGameState(m_inputStates, (1.5*m_defaultTimeForOneField));
 	input.setUpKeyNotPressed();
 	input.setSpaceKeyPressed();
 	setFirstPlayerInput(input);
@@ -1337,7 +1303,7 @@ void GameEngineImplTest::increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombC
 	input.setSpaceKeyNotPressed();
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, (1.5/player.getSpeed()));
+	m_gameEngine->updateGameState(m_inputStates, (1.5*m_defaultTimeForOneField));
 	input.setUpKeyNotPressed();
 	input.setSpaceKeyPressed();
 	setFirstPlayerInput(input);
@@ -1365,7 +1331,7 @@ void GameEngineImplTest::setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTim
 	input.setSpaceKeyNotPressed();
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, (1.0/player.getSpeed()));
+	m_gameEngine->updateGameState(m_inputStates, (m_defaultTimeForOneField));
 	input.setUpKeyNotPressed();
 	input.setSpaceKeyPressed();
 	setFirstPlayerInput(input);
@@ -1406,14 +1372,12 @@ void GameEngineImplTest::getPlayerCount_Create4x4LevelWith2Player_PlayerCountIs2
 	CPPUNIT_ASSERT_EQUAL((size_t)2, game.getPlayerCount());
 }
 
-void GameEngineImplTest::getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestroyed_PlayerCountIs1()
+void GameEngineImplTest::updateGameState_onePlayerDestroysTheOtherOne_playerCountIs1()
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 1);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 1);
 	createGameEngine(level, 2);
-
-	const GameState &game = m_gameEngine->getGameState();
 	InputState input;
 
 	input.setSpaceKeyPressed();
@@ -1423,12 +1387,13 @@ void GameEngineImplTest::getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestro
 	setFirstPlayerInput(input);
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, 1);
+	m_gameEngine->updateGameState(m_inputStates, 1.1*m_defaultTimeForOneField);
 	input.setUpKeyNotPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, 2.1);
+	m_gameEngine->updateGameState(m_inputStates, 5);
 	m_gameEngine->updateGameState(m_inputStates, 0);
 
+	const GameState &game = m_gameEngine->getGameState();
 	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getPlayerCount());
 }
 
@@ -1442,19 +1407,15 @@ void GameEngineImplTest::getPosition_getpositionaftercollisionwithotherplayer()
 	GameState &game = m_gameEngine->getGameState();
 	PlayerState &firstPlayer = game.getFirstPlayerState();
 	PlayerState &secondPlayer = game.getSecondPlayerState();
-
-	const double timeForOneField = 1/firstPlayer.getSpeed();
-	Point pointTwo(2,1);
-	Point pointOne(0,1);
-
-
+	Point pointTwo(2, 1);
+	Point pointOne(0, 1);
 	firstPlayer.setPosition(pointOne);
 	secondPlayer.setPosition(pointTwo);
 	InputState input;
 
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, timeForOneField/2);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 	input.setRightKeyNotPressed();
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 0.1);
@@ -1465,9 +1426,7 @@ void GameEngineImplTest::getPosition_getpositionaftercollisionwithotherplayer()
 	input.setLeftKeyNotPressed();
 	m_gameEngine->updateGameState(m_inputStates, 0.1);
 	Point pointPositionEquals = secondPlayer.getPosition();
-	double x = pointPositionEquals.getX();
-
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(x,2.0,0.05);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(2, pointPositionEquals.getX(), 0.05);
 }
 
 void GameEngineImplTest::createGameEngine(const LevelDefinition &level, unsigned int playerCount)
@@ -1485,6 +1444,10 @@ void GameEngineImplTest::createGameEngine(const LevelDefinition &level, unsigned
 
 	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
 		m_inputStates.insert(pair<unsigned int, InputState>(*i, InputState()));
+
+	const GameState &gameState = m_gameEngine->getGameState();
+	const PlayerState &player = gameState.getFirstPlayerState();
+	m_defaultTimeForOneField = 1/player.getSpeed();
 }
 
 void GameEngineImplTest::setFirstPlayerInput(const InputState &input)
@@ -1516,21 +1479,18 @@ void GameEngineImplTest::addPowerUp_powerUpCountIs1PlayerWalksOnPowerUp_powerUpC
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	createGameEngine(level, 1);
-	GameState &game = m_gameEngine->getGameState();
 	InputState input;
-	PlayerState &player = game.getFirstPlayerState();
 	m_gameEngine->addPowerUpOfTypeAtPosition(PowerUpTypeMaxBomb, Point(1,0));
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
-	m_gameEngine->updateGameState(m_inputStates, (1/player.getSpeed()));
+	m_gameEngine->updateGameState(m_inputStates, (m_defaultTimeForOneField));
 	input.setRightKeyNotPressed();
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, 0);
 	m_gameEngine->updateGameState(m_inputStates, 0);
 
-	size_t result = game.getPowerUpCount();
-
-	CPPUNIT_ASSERT_EQUAL((size_t)0, result);
+	GameState &game = m_gameEngine->getGameState();
+	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getPowerUpCount());
 }
 
 void GameEngineImplTest::updateGameState_AddTwoPowerUpsOneInRangeOfBombAndLetBombExplode_powerUpCountIs1()
