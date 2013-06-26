@@ -23,6 +23,7 @@ set(GAMEENGINE_TEST_SRC
 	routetest.cpp
 	routertest.cpp
 	computerenemyinputfetchertest.cpp
+	coveredbypowerupdecidertest.cpp
 )
 
 add_library(gameengine ${GAMEENGINE_SRC})
