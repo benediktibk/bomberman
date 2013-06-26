@@ -2,7 +2,7 @@
 DOXYFILE_ENCODING      = UTF-8
 PROJECT_NAME           = "Ultimate Bomberman"
 PROJECT_NUMBER         = rev. @HG_CURRENT_REV@
-PROJECT_BRIEF          = "Grundkurs C++, SoSe 2013, Hauptprojekt, Group 1"
+PROJECT_BRIEF          =
 PROJECT_LOGO           =
 OUTPUT_DIRECTORY       = documentation
 CREATE_SUBDIRS         = YES
