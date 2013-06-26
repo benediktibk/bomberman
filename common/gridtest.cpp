@@ -1507,7 +1507,7 @@ void GridTest::removeWall_wallBelowOfBombInRangeOfBombAndOneObserverMock_observe
 {
 	Grid grid(10, 10);
 	GridObserverMock observer(grid);
-	BombState bomb(*m_bombIdCreator, 0, Point(3, 4), 2);
+	BombState bomb(*m_bombIdCreator, 0, Point(3, 4), 4);
 	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(3, 2));
 	grid.addBombAtPlace(bomb);
 	grid.addWallAtPlace(wall);
@@ -1515,7 +1515,7 @@ void GridTest::removeWall_wallBelowOfBombInRangeOfBombAndOneObserverMock_observe
 
 	grid.removeWall(wall);
 
-	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContains(GridPoint(3, 0)));
+	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContains(GridPoint(3, 1)));
 }
 
 void GridTest::addBombAtPlace_bombWithRange2AndOneObserverMock_observerGotCallToFieldHasChangedOneFieldLeftOfBombPosition()
