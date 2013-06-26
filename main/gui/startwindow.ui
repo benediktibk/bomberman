@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>625</width>
+    <width>600</width>
     <height>500</height>
    </rect>
   </property>
@@ -65,7 +65,7 @@ Levelselection</string>
        <bool>false</bool>
       </attribute>
       <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>140</number>
+       <number>100</number>
       </attribute>
       <attribute name="horizontalHeaderMinimumSectionSize">
        <number>77</number>
@@ -127,12 +127,18 @@ Levelselection</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
-        <widget class="QSlider" name="horizontalSlider">
+        <widget class="QSlider" name="playerCountHorizontalSlider">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
+         </property>
+         <property name="maximum">
+          <number>4</number>
+         </property>
+         <property name="singleStep">
+          <number>1</number>
          </property>
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
@@ -140,16 +146,16 @@ Levelselection</string>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton_2">
+        <widget class="QRadioButton" name="singleRadioButton">
          <property name="text">
-          <string>RadioButton</string>
+          <string>Singleplayer</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QRadioButton" name="radioButton">
+        <widget class="QRadioButton" name="multiRadioButton">
          <property name="text">
-          <string>RadioButton</string>
+          <string>Multiplayer</string>
          </property>
         </widget>
        </item>
@@ -164,7 +170,7 @@ Levelselection</string>
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>625</width>
+     <width>600</width>
      <height>25</height>
     </rect>
    </property>

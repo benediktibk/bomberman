@@ -12,9 +12,11 @@ StartWindow::StartWindow(bool enableOpenGL) :
 {
 	m_ui->setupUi(this);
 	connectButtons();
-	connectTableView();
+	createTableView();
+	createSilder();
 	if(enableOpenGL)
 		m_ui->openGlCheckBox->setChecked(true);
+	m_ui->singleRadioButton->setChecked(true);
 }
 
 void StartWindow::connectButtons()
@@ -24,7 +26,7 @@ void StartWindow::connectButtons()
 	connect(m_ui->closeGameButton, SIGNAL(clicked()), this, SLOT(closeGameClicked()));
 }
 
-void StartWindow::connectTableView()
+void StartWindow::createTableView()
 {
 	QStandardItemModel *model = new QStandardItemModel(m_levelList.getHeightOfFile()-1,4,this);
 	model->setHorizontalHeaderItem(0, new QStandardItem(QString("Level")));
@@ -45,6 +47,11 @@ void StartWindow::connectTableView()
 	m_ui->levelTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 	m_ui->levelTableView->setSelectionMode(QAbstractItemView::SingleSelection);
 	m_ui->levelTableView->setModel(model);
+}
+
+void StartWindow::createSilder()
+{
+	m_ui->playerCountHorizontalSlider->setTickPosition(QSlider::TicksBelow);
 }
 
 void StartWindow::exitClicked()
@@ -77,4 +84,9 @@ void StartWindow::closeGameClicked()
 void StartWindow::levelBuildingNotCorrect()
 {
 	m_ui->infoLabel->setText(tr("Levelbuilding was not correct!!! \nError in file or filename!!!"));
+}
+
+void StartWindow::updateSilder()
+{
+
 }

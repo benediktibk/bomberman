@@ -33,7 +33,9 @@ signals:
 
 private:
 	void connectButtons();
-	void connectTableView();
+	void createTableView();
+	void createSilder();
+	void updateSilder();
 
 private:
 	Ui::StartWindow* m_ui;
