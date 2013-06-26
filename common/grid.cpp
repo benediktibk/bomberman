@@ -100,6 +100,7 @@ void Grid::addPowerUpAtPlace(PowerUpState &powerUp)
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemPowerUp;
 	m_idMatrix[index] = powerUp.getId();
+	notifyObservers(position);
 }
 
 void Grid::removePowerUp(const PowerUpState &powerUp)
