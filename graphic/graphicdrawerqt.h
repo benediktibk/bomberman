@@ -88,6 +88,7 @@ namespace Graphic
 		QRectF m_sceneRect;
 		double m_currentScale;
 		Common::Compare m_scaleCompare;
+		Common::Compare m_viewAreaCompare;
 	};
 }
 

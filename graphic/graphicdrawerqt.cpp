@@ -32,7 +32,8 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 	m_svgRenderer(new SvgRenderer(m_pixelPerMeter)),
 	m_backgroundBrush(0),
 	m_currentScale(1),
-	m_scaleCompare(0.01)
+	m_scaleCompare(0.01),
+	m_viewAreaCompare(2)
 {
 	if (enableOpenGL)
 		m_view.setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
@@ -336,9 +337,19 @@ void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
 		positionToCenterOn.setX(centerOfView.x() + difference);
 	}
 
-	positionToCenterOn.setX(positionToCenterOn.x() - 1);
-	positionToCenterOn.setY(positionToCenterOn.y() - 1);
-	m_view.centerOn(positionToCenterOn);
+	if (	!m_viewAreaCompare.isFuzzyEqual(centerOfView.x(), positionToCenterOn.x()) ||
+			!m_viewAreaCompare.isFuzzyEqual(centerOfView.y(), positionToCenterOn.y()))
+	{
+		/*
+		 * I don't know where these offsets come from, but with these magic
+		 * values everything is fine. In Qt4 they were both 2, somehow for Qt5 I
+		 * had to change them to 1. If they are not correct you can see a very strange
+		 * and smooth delay in the update of the view area.
+		 */
+		positionToCenterOn.setX(positionToCenterOn.x() - 1);
+		positionToCenterOn.setY(positionToCenterOn.y() - 1);
+		m_view.centerOn(positionToCenterOn);
+	}
 }
 
 void GraphicDrawerQt::setViewPositionToTheCenterOfPlayer(const PlayerState &player)
