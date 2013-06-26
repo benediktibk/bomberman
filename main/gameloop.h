@@ -28,6 +28,9 @@ public:
 	unsigned int getFramesPerSecond();
 	double percentageOfTimeNotSleeping();
 
+private:
+	void catchPlayerInformation(std::vector<unsigned int> playerIDs);
+
 protected:
 	virtual void execute();
 
@@ -45,6 +48,8 @@ private:
 	double m_percentageOfTimeNotSleeping;
 	Threading::Signal m_start;
 	GameEngine::ComputerEnemyInputFetcher m_computerEnemyInputFetcher;
+	Threading::Mutex m_playerInformationMutex;
+	std::vector<unsigned int> m_playerInformation;
 };
 }
 

@@ -103,6 +103,8 @@ void GameLoop::execute()
 		m_gameEngine.updateGameState(inputStates, time);
 		// end of temporary code
 
+		catchPlayerInformation(m_gameEngine.getAllPossiblePlayerIDs());
+
 		m_graphicDrawer.draw(m_gameEngine.getGameState());
 		realCalculatingTime = watchRealCalculatingTime.getTimeAndRestart();
 
@@ -111,4 +113,13 @@ void GameLoop::execute()
 			run = false;
 		m_stoppedMutex.unlock();
 	}
+}
+
+void GameLoop::catchPlayerInformation(std::vector<unsigned int> playerIDs)
+{
+	m_playerInformationMutex.lock();
+	m_playerInformation.clear();
+	m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.front()).getMaxBombs());
+	m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.front()).getDestructionRangeOfNewBombs());
+	m_playerInformationMutex.unlock();
 }
