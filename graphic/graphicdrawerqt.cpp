@@ -285,7 +285,7 @@ void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
 	else
 	{
 		maximumPlayerMovement.setX(m_minimumViewDistanceInPixel);
-		maximumPlayerMovement.setWidth(viewWidth - 2*m_minimumViewDistanceInPixel);
+		maximumPlayerMovement.setWidth(max(0.0, viewWidth - 2*m_minimumViewDistanceInPixel));
 	}
 
 	if (viewHeight <= m_minimumViewDistanceInPixel*2)
@@ -296,7 +296,7 @@ void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
 	else
 	{
 		maximumPlayerMovement.setY(m_minimumViewDistanceInPixel);
-		maximumPlayerMovement.setHeight(viewHeight - 2*m_minimumViewDistanceInPixel);
+		maximumPlayerMovement.setHeight(max(0.0, viewHeight - 2*m_minimumViewDistanceInPixel));
 	}
 
 	if (maximumPlayerMovement.width() == 0 && maximumPlayerMovement.height() == 0)
@@ -336,8 +336,8 @@ void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
 		positionToCenterOn.setX(centerOfView.x() + difference);
 	}
 
-	positionToCenterOn.setX(positionToCenterOn.x() - 2);
-	positionToCenterOn.setY(positionToCenterOn.y() - 2);
+	positionToCenterOn.setX(positionToCenterOn.x() - 1);
+	positionToCenterOn.setY(positionToCenterOn.y() - 1);
 	m_view.centerOn(positionToCenterOn);
 }
 
