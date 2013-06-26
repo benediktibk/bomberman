@@ -78,7 +78,7 @@ namespace GameEngine
 		CPPUNIT_TEST(setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTimeOfSecondBombIs0);
 		CPPUNIT_TEST(getPlayerPosition_Create4x4LevelWithPlayerPosition2And2_PlayerPosition2And2);
 		CPPUNIT_TEST(getPlayerCount_Create4x4LevelWith2Player_PlayerCountIs2);
-		CPPUNIT_TEST(getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestroyed_PlayerCountIs1);
+		CPPUNIT_TEST(updateGameState_onePlayerDestroysTheOtherOne_playerCountIs1);
 		CPPUNIT_TEST(addPowerUp_powerUpCountIs1PlayerWalksOnPowerUp_powerUpCountIs0);
 		CPPUNIT_TEST(getPosition_getpositionaftercollisionwithotherplayer);
 		CPPUNIT_TEST(updateGameState_AddTwoPowerUpsOneInRangeOfBombAndLetBombExplode_powerUpCountIs1);
@@ -95,7 +95,7 @@ namespace GameEngine
 		void updateGameState_RightKeyPressed_PlayerDirectionRight();
 		void updateGameState_oneBombPlaced_bombPositionIsSameAsPlayerPosition();
 		void updateGameState_oneBombPlaced_bombLifeTimeIs2();
-        void updateGameState_onlyOneBombPlaced_whenPressingSpacebar();
+		void updateGameState_onlyOneBombPlaced_whenPressingSpacebar();
 		void updateGameState_twoBombsPlacedAndOneDestroyed_bombCountIs1();
 		void getHeight_HeightOfLevelDefinition_HeightOfGamestate();
 		void getWidth_WidthOfLevelDefinition_WidthOfGamestate();
@@ -154,7 +154,7 @@ namespace GameEngine
 		void setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTimeOfSecondBombIs0();
 		void getPlayerPosition_Create4x4LevelWithPlayerPosition2And2_PlayerPosition2And2();
 		void getPlayerCount_Create4x4LevelWith2Player_PlayerCountIs2();
-		void getPlayerCount_Create4x4LevelWith2PlayerOnePlayerDestroyed_PlayerCountIs1();
+		void updateGameState_onePlayerDestroysTheOtherOne_playerCountIs1();
 		void addPowerUp_powerUpCountIs1PlayerWalksOnPowerUp_powerUpCountIs0();
 		void getPosition_getpositionaftercollisionwithotherplayer();
 		void updateGameState_AddTwoPowerUpsOneInRangeOfBombAndLetBombExplode_powerUpCountIs1();
@@ -169,6 +169,7 @@ namespace GameEngine
 		GameEngineImpl *m_gameEngine;
 		unsigned int m_firstPlayerID;
 		unsigned int m_secondPlayerID;
+		double m_defaultTimeForOneField;
 	};
 }
 

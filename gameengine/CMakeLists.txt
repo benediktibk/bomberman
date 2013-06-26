@@ -9,6 +9,7 @@ set(GAMEENGINE_SRC
 	freedecider.cpp
 	route.cpp
 	router.cpp
+	coveredbypowerupdecider.cpp
 )
 
 set(GAMEENGINE_TEST_SRC
@@ -22,6 +23,7 @@ set(GAMEENGINE_TEST_SRC
 	routetest.cpp
 	routertest.cpp
 	computerenemyinputfetchertest.cpp
+	coveredbypowerupdecidertest.cpp
 )
 
 add_library(gameengine ${GAMEENGINE_SRC})

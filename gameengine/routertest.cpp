@@ -141,8 +141,7 @@ void RouterTest::getRouteToPlayer_bombInTheWay_distanceIsWayAroundBomb()
 	createRouter(level);
 	PlayerState &playerTwo = getSecondPlayer();
 	playerTwo.setPosition(Point(10, 5));
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(7, 5));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(7, 5), 1);
 	m_gameState->addBomb(bomb);
 	m_grid->addBombAtPlace(*bomb);
 	m_router->updatePlayerFields();
@@ -160,9 +159,7 @@ void RouterTest::getRouteToPlayer_wayBlockedByBomb_distanceIs0()
 	createRouter(level);
 	PlayerState &playerTwo = getSecondPlayer();
 	playerTwo.setPosition(Point(10, 5));
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(7, 6));
-	bomb->setDestructionRange(100);
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(7, 6), 100);
 	m_gameState->addBomb(bomb);
 	m_grid->addBombAtPlace(*bomb);
 	m_router->updatePlayerFields();
@@ -180,9 +177,7 @@ void RouterTest::getRouteToPlayer_wayBlockedByBomb_directionIsNone()
 	createRouter(level);
 	PlayerState &playerTwo = getSecondPlayer();
 	playerTwo.setPosition(Point(10, 5));
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(7, 6));
-	bomb->setDestructionRange(100);
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(7, 6), 100);
 	m_gameState->addBomb(bomb);
 	m_grid->addBombAtPlace(*bomb);
 	m_router->updatePlayerFields();
@@ -229,8 +224,7 @@ void RouterTest::getRouteToPlayer_jailedByWallsAtBorder_directionIsNone()
 void RouterTest::getRouteToNotDangerousField_playerRightAtBomb_distanceIs2()
 {
 	const PlayerState &player = getFirstPlayer();
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(player.getPosition()));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(player.getPosition()), 1);
 	m_gameState->addBomb(bomb);
 	m_grid->addBombAtPlace(*bomb);
 	m_router->updatePlayerFields();
@@ -361,6 +355,70 @@ void RouterTest::getRouteToLooseWall_routeNeedsEveryDirectionToGetThroughTheMaze
 	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5));
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)8, route.getDistance());
+}
+
+void RouterTest::getRouteToPowerUp_powerUpThreeFieldsAbovePlayer_distanceIs3()
+{
+	UniqueIdCreator powerUpIdCreator;
+
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 3);
+	createRouter(level);
+	PowerUpState powerup(powerUpIdCreator, Point(7,6));
+	m_grid->addPowerUpAtPlace(powerup);
+	m_router->updatePlayerFields();
+
+	Route route = m_router->getRouteToPowerUp(GridPoint(7, 3));
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)3, route.getDistance());
+}
+
+void RouterTest::getRouteToPowerUp_powerUpThreeFieldsAbovePlayer_directionIsUp()
+{
+	UniqueIdCreator powerUpIdCreator;
+
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 3);
+	createRouter(level);
+	PowerUpState powerup(powerUpIdCreator, Point(7,6));
+	m_grid->addPowerUpAtPlace(powerup);
+	m_router->updatePlayerFields();
+
+	Route route = m_router->getRouteToPowerUp(GridPoint(7, 3));
+
+	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionUp, route.getDirection());
+}
+
+void RouterTest::getRouteToPowerUp_powerUpTwoFieldsLeftOfPlayer_distanceIs2()
+{
+	UniqueIdCreator powerUpIdCreator;
+
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 5);
+	createRouter(level);
+	PowerUpState powerup(powerUpIdCreator, Point(5,5));
+	m_grid->addPowerUpAtPlace(powerup);
+	m_router->updatePlayerFields();
+
+	Route route = m_router->getRouteToPowerUp(GridPoint(7, 5));
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, route.getDistance());
+}
+
+void RouterTest::getRouteToPowerUp_powerUpTwoFieldsLeftOfPlayer_directionIsLeft()
+{
+	UniqueIdCreator powerUpIdCreator;
+
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 5);
+	createRouter(level);
+	PowerUpState powerup(powerUpIdCreator, Point(5,5));
+	m_grid->addPowerUpAtPlace(powerup);
+	m_router->updatePlayerFields();
+
+	Route route = m_router->getRouteToPowerUp(GridPoint(7, 5));
+
+	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionLeft, route.getDirection());
 }
 
 void RouterTest::setUp()

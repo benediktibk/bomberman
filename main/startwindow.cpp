@@ -17,6 +17,7 @@ StartWindow::StartWindow(bool enableOpenGL) :
 	if(enableOpenGL)
 		m_ui->openGlCheckBox->setChecked(true);
 	m_ui->singleRadioButton->setChecked(true);
+	m_ui->levelTableView->selectRow(0);
 }
 
 void StartWindow::connectButtons()
@@ -24,6 +25,8 @@ void StartWindow::connectButtons()
 	connect(m_ui->exitButton, SIGNAL(clicked()), this, SLOT(exitClicked()));
 	connect(m_ui->startButton, SIGNAL(clicked()), this, SLOT(startClicked()));
 	connect(m_ui->closeGameButton, SIGNAL(clicked()), this, SLOT(closeGameClicked()));
+	connect(m_ui->singleRadioButton, SIGNAL(clicked()), this, SLOT(updateSilder()));
+	connect(m_ui->multiRadioButton, SIGNAL(clicked()), this, SLOT(updateSilder()));
 }
 
 void StartWindow::createTableView()
@@ -47,11 +50,14 @@ void StartWindow::createTableView()
 	m_ui->levelTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 	m_ui->levelTableView->setSelectionMode(QAbstractItemView::SingleSelection);
 	m_ui->levelTableView->setModel(model);
+
+	connect(m_ui->levelTableView, SIGNAL(clicked(QModelIndex)), this, SLOT(updateSilder()));
 }
 
 void StartWindow::createSilder()
 {
-	m_ui->playerCountHorizontalSlider->setTickPosition(QSlider::TicksBelow);
+	connect( m_ui->playerCountHorizontalSlider, SIGNAL( valueChanged(int)), this, SLOT(showHorizontalSliderValue()));
+	m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->model()->index(0,3)).toInt()-1);
 }
 
 void StartWindow::exitClicked()
@@ -86,7 +92,23 @@ void StartWindow::levelBuildingNotCorrect()
 	m_ui->infoLabel->setText(tr("Levelbuilding was not correct!!! \nError in file or filename!!!"));
 }
 
+void StartWindow::showHorizontalSliderValue()
+{
+	m_ui->sliderShowLabel->setText(QString::number(m_ui->playerCountHorizontalSlider->value()));
+}
+
 void StartWindow::updateSilder()
 {
+	if(m_ui->singleRadioButton->isChecked())
+	{
+		m_ui->playerCountHorizontalSlider->setMinimum(1);
+		m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->selectionModel()->selectedIndexes().at(3)).toInt()-1);
+	}
+	else
+	{
+		m_ui->playerCountHorizontalSlider->setMinimum(0);
+		m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->selectionModel()->selectedIndexes().at(3)).toInt()-2);
+		m_ui->playerCountHorizontalSlider->setValue(0);
+	}
 
 }

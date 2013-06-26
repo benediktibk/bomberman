@@ -51,11 +51,14 @@ private slots:
 signals:
 	void guiUpdateNecessary(const Common::GameState *gameState);
 	void levelBuildingNotCorectSignal();
+	void closeGameSignal();
 
 private:
 	void finishGame();
 	void updateStatusBar();
 	void updatePlayerStateInfo();
+
+	virtual void closeEvent(QCloseEvent *);
 
 private:
 	const unsigned int m_statusBarUpdateTimeStep;

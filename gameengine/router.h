@@ -29,6 +29,7 @@ namespace GameEngine
 		Route getRouteToPlayer(const Common::GridPoint &position);
 		Route getRouteToNotDangerousField(const Common::GridPoint &position);
 		Route getRouteToLooseWall(const Common::GridPoint &position);
+		Route getRouteToPowerUp(const Common::GridPoint &position);
 
 	private:
 		void writeDebuggingInformationToFile() const;

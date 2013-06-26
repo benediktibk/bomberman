@@ -24,6 +24,8 @@ int main(int argc, char **argv)
 						&mainWindow, SLOT(closeGame()));
 	QObject::connect(	&mainWindow, SIGNAL(levelBuildingNotCorectSignal()),
 						&startWindow, SLOT(levelBuildingNotCorrect()));
+	QObject::connect(	&mainWindow, SIGNAL(closeGameSignal()),
+						&startWindow, SLOT(closeGameClicked()));
 	startWindow.show();
 	return application.exec();
 }

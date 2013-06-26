@@ -62,6 +62,7 @@ void MainWindow::draw(const Common::GameState &gameState)
 
 void MainWindow::startGame(bool enableOpenGL, const char* levelname)
 {
+	m_ui->pauseButton->setText(tr("pause"));
 	m_gameStartMutex.lock();
 	m_gameStarted = false;
 	m_gameStartMutex.unlock();
@@ -133,20 +134,25 @@ void MainWindow::updatePlayerStateInfo()
 		return;
 	std::vector<unsigned int> playerInformation = m_gameLoop->getPlayerInformation();
 
-	if(playerInformation.size() % 2 != 0)
+	if(playerInformation.size() % 3 != 0)
 		assert(false);
 
 	QString messageString("");
 	QString templateString("P%1 B:%2 R:%3");
 
-	for(size_t y = 0; y < playerInformation.size() / 2; y++)
+	for(size_t y = 0; y < playerInformation.size() / 3; y++)
 	{
 		if (y!=0)
 			messageString += QString("  |  ");
-		messageString += QString(templateString.arg(QString().number(y + 1), QString().number(playerInformation.at(y)), QString().number(playerInformation.at(y+1))));
+		messageString += QString(templateString.arg(QString().number(playerInformation.at(y*3) + 1), QString().number(playerInformation.at(y*3+1)), QString().number(playerInformation.at(y*3+2))));
 	}
 
 	m_ui->playerStateInfo->setText(messageString);
+}
+
+void MainWindow::closeEvent(QCloseEvent *)
+{
+	emit closeGameSignal();
 }
 
 void MainWindow::finishGame()
@@ -175,3 +181,4 @@ void MainWindow::pauseButtonPushed()
 		m_ui->pauseButton->setText("resume");
 	}
 }
+

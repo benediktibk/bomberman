@@ -15,18 +15,21 @@ namespace GameEngine
 		CPPUNIT_TEST(constructor_empty_isNotBomb);
 		CPPUNIT_TEST(constructor_empty_isNotPlayer);
 		CPPUNIT_TEST(constructor_empty_isNotDangerous);
+		CPPUNIT_TEST(constructor_empty_isNotPowerUp);
 		CPPUNIT_TEST(setSolidWall_true_isSolidWall);
 		CPPUNIT_TEST(setLooseWall_true_isLooseWall);
 		CPPUNIT_TEST(setBomb_true_isBomb);
 		CPPUNIT_TEST(setBomb_true_isDangerous);
 		CPPUNIT_TEST(setPlayer_true_isPlayer);
 		CPPUNIT_TEST(setDangerous_true_isDangerous);
+		CPPUNIT_TEST(setPowerUp_true_isPowerUp);
 		CPPUNIT_TEST(isFree_nothingSet_true);
 		CPPUNIT_TEST(isFree_bombSet_false);
 		CPPUNIT_TEST(isFree_playerSet_false);
 		CPPUNIT_TEST(isFree_looseWallSet_false);
 		CPPUNIT_TEST(isFree_solidWallSet_false);
 		CPPUNIT_TEST(isFree_dangerousSet_true);
+		CPPUNIT_TEST(isFree_powerUpSet_true);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -35,18 +38,21 @@ namespace GameEngine
 		void constructor_empty_isNotBomb();
 		void constructor_empty_isNotPlayer();
 		void constructor_empty_isNotDangerous();
+		void constructor_empty_isNotPowerUp();
 		void setSolidWall_true_isSolidWall();
 		void setLooseWall_true_isLooseWall();
 		void setBomb_true_isBomb();
 		void setBomb_true_isDangerous();
 		void setPlayer_true_isPlayer();
 		void setDangerous_true_isDangerous();
+		void setPowerUp_true_isPowerUp();
 		void isFree_nothingSet_true();
 		void isFree_bombSet_false();
 		void isFree_playerSet_false();
 		void isFree_looseWallSet_false();
 		void isFree_solidWallSet_false();
 		void isFree_dangerousSet_true();
+		void isFree_powerUpSet_true();
 	};
 }
 

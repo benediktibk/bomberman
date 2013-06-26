@@ -37,6 +37,7 @@ set(LEVELS
 	classic_middle.csv
 	no_place_to_hide.csv
 	can_see_you.csv
+	battlefield.csv
 )
 
 set(TESTFILES
@@ -47,6 +48,7 @@ set(TESTFILES
 )
 
 set(GRAPHICS
+	bg_cell_pattern.svg
 	bomb_planted.svg
 	player_standing.svg
 	player_moving_left.svg
@@ -57,9 +59,11 @@ set(GRAPHICS
 	wall_solid.svg
 	explosion_center.svg
 	explosion_flame.svg
-	powerup.svg
-	bg_cell_pattern.svg
 	explosion_end.svg
+	powerup.svg
+	powerup_maxbombs.svg
+	powerup_range.svg
+	powerup_speed.svg
 )
 
 foreach(file ${LEVELS})

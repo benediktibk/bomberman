@@ -14,6 +14,7 @@ namespace Common
 	{
 	public:
 		GameEngineStub();
+		virtual ~GameEngineStub();
 
 		virtual void updateGameState(const std::map<unsigned int, InputState> &inputStates, double time);
 		virtual const GameState& getGameState() const;
@@ -23,7 +24,7 @@ namespace Common
 	private:
 		LevelDefinition m_level;
 		UniqueIdCreator m_idCreator;
-		GameState m_state;
+		GameState *m_state;
 		Grid m_grid;
 	};
 }

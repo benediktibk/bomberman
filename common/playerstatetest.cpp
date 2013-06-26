@@ -186,7 +186,7 @@ void PlayerStateTest::constructor_idCreator_maximumSpeedIs5()
 {
 	PlayerState player(*m_playerIDCreator);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(5, player.getSpeed(), 0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(2, player.getSpeed(), 0.0001);
 }
 
 void PlayerStateTest::getSpeedIntoX_notMoving_0()
@@ -316,7 +316,7 @@ void PlayerStateTest::setWidth_5_widthIs5()
 
 void PlayerStateTest::doNotCollideWith_validBomb_oneBombNotToCollideWith()
 {
-	BombState bomb(*m_bombIDCreator, 0);
+	BombState bomb(*m_bombIDCreator, 0, Point(), 1);
 	PlayerState player(*m_playerIDCreator);
 
 	player.doNotCollideWith(&bomb);
@@ -327,8 +327,8 @@ void PlayerStateTest::doNotCollideWith_validBomb_oneBombNotToCollideWith()
 
 void PlayerStateTest::doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideWith()
 {
-	BombState bombOne(*m_bombIDCreator, 0);
-	BombState bombTwo(*m_bombIDCreator, 0);
+	BombState bombOne(*m_bombIDCreator, 0, Point(), 1);
+	BombState bombTwo(*m_bombIDCreator, 0, Point(), 1);
 	PlayerState player(*m_playerIDCreator);
 
 	player.doNotCollideWith(&bombOne);
@@ -340,11 +340,9 @@ void PlayerStateTest::doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideW
 
 void PlayerStateTest::removeBombFromDoNotCollideList_twoBombsAddedAndFirstOneExploded_oneBombNotToCollideWith()
 {
-	BombState bombOne(*m_bombIDCreator, 0);
-	BombState bombTwo(*m_bombIDCreator, 0);
+	BombState bombOne(*m_bombIDCreator, 0, Point(1, 2), 1);
+	BombState bombTwo(*m_bombIDCreator, 0, Point(1, 3), 1);
 	PlayerState player(*m_playerIDCreator);
-	bombOne.setPosition(Point(1, 2));
-	bombOne.setPosition(Point(1, 3));
 	player.setPosition(Point(1, 2.5));
 	player.doNotCollideWith(&bombOne);
 	player.doNotCollideWith(&bombTwo);
@@ -356,14 +354,14 @@ void PlayerStateTest::removeBombFromDoNotCollideList_twoBombsAddedAndFirstOneExp
 	CPPUNIT_ASSERT_EQUAL((size_t)1, result.size());
 }
 
-void PlayerStateTest::increaseSpeed_defaultSpeed_speedIncreasedByTwo()
+void PlayerStateTest::increaseSpeed_defaultSpeed_speedIncreased()
 {
 	PlayerState player(*m_playerIDCreator);
-	double speed = player.getSpeed();
+	double initialSpeed = player.getSpeed();
 
 	player.increaseSpeed();
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(speed + 2, player.getSpeed(), 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(initialSpeed + player.getSpeedIncreasement(), player.getSpeed(), 0.001);
 }
 
 void PlayerStateTest::setDestructionRangeOfNewBombs_4_destructionRangeIs4()
@@ -373,4 +371,18 @@ void PlayerStateTest::setDestructionRangeOfNewBombs_4_destructionRangeIs4()
 	player.setDestructionRangeOfNewBombs(4);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)4, player.getDestructionRangeOfNewBombs());
+}
+
+void PlayerStateTest::constructor_idCreator_speedIncreasementIs05()
+{
+	PlayerState player(*m_playerIDCreator);
+
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.5, player.getSpeedIncreasement(), 0.00001);
+}
+
+void PlayerStateTest::constructor_idCreator_speedIncreasementIsGreaterZero()
+{
+	PlayerState player(*m_playerIDCreator);
+
+	CPPUNIT_ASSERT(player.getSpeedIncreasement() > 0);
 }

@@ -7,6 +7,7 @@ using namespace std;
 void GameStateTest::addWall_defaultWall_wallCountIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeSolid, Point()));
@@ -17,9 +18,10 @@ void GameStateTest::addWall_defaultWall_wallCountIs1()
 void GameStateTest::addBomb_defaultBomb_bombCountIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point(), 1));
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, state.getBombCount());
 }
@@ -27,9 +29,10 @@ void GameStateTest::addBomb_defaultBomb_bombCountIs1()
 void GameStateTest::getAllChangedBombs_twoBombsAdded_resultSizeIs2()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	state.addBomb(new BombState(m_bombIDCreator, 0));
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point(), 1));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point(), 1));
 
 	vector<const BombState*> bombs = state.getAllChangedBombs();
 
@@ -39,10 +42,11 @@ void GameStateTest::getAllChangedBombs_twoBombsAdded_resultSizeIs2()
 void GameStateTest::getAllChangedBombs_oneBombAddedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point(), 1));
 	state.resetChangedFlags();
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point(), 1));
 
 	vector<const BombState*> bombs = state.getAllChangedBombs();
 
@@ -52,8 +56,9 @@ void GameStateTest::getAllChangedBombs_oneBombAddedAndChangedFlagsResetAndAnothe
 void GameStateTest::getAllChangedExplodedBombs_oneExplodedBombAdded_resultSizeIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point(), 1);
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
@@ -66,6 +71,7 @@ void GameStateTest::getAllChangedExplodedBombs_oneExplodedBombAdded_resultSizeIs
 void GameStateTest::getAllChangedWalls_twoWallsAdded_resultSizeIs2()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeSolid, Point()));
 	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeSolid, Point()));
@@ -78,6 +84,7 @@ void GameStateTest::getAllChangedWalls_twoWallsAdded_resultSizeIs2()
 void GameStateTest::getAllChangedWalls_oneWallAddedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeSolid, Point()));
 	state.resetChangedFlags();
@@ -91,9 +98,10 @@ void GameStateTest::getAllChangedWalls_oneWallAddedAndChangedFlagsResetAndAnothe
 void GameStateTest::getAllBombsLifeTime_afterReduceLifeTime_resultTimeIs2()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	const BombState* bomb;
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point(), 1));
 	state.reduceAllBombsLifeTime(1);
 	state.removeAllObjectsWithDestroyedFlag();
 
@@ -106,14 +114,15 @@ void GameStateTest::getAllBombsLifeTime_afterReduceLifeTime_resultTimeIs2()
 void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_resultSizeIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &playerState = state.getFirstPlayerState();
 
 	playerState.countBomb();
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point(), 1));
 	state.reduceAllBombsLifeTime(1);
 	playerState.countBomb();
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point(), 1));
 	state.reduceAllBombsLifeTime(2.1);
 	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
 	state.removeAllObjectsWithDestroyedFlag();
@@ -126,6 +135,7 @@ void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_resultSizeIs1(
 void GameStateTest::resetChangedFlags_oneWallAdded_wallIsNotChanged()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	WallState *wall = new WallState(m_wallIDCreator, WallState::WallTypeSolid, Point());
 	state.addWall(wall);
@@ -138,8 +148,9 @@ void GameStateTest::resetChangedFlags_oneWallAdded_wallIsNotChanged()
 void GameStateTest::resetChangedFlags_oneBombAdded_bombIsNotChanged()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point(), 1);
 	state.addBomb(bomb);
 
 	state.resetChangedFlags();
@@ -150,6 +161,7 @@ void GameStateTest::resetChangedFlags_oneBombAdded_bombIsNotChanged()
 void GameStateTest::getHeight_heightLevelDefinition_resultIs50()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	CPPUNIT_ASSERT_EQUAL(level.getHeight(), state.getHeight());
@@ -158,6 +170,7 @@ void GameStateTest::getHeight_heightLevelDefinition_resultIs50()
 void GameStateTest::getWidth_widthLevelDefinition_resultIs50()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	CPPUNIT_ASSERT_EQUAL(level.getWidth(), state.getWidth());
@@ -166,11 +179,12 @@ void GameStateTest::getWidth_widthLevelDefinition_resultIs50()
 void GameStateTest::getAllBombsWithNegativeLifeTime_twoBombsAddedOneWithNegativeTime_resultSizeIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	const BombState* bomb;
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point(), 1));
 	state.reduceAllBombsLifeTime(2);
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point(), 1));
 	state.reduceAllBombsLifeTime(2);
 
 	vector<const BombState*> bombs = state.getAllChangedBombs();
@@ -182,6 +196,7 @@ void GameStateTest::getAllBombsWithNegativeLifeTime_twoBombsAddedOneWithNegative
 void GameStateTest::eraseWallById_twoWallsAddedOneDeleted_wallCountIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeLoose, Point()));
 	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeLoose, Point()));
@@ -194,9 +209,10 @@ void GameStateTest::eraseWallById_twoWallsAddedOneDeleted_wallCountIs1()
 void GameStateTest::setBombsLifeTimeToZero_oneBombAddedAndSetLifeTimeZero_lifeTimeIs0()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	const BombState* bomb;
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point(), 1));
 	state.setBombsLifeTimeToZeroIfPositive(0);
 
 	vector<const BombState*> bombs = state.getAllChangedBombs();
@@ -208,6 +224,7 @@ void GameStateTest::setBombsLifeTimeToZero_oneBombAddedAndSetLifeTimeZero_lifeTi
 void GameStateTest::addPowerUp_defaultPowerUp_powerUpCountIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
@@ -218,6 +235,7 @@ void GameStateTest::addPowerUp_defaultPowerUp_powerUpCountIs1()
 void GameStateTest::getAllChangedPowerUps_twoPowerUpsAdded_resultSizeIs2()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
 	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
@@ -230,6 +248,7 @@ void GameStateTest::getAllChangedPowerUps_twoPowerUpsAdded_resultSizeIs2()
 void GameStateTest::removePowerUpById_twoPowerUpsAdddedOneDeleted_PowerUpCountIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
 	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
@@ -243,6 +262,7 @@ void GameStateTest::removePowerUpById_twoPowerUpsAdddedOneDeleted_PowerUpCountIs
 void GameStateTest::getAllChangedPowerUps_onePowerUpAdedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
 	state.resetChangedFlags();
@@ -256,6 +276,7 @@ void GameStateTest::getAllChangedPowerUps_onePowerUpAdedAndChangedFlagsResetAndA
 void GameStateTest::resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	PowerUpState *powerUp = new PowerUpState(m_powerUpIDCreator, Point());
 	state.addPowerUp(powerUp);
@@ -268,8 +289,9 @@ void GameStateTest::resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged()
 void GameStateTest::resetChangedFlags_oneExplodedBombAdded_noChangedExplodedBombs()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point(), 1);
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
@@ -284,6 +306,7 @@ void GameStateTest::resetChangedFlags_oneExplodedBombAdded_noChangedExplodedBomb
 void GameStateTest::getAllPossiblePlayerIDs_onePlayerCreated_resultSizeIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	vector<unsigned int> playerIDs = state.getAllPossiblePlayerIDs();
@@ -294,6 +317,7 @@ void GameStateTest::getAllPossiblePlayerIDs_onePlayerCreated_resultSizeIs1()
 void GameStateTest::constructor_3players_playerCountIs3()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 0);
 	GameState state(level, 3, m_playerIDCreator, m_wallIDCreator);
@@ -324,8 +348,9 @@ void GameStateTest::constructor_threePlayersOnDifferentPositions_allPlayersHaveD
 void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBombWithNoLifeTime_resultSizeIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point(), 1);
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 
@@ -337,8 +362,9 @@ void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBom
 void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBombWithNoLifeTime_resultIsAddedBomb()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point(), 1);
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 
@@ -350,12 +376,13 @@ void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBom
 void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_twoOfThreeBombsWithNoLifeTime_resultSizeIs2()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point(), 1);
 	state.addBomb(bomb);
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point(), 1));
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point(), 1));
 
 	vector<const BombState*> result = state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
 
@@ -365,8 +392,9 @@ void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_twoOfT
 void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBombWithNoLifeTime_explodedBombCountIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point(), 1);
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 
@@ -378,9 +406,9 @@ void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBom
 void GameStateTest::getExplodedBombByBomb_oneExplodedBombWithDestructionRange3_destructionRangeIs3()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
-	bomb->setDestructionRange(3);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point(), 3);
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 	vector<const BombState*> explodedBombs = state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
@@ -393,6 +421,7 @@ void GameStateTest::getExplodedBombByBomb_oneExplodedBombWithDestructionRange3_d
 void GameStateTest::erasePlayerById_onePlayersAddedOneDeleted_playerCountIs0()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	state.erasePlayerById(0);
 	state.removeAllObjectsWithDestroyedFlag();
@@ -403,14 +432,15 @@ void GameStateTest::erasePlayerById_onePlayersAddedOneDeleted_playerCountIs0()
 void GameStateTest::getAllBombsWithDestroyedFlag_twoBombsAddedOneDestroyed_resultIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &playerState = state.getFirstPlayerState();
 
 	playerState.countBomb();
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point(), 1));
 	state.reduceAllBombsLifeTime(1);
 	playerState.countBomb();
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point(), 1));
 	state.reduceAllBombsLifeTime(2.1);
 	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
 
@@ -422,6 +452,7 @@ void GameStateTest::getAllBombsWithDestroyedFlag_twoBombsAddedOneDestroyed_resul
 void GameStateTest::getAllWallsWithDestroyedFlag_twoWallsAddedOneDestroyed_resultIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	state.addWall(new WallState(m_wallIDCreator, WallState::WallTypeLoose, Point()));
@@ -436,6 +467,7 @@ void GameStateTest::getAllWallsWithDestroyedFlag_twoWallsAddedOneDestroyed_resul
 void GameStateTest::getAllPowerUpsWithDestroyedFlag_twoPowerUpsAddedOneDestroyed_resultIs1()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	state.addPowerUp(new PowerUpState(m_powerUpIDCreator, Point()));
@@ -450,8 +482,9 @@ void GameStateTest::getAllPowerUpsWithDestroyedFlag_twoPowerUpsAddedOneDestroyed
 void GameStateTest::reduceAllBombsLifeTime_oneExplodedBomb_explodedBombsLifeTimeDecreased()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point(), 1);
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
@@ -466,8 +499,9 @@ void GameStateTest::reduceAllBombsLifeTime_oneExplodedBomb_explodedBombsLifeTime
 void GameStateTest::removeAllObjectsWithDestroyedFlag_oneDestroyedExplodedBomb_explodedBombCountIs0()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point(), 1);
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
@@ -483,6 +517,7 @@ void GameStateTest::removeAllObjectsWithDestroyedFlag_oneDestroyedExplodedBomb_e
 void GameStateTest::isPlayersAlife_OnePlayerNotDestroyed_resultIsTrue()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	vector<unsigned int> playerIDs = state.getAllPossiblePlayerIDs();
@@ -493,6 +528,7 @@ void GameStateTest::isPlayersAlife_OnePlayerNotDestroyed_resultIsTrue()
 void GameStateTest::isPlayersAlife_OnePlayerIsDestroyed_resultIsFalse()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	vector<unsigned int> playerIDs = state.getAllPossiblePlayerIDs();
@@ -504,6 +540,7 @@ void GameStateTest::isPlayersAlife_OnePlayerIsDestroyed_resultIsFalse()
 void GameStateTest::isPlayersAlife_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
 	vector<unsigned int> playerIDs = state.getAllPossiblePlayerIDs();

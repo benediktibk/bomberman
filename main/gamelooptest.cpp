@@ -111,8 +111,8 @@ void GameLoopTest::execute_runAround100ms_gameEngineGotAround6CallsToUpdateGameS
 	gameLoop->stop();
 	gameLoop->waitTillFinished();
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(6, gameEngine.getCallsToUpdateGameState(), 1);
 	delete gameLoop;
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(6, gameEngine.getCallsToUpdateGameState(), 1);
 }
 
 void GameLoopTest::execute_runSomeExecutions_graphicDrawerGotNoCallsToSetResponsibleForPlayers()
