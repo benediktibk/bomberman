@@ -24,4 +24,4 @@ and the [doxygen documentation](http://kevin-meyer.de/docu/).
 
 License
 ------
-@todo: Include license here! Or link to license
+@todo Include license here! Or link to license
