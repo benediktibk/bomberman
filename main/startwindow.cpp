@@ -25,6 +25,8 @@ void StartWindow::connectButtons()
 	connect(m_ui->exitButton, SIGNAL(clicked()), this, SLOT(exitClicked()));
 	connect(m_ui->startButton, SIGNAL(clicked()), this, SLOT(startClicked()));
 	connect(m_ui->closeGameButton, SIGNAL(clicked()), this, SLOT(closeGameClicked()));
+	connect(m_ui->singleRadioButton, SIGNAL(clicked()), this, SLOT(updateSilder()));
+	connect(m_ui->multiRadioButton, SIGNAL(clicked()), this, SLOT(updateSilder()));
 }
 
 void StartWindow::createTableView()
@@ -53,7 +55,7 @@ void StartWindow::createTableView()
 void StartWindow::createSilder()
 {
 	connect( m_ui->playerCountHorizontalSlider, SIGNAL( valueChanged(int)), this, SLOT(showHorizontalSliderValue()));
-	m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->model()->index(0,3)).toInt());
+	m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->model()->index(0,3)).toInt()-1);
 }
 
 void StartWindow::exitClicked()
@@ -95,5 +97,16 @@ void StartWindow::showHorizontalSliderValue()
 
 void StartWindow::updateSilder()
 {
+	if(m_ui->singleRadioButton->isChecked())
+	{
+		m_ui->playerCountHorizontalSlider->setMinimum(1);
+		m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->model()->index(0,3)).toInt()-1);
+	}
+	else
+	{
+		m_ui->playerCountHorizontalSlider->setMinimum(0);
+		m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->model()->index(0,3)).toInt()-2);
+		m_ui->playerCountHorizontalSlider->setValue(0);
+	}
 
 }

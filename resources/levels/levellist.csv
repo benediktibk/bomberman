@@ -1,5 +1,5 @@
 showname;height;width;maxPlayer;filename
-Default level;10;15;1;defaultlevel
+Default level;10;15;2;defaultlevel
 Neighbourship;25;25;4;neighbourship
 Classic middle;21;21;4;classic_middle
 No place to hide;21;21;4;no_place_to_hide

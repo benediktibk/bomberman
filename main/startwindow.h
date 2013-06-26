@@ -27,6 +27,7 @@ private slots:
 	void closeGameClicked();
 	void levelBuildingNotCorrect();
 	void showHorizontalSliderValue();
+	void updateSilder();
 
 signals:
 	void startGameSignal(bool enableOpenGL, const char* levelname);
@@ -36,7 +37,6 @@ private:
 	void connectButtons();
 	void createTableView();
 	void createSilder();
-	void updateSilder();
 
 private:
 	Ui::StartWindow* m_ui;
