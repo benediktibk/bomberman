@@ -5,5 +5,5 @@ using namespace GameEngine;
 
 bool CoveredByPowerUpDecider::decide(const RouterGridField &field) const
 {
-	return field.isPowerUp();
+	return field.isPowerUp() && !field.isDangerous();
 }

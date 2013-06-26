@@ -297,19 +297,10 @@ void GameEngineImpl::updateBombs()
 		}
 
 		ExplodedBombState &explodedBomb = m_gameState.getExplodedBombByBomb(*i);
-		GridPoint bombPosition(explodedBomb.getPosition());
-		unsigned int maximumDestructionRange = explodedBomb.getMaximumDestructionRange();
-
-		unsigned int maximumDistanceLeft = m_grid->getBombMaximumRangeLeft(bombPosition);
-		unsigned int maximumDistanceUp = m_grid->getBombMaximumRangeUp(bombPosition);
-		unsigned int maximumDistanceRight = m_grid->getBombMaximumRangeRight(bombPosition);
-		unsigned int maximumDistanceDown = m_grid->getBombMaximumRangeDown(bombPosition);
-
-		unsigned int destructionRangeLeft = min(maximumDistanceLeft, maximumDestructionRange);
-		unsigned int destructionRangeUp = min(maximumDistanceUp, maximumDestructionRange);
-		unsigned int destructionRangeRight = min(maximumDistanceRight, maximumDestructionRange);
-		unsigned int destructionRangeDown = min(maximumDistanceDown, maximumDestructionRange);
-
+		unsigned int destructionRangeLeft = m_grid->getBombRangeLeft(**i);
+		unsigned int destructionRangeUp = m_grid->getBombRangeUp(**i);
+		unsigned int destructionRangeRight = m_grid->getBombRangeRight(**i);
+		unsigned int destructionRangeDown = m_grid->getBombRangeDown(**i);
 		explodedBomb.setDestructionRangeLeft(destructionRangeLeft);
 		explodedBomb.setDestructionRangeUp(destructionRangeUp);
 		explodedBomb.setDestructionRangeRight(destructionRangeRight);
@@ -333,9 +324,10 @@ void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &i
 {
 	if (input.isSpaceKeyPressed() && player.canPlayerPlaceBomb() && m_grid->isPlaceEmpty(player.getCenterPosition()))
 	{
-		BombState *bombPlaced = new BombState(m_bombids, player.getId());
-		bombPlaced->setPosition(player.getCenterPosition());
-		bombPlaced->setDestructionRange(player.getDestructionRangeOfNewBombs());
+		GridPoint gridPosition = player.getCenterPosition();
+		BombState *bombPlaced = new BombState(	m_bombids, player.getId(),
+												gridPosition.getPointPosition(),
+												player.getDestructionRangeOfNewBombs());
 		m_gameState.addBomb(bombPlaced);
 		m_grid->addBombAtPlace(*bombPlaced);
 		player.countBomb();

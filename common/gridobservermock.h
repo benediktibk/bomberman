@@ -14,11 +14,13 @@ namespace Common
 		virtual void fieldHasChanged(const Common::GridPoint &position);
 
 		unsigned int getCallsToFieldHasChanged() const;
+		bool lastParamsOfFieldHasChangedContains(const Common::GridPoint &point) const;
+		void clearLastParamsOfFieldHasChanged();
 		const Common::GridPoint& getLastParamOfCallToFieldHasChanged() const;
 
 	private:
 		unsigned int m_callsToFieldHasChanged;
-		Common::GridPoint m_lastParamOfCallToFieldHasChanged;
+		std::vector<Common::GridPoint> m_lastParamsOfFieldHasChanged;
 	};
 }
 

@@ -66,12 +66,9 @@ void ComputerEnemyInputFetcherTest::getInputState_onDangerousFieldAndShortestWay
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 1);
 	createInputFetcher(level);
-	BombState *bombOne = new BombState(*m_bombIdCreator, 0);
-	BombState *bombTwo = new BombState(*m_bombIdCreator, 0);
-	BombState *bombThree = new BombState(*m_bombIdCreator, 0);
-	bombOne->setPosition(Point(4, 3));
-	bombTwo->setPosition(Point(4, 2));
-	bombTwo->setPosition(Point(4, 4));
+	BombState *bombOne = new BombState(*m_bombIdCreator, 0, Point(4, 3), 1);
+	BombState *bombTwo = new BombState(*m_bombIdCreator, 0, Point(4, 2), 1);
+	BombState *bombThree = new BombState(*m_bombIdCreator, 0, Point(4, 4), 1);
 	m_gameState->addBomb(bombOne);
 	m_gameState->addBomb(bombTwo);
 	m_gameState->addBomb(bombThree);
@@ -113,6 +110,23 @@ void ComputerEnemyInputFetcherTest::getInputState_looseWallRight_rightKeyPressed
 	CPPUNIT_ASSERT(input.isRightKeyPressed());
 }
 
+void GameEngine::ComputerEnemyInputFetcherTest::getInputState_powerUpOnDangerousField_noMovementButtonPressed()
+{
+	LevelDefinition level(13, 14);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
+	createInputFetcher(level);
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(7, 7), 1);
+	m_gameState->addBomb(bomb);
+	m_grid->addBombAtPlace(*bomb);
+	PowerUpMaxBombRangeState *powerUp = new PowerUpMaxBombRangeState(*m_powerUpIdCreator, Point(7, 8));
+	m_gameState->addPowerUp(powerUp);
+	m_grid->addPowerUpAtPlace(*powerUp);
+
+	InputState input = m_inputFetcher->getInputState();
+
+	CPPUNIT_ASSERT(!input.isMovementButtonPressed());
+}
+
 void ComputerEnemyInputFetcherTest::createInputFetcher(const LevelDefinition &level)
 {
 	delete m_inputFetcher;
@@ -140,6 +154,7 @@ void ComputerEnemyInputFetcherTest::setUp()
 	m_playerIdCreator = new UniqueIdCreator();
 	m_wallIdCreator = new UniqueIdCreator();
 	m_bombIdCreator = new UniqueIdCreator();
+	m_powerUpIdCreator = new UniqueIdCreator();
 	LevelDefinition level(15, 12);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
@@ -160,4 +175,6 @@ void ComputerEnemyInputFetcherTest::tearDown()
 	m_wallIdCreator = 0;
 	delete m_bombIdCreator;
 	m_bombIdCreator = 0;
+	delete m_powerUpIdCreator;
+	m_powerUpIdCreator = 0;
 }
