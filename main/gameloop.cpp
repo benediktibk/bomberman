@@ -147,6 +147,9 @@ void GameLoop::execute()
 			m_start.reset();
 		}
 
+		if(m_gameEngine.getAllPossiblePlayerIDs().size() <= 1)
+			run = false;
+
 		m_stoppedMutex.lock();
 		if (m_stopped)
 			run = false;
