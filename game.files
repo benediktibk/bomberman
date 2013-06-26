@@ -385,3 +385,4 @@ gameengine/coveredbypowerupdecider.h
 gameengine/coveredbypowerupdecider.cpp
 gameengine/coveredbypowerupdecidertest.h
 gameengine/coveredbypowerupdecidertest.cpp
+README.md
