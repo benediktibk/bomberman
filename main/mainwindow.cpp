@@ -62,6 +62,7 @@ void MainWindow::draw(const Common::GameState &gameState)
 
 void MainWindow::startGame(bool enableOpenGL, const char* levelname)
 {
+	m_ui->pauseButton->setText(tr("pause"));
 	m_gameStartMutex.lock();
 	m_gameStarted = false;
 	m_gameStartMutex.unlock();
