@@ -50,6 +50,8 @@ void StartWindow::createTableView()
 	m_ui->levelTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 	m_ui->levelTableView->setSelectionMode(QAbstractItemView::SingleSelection);
 	m_ui->levelTableView->setModel(model);
+
+	connect(m_ui->levelTableView, SIGNAL(clicked(QModelIndex)), this, SLOT(updateSilder()));
 }
 
 void StartWindow::createSilder()
