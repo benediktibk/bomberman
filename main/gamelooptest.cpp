@@ -187,3 +187,33 @@ void GameLoopTest::pause_gameAlreadyRunSomeExecutionsAndWaitOf100ms_callsToMocks
 	delete gameLoop;
 	delete gameEngine;
 }
+
+void GameLoopTest::pause_gameAlreadyRunSomeExecutions_isPaused()
+{
+	InputFetcherStub inputFetcher;
+	GameEngineStub gameEngine;
+	GraphicDrawerStub graphicDrawer;
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
+	gameLoop->start();
+
+	usleep(1000*100);
+	gameLoop->pause();
+
+	CPPUNIT_ASSERT(gameLoop->isPaused());
+	gameLoop->stop();
+	delete gameLoop;
+}
+
+void GameLoopTest::constructor_notStarted_notPaused()
+{
+	InputFetcherStub inputFetcher;
+	GameEngineStub gameEngine;
+	GraphicDrawerStub graphicDrawer;
+
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
+
+	CPPUNIT_ASSERT(!gameLoop->isPaused());
+	gameLoop->start();
+	gameLoop->stop();
+	delete gameLoop;
+}

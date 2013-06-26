@@ -26,6 +26,7 @@ public:
 	void start();
 	void stop();
 	void pause();
+	bool isPaused();
 	unsigned int getFramesPerSecond();
 	double percentageOfTimeNotSleeping();
 	std::vector<unsigned int> getPlayerInformation();

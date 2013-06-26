@@ -51,6 +51,14 @@ void GameLoop::pause()
 	m_pausedMutex.unlock();
 }
 
+bool GameLoop::isPaused()
+{
+	m_pausedMutex.lock();
+	bool paused = m_paused;
+	m_pausedMutex.unlock();
+	return paused;
+}
+
 unsigned int GameLoop::getFramesPerSecond()
 {
 	unsigned int result;
