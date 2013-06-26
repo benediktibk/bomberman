@@ -38,6 +38,11 @@ bool RouterGridField::isFree() const
 	return !isBomb() && !isPlayer() && !isLooseWall() && !isSolidWall();
 }
 
+bool RouterGridField::isPowerUp() const
+{
+	return m_powerUp;
+}
+
 void RouterGridField::setLooseWall(bool value)
 {
 	assert(!m_player && !m_solidWall && !m_bomb && !m_dangerous);
@@ -68,6 +73,12 @@ void RouterGridField::setDangerous(bool value)
 {
 	assert(!(m_bomb && !value));
 	m_dangerous = value;
+}
+
+void RouterGridField::setPowerUp(bool value)
+{
+	assert((!m_looseWall && !m_solidWall) || !value);
+	m_powerUp = value;
 }
 
 void RouterGridField::clear()
