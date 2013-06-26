@@ -16,13 +16,13 @@ namespace Graphic
 	{
 	public:
 		PowerUp(QGraphicsScene &scene, SvgRenderer &renderer);
-		PowerUp(QGraphicsScene &scene, SvgRenderer &renderer, Common::PowerUpState &state, double pixelPerMeter);
+		PowerUp(QGraphicsScene &scene, SvgRenderer &renderer, const Common::PowerUpState &state, double pixelPerMeter);
 		~PowerUp();
 
 		void update(const Common::PowerUpState &state, double pixelPerMeter);
 
 	private:
-		void createSvgItem(Common::PowerUpState &state, SvgRenderer &renderer);
+		void createSvgItem(const Common::PowerUpState &state, SvgRenderer &renderer);
 		QGraphicsSvgItem *m_svgItem;
 	};
 }
