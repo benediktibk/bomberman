@@ -228,8 +228,8 @@ void Grid::notifyObservers(const GridPoint &position)
 void Grid::increaseHorizontalDangerousRange(const BombState &bomb)
 {
 	GridPoint bombPosition = bomb.getPosition();
-	unsigned int rangeLeft = getBombMaximumRangeLeft(bombPosition);
-	unsigned int rangeRight = getBombMaximumRangeRight(bombPosition);
+	unsigned int rangeLeft = getBombRangeLeft(bomb);
+	unsigned int rangeRight = getBombRangeRight(bomb);
 
 	for (unsigned int x = bombPosition.getX() - rangeLeft; x <= bombPosition.getX() + rangeRight; ++x)
 	{
@@ -242,8 +242,8 @@ void Grid::increaseHorizontalDangerousRange(const BombState &bomb)
 void Grid::increaseVerticalDangerousRange(const BombState &bomb)
 {
 	GridPoint bombPosition = bomb.getPosition();
-	unsigned int rangeDown = getBombMaximumRangeDown(bombPosition);
-	unsigned int rangeUp = getBombMaximumRangeUp(bombPosition);
+	unsigned int rangeDown = getBombRangeDown(bomb);
+	unsigned int rangeUp = getBombRangeUp(bomb);
 
 	for (unsigned int y = bombPosition.getY() - rangeDown; y <= bombPosition.getY() + rangeUp; ++y)
 	{
@@ -263,11 +263,14 @@ void Grid::increaseOwnPositionDangerousCounter(const BombState &bomb)
 void Grid::decreaseHorizontalDangerousRange(const BombState &bomb)
 {
 	GridPoint bombPosition = bomb.getPosition();
-	unsigned int rangeLeft = getBombMaximumRangeLeft(bombPosition);
-	unsigned int rangeRight = getBombMaximumRangeRight(bombPosition);
+	unsigned int rangeLeft = getBombRangeLeft(bomb);
+	unsigned int rangeRight = getBombRangeRight(bomb);
 
 	for (unsigned int x = bombPosition.getX() - rangeLeft; x <= bombPosition.getX() + rangeRight; ++x)
 	{
+		if (x == bombPosition.getX())
+			continue;
+
 		GridPoint position(x, bombPosition.getY());
 		unsigned int index = getVectorIndex(position);
 		assert(m_dangerousMatrix[index] > 0);
@@ -278,11 +281,14 @@ void Grid::decreaseHorizontalDangerousRange(const BombState &bomb)
 void Grid::decreaseVerticalDangerousRange(const BombState &bomb)
 {
 	GridPoint bombPosition = bomb.getPosition();
-	unsigned int rangeDown = getBombMaximumRangeDown(bombPosition);
-	unsigned int rangeUp = getBombMaximumRangeUp(bombPosition);
+	unsigned int rangeDown = getBombRangeDown(bomb);
+	unsigned int rangeUp = getBombRangeUp(bomb);
 
 	for (unsigned int y = bombPosition.getY() - rangeDown; y <= bombPosition.getY() + rangeUp; ++y)
 	{
+		if (y == bombPosition.getY())
+			continue;
+
 		GridPoint position(bombPosition.getX(), y);
 		unsigned int index = getVectorIndex(position);
 		assert(m_dangerousMatrix[index] > 0);
@@ -608,4 +614,24 @@ unsigned int Grid::getBombMaximumRangeDown(const GridPoint &position) const
 	}
 
 	return distanceToNextWall;
+}
+
+unsigned int Grid::getBombRangeLeft(const BombState &bomb)
+{
+	return min(getBombMaximumRangeLeft(bomb.getPosition()), bomb.getDestructionRange());
+}
+
+unsigned int Grid::getBombRangeRight(const BombState &bomb)
+{
+	return min(getBombMaximumRangeRight(bomb.getPosition()), bomb.getDestructionRange());
+}
+
+unsigned int Grid::getBombRangeUp(const BombState &bomb)
+{
+	return min(getBombMaximumRangeUp(bomb.getPosition()), bomb.getDestructionRange());
+}
+
+unsigned int Grid::getBombRangeDown(const BombState &bomb)
+{
+	return min(getBombMaximumRangeDown(bomb.getPosition()), bomb.getDestructionRange());
 }
