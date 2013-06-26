@@ -20,7 +20,7 @@ unsigned int GridObserverMock::getCallsToFieldHasChanged() const
 	return m_callsToFieldHasChanged;
 }
 
-bool GridObserverMock::lastParamsOfFieldHasChangedContain(const GridPoint &point) const
+bool GridObserverMock::lastParamsOfFieldHasChangedContains(const GridPoint &point) const
 {
 	return count(m_lastParamsOfFieldHasChanged.begin(), m_lastParamsOfFieldHasChanged.end(), point) > 0;
 }

@@ -996,7 +996,7 @@ void GridTest::addBombAtPlace_bombPosition3And4AndOneObserverMock_observerGotCal
 
 	grid.addBombAtPlace(bomb);
 
-	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContain(GridPoint(3, 4)));
+	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContains(GridPoint(3, 4)));
 }
 
 void GridTest::addWallAtPlace_oneObserverMock_observerGotOneCallToFieldHasChanged()
@@ -1472,7 +1472,7 @@ void GridTest::removeBomb_bombWithRange2AndOneObserverMock_observerGotCallToFiel
 
 	grid.removeBomb(bomb);
 
-	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContain(GridPoint(5, 4)));
+	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContains(GridPoint(5, 4)));
 }
 
 void GridTest::removeBomb_bombWithRange2AndOneObserverMock_observerGotCallToFieldHasChangedTwoFieldsAboveOfBombPosition()
@@ -1485,7 +1485,7 @@ void GridTest::removeBomb_bombWithRange2AndOneObserverMock_observerGotCallToFiel
 
 	grid.removeBomb(bomb);
 
-	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContain(GridPoint(3, 6)));
+	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContains(GridPoint(3, 6)));
 }
 
 void GridTest::removeWall_wallLeftOfBombInRangeOfBombAndOneObserverMock_observerGotCallToFieldHasChangedBehindTheWall()
@@ -1500,7 +1500,7 @@ void GridTest::removeWall_wallLeftOfBombInRangeOfBombAndOneObserverMock_observer
 
 	grid.removeWall(wall);
 
-	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContain(GridPoint(1, 4)));
+	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContains(GridPoint(1, 4)));
 }
 
 void GridTest::removeWall_wallBelowOfBombInRangeOfBombAndOneObserverMock_observerGotCallToFieldHasChangedBehindTheWall()
@@ -1515,7 +1515,7 @@ void GridTest::removeWall_wallBelowOfBombInRangeOfBombAndOneObserverMock_observe
 
 	grid.removeWall(wall);
 
-	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContain(GridPoint(3, 0)));
+	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContains(GridPoint(3, 0)));
 }
 
 void GridTest::addBombAtPlace_bombWithRange2AndOneObserverMock_observerGotCallToFieldHasChangedOneFieldLeftOfBombPosition()
@@ -1526,7 +1526,7 @@ void GridTest::addBombAtPlace_bombWithRange2AndOneObserverMock_observerGotCallTo
 
 	grid.addBombAtPlace(bomb);
 
-	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContain(GridPoint(2, 4)));
+	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContains(GridPoint(2, 4)));
 }
 
 void GridTest::addBombAtPlace_bombWithRange2AndOneObserverMock_observerGotCallToFieldHasChangedOneFieldAboveOfBombPosition()
@@ -1537,7 +1537,7 @@ void GridTest::addBombAtPlace_bombWithRange2AndOneObserverMock_observerGotCallTo
 
 	grid.addBombAtPlace(bomb);
 
-	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContain(GridPoint(3, 5)));
+	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContains(GridPoint(3, 5)));
 }
 
 void GridTest::removeBomb_bombWithRange1AtPosition3And4_3And4IsNotDangerous()

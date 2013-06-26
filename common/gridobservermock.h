@@ -14,7 +14,7 @@ namespace Common
 		virtual void fieldHasChanged(const Common::GridPoint &position);
 
 		unsigned int getCallsToFieldHasChanged() const;
-		bool lastParamsOfFieldHasChangedContain(const Common::GridPoint &point) const;
+		bool lastParamsOfFieldHasChangedContains(const Common::GridPoint &point) const;
 		void clearLastParamsOfFieldHasChanged();
 		const Common::GridPoint& getLastParamOfCallToFieldHasChanged() const;
 

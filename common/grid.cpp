@@ -88,12 +88,16 @@ void Grid::addWallAtPlace(const WallState &wall)
 {
 	GridPoint position(wall.getPosition());
 	unsigned int index = getVectorIndex(position);
+	vector<const BombState*> bombsOnHorizontalLine = getBombsOnHorizontalLine(position);
+	vector<const BombState*> bombsOnVerticalLine = getBombsOnVerticalLine(position);
+	removeRangesFromMatrix(bombsOnHorizontalLine, bombsOnVerticalLine);
 
 	if (WallState::WallTypeSolid == wall.getWallType())
 		m_itemMatrix[index] = ItemSolidWall;
 	else
 		m_itemMatrix[index] = ItemLooseWall;
 
+	addRangesToMatrix(bombsOnHorizontalLine, bombsOnVerticalLine);
 	m_idMatrix[index] = wall.getId();
 	notifyObservers(position);
 }
@@ -101,22 +105,8 @@ void Grid::addWallAtPlace(const WallState &wall)
 void Grid::addPowerUpAtPlace(PowerUpState &powerUp)
 {
 	GridPoint position(powerUp.getPosition());
-	vector<const BombState*> bombsOnHorizontalLine = getBombsOnHorizontalLine(position);
-	vector<const BombState*> bombsOnVerticalLine = getBombsOnVerticalLine(position);
-
-	for (vector<const BombState*>::const_iterator i = bombsOnHorizontalLine.begin(); i != bombsOnHorizontalLine.end(); ++i)
-		decreaseHorizontalDangerousRange(**i);
-	for (vector<const BombState*>::const_iterator i = bombsOnVerticalLine.begin(); i != bombsOnVerticalLine.end(); ++i)
-		decreaseVerticalDangerousRange(**i);
-
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemPowerUp;
-
-	for (vector<const BombState*>::const_iterator i = bombsOnHorizontalLine.begin(); i != bombsOnHorizontalLine.end(); ++i)
-		increaseHorizontalDangerousRange(**i);
-	for (vector<const BombState*>::const_iterator i = bombsOnVerticalLine.begin(); i != bombsOnVerticalLine.end(); ++i)
-		increaseVerticalDangerousRange(**i);
-
 	m_idMatrix[index] = powerUp.getId();
 }
 
@@ -147,21 +137,11 @@ void Grid::removeWall(const WallState &wall)
 	GridPoint position(wall.getPosition());
 	vector<const BombState*> bombsOnHorizontalLine = getBombsOnHorizontalLine(position);
 	vector<const BombState*> bombsOnVerticalLine = getBombsOnVerticalLine(position);
-
-	for (vector<const BombState*>::const_iterator i = bombsOnHorizontalLine.begin(); i != bombsOnHorizontalLine.end(); ++i)
-		decreaseHorizontalDangerousRange(**i);
-	for (vector<const BombState*>::const_iterator i = bombsOnVerticalLine.begin(); i != bombsOnVerticalLine.end(); ++i)
-		decreaseVerticalDangerousRange(**i);
-
+	removeRangesFromMatrix(bombsOnHorizontalLine, bombsOnVerticalLine);
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemFree;
 	m_idMatrix[index] = 0;
-
-	for (vector<const BombState*>::const_iterator i = bombsOnHorizontalLine.begin(); i != bombsOnHorizontalLine.end(); ++i)
-		increaseHorizontalDangerousRange(**i);
-	for (vector<const BombState*>::const_iterator i = bombsOnVerticalLine.begin(); i != bombsOnVerticalLine.end(); ++i)
-		increaseVerticalDangerousRange(**i);
-
+	addRangesToMatrix(bombsOnHorizontalLine, bombsOnVerticalLine);
 	notifyObservers(position);
 }
 
@@ -632,6 +612,22 @@ unsigned int Grid::getBombMaximumRangeDown(const GridPoint &position) const
 	}
 
 	return distanceToNextWall;
+}
+
+void Grid::removeRangesFromMatrix(const std::vector<const BombState *> &horizontal, const std::vector<const BombState *> &vertical)
+{
+	for (vector<const BombState*>::const_iterator i = horizontal.begin(); i != horizontal.end(); ++i)
+		decreaseHorizontalDangerousRange(**i);
+	for (vector<const BombState*>::const_iterator i = vertical.begin(); i != vertical.end(); ++i)
+		decreaseVerticalDangerousRange(**i);
+}
+
+void Grid::addRangesToMatrix(const std::vector<const BombState *> &horizontal, const std::vector<const BombState *> &vertical)
+{
+	for (vector<const BombState*>::const_iterator i = horizontal.begin(); i != horizontal.end(); ++i)
+		increaseHorizontalDangerousRange(**i);
+	for (vector<const BombState*>::const_iterator i = vertical.begin(); i != vertical.end(); ++i)
+		increaseVerticalDangerousRange(**i);
 }
 
 unsigned int Grid::getBombRangeLeft(const BombState &bomb) const

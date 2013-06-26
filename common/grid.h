@@ -87,6 +87,8 @@ namespace Common
 		unsigned int getBombMaximumRangeUp(const Common::GridPoint &position) const;
 		unsigned int getBombMaximumRangeRight(const Common::GridPoint &position) const;
 		unsigned int getBombMaximumRangeDown(const Common::GridPoint &position) const;
+		void removeRangesFromMatrix(const std::vector<const BombState*> &horizontal, const std::vector<const BombState*> &vertical);
+		void addRangesToMatrix(const std::vector<const BombState*> &horizontal, const std::vector<const BombState*> &vertical);
 
 	private:
 		unsigned int m_gridRows;
