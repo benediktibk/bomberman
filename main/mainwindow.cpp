@@ -149,6 +149,11 @@ void MainWindow::updatePlayerStateInfo()
 	m_ui->playerStateInfo->setText(messageString);
 }
 
+void MainWindow::closeEvent(QCloseEvent *)
+{
+	emit closeGameSignal();
+}
+
 void MainWindow::finishGame()
 {
 	delete m_gameLoop;
@@ -175,3 +180,4 @@ void MainWindow::pauseButtonPushed()
 		m_ui->pauseButton->setText("resume");
 	}
 }
+
