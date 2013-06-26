@@ -36,6 +36,13 @@ InputState ComputerEnemyInputFetcher::getInputState()
 		return m_inputState;
 	}
 
+	Route routeToPowerUp = m_router->getRouteToPowerUp(playerPosition);
+	if (routeToPowerUp.getDirection() != PlayerState::PlayerDirectionNone)
+	{
+		setInputStateIntoDirection(routeToPowerUp.getDirection());
+		return m_inputState;
+	}
+
 	Route routeToPlayer = m_router->getRouteToPlayer(playerPosition);
 	if (routeToPlayer.getDirection() != PlayerState::PlayerDirectionNone)
 	{
