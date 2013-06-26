@@ -100,12 +100,12 @@ void StartWindow::updateSilder()
 	if(m_ui->singleRadioButton->isChecked())
 	{
 		m_ui->playerCountHorizontalSlider->setMinimum(1);
-		m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->model()->index(0,3)).toInt()-1);
+		m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->selectionModel()->selectedIndexes().at(3)).toInt()-1);
 	}
 	else
 	{
 		m_ui->playerCountHorizontalSlider->setMinimum(0);
-		m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->model()->index(0,3)).toInt()-2);
+		m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->selectionModel()->selectedIndexes().at(3)).toInt()-2);
 		m_ui->playerCountHorizontalSlider->setValue(0);
 	}
 
