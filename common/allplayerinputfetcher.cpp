@@ -22,9 +22,20 @@ void allPlayerInputFetcher::setAllPossiblePlayerIds(vector<unsigned int> allPoss
 }
 
 
-std::map<unsigned int, InputState> allPlayerInputFetcher::getInputStates()
+map<unsigned int, InputState> allPlayerInputFetcher::getInputStates()
 {
-    return m_inputStates;
+    map<unsigned int, InputState> result = m_inputFetcher.getInputStates();
+    
+    for (vector<GameEngine::ComputerEnemyInputFetcher*>::iterator i = m_compInputFetcher.begin(); i != m_compInputFetcher.end(); ++i)
+    {
+        GameEngine::ComputerEnemyInputFetcher &computerEnemy = **i;
+        map<unsigned int, InputState> resultPart = computerEnemy.getInputStates();
+        
+        for (map<unsigned int, InputState>::const_iterator j = resultPart.begin(); j != resultPart.end(); ++j)
+            result.insert(*j);
+    }
+    
+    return result;
 }
 
 void allPlayerInputFetcher::setGameMode(unsigned int humanPlayerCount)

@@ -86,6 +86,7 @@ void GameLoop::execute()
 	StopWatch watchRealCalculatingTime;
 	double realCalculatingTime = 0;
 	std::vector<unsigned int> playerIDs = m_gameEngine.getAllPossiblePlayerIDs();
+    //m_inputFetcher.setPlayerIDs(playerIDs);
 
 	while (run)
 	{
