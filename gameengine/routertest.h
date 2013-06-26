@@ -45,6 +45,7 @@ namespace GameEngine
 		CPPUNIT_TEST(getRouteToLooseWall_looseWallTwoFieldsBelowOfPlayer_directionIsDown);
 		CPPUNIT_TEST(getRouteToLooseWall_routeNeedsEveryDirectionToGetThroughTheMaze_distanceIsCorrect);
 		CPPUNIT_TEST(getRouteToPowerUp_powerUpThreeFieldsAbovePlayer_distanceIs3);
+		CPPUNIT_TEST(getRouteToPowerUp_powerUpThreeFieldsAbovePlayer_directionIsUp);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -76,6 +77,7 @@ namespace GameEngine
 		void getRouteToLooseWall_looseWallTwoFieldsBelowOfPlayer_directionIsDown();
 		void getRouteToLooseWall_routeNeedsEveryDirectionToGetThroughTheMaze_distanceIsCorrect();
 		void getRouteToPowerUp_powerUpThreeFieldsAbovePlayer_distanceIs3();
+		void getRouteToPowerUp_powerUpThreeFieldsAbovePlayer_directionIsUp();
 
 	private:
 		void createRouter(const Common::LevelDefinition &level);
