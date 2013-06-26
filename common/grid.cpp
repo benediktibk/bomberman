@@ -109,6 +109,7 @@ void Grid::removePowerUp(const PowerUpState &powerUp)
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemFree;
 	m_idMatrix[index] = 0;
+	notifyObservers(position);
 }
 
 void Grid::removeBomb(const BombState &bomb)
