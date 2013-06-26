@@ -62,9 +62,9 @@ void ExplodedBomb::createFlameEnds(QGraphicsScene &scene, const Common::Exploded
 	m_leftEnd = m_renderer->getNewExplodedBombEndItem();
 	m_rightEnd = m_renderer->getNewExplodedBombEndItem();
 
-	m_lowerEnd->rotate(180);
-	m_leftEnd->rotate(-90);
-	m_rightEnd->rotate(90);
+	m_lowerEnd->setRotation(180);
+	m_leftEnd->setRotation(-90);
+	m_rightEnd->setRotation(90);
 
 	m_upperEnd->setScale(0.001*pixelPerMeter*dimension);
 	m_leftEnd->setScale(0.001*pixelPerMeter*dimension);
@@ -110,7 +110,7 @@ void ExplodedBomb::createFlamesToTheRight(QGraphicsScene &scene, const Common::E
 	for (unsigned int i = 1; i < destructionRange; ++i)
 	{
 		QGraphicsSvgItem *item = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
-		item->rotate(-90);
+		item->setRotation(-90);
 		Point position(state.getPosition() + Point(i, (-1)*dimension));
 		position *= pixelPerMeter;
 		position.switchIntoQtCoordinates();
@@ -129,7 +129,7 @@ void ExplodedBomb::createFlamesToTheLeft(QGraphicsScene &scene, const Common::Ex
 	for (unsigned int i = 1; i < destructionRange; ++i)
 	{
 		QGraphicsSvgItem *item = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
-		item->rotate(90);
+		item->setRotation(90);
 		Point position(state.getPosition() + Point((-1.0)*i + dimension, 0));
 		position *= pixelPerMeter;
 		position.switchIntoQtCoordinates();
@@ -166,7 +166,7 @@ void ExplodedBomb::createFlamesToTheLower(QGraphicsScene &scene, const Common::E
 	for (unsigned int i = 1; i < destructionRange; ++i)
 	{
 		QGraphicsSvgItem *item = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
-		item->rotate(180);
+		item->setRotation(180);
 		Point position(state.getPosition() + Point(dimension, (-1)*(dimension + i)));
 		position *= pixelPerMeter;
 		position.switchIntoQtCoordinates();
