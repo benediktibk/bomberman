@@ -14,6 +14,7 @@ class PowerUpMaxBombStateTest :
     CPPUNIT_TEST(getPowerUpHeight_heightIs1);
     CPPUNIT_TEST(modifyPlayer_maxBombIs2);
     CPPUNIT_TEST(modifyPlayer_baseClass_maxBombIs2);
+	CPPUNIT_TEST(getPowerUpType_isMaxBomb);
     CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -21,6 +22,7 @@ private:
     void getPowerUpHeight_heightIs1();
     void modifyPlayer_maxBombIs2();
     void modifyPlayer_baseClass_maxBombIs2();
+	void getPowerUpType_isMaxBomb();
 
 };
 }
