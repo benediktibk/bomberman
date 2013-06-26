@@ -58,6 +58,12 @@ bool Grid::isPlaceCoveredByBomb(const GridPoint &position) const
 	return m_itemMatrix[index] == ItemBomb;
 }
 
+bool Grid::isPlaceCoveredByPowerUp(const GridPoint &position) const
+{
+	unsigned int index = getVectorIndex(position);
+	return m_itemMatrix[index] == ItemPowerUp;
+}
+
 unsigned Grid::getId(const GridPoint &position) const
 {
 	assert(!isPlaceEmpty(position));

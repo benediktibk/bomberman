@@ -39,6 +39,7 @@ namespace Common
 		bool isPlaceCoveredByLooseWall(const Common::GridPoint &position) const;
 		bool isPlaceCoveredBySolidWall(const Common::GridPoint &position) const;
 		bool isPlaceCoveredByBomb(const Common::GridPoint &position) const;
+		bool isPlaceCoveredByPowerUp(const Common::GridPoint &position) const;
 		unsigned getId(const Common::GridPoint &position) const;
 		void addBombAtPlace(Common::BombState &bomb);
 		void addWallAtPlace(const Common::WallState &wall);
