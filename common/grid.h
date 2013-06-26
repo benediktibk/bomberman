@@ -2,6 +2,7 @@
 #define COMMON_GRID_H
 
 #include <vector>
+#include <map>
 #include "common/point.h"
 #include "common/gridpoint.h"
 
@@ -74,6 +75,14 @@ namespace Common
 		unsigned int getVectorIndex(unsigned int x, unsigned int y) const;
 		std::vector<unsigned int> getItemsInRange(const Common::BombState &bomb, Grid::Item item) const;
 		void notifyObservers(const Common::GridPoint &position);
+		void increaseHorizontalDangerousRange(const Common::BombState &bomb);
+		void increaseVerticalDangerousRange(const Common::BombState &bomb);
+		void increaseOwnPositionDangerousCounter(const Common::BombState &bomb);
+		void decreaseHorizontalDangerousRange(const Common::BombState &bomb);
+		void decreaseVerticalDangerousRange(const Common::BombState &bomb);
+		void decreaseOwnPositionDangerousCounter(const Common::BombState &bomb);
+		std::vector<const BombState*> getBombsOnHorizontalLine(const GridPoint &position) const;
+		std::vector<const BombState*> getBombsOnVerticalLine(const GridPoint &position) const;
 
 	private:
 		unsigned int m_gridRows;
@@ -82,6 +91,8 @@ namespace Common
 		std::vector<Item> m_itemMatrix;
 		std::vector<unsigned int> m_idMatrix;
 		std::vector<GridObserver*> m_observers;
+		std::vector<unsigned int> m_dangerousMatrix;
+		std::map<unsigned int, const BombState*> m_addedBombs;
 	};
 }
 

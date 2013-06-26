@@ -16,8 +16,9 @@ Grid::Grid(unsigned int rows, unsigned int cols) :
 	m_gridRows(rows),
 	m_gridColumns(cols),
 	m_numberOfItems(m_gridColumns*m_gridRows),
-	m_itemMatrix(m_numberOfItems,ItemFree),
-	m_idMatrix(m_numberOfItems,0)
+	m_itemMatrix(m_numberOfItems, ItemFree),
+	m_idMatrix(m_numberOfItems, 0),
+	m_dangerousMatrix(m_numberOfItems, 0)
 { }
 
 Grid::~Grid()
@@ -58,9 +59,10 @@ bool Grid::isPlaceCoveredByBomb(const GridPoint &position) const
 	return m_itemMatrix[index] == ItemBomb;
 }
 
-bool Grid::isPlaceDangerous(const GridPoint &/*position*/) const
+bool Grid::isPlaceDangerous(const GridPoint &position) const
 {
-	return false;
+	unsigned int index = getVectorIndex(position);
+	return m_dangerousMatrix[index] > 0;
 }
 
 unsigned Grid::getId(const GridPoint &position) const
@@ -75,6 +77,10 @@ void Grid::addBombAtPlace(const BombState &bomb)
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemBomb;
 	m_idMatrix[index] = bomb.getID();
+	increaseOwnPositionDangerousCounter(bomb);
+	increaseHorizontalDangerousRange(bomb);
+	increaseVerticalDangerousRange(bomb);
+	m_addedBombs.insert(pair<unsigned int, const BombState*>(bomb.getID(), &bomb));
 	notifyObservers(position);
 }
 
@@ -95,8 +101,22 @@ void Grid::addWallAtPlace(const WallState &wall)
 void Grid::addPowerUpAtPlace(PowerUpState &powerUp)
 {
 	GridPoint position(powerUp.getPosition());
+	vector<const BombState*> bombsOnHorizontalLine = getBombsOnHorizontalLine(position);
+	vector<const BombState*> bombsOnVerticalLine = getBombsOnVerticalLine(position);
+
+	for (vector<const BombState*>::const_iterator i = bombsOnHorizontalLine.begin(); i != bombsOnHorizontalLine.end(); ++i)
+		decreaseHorizontalDangerousRange(**i);
+	for (vector<const BombState*>::const_iterator i = bombsOnVerticalLine.begin(); i != bombsOnVerticalLine.end(); ++i)
+		decreaseVerticalDangerousRange(**i);
+
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemPowerUp;
+
+	for (vector<const BombState*>::const_iterator i = bombsOnHorizontalLine.begin(); i != bombsOnHorizontalLine.end(); ++i)
+		increaseHorizontalDangerousRange(**i);
+	for (vector<const BombState*>::const_iterator i = bombsOnVerticalLine.begin(); i != bombsOnVerticalLine.end(); ++i)
+		increaseVerticalDangerousRange(**i);
+
 	m_idMatrix[index] = powerUp.getId();
 }
 
@@ -114,15 +134,34 @@ void Grid::removeBomb(const BombState &bomb)
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemFree;
 	m_idMatrix[index] = 0;
+	decreaseOwnPositionDangerousCounter(bomb);
+	decreaseHorizontalDangerousRange(bomb);
+	decreaseVerticalDangerousRange(bomb);
+	map<unsigned int, const BombState*>::iterator addedBomb = m_addedBombs.find(bomb.getID());
+	m_addedBombs.erase(addedBomb);
 	notifyObservers(position);
 }
 
 void Grid::removeWall(const WallState &wall)
 {
 	GridPoint position(wall.getPosition());
+	vector<const BombState*> bombsOnHorizontalLine = getBombsOnHorizontalLine(position);
+	vector<const BombState*> bombsOnVerticalLine = getBombsOnVerticalLine(position);
+
+	for (vector<const BombState*>::const_iterator i = bombsOnHorizontalLine.begin(); i != bombsOnHorizontalLine.end(); ++i)
+		decreaseHorizontalDangerousRange(**i);
+	for (vector<const BombState*>::const_iterator i = bombsOnVerticalLine.begin(); i != bombsOnVerticalLine.end(); ++i)
+		decreaseVerticalDangerousRange(**i);
+
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemFree;
 	m_idMatrix[index] = 0;
+
+	for (vector<const BombState*>::const_iterator i = bombsOnHorizontalLine.begin(); i != bombsOnHorizontalLine.end(); ++i)
+		increaseHorizontalDangerousRange(**i);
+	for (vector<const BombState*>::const_iterator i = bombsOnVerticalLine.begin(); i != bombsOnVerticalLine.end(); ++i)
+		increaseVerticalDangerousRange(**i);
+
 	notifyObservers(position);
 }
 
@@ -184,6 +223,115 @@ void Grid::notifyObservers(const GridPoint &position)
 {
 	for (vector<GridObserver*>::const_iterator i = m_observers.begin(); i != m_observers.end(); ++i)
 		(*i)->fieldHasChanged(position);
+}
+
+void Grid::increaseHorizontalDangerousRange(const BombState &bomb)
+{
+	GridPoint bombPosition = bomb.getPosition();
+	unsigned int rangeLeft = getBombMaximumRangeLeft(bombPosition);
+	unsigned int rangeRight = getBombMaximumRangeRight(bombPosition);
+
+	for (unsigned int x = bombPosition.getX() - rangeLeft; x <= bombPosition.getX() + rangeRight; ++x)
+	{
+		GridPoint position(x, bombPosition.getY());
+		unsigned int index = getVectorIndex(position);
+		++m_dangerousMatrix[index];
+	}
+}
+
+void Grid::increaseVerticalDangerousRange(const BombState &bomb)
+{
+	GridPoint bombPosition = bomb.getPosition();
+	unsigned int rangeDown = getBombMaximumRangeDown(bombPosition);
+	unsigned int rangeUp = getBombMaximumRangeUp(bombPosition);
+
+	for (unsigned int y = bombPosition.getY() - rangeDown; y <= bombPosition.getY() + rangeUp; ++y)
+	{
+		GridPoint position(bombPosition.getX(), y);
+		unsigned int index = getVectorIndex(position);
+		++m_dangerousMatrix[index];
+	}
+}
+
+void Grid::increaseOwnPositionDangerousCounter(const BombState &bomb)
+{
+	GridPoint bombPosition = bomb.getPosition();
+	unsigned int index = getVectorIndex(bombPosition);
+	++m_dangerousMatrix[index];
+}
+
+void Grid::decreaseHorizontalDangerousRange(const BombState &bomb)
+{
+	GridPoint bombPosition = bomb.getPosition();
+	unsigned int rangeLeft = getBombMaximumRangeLeft(bombPosition);
+	unsigned int rangeRight = getBombMaximumRangeRight(bombPosition);
+
+	for (unsigned int x = bombPosition.getX() - rangeLeft; x <= bombPosition.getX() + rangeRight; ++x)
+	{
+		GridPoint position(x, bombPosition.getY());
+		unsigned int index = getVectorIndex(position);
+		assert(m_dangerousMatrix[index] > 0);
+		--m_dangerousMatrix[index];
+	}
+}
+
+void Grid::decreaseVerticalDangerousRange(const BombState &bomb)
+{
+	GridPoint bombPosition = bomb.getPosition();
+	unsigned int rangeDown = getBombMaximumRangeDown(bombPosition);
+	unsigned int rangeUp = getBombMaximumRangeUp(bombPosition);
+
+	for (unsigned int y = bombPosition.getY() - rangeDown; y <= bombPosition.getY() + rangeUp; ++y)
+	{
+		GridPoint position(bombPosition.getX(), y);
+		unsigned int index = getVectorIndex(position);
+		assert(m_dangerousMatrix[index] > 0);
+		--m_dangerousMatrix[index];
+	}
+}
+
+void Grid::decreaseOwnPositionDangerousCounter(const BombState &bomb)
+{
+	GridPoint bombPosition = bomb.getPosition();
+	unsigned int index = getVectorIndex(bombPosition);
+	assert(m_dangerousMatrix[index] > 0);
+	--m_dangerousMatrix[index];
+}
+
+vector<const BombState*> Grid::getBombsOnHorizontalLine(const GridPoint &position) const
+{
+	vector<const BombState*> result;
+
+	for (unsigned int x = 0; x < m_gridColumns; ++x)
+	{
+		GridPoint newPosition(x, position.getY());
+
+		if (isPlaceCoveredByBomb(newPosition))
+		{
+			unsigned int id = getId(newPosition);
+			result.push_back(m_addedBombs.at(id));
+		}
+	}
+
+	return result;
+}
+
+vector<const BombState*> Grid::getBombsOnVerticalLine(const GridPoint &position) const
+{
+	vector<const BombState*> result;
+
+	for (unsigned int y = 0; y < m_gridRows; ++y)
+	{
+		GridPoint newPosition(position.getX(), y);
+
+		if (isPlaceCoveredByBomb(newPosition))
+		{
+			unsigned int id = getId(newPosition);
+			result.push_back(m_addedBombs.at(id));
+		}
+	}
+
+	return result;
 }
 
 vector<unsigned int> Grid::getLooseWallsInRange(const BombState &bomb) const
