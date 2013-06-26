@@ -103,7 +103,7 @@ void GameLoop::execute()
 		m_gameEngine.updateGameState(inputStates, time);
 		// end of temporary code
 
-		//catchPlayerInformation(m_gameEngine.getAllPossiblePlayerIDs());
+		catchPlayerInformation(m_gameEngine.getAllPossiblePlayerIDs());
 
 		m_graphicDrawer.draw(m_gameEngine.getGameState());
 		realCalculatingTime = watchRealCalculatingTime.getTimeAndRestart();
