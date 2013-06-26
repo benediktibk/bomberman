@@ -19,16 +19,30 @@ RouterGrid::RouterGrid(Grid &grid, const GameState &gameState, unsigned int play
 {
 	for (unsigned int x = 0; x < m_width; ++x)
 		for (unsigned int y = 0; y < m_height; ++y)
-			updateFieldInternal(GridPoint(x, y));
-
-	updateDangerousFlags();
+			fieldHasChanged(GridPoint(x, y));
 }
 
 void RouterGrid::fieldHasChanged(const GridPoint &position)
 {
-	updateFieldInternal(position);
-	removeDangerousFlags();
-	updateDangerousFlags();
+	unsigned int row = position.getY();
+	unsigned int column = position.getX();
+
+	assert(column < m_width);
+	assert(row < m_height);
+
+	bool player = m_fields[row][column].isPlayer();
+	m_fields[row][column].clear();
+
+	if (m_grid.isPlaceCoveredByBomb(position))
+		m_fields[row][column].setBomb(true);
+	else if (m_grid.isPlaceCoveredByLooseWall(position))
+		m_fields[row][column].setLooseWall(true);
+	else if (m_grid.isPlaceCoveredBySolidWall(position))
+		m_fields[row][column].setSolidWall(true);
+	if (m_grid.isPlaceDangerous(position))
+		m_fields[row][column].setDangerous(true);
+
+	m_fields[row][column].setPlayer(player);
 }
 
 unsigned int RouterGrid::getWidth() const
@@ -67,70 +81,6 @@ RouterGridField& RouterGrid::getFieldInternal(const GridPoint &position)
 	assert(position.getY() < m_height);
 
 	return m_fields[position.getY()][position.getX()];
-}
-
-void RouterGrid::markFieldsAsDangerousIfCoveredByBomb(const GridPoint &position)
-{
-	unsigned int row = position.getY();
-	unsigned int column = position.getX();
-
-	if (!m_fields[row][column].isBomb())
-		return;
-
-	if (!m_grid.isPlaceCoveredByBomb(position))
-		return;
-
-	unsigned int bombID = m_grid.getId(position);
-	const BombState &bomb = m_gameState.getBombById(bombID);
-	unsigned int rangeLeft = m_grid.getBombRangeLeft(bomb);
-	unsigned int rangeUp = m_grid.getBombRangeUp(bomb);
-	unsigned int rangeRight = m_grid.getBombRangeRight(bomb);
-	unsigned int rangeDown = m_grid.getBombRangeDown(bomb);
-
-	for (unsigned int i = 0; i <= rangeLeft; ++i)
-		m_fields[row][column - i].setDangerous(true);
-	for (unsigned int i = 0; i <= rangeRight; ++i)
-		m_fields[row][column + i].setDangerous(true);
-	for (unsigned int i = 0; i <= rangeDown; ++i)
-		m_fields[row - i][column].setDangerous(true);
-	for (unsigned int i = 0; i <= rangeUp; ++i)
-		m_fields[row + i][column].setDangerous(true);
-}
-
-void RouterGrid::updateFieldInternal(const GridPoint &position)
-{
-	unsigned int row = position.getY();
-	unsigned int column = position.getX();
-
-	assert(column < m_width);
-	assert(row < m_height);
-
-	bool player = m_fields[row][column].isPlayer();
-	m_fields[row][column].clear();
-
-	if (m_grid.isPlaceCoveredByBomb(position))
-		m_fields[row][column].setBomb(true);
-	else if (m_grid.isPlaceCoveredByLooseWall(position))
-		m_fields[row][column].setLooseWall(true);
-	else if (m_grid.isPlaceCoveredBySolidWall(position))
-		m_fields[row][column].setSolidWall(true);
-
-	m_fields[row][column].setPlayer(player);
-}
-
-void RouterGrid::removeDangerousFlags()
-{
-	for (unsigned int x = 0; x < m_width; ++x)
-		for (unsigned int y = 0; y < m_height; ++y)
-			if (!m_fields[y][x].isBomb())
-				m_fields[y][x].setDangerous(false);
-}
-
-void RouterGrid::updateDangerousFlags()
-{
-	for (unsigned int x = 0; x < m_width; ++x)
-		for (unsigned int y = 0; y < m_height; ++y)
-			markFieldsAsDangerousIfCoveredByBomb(GridPoint(x, y));
 }
 
 void RouterGrid::removePlayerFlags()
