@@ -69,13 +69,12 @@ unsigned Grid::getId(const GridPoint &position) const
 	return m_idMatrix[getVectorIndex(position)];
 }
 
-void Grid::addBombAtPlace(BombState &bomb)
+void Grid::addBombAtPlace(const BombState &bomb)
 {
 	GridPoint position(bomb.getPosition());
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemBomb;
 	m_idMatrix[index] = bomb.getID();
-	bomb.setPosition(position.getPointPosition());
 	notifyObservers(position);
 }
 

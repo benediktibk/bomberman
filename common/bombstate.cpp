@@ -2,8 +2,9 @@
 
 using namespace Common;
 
-BombState::BombState(UniqueIdCreator &creator, unsigned int playerID) :
+BombState::BombState(UniqueIdCreator &creator, unsigned int playerID, const Point &position) :
 	m_playerID(playerID),
+	m_position(position),
 	m_lifeTime(initialLifeTime()),
 	m_width(1.0),
 	m_height(1.0),
@@ -15,12 +16,6 @@ BombState::BombState(UniqueIdCreator &creator, unsigned int playerID) :
 BombState::~BombState()
 {
 	m_creatorId.removeId(m_bombId);
-}
-
-void BombState::setPosition(const Point &value)
-{
-	m_position = value;
-	setChanged();
 }
 
 const Point &BombState::getPosition() const

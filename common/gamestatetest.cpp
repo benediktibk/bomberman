@@ -19,7 +19,7 @@ void GameStateTest::addBomb_defaultBomb_bombCountIs1()
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point()));
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, state.getBombCount());
 }
@@ -28,8 +28,8 @@ void GameStateTest::getAllChangedBombs_twoBombsAdded_resultSizeIs2()
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	state.addBomb(new BombState(m_bombIDCreator, 0));
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point()));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point()));
 
 	vector<const BombState*> bombs = state.getAllChangedBombs();
 
@@ -40,9 +40,9 @@ void GameStateTest::getAllChangedBombs_oneBombAddedAndChangedFlagsResetAndAnothe
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point()));
 	state.resetChangedFlags();
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point()));
 
 	vector<const BombState*> bombs = state.getAllChangedBombs();
 
@@ -53,7 +53,7 @@ void GameStateTest::getAllChangedExplodedBombs_oneExplodedBombAdded_resultSizeIs
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point());
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
@@ -93,7 +93,7 @@ void GameStateTest::getAllBombsLifeTime_afterReduceLifeTime_resultTimeIs2()
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	const BombState* bomb;
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point()));
 	state.reduceAllBombsLifeTime(1);
 	state.removeAllObjectsWithDestroyedFlag();
 
@@ -110,10 +110,10 @@ void GameStateTest::getAllChangedBombs_twoBombsAddedAndOneDeleted_resultSizeIs1(
 	PlayerState &playerState = state.getFirstPlayerState();
 
 	playerState.countBomb();
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point()));
 	state.reduceAllBombsLifeTime(1);
 	playerState.countBomb();
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point()));
 	state.reduceAllBombsLifeTime(2.1);
 	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
 	state.removeAllObjectsWithDestroyedFlag();
@@ -139,7 +139,7 @@ void GameStateTest::resetChangedFlags_oneBombAdded_bombIsNotChanged()
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point());
 	state.addBomb(bomb);
 
 	state.resetChangedFlags();
@@ -168,9 +168,9 @@ void GameStateTest::getAllBombsWithNegativeLifeTime_twoBombsAddedOneWithNegative
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	const BombState* bomb;
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point()));
 	state.reduceAllBombsLifeTime(2);
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point()));
 	state.reduceAllBombsLifeTime(2);
 
 	vector<const BombState*> bombs = state.getAllChangedBombs();
@@ -196,7 +196,7 @@ void GameStateTest::setBombsLifeTimeToZero_oneBombAddedAndSetLifeTimeZero_lifeTi
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
 	const BombState* bomb;
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point()));
 	state.setBombsLifeTimeToZeroIfPositive(0);
 
 	vector<const BombState*> bombs = state.getAllChangedBombs();
@@ -269,7 +269,7 @@ void GameStateTest::resetChangedFlags_oneExplodedBombAdded_noChangedExplodedBomb
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point());
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
@@ -325,7 +325,7 @@ void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBom
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point());
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 
@@ -338,7 +338,7 @@ void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBom
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point());
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 
@@ -351,11 +351,11 @@ void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_twoOfT
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point());
 	state.addBomb(bomb);
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point()));
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point()));
 
 	vector<const BombState*> result = state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
 
@@ -366,7 +366,7 @@ void GameStateTest::setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBom
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point());
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 
@@ -379,7 +379,7 @@ void GameStateTest::getExplodedBombByBomb_oneExplodedBombWithDestructionRange3_d
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point());
 	bomb->setDestructionRange(3);
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
@@ -407,10 +407,10 @@ void GameStateTest::getAllBombsWithDestroyedFlag_twoBombsAddedOneDestroyed_resul
 	PlayerState &playerState = state.getFirstPlayerState();
 
 	playerState.countBomb();
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point()));
 	state.reduceAllBombsLifeTime(1);
 	playerState.countBomb();
-	state.addBomb(new BombState(m_bombIDCreator, 0));
+	state.addBomb(new BombState(m_bombIDCreator, 0, Point()));
 	state.reduceAllBombsLifeTime(2.1);
 	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
 
@@ -451,7 +451,7 @@ void GameStateTest::reduceAllBombsLifeTime_oneExplodedBomb_explodedBombsLifeTime
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point());
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();
@@ -467,7 +467,7 @@ void GameStateTest::removeAllObjectsWithDestroyedFlag_oneDestroyedExplodedBomb_e
 {
 	LevelDefinition level;
 	GameState state(level, 1, m_playerIDCreator, m_wallIDCreator);
-	BombState *bomb = new BombState(m_bombIDCreator, 0);
+	BombState *bomb = new BombState(m_bombIDCreator, 0, Point());
 	state.addBomb(bomb);
 	state.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 	state.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();

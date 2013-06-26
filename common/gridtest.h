@@ -26,7 +26,7 @@ namespace Common
 		CPPUNIT_TEST(getLooseWallsInRange_bombat32andwallssurroundingdistance2rangeis1_sizeofwallsinrangeis0);
 		CPPUNIT_TEST(getLooseWallsInRange_bombat60rangeis1_sizeofwallsinrangeis2);
 		CPPUNIT_TEST(getPowerUpsInRange_bombat33rangeis4BombEmptyWallPowerUp_sizeofwallsinrangeis3);
-		CPPUNIT_TEST(getPowerUpsInRange_bombat33RangeIs10PowerUpBombPowerUpPowerUpWallPowerUp_sizeOfPowerUpsInRangeIs3);
+		CPPUNIT_TEST(getPowerUpsInRange_bombat23RangeIs10PowerUpBombPowerUpPowerUpWallPowerUp_sizeOfPowerUpsInRangeIs3);
 		CPPUNIT_TEST(getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringetIndex);
 		CPPUNIT_TEST(isPlaceEmpty_itemat33_false);
 		CPPUNIT_TEST(isPlaceEmpty_itemat33_true);
@@ -152,7 +152,7 @@ namespace Common
 		void getLooseWallsInRange_bombat32andwallssurroundingdistance2rangeis1_sizeofwallsinrangeis0();
 		void getLooseWallsInRange_bombat60rangeis1_sizeofwallsinrangeis2();
 		void getPowerUpsInRange_bombat33rangeis4BombEmptyWallPowerUp_sizeofwallsinrangeis3();
-		void getPowerUpsInRange_bombat33RangeIs10PowerUpBombPowerUpPowerUpWallPowerUp_sizeOfPowerUpsInRangeIs3();
+		void getPowerUpsInRange_bombat23RangeIs10PowerUpBombPowerUpPowerUpWallPowerUp_sizeOfPowerUpsInRangeIs3();
 		void getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringetIndex();
 		void isPlaceEmpty_itemat33_false();
 		void isPlaceEmpty_itemat33_true();

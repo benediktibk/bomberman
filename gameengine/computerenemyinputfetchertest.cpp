@@ -66,12 +66,9 @@ void ComputerEnemyInputFetcherTest::getInputState_onDangerousFieldAndShortestWay
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 1);
 	createInputFetcher(level);
-	BombState *bombOne = new BombState(*m_bombIdCreator, 0);
-	BombState *bombTwo = new BombState(*m_bombIdCreator, 0);
-	BombState *bombThree = new BombState(*m_bombIdCreator, 0);
-	bombOne->setPosition(Point(4, 3));
-	bombTwo->setPosition(Point(4, 2));
-	bombTwo->setPosition(Point(4, 4));
+	BombState *bombOne = new BombState(*m_bombIdCreator, 0, Point(4, 3));
+	BombState *bombTwo = new BombState(*m_bombIdCreator, 0, Point(4, 2));
+	BombState *bombThree = new BombState(*m_bombIdCreator, 0, Point(4, 4));
 	m_gameState->addBomb(bombOne);
 	m_gameState->addBomb(bombTwo);
 	m_gameState->addBomb(bombThree);

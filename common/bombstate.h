@@ -13,10 +13,9 @@ namespace Common
 			public DestroyableState
 	{
 	public:
-		BombState(UniqueIdCreator &creator, unsigned int playerID);
+		BombState(UniqueIdCreator &creator, unsigned int playerID, const Point &position);
 		~BombState();
 
-		void setPosition(const Point &value);
 		const Point& getPosition() const;
 		void setLifeTime(double time);
 		double getLifeTime() const;

@@ -56,8 +56,7 @@ void RouterGridTest::constructor_gridWith15RowsAnd10Columns_heightIs15()
 
 void RouterGridTest::constructor_bombAt3And5InGrid_bombAt3And5()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(3, 5));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(3, 5));
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
@@ -69,8 +68,7 @@ void RouterGridTest::constructor_bombAt3And5InGrid_bombAt3And5()
 
 void RouterGridTest::constructor_bombAt3And5InGrid_noSolidWallAt3And5()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(3, 5));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(3, 5));
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
@@ -82,8 +80,7 @@ void RouterGridTest::constructor_bombAt3And5InGrid_noSolidWallAt3And5()
 
 void RouterGridTest::constructor_bombAt3And5InGrid_noLooseWallAt3And5()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(3, 5));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(3, 5));
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
@@ -95,8 +92,7 @@ void RouterGridTest::constructor_bombAt3And5InGrid_noLooseWallAt3And5()
 
 void RouterGridTest::constructor_bombAt3And5InGrid_dangerousAt3And5()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(3, 5));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(3, 5));
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
@@ -108,8 +104,7 @@ void RouterGridTest::constructor_bombAt3And5InGrid_dangerousAt3And5()
 
 void RouterGridTest::constructor_bombAt3And5InGrid_noPlayerAt3And5()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(3, 5));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(3, 5));
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 
@@ -286,8 +281,7 @@ void RouterGridTest::constructor_powerUpAt8And9InGrid_notDangerousAt8And9()
 
 void RouterGridTest::constructor_bombWithRange2At5And4_7And4IsDangerous()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(5, 4));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(5, 4));
 	bomb->setDestructionRange(2);
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
@@ -300,8 +294,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_7And4IsDangerous()
 
 void RouterGridTest::constructor_bombWithRange2At5And4_8And4IsNotDangerous()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(5, 4));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(5, 4));
 	bomb->setDestructionRange(2);
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
@@ -314,8 +307,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_8And4IsNotDangerous()
 
 void RouterGridTest::constructor_bombWithRange10At5And4AndWallAt6And4_7And4IsNotDangerous()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(5, 4));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(5, 4));
 	bomb->setDestructionRange(10);
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
@@ -330,8 +322,7 @@ void RouterGridTest::constructor_bombWithRange10At5And4AndWallAt6And4_7And4IsNot
 
 void RouterGridTest::constructor_bombWithRange2At5And4_3And4IsDangerous()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(5, 4));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(5, 4));
 	bomb->setDestructionRange(2);
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
@@ -344,8 +335,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_3And4IsDangerous()
 
 void RouterGridTest::constructor_bombWithRange2At5And4_2And4IsNotDangerous()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(5, 4));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(5, 4));
 	bomb->setDestructionRange(2);
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
@@ -358,8 +348,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_2And4IsNotDangerous()
 
 void RouterGridTest::constructor_bombWithRange10At5And4AndWallAt4And4_3And4IsNotDangerous()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(5, 4));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(5, 4));
 	bomb->setDestructionRange(10);
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
@@ -374,8 +363,7 @@ void RouterGridTest::constructor_bombWithRange10At5And4AndWallAt4And4_3And4IsNot
 
 void RouterGridTest::constructor_bombWithRange2At5And4_5And6IsDangerous()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(5, 4));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(5, 4));
 	bomb->setDestructionRange(2);
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
@@ -388,8 +376,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_5And6IsDangerous()
 
 void RouterGridTest::constructor_bombWithRange2At5And4_5And7IsNotDangerous()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(5, 4));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(5, 4));
 	bomb->setDestructionRange(2);
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
@@ -402,8 +389,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_5And7IsNotDangerous()
 
 void RouterGridTest::constructor_bombWithRange10At5And4AndWallAt5And5_5And6IsNotDangerous()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(5, 4));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(5, 4));
 	bomb->setDestructionRange(10);
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
@@ -418,8 +404,7 @@ void RouterGridTest::constructor_bombWithRange10At5And4AndWallAt5And5_5And6IsNot
 
 void RouterGridTest::constructor_bombWithRange2At5And4_5And2IsDangerous()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(5, 4));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(5, 4));
 	bomb->setDestructionRange(2);
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
@@ -432,8 +417,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_5And2IsDangerous()
 
 void RouterGridTest::constructor_bombWithRange2At5And4_5And1IsNotDangerous()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(5, 4));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(5, 4));
 	bomb->setDestructionRange(2);
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
@@ -446,8 +430,7 @@ void RouterGridTest::constructor_bombWithRange2At5And4_5And1IsNotDangerous()
 
 void RouterGridTest::constructor_bombWithRange10At5And4AndWallAt5And3_5And2IsNotDangerous()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(5, 4));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(5, 4));
 	bomb->setDestructionRange(10);
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
@@ -462,8 +445,7 @@ void RouterGridTest::constructor_bombWithRange10At5And4AndWallAt5And3_5And2IsNot
 
 void RouterGridTest::fieldHasChanged_bombAt4And3Removed_noBombAt4And3()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(4, 3));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(4, 3));
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
@@ -476,8 +458,7 @@ void RouterGridTest::fieldHasChanged_bombAt4And3Removed_noBombAt4And3()
 
 void RouterGridTest::fieldHasChanged_bombAt4And3Removed_5And3IsNotDangerous()
 {
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(4, 3));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(4, 3));
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
 	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
@@ -490,12 +471,10 @@ void RouterGridTest::fieldHasChanged_bombAt4And3Removed_5And3IsNotDangerous()
 
 void RouterGridTest::fieldHasChanged_bombAt4And3RemovedAndBombAt7And4_7And3IsDangerous()
 {
-	BombState *bombOne = new BombState(*m_bombIdCreator, 0);
-	bombOne->setPosition(Point(4, 3));
+	BombState *bombOne = new BombState(*m_bombIdCreator, 0, Point(4, 3));
 	m_grid->addBombAtPlace(*bombOne);
 	m_gameState->addBomb(bombOne);
-	BombState *bombTwo = new BombState(*m_bombIdCreator, 0);
-	bombTwo->setPosition(Point(7, 4));
+	BombState *bombTwo = new BombState(*m_bombIdCreator, 0, Point(7, 4));
 	m_grid->addBombAtPlace(*bombTwo);
 	m_gameState->addBomb(bombTwo);
 	RouterGrid routerGrid(*m_grid, *m_gameState, getFirstPlayerId());
@@ -522,8 +501,7 @@ void RouterGridTest::fieldHasChanged_looseWallAt8And6RemovedAndBombWithRange10At
 {
 	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(8, 6));
 	m_grid->addWallAtPlace(wall);
-	BombState *bomb = new BombState(*m_bombIdCreator, 0);
-	bomb->setPosition(Point(7, 6));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(7, 6));
 	bomb->setDestructionRange(10);
 	m_grid->addBombAtPlace(*bomb);
 	m_gameState->addBomb(bomb);
