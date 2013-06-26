@@ -58,6 +58,11 @@ bool Grid::isPlaceCoveredByBomb(const GridPoint &position) const
 	return m_itemMatrix[index] == ItemBomb;
 }
 
+bool Grid::isPlaceDangerous(const GridPoint &/*position*/) const
+{
+	return false;
+}
+
 unsigned Grid::getId(const GridPoint &position) const
 {
 	assert(!isPlaceEmpty(position));

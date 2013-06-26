@@ -1378,6 +1378,147 @@ void GridTest::getTargetPoint_between5And6And5And7AndMovingDown_5And6()
 	CPPUNIT_ASSERT_EQUAL(GridPoint(5, 6), Grid::getTargetPoint(player));
 }
 
+void GridTest::isPlaceDangerous_noBombs_false()
+{
+//	Grid grid(10, 10);
+//	BombState bomb(*m_bombIdCreator, 0);
+}
+
+void GridTest::isPlaceDangerous_rightOnBomb_true()
+{
+
+}
+
+void GridTest::isPlaceDangerous_oneLeftOfBomb_true()
+{
+
+}
+
+void GridTest::isPlaceDangerous_oneRightOfBomb_true()
+{
+
+}
+
+void GridTest::isPlaceDangerous_oneAboveOfBomb_true()
+{
+
+}
+
+void GridTest::isPlaceDangerous_oneBelowOfBomb_true()
+{
+
+}
+
+void GridTest::isPlaceDangerous_twoRightOfBombWithRangeTwo_true()
+{
+
+}
+
+void GridTest::isPlaceDangerous_twoLeftOfBombWithRangeTwo_true()
+{
+
+}
+
+void GridTest::isPlaceDangerous_twoAboveOfBombWithRangeTwo_true()
+{
+
+}
+
+void GridTest::isPlaceDangerous_twoBelowOfBombWithRangeTwo_true()
+{
+
+}
+
+void GridTest::isPlaceDangerous_threeRightOfBombWithRangeTwo_false()
+{
+
+}
+
+void GridTest::isPlaceDangerous_threeLeftOfBombWithRangeTwo_false()
+{
+
+}
+
+void GridTest::isPlaceDangerous_threeAboveOfBombWithRangeTwo_false()
+{
+
+}
+
+void GridTest::isPlaceDangerous_threeBelowOfBombWithRangeTwo_false()
+{
+
+}
+
+void GridTest::isPlaceDangerous_positionRightOfBombBehindLooseWall_false()
+{
+
+}
+
+void GridTest::isPlaceDangerous_positionLeftOfBombBehindLooseWall_false()
+{
+
+}
+
+void GridTest::isPlaceDangerous_positionAboveOfBombBehindLooseWall_false()
+{
+
+}
+
+void GridTest::isPlaceDangerous_positionBelowOfBombBehindLooseWall_false()
+{
+
+}
+
+void GridTest::isPlaceDangerous_positionRightOfBombBehindSolidWall_false()
+{
+
+}
+
+void GridTest::isPlaceDangerous_positionLeftOfBombBehindSolidWall_false()
+{
+
+}
+
+void GridTest::isPlaceDangerous_positionAboveOfBombBehindSolidWall_false()
+{
+
+}
+
+void GridTest::isPlaceDangerous_positionBelowOfBombBehindSolidWall_false()
+{
+
+}
+
+void GridTest::isPlaceDangerous_positionRightOfBombBehindRemovedLooseWall_true()
+{
+
+}
+
+void GridTest::isPlaceDangerous_positionLeftOfBombBehindRemovedLooseWall_true()
+{
+
+}
+
+void GridTest::isPlaceDangerous_positionAboveOfBombBehindRemovedLooseWall_true()
+{
+
+}
+
+void GridTest::isPlaceDangerous_positionBelowOfBombBehindRemovedLooseWall_true()
+{
+
+}
+
+void GridTest::isPlaceDangerous_inRangeOfTwoBombsButOneRemoved_true()
+{
+
+}
+
+void GridTest::isPlaceDangerous_inRangeOfTwoRemovedBombs_false()
+{
+
+}
+
 void GridTest::setUp()
 {
 	m_powerUpIdCreator = new UniqueIdCreator();
