@@ -20,6 +20,7 @@ class GameLoopTest :
 	 CPPUNIT_TEST(execute_runSomeExecutions_graphicDrawerGotNoCallsToSetResponsibleForPlayers);
 	 CPPUNIT_TEST(getFramesPerSecond_running_60);
 	 CPPUNIT_TEST(percentageOfTimeNotSleeping_running_0);
+	 CPPUNIT_TEST(pause_gameAlreadyRunSomeExecutionsAndWaitOf100ms_callsToMocksDidnotIncrease);
 	 CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -33,6 +34,7 @@ private:
 	 void execute_runSomeExecutions_graphicDrawerGotNoCallsToSetResponsibleForPlayers();
 	 void getFramesPerSecond_running_60();
 	 void percentageOfTimeNotSleeping_running_0();
+	 void pause_gameAlreadyRunSomeExecutionsAndWaitOf100ms_callsToMocksDidnotIncrease();
 };
 }
 

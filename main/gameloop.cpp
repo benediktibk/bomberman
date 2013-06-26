@@ -13,6 +13,7 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 	m_gameEngine(gameEngine),
 	m_graphicDrawer(graphicDrawer),
 	m_stopped(false),
+	m_paused(false),
 	m_maximumFramesPerSecond(60),
 	m_minimumTimeStep(1.0/m_maximumFramesPerSecond),
 	m_framesPerSecond(0),
@@ -29,6 +30,9 @@ GameLoop::~GameLoop()
 
 void GameLoop::start()
 {
+	m_pausedMutex.lock();
+	m_paused = false;
+	m_pausedMutex.unlock();
 	m_start.send();
 }
 
@@ -37,6 +41,14 @@ void GameLoop::stop()
 	m_stoppedMutex.lock();
 	m_stopped = true;
 	m_stoppedMutex.unlock();
+	m_start.send(); // we need to start again, because otherwise the thread will never stop
+}
+
+void GameLoop::pause()
+{
+	m_pausedMutex.lock();
+	m_paused = true;
+	m_pausedMutex.unlock();
 }
 
 unsigned int GameLoop::getFramesPerSecond()
@@ -61,6 +73,7 @@ void GameLoop::execute()
 	bool run = true;
 
 	m_start.wait();
+	m_start.reset();
 	StopWatch watch;
 	StopWatch watchRealCalculatingTime;
 	double realCalculatingTime = 0;
@@ -107,6 +120,16 @@ void GameLoop::execute()
 
 		m_graphicDrawer.draw(m_gameEngine.getGameState());
 		realCalculatingTime = watchRealCalculatingTime.getTimeAndRestart();
+
+		m_pausedMutex.lock();
+		bool pause = m_paused;
+		m_pausedMutex.unlock();
+
+		if (pause)
+		{
+			m_start.wait();
+			m_start.reset();
+		}
 
 		m_stoppedMutex.lock();
 		if (m_stopped)
