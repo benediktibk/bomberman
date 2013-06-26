@@ -88,4 +88,5 @@ void RouterGridField::clear()
 	m_bomb = false;
 	m_player = false;
 	m_dangerous = false;
+	m_powerUp = false;
 }
