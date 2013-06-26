@@ -116,6 +116,8 @@ void RouterGrid::updateFieldInternal(const GridPoint &position)
 		m_fields[row][column].setLooseWall(true);
 	else if (m_grid.isPlaceCoveredBySolidWall(position))
 		m_fields[row][column].setSolidWall(true);
+	else if (m_grid.isPlaceCoveredByPowerUp(position))
+		m_fields[row][column].setPowerUp(true);
 
 	m_fields[row][column].setPlayer(player);
 }
