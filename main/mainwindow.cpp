@@ -162,5 +162,14 @@ void MainWindow::closeGame()
 
 void MainWindow::pauseButtonPushed()
 {
-
+	if (m_gameLoop->isPaused())
+	{
+		m_gameLoop->start();
+		m_ui->pauseButton->setText("pause");
+	}
+	else
+	{
+		m_gameLoop->pause();
+		m_ui->pauseButton->setText("resume");
+	}
 }

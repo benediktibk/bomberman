@@ -46,7 +46,7 @@
        <enum>Qt::NoFocus</enum>
       </property>
       <property name="text">
-       <string>P</string>
+       <string>pause</string>
       </property>
      </widget>
     </item>
