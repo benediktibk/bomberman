@@ -1,26 +1,24 @@
 #include "bombstate.h"
+#include <assert.h>
 
 using namespace Common;
 
-BombState::BombState(UniqueIdCreator &creator, unsigned int playerID) :
+BombState::BombState(UniqueIdCreator &creator, unsigned int playerID, const Point &position, unsigned int destructionRange) :
 	m_playerID(playerID),
+	m_position(position),
 	m_lifeTime(initialLifeTime()),
 	m_width(1.0),
 	m_height(1.0),
-	m_destructionRange(1),
+	m_destructionRange(destructionRange),
 	m_bombId(creator.getId()),
 	m_creatorId(creator)
-{ }
+{
+	assert(m_destructionRange > 0);
+}
 
 BombState::~BombState()
 {
 	m_creatorId.removeId(m_bombId);
-}
-
-void BombState::setPosition(const Point &value)
-{
-	m_position = value;
-	setChanged();
 }
 
 const Point &BombState::getPosition() const
@@ -37,11 +35,6 @@ void BombState::setLifeTime(double time)
 double BombState::getLifeTime() const
 {
 	return m_lifeTime;
-}
-void BombState::setDestructionRange(int range)
-{
-	m_destructionRange = range;
-	setChanged();
 }
 
 unsigned int BombState::getDestructionRange() const

@@ -13,14 +13,12 @@ namespace Common
 			public DestroyableState
 	{
 	public:
-		BombState(UniqueIdCreator &creator, unsigned int playerID);
+		BombState(UniqueIdCreator &creator, unsigned int playerID, const Point &position, unsigned int destructionRange);
 		~BombState();
 
-		void setPosition(const Point &value);
 		const Point& getPosition() const;
 		void setLifeTime(double time);
 		double getLifeTime() const;
-		void setDestructionRange(int range);
 		unsigned int getDestructionRange() const;
 		unsigned int getID() const;
 		double getWidth() const;
@@ -40,12 +38,12 @@ namespace Common
 
 	private:
 		const unsigned int m_playerID;
-		Point m_position;
+		const Point m_position;
 		double m_lifeTime;
-		double m_width;
-		double m_height;
-		unsigned int m_destructionRange;
-		unsigned int m_bombId;
+		const double m_width;
+		const double m_height;
+		const unsigned int m_destructionRange;
+		const unsigned int m_bombId;
 		UniqueIdCreator &m_creatorId;
 	};
 }

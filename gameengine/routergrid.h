@@ -29,10 +29,6 @@ namespace GameEngine
 
 	private:
 		RouterGridField& getFieldInternal(const Common::GridPoint &position);
-		void markFieldsAsDangerousIfCoveredByBomb(const Common::GridPoint &position);
-		void updateFieldInternal(const Common::GridPoint &position);
-		void removeDangerousFlags();
-		void updateDangerousFlags();
 		void removePlayerFlags();
 		std::vector<Common::GridPoint> getAllPlayerFields() const;
 
