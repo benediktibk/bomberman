@@ -119,8 +119,12 @@ void GameLoop::catchPlayerInformation(std::vector<unsigned int> playerIDs)
 {
 	m_playerInformationMutex.lock();
 	m_playerInformation.clear();
-	m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.front()).getMaxBombs());
-	m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.front()).getDestructionRangeOfNewBombs());
+
+	for (size_t y = 0; y < playerIDs.size(); y++)
+	{
+		m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getMaxBombs());
+		m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getDestructionRangeOfNewBombs());
+	}
 	m_playerInformationMutex.unlock();
 }
 

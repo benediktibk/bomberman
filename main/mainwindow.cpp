@@ -4,6 +4,7 @@
 #include "common/gamestate.h"
 #include "main/gameloop.h"
 #include "gameengine/gameengineimpl.h"
+#include <assert.h>
 #include <QtCore/QTimer>
 #include <QScrollBar>
 
@@ -130,7 +131,20 @@ void MainWindow::updatePlayerStateInfo()
 {
 	if (!m_gameStarted)
 		return;
-	m_ui->playerStateInfo->setText(QString("P1: Bombs:1 Range:1"));
+	std::vector<unsigned int> playerInformation = m_gameLoop->getPlayerInformation();
+
+	if(playerInformation.size() % 2 != 0)
+		assert(false);
+
+	QString messageString("");
+	QString templateString("P%1 B:%2 R:%3 | ");
+
+	for(size_t y = 0; y < playerInformation.size() / 2; y++)
+	{
+		messageString += QString(templateString.arg(QString().number(y + 1), QString().number(playerInformation.at(y)), QString().number(playerInformation.at(y+1))));
+	}
+
+	m_ui->playerStateInfo->setText(messageString);
 }
 
 void MainWindow::finishGame()
