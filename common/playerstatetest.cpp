@@ -316,7 +316,7 @@ void PlayerStateTest::setWidth_5_widthIs5()
 
 void PlayerStateTest::doNotCollideWith_validBomb_oneBombNotToCollideWith()
 {
-	BombState bomb(*m_bombIDCreator, 0, Point());
+	BombState bomb(*m_bombIDCreator, 0, Point(), 1);
 	PlayerState player(*m_playerIDCreator);
 
 	player.doNotCollideWith(&bomb);
@@ -327,8 +327,8 @@ void PlayerStateTest::doNotCollideWith_validBomb_oneBombNotToCollideWith()
 
 void PlayerStateTest::doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideWith()
 {
-	BombState bombOne(*m_bombIDCreator, 0, Point());
-	BombState bombTwo(*m_bombIDCreator, 0, Point());
+	BombState bombOne(*m_bombIDCreator, 0, Point(), 1);
+	BombState bombTwo(*m_bombIDCreator, 0, Point(), 1);
 	PlayerState player(*m_playerIDCreator);
 
 	player.doNotCollideWith(&bombOne);
@@ -340,8 +340,8 @@ void PlayerStateTest::doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideW
 
 void PlayerStateTest::removeBombFromDoNotCollideList_twoBombsAddedAndFirstOneExploded_oneBombNotToCollideWith()
 {
-	BombState bombOne(*m_bombIDCreator, 0, Point(1, 2));
-	BombState bombTwo(*m_bombIDCreator, 0, Point(1, 3));
+	BombState bombOne(*m_bombIDCreator, 0, Point(1, 2), 1);
+	BombState bombTwo(*m_bombIDCreator, 0, Point(1, 3), 1);
 	PlayerState player(*m_playerIDCreator);
 	player.setPosition(Point(1, 2.5));
 	player.doNotCollideWith(&bombOne);

@@ -141,7 +141,7 @@ void RouterTest::getRouteToPlayer_bombInTheWay_distanceIsWayAroundBomb()
 	createRouter(level);
 	PlayerState &playerTwo = getSecondPlayer();
 	playerTwo.setPosition(Point(10, 5));
-	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(7, 5));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(7, 5), 1);
 	m_gameState->addBomb(bomb);
 	m_grid->addBombAtPlace(*bomb);
 	m_router->updatePlayerFields();
@@ -159,8 +159,7 @@ void RouterTest::getRouteToPlayer_wayBlockedByBomb_distanceIs0()
 	createRouter(level);
 	PlayerState &playerTwo = getSecondPlayer();
 	playerTwo.setPosition(Point(10, 5));
-	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(7, 6));
-	bomb->setDestructionRange(100);
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(7, 6), 100);
 	m_gameState->addBomb(bomb);
 	m_grid->addBombAtPlace(*bomb);
 	m_router->updatePlayerFields();
@@ -178,8 +177,7 @@ void RouterTest::getRouteToPlayer_wayBlockedByBomb_directionIsNone()
 	createRouter(level);
 	PlayerState &playerTwo = getSecondPlayer();
 	playerTwo.setPosition(Point(10, 5));
-	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(7, 6));
-	bomb->setDestructionRange(100);
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(7, 6), 100);
 	m_gameState->addBomb(bomb);
 	m_grid->addBombAtPlace(*bomb);
 	m_router->updatePlayerFields();
@@ -226,7 +224,7 @@ void RouterTest::getRouteToPlayer_jailedByWallsAtBorder_directionIsNone()
 void RouterTest::getRouteToNotDangerousField_playerRightAtBomb_distanceIs2()
 {
 	const PlayerState &player = getFirstPlayer();
-	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(player.getPosition()));
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(player.getPosition()), 1);
 	m_gameState->addBomb(bomb);
 	m_grid->addBombAtPlace(*bomb);
 	m_router->updatePlayerFields();

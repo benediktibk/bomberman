@@ -334,8 +334,9 @@ void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &i
 	if (input.isSpaceKeyPressed() && player.canPlayerPlaceBomb() && m_grid->isPlaceEmpty(player.getCenterPosition()))
 	{
 		GridPoint gridPosition = player.getCenterPosition();
-		BombState *bombPlaced = new BombState(m_bombids, player.getId(), gridPosition.getPointPosition());
-		bombPlaced->setDestructionRange(player.getDestructionRangeOfNewBombs());
+		BombState *bombPlaced = new BombState(	m_bombids, player.getId(),
+												gridPosition.getPointPosition(),
+												player.getDestructionRangeOfNewBombs());
 		m_gameState.addBomb(bombPlaced);
 		m_grid->addBombAtPlace(*bombPlaced);
 		player.countBomb();

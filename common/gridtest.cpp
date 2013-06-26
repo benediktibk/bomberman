@@ -24,7 +24,7 @@ void GridTest::isPlaceEmpty_TestNotEmptyVector_false()
 	UniqueIdCreator creator;
 	Grid grid(5, 5);
 	Point position(3, 3);
-	BombState bomb(creator, 0, position);
+	BombState bomb(creator, 0, position, 1);
 	grid.addBombAtPlace(bomb);
 
 	CPPUNIT_ASSERT(!grid.isPlaceEmpty(position));
@@ -35,7 +35,7 @@ void GridTest::addBombAtPlace_add_at3_3()
 	UniqueIdCreator creator;
 	Grid grid(5, 5);
 	Point position(3, 3);
-	BombState bomb(creator, 0, position);
+	BombState bomb(creator, 0, position, 1);
 	grid.addBombAtPlace(bomb);
 
 	CPPUNIT_ASSERT(!grid.isPlaceEmpty(position));
@@ -57,7 +57,7 @@ void GridTest::removeBomb_from_3_3()
 	UniqueIdCreator creator;
 	Grid grid(5, 5);
 	Point position(3, 3);
-	BombState bomb(creator, 0, position);
+	BombState bomb(creator, 0, position, 1);
 	grid.addBombAtPlace(bomb);
 	grid.removeBomb(bomb);
 	GridPoint point(position);
@@ -114,7 +114,7 @@ void GridTest::getLooseWallsInRange_bombat32_twowallsup()
 	UniqueIdCreator wallcreator;
 	vector<unsigned int> wallsinrange;
 	Grid grid(6, 7);
-	BombState bomb(bombIDCreator, 0, Point(3, 2));
+	BombState bomb(bombIDCreator, 0, Point(3, 2), 1);
 	grid.addBombAtPlace(bomb);
 	WallState wall1(wallcreator,WallState::WallTypeLoose, Point(3, 3));
 	grid.addWallAtPlace(wall1);
@@ -132,7 +132,7 @@ void GridTest::getLooseWallsInRange_bombat32_twowallsright()
 	UniqueIdCreator wallcreator;
 	vector<unsigned int> wallsinrange;
 	Grid grid(6, 7);
-	BombState bomb(bombIDCreator, 0, Point(3, 2));
+	BombState bomb(bombIDCreator, 0, Point(3, 2), 1);
 	grid.addBombAtPlace(bomb);
 	WallState wall1(wallcreator, WallState::WallTypeLoose, Point(3, 3));
 	grid.addWallAtPlace(wall1);
@@ -150,7 +150,7 @@ void GridTest::getLooseWallsInRange_bombat32_twowallsleft()
 	UniqueIdCreator wallcreator;
 	vector<unsigned int> wallsinrange;
 	Grid grid(6, 7);
-	BombState bomb(bombIDCreator, 0, Point(3, 2));
+	BombState bomb(bombIDCreator, 0, Point(3, 2), 1);
 	grid.addBombAtPlace(bomb);
 	WallState wall1(wallcreator, WallState::WallTypeLoose, Point(3, 3));
 	grid.addWallAtPlace(wall1);
@@ -172,7 +172,7 @@ void GridTest::getLooseWallsInRange_bombat32_twowallsdown()
 	UniqueIdCreator wallcreator;
 	vector<unsigned int> wallsinrange;
 	Grid grid(6, 7);
-	BombState bomb(bombIDCreator, 0, Point(3, 2));
+	BombState bomb(bombIDCreator, 0, Point(3, 2), 1);
 	grid.addBombAtPlace(bomb);
 	WallState wall1(wallcreator, WallState::WallTypeLoose, Point(3, 3));
 	grid.addWallAtPlace(wall1);
@@ -194,7 +194,7 @@ void GridTest::getLooseWallsInRange_bombat32and4wallssurrounding_sizeofwallsinra
 	UniqueIdCreator wallcreator;
 	vector<unsigned int> wallsinrange;
 	Grid grid(6, 7);
-	BombState bomb(bombIDCreator, 0, Point(3, 2));
+	BombState bomb(bombIDCreator, 0, Point(3, 2), 1);
 	grid.addBombAtPlace(bomb);
 	WallState wall1(wallcreator, WallState::WallTypeLoose, Point(3, 3));
 	grid.addWallAtPlace(wall1);
@@ -216,8 +216,7 @@ void GridTest::getLooseWallsInRange_bombat32and8wallssurroundingrangeis2_sizeofw
 	UniqueIdCreator wallcreator;
 	vector<unsigned int> wallsinrange;
 	Grid grid(6, 7);
-	BombState bomb(bombIDCreator, 0, Point(3, 2));
-	bomb.setDestructionRange(2);
+	BombState bomb(bombIDCreator, 0, Point(3, 2), 2);
 	grid.addBombAtPlace(bomb);
 	WallState wall1(wallcreator, WallState::WallTypeLoose, Point(3, 3));
 	grid.addWallAtPlace(wall1);
@@ -247,8 +246,7 @@ void GridTest::getLooseWallsInRange_bombat32andwallssurroundingdistance2rangeis2
 	UniqueIdCreator wallcreator;
 	vector<unsigned int> wallsinrange;
 	Grid grid(6, 7);
-	BombState bomb(bombIDCreator, 0, Point(3, 2));
-	bomb.setDestructionRange(2);
+	BombState bomb(bombIDCreator, 0, Point(3, 2), 2);
 	grid.addBombAtPlace(bomb);
 	WallState wall1(wallcreator, WallState::WallTypeLoose, Point(3, 3));
 	grid.addWallAtPlace(wall1);
@@ -272,7 +270,7 @@ void GridTest::getLooseWallsInRange_bombat32andwallssurroundingdistance2rangeis1
 	UniqueIdCreator wallcreator;
 	vector<unsigned int> wallsinrange;
 	Grid grid(6, 7);
-	BombState bomb(bombIDCreator, 0, Point(3, 2));
+	BombState bomb(bombIDCreator, 0, Point(3, 2), 1);
 	grid.addBombAtPlace(bomb);
 	WallState wall5(wallcreator, WallState::WallTypeLoose, Point(3, 0));
 	grid.addWallAtPlace(wall5);
@@ -294,7 +292,7 @@ void GridTest::getLooseWallsInRange_bombat60rangeis1_sizeofwallsinrangeis2()
 	UniqueIdCreator wallcreator;
 	vector<unsigned int> wallsinrange;
 	Grid grid(6, 7);
-	BombState bomb(bombIDCreator, 0, Point(6, 0));
+	BombState bomb(bombIDCreator, 0, Point(6, 0), 1);
 	grid.addBombAtPlace(bomb);
 	WallState wall1(wallcreator, WallState::WallTypeLoose, Point(5, 1));
 	grid.addWallAtPlace(wall1);
@@ -316,8 +314,7 @@ void GridTest::getLooseWallsInRange_bombat61rangeis2_sizeofwallsinrangeis3()
 	UniqueIdCreator wallcreator;
 	vector<unsigned int> wallsinrange;
 	Grid grid(6, 7);
-	BombState bomb(bombIDCreator, 0, Point(6, 1));
-	bomb.setDestructionRange(2);
+	BombState bomb(bombIDCreator, 0, Point(6, 1), 2);
 	grid.addBombAtPlace(bomb);
 	WallState wall1(wallcreator, WallState::WallTypeLoose, Point(6, 0));
 	grid.addWallAtPlace(wall1);
@@ -341,8 +338,7 @@ void GridTest::getPowerUpsInRange_bombat33rangeis4BombEmptyWallPowerUp_sizeofwal
 	vector<unsigned int> powerUpsInRange;
 	Grid grid(7, 7);
 
-	BombState bomb(bombIDCreator, 0, Point(3, 3));
-	bomb.setDestructionRange(4);
+	BombState bomb(bombIDCreator, 0, Point(3, 3), 4);
 	grid.addBombAtPlace(bomb);
 	WallState wall1(wallcreator, WallState::WallTypeLoose,Point(5, 3));
 	grid.addWallAtPlace(wall1);
@@ -363,8 +359,7 @@ void GridTest::getPowerUpsInRange_bombat23RangeIs10PowerUpBombPowerUpPowerUpWall
 	vector<unsigned int> powerUpsInRange;
 	Grid grid(7, 7);
 
-	BombState bomb(bombIDCreator, 0, Point(2 ,3));
-	bomb.setDestructionRange(10);
+	BombState bomb(bombIDCreator, 0, Point(2 ,3), 10);
 	grid.addBombAtPlace(bomb);
 	PowerUpState powerUp(powercreator, Point(1, 3));
 	grid.addPowerUpAtPlace(powerUp);
@@ -387,9 +382,7 @@ void GridTest::getPowerUpsInRange_bombat59gridsize1010_expectassertionerroringet
 	UniqueIdCreator bombIDCreator;
 	vector<unsigned int> wallsInRange;
 	Grid grid(10, 10);
-
-	BombState bomb(bombIDCreator, 0, Point(5.0, 9.0));
-	bomb.setDestructionRange(5);
+	BombState bomb(bombIDCreator, 0, Point(5, 9), 5);
 	grid.addBombAtPlace(bomb);
 
 	wallsInRange = grid.getLooseWallsInRange(bomb);
@@ -403,9 +396,8 @@ void GridTest::getPlayersInRange_playerRightBesideABomb_resultSizeIs1()
 	vector<const PlayerState*> players;
 	UniqueIdCreator bombIDCreator;
 	Grid grid(10, 10);
-	BombState bomb(bombIDCreator, 0, Point(5, 9));
+	BombState bomb(bombIDCreator, 0, Point(5, 9), 5);
 	PlayerState player(playerCreator);
-	bomb.setDestructionRange(5);
 	grid.addBombAtPlace(bomb);
 	player.setPosition(Point(5, 8));
 	players.push_back(&player);
@@ -420,10 +412,10 @@ void GridTest::isPlaceEmpty_itemat33_false()
 	UniqueIdCreator wallcreator;
 	Grid grid(10, 10);
 
-	WallState wall1(wallcreator, WallState::WallTypeLoose, Point(3.0, 3.0));
+	WallState wall1(wallcreator, WallState::WallTypeLoose, Point(3, 3));
 	grid.addWallAtPlace(wall1);
 
-	CPPUNIT_ASSERT(!grid.isPlaceEmpty(Point(3.0, 3.0)));
+	CPPUNIT_ASSERT(!grid.isPlaceEmpty(Point(3, 3)));
 }
 
 void GridTest::isPlaceEmpty_itemat33_true()
@@ -431,11 +423,11 @@ void GridTest::isPlaceEmpty_itemat33_true()
 	UniqueIdCreator wallcreator;
 	Grid grid(10, 10);
 
-	WallState wall1(wallcreator, WallState::WallTypeLoose, Point(3.0, 3.0));
+	WallState wall1(wallcreator, WallState::WallTypeLoose, Point(3, 3));
 	grid.addWallAtPlace(wall1);
 	grid.removeWall(wall1);
 
-	CPPUNIT_ASSERT(grid.isPlaceEmpty(Point(3.0, 3.0)));
+	CPPUNIT_ASSERT(grid.isPlaceEmpty(Point(3, 3)));
 }
 
 void GridTest::removePowerUp_itemat33_true()
@@ -443,11 +435,11 @@ void GridTest::removePowerUp_itemat33_true()
 	UniqueIdCreator powerUpCreator;
 	Grid grid(10, 10);
 
-	PowerUpState powerup(powerUpCreator, Point(3.0, 3.0));
+	PowerUpState powerup(powerUpCreator, Point(3, 3));
 	grid.addPowerUpAtPlace(powerup);
 	grid.removePowerUp(powerup);
 
-	CPPUNIT_ASSERT(grid.isPlaceEmpty(Point(3.0, 3.0)));
+	CPPUNIT_ASSERT(grid.isPlaceEmpty(Point(3, 3)));
 }
 
 void GridTest::removeBomb_itemat33_true()
@@ -455,11 +447,11 @@ void GridTest::removeBomb_itemat33_true()
 	UniqueIdCreator bombIDCreator;
 	Grid grid(10, 10);
 
-	BombState bomb(bombIDCreator, 0, Point(3.0, 3.0));
+	BombState bomb(bombIDCreator, 0, Point(3, 3), 1);
 	grid.addBombAtPlace(bomb);
 	grid.removeBomb(bomb);
 
-	CPPUNIT_ASSERT(grid.isPlaceEmpty(Point(3.0, 3.0)));
+	CPPUNIT_ASSERT(grid.isPlaceEmpty(Point(3, 3)));
 }
 
 void GridTest::removeWall_itemat33_true()
@@ -508,8 +500,7 @@ void GridTest::getPlayerFields_PlayerAt1and1comma5_11and12()
 void GridTest::getPlayersInRange_playerWithDifferentXAndYPosition_resultSizeIs0()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 9));
-	bomb.setDestructionRange(5);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 9), 5);
 	grid.addBombAtPlace(bomb);
 	PlayerState* player = new PlayerState(*m_playerIdCreator);
 	player->setPosition(Point(6, 8));
@@ -524,8 +515,7 @@ void GridTest::getPlayersInRange_playerWithDifferentXAndYPosition_resultSizeIs0(
 void GridTest::getPlayersInRange_playerAtLeftEndOfDestructionRange_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(2);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 2);
 	grid.addBombAtPlace(bomb);
 	PlayerState* player = new PlayerState(*m_playerIdCreator);
 	player->setPosition(Point(3, 4));
@@ -540,8 +530,7 @@ void GridTest::getPlayersInRange_playerAtLeftEndOfDestructionRange_resultSizeIs1
 void GridTest::getPlayersInRange_playerAtRightEndOfDestructionRange_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(2);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 2);
 	grid.addBombAtPlace(bomb);
 	PlayerState* player = new PlayerState(*m_playerIdCreator);
 	player->setPosition(Point(7, 4));
@@ -556,8 +545,7 @@ void GridTest::getPlayersInRange_playerAtRightEndOfDestructionRange_resultSizeIs
 void GridTest::getPlayersInRange_playerAtUpperEndOfDestructionRange_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(2);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 2);
 	grid.addBombAtPlace(bomb);
 	PlayerState* player = new PlayerState(*m_playerIdCreator);
 	player->setPosition(Point(5, 6));
@@ -572,8 +560,7 @@ void GridTest::getPlayersInRange_playerAtUpperEndOfDestructionRange_resultSizeIs
 void GridTest::getPlayersInRange_playerAtLowerEndOfDestructionRange_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(2);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 2);
 	grid.addBombAtPlace(bomb);
 	PlayerState* player = new PlayerState(*m_playerIdCreator);
 	player->setPosition(Point(5, 2));
@@ -588,8 +575,7 @@ void GridTest::getPlayersInRange_playerAtLowerEndOfDestructionRange_resultSizeIs
 void GridTest::getPlayersInRange_playerAfterLeftEndOfDestructionRange_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(2);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 2);
 	grid.addBombAtPlace(bomb);
 	PlayerState* player = new PlayerState(*m_playerIdCreator);
 	player->setPosition(Point(2, 4));
@@ -604,8 +590,7 @@ void GridTest::getPlayersInRange_playerAfterLeftEndOfDestructionRange_resultSize
 void GridTest::getPlayersInRange_playerAfterRightEndOfDestructionRange_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(2);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 2);
 	grid.addBombAtPlace(bomb);
 	PlayerState* player = new PlayerState(*m_playerIdCreator);
 	player->setPosition(Point(8, 4));
@@ -620,8 +605,7 @@ void GridTest::getPlayersInRange_playerAfterRightEndOfDestructionRange_resultSiz
 void GridTest::getPlayersInRange_playerAfterUpperEndOfDestructionRange_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(2);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 2);
 	grid.addBombAtPlace(bomb);
 	PlayerState* player = new PlayerState(*m_playerIdCreator);
 	player->setPosition(Point(5, 7));
@@ -636,8 +620,7 @@ void GridTest::getPlayersInRange_playerAfterUpperEndOfDestructionRange_resultSiz
 void GridTest::getPlayersInRange_playerAfterLowerEndOfDestructionRange_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(2);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 2);
 	grid.addBombAtPlace(bomb);
 	PlayerState* player = new PlayerState(*m_playerIdCreator);
 	player->setPosition(Point(5, 1));
@@ -652,8 +635,7 @@ void GridTest::getPlayersInRange_playerAfterLowerEndOfDestructionRange_resultSiz
 void GridTest::getPlayersInRange_playerAboveInFrontOfWall_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(5);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 5);
 	grid.addBombAtPlace(bomb);
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(5, 8));
 	grid.addWallAtPlace(wall);
@@ -670,8 +652,7 @@ void GridTest::getPlayersInRange_playerAboveInFrontOfWall_resultSizeIs1()
 void GridTest::getPlayersInRange_playerBelowInFrontOfWall_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(5);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 5);
 	grid.addBombAtPlace(bomb);
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(5, 2));
 	grid.addWallAtPlace(wall);
@@ -688,8 +669,7 @@ void GridTest::getPlayersInRange_playerBelowInFrontOfWall_resultSizeIs1()
 void GridTest::getPlayersInRange_playerLeftInFrontOfWall_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(5);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 5);
 	grid.addBombAtPlace(bomb);
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(1, 4));
 	grid.addWallAtPlace(wall);
@@ -706,8 +686,7 @@ void GridTest::getPlayersInRange_playerLeftInFrontOfWall_resultSizeIs1()
 void GridTest::getPlayersInRange_playerRightInFrontOfWall_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(5);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 5);
 	grid.addBombAtPlace(bomb);
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(9, 4));
 	grid.addWallAtPlace(wall);
@@ -724,8 +703,7 @@ void GridTest::getPlayersInRange_playerRightInFrontOfWall_resultSizeIs1()
 void GridTest::getPlayersInRange_playerAboveBehindOfLooseWall_resultSizeIs0()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(5);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 5);
 	grid.addBombAtPlace(bomb);
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(5, 6));
 	grid.addWallAtPlace(wall);
@@ -742,8 +720,7 @@ void GridTest::getPlayersInRange_playerAboveBehindOfLooseWall_resultSizeIs0()
 void GridTest::getPlayersInRange_playerBelowBehindOfLooseWall_resultSizeIs0()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(5);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 5);
 	grid.addBombAtPlace(bomb);
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(5, 3));
 	grid.addWallAtPlace(wall);
@@ -760,8 +737,7 @@ void GridTest::getPlayersInRange_playerBelowBehindOfLooseWall_resultSizeIs0()
 void GridTest::getPlayersInRange_playerLeftBehindOfLooseWall_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(5);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 5);
 	grid.addBombAtPlace(bomb);
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(3, 4));
 	grid.addWallAtPlace(wall);
@@ -778,8 +754,7 @@ void GridTest::getPlayersInRange_playerLeftBehindOfLooseWall_resultSizeIs1()
 void GridTest::getPlayersInRange_playerRightBehindOfLooseWall_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(5);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 5);
 	grid.addBombAtPlace(bomb);
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(7, 4));
 	grid.addWallAtPlace(wall);
@@ -796,8 +771,7 @@ void GridTest::getPlayersInRange_playerRightBehindOfLooseWall_resultSizeIs1()
 void GridTest::getPlayersInRange_playerRightOnTheBomb_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(5);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 5);
 	grid.addBombAtPlace(bomb);
 	PlayerState* player = new PlayerState(*m_playerIdCreator);
 	player->setPosition(Point(5, 4));
@@ -812,8 +786,7 @@ void GridTest::getPlayersInRange_playerRightOnTheBomb_resultSizeIs1()
 void GridTest::getPlayersInRange_twoOfTwoPlayersInRange_resultSizeIs2()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(5);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 5);
 	grid.addBombAtPlace(bomb);
 	PlayerState* firstPlayer = new PlayerState(*m_playerIdCreator);
 	firstPlayer->setPosition(Point(6, 4));
@@ -831,8 +804,7 @@ void GridTest::getPlayersInRange_twoOfTwoPlayersInRange_resultSizeIs2()
 void GridTest::getPlayersInRange_oneOfTwoPlayersInRange_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(5);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 5);
 	grid.addBombAtPlace(bomb);
 	PlayerState* firstPlayer = new PlayerState(*m_playerIdCreator);
 	firstPlayer->setPosition(Point(6, 4));
@@ -850,8 +822,7 @@ void GridTest::getPlayersInRange_oneOfTwoPlayersInRange_resultSizeIs1()
 void GridTest::getPlayersInRange_playerOnlyHalfInRange_resultSizeIs1()
 {
 	Grid grid(10, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 4));
-	bomb.setDestructionRange(5);
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 4), 5);
 	grid.addBombAtPlace(bomb);
 	PlayerState* player = new PlayerState(*m_playerIdCreator);
 	player->setPosition(Point(7, 4.5));
@@ -966,7 +937,7 @@ void GridTest::getDistanceToNextWallDown_powerUpInRange_distanceIsWayToEndOfLeve
 void GridTest::getDistanceToNextWallLeft_bombInRange_distanceIsWayToEndOfLevel()
 {
 	Grid grid(15, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(3, 3));
+	BombState bomb(*m_bombIdCreator, 0, Point(3, 3), 1);
 	grid.addBombAtPlace(bomb);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)4, grid.getDistanceToNextWallLeft(GridPoint(4, 3)));
@@ -975,7 +946,7 @@ void GridTest::getDistanceToNextWallLeft_bombInRange_distanceIsWayToEndOfLevel()
 void GridTest::getDistanceToNextWallRight_bombInRange_distanceIsWayToEndOfLevel()
 {
 	Grid grid(15, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(5, 3));
+	BombState bomb(*m_bombIdCreator, 0, Point(5, 3), 1);
 	grid.addBombAtPlace(bomb);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)5, grid.getDistanceToNextWallRight(GridPoint(4, 3)));
@@ -984,7 +955,7 @@ void GridTest::getDistanceToNextWallRight_bombInRange_distanceIsWayToEndOfLevel(
 void GridTest::getDistanceToNextWallUp_bombInRange_distanceIsWayToEndOfLevel()
 {
 	Grid grid(15, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(4, 4));
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 4), 1);
 	grid.addBombAtPlace(bomb);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)11, grid.getDistanceToNextWallUp(GridPoint(4, 3)));
@@ -993,7 +964,7 @@ void GridTest::getDistanceToNextWallUp_bombInRange_distanceIsWayToEndOfLevel()
 void GridTest::getDistanceToNextWallDown_bombInRange_distanceIsWayToEndOfLevel()
 {
 	Grid grid(15, 10);
-	BombState bomb(*m_bombIdCreator, 0, Point(4, 2));
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 2), 1);
 	grid.addBombAtPlace(bomb);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)3, grid.getDistanceToNextWallDown(GridPoint(4, 3)));
@@ -1009,7 +980,7 @@ void GridTest::constructor_validValues_observerCountIs0()
 void GridTest::addBombAtPlace_oneObserverMock_observerGotOneCallToFieldHasChanged()
 {
 	Grid grid(10, 12);
-	BombState bomb(*m_bombIdCreator, 0, Point(3, 4));
+	BombState bomb(*m_bombIdCreator, 0, Point(3, 4), 1);
 	GridObserverMock observer(grid);
 
 	grid.addBombAtPlace(bomb);
@@ -1020,7 +991,7 @@ void GridTest::addBombAtPlace_oneObserverMock_observerGotOneCallToFieldHasChange
 void GridTest::addBombAtPlace_bombPosition3And4AndOneObserverMock_observerGotCallToFieldHasChangedWithParam3And4()
 {
 	Grid grid(10, 12);
-	BombState bomb(*m_bombIdCreator, 0, Point(3, 4));
+	BombState bomb(*m_bombIdCreator, 0, Point(3, 4), 1);
 	GridObserverMock observer(grid);
 
 	grid.addBombAtPlace(bomb);
@@ -1053,7 +1024,7 @@ void GridTest::addWallAtPlace_wallPosition3And4AndOneObserverMock_observerGotCal
 void GridTest::removeBomb_bombPosition3And4AndOneObserverMock_observerGotOneCallToFieldHasChanged()
 {
 	Grid grid(10, 12);
-	BombState bomb(*m_bombIdCreator, 0, Point(3, 4));
+	BombState bomb(*m_bombIdCreator, 0, Point(3, 4), 1);
 	grid.addBombAtPlace(bomb);
 	GridObserverMock observer(grid);
 
@@ -1065,7 +1036,7 @@ void GridTest::removeBomb_bombPosition3And4AndOneObserverMock_observerGotOneCall
 void GridTest::removeBomb_bombPosition3And4AndOneObserverMock_observerGotCallToFieldHasChangedWithParam3And4()
 {
 	Grid grid(10, 12);
-	BombState bomb(*m_bombIdCreator, 0, Point(3, 4));
+	BombState bomb(*m_bombIdCreator, 0, Point(3, 4), 1);
 	grid.addBombAtPlace(bomb);
 	GridObserverMock observer(grid);
 
@@ -1156,7 +1127,7 @@ void GridTest::isPlaceCoveredByBomb_free_false()
 void GridTest::isPlaceCoveredByBomb_coveredByBomb_true()
 {
 	Grid grid(15, 13);
-	BombState bomb(*m_bombIdCreator, 0, Point(12, 11));
+	BombState bomb(*m_bombIdCreator, 0, Point(12, 11), 1);
 	grid.addBombAtPlace(bomb);
 
 	CPPUNIT_ASSERT(grid.isPlaceCoveredByBomb(GridPoint(12, 11)));

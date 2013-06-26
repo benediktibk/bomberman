@@ -59,8 +59,8 @@ void MainWindowGraphicTest::drawState1()
 	WallState *wallOne = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(3, 4));
 	WallState *wallTwo = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(2, 3));
 	WallState *wallThree = new WallState(wallIDCreator, WallState::WallTypeLoose, Point(1, 5));
-	BombState *bombOne = new BombState(bombIDCreator, 0, Point(0, 2));
-	BombState *bombTwo = new BombState(bombIDCreator, 0, Point(4, 1));
+	BombState *bombOne = new BombState(bombIDCreator, 0, Point(0, 2), 1);
+	BombState *bombTwo = new BombState(bombIDCreator, 0, Point(4, 1), 1);
 
 	gameState.addWall(wallOne);
 	gameState.addWall(wallTwo);
@@ -106,9 +106,8 @@ void MainWindowGraphicTest::drawState4()
 	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState gameState(level, 1, playerIDCreator, wallIDCreator);
-	BombState *bomb = new BombState(bombIDCreator, 0, Point(4, 4));
+	BombState *bomb = new BombState(bombIDCreator, 0, Point(4, 4), 4);
 
-	bomb->setDestructionRange(4);
 	gameState.addBomb(bomb);
 	gameState.reduceAllBombsLifeTime(bomb->getLifeTime()*2);
 	vector<const BombState*> bombs = gameState.setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs();

@@ -12,9 +12,8 @@ namespace Common
 		CPPUNIT_TEST_SUITE(BombStateTest);
 		CPPUNIT_TEST(constructor_positionIs5And4_positionIs5And4);
 		CPPUNIT_TEST(setLifeTime_3_lifeTimeIs3);
-		CPPUNIT_TEST(setDestructionRange_5_DestructionRangeIs5);
+		CPPUNIT_TEST(constructor_destructionRangeIs5_DestructionRangeIs5);
 		CPPUNIT_TEST(setLifeTime_4_hasChanged);
-		CPPUNIT_TEST(setDestructionRange_5_hasChanged);
 		CPPUNIT_TEST(setDestroyed_empty_hasChanged);
 		CPPUNIT_TEST(getBombWidth_widthIs1);
 		CPPUNIT_TEST(getBombHeight_heightIs1);
@@ -24,9 +23,8 @@ namespace Common
 	private:
 		void constructor_positionIs5And4_positionIs5And4();
 		void setLifeTime_3_lifeTimeIs3();
-		void setDestructionRange_5_DestructionRangeIs5();
+		void constructor_destructionRangeIs5_DestructionRangeIs5();
 		void setLifeTime_4_hasChanged();
-		void setDestructionRange_5_hasChanged();
 		void setDestroyed_empty_hasChanged();
 		void getBombWidth_widthIs1();
 		void getBombHeight_heightIs1();
