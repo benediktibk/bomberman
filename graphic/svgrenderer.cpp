@@ -25,6 +25,9 @@ SvgRenderer::~SvgRenderer()
 	delete m_wallSolidRenderer;
 	delete m_cellBackgroundRenderer;
 	delete m_explodedBombEndRenderer;
+	delete m_powerUpMaxBombRangeRenderer;
+	delete m_powerUpMaxBombRenderer;
+	delete m_powerUpMaxVelocityRenderer;
 }
 
 void SvgRenderer::renderPlayerItems()
@@ -51,6 +54,9 @@ void SvgRenderer::renderExplodedBombItems()
 void SvgRenderer::renderPowerUpItems()
 {
 	m_powerUpRenderer = new QSvgRenderer(QString("resources/graphics/powerup.svg"));
+	m_powerUpMaxBombRangeRenderer = new QSvgRenderer(QString("resources/graphics/powerup_range.svg"));
+	m_powerUpMaxBombRenderer = new QSvgRenderer(QString("resources/graphics/powerup_maxbombs.svg"));
+	m_powerUpMaxVelocityRenderer = new QSvgRenderer(QString("resources/graphics/powerup_speed.svg"));
 }
 
 void SvgRenderer::renderWallItems()
@@ -120,10 +126,29 @@ QGraphicsSvgItem* SvgRenderer::getNewLooseWallItem()
 	return looseWall;
 }
 
-QGraphicsSvgItem* SvgRenderer::getNewPowerUpItem()
+QGraphicsSvgItem* SvgRenderer::getNewPowerUpItem(Common::PowerUpType powerUpType)
 {
 	QGraphicsSvgItem *powerUp = new QGraphicsSvgItem();
-	powerUp->setSharedRenderer(m_powerUpRenderer);
+
+	switch (powerUpType)
+	{
+		case Common::PowerUpTypeMaxBomb:
+			powerUp->setSharedRenderer(m_powerUpMaxBombRenderer);
+			break;
+
+		case Common::PowerUpTypeMaxBombRange:
+			powerUp->setSharedRenderer(m_powerUpMaxBombRangeRenderer);
+			break;
+
+		case Common::PowerUpTypeMaxVelocity:
+			powerUp->setSharedRenderer(m_powerUpMaxVelocityRenderer);
+			break;
+
+		default:
+			powerUp->setSharedRenderer(m_powerUpRenderer);
+			break;
+	}
+
 	return powerUp;
 }
 

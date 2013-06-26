@@ -15,7 +15,7 @@ PowerUp::PowerUp(QGraphicsScene &scene, SvgRenderer &renderer) :
 	scene.addItem(m_svgItem);
 }
 
-PowerUp::PowerUp(QGraphicsScene &scene, SvgRenderer &renderer, PowerUpState &state, double pixelPerMeter)
+PowerUp::PowerUp(QGraphicsScene &scene, SvgRenderer &renderer, const PowerUpState &state, double pixelPerMeter)
 {
 	createSvgItem(state, renderer);
 	scene.addItem(m_svgItem);
@@ -36,8 +36,8 @@ void PowerUp::update(const PowerUpState &state, double pixelPerMeter)
 	m_svgItem->setPos(position.toQPoint());
 }
 
-void PowerUp::createSvgItem(PowerUpState &/*state*/, SvgRenderer &renderer)
+void PowerUp::createSvgItem(const PowerUpState &state, SvgRenderer &renderer)
 {
-	m_svgItem = renderer.getNewPowerUpItem();
+	m_svgItem = renderer.getNewPowerUpItem(state.getPowerUpType());
 	m_svgItem->setZValue(0);
 }

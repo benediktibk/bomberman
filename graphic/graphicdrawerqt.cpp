@@ -223,7 +223,9 @@ void GraphicDrawerQt::drawPowerUp(const PowerUpState *powerUpState)
 		PowerUp* powerUp = 0;
 
 		if (!powerUpFound)
-			powerUp = new PowerUp(*m_scene, *m_svgRenderer);
+		{
+			powerUp = new PowerUp(*m_scene, *m_svgRenderer,*powerUpState, m_pixelPerMeter);
+		}
 		else
 			powerUp = powerUpPosition->second;
 

@@ -124,6 +124,10 @@ void GameLoop::execute()
 		m_gameEngine.updateGameState(inputStates, time);
 		// end of temporary code
 
+		/*!
+		 * @todo catchPlayerInformation should only get PlayerIDs of local Players, not all.
+		 */
+
 		catchPlayerInformation(m_gameEngine.getAllPossiblePlayerIDs());
 
 		m_graphicDrawer.draw(m_gameEngine.getGameState());
