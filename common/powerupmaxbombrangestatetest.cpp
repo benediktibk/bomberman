@@ -31,3 +31,11 @@ void PowerUpMaxBombRangeStateTest::modifyPlayer_baseClass_maxBombRangeIs2()
 
 	CPPUNIT_ASSERT_EQUAL(static_cast<unsigned int>(2), player.getDestructionRangeOfNewBombs());
 }
+
+void PowerUpMaxBombRangeStateTest::getPowerUpType_isMaxBombRange()
+{
+	UniqueIdCreator id;
+	PowerUpMaxBombRangeState increaseBombRange(id, Point());
+
+	CPPUNIT_ASSERT_EQUAL(PowerUpTypeMaxBombRange, increaseBombRange.getPowerUpType());
+}

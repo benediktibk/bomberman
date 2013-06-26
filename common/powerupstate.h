@@ -22,13 +22,14 @@ class PowerUpState :
         public DestroyableState
 {
 public:
-    PowerUpState(UniqueIdCreator &creator, const Point &position);
+	PowerUpState(UniqueIdCreator &creator, const Point &position, PowerUpType powerUpType = PowerUpTypeNone);
     ~PowerUpState();
 
     const Point& getPosition() const;
     unsigned int getId() const;
     double getWidth() const;
     double getHeight() const;
+	PowerUpType getPowerUpType() const;
 
     virtual void modifyPlayer(PlayerState &player) const;
 
@@ -41,6 +42,7 @@ private:
     UniqueIdCreator &m_creatorid;
     double m_width;
     double m_height;
+	PowerUpType m_powerUpType;
 };
 }
 #endif
