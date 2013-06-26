@@ -2,6 +2,7 @@
 #include "gameengine/notdangerousandfreedecider.h"
 #include "gameengine/coveredbyplayerdecider.h"
 #include "gameengine/coveredbyloosewalldecider.h"
+#include "gameengine/coveredbypowerupdecider.h"
 #include "gameengine/freedecider.h"
 #include "gameengine/routergrid.h"
 #include <fstream>
@@ -41,6 +42,11 @@ Route Router::getRouteToNotDangerousField(const Common::GridPoint &position)
 Route Router::getRouteToLooseWall(const Common::GridPoint &position)
 {
 	return getRoute(NotDangerousAndFreeDecider(), CoveredByLooseWallDecider(), position);
+}
+
+Route Router::getRouteToPowerUp(const GridPoint &position)
+{
+	return getRoute(NotDangerousAndFreeDecider(), CoveredByPowerUpDecider(), position);
 }
 
 void Router::writeDebuggingInformationToFile() const
