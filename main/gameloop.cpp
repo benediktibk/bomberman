@@ -157,6 +157,7 @@ void GameLoop::catchPlayerInformation(std::vector<unsigned int> playerIDs)
 
 	for (size_t y = 0; y < playerIDs.size(); y++)
 	{
+		m_playerInformation.push_back(playerIDs.at(y));
 		m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getMaxBombs());
 		m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getDestructionRangeOfNewBombs());
 	}
