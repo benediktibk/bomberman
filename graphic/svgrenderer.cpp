@@ -142,6 +142,7 @@ QGraphicsSvgItem* SvgRenderer::getNewPowerUpItem(Common::PowerUpType powerUpType
 
 		case Common::PowerUpTypeMaxVelocity:
 			powerUp->setSharedRenderer(m_powerUpMaxVelocityRenderer);
+			break;
 
 		default:
 			powerUp->setSharedRenderer(m_powerUpRenderer);
