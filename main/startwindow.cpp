@@ -17,6 +17,7 @@ StartWindow::StartWindow(bool enableOpenGL) :
 	if(enableOpenGL)
 		m_ui->openGlCheckBox->setChecked(true);
 	m_ui->singleRadioButton->setChecked(true);
+	m_ui->levelTableView->selectRow(0);
 }
 
 void StartWindow::connectButtons()
@@ -51,6 +52,7 @@ void StartWindow::createTableView()
 
 void StartWindow::createSilder()
 {
+	connect( m_ui->playerCountHorizontalSlider, SIGNAL( valueChanged(int)), this, SLOT(showHorizontalSliderValue()));
 	m_ui->playerCountHorizontalSlider->setTickPosition(QSlider::TicksBelow);
 }
 
@@ -84,6 +86,11 @@ void StartWindow::closeGameClicked()
 void StartWindow::levelBuildingNotCorrect()
 {
 	m_ui->infoLabel->setText(tr("Levelbuilding was not correct!!! \nError in file or filename!!!"));
+}
+
+void StartWindow::showHorizontalSliderValue()
+{
+	m_ui->sliderShowLabel->setText(QString::number(m_ui->playerCountHorizontalSlider->value()));
 }
 
 void StartWindow::updateSilder()

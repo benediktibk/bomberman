@@ -26,6 +26,7 @@ private slots:
 	void startClicked();
 	void closeGameClicked();
 	void levelBuildingNotCorrect();
+	void showHorizontalSliderValue();
 
 signals:
 	void startGameSignal(bool enableOpenGL, const char* levelname);
