@@ -20,11 +20,13 @@ namespace Threading
 
 	protected:
 		virtual void execute() = 0;
+		void setConstructionFinished();
 
 	private:
 		static void threadFunction(Thread *thread);
 
 	private:
+		Threading::Signal *m_constructionFinished;
 		Threading::Signal *m_finished;
 		boost::thread *m_thread;
 	};

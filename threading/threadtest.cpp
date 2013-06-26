@@ -9,7 +9,9 @@ class ThreadTestImplementation :
 public:
 	ThreadTestImplementation() :
 		m_value(0)
-	{ }
+	{
+		setConstructionFinished();
+	}
 
 	int getValue() const
 	{

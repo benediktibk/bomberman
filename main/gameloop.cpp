@@ -19,7 +19,9 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 	m_framesPerSecond(0),
 	m_percentageOfTimeNotSleeping(0),
 	m_computerEnemyInputFetcher(m_gameEngine.getGrid(), m_gameEngine.getGameState(), m_gameEngine.getAllPossiblePlayerIDs()[1])
-{ }
+{
+	setConstructionFinished();
+}
 
 GameLoop::~GameLoop()
 {
