@@ -395,6 +395,38 @@ void RouterTest::getRouteToPowerUp_powerUpThreeFieldsAbovePlayer_directionIsUp()
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionUp, route.getDirection());
 }
 
+void RouterTest::getRouteToPowerUp_powerUpTwoFieldsLeftOfPlayer_distanceIs2()
+{
+	UniqueIdCreator powerUpIdCreator;
+
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 5);
+	createRouter(level);
+	PowerUpState powerup(powerUpIdCreator, Point(5,5));
+	m_grid->addPowerUpAtPlace(powerup);
+	m_router->updatePlayerFields();
+
+	Route route = m_router->getRouteToPowerUp(GridPoint(7, 5));
+
+	CPPUNIT_ASSERT_EQUAL((unsigned int)2, route.getDistance());
+}
+
+void RouterTest::getRouteToPowerUp_powerUpTwoFieldsLeftOfPlayer_directionIsLeft()
+{
+	UniqueIdCreator powerUpIdCreator;
+
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 5);
+	createRouter(level);
+	PowerUpState powerup(powerUpIdCreator, Point(5,5));
+	m_grid->addPowerUpAtPlace(powerup);
+	m_router->updatePlayerFields();
+
+	Route route = m_router->getRouteToPowerUp(GridPoint(7, 5));
+
+	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionLeft, route.getDirection());
+}
+
 void RouterTest::setUp()
 {
 	m_playerIdCreator = new UniqueIdCreator();
