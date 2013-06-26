@@ -379,5 +379,12 @@ void PlayerStateTest::constructor_idCreator_speedIncreasementIs05()
 {
 	PlayerState player(*m_playerIDCreator);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(1/2, player.getSpeedIncreasement(), 0.00001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.5, player.getSpeedIncreasement(), 0.00001);
+}
+
+void PlayerStateTest::constructor_idCreator_speedIncreasementIsGreaterZero()
+{
+	PlayerState player(*m_playerIDCreator);
+
+	CPPUNIT_ASSERT(player.getSpeedIncreasement() > 0);
 }

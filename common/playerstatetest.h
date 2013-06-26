@@ -52,6 +52,7 @@ namespace Common
 		CPPUNIT_TEST(increaseSpeed_defaultSpeed_speedIncreased);
 		CPPUNIT_TEST(setDestructionRangeOfNewBombs_4_destructionRangeIs4);
 		CPPUNIT_TEST(constructor_idCreator_speedIncreasementIs05);
+		CPPUNIT_TEST(constructor_idCreator_speedIncreasementIsGreaterZero);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -99,6 +100,7 @@ namespace Common
 		void increaseSpeed_defaultSpeed_speedIncreased();
 		void setDestructionRangeOfNewBombs_4_destructionRangeIs4();
 		void constructor_idCreator_speedIncreasementIs05();
+		void constructor_idCreator_speedIncreasementIsGreaterZero();
 
 	private:
 		UniqueIdCreator *m_playerIDCreator;

@@ -12,7 +12,7 @@ PlayerState::PlayerState(UniqueIdCreator &creator) :
 	m_maxBombs(1),
 	m_speed(2),
 	m_maximumSpeed(5),
-	m_speedIncreasement(1/2),
+	m_speedIncreasement(1.0/2),
 	m_width(1),
 	m_height(1),
 	m_playerId(creator.getId()),
