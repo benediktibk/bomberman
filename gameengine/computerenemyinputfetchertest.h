@@ -28,6 +28,7 @@ namespace GameEngine
 		CPPUNIT_TEST(getInputState_onDangerousFieldAndShortestWayOutLeftAndRightOtherPlayerAndDownLooseWall_leftKeyPressed);
 		CPPUNIT_TEST(getInputState_looseWallRightAndOtherPlayerUp_upKeyPressed);
 		CPPUNIT_TEST(getInputState_looseWallRight_rightKeyPressed);
+		CPPUNIT_TEST(getInputState_powerUpOnDangerousField_noMovementButtonPressed);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -42,6 +43,7 @@ namespace GameEngine
 		void getInputState_onDangerousFieldAndShortestWayOutLeftAndRightOtherPlayerAndDownLooseWall_leftKeyPressed();
 		void getInputState_looseWallRightAndOtherPlayerUp_upKeyPressed();
 		void getInputState_looseWallRight_rightKeyPressed();
+		void getInputState_powerUpOnDangerousField_noMovementButtonPressed();
 
 	private:
 		void createInputFetcher(const Common::LevelDefinition &level);
@@ -50,6 +52,7 @@ namespace GameEngine
 		Common::UniqueIdCreator *m_playerIdCreator;
 		Common::UniqueIdCreator *m_wallIdCreator;
 		Common::UniqueIdCreator *m_bombIdCreator;
+		Common::UniqueIdCreator *m_powerUpIdCreator;
 		Common::Grid *m_grid;
 		Common::GameState *m_gameState;
 		ComputerEnemyInputFetcher *m_inputFetcher;
