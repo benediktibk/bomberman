@@ -1179,143 +1179,287 @@ void GridTest::getTargetPoint_between5And6And5And7AndMovingDown_5And6()
 
 void GridTest::isPlaceDangerous_noBombs_false()
 {
-//	Grid grid(10, 10);
-//	BombState bomb(*m_bombIdCreator, 0);
+	Grid grid(10, 10);
+
+	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(4, 3)));
 }
 
 void GridTest::isPlaceDangerous_rightOnBomb_true()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 1);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(grid.isPlaceDangerous(GridPoint(4, 3)));
 }
 
 void GridTest::isPlaceDangerous_oneLeftOfBomb_true()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 1);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(grid.isPlaceDangerous(GridPoint(3, 3)));
 }
 
 void GridTest::isPlaceDangerous_oneRightOfBomb_true()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 1);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(grid.isPlaceDangerous(GridPoint(5, 3)));
 }
 
 void GridTest::isPlaceDangerous_oneAboveOfBomb_true()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 1);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(grid.isPlaceDangerous(GridPoint(4, 4)));
 }
 
 void GridTest::isPlaceDangerous_oneBelowOfBomb_true()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 1);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(grid.isPlaceDangerous(GridPoint(4, 2)));
 }
 
 void GridTest::isPlaceDangerous_twoRightOfBombWithRangeTwo_true()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 2);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(grid.isPlaceDangerous(GridPoint(6, 3)));
 }
 
 void GridTest::isPlaceDangerous_twoLeftOfBombWithRangeTwo_true()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 2);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(grid.isPlaceDangerous(GridPoint(2, 3)));
 }
 
 void GridTest::isPlaceDangerous_twoAboveOfBombWithRangeTwo_true()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 2);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(grid.isPlaceDangerous(GridPoint(4, 5)));
 }
 
 void GridTest::isPlaceDangerous_twoBelowOfBombWithRangeTwo_true()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 2);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(grid.isPlaceDangerous(GridPoint(4, 1)));
 }
 
 void GridTest::isPlaceDangerous_threeRightOfBombWithRangeTwo_false()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 2);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(7, 3)));
 }
 
 void GridTest::isPlaceDangerous_threeLeftOfBombWithRangeTwo_false()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 2);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(1, 3)));
 }
 
 void GridTest::isPlaceDangerous_threeAboveOfBombWithRangeTwo_false()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 2);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(4, 6)));
 }
 
 void GridTest::isPlaceDangerous_threeBelowOfBombWithRangeTwo_false()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 2);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(4, 0)));
 }
 
 void GridTest::isPlaceDangerous_positionRightOfBombBehindLooseWall_false()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 100);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(6, 3));
+	grid.addWallAtPlace(wall);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(7, 3)));
 }
 
 void GridTest::isPlaceDangerous_positionLeftOfBombBehindLooseWall_false()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 100);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(2, 3));
+	grid.addWallAtPlace(wall);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(0, 3)));
 }
 
 void GridTest::isPlaceDangerous_positionAboveOfBombBehindLooseWall_false()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 100);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(4, 4));
+	grid.addWallAtPlace(wall);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(4, 8)));
 }
 
 void GridTest::isPlaceDangerous_positionBelowOfBombBehindLooseWall_false()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 100);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(4, 1));
+	grid.addWallAtPlace(wall);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(4, 0)));
 }
 
 void GridTest::isPlaceDangerous_positionRightOfBombBehindSolidWall_false()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 100);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(6, 3));
+	grid.addWallAtPlace(wall);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(7, 3)));
 }
 
 void GridTest::isPlaceDangerous_positionLeftOfBombBehindSolidWall_false()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 100);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(2, 3));
+	grid.addWallAtPlace(wall);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(0, 3)));
 }
 
 void GridTest::isPlaceDangerous_positionAboveOfBombBehindSolidWall_false()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 100);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(4, 4));
+	grid.addWallAtPlace(wall);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(4, 8)));
 }
 
 void GridTest::isPlaceDangerous_positionBelowOfBombBehindSolidWall_false()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 100);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(4, 1));
+	grid.addWallAtPlace(wall);
+	grid.addBombAtPlace(bomb);
 
+	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(4, 0)));
 }
 
 void GridTest::isPlaceDangerous_positionRightOfBombBehindRemovedLooseWall_true()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 100);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(6, 3));
+	grid.addWallAtPlace(wall);
+	grid.addBombAtPlace(bomb);
+	grid.removeWall(wall);
 
+	CPPUNIT_ASSERT(grid.isPlaceDangerous(GridPoint(7, 3)));
 }
 
 void GridTest::isPlaceDangerous_positionLeftOfBombBehindRemovedLooseWall_true()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 100);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(2, 3));
+	grid.addWallAtPlace(wall);
+	grid.addBombAtPlace(bomb);
+	grid.removeWall(wall);
 
+	CPPUNIT_ASSERT(grid.isPlaceDangerous(GridPoint(0, 3)));
 }
 
 void GridTest::isPlaceDangerous_positionAboveOfBombBehindRemovedLooseWall_true()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 100);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(4, 4));
+	grid.addWallAtPlace(wall);
+	grid.addBombAtPlace(bomb);
+	grid.removeWall(wall);
 
+	CPPUNIT_ASSERT(grid.isPlaceDangerous(GridPoint(4, 8)));
 }
 
 void GridTest::isPlaceDangerous_positionBelowOfBombBehindRemovedLooseWall_true()
 {
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(4, 3), 100);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeLoose, Point(4, 1));
+	grid.addWallAtPlace(wall);
+	grid.addBombAtPlace(bomb);
+	grid.removeWall(wall);
 
+	CPPUNIT_ASSERT(grid.isPlaceDangerous(GridPoint(4, 0)));
 }
 
 void GridTest::isPlaceDangerous_inRangeOfTwoBombsButOneRemoved_true()
 {
+	Grid grid(10, 10);
+	BombState bombOne(*m_bombIdCreator, 0, Point(7, 4), 100);
+	BombState bombTwo(*m_bombIdCreator, 0, Point(2, 0), 100);
+	grid.addBombAtPlace(bombOne);
+	grid.addBombAtPlace(bombTwo);
+	grid.removeBomb(bombOne);
 
+	CPPUNIT_ASSERT(grid.isPlaceDangerous(GridPoint(2, 4)));
 }
 
 void GridTest::isPlaceDangerous_inRangeOfTwoRemovedBombs_false()
 {
+	Grid grid(10, 10);
+	BombState bombOne(*m_bombIdCreator, 0, Point(7, 4), 100);
+	BombState bombTwo(*m_bombIdCreator, 0, Point(2, 0), 100);
+	grid.addBombAtPlace(bombOne);
+	grid.addBombAtPlace(bombTwo);
+	grid.removeBomb(bombOne);
+	grid.removeBomb(bombTwo);
 
+	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(2, 4)));
 }
 
 void GridTest::setUp()
