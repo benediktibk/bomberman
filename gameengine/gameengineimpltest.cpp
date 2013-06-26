@@ -131,6 +131,7 @@ void GameEngineImplTest::updateGameState_twoBombsPlacedAndOneDestroyed_bombCount
 void GameEngineImplTest::getHeight_HeightOfLevelDefinition_HeightOfGamestate()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	createGameEngine(level, 1);
 	const GameState &game = m_gameEngine->getGameState();
 
@@ -140,6 +141,7 @@ void GameEngineImplTest::getHeight_HeightOfLevelDefinition_HeightOfGamestate()
 void GameEngineImplTest::getWidth_WidthOfLevelDefinition_WidthOfGamestate()
 {
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	createGameEngine(level, 1);
 	const GameState &game = m_gameEngine->getGameState();
 
@@ -606,6 +608,7 @@ void GameEngineImplTest::updateGameState_movementOfSecondPlayer_positionOfSecond
 {
 	InputState input;
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
 	createGameEngine(level, 2);
 	GameState &gameState = m_gameEngine->getGameState();
@@ -631,6 +634,7 @@ void GameEngineImplTest::updateGameState_movementOfSecondPlayer_firstPlayerDoesn
 {
 	InputState input;
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
 	createGameEngine(level, 2);
 	GameState &gameState = m_gameEngine->getGameState();
@@ -1463,7 +1467,9 @@ void GameEngineImplTest::setSecondPlayerInput(const InputState &input)
 
 void GameEngineImplTest::setUp()
 {
-	createGameEngine(LevelDefinition(), 1);
+	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	createGameEngine(level, 1);
 }
 
 void GameEngineImplTest::tearDown()

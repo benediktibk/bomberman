@@ -65,6 +65,12 @@ bool Grid::isPlaceDangerous(const GridPoint &position) const
 	return m_dangerousMatrix[index] > 0;
 }
 
+bool Grid::isPlaceCoveredByPowerUp(const GridPoint &position) const
+{
+	unsigned int index = getVectorIndex(position);
+	return m_itemMatrix[index] == ItemPowerUp;
+}
+
 unsigned Grid::getId(const GridPoint &position) const
 {
 	assert(!isPlaceEmpty(position));
@@ -108,6 +114,7 @@ void Grid::addPowerUpAtPlace(PowerUpState &powerUp)
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemPowerUp;
 	m_idMatrix[index] = powerUp.getId();
+	notifyObservers(position);
 }
 
 void Grid::removePowerUp(const PowerUpState &powerUp)
@@ -116,6 +123,7 @@ void Grid::removePowerUp(const PowerUpState &powerUp)
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemFree;
 	m_idMatrix[index] = 0;
+	notifyObservers(position);
 }
 
 void Grid::removeBomb(const BombState &bomb)

@@ -1133,6 +1133,22 @@ void GridTest::isPlaceCoveredByBomb_coveredByBomb_true()
 	CPPUNIT_ASSERT(grid.isPlaceCoveredByBomb(GridPoint(12, 11)));
 }
 
+void GridTest::isPlaceCoveredByPowerUp_free_false()
+{
+	Grid grid(15, 13);
+
+	CPPUNIT_ASSERT(!grid.isPlaceCoveredByPowerUp(GridPoint(12, 11)));
+}
+
+void GridTest::isPlaceCoveredByPowerUp_coveredByPowerUp_true()
+{
+	Grid grid(15, 13);
+	PowerUpState powerUp(*m_powerUpIdCreator, Point(12, 11));
+	grid.addPowerUpAtPlace(powerUp);
+
+	CPPUNIT_ASSERT(grid.isPlaceCoveredByPowerUp(GridPoint(12, 11)));
+}
+
 void GridTest::getTargetPoint_onlyField5And6Covered_5And6()
 {
 	PlayerState player(*m_playerIdCreator);

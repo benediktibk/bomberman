@@ -14,7 +14,9 @@ public:
 		m_source(source),
 		m_destination(destination),
 		m_waitingStarted(false)
-	{ }
+	{
+		setConstructionFinished();
+	}
 
 	bool waitingStarted()
 	{

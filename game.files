@@ -381,3 +381,8 @@ gameengine/computerenemyinputfetchertest.cpp
 resources/levels/classic_middle.csv
 resources/levels/no_place_to_hide.csv
 resources/levels/can_see_you.csv
+gameengine/coveredbypowerupdecider.h
+gameengine/coveredbypowerupdecider.cpp
+gameengine/coveredbypowerupdecidertest.h
+gameengine/coveredbypowerupdecidertest.cpp
+README.md

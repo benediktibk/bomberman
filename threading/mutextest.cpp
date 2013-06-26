@@ -13,7 +13,9 @@ public:
 	ThreadMutexTestImplementation(Mutex &mutex, double &value) :
 		m_mutex(mutex),
 		m_value(value)
-	{ }
+	{
+		setConstructionFinished();
+	}
 
 private:
 	virtual void execute()

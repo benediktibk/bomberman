@@ -39,6 +39,9 @@ void RouterGrid::fieldHasChanged(const GridPoint &position)
 		m_fields[row][column].setLooseWall(true);
 	else if (m_grid.isPlaceCoveredBySolidWall(position))
 		m_fields[row][column].setSolidWall(true);
+	else if (m_grid.isPlaceCoveredByPowerUp(position))
+		m_fields[row][column].setPowerUp(true);
+
 	if (m_grid.isPlaceDangerous(position))
 		m_fields[row][column].setDangerous(true);
 
@@ -82,6 +85,7 @@ RouterGridField& RouterGrid::getFieldInternal(const GridPoint &position)
 
 	return m_fields[position.getY()][position.getX()];
 }
+
 
 void RouterGrid::removePlayerFlags()
 {
