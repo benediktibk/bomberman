@@ -134,6 +134,7 @@ namespace Common
 		CPPUNIT_TEST(removeWall_wallBelowOfBombInRangeOfBombAndOneObserverMock_observerGotCallToFieldHasChangedBehindTheWall);
 		CPPUNIT_TEST(addBombAtPlace_bombWithRange2AndOneObserverMock_observerGotCallToFieldHasChangedOneFieldLeftOfBombPosition);
 		CPPUNIT_TEST(addBombAtPlace_bombWithRange2AndOneObserverMock_observerGotCallToFieldHasChangedOneFieldAboveOfBombPosition);
+		CPPUNIT_TEST(removeBomb_bombWithRange1AtPosition3And4_3And4IsNotDangerous);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -263,6 +264,7 @@ namespace Common
 		void removeWall_wallBelowOfBombInRangeOfBombAndOneObserverMock_observerGotCallToFieldHasChangedBehindTheWall();
 		void addBombAtPlace_bombWithRange2AndOneObserverMock_observerGotCallToFieldHasChangedOneFieldLeftOfBombPosition();
 		void addBombAtPlace_bombWithRange2AndOneObserverMock_observerGotCallToFieldHasChangedOneFieldAboveOfBombPosition();
+		void removeBomb_bombWithRange1AtPosition3And4_3And4IsNotDangerous();
 
 	private:
 		Common::UniqueIdCreator *m_powerUpIdCreator;

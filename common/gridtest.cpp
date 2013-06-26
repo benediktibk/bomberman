@@ -1540,6 +1540,17 @@ void GridTest::addBombAtPlace_bombWithRange2AndOneObserverMock_observerGotCallTo
 	CPPUNIT_ASSERT(observer.lastParamsOfFieldHasChangedContain(GridPoint(3, 5)));
 }
 
+void GridTest::removeBomb_bombWithRange1AtPosition3And4_3And4IsNotDangerous()
+{
+	Grid grid(10, 10);
+	BombState bomb(*m_bombIdCreator, 0, Point(3, 4), 1);
+	grid.addBombAtPlace(bomb);
+
+	grid.removeBomb(bomb);
+
+	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(3, 4)));
+}
+
 void GridTest::setUp()
 {
 	m_powerUpIdCreator = new UniqueIdCreator();

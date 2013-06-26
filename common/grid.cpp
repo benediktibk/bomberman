@@ -233,6 +233,9 @@ void Grid::increaseHorizontalDangerousRange(const BombState &bomb)
 
 	for (unsigned int x = bombPosition.getX() - rangeLeft; x <= bombPosition.getX() + rangeRight; ++x)
 	{
+		if (x == bombPosition.getX())
+			continue;
+
 		GridPoint position(x, bombPosition.getY());
 		unsigned int index = getVectorIndex(position);
 		++m_dangerousMatrix[index];
@@ -250,6 +253,9 @@ void Grid::increaseVerticalDangerousRange(const BombState &bomb)
 
 	for (unsigned int y = bombPosition.getY() - rangeDown; y <= bombPosition.getY() + rangeUp; ++y)
 	{
+		if (y == bombPosition.getY())
+			continue;
+
 		GridPoint position(bombPosition.getX(), y);
 		unsigned int index = getVectorIndex(position);
 		++m_dangerousMatrix[index];
