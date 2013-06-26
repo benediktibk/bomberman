@@ -236,6 +236,9 @@ void Grid::increaseHorizontalDangerousRange(const BombState &bomb)
 		GridPoint position(x, bombPosition.getY());
 		unsigned int index = getVectorIndex(position);
 		++m_dangerousMatrix[index];
+
+		if (m_dangerousMatrix[index] == 1)
+			notifyObservers(position);
 	}
 }
 
@@ -250,6 +253,9 @@ void Grid::increaseVerticalDangerousRange(const BombState &bomb)
 		GridPoint position(bombPosition.getX(), y);
 		unsigned int index = getVectorIndex(position);
 		++m_dangerousMatrix[index];
+
+		if (m_dangerousMatrix[index] == 1)
+			notifyObservers(position);
 	}
 }
 
@@ -275,6 +281,9 @@ void Grid::decreaseHorizontalDangerousRange(const BombState &bomb)
 		unsigned int index = getVectorIndex(position);
 		assert(m_dangerousMatrix[index] > 0);
 		--m_dangerousMatrix[index];
+
+		if (m_dangerousMatrix[index] == 0)
+			notifyObservers(position);
 	}
 }
 
@@ -293,6 +302,9 @@ void Grid::decreaseVerticalDangerousRange(const BombState &bomb)
 		unsigned int index = getVectorIndex(position);
 		assert(m_dangerousMatrix[index] > 0);
 		--m_dangerousMatrix[index];
+
+		if (m_dangerousMatrix[index] == 0)
+			notifyObservers(position);
 	}
 }
 

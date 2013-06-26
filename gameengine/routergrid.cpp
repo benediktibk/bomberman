@@ -77,7 +77,9 @@ void RouterGrid::markFieldsAsDangerousIfCoveredByBomb(const GridPoint &position)
 	if (!m_fields[row][column].isBomb())
 		return;
 
-	assert(m_grid.isPlaceCoveredByBomb(position));
+	if (!m_grid.isPlaceCoveredByBomb(position))
+		return;
+
 	unsigned int bombID = m_grid.getId(position);
 	const BombState &bomb = m_gameState.getBombById(bombID);
 	unsigned int rangeLeft = m_grid.getBombRangeLeft(bomb);
