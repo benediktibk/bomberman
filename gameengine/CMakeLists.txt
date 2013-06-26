@@ -9,6 +9,7 @@ set(GAMEENGINE_SRC
 	freedecider.cpp
 	route.cpp
 	router.cpp
+	coveredbypowerupdecider.cpp
 )
 
 set(GAMEENGINE_TEST_SRC
