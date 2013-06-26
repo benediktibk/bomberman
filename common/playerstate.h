@@ -45,6 +45,7 @@ namespace Common
 		double getSpeed() const;
 		void increaseSpeed();
 		void increaseMaximumBombRange(unsigned int number);
+		double getSpeedIncreasement() const;
 		double getSpeedIntoX() const;
 		double getSpeedIntoY() const;
 		void setNotMoving();
@@ -60,7 +61,7 @@ namespace Common
 		void removeBombFromDoNotCollideList(const BombState *bomb);
 		unsigned int getDestructionRangeOfNewBombs() const;
 		void setDestructionRangeOfNewBombs(unsigned int value);
-        void setPlacedBombAlready(bool value);
+		void setPlacedBombAlready(bool value);
 
 	private:
 		// forbid copies
@@ -74,13 +75,14 @@ namespace Common
 		unsigned int m_maxBombs;
 		double m_speed;
 		const double m_maximumSpeed;
+		const double m_speedIncreasement;
 		double m_width;
 		double m_height;
 		unsigned int m_playerId;
 		UniqueIdCreator &m_creatorId;
 		std::vector<const Common::BombState*> m_bombsNotToCollideWith;
 		unsigned int m_destructionRangeOfNewBombs;
-        bool m_placedBombAlready;
+		bool m_placedBombAlready;
 	};
 }
 

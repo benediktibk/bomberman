@@ -10,8 +10,9 @@ PlayerState::PlayerState(UniqueIdCreator &creator) :
 	m_direction(PlayerDirectionNone),
 	m_placedBombCount(0),
 	m_maxBombs(1),
-	m_speed(1),
+	m_speed(2),
 	m_maximumSpeed(5),
+	m_speedIncreasement(1/2),
 	m_width(1),
 	m_height(1),
 	m_playerId(creator.getId()),
@@ -230,13 +231,18 @@ void PlayerState::setDestructionRangeOfNewBombs(unsigned int value)
 
 void PlayerState::increaseSpeed()
 {
-	if (m_speed + 2 <= m_maximumSpeed)
-		m_speed += 2;
+	if (m_speed + m_speedIncreasement <= m_maximumSpeed)
+		m_speed += m_speedIncreasement;
 }
 
 void PlayerState::increaseMaximumBombRange(unsigned int number)
 {
 	m_destructionRangeOfNewBombs += number;
+}
+
+double PlayerState::getSpeedIncreasement() const
+{
+	return m_speedIncreasement;
 }
 
 void PlayerState::setPlacedBombAlready(bool value)

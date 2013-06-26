@@ -49,8 +49,9 @@ namespace Common
 		CPPUNIT_TEST(doNotCollideWith_validBomb_oneBombNotToCollideWith);
 		CPPUNIT_TEST(doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideWith);
 		CPPUNIT_TEST(removeBombFromDoNotCollideList_twoBombsAddedAndFirstOneExploded_oneBombNotToCollideWith);
-		CPPUNIT_TEST(increaseSpeed_defaultSpeed_speedIncreasedByTwo);
+		CPPUNIT_TEST(increaseSpeed_defaultSpeed_speedIncreased);
 		CPPUNIT_TEST(setDestructionRangeOfNewBombs_4_destructionRangeIs4);
+		CPPUNIT_TEST(constructor_idCreator_speedIncreasementIs05);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -95,8 +96,9 @@ namespace Common
 		void doNotCollideWith_validBomb_oneBombNotToCollideWith();
 		void doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideWith();
 		void removeBombFromDoNotCollideList_twoBombsAddedAndFirstOneExploded_oneBombNotToCollideWith();
-		void increaseSpeed_defaultSpeed_speedIncreasedByTwo();
+		void increaseSpeed_defaultSpeed_speedIncreased();
 		void setDestructionRangeOfNewBombs_4_destructionRangeIs4();
+		void constructor_idCreator_speedIncreasementIs05();
 
 	private:
 		UniqueIdCreator *m_playerIDCreator;
