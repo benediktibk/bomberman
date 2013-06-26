@@ -42,5 +42,13 @@ void PowerUpMaxBombStateTest::modifyPlayer_baseClass_maxBombIs2()
 
     increaseMaxBomb->modifyPlayer(player);
 
-    CPPUNIT_ASSERT_EQUAL(static_cast<unsigned int>(2), player.getMaxBombs());
+	CPPUNIT_ASSERT_EQUAL(static_cast<unsigned int>(2), player.getMaxBombs());
+}
+
+void PowerUpMaxBombStateTest::getPowerUpType_isMaxBomb()
+{
+	UniqueIdCreator id;
+	PowerUpMaxBombState increaseMaxBomb(id, Point());
+
+	CPPUNIT_ASSERT_EQUAL(PowerUpTypeMaxBomb, increaseMaxBomb.getPowerUpType());
 }
