@@ -102,12 +102,12 @@ void SvgRenderer::clearPixmapList(vector<QPixmap*> &list)
 	list.clear();
 }
 
-QGraphicsItem *SvgRenderer::getNewGraphicsItemFromRenderer(const vector<QPixmap*> &list, unsigned int index, double /*dimension*/) const
+QGraphicsItem *SvgRenderer::getNewGraphicsItemFromRenderer(const vector<QPixmap*> &list, unsigned int index, double dimension) const
 {
 	unsigned int realIndex = index % list.size();
 	const QPixmap &pixmap = *(list.at(realIndex));
 	QGraphicsPixmapItem *item = new QGraphicsPixmapItem(pixmap);
-	//item->setScale(dimension*m_pixelPerMeter);
+	item->setScale(dimension);
 	return item;
 }
 
@@ -191,28 +191,28 @@ QGraphicsItem *SvgRenderer::getNewPlayerMovingDownItem(unsigned int playerID, do
 	}
 }
 
-QGraphicsItem* SvgRenderer::getNewBombItem(double /*dimension*/)
+QGraphicsItem* SvgRenderer::getNewBombItem(double dimension)
 {
 	QGraphicsPixmapItem *bomb = new QGraphicsPixmapItem(*m_bomb);
-	//bomb->setScale(m_pixelPerMeter*dimension);
+	bomb->setScale(dimension);
 	return bomb;
 }
 
-QGraphicsItem* SvgRenderer::getNewSolidWallItem(double /*dimension*/)
+QGraphicsItem* SvgRenderer::getNewSolidWallItem(double dimension)
 {
 	QGraphicsPixmapItem *solidWall = new QGraphicsPixmapItem(*m_wallSolid);
-	//solidWall->setScale(m_pixelPerMeter*dimension);
+	solidWall->setScale(dimension);
 	return solidWall;
 }
 
-QGraphicsItem* SvgRenderer::getNewLooseWallItem(double /*dimension*/)
+QGraphicsItem* SvgRenderer::getNewLooseWallItem(double dimension)
 {
 	QGraphicsPixmapItem *looseWall = new QGraphicsPixmapItem(*m_wallLoose);
-	//looseWall->setScale(m_pixelPerMeter*dimension);
+	looseWall->setScale(dimension);
 	return looseWall;
 }
 
-QGraphicsItem* SvgRenderer::getNewPowerUpItem(Common::PowerUpType powerUpType, double /*dimension*/)
+QGraphicsItem* SvgRenderer::getNewPowerUpItem(Common::PowerUpType powerUpType, double dimension)
 {
 	QGraphicsPixmapItem *powerUp = 0;
 
@@ -232,27 +232,27 @@ QGraphicsItem* SvgRenderer::getNewPowerUpItem(Common::PowerUpType powerUpType, d
 			break;
 	}
 
-	//powerUp->setScale(m_pixelPerMeter*dimension);
+	powerUp->setScale(dimension);
 	return powerUp;
 }
 
-QGraphicsItem* SvgRenderer::getNewExplodedBombCenterItem(double /*dimension*/)
+QGraphicsItem* SvgRenderer::getNewExplodedBombCenterItem(double dimension)
 {
 	QGraphicsPixmapItem *explosionCenter = new QGraphicsPixmapItem(*m_explodedBombCenter);
-	//explosionCenter->setScale(m_pixelPerMeter*dimension);
+	explosionCenter->setScale(dimension);
 	return explosionCenter;
 }
 
-QGraphicsItem* SvgRenderer::getNewExplodedBombFlameItem(double /*dimension*/)
+QGraphicsItem* SvgRenderer::getNewExplodedBombFlameItem(double dimension)
 {
 	QGraphicsPixmapItem *explosionFlame = new QGraphicsPixmapItem(*m_explodedBombFlame);
-	//explosionFlame->setScale(m_pixelPerMeter*dimension);
+	explosionFlame->setScale(dimension);
 	return explosionFlame;
 }
 
-QGraphicsItem* SvgRenderer::getNewExplodedBombEndItem(double /*dimension*/)
+QGraphicsItem* SvgRenderer::getNewExplodedBombEndItem(double dimension)
 {
 	QGraphicsPixmapItem *explosionEnd = new QGraphicsPixmapItem(*m_explodedBombEnd);
-	//explosionEnd->setScale(m_pixelPerMeter*dimension);
+	explosionEnd->setScale(dimension);
 	return explosionEnd;
 }
