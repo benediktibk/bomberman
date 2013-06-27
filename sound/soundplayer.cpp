@@ -10,6 +10,7 @@ SoundPlayer::SoundPlayer() :
 
 SoundPlayer::~SoundPlayer()
 {
+    delete m_bombExplosion;
 }
 
 void SoundPlayer::bombExplosion()
