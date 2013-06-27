@@ -39,7 +39,8 @@ set(LEVELS
 	can_see_you.csv
 	battlefield.csv
 	jack_in_the_box.csv
-        arena_51.csv
+	arena_51.csv
+	world_war_1.csv
 )
 
 set(TESTFILES
