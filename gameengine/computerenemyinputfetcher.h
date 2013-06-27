@@ -16,6 +16,7 @@ namespace Common
 namespace GameEngine
 {
 	class Router;
+	class Route;
 
 	class ComputerEnemyInputFetcher :
 		public Common::InputFetcher
@@ -28,9 +29,10 @@ namespace GameEngine
 		virtual Common::InputState getInputState();
 
 	private:
-		void calculateInputState();
 		virtual void calculateInputStateInternal();
+		void calculateInputState();
 		void setInputStateIntoDirection(Common::PlayerState::PlayerDirection direction);
+		void placeBombIfCloseEnough(const Route &route);
 
 	private:
 		Common::InputState m_inputState;
@@ -38,6 +40,7 @@ namespace GameEngine
 		const Common::GameState &m_gameState;
 		unsigned int m_playerID;
 		std::map<unsigned int, Common::InputState> m_inputStateWithID;
+		const Common::PlayerState &m_player;
 	};
 }
 

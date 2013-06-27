@@ -10,7 +10,8 @@ using namespace std;
 ComputerEnemyInputFetcher::ComputerEnemyInputFetcher(Grid &grid, const GameState &gameState, unsigned int playerID) :
 	m_router(new Router(grid, gameState, playerID)),
 	m_gameState(gameState),
-	m_playerID(playerID)
+	m_playerID(playerID),
+	m_player(gameState.getPlayerStateById(playerID))
 {
 	m_inputStateWithID.insert(pair<unsigned int, InputState>(m_playerID, m_inputState));
 }
@@ -42,8 +43,7 @@ void ComputerEnemyInputFetcher::calculateInputState()
 
 void ComputerEnemyInputFetcher::calculateInputStateInternal()
 {
-	const PlayerState &player = m_gameState.getPlayerStateById(m_playerID);
-	GridPoint playerPosition = Grid::getTargetPoint(player);
+	GridPoint playerPosition = Grid::getTargetPoint(m_player);
 	m_router->updatePlayerFields();
 
 	Route routeToNotDangerousField = m_router->getRouteToNotDangerousField(playerPosition);
@@ -63,47 +63,15 @@ void ComputerEnemyInputFetcher::calculateInputStateInternal()
 	Route routeToPlayer = m_router->getRouteToPlayer(playerPosition);
 	if (routeToPlayer.getDirection() != PlayerState::PlayerDirectionNone)
 	{
-		Point realPosition = player.getPosition();
-		Point positionToTargetDifference = realPosition - playerPosition.getPointPosition();
-		bool closeEnoughForBombPlacement =	routeToPlayer.getDistance() <= 1 &&
-											abs(positionToTargetDifference.getX()) < 0.45 &&
-											abs(positionToTargetDifference.getY()) < 0.45;
-
-		if (closeEnoughForBombPlacement)
-		{
-			m_inputState.setSpaceKeyPressed();
-			return;
-		}
-		else if (routeToPlayer.getDistance() == 1)
-			return;
-		else
-		{
-			setInputStateIntoDirection(routeToPlayer.getDirection());
-			return;
-		}
+		placeBombIfCloseEnough(routeToPlayer);
+		return;
 	}
 
 	Route routeToLooseWall = m_router->getRouteToLooseWall(playerPosition);
 	if (routeToLooseWall.getDirection() != PlayerState::PlayerDirectionNone)
 	{
-		Point realPosition = player.getPosition();
-		Point positionToTargetDifference = realPosition - playerPosition.getPointPosition();
-		bool closeEnoughForBombPlacement =	routeToLooseWall.getDistance() <= 1 &&
-											abs(positionToTargetDifference.getX()) < 0.45 &&
-											abs(positionToTargetDifference.getY()) < 0.45;
-
-		if (closeEnoughForBombPlacement)
-		{
-			m_inputState.setSpaceKeyPressed();
-			return;
-		}
-		else if (routeToLooseWall.getDistance() == 1)
-			return;
-		else
-		{
-			setInputStateIntoDirection(routeToLooseWall.getDirection());
-			return;
-		}
+		placeBombIfCloseEnough(routeToLooseWall);
+		return;
 	}
 }
 
@@ -131,6 +99,21 @@ void ComputerEnemyInputFetcher::setInputStateIntoDirection(PlayerState::PlayerDi
 	case PlayerState::PlayerDirectionNone:
 		break;
 	}
+}
+
+void ComputerEnemyInputFetcher::placeBombIfCloseEnough(const Route &route)
+{
+	Point realPosition = m_player.getPosition();
+	GridPoint targetPosition = Grid::getTargetPoint(m_player);
+	Point positionToTargetDifference = realPosition - targetPosition.getPointPosition();
+	bool closeEnoughForBombPlacement =	route.getDistance() <= 1 &&
+										abs(positionToTargetDifference.getX()) < 0.45 &&
+										abs(positionToTargetDifference.getY()) < 0.45;
+
+	if (closeEnoughForBombPlacement)
+		m_inputState.setSpaceKeyPressed();
+	else if (route.getDistance() > 1)
+		setInputStateIntoDirection(route.getDirection());
 }
 
 map<unsigned int, InputState> ComputerEnemyInputFetcher::getInputStates()
