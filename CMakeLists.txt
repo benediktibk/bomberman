@@ -38,6 +38,7 @@ set(LEVELS
 	no_place_to_hide.csv
 	can_see_you.csv
 	battlefield.csv
+	jack_in_the_box.csv
 )
 
 set(TESTFILES
