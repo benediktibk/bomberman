@@ -1,10 +1,8 @@
-#include "soundplayer.h"
+#include "sound/soundplayer.h"
+#include <QtMultimedia/QSound>
 
-
-//QString("resources/graphics/player_moving_down_4.svg")
 using namespace Sound;
 using namespace std;
-
 
 SoundPlayer::SoundPlayer()
 {
@@ -14,7 +12,7 @@ SoundPlayer::~SoundPlayer()
 {
 }
 
-void SoundPlayer::SoundplayBombSound()
+void SoundPlayer::bombExplosion()
 {
     QSound bombsound(QString("resources/sounds/bomb.wav"));
     bombsound.play();

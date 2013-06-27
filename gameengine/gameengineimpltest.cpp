@@ -1,5 +1,7 @@
-#include "gameengineimpltest.h"
+#include "gameengine/gameengineimpltest.h"
+#include "gameengine/gameengineimpl.h"
 #include "common/powerupmaxbombstate.h"
+#include "common/soundplayerstub.h"
 
 using namespace std;
 using namespace GameEngine;
@@ -1439,7 +1441,7 @@ void GameEngineImplTest::createGameEngine(const LevelDefinition &level, unsigned
 		delete m_gameEngine;
 	m_inputStates.clear();
 
-	m_gameEngine = new GameEngineImpl(level, humanPlayerCount, computerEnemyCount);
+    m_gameEngine = new GameEngineImpl(level, *m_soundPlayer, humanPlayerCount, computerEnemyCount);
 	const GameState &gameState = m_gameEngine->getGameState();
 	const PlayerState &firstPlayer = gameState.getFirstPlayerState();
 	vector<unsigned int> allPlayerIDs = gameState.getAllNotDestroyedPlayerIDs();
@@ -1472,6 +1474,7 @@ void GameEngineImplTest::setUp()
 {
 	LevelDefinition level;
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+    m_soundPlayer = new SoundPlayerStub();
 	createGameEngine(level, 1, 0);
 }
 
@@ -1480,6 +1483,8 @@ void GameEngineImplTest::tearDown()
 	m_inputStates.clear();
 	delete m_gameEngine;
 	m_gameEngine = 0;
+    delete m_soundPlayer;
+    m_soundPlayer = 0;
 }
 
 

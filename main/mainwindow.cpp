@@ -4,6 +4,7 @@
 #include "common/gamestate.h"
 #include "main/gameloop.h"
 #include "gameengine/gameengineimpl.h"
+#include "sound/soundplayer.h"
 #include <assert.h>
 #include <QtCore/QTimer>
 #include <QScrollBar>
@@ -76,7 +77,8 @@ void MainWindow::startGame(bool enableOpenGL, const char* levelname, unsigned in
 		return;
 	}
 
-	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, humanPlayerCount, computerEnemyCount);
+    m_soundPlayer = new Sound::SoundPlayer();
+    m_gameEngine = new GameEngine::GameEngineImpl(*m_level, *m_soundPlayer, humanPlayerCount, computerEnemyCount);
 	m_gameLoop = new GameLoop(*this, *m_gameEngine, *this);
 	m_enableOpenGL = enableOpenGL;
 	m_gameStartMutex.lock();
@@ -152,6 +154,7 @@ void MainWindow::finishGame()
 	delete m_drawer;
 	delete m_level;
 	delete m_gameEngine;
+    delete m_soundPlayer;
 }
 
 void MainWindow::closeGame()

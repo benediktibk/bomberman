@@ -1,6 +1,7 @@
 #include "common/randomdecision.h"
-#include "gameengine/gameengineimpl.h"
 #include "common/leveldefinition.h"
+#include "common/soundplayerstub.h"
+#include "gameengine/gameengineimpl.h"
 #include <stdlib.h>
 #include <map>
 
@@ -27,7 +28,8 @@ int main(int, char**)
 {
 	srand(3);
 	LevelDefinition level(createRandomLevel());
-	GameEngineImpl gameEngine(level, 1, 0);
+    SoundPlayerStub soundPlayer;
+    GameEngineImpl gameEngine(level, soundPlayer, 1, 0);
 	RandomDecision pressRight(0.3);
 	RandomDecision pressLeft(0.3);
 	RandomDecision pressUp(0.3);

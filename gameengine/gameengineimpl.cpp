@@ -1,5 +1,4 @@
 #include "gameengine/gameengineimpl.h"
-#include "common/grid.h"
 #include "physic/gamephysicsimulator.h"
 //BAAAAAAAAAAYERN!
 #include "physic/player.h"
@@ -7,6 +6,8 @@
 #include "physic/collisiongroups.h"
 #include "common/powerupgenerator.h"
 #include "common/compare.h"
+#include "common/soundplayer.h"
+#include "common/grid.h"
 #include <assert.h>
 #include <algorithm>
 #include <limits>
@@ -17,13 +18,14 @@ using namespace Common;
 using namespace Physic;
 using namespace std;
 
-GameEngineImpl::GameEngineImpl(const LevelDefinition &level, unsigned int humanPlayerCount, unsigned int computerEnemyCount) :
+GameEngineImpl::GameEngineImpl(const LevelDefinition &level, Common::SoundPlayer &soundPlayer, unsigned int humanPlayerCount, unsigned int computerEnemyCount) :
 	m_gameState(level, humanPlayerCount, computerEnemyCount, m_playerIds, m_wallids),
 	m_grid(new Grid(level.getHeight(), level.getWidth())),
 	m_firstGameStateUpdate(true),
 	m_simulator(new GamePhysicSimulator(level)),
 	m_levelWidth(level.getWidth()),
-	m_levelHeight(level.getHeight())
+    m_levelHeight(level.getHeight()),
+    m_soundPlayer(soundPlayer)
 {
 	vector<const WallState*> walls = m_gameState.getAllChangedWalls();
 

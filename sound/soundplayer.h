@@ -1,14 +1,20 @@
 #ifndef SOUND_SOUNDPLAYER_H
 #define SOUND_SOUNDPLAYER_H
-#include<QtMultimedia/QSound>
+
+#include "common/soundplayer.h"
+
 namespace Sound
 {
-    class SoundPlayer
+    class SoundPlayer :
+        public Common::SoundPlayer
     {
     public:
         SoundPlayer();
-        ~SoundPlayer();
-        void SoundplayBombSound();
+        virtual ~SoundPlayer();
+
+        virtual void bombExplosion();
+
+    private:
     };
 }
 

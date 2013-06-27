@@ -5,10 +5,17 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include <map>
 #include "common/inputstate.h"
-#include "gameengine/gameengineimpl.h"
+
+namespace Common
+{
+    class SoundPlayerStub;
+    class LevelDefinition;
+}
 
 namespace GameEngine
 {
+    class GameEngineImpl;
+
 	class GameEngineImplTest :
 			public CPPUNIT_NS::TestFixture
 	{
@@ -170,6 +177,7 @@ namespace GameEngine
 		unsigned int m_firstPlayerID;
 		unsigned int m_secondPlayerID;
 		double m_defaultTimeForOneField;
+        Common::SoundPlayerStub *m_soundPlayer;
 	};
 }
 

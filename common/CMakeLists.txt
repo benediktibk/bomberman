@@ -22,7 +22,7 @@ set(COMMON_SRC
 	csvparser.cpp
 	powerupmaxbombrangestate.cpp
 	grid.cpp
-	gridobserver.cpp
+        gridobserver.cpp
 )
 
 set(COMMON_TEST_SRC
@@ -57,6 +57,7 @@ set(COMMON_TEST_SRC
 	gridobservermock.cpp
 	gridobserverstub.cpp
 	gridobservertest.cpp
+        soundplayerstub.cpp
 )
 
 add_library(common ${COMMON_SRC})

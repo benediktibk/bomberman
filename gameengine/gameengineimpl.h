@@ -9,6 +9,7 @@
 namespace Common
 {
 	class Grid;
+    class SoundPlayer;
 }
 
 namespace Physic
@@ -22,7 +23,7 @@ namespace GameEngine
 			public Common::GameEngine
 	{
 	public:
-		GameEngineImpl(const Common::LevelDefinition &level, unsigned int humanPlayerCount, unsigned int computerEnemyCount);
+        GameEngineImpl(const Common::LevelDefinition &level, Common::SoundPlayer &soundPlayer, unsigned int humanPlayerCount, unsigned int computerEnemyCount);
 		virtual ~GameEngineImpl();
 
 		virtual void updateGameState(const std::map<unsigned int, Common::InputState> &inputStates, double time);
@@ -63,6 +64,7 @@ namespace GameEngine
 		Physic::GamePhysicSimulator *m_simulator;
 		unsigned int m_levelWidth;
 		unsigned int m_levelHeight;
+        Common::SoundPlayer &m_soundPlayer;
 	};
 }
 
