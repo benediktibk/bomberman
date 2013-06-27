@@ -29,7 +29,7 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 	m_minimumViewDistance(4),
 	m_minimumViewDistanceInPixel(m_minimumViewDistance*m_pixelPerMeter),
 	m_responsibilityValid(false),
-	m_svgRenderer(new SvgRenderer(m_pixelPerMeter)),
+	m_svgRenderer(0),
 	m_backgroundBrush(0),
 	m_currentScale(1),
 	m_scaleCompare(0.01),
@@ -88,6 +88,8 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 
 	if (m_firstRedraw)
 	{
+		assert(m_svgRenderer == 0);
+		m_svgRenderer = new SvgRenderer(m_pixelPerMeter, gameState);
 		drawBorderWalls(gameState.getWidth(), gameState.getHeight());
 		m_sceneRect = calculateSceneRect(gameState);
 		updateViewArea();

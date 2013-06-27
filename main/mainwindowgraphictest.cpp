@@ -55,6 +55,7 @@ void MainWindowGraphicTest::drawState1()
 	UniqueIdCreator playerIDCreator;
 	UniqueIdCreator bombIDCreator;
 	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState gameState(level, 1, 0, playerIDCreator, wallIDCreator);
 	WallState *wallOne = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(3, 4));
 	WallState *wallTwo = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(2, 3));
@@ -75,11 +76,16 @@ void MainWindowGraphicTest::drawState2()
 {
 	UniqueIdCreator wallIDCreator;
 	UniqueIdCreator playerIDCreator;
-	LevelDefinition level;
+	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 1);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 2);
-	GameState gameState(level, 2, 1, playerIDCreator, wallIDCreator);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 5, 5);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 6, 6);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 7);
+	GameState gameState(level, 3, 4, playerIDCreator, wallIDCreator);
 
 	drawState(gameState);
 }

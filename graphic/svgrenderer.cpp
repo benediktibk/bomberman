@@ -1,10 +1,13 @@
-#include "svgrenderer.h"
+#include "graphic/svgrenderer.h"
+#include "common/gamestate.h"
 #include <QtSvg/QtSvg>
 
 using namespace Graphic;
+using namespace std;
 
-SvgRenderer::SvgRenderer(const double pixelPerMeter) :
-	m_pixelPerMeter(pixelPerMeter)
+SvgRenderer::SvgRenderer(const double pixelPerMeter, const Common::GameState &gameState) :
+	m_pixelPerMeter(pixelPerMeter),
+	m_gameState(gameState)
 {
 	renderPlayerItems();
 	renderBombItem();
@@ -16,30 +19,16 @@ SvgRenderer::SvgRenderer(const double pixelPerMeter) :
 
 SvgRenderer::~SvgRenderer()
 {
-	delete m_playerStandingRenderer_1;
-	delete m_playerStandingRenderer_2;
-	delete m_playerStandingRenderer_3;
-	delete m_playerStandingRenderer_4;
-
-	delete m_playerMovingLeftRenderer_1;
-	delete m_playerMovingLeftRenderer_2;
-	delete m_playerMovingLeftRenderer_3;
-	delete m_playerMovingLeftRenderer_4;
-
-	delete m_playerMovingUpRenderer_1;
-	delete m_playerMovingUpRenderer_2;
-	delete m_playerMovingUpRenderer_3;
-	delete m_playerMovingUpRenderer_4;
-
-	delete m_playerMovingRightRenderer_1;
-	delete m_playerMovingRightRenderer_2;
-	delete m_playerMovingRightRenderer_3;
-	delete m_playerMovingRightRenderer_4;
-
-	delete m_playerMovingDownRenderer_1;
-	delete m_playerMovingDownRenderer_2;
-	delete m_playerMovingDownRenderer_3;
-	delete m_playerMovingDownRenderer_4;
+	clearRendererList(m_humanPlayerStanding);
+	clearRendererList(m_computerEnemyStanding);
+	clearRendererList(m_humanPlayerMovingLeft);
+	clearRendererList(m_computerEnemyMovingLeft);
+	clearRendererList(m_humanPlayerMovingUp);
+	clearRendererList(m_computerEnemyMovingUp);
+	clearRendererList(m_humanPlayerMovingRight);
+	clearRendererList(m_computerEnemyMovingRight);
+	clearRendererList(m_humanPlayerMovingDown);
+	clearRendererList(m_computerEnemyMovingDown);
 
 	delete m_bombRenderer;
 	delete m_explodedBombCenterRenderer;
@@ -56,30 +45,30 @@ SvgRenderer::~SvgRenderer()
 
 void SvgRenderer::renderPlayerItems()
 {
-	m_playerStandingRenderer_1 = new QSvgRenderer(QString("resources/graphics/player_standing.svg"));
-	m_playerStandingRenderer_2 = new QSvgRenderer(QString("resources/graphics/player_standing_2.svg"));
-	m_playerStandingRenderer_3 = new QSvgRenderer(QString("resources/graphics/player_standing_3.svg"));
-	m_playerStandingRenderer_4 = new QSvgRenderer(QString("resources/graphics/player_standing_4.svg"));
+	m_humanPlayerStanding.push_back(new QSvgRenderer(QString("resources/graphics/player_standing_1.svg")));
+	m_humanPlayerStanding.push_back(new QSvgRenderer(QString("resources/graphics/player_standing_2.svg")));
+	m_computerEnemyStanding.push_back(new QSvgRenderer(QString("resources/graphics/player_standing_3.svg")));
+	m_computerEnemyStanding.push_back(new QSvgRenderer(QString("resources/graphics/player_standing_4.svg")));
 
-	m_playerMovingLeftRenderer_1 = new QSvgRenderer(QString("resources/graphics/player_moving_left.svg"));
-	m_playerMovingLeftRenderer_2 = new QSvgRenderer(QString("resources/graphics/player_moving_left_2.svg"));
-	m_playerMovingLeftRenderer_3 = new QSvgRenderer(QString("resources/graphics/player_moving_left_3.svg"));
-	m_playerMovingLeftRenderer_4 = new QSvgRenderer(QString("resources/graphics/player_moving_left_4.svg"));
+	m_humanPlayerMovingLeft.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_left_1.svg")));
+	m_humanPlayerMovingLeft.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_left_2.svg")));
+	m_computerEnemyMovingLeft.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_left_3.svg")));
+	m_computerEnemyMovingLeft.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_left_4.svg")));
 
-	m_playerMovingUpRenderer_1 = new QSvgRenderer(QString("resources/graphics/player_moving_up.svg"));
-	m_playerMovingUpRenderer_2 = new QSvgRenderer(QString("resources/graphics/player_moving_up_2.svg"));
-	m_playerMovingUpRenderer_3 = new QSvgRenderer(QString("resources/graphics/player_moving_up_3.svg"));
-	m_playerMovingUpRenderer_4 = new QSvgRenderer(QString("resources/graphics/player_moving_up_4.svg"));
+	m_humanPlayerMovingUp.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_up_1.svg")));
+	m_humanPlayerMovingUp.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_up_2.svg")));
+	m_computerEnemyMovingUp.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_up_3.svg")));
+	m_computerEnemyMovingUp.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_up_4.svg")));
 
-	m_playerMovingRightRenderer_1 = new QSvgRenderer(QString("resources/graphics/player_moving_right.svg"));
-	m_playerMovingRightRenderer_2 = new QSvgRenderer(QString("resources/graphics/player_moving_right_2.svg"));
-	m_playerMovingRightRenderer_3 = new QSvgRenderer(QString("resources/graphics/player_moving_right_3.svg"));
-	m_playerMovingRightRenderer_4 = new QSvgRenderer(QString("resources/graphics/player_moving_right_4.svg"));
+	m_humanPlayerMovingRight.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_right_1.svg")));
+	m_humanPlayerMovingRight.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_right_2.svg")));
+	m_computerEnemyMovingRight.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_right_3.svg")));
+	m_computerEnemyMovingRight.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_right_4.svg")));
 
-	m_playerMovingDownRenderer_1 = new QSvgRenderer(QString("resources/graphics/player_moving_down.svg"));
-	m_playerMovingDownRenderer_2 = new QSvgRenderer(QString("resources/graphics/player_moving_down_2.svg"));
-	m_playerMovingDownRenderer_3 = new QSvgRenderer(QString("resources/graphics/player_moving_down_3.svg"));
-	m_playerMovingDownRenderer_4 = new QSvgRenderer(QString("resources/graphics/player_moving_down_4.svg"));
+	m_humanPlayerMovingDown.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_down_1.svg")));
+	m_humanPlayerMovingDown.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_down_2.svg")));
+	m_computerEnemyMovingDown.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_down_3.svg")));
+	m_computerEnemyMovingDown.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_down_4.svg")));
 }
 
 void SvgRenderer::renderBombItem()
@@ -113,134 +102,89 @@ void SvgRenderer::renderCellBackgroundItem()
 	m_cellBackgroundRenderer = new QSvgRenderer(QString("resources/graphics/bg_cell_pattern.svg"));
 }
 
-QGraphicsSvgItem* SvgRenderer::getNewPlayerStandingItem(unsigned int playerId)
+void SvgRenderer::clearRendererList(vector<QSvgRenderer*> &list)
 {
-	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-
-	switch (playerId)
-	{
-	case 0:
-		player->setSharedRenderer(m_playerStandingRenderer_1);
-		break;
-	case 1:
-		player->setSharedRenderer(m_playerStandingRenderer_2);
-		break;
-	case 2:
-		player->setSharedRenderer(m_playerStandingRenderer_3);
-		break;
-	case 3:
-		player->setSharedRenderer(m_playerStandingRenderer_4);
-		break;
-	default:
-		player->setSharedRenderer(m_playerStandingRenderer_1);
-		break;
-	}
-
-	return player;
+	for (vector<QSvgRenderer*>::iterator i = list.begin(); i != list.end(); ++i)
+		delete *i;
+	list.clear();
 }
 
-QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingLeftItem(unsigned int playerId)
+QGraphicsSvgItem *SvgRenderer::getNewGraphicsItemFromRenderer(const vector<QSvgRenderer*> &list, unsigned int index) const
 {
-	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-
-	switch (playerId)
-	{
-	case 0:
-		player->setSharedRenderer(m_playerMovingLeftRenderer_1);
-		break;
-	case 1:
-		player->setSharedRenderer(m_playerMovingLeftRenderer_2);
-		break;
-	case 2:
-		player->setSharedRenderer(m_playerMovingLeftRenderer_3);
-		break;
-	case 3:
-		player->setSharedRenderer(m_playerMovingLeftRenderer_4);
-		break;
-	default:
-		player->setSharedRenderer(m_playerMovingLeftRenderer_1);
-		break;
-	}
-
-	return player;
+	QGraphicsSvgItem *item = new QGraphicsSvgItem();
+	unsigned int realIndex = index % list.size();
+	item->setSharedRenderer(list.at(realIndex));
+	return item;
 }
 
-QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingUpItem(unsigned int playerId)
+QGraphicsSvgItem* SvgRenderer::getNewPlayerStandingItem(unsigned int playerID)
 {
-	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-
-	switch (playerId)
+	if (m_gameState.isHumanPlayerID(playerID))
 	{
-	case 0:
-		player->setSharedRenderer(m_playerMovingUpRenderer_1);
-		break;
-	case 1:
-		player->setSharedRenderer(m_playerMovingUpRenderer_2);
-		break;
-	case 2:
-		player->setSharedRenderer(m_playerMovingUpRenderer_3);
-		break;
-	case 3:
-		player->setSharedRenderer(m_playerMovingUpRenderer_4);
-		break;
-	default:
-		player->setSharedRenderer(m_playerMovingUpRenderer_1);
-		break;
+		unsigned int index = m_gameState.getIndexOfHumanPlayer(playerID);
+		return getNewGraphicsItemFromRenderer(m_humanPlayerStanding, index);
 	}
-
-	return player;
+	else
+	{
+		unsigned int index = m_gameState.getIndexOfComputerEnemy(playerID);
+		return getNewGraphicsItemFromRenderer(m_computerEnemyStanding, index);
+	}
 }
 
-QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingRightItem(unsigned int playerId)
+QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingLeftItem(unsigned int playerID)
 {
-	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-
-	switch (playerId)
+	if (m_gameState.isHumanPlayerID(playerID))
 	{
-	case 0:
-		player->setSharedRenderer(m_playerMovingRightRenderer_1);
-		break;
-	case 1:
-		player->setSharedRenderer(m_playerMovingRightRenderer_2);
-		break;
-	case 2:
-		player->setSharedRenderer(m_playerMovingRightRenderer_3);
-		break;
-	case 3:
-		player->setSharedRenderer(m_playerMovingRightRenderer_4);
-		break;
-	default:
-		player->setSharedRenderer(m_playerMovingRightRenderer_1);
-		break;
+		unsigned int index = m_gameState.getIndexOfHumanPlayer(playerID);
+		return getNewGraphicsItemFromRenderer(m_humanPlayerMovingLeft, index);
 	}
-
-	return player;
+	else
+	{
+		unsigned int index = m_gameState.getIndexOfComputerEnemy(playerID);
+		return getNewGraphicsItemFromRenderer(m_computerEnemyMovingLeft, index);
+	}
 }
 
-QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingDownItem(unsigned int playerId)
+QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingUpItem(unsigned int playerID)
 {
-	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-
-	switch (playerId)
+	if (m_gameState.isHumanPlayerID(playerID))
 	{
-	case 0:
-		player->setSharedRenderer(m_playerMovingDownRenderer_1);
-		break;
-	case 1:
-		player->setSharedRenderer(m_playerMovingDownRenderer_2);
-		break;
-	case 2:
-		player->setSharedRenderer(m_playerMovingDownRenderer_3);
-		break;
-	case 3:
-		player->setSharedRenderer(m_playerMovingDownRenderer_4);
-		break;
-	default:
-		player->setSharedRenderer(m_playerMovingDownRenderer_1);
-		break;
+		unsigned int index = m_gameState.getIndexOfHumanPlayer(playerID);
+		return getNewGraphicsItemFromRenderer(m_humanPlayerMovingUp, index);
 	}
+	else
+	{
+		unsigned int index = m_gameState.getIndexOfComputerEnemy(playerID);
+		return getNewGraphicsItemFromRenderer(m_computerEnemyMovingUp, index);
+	}
+}
 
-	return player;
+QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingRightItem(unsigned int playerID)
+{
+	if (m_gameState.isHumanPlayerID(playerID))
+	{
+		unsigned int index = m_gameState.getIndexOfHumanPlayer(playerID);
+		return getNewGraphicsItemFromRenderer(m_humanPlayerMovingRight, index);
+	}
+	else
+	{
+		unsigned int index = m_gameState.getIndexOfComputerEnemy(playerID);
+		return getNewGraphicsItemFromRenderer(m_computerEnemyMovingRight, index);
+	}
+}
+
+QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingDownItem(unsigned int playerID)
+{
+	if (m_gameState.isHumanPlayerID(playerID))
+	{
+		unsigned int index = m_gameState.getIndexOfHumanPlayer(playerID);
+		return getNewGraphicsItemFromRenderer(m_humanPlayerMovingDown, index);
+	}
+	else
+	{
+		unsigned int index = m_gameState.getIndexOfComputerEnemy(playerID);
+		return getNewGraphicsItemFromRenderer(m_computerEnemyMovingDown, index);
+	}
 }
 
 QGraphicsSvgItem* SvgRenderer::getNewBombItem()

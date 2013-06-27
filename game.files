@@ -293,7 +293,7 @@ resources/graphics/wall_loose.svg
 resources/graphics/powerup_v2.svg
 resources/graphics/powerup_v1.svg
 resources/graphics/powerup.svg
-resources/graphics/player_standing.svg
+resources/graphics/player_standing_1.svg
 resources/graphics/explosion_flame.svg
 resources/graphics/explosion_center.svg
 resources/graphics/bomb_planted.svg
@@ -321,10 +321,10 @@ main/startwindow.cpp
 main/gui/startwindow.ui
 main/startwindowtest.cpp
 resources/levels/neighbourship.csv
-resources/graphics/player_moving_up.svg
-resources/graphics/player_moving_right.svg
-resources/graphics/player_moving_left.svg
-resources/graphics/player_moving_down.svg
+resources/graphics/player_moving_up_1.svg
+resources/graphics/player_moving_right_1.svg
+resources/graphics/player_moving_left_1.svg
+resources/graphics/player_moving_down_1.svg
 common/gridobserver.h
 common/gridobservermock.h
 common/gridobservermock.cpp
