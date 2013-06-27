@@ -387,6 +387,7 @@ gameengine/coveredbypowerupdecidertest.h
 gameengine/coveredbypowerupdecidertest.cpp
 README.md
 resources/levels/battlefield.csv
+resources/levels/jack_in_the_box.csv
 resources/graphics/player_standing_4.svg
 resources/graphics/player_standing_3.svg
 resources/graphics/player_standing_2.svg
