@@ -16,17 +16,18 @@ namespace Common
         
     virtual std::map<unsigned int, InputState> getInputStates();
     virtual Common::InputState getInputState();     
-    void setGameMode(unsigned int playerCount);
-    void setAllPossiblePlayerIds(std::vector<unsigned int> allPossiblePlayerIds);        
+    void setGameMode(unsigned int playerCount);   
+    void setAllPossiblePlayerIds(std::vector<unsigned int> allPossiblePlayerIds);
+    Common::InputState getInputStateByID( unsigned int playerID);
         
     private:   
     std::map<unsigned int, InputState> m_inputStates;
-    Common::InputState m_inputStatePlayer1;
-    Common::InputState m_inputStatePlayer2;
+    Common::InputState m_inputStatePlayer1; 
     Common::InputFetcher &m_inputFetcher;
 	std::vector<GameEngine::ComputerEnemyInputFetcher*> m_compInputFetcher;
     std::vector<Common::InputState> m_computerInputStates;    
     std::vector<unsigned int> m_playerIds;
+    std::vector<unsigned int> m_enemyIds;
     bool m_gameModeIsSinglePlayer;
 
     };    

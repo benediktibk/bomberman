@@ -6,6 +6,7 @@
 #include "common/graphicdrawer.h"
 #include "threading/signal.h"
 #include "threading/mutex.h"
+#include "gameengine/computerenemylevel.h"
 
 class QGraphicsView;
 class QTimer;
@@ -41,7 +42,7 @@ public:
 	virtual void draw(const Common::GameState &gameState);
 
 public slots:
-	void startGame(bool enableOpenGL, const char* levelname, unsigned int humanPlayerCount, unsigned int computerEnemyCount);
+	void startGame(bool enableOpenGL, const char* levelname, unsigned int humanPlayerCount, unsigned int computerEnemyCount, GameEngine::ComputerEnemyLevel computerEnemyLevel);
 
 private slots:
 	void updateGui(const Common::GameState *gameState);

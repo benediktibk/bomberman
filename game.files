@@ -373,8 +373,8 @@ common/grid.cpp
 common/grid.h
 common/gridtest.cpp
 common/gridtest.h
-gameengine/computerenemyinputfetchertest.h
-gameengine/computerenemyinputfetchertest.cpp
+gameengine/computerenemyinputfetcherhardtest.h
+gameengine/computerenemyinputfetcherhardtest.cpp
 resources/levels/classic_middle.csv
 resources/levels/no_place_to_hide.csv
 resources/levels/can_see_you.csv
@@ -408,6 +408,12 @@ resources/sounds/placed.wav
 common/soundplayer.h
 common/soundplayerstub.h
 common/soundplayerstub.cpp
+resources/levels/world_war_1.csv
+gameengine/computerenemyinputfetcherhard.h
+gameengine/computerenemyinputfetcherhard.cpp
+gameengine/computerenemyinputfetchereasy.h
+gameengine/computerenemyinputfetchereasy.cpp
+gameengine/computerenemylevel.h
 main/gui/mainwindowsoundtest.ui
 main/mainwindowsoundtest.h
 main/mainwindowsoundtest.cpp

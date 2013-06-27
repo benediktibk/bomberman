@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "common/csvparser.h"
+#include "gameengine/computerenemylevel.h"
 
 namespace Ui
 {
@@ -32,7 +33,7 @@ private slots:
 	void controlClicked();
 
 signals:
-	void startGameSignal(bool enableOpenGL, const char* levelname, unsigned int humanPlayerCount, unsigned int computerEnemyCount);
+	void startGameSignal(bool enableOpenGL, const char* levelname, unsigned int humanPlayerCount, unsigned int computerEnemyCount, GameEngine::ComputerEnemyLevel);
 	void closeGameSignal();
 
 private:

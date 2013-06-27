@@ -23,7 +23,6 @@ namespace Main
 
 		virtual std::map<unsigned int, Common::InputState> getInputStates();
 		virtual Common::InputState getInputState();
-
 	protected:
 		virtual void keyPressEvent(QKeyEvent *event);
 		virtual void keyReleaseEvent(QKeyEvent *event);

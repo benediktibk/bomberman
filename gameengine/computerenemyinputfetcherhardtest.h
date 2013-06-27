@@ -1,5 +1,5 @@
-#ifndef GAMEENGINE_COMPUTERENEMYINPUTFETCHERTEST_H
-#define GAMEENGINE_COMPUTERENEMYINPUTFETCHERTEST_H
+#ifndef GAMEENGINE_COMPUTERENEMYINPUTFETCHERHARDTEST_H
+#define GAMEENGINE_COMPUTERENEMYINPUTFETCHERHARDTEST_H
 
 #include <cppunit/TestFixture.h>
 #include <cppunit/extensions/HelperMacros.h>
@@ -15,12 +15,12 @@ namespace Common
 
 namespace GameEngine
 {
-	class ComputerEnemyInputFetcher;
+	class ComputerEnemyInputFetcherHard;
 
-	class ComputerEnemyInputFetcherTest :
+	class ComputerEnemyInputFetcherHardTest :
 			public CPPUNIT_NS::TestFixture
 	{
-		CPPUNIT_TEST_SUITE(ComputerEnemyInputFetcherTest);
+		CPPUNIT_TEST_SUITE(ComputerEnemyInputFetcherHardTest);
 		CPPUNIT_TEST(getInputState_movingToFieldRightBesidePlayerButNotYetAtPositionToPlaceBomb_spaceKeyNotPressed);
 		CPPUNIT_TEST(getInputState_movingToFieldRightBesidePlayerCloseEnoughToPlaceBomb_spaceKeyPressed);
 		CPPUNIT_TEST(getInputState_movingToFieldRightBesideLooseFieldButNotYetAtPositionToPlaceBomb_spaceKeyNotPressed);
@@ -55,7 +55,7 @@ namespace GameEngine
 		Common::UniqueIdCreator *m_powerUpIdCreator;
 		Common::Grid *m_grid;
 		Common::GameState *m_gameState;
-		ComputerEnemyInputFetcher *m_inputFetcher;
+		ComputerEnemyInputFetcherHard *m_inputFetcher;
 		Common::PlayerState *m_ownPlayer;
 		Common::PlayerState *m_otherPlayer;
 	};
