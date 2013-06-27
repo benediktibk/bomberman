@@ -29,8 +29,3 @@ Grid &GameEngineStub::getGrid()
 {
 	return m_grid;
 }
-
-vector<unsigned int> GameEngineStub::getAllNotDestroyedPlayerIDs() const
-{
-	 return m_state->getAllNotDestroyedPlayerIDs();
-}

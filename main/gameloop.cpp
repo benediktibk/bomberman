@@ -19,7 +19,7 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 	m_maximumFramesPerSecond(60),
 	m_minimumTimeStep(1.0/m_maximumFramesPerSecond),
 	m_framesPerSecond(0),
-	m_computerEnemyInputFetcher(m_gameEngine.getGrid(), m_gameEngine.getGameState(), m_gameEngine.getAllNotDestroyedPlayerIDs()[1])
+	m_computerEnemyInputFetcher(m_gameEngine.getGrid(), m_gameEngine.getGameState(), m_gameEngine.getGameState().getSecondPlayerState().getId())
 {
 	setConstructionFinished();
 }
@@ -79,7 +79,8 @@ void GameLoop::execute()
 	m_start.wait();
 	m_start.reset();
 	StopWatch watch;
-	vector<unsigned int> playerIDs = m_gameEngine.getAllNotDestroyedPlayerIDs();
+	const Common::GameState &gameState = m_gameEngine.getGameState();
+	vector<unsigned int> playerIDs = gameState.getAllNotDestroyedPlayerIDs();
 
 	while (run)
 	{
@@ -117,9 +118,9 @@ void GameLoop::execute()
 		 * @todo catchPlayerInformation should only get PlayerIDs of local Players, not all.
 		 */
 
-		catchPlayerInformation(m_gameEngine.getAllNotDestroyedPlayerIDs());
+		catchPlayerInformation(gameState.getAllNotDestroyedPlayerIDs());
 
-		m_graphicDrawer.draw(m_gameEngine.getGameState());
+		m_graphicDrawer.draw(gameState);
 
 		m_pausedMutex.lock();
 		bool pause = m_paused;
@@ -131,7 +132,7 @@ void GameLoop::execute()
 			m_start.reset();
 		}
 
-		if(m_gameEngine.getAllNotDestroyedPlayerIDs().size() <= 1)
+		if(gameState.getAllNotDestroyedPlayerIDs().size() <= 1)
 			run = false;
 
 		m_stoppedMutex.lock();

@@ -28,7 +28,6 @@ namespace GameEngine
 		virtual void updateGameState(const std::map<unsigned int, Common::InputState> &inputStates, double time);
 		virtual Common::Grid &getGrid();
 		virtual const Common::GameState& getGameState() const;
-		virtual std::vector<unsigned int> getAllNotDestroyedPlayerIDs() const;
 		Common::GameState& getGameState();
 		double getTimeTillOnePlayerReachesGridPoint() const;
 		double getTimeTillPlayerReachesGridPoint(const Common::PlayerState &player) const;

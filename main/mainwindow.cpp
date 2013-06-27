@@ -84,9 +84,8 @@ void MainWindow::startGame(bool enableOpenGL, const char* levelname)
 	m_gameStartMutex.unlock();
 
 	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), m_enableOpenGL);
-	vector<unsigned int> playerIDs = m_gameEngine->getAllNotDestroyedPlayerIDs();
-	vector<unsigned int> playerIDsToShow;
-	playerIDsToShow.push_back(playerIDs.front());
+	const Common::GameState &gameState = m_gameEngine->getGameState();
+	vector<unsigned int> playerIDsToShow = gameState.getAllNotDestroyedHumanPlayerIDs();
 	setResponsibleForPlayers(playerIDsToShow);
 
 	m_gameLoop->start();

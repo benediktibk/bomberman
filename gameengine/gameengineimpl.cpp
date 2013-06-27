@@ -74,11 +74,6 @@ Common::GameState &GameEngineImpl::getGameState()
 	return m_gameState;
 }
 
-vector<unsigned int> GameEngineImpl::getAllNotDestroyedPlayerIDs() const
-{
-	return m_gameState.getAllNotDestroyedPlayerIDs();
-}
-
 void GameEngineImpl::updatePlayerVelocity(PlayerState &player, const InputState &input)
 {
 	if (input.isMoreThanOneMovementButtonPressed())

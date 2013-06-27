@@ -34,7 +34,8 @@ int main(int, char**)
 	RandomDecision pressDown(0.3);
 	InputState input;
 	map<unsigned int, InputState> inputs;
-	unsigned int playerID = gameEngine.getAllNotDestroyedPlayerIDs().front();
+	const GameState &gameState = gameEngine.getGameState();
+	unsigned int playerID = gameState.getAllNotDestroyedPlayerIDs().front();
 
 	while(true)
 	{

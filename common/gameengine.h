@@ -15,7 +15,6 @@ namespace Common
 		virtual void updateGameState(const std::map<unsigned int, InputState> &inputStates, double time) = 0;
 		virtual const GameState& getGameState() const = 0;
 		virtual Grid &getGrid() = 0;
-		virtual std::vector<unsigned int> getAllNotDestroyedPlayerIDs() const = 0;
 
 		virtual ~GameEngine() { }
 	};

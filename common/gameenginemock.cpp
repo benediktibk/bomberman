@@ -33,11 +33,6 @@ Grid &GameEngineMock::getGrid()
 	return m_grid;
 }
 
-vector<unsigned int> GameEngineMock::getAllNotDestroyedPlayerIDs() const
-{
-	return m_state->getAllNotDestroyedPlayerIDs();
-}
-
 unsigned int GameEngineMock::getCallsToUpdateGameState() const
 {
 	return m_callsToUpdateGameState;

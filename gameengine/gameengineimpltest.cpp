@@ -1440,18 +1440,21 @@ void GameEngineImplTest::createGameEngine(const LevelDefinition &level, unsigned
 	m_inputStates.clear();
 
 	m_gameEngine = new GameEngineImpl(level, humanPlayerCount, computerEnemyCount);
-	vector<unsigned int> playerIDs = m_gameEngine->getAllNotDestroyedPlayerIDs();
-	m_firstPlayerID = playerIDs[0];
+	const GameState &gameState = m_gameEngine->getGameState();
+	const PlayerState &firstPlayer = gameState.getFirstPlayerState();
+	vector<unsigned int> allPlayerIDs = gameState.getAllNotDestroyedPlayerIDs();
+	m_firstPlayerID = firstPlayer.getId();
 
 	if (humanPlayerCount > 1)
-		m_secondPlayerID = playerIDs[1];
+	{
+		const PlayerState &secondPlayer = gameState.getSecondPlayerState();
+		m_secondPlayerID = secondPlayer.getId();
+	}
 
-	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
+	for (vector<unsigned int>::const_iterator i = allPlayerIDs.begin(); i != allPlayerIDs.end(); ++i)
 		m_inputStates.insert(pair<unsigned int, InputState>(*i, InputState()));
 
-	const GameState &gameState = m_gameEngine->getGameState();
-	const PlayerState &player = gameState.getFirstPlayerState();
-	m_defaultTimeForOneField = 1/player.getSpeed();
+	m_defaultTimeForOneField = 1/firstPlayer.getSpeed();
 }
 
 void GameEngineImplTest::setFirstPlayerInput(const InputState &input)
