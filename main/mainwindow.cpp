@@ -75,7 +75,8 @@ void MainWindow::startGame(bool enableOpenGL, const char* levelname)
 		emit levelBuildingNotCorectSignal();
 		return;
 	}
-	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, 2);
+
+	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, 2, 0);
 	m_gameLoop = new GameLoop(*this, *m_gameEngine, *this);
 	m_enableOpenGL = enableOpenGL;
 	m_gameStartMutex.lock();
@@ -83,7 +84,7 @@ void MainWindow::startGame(bool enableOpenGL, const char* levelname)
 	m_gameStartMutex.unlock();
 
 	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), m_enableOpenGL);
-	vector<unsigned int> playerIDs = m_gameEngine->getAllPossiblePlayerIDs();
+	vector<unsigned int> playerIDs = m_gameEngine->getAllNotDestroyedPlayerIDs();
 	vector<unsigned int> playerIDsToShow;
 	playerIDsToShow.push_back(playerIDs.front());
 	setResponsibleForPlayers(playerIDsToShow);

@@ -132,7 +132,7 @@ void GameEngineImplTest::getHeight_HeightOfLevelDefinition_HeightOfGamestate()
 {
 	LevelDefinition level;
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	const GameState &game = m_gameEngine->getGameState();
 
 	CPPUNIT_ASSERT_EQUAL(level.getHeight(), game.getHeight());
@@ -142,7 +142,7 @@ void GameEngineImplTest::getWidth_WidthOfLevelDefinition_WidthOfGamestate()
 {
 	LevelDefinition level;
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	const GameState &game = m_gameEngine->getGameState();
 
 	CPPUNIT_ASSERT_EQUAL(level.getWidth(), game.getWidth());
@@ -152,7 +152,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughRightBorder_playerPosit
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
@@ -171,7 +171,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughUpperBorder_playerPosit
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 	input.setUpKeyPressed();
 	setFirstPlayerInput(input);
@@ -190,7 +190,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughLowerBorder_playerPosit
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 	input.setDownKeyPressed();
 	setFirstPlayerInput(input);
@@ -209,7 +209,7 @@ void GameEngineImplTest::updateGameState_tryToMoveThroughLeftBorder_playerPositi
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 	input.setLeftKeyPressed();
 	setFirstPlayerInput(input);
@@ -230,7 +230,7 @@ void GameEngineImplTest::getWallCount_Create4x4LevelWith2Wall_WallCountIs2()
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 1, 3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 3, 3);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 
 	const GameState &game = m_gameEngine->getGameState();
 
@@ -242,7 +242,7 @@ void GameEngineImplTest::getWallPosition_Create4x4LevelWithWallPosition2And2_Wal
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 2, 2);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	const WallState *wall;
 	const Point point(2,2);
 
@@ -257,7 +257,7 @@ void GameEngineImplTest::getWallType_Create4x4LevelWallWithWallType_WallTypeIsLo
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 2, 2);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	const WallState *wall;
 
 	const GameState &game = m_gameEngine->getGameState();
@@ -270,7 +270,7 @@ void GameEngineImplTest::updateGameState_halfTheTimeOfTheMovementToTheNextGridFi
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 	const GameState &game = m_gameEngine->getGameState();
 	const PlayerState &player = game.getFirstPlayerState();
@@ -291,7 +291,7 @@ void GameEngineImplTest::updateGameState_playerVerticalBetweenTwoFieldsAndUpPres
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 	const GameState &game = m_gameEngine->getGameState();
 	const PlayerState &player = game.getFirstPlayerState();
@@ -315,7 +315,7 @@ void GameEngineImplTest::getWallCount_Create4x4LevelWith2WallsOneWallInRangeOfBo
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 1, 3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 1, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 
 	input.setSpaceKeyPressed();
@@ -336,7 +336,7 @@ void GameEngineImplTest::updateGameState_Create4x4LevelWithSolidWallAndLetBombEx
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 1, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 
 	input.setSpaceKeyPressed();
@@ -356,7 +356,7 @@ void GameEngineImplTest::updateGameState_placeBombAndWaitTillItExploded_bombCoun
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 
 	input.setSpaceKeyPressed();
@@ -376,7 +376,7 @@ void GameEngineImplTest::updateGameState_placeBombAtUpperBorder_bombCountIs0()
 {
 	LevelDefinition level(10, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 
 	input.setUpKeyPressed();
@@ -398,7 +398,7 @@ void GameEngineImplTest::updateGameState_playerSurroundedByWallsAndTriesToMoveUp
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 1, 1);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 	const GameState &gameState = m_gameEngine->getGameState();
 	const PlayerState &playerState = gameState.getFirstPlayerState();
@@ -418,7 +418,7 @@ void GameEngineImplTest::updateGameState_playerSurroundedByWallsAndTriesToMoveRi
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 1, 1);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 	const GameState &gameState = m_gameEngine->getGameState();
 	const PlayerState &playerState = gameState.getFirstPlayerState();
@@ -439,7 +439,7 @@ void GameEngineImplTest::updateGameState_moveRightAndToUpperBorderAndBackAndTryT
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 3, 2);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 3, 4);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 	const GameState &gameState = m_gameEngine->getGameState();
 	const PlayerState &playerState = gameState.getFirstPlayerState();
@@ -474,7 +474,7 @@ void GameEngineImplTest::updateGameState_moveTowardsWallAndAgainAway_playerPosit
 {
 	LevelDefinition level(15, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 	const GameState &gameState = m_gameEngine->getGameState();
 	const PlayerState &playerState = gameState.getFirstPlayerState();
@@ -610,7 +610,7 @@ void GameEngineImplTest::updateGameState_movementOfSecondPlayer_positionOfSecond
 	LevelDefinition level;
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
-	createGameEngine(level, 2);
+	createGameEngine(level, 2, 0);
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &firstPlayer = gameState.getFirstPlayerState();
 	PlayerState &secondPlayer = gameState.getSecondPlayerState();
@@ -636,7 +636,7 @@ void GameEngineImplTest::updateGameState_movementOfSecondPlayer_firstPlayerDoesn
 	LevelDefinition level;
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
-	createGameEngine(level, 2);
+	createGameEngine(level, 2, 0);
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &firstPlayer = gameState.getFirstPlayerState();
 	PlayerState &secondPlayer = gameState.getSecondPlayerState();
@@ -662,7 +662,7 @@ void GameEngineImplTest::updateGameState_bombWithRange3ExplodesWithSolidWallTwoF
 	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 6, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &player = gameState.getFirstPlayerState();
 	player.setDestructionRangeOfNewBombs(3);
@@ -687,7 +687,7 @@ void GameEngineImplTest::updateGameState_bombWithRange3ExplodesWithSolidWallTwoF
 	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 2, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &player = gameState.getFirstPlayerState();
 	player.setDestructionRangeOfNewBombs(3);
@@ -712,7 +712,7 @@ void GameEngineImplTest::updateGameState_bombWithRange3ExplodesWithSolidWallTwoF
 	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 4, 2);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &player = gameState.getFirstPlayerState();
 	player.setDestructionRangeOfNewBombs(3);
@@ -737,7 +737,7 @@ void GameEngineImplTest::updateGameState_bombWithRange3ExplodesWithSolidWallTwoF
 	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 4, 6);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &player = gameState.getFirstPlayerState();
 	player.setDestructionRangeOfNewBombs(3);
@@ -761,7 +761,7 @@ void GameEngineImplTest::updateGameState_bombWithRange3ExplodesWithLooseWallTwoF
 	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 6, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &player = gameState.getFirstPlayerState();
 	player.setDestructionRangeOfNewBombs(3);
@@ -786,7 +786,7 @@ void GameEngineImplTest::updateGameState_bombWithRange3ExplodesWithLooseWallTwoF
 	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 2, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &player = gameState.getFirstPlayerState();
 	player.setDestructionRangeOfNewBombs(3);
@@ -811,7 +811,7 @@ void GameEngineImplTest::updateGameState_bombWithRange3ExplodesWithLooseWallTwoF
 	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 2);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &player = gameState.getFirstPlayerState();
 	player.setDestructionRangeOfNewBombs(3);
@@ -836,7 +836,7 @@ void GameEngineImplTest::updateGameState_bombWithRange3ExplodesWithLooseWallTwoF
 	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 6);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &player = gameState.getFirstPlayerState();
 	player.setDestructionRangeOfNewBombs(3);
@@ -859,7 +859,7 @@ void GameEngineImplTest::updateGameState_playerWithDestructionRange5PlacesBomb_d
 	InputState input;
 	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &player = gameState.getFirstPlayerState();
 	player.setDestructionRangeOfNewBombs(5);
@@ -878,7 +878,7 @@ void GameEngineImplTest::updateGameState_playerDiesByHisOwnBomb_playerCountIs0()
 	InputState input;
 	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 
 	input.setSpaceKeyPressed();
 	setFirstPlayerInput(input);
@@ -901,7 +901,7 @@ void GameEngineImplTest::updateGameState_bombAtLowerEndExplodes_bombCountIs0()
 	InputState input;
 	LevelDefinition level(10, 15);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 
 	input.setSpaceKeyPressed();
 	setFirstPlayerInput(input);
@@ -926,7 +926,7 @@ void GameEngineImplTest::updateGameState_bombExplodesWithTwoLooseWallsDirectBehi
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 5, 3);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &player = gameState.getFirstPlayerState();
 	player.setDestructionRangeOfNewBombs(100);
@@ -950,7 +950,7 @@ void GameEngineImplTest::updateGameState_bombExplodesWithTwoLooseWallsBehindWith
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 4, 3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 6, 3);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &player = gameState.getFirstPlayerState();
 	player.setDestructionRangeOfNewBombs(100);
@@ -973,7 +973,7 @@ void GameEngineImplTest::updateGameState_bombExplodesWithPowerUpInRange_explosio
 	LevelDefinition level(10, 15);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 8, 3);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &player = gameState.getFirstPlayerState();
 	player.setDestructionRangeOfNewBombs(100);
@@ -998,7 +998,7 @@ void GameEngineImplTest::updateGameState_bombExplodesWithBombInRange_explosionRa
 	LevelDefinition level(10, 15);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 8, 3);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &gameState = m_gameEngine->getGameState();
 	PlayerState &player = gameState.getFirstPlayerState();
 	double initialBombLifeTime = BombState::initialLifeTime();
@@ -1023,7 +1023,7 @@ void GameEngineImplTest::updateGameState_placeBombAndMoveOneFieldUpwards_playerI
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	const GameState &game = m_gameEngine->getGameState();
 	const PlayerState &player = game.getFirstPlayerState();
 	InputState input;
@@ -1051,7 +1051,7 @@ void GameEngineImplTest::updateGameState_placeBombAndMoveOneFieldUpwardsAndSecon
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
-	createGameEngine(level, 2);
+	createGameEngine(level, 2, 0);
 	const GameState &game = m_gameEngine->getGameState();
 	const PlayerState &firstPlayer = game.getFirstPlayerState();
 	const PlayerState &secondPlayer = game.getSecondPlayerState();
@@ -1081,7 +1081,7 @@ void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWay
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 
 	input.setRightKeyPressed();
@@ -1095,7 +1095,7 @@ void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWay
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 
 	input.setRightKeyPressed();
@@ -1113,7 +1113,7 @@ void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWay
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 
 	input.setUpKeyPressed();
@@ -1127,7 +1127,7 @@ void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWay
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 
 	input.setUpKeyPressed();
@@ -1145,7 +1145,7 @@ void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerStaysOnGridP
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 
 	m_gameEngine->updateGameState(m_inputStates, 10);
 
@@ -1156,7 +1156,7 @@ void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerIsMovingButD
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 	input.setRightKeyPressed();
 	setFirstPlayerInput(input);
@@ -1171,7 +1171,7 @@ void GameEngineImplTest::updateGameState_keyPressedHalfWayToGridFieldAndEnoughTi
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	const GameState &game = m_gameEngine->getGameState();
 	const PlayerState &player = game.getFirstPlayerState();
 	InputState input;
@@ -1193,7 +1193,7 @@ void GameEngineImplTest::updateGameState_placeBombAndWaitExactTheBombLifeTime_bo
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	const GameState &game = m_gameEngine->getGameState();
 	InputState input;
 
@@ -1215,7 +1215,7 @@ void GameEngineImplTest::updateGameState_placeBombAndStayAtPlace_playerDoesntMov
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	const GameState &game = m_gameEngine->getGameState();
 	InputState input;
 
@@ -1233,7 +1233,7 @@ void GameEngineImplTest::updateGameState_placeBombMoveAwayAndTryToMoveThroughBom
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	const GameState &game = m_gameEngine->getGameState();
 	const PlayerState &player = game.getFirstPlayerState();
 	InputState input;
@@ -1259,7 +1259,7 @@ void GameEngineImplTest::increaseMaxBombCount_placeTwoBombsAtTheSameTime_BombCou
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &game = m_gameEngine->getGameState();
 	PlayerState &player = game.getFirstPlayerState();
 	InputState input;
@@ -1287,7 +1287,7 @@ void GameEngineImplTest::increaseMaxBombCount_placeThreeBombsAtTheSameTime_BombC
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &game = m_gameEngine->getGameState();
 	PlayerState &player = game.getFirstPlayerState();
 	InputState input;
@@ -1323,7 +1323,7 @@ void GameEngineImplTest::setBombsLifeTimeToZero_placeTwoBombsOneExplodes_LifeTim
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	GameState &game = m_gameEngine->getGameState();
 	PlayerState &player = game.getFirstPlayerState();
 	InputState input;
@@ -1354,7 +1354,7 @@ void GameEngineImplTest::getPlayerPosition_Create4x4LevelWithPlayerPosition2And2
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 2);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	const PlayerState *player;
 	const Point point(2,2);
 
@@ -1369,7 +1369,7 @@ void GameEngineImplTest::getPlayerCount_Create4x4LevelWith2Player_PlayerCountIs2
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 3);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
-	createGameEngine(level, 2);
+	createGameEngine(level, 2, 0);
 
 	const GameState &game = m_gameEngine->getGameState();
 
@@ -1381,7 +1381,7 @@ void GameEngineImplTest::updateGameState_onePlayerDestroysTheOtherOne_playerCoun
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 1);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 1);
-	createGameEngine(level, 2);
+	createGameEngine(level, 2, 0);
 	InputState input;
 
 	input.setSpaceKeyPressed();
@@ -1406,7 +1406,7 @@ void GameEngineImplTest::getPosition_getpositionaftercollisionwithotherplayer()
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 1);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 1);
-	createGameEngine(level, 2);
+	createGameEngine(level, 2, 0);
 
 	GameState &game = m_gameEngine->getGameState();
 	PlayerState &firstPlayer = game.getFirstPlayerState();
@@ -1433,17 +1433,17 @@ void GameEngineImplTest::getPosition_getpositionaftercollisionwithotherplayer()
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(2, pointPositionEquals.getX(), 0.05);
 }
 
-void GameEngineImplTest::createGameEngine(const LevelDefinition &level, unsigned int playerCount)
+void GameEngineImplTest::createGameEngine(const LevelDefinition &level, unsigned int humanPlayerCount, unsigned int computerEnemyCount)
 {
 	if (m_gameEngine != 0)
 		delete m_gameEngine;
 	m_inputStates.clear();
 
-	m_gameEngine = new GameEngineImpl(level, playerCount);
-	vector<unsigned int> playerIDs = m_gameEngine->getAllPossiblePlayerIDs();
+	m_gameEngine = new GameEngineImpl(level, humanPlayerCount, computerEnemyCount);
+	vector<unsigned int> playerIDs = m_gameEngine->getAllNotDestroyedPlayerIDs();
 	m_firstPlayerID = playerIDs[0];
 
-	if (playerCount > 1)
+	if (humanPlayerCount > 1)
 		m_secondPlayerID = playerIDs[1];
 
 	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
@@ -1469,7 +1469,7 @@ void GameEngineImplTest::setUp()
 {
 	LevelDefinition level;
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 }
 
 void GameEngineImplTest::tearDown()
@@ -1484,7 +1484,7 @@ void GameEngineImplTest::addPowerUp_powerUpCountIs1PlayerWalksOnPowerUp_powerUpC
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 	m_gameEngine->addPowerUpOfTypeAtPosition(PowerUpTypeMaxBomb, Point(1,0));
 	input.setRightKeyPressed();
@@ -1503,7 +1503,7 @@ void GameEngineImplTest::updateGameState_AddTwoPowerUpsOneInRangeOfBombAndLetBom
 {
 	LevelDefinition level(4, 4);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	createGameEngine(level, 1);
+	createGameEngine(level, 1, 0);
 	InputState input;
 	GameState &game = m_gameEngine->getGameState();
 

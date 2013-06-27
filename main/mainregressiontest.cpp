@@ -27,14 +27,14 @@ int main(int, char**)
 {
 	srand(3);
 	LevelDefinition level(createRandomLevel());
-	GameEngineImpl gameEngine(level, 1);
+	GameEngineImpl gameEngine(level, 1, 0);
 	RandomDecision pressRight(0.3);
 	RandomDecision pressLeft(0.3);
 	RandomDecision pressUp(0.3);
 	RandomDecision pressDown(0.3);
 	InputState input;
 	map<unsigned int, InputState> inputs;
-	unsigned int playerID = gameEngine.getAllPossiblePlayerIDs().front();
+	unsigned int playerID = gameEngine.getAllNotDestroyedPlayerIDs().front();
 
 	while(true)
 	{

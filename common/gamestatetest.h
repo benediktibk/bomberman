@@ -33,7 +33,7 @@ namespace Common
 		 CPPUNIT_TEST(getAllChangedPowerUps_onePowerUpAdedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1);
 		 CPPUNIT_TEST(resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged);
 		 CPPUNIT_TEST(resetChangedFlags_oneExplodedBombAdded_noChangedExplodedBombs);
-		 CPPUNIT_TEST(getAllPossiblePlayerIDs_onePlayerCreated_resultSizeIs1);
+		 CPPUNIT_TEST(getAllNotDestroyedPlayerIDs_onePlayerCreated_resultSizeIs1);
 		 CPPUNIT_TEST(constructor_3players_playerCountIs3);
 		 CPPUNIT_TEST(constructor_threePlayersOnDifferentPositions_allPlayersHaveDifferentPositions);
 		 CPPUNIT_TEST(setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBombWithNoLifeTime_resultSizeIs1);
@@ -75,7 +75,7 @@ namespace Common
 		 void getAllChangedPowerUps_onePowerUpAdedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1();
 		 void resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged();
 		 void resetChangedFlags_oneExplodedBombAdded_noChangedExplodedBombs();
-		 void getAllPossiblePlayerIDs_onePlayerCreated_resultSizeIs1();
+		 void getAllNotDestroyedPlayerIDs_onePlayerCreated_resultSizeIs1();
 		 void constructor_3players_playerCountIs3();
 		 void constructor_threePlayersOnDifferentPositions_allPlayersHaveDifferentPositions();
 		 void setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBombWithNoLifeTime_resultSizeIs1();

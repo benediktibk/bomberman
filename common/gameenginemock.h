@@ -19,7 +19,7 @@ namespace Common
 		virtual void updateGameState(const std::map<unsigned int, InputState> &inputStates, double time);
 		virtual const GameState& getGameState() const;
 		virtual Grid &getGrid();
-		virtual std::vector<unsigned int> getAllPossiblePlayerIDs() const;
+		virtual std::vector<unsigned int> getAllNotDestroyedPlayerIDs() const;
 
 		unsigned int getCallsToUpdateGameState() const;
 

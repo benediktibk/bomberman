@@ -21,7 +21,7 @@ void RouterGridTest::setUp()
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
 	m_grid = new Grid(level.getHeight(), level.getWidth());
-	m_gameState = new GameState(level, 2, *m_playerIdCreator, *m_wallIdCreator);
+	m_gameState = new GameState(level, 2, 0, *m_playerIdCreator, *m_wallIdCreator);
 }
 
 void RouterGridTest::tearDown()

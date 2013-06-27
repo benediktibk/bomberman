@@ -1,14 +1,18 @@
-#include "gamestate.h"
-#include "playerstate.h"
+#include "common/gamestate.h"
+#include "common/playerstate.h"
 #include <assert.h>
+#include <algorithm>
 
 using namespace Common;
 using namespace std;
 
-GameState::GameState(const LevelDefinition &level, unsigned int playerCount, UniqueIdCreator &playerIDCreator, UniqueIdCreator &wallIDCreator) :
+GameState::GameState(const LevelDefinition &level, unsigned int humanPlayerCount, unsigned int computerEnemyCount, UniqueIdCreator &playerIDCreator, UniqueIdCreator &wallIDCreator) :
 	m_height(level.getHeight()),
-	m_width(level.getWidth())
+	m_width(level.getWidth()),
+	m_originalHumanPlayerCount(humanPlayerCount),
+	m_originalComputerEnemyCount(computerEnemyCount)
 {
+	unsigned int playerCount = humanPlayerCount + computerEnemyCount;
 	assert(playerCount > 0);
 	assert(playerCount <= level.getPlayerStartPositionCount());
 
@@ -46,6 +50,15 @@ GameState::GameState(const LevelDefinition &level, unsigned int playerCount, Uni
 			}
 		}
 	}
+
+	vector<unsigned int> allPlayerIDs = getAllNotDestroyedPlayerIDs();
+	for (unsigned int i = 0; i < humanPlayerCount; ++i)
+		m_originalHumanPlayerIDs.push_back(allPlayerIDs[i]);
+	for (unsigned int i = humanPlayerCount; i < playerCount; ++i)
+		m_originalComputerEnemyIDs.push_back(allPlayerIDs[i]);
+	assert(m_originalHumanPlayerIDs.size() == humanPlayerCount);
+	assert(m_originalComputerEnemyIDs.size() == computerEnemyCount);
+	assert(allPlayerIDs.size() == playerCount);
 }
 
 GameState::~GameState()
@@ -96,13 +109,37 @@ const PlayerState &GameState::getPlayerStateById(unsigned int playerId) const
    return *(m_players[0]);
 }
 
-vector<unsigned int> GameState::getAllPossiblePlayerIDs() const
+vector<unsigned int> GameState::getAllNotDestroyedPlayerIDs() const
 {
 	vector<unsigned int> result;
 	result.reserve(m_players.size());
 
 	for (vector<PlayerState*>::const_iterator i = m_players.begin(); i != m_players.end(); ++i)
 		result.push_back((*i)->getId());
+
+	return result;
+}
+
+vector<unsigned int> GameState::getAllNotDestroyedHumanPlayerIDs() const
+{
+	vector<unsigned int> allPlayerIDs = getAllNotDestroyedPlayerIDs();
+	vector<unsigned int> result;
+
+	for (vector<unsigned int>::const_iterator i = allPlayerIDs.begin(); i != allPlayerIDs.end(); ++i)
+		if (count(m_originalHumanPlayerIDs.begin(), m_originalHumanPlayerIDs.end(), *i) == 1)
+			result.push_back(*i);
+
+	return result;
+}
+
+vector<unsigned int> GameState::getAllNotDestroyedComputerEnemyIDs() const
+{
+	vector<unsigned int> allPlayerIDs = getAllNotDestroyedPlayerIDs();
+	vector<unsigned int> result;
+
+	for (vector<unsigned int>::const_iterator i = allPlayerIDs.begin(); i != allPlayerIDs.end(); ++i)
+		if (count(m_originalComputerEnemyIDs.begin(), m_originalComputerEnemyIDs.end(), *i) == 1)
+			result.push_back(*i);
 
 	return result;
 }

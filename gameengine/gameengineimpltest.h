@@ -160,7 +160,7 @@ namespace GameEngine
 		void updateGameState_AddTwoPowerUpsOneInRangeOfBombAndLetBombExplode_powerUpCountIs1();
 
 	private:
-		void createGameEngine(const Common::LevelDefinition &level, unsigned int playerCount);
+		void createGameEngine(const Common::LevelDefinition &level, unsigned int playerCount, unsigned int computerEnemyCount);
 		void setFirstPlayerInput(const Common::InputState &input);
 		void setSecondPlayerInput(const Common::InputState &input);
 

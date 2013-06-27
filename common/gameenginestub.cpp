@@ -9,7 +9,7 @@ GameEngineStub::GameEngineStub() :
 {
 	m_level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	m_level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
-	m_state = new GameState(m_level, 2, m_idCreator, m_idCreator);
+	m_state = new GameState(m_level, 2, 0, m_idCreator, m_idCreator);
 }
 
 GameEngineStub::~GameEngineStub()
@@ -30,7 +30,7 @@ Grid &GameEngineStub::getGrid()
 	return m_grid;
 }
 
-vector<unsigned int> GameEngineStub::getAllPossiblePlayerIDs() const
+vector<unsigned int> GameEngineStub::getAllNotDestroyedPlayerIDs() const
 {
-	 return m_state->getAllPossiblePlayerIDs();
+	 return m_state->getAllNotDestroyedPlayerIDs();
 }

@@ -17,8 +17,8 @@ using namespace Common;
 using namespace Physic;
 using namespace std;
 
-GameEngineImpl::GameEngineImpl(const LevelDefinition &level, unsigned int playerCount) :
-	m_gameState(level, playerCount, m_playerIds, m_wallids),
+GameEngineImpl::GameEngineImpl(const LevelDefinition &level, unsigned int humanPlayerCount, unsigned int computerEnemyCount) :
+	m_gameState(level, humanPlayerCount, computerEnemyCount, m_playerIds, m_wallids),
 	m_grid(new Grid(level.getHeight(), level.getWidth())),
 	m_firstGameStateUpdate(true),
 	m_simulator(new GamePhysicSimulator(level)),
@@ -30,7 +30,7 @@ GameEngineImpl::GameEngineImpl(const LevelDefinition &level, unsigned int player
 	for (vector<const WallState*>::const_iterator i = walls.begin(); i != walls.end(); ++i)
 		m_grid->addWallAtPlace(**i);
 
-	for (unsigned int i = 0; i < playerCount; ++i)
+	for (unsigned int i = 0; i < humanPlayerCount; ++i)
 		m_inputStates.insert(pair<unsigned int, InputState>(i, InputState()));
 }
 
@@ -74,9 +74,9 @@ Common::GameState &GameEngineImpl::getGameState()
 	return m_gameState;
 }
 
-vector<unsigned int> GameEngineImpl::getAllPossiblePlayerIDs() const
+vector<unsigned int> GameEngineImpl::getAllNotDestroyedPlayerIDs() const
 {
-	return m_gameState.getAllPossiblePlayerIDs();
+	return m_gameState.getAllNotDestroyedPlayerIDs();
 }
 
 void GameEngineImpl::updatePlayerVelocity(PlayerState &player, const InputState &input)
@@ -91,7 +91,7 @@ void GameEngineImpl::updatePlayerVelocity(PlayerState &player, const InputState 
 
 void GameEngineImpl::updatePlayerWithBombCollisions()
 {
-	vector<unsigned int> playerIDs = m_gameState.getAllPossiblePlayerIDs();
+	vector<unsigned int> playerIDs = m_gameState.getAllNotDestroyedPlayerIDs();
 
 	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
 	{
@@ -134,7 +134,7 @@ void GameEngineImpl::updatePlayerPositions()
 
 void GameEngineImpl::updatePlayerVelocities()
 {
-	vector<unsigned int> playerIDs = m_gameState.getAllPossiblePlayerIDs();
+	vector<unsigned int> playerIDs = m_gameState.getAllNotDestroyedPlayerIDs();
 
 	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
 	{
@@ -193,7 +193,7 @@ void GameEngineImpl::setPlayerSpeedToNull(Common::PlayerState &player)
 
 double GameEngineImpl::getTimeTillOnePlayerReachesGridPoint() const
 {
-	vector<unsigned int> playerIDs = m_gameState.getAllPossiblePlayerIDs();
+	vector<unsigned int> playerIDs = m_gameState.getAllNotDestroyedPlayerIDs();
 	double minimalTime = numeric_limits<double>::max();
 
 	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
@@ -310,7 +310,7 @@ void GameEngineImpl::updateBombs()
 
 void GameEngineImpl::placeBombs()
 {
-	vector<unsigned int> playerIDs = m_gameState.getAllPossiblePlayerIDs();
+	vector<unsigned int> playerIDs = m_gameState.getAllNotDestroyedPlayerIDs();
 
 	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
 	{
@@ -343,7 +343,7 @@ void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &i
 
 void GameEngineImpl::playerGetsPowerUp()
 {
-	vector<unsigned int> playerIDs = m_gameState.getAllPossiblePlayerIDs();
+	vector<unsigned int> playerIDs = m_gameState.getAllNotDestroyedPlayerIDs();
 	vector<unsigned int> powerUpIDs = m_gameState.getAllPossiblePowerUpIDs();
 
 	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
