@@ -128,7 +128,7 @@ void StartWindow::readMeClicked()
 {
 	QMessageBox messageBox;
 	messageBox.setWindowTitle("README");
-	messageBox.setDetailedText(m_levelList.getTextInFile().c_str());
+	messageBox.setDetailedText(Common::CSVParser("testfiles/info").getTextInFile().c_str());
 	messageBox.exec();
 }
 
