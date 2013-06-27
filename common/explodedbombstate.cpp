@@ -12,8 +12,8 @@ ExplodedBombState::ExplodedBombState(const BombState &bomb) :
 	m_destructionRangeUp(m_maximumDestructionRange),
 	m_destructionRangeRight(m_maximumDestructionRange),
 	m_destructionRangeDown(m_maximumDestructionRange),
-	m_height(bomb.getHeight()),
-	m_width(bomb.getWidth())
+	m_height(bomb.getDimension()),
+	m_width(bomb.getDimension())
 { }
 
 void ExplodedBombState::decreaseLifeTime(double time)

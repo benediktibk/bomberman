@@ -7,7 +7,7 @@ using namespace Physic;
 using namespace Common;
 
 Bomb::Bomb(PhysicSimulator &simulator, const Common::BombState &bomb) :
-	m_object(new StaticObject(simulator, bomb.getPosition(), bomb.getWidth(), bomb.getHeight()))
+	m_object(new StaticObject(simulator, bomb.getPosition(), bomb.getDimension(), bomb.getDimension()))
 { }
 
 Bomb::~Bomb()

@@ -15,8 +15,7 @@ namespace Common
 		CPPUNIT_TEST(constructor_destructionRangeIs5_DestructionRangeIs5);
 		CPPUNIT_TEST(setLifeTime_4_hasChanged);
 		CPPUNIT_TEST(setDestroyed_empty_hasChanged);
-		CPPUNIT_TEST(getBombWidth_widthIs1);
-		CPPUNIT_TEST(getBombHeight_heightIs1);
+		CPPUNIT_TEST(getDimension_empty_1);
 		CPPUNIT_TEST(constructor_playerIDIs5_playerIDIs5);
 		CPPUNIT_TEST_SUITE_END();
 
@@ -26,8 +25,7 @@ namespace Common
 		void constructor_destructionRangeIs5_DestructionRangeIs5();
 		void setLifeTime_4_hasChanged();
 		void setDestroyed_empty_hasChanged();
-		void getBombWidth_widthIs1();
-		void getBombHeight_heightIs1();
+		void getDimension_empty_1();
 		void constructor_playerIDIs5_playerIDIs5();
 	};
 }

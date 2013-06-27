@@ -9,7 +9,7 @@ using namespace Graphic;
 
 Bomb::Bomb(QGraphicsScene &scene, SvgRenderer &renderer, const Common::BombState &state)
 {
-	m_svgItem = renderer.getNewBombItem(state.getWidth());
+	m_svgItem = renderer.getNewBombItem(state.getDimension());
 	scene.addItem(m_svgItem);
 }
 
