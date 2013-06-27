@@ -8,6 +8,7 @@ namespace Sound
     public:
         SoundPlayer();
         ~SoundPlayer();
+        void SoundplayBombSound();
     };
 }
 

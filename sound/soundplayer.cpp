@@ -13,3 +13,9 @@ SoundPlayer::SoundPlayer()
 SoundPlayer::~SoundPlayer()
 {
 }
+
+void SoundPlayer::SoundplayBombSound()
+{
+    QSound bombsound(QString("resources/sounds/bomb.wav"));
+    bombsound.play();
+}
