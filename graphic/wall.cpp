@@ -3,14 +3,14 @@
 #include "graphic/point.h"
 #include "graphic/svgrenderer.h"
 #include <QGraphicsScene>
-#include <QtSvg/QGraphicsSvgItem>
+#include <QGraphicsItem>
 #include <assert.h>
 
 using namespace Graphic;
 
 Wall::Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::WallState &state)
 {
-	createSVGItem(state.getWallType(), renderer, state.getWidth());
+	createSVGItem(state.getWallType(), renderer, state.getDimension());
 	scene.addItem(m_graphicItem);
 }
 
