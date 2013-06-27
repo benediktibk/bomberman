@@ -18,6 +18,9 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 	m_onceStarted(false),
 	m_maximumFramesPerSecond(60),
 	m_minimumTimeStep(1.0/m_maximumFramesPerSecond),
+	m_weightOfOldAverage(9.0/10),
+	m_weightOfNewTime(1 - m_weightOfOldAverage),
+	m_movingAverageOfTimeStep(m_minimumTimeStep),
 	m_framesPerSecond(0),
 	m_computerEnemyInputFetcher(m_gameEngine.getGrid(), m_gameEngine.getGameState(), m_gameEngine.getGameState().getSecondPlayerState().getId())
 {
@@ -81,30 +84,23 @@ void GameLoop::execute()
 	StopWatch watch;
 	const Common::GameState &gameState = m_gameEngine.getGameState();
 	vector<unsigned int> playerIDs = gameState.getAllNotDestroyedPlayerIDs();
-	double movingAverageOfTime = m_minimumTimeStep;
-	const double weightOfOldAverage = 9.0/10;
-	const double weightOfNewTime = 1 - weightOfOldAverage;
 
 	while (run)
 	{
 		double timeWithoutWait = watch.getTimeAndRestart();
-		double timeWaited = 0;
 		double time = timeWithoutWait;
+		double timeToWait = m_minimumTimeStep - timeWithoutWait;
 
-		if (timeWithoutWait < m_minimumTimeStep)
+		if (timeToWait > 0)
 		{
 			StopWatch watchForWait;
 			watchForWait.restart();
-			timeWaited = m_minimumTimeStep - timeWithoutWait;
-			usleep(timeWaited*1000000);
-			time += timeWaited;
+			usleep(timeToWait*1000000);
+			time += timeToWait;
 		}
 
-		movingAverageOfTime = movingAverageOfTime*weightOfOldAverage + time*weightOfNewTime;
-
-		m_performanceInformationMutex.lock();
-		m_framesPerSecond = 1/movingAverageOfTime;
-		m_performanceInformationMutex.unlock();
+		updateMovingAverageOfTime(time);
+		updateFPS();
 
 		/*!
 		 * @todo Remove this code and feed the input states direct into
@@ -159,6 +155,18 @@ void GameLoop::catchPlayerInformation(const vector<unsigned int> &playerIDs)
 		m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getDestructionRangeOfNewBombs());
 	}
 	m_playerInformationMutex.unlock();
+}
+
+void GameLoop::updateMovingAverageOfTime(double time)
+{
+	m_movingAverageOfTimeStep = m_movingAverageOfTimeStep*m_weightOfOldAverage + time*m_weightOfNewTime;
+}
+
+void GameLoop::updateFPS()
+{
+	m_performanceInformationMutex.lock();
+	m_framesPerSecond = 1/m_movingAverageOfTimeStep;
+	m_performanceInformationMutex.unlock();
 }
 
 vector<unsigned int> GameLoop::getPlayerInformation()

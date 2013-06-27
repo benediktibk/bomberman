@@ -32,6 +32,8 @@ namespace Main
 
 	private:
 		void catchPlayerInformation(const std::vector<unsigned int> &playerIDs);
+		void updateMovingAverageOfTime(double time);
+		void updateFPS();
 
 	protected:
 		virtual void execute();
@@ -48,6 +50,9 @@ namespace Main
 		const unsigned int m_maximumFramesPerSecond;
 		//! we need a minimum time step, otherwise the physic simulator has problems
 		const double m_minimumTimeStep;
+		const double m_weightOfOldAverage;
+		const double m_weightOfNewTime;
+		double m_movingAverageOfTimeStep;
 		double m_framesPerSecond;
 		Threading::Mutex m_performanceInformationMutex;
 		Threading::Signal m_start;
