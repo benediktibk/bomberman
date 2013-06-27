@@ -18,8 +18,8 @@ int main(int argc, char **argv)
 
 	MainWindow mainWindow;
 	StartWindow startWindow(enableOpenGL);
-	QObject::connect(	&startWindow, SIGNAL(startGameSignal(bool,const char*,unsigned int,unsigned int)),
-						&mainWindow, SLOT(startGame(bool,const char*,unsigned int,unsigned int)));
+	QObject::connect(	&startWindow, SIGNAL(startGameSignal(bool, const char*, unsigned int, unsigned int, GameEngine::ComputerEnemyLevel)),
+						&mainWindow, SLOT(startGame(bool, const char*, unsigned int, unsigned int, GameEngine::ComputerEnemyLevel)));
 	QObject::connect(	&startWindow, SIGNAL(closeGameSignal()),
 						&mainWindow, SLOT(closeGame()));
 	QObject::connect(	&mainWindow, SIGNAL(levelBuildingNotCorectSignal()),

@@ -3,9 +3,11 @@
 #include "mainwindow.h"
 #include <QStandardItemModel>
 #include <QMessageBox>
+#include <assert.h>
 
 using namespace std;
 using namespace Main;
+using namespace GameEngine;
 
 StartWindow::StartWindow(bool enableOpenGL) :
 	m_ui(new Ui::StartWindow),
@@ -88,7 +90,19 @@ void StartWindow::startClicked()
 	{
 		string showString = "You are playing " + m_levelList.getTextInField(0, m_ui->levelTableView->selectionModel()->selectedIndexes().first().row());
 		m_ui->infoLabel->setText(QString(showString.c_str()));
-		emit startGameSignal(m_ui->openGlCheckBox->isChecked(), m_selectedLevel.c_str(), 1, m_ui->playerCountHorizontalSlider->value());
+		ComputerEnemyLevel computerEnemyLevel = ComputerEnemyLevelEasy;
+
+		QString selectedComputerEnemyLevel = m_ui->difficultyComboBox->currentText();
+		if (selectedComputerEnemyLevel == "easy")
+			computerEnemyLevel = ComputerEnemyLevelEasy;
+		else if (selectedComputerEnemyLevel == "medium")
+			computerEnemyLevel = ComputerEnemyLevelMedium;
+		else if (selectedComputerEnemyLevel == "hard")
+			computerEnemyLevel = ComputerEnemyLevelHard;
+		else
+			assert(false);
+
+		emit startGameSignal(m_ui->openGlCheckBox->isChecked(), m_selectedLevel.c_str(), 1, m_ui->playerCountHorizontalSlider->value(), computerEnemyLevel);
 	}
 }
 

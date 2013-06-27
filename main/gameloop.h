@@ -4,7 +4,8 @@
 #include "threading/thread.h"
 #include "threading/mutex.h"
 #include "threading/signal.h"
-#include "gameengine/computerenemyinputfetcherhard.h"
+#include "gameengine/computerenemylevel.h"
+#include <vector>
 
 namespace Common
 {
@@ -14,13 +15,18 @@ namespace Common
 	class GraphicDrawer;
 }
 
+namespace GameEngine
+{
+	class ComputerEnemyInputFetcher;
+}
+
 namespace Main
 {
 	class GameLoop :
 			public Threading::Thread
 	{
 	public:
-		GameLoop(Common::InputFetcher &inputFetcher, Common::GameEngine &gameEngine, Common::GraphicDrawer &graphicDrawer);
+		GameLoop(Common::InputFetcher &inputFetcher, Common::GameEngine &gameEngine, Common::GraphicDrawer &graphicDrawer, GameEngine::ComputerEnemyLevel computerEnemyLevel);
 		virtual ~GameLoop();
 
 		void start();

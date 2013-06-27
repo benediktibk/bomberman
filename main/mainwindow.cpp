@@ -60,7 +60,7 @@ void MainWindow::draw(const Common::GameState &gameState)
 	m_gameStartMutex.unlock();
 }
 
-void MainWindow::startGame(bool enableOpenGL, const char* levelname, unsigned int humanPlayerCount, unsigned int computerEnemyCount)
+void MainWindow::startGame(bool enableOpenGL, const char* levelname, unsigned int humanPlayerCount, unsigned int computerEnemyCount, GameEngine::ComputerEnemyLevel computerEnemyLevel)
 {
 	m_ui->pauseButton->setText(tr("pause"));
 	m_gameStartMutex.lock();
@@ -77,7 +77,7 @@ void MainWindow::startGame(bool enableOpenGL, const char* levelname, unsigned in
 	}
 
 	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, humanPlayerCount, computerEnemyCount);
-	m_gameLoop = new GameLoop(*this, *m_gameEngine, *this);
+	m_gameLoop = new GameLoop(*this, *m_gameEngine, *this, computerEnemyLevel);
 	m_enableOpenGL = enableOpenGL;
 	m_gameStartMutex.lock();
 	m_gameStarted = true;

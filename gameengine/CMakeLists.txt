@@ -1,6 +1,7 @@
 set(GAMEENGINE_SRC
 	gameengineimpl.cpp
 	computerenemyinputfetcher.cpp
+	computerenemyinputfetchereasy.cpp
 	computerenemyinputfetcherhard.cpp
 	routergrid.cpp
 	routergridfield.cpp

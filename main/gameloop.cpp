@@ -3,13 +3,17 @@
 #include "common/gameengine.h"
 #include "common/graphicdrawer.h"
 #include "common/stopwatch.h"
+#include "gameengine/computerenemyinputfetchereasy.h"
+#include "gameengine/computerenemyinputfetcherhard.h"
 #include <unistd.h>
+#include <assert.h>
 
 using namespace Common;
 using namespace Main;
 using namespace std;
+using namespace GameEngine;
 
-GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, GraphicDrawer &graphicDrawer) :
+GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, GraphicDrawer &graphicDrawer, GameEngine::ComputerEnemyLevel computerEnemyLevel) :
 	m_inputFetcher(inputFetcher),
 	m_gameEngine(gameEngine),
 	m_graphicDrawer(graphicDrawer),
@@ -27,7 +31,21 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 	const GameState &gameState = m_gameEngine.getGameState();
 	vector<unsigned int> computerEnemyIDs = gameState.getAllNotDestroyedComputerEnemyIDs();
 	for (size_t i = 0; i < computerEnemyIDs.size(); ++i)
-		m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcherHard(m_gameEngine.getGrid(), gameState, computerEnemyIDs[i]));
+	{
+		switch (computerEnemyLevel)
+		{
+		case ComputerEnemyLevelEasy:
+			m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcherEasy(m_gameEngine.getGrid(), gameState, computerEnemyIDs[i]));
+			break;
+		case ComputerEnemyLevelMedium:
+			assert(false);
+			break;
+		case ComputerEnemyLevelHard:
+			m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcherHard(m_gameEngine.getGrid(), gameState, computerEnemyIDs[i]));
+			break;
+		}
+
+		}
 	setConstructionFinished();
 }
 

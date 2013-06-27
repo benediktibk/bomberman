@@ -406,3 +406,6 @@ resources/levels/arena_51.csv
 resources/levels/world_war_1.csv
 gameengine/computerenemyinputfetcherhard.h
 gameengine/computerenemyinputfetcherhard.cpp
+gameengine/computerenemyinputfetchereasy.h
+gameengine/computerenemyinputfetchereasy.cpp
+gameengine/computerenemylevel.h
