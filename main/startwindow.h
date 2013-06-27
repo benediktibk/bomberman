@@ -32,7 +32,7 @@ private slots:
 	void controlClicked();
 
 signals:
-	void startGameSignal(bool enableOpenGL, const char* levelname);
+	void startGameSignal(bool enableOpenGL, const char* levelname, unsigned int humanPlayerCount, unsigned int computerEnemyCount);
 	void closeGameSignal();
 
 private:

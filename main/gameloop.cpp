@@ -22,8 +22,12 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 	m_weightOfNewTime(1 - m_weightOfOldAverage),
 	m_movingAverageOfTimeStep(m_minimumTimeStep),
 	m_framesPerSecond(0),
-	m_computerEnemyInputFetcher(m_gameEngine.getGrid(), m_gameEngine.getGameState(), m_gameEngine.getGameState().getSecondPlayerState().getId())
+	m_computerEnemyInputFetcher()
 {
+	const GameState &gameState = m_gameEngine.getGameState();
+	vector<unsigned int> computerEnemyIDs = gameState.getAllNotDestroyedComputerEnemyIDs();
+	for (size_t i = 0; i < computerEnemyIDs.size(); ++i)
+		m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcher(m_gameEngine.getGrid(), gameState, computerEnemyIDs[i]));
 	setConstructionFinished();
 }
 
@@ -32,6 +36,10 @@ GameLoop::~GameLoop()
 	stop();
 	if (m_onceStarted)
 		waitTillFinished();
+
+	for (vector<GameEngine::ComputerEnemyInputFetcher*>::iterator i = m_computerEnemyInputFetcher.begin(); i != m_computerEnemyInputFetcher.end(); ++i)
+		delete *i;
+	m_computerEnemyInputFetcher.clear();
 }
 
 void GameLoop::start()
@@ -83,6 +91,7 @@ void GameLoop::execute()
 	m_start.reset();
 	StopWatch watch;
 	const Common::GameState &gameState = m_gameEngine.getGameState();
+	vector<unsigned int> computerEnemyIDs = gameState.getAllNotDestroyedComputerEnemyIDs();
 	vector<unsigned int> playerIDs = gameState.getAllNotDestroyedPlayerIDs();
 
 	while (run)
@@ -111,7 +120,8 @@ void GameLoop::execute()
 		// begin of temporary code
 		map<unsigned int, InputState> inputStates;
 		inputStates[playerIDs.front()] = m_inputFetcher.getInputState();
-		inputStates[playerIDs.back()] = m_computerEnemyInputFetcher.getInputState();
+		for (size_t i = 0; i < computerEnemyIDs.size(); ++i)
+			inputStates[computerEnemyIDs[i]] = m_computerEnemyInputFetcher[i]->getInputState();
 		m_gameEngine.updateGameState(inputStates, time);
 		// end of temporary code
 

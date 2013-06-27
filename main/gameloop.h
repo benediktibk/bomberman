@@ -58,7 +58,7 @@ namespace Main
 		double m_framesPerSecond;
 		Threading::Mutex m_performanceInformationMutex;
 		Threading::Signal m_start;
-		GameEngine::ComputerEnemyInputFetcher m_computerEnemyInputFetcher;
+		std::vector<GameEngine::ComputerEnemyInputFetcher*> m_computerEnemyInputFetcher;
 		Threading::Mutex m_playerInformationMutex;
 		std::vector<unsigned int> m_playerInformation;
 	};
