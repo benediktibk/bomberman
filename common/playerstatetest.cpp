@@ -210,14 +210,7 @@ void PlayerStateTest::constructor_idCreator_isNotMoving()
 	CPPUNIT_ASSERT(!player.isMoving());
 }
 
-void PlayerStateTest::constructor_idCreator_widthIs1()
-{
-	PlayerState player(*m_playerIDCreator);
-
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(1, player.getDimension(), 0.0001);
-}
-
-void PlayerStateTest::constructor_idCreator_heightIs1()
+void PlayerStateTest::constructor_idCreator_dimensionIs1()
 {
 	PlayerState player(*m_playerIDCreator);
 

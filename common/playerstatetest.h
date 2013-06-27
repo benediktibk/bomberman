@@ -33,8 +33,7 @@ namespace Common
 		CPPUNIT_TEST(getSpeedIntoX_notMoving_0);
 		CPPUNIT_TEST(getSpeedIntoY_notMoving_0);
 		CPPUNIT_TEST(constructor_idCreator_isNotMoving);
-		CPPUNIT_TEST(constructor_idCreator_widthIs1);
-		CPPUNIT_TEST(constructor_idCreator_heightIs1);
+		CPPUNIT_TEST(constructor_idCreator_dimensionIs1);
 		CPPUNIT_TEST(getCenterPosition_positionIs3And4_35And45);
 		CPPUNIT_TEST(getSpeedIntoX_movingAndDirectionUp_0);
 		CPPUNIT_TEST(getSpeedIntoX_movingAndDirectionDown_0);
@@ -79,8 +78,7 @@ namespace Common
 		void getSpeedIntoX_notMoving_0();
 		void getSpeedIntoY_notMoving_0();
 		void constructor_idCreator_isNotMoving();
-		void constructor_idCreator_widthIs1();
-		void constructor_idCreator_heightIs1();
+		void constructor_idCreator_dimensionIs1();
 		void getCenterPosition_positionIs3And4_35And45();
 		void getSpeedIntoX_movingAndDirectionUp_0();
 		void getSpeedIntoX_movingAndDirectionDown_0();
