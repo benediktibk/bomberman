@@ -289,7 +289,7 @@ void GameEngineImpl::updateBombs()
 	for (vector<const BombState*>::const_iterator i = destroyedBombs.begin(); i != destroyedBombs.end(); ++i)
 	{
 		unsigned int playerID = (*i)->getPlayerID();
-		if(m_gameState.isPlayerAlife(playerID))
+		if(m_gameState.isPlayerAlive(playerID))
 		{
 			PlayerState &player = m_gameState.getPlayerStateById(playerID);
 			player.reduceBombCount();

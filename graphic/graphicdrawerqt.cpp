@@ -93,7 +93,7 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 		updateViewArea();
 	}
 
-	if (m_responsibleForOnePlayer && gameState.isPlayerAlife(m_playerIDResponsibleFor))
+	if (m_responsibleForOnePlayer && gameState.isPlayerAlive(m_playerIDResponsibleFor))
 	{
 		const PlayerState &player = gameState.getPlayerStateById(m_playerIDResponsibleFor);
 		updateViewPositionForPlayer(player);

@@ -514,7 +514,7 @@ void GameStateTest::removeAllObjectsWithDestroyedFlag_oneDestroyedExplodedBomb_e
 	CPPUNIT_ASSERT_EQUAL((size_t)0, state.getExplodedBombCount());
 }
 
-void GameStateTest::isPlayersAlife_OnePlayerNotDestroyed_resultIsTrue()
+void GameStateTest::isPlayersAlive_OnePlayerNotDestroyed_resultIsTrue()
 {
 	LevelDefinition level;
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
@@ -522,10 +522,10 @@ void GameStateTest::isPlayersAlife_OnePlayerNotDestroyed_resultIsTrue()
 
 	vector<unsigned int> playerIDs = state.getAllNotDestroyedPlayerIDs();
 
-	CPPUNIT_ASSERT(state.isPlayerAlife(playerIDs.front()));
+	CPPUNIT_ASSERT(state.isPlayerAlive(playerIDs.front()));
 }
 
-void GameStateTest::isPlayersAlife_OnePlayerIsDestroyed_resultIsFalse()
+void GameStateTest::isPlayersAlive_OnePlayerIsDestroyed_resultIsFalse()
 {
 	LevelDefinition level;
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
@@ -534,10 +534,10 @@ void GameStateTest::isPlayersAlife_OnePlayerIsDestroyed_resultIsFalse()
 	vector<unsigned int> playerIDs = state.getAllNotDestroyedPlayerIDs();
 	state.erasePlayerById(playerIDs.front());
 
-	CPPUNIT_ASSERT(!state.isPlayerAlife(playerIDs.front()));
+	CPPUNIT_ASSERT(!state.isPlayerAlive(playerIDs.front()));
 }
 
-void GameStateTest::isPlayersAlife_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse()
+void GameStateTest::isPlayersAlive_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse()
 {
 	LevelDefinition level;
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
@@ -547,5 +547,5 @@ void GameStateTest::isPlayersAlife_OnePlayerNotDestroyedAskForPlayerNotInList_re
 	unsigned int playerIdNotInList = 3;
 	playerIDs.push_back(playerIdNotInList);
 
-	CPPUNIT_ASSERT(!state.isPlayerAlife(playerIDs.back()));
+	CPPUNIT_ASSERT(!state.isPlayerAlive(playerIDs.back()));
 }

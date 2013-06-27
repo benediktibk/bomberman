@@ -63,7 +63,7 @@ namespace Common
 		std::vector<const WallState*> getAllWallsWithDestroyedFlag() const;
 		std::vector<const PowerUpState*> getAllPowerUpsWithDestroyedFlag() const;
 		size_t getExplodedBombCount() const;
-		bool isPlayerAlife(unsigned int playerId) const;
+		bool isPlayerAlive(unsigned int playerId) const;
 
 	private:
 		void eraseBomb(size_t position);
