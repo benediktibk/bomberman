@@ -214,22 +214,18 @@ QGraphicsItem* SvgRenderer::getNewPowerUpItem(Common::PowerUpType powerUpType, d
 		case Common::PowerUpTypeMaxBomb:
 			powerUp->setSharedRenderer(m_powerUpMaxBombRenderer);
 			break;
-
 		case Common::PowerUpTypeMaxBombRange:
 			powerUp->setSharedRenderer(m_powerUpMaxBombRangeRenderer);
 			break;
-
 		case Common::PowerUpTypeMaxVelocity:
 			powerUp->setSharedRenderer(m_powerUpMaxVelocityRenderer);
 			break;
-
-		default:
+		case Common::PowerUpTypeNone:
 			powerUp->setSharedRenderer(m_powerUpRenderer);
 			break;
 	}
 
 	powerUp->setScale(0.001*m_pixelPerMeter*dimension);
-
 	return powerUp;
 }
 
