@@ -115,24 +115,10 @@ void GameLoop::execute()
 		m_gameEngine.updateGameState(inputStates, time);
 		// end of temporary code
 
-		/*!
-		 * @todo catchPlayerInformation should only get PlayerIDs of local Players, not all.
-		 */
-
-		catchPlayerInformation(gameState.getAllNotDestroyedHumanPlayerIDs());
-
 		m_graphicDrawer.draw(gameState);
 
-		m_pausedMutex.lock();
-		bool pause = m_paused;
-		m_pausedMutex.unlock();
-
-		if (pause)
-		{
-			m_start.wait();
-			m_start.reset();
-		}
-
+		catchPlayerInformation(gameState.getAllNotDestroyedHumanPlayerIDs());
+		pauseIfNecessary();
 		run = !isStopped() && !gameState.isGameFinished();
 	}
 }
@@ -165,9 +151,8 @@ void GameLoop::updateFPS()
 
 bool GameLoop::isStopped()
 {
-	bool result;
 	m_stoppedMutex.lock();
-	result = m_stopped;
+	bool result = m_stopped;
 	m_stoppedMutex.unlock();
 	return result;
 }
@@ -175,8 +160,20 @@ bool GameLoop::isStopped()
 vector<unsigned int> GameLoop::getPlayerInformation()
 {
 	m_playerInformationMutex.lock();
-	vector<unsigned int> result;
-	result = m_playerInformation;
+	vector<unsigned int> result = m_playerInformation;
 	m_playerInformationMutex.unlock();
 	return result;
+}
+
+void GameLoop::pauseIfNecessary()
+{
+	m_pausedMutex.lock();
+	bool pause = m_paused;
+	m_pausedMutex.unlock();
+
+	if (pause)
+	{
+		m_start.wait();
+		m_start.reset();
+	}
 }

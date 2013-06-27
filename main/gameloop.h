@@ -35,6 +35,7 @@ namespace Main
 		void updateMovingAverageOfTime(double time);
 		void updateFPS();
 		bool isStopped();
+		void pauseIfNecessary();
 
 	protected:
 		virtual void execute();
