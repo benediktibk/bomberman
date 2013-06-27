@@ -115,6 +115,7 @@ QPixmap* SvgRenderer::createPixmapFromSvg(const string &file) const
 {
 	QSvgRenderer renderer(QString(file.c_str()));
 	QImage image(m_pixelPerMeter, m_pixelPerMeter, QImage::Format_ARGB32);
+	image.fill(Qt::transparent);
 	QPainter painter(&image);
 	renderer.render(&painter);
 	return new QPixmap(QPixmap::fromImage(image));
