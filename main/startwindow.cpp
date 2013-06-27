@@ -126,12 +126,16 @@ void StartWindow::updateSilder()
 
 void StartWindow::readMeClicked()
 {
-
+	QMessageBox messageBox;
+	messageBox.setWindowTitle("README");
+	messageBox.setDetailedText(m_levelList.getTextInFile().c_str());
+	messageBox.exec();
 }
 
 void StartWindow::controlClicked()
 {
-	QMessageBox msgBox;
-	msgBox.setText("Control");
-	msgBox.exec();
+	QMessageBox messageBox;
+	messageBox.setWindowTitle("Control");
+	messageBox.setText("Player 1: \nPlayer 2:");
+	messageBox.exec();
 }
