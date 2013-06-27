@@ -41,40 +41,6 @@ void ComputerEnemyInputFetcher::calculateInputState()
 	calculateInputStateInternal();
 }
 
-void ComputerEnemyInputFetcher::calculateInputStateInternal()
-{
-	GridPoint playerPosition = Grid::getTargetPoint(m_player);
-	m_router->updatePlayerFields();
-
-	Route routeToNotDangerousField = m_router->getRouteToNotDangerousField(playerPosition);
-	if (routeToNotDangerousField.getDirection() != PlayerState::PlayerDirectionNone)
-	{
-		setInputStateIntoDirection(routeToNotDangerousField.getDirection());
-		return;
-	}
-
-	Route routeToPowerUp = m_router->getRouteToPowerUp(playerPosition);
-	if (routeToPowerUp.getDirection() != PlayerState::PlayerDirectionNone)
-	{
-		setInputStateIntoDirection(routeToPowerUp.getDirection());
-		return;
-	}
-
-	Route routeToPlayer = m_router->getRouteToPlayer(playerPosition);
-	if (routeToPlayer.getDirection() != PlayerState::PlayerDirectionNone)
-	{
-		placeBombIfCloseEnough(routeToPlayer);
-		return;
-	}
-
-	Route routeToLooseWall = m_router->getRouteToLooseWall(playerPosition);
-	if (routeToLooseWall.getDirection() != PlayerState::PlayerDirectionNone)
-	{
-		placeBombIfCloseEnough(routeToLooseWall);
-		return;
-	}
-}
-
 void ComputerEnemyInputFetcher::setInputStateIntoDirection(PlayerState::PlayerDirection direction)
 {
 	m_inputState.setDownKeyNotPressed();
@@ -121,4 +87,15 @@ map<unsigned int, InputState> ComputerEnemyInputFetcher::getInputStates()
 	calculateInputState();
 	m_inputStateWithID[m_playerID] = m_inputState;
 	return m_inputStateWithID;
+}
+
+
+Router& GameEngine::ComputerEnemyInputFetcher::getRouter()
+{
+	return *m_router;
+}
+
+GridPoint ComputerEnemyInputFetcher::getPlayerPosition() const
+{
+	return Grid::getTargetPoint(m_player);
 }

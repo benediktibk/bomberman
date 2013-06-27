@@ -374,8 +374,8 @@ common/grid.cpp
 common/grid.h
 common/gridtest.cpp
 common/gridtest.h
-gameengine/computerenemyinputfetchertest.h
-gameengine/computerenemyinputfetchertest.cpp
+gameengine/computerenemyinputfetcherhardtest.h
+gameengine/computerenemyinputfetcherhardtest.cpp
 resources/levels/classic_middle.csv
 resources/levels/no_place_to_hide.csv
 resources/levels/can_see_you.csv
@@ -404,3 +404,5 @@ resources/graphics/player_moving_down_2.svg
 resources/testfiles/README.csv
 resources/levels/arena_51.csv
 resources/levels/world_war_1.csv
+gameengine/computerenemyinputfetcherhard.h
+gameengine/computerenemyinputfetcherhard.cpp

@@ -27,7 +27,7 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 	const GameState &gameState = m_gameEngine.getGameState();
 	vector<unsigned int> computerEnemyIDs = gameState.getAllNotDestroyedComputerEnemyIDs();
 	for (size_t i = 0; i < computerEnemyIDs.size(); ++i)
-		m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcher(m_gameEngine.getGrid(), gameState, computerEnemyIDs[i]));
+		m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcherHard(m_gameEngine.getGrid(), gameState, computerEnemyIDs[i]));
 	setConstructionFinished();
 }
 

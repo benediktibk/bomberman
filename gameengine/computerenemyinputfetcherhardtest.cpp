@@ -1,5 +1,5 @@
-#include "gameengine/computerenemyinputfetchertest.h"
-#include "gameengine/computerenemyinputfetcher.h"
+#include "gameengine/computerenemyinputfetcherhardtest.h"
+#include "gameengine/computerenemyinputfetcherhard.h"
 #include "common/gamestate.h"
 #include "common/grid.h"
 #include "common/leveldefinition.h"
@@ -9,7 +9,7 @@ using namespace GameEngine;
 using namespace Common;
 using namespace std;
 
-void ComputerEnemyInputFetcherTest::getInputState_movingToFieldRightBesidePlayerButNotYetAtPositionToPlaceBomb_spaceKeyNotPressed()
+void ComputerEnemyInputFetcherHardTest::getInputState_movingToFieldRightBesidePlayerButNotYetAtPositionToPlaceBomb_spaceKeyNotPressed()
 {
 	m_otherPlayer->setPosition(Point(0, 0));
 	m_ownPlayer->setPosition(Point(1.7, 0));
@@ -20,7 +20,7 @@ void ComputerEnemyInputFetcherTest::getInputState_movingToFieldRightBesidePlayer
 	CPPUNIT_ASSERT(!input.isSpaceKeyPressed());
 }
 
-void ComputerEnemyInputFetcherTest::getInputState_movingToFieldRightBesidePlayerCloseEnoughToPlaceBomb_spaceKeyPressed()
+void ComputerEnemyInputFetcherHardTest::getInputState_movingToFieldRightBesidePlayerCloseEnoughToPlaceBomb_spaceKeyPressed()
 {
 	m_otherPlayer->setPosition(Point(0, 0));
 	m_ownPlayer->setPosition(Point(1.3, 0));
@@ -31,7 +31,7 @@ void ComputerEnemyInputFetcherTest::getInputState_movingToFieldRightBesidePlayer
 	CPPUNIT_ASSERT(input.isSpaceKeyPressed());
 }
 
-void ComputerEnemyInputFetcherTest::getInputState_movingToFieldRightBesideLooseFieldButNotYetAtPositionToPlaceBomb_spaceKeyNotPressed()
+void ComputerEnemyInputFetcherHardTest::getInputState_movingToFieldRightBesideLooseFieldButNotYetAtPositionToPlaceBomb_spaceKeyNotPressed()
 {
 	LevelDefinition level(13, 14);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 1);
@@ -45,7 +45,7 @@ void ComputerEnemyInputFetcherTest::getInputState_movingToFieldRightBesideLooseF
 	CPPUNIT_ASSERT(!input.isSpaceKeyPressed());
 }
 
-void ComputerEnemyInputFetcherTest::getInputState_movingToFieldRightBesideLooseFieldCloseEnoughToPlaceBomb_spaceKeyPressed()
+void ComputerEnemyInputFetcherHardTest::getInputState_movingToFieldRightBesideLooseFieldCloseEnoughToPlaceBomb_spaceKeyPressed()
 {
 	LevelDefinition level(13, 14);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 1);
@@ -59,7 +59,7 @@ void ComputerEnemyInputFetcherTest::getInputState_movingToFieldRightBesideLooseF
 	CPPUNIT_ASSERT(input.isSpaceKeyPressed());
 }
 
-void ComputerEnemyInputFetcherTest::getInputState_onDangerousFieldAndShortestWayOutLeftAndRightOtherPlayerAndDownLooseWall_leftKeyPressed()
+void ComputerEnemyInputFetcherHardTest::getInputState_onDangerousFieldAndShortestWayOutLeftAndRightOtherPlayerAndDownLooseWall_leftKeyPressed()
 {
 	LevelDefinition level(13, 14);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
@@ -83,7 +83,7 @@ void ComputerEnemyInputFetcherTest::getInputState_onDangerousFieldAndShortestWay
 	CPPUNIT_ASSERT(input.isLeftKeyPressed());
 }
 
-void ComputerEnemyInputFetcherTest::getInputState_looseWallRightAndOtherPlayerUp_upKeyPressed()
+void ComputerEnemyInputFetcherHardTest::getInputState_looseWallRightAndOtherPlayerUp_upKeyPressed()
 {
 	LevelDefinition level(13, 14);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
@@ -98,7 +98,7 @@ void ComputerEnemyInputFetcherTest::getInputState_looseWallRightAndOtherPlayerUp
 	CPPUNIT_ASSERT(input.isUpKeyPressed());
 }
 
-void ComputerEnemyInputFetcherTest::getInputState_looseWallRight_rightKeyPressed()
+void ComputerEnemyInputFetcherHardTest::getInputState_looseWallRight_rightKeyPressed()
 {
 	LevelDefinition level(13, 14);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
@@ -110,7 +110,7 @@ void ComputerEnemyInputFetcherTest::getInputState_looseWallRight_rightKeyPressed
 	CPPUNIT_ASSERT(input.isRightKeyPressed());
 }
 
-void GameEngine::ComputerEnemyInputFetcherTest::getInputState_powerUpOnDangerousField_noMovementButtonPressed()
+void ComputerEnemyInputFetcherHardTest::getInputState_powerUpOnDangerousField_noMovementButtonPressed()
 {
 	LevelDefinition level(13, 14);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
@@ -127,7 +127,7 @@ void GameEngine::ComputerEnemyInputFetcherTest::getInputState_powerUpOnDangerous
 	CPPUNIT_ASSERT(!input.isMovementButtonPressed());
 }
 
-void ComputerEnemyInputFetcherTest::createInputFetcher(const LevelDefinition &level)
+void ComputerEnemyInputFetcherHardTest::createInputFetcher(const LevelDefinition &level)
 {
 	delete m_inputFetcher;
 	m_inputFetcher = 0;
@@ -146,10 +146,10 @@ void ComputerEnemyInputFetcherTest::createInputFetcher(const LevelDefinition &le
 	vector<const WallState*> walls = m_gameState->getAllChangedWalls();
 	for (vector<const WallState*>::const_iterator i = walls.begin(); i != walls.end(); ++i)
 		m_grid->addWallAtPlace(**i);
-	m_inputFetcher = new ComputerEnemyInputFetcher(*m_grid, *m_gameState, m_ownPlayer->getId());
+	m_inputFetcher = new ComputerEnemyInputFetcherHard(*m_grid, *m_gameState, m_ownPlayer->getId());
 }
 
-void ComputerEnemyInputFetcherTest::setUp()
+void ComputerEnemyInputFetcherHardTest::setUp()
 {
 	m_playerIdCreator = new UniqueIdCreator();
 	m_wallIdCreator = new UniqueIdCreator();
@@ -161,7 +161,7 @@ void ComputerEnemyInputFetcherTest::setUp()
 	createInputFetcher(level);
 }
 
-void ComputerEnemyInputFetcherTest::tearDown()
+void ComputerEnemyInputFetcherHardTest::tearDown()
 {
 	delete m_inputFetcher;
 	m_inputFetcher = 0;

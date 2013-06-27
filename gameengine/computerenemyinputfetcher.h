@@ -4,6 +4,7 @@
 #include "common/inputfetcher.h"
 #include "common/inputstate.h"
 #include "common/playerstate.h"
+#include "common/gridpoint.h"
 #include <vector>
 #include <map>
 
@@ -28,11 +29,13 @@ namespace GameEngine
 		virtual std::map<unsigned int, Common::InputState> getInputStates();
 		virtual Common::InputState getInputState();
 
-	private:
-		virtual void calculateInputStateInternal();
+	protected:
+		virtual void calculateInputStateInternal() = 0;
 		void calculateInputState();
 		void setInputStateIntoDirection(Common::PlayerState::PlayerDirection direction);
 		void placeBombIfCloseEnough(const Route &route);
+		Router& getRouter();
+		Common::GridPoint getPlayerPosition() const;
 
 	private:
 		Common::InputState m_inputState;

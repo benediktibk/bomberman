@@ -4,7 +4,7 @@
 #include "threading/thread.h"
 #include "threading/mutex.h"
 #include "threading/signal.h"
-#include "gameengine/computerenemyinputfetcher.h"
+#include "gameengine/computerenemyinputfetcherhard.h"
 
 namespace Common
 {
