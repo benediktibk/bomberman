@@ -30,7 +30,7 @@ GameEngineImpl::GameEngineImpl(const LevelDefinition &level, unsigned int humanP
 	for (vector<const WallState*>::const_iterator i = walls.begin(); i != walls.end(); ++i)
 		m_grid->addWallAtPlace(**i);
 
-	for (unsigned int i = 0; i < humanPlayerCount; ++i)
+	for (unsigned int i = 0; i < humanPlayerCount + computerEnemyCount; ++i)
 		m_inputStates.insert(pair<unsigned int, InputState>(i, InputState()));
 }
 

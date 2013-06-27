@@ -76,7 +76,7 @@ void MainWindow::startGame(bool enableOpenGL, const char* levelname)
 		return;
 	}
 
-	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, 2, 0);
+	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, 1, 1);
 	m_gameLoop = new GameLoop(*this, *m_gameEngine, *this);
 	m_enableOpenGL = enableOpenGL;
 	m_gameStartMutex.lock();
