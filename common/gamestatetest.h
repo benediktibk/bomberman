@@ -55,6 +55,10 @@ namespace Common
 		 CPPUNIT_TEST(constructor_twoHumanPlayersAndThreeComputerEnemies_threeComputerEnemyIDs);
 		 CPPUNIT_TEST(getAllNotDestroyedHumanPlayerIDs_oneOfTwoHumanPlayersDestroyed_resultSizeIs1);
 		 CPPUNIT_TEST(getAllNotDestroyedComputerEnemyIDs_oneOfThreeComputerEnemiesDestroyed_resultSizeIs2);
+		 CPPUNIT_TEST(isHumanPlayerID_humanPlayerID_true);
+		 CPPUNIT_TEST(isHumanPlayerID_computerEnemyID_false);
+		 CPPUNIT_TEST(getIndexOfHumanPlayer_humanPlayerID_smallerThanHumanPlayerCount);
+		 CPPUNIT_TEST(getIndexOfComputerEnemy_computerEnemyID_smallerThanEnemyCount);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -102,6 +106,10 @@ namespace Common
 		 void constructor_twoHumanPlayersAndThreeComputerEnemies_threeComputerEnemyIDs();
 		 void getAllNotDestroyedHumanPlayerIDs_oneOfTwoHumanPlayersDestroyed_resultSizeIs1();
 		 void getAllNotDestroyedComputerEnemyIDs_oneOfThreeComputerEnemiesDestroyed_resultSizeIs2();
+		 void isHumanPlayerID_humanPlayerID_true();
+		 void isHumanPlayerID_computerEnemyID_false();
+		 void getIndexOfHumanPlayer_humanPlayerID_smallerThanHumanPlayerCount();
+		 void getIndexOfComputerEnemy_computerEnemyID_smallerThanEnemyCount();
 
 	private:
 		 UniqueIdCreator m_playerIDCreator;

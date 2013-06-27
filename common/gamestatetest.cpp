@@ -631,3 +631,57 @@ void GameStateTest::getAllNotDestroyedComputerEnemyIDs_oneOfThreeComputerEnemies
 
 	CPPUNIT_ASSERT_EQUAL((size_t)2, playerIDs.size());
 }
+
+void GameStateTest::isHumanPlayerID_humanPlayerID_true()
+{
+	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	GameState state(level, 1, 1, m_playerIDCreator, m_wallIDCreator);
+	vector<unsigned int> playerIDs = state.getAllNotDestroyedHumanPlayerIDs();
+
+	CPPUNIT_ASSERT(state.isHumanPlayerID(playerIDs.front()));
+}
+
+void GameStateTest::isHumanPlayerID_computerEnemyID_false()
+{
+	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	GameState state(level, 1, 1, m_playerIDCreator, m_wallIDCreator);
+	vector<unsigned int> playerIDs = state.getAllNotDestroyedComputerEnemyIDs();
+
+	CPPUNIT_ASSERT(!state.isHumanPlayerID(playerIDs.front()));
+}
+
+void GameStateTest::getIndexOfHumanPlayer_humanPlayerID_smallerThanHumanPlayerCount()
+{
+	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 5, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 6, 0);
+	GameState state(level, 3, 4, m_playerIDCreator, m_wallIDCreator);
+	vector<unsigned int> playerIDs = state.getAllNotDestroyedHumanPlayerIDs();
+
+	CPPUNIT_ASSERT(state.getIndexOfHumanPlayer(playerIDs.front()) < 3);
+}
+
+void GameStateTest::getIndexOfComputerEnemy_computerEnemyID_smallerThanEnemyCount()
+{
+	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 5, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 6, 0);
+	GameState state(level, 3, 4, m_playerIDCreator, m_wallIDCreator);
+	vector<unsigned int> playerIDs = state.getAllNotDestroyedComputerEnemyIDs();
+
+	CPPUNIT_ASSERT(state.getIndexOfComputerEnemy(playerIDs.front()) < 4);
+}

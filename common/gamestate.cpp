@@ -144,6 +144,31 @@ vector<unsigned int> GameState::getAllNotDestroyedComputerEnemyIDs() const
 	return result;
 }
 
+bool GameState::isHumanPlayerID(unsigned int playerID) const
+{
+	if (count(m_originalHumanPlayerIDs.begin(), m_originalHumanPlayerIDs.end(), playerID) == 1)
+		return true;
+	else
+	{
+		assert(count(m_originalComputerEnemyIDs.begin(), m_originalComputerEnemyIDs.end(), playerID) == 1);
+		return false;
+	}
+}
+
+unsigned int GameState::getIndexOfHumanPlayer(unsigned int playerID) const
+{
+	assert(isHumanPlayerID(playerID));
+	vector<unsigned int>::const_iterator position = find(m_originalHumanPlayerIDs.begin(), m_originalHumanPlayerIDs.end(), playerID);
+	return position - m_originalHumanPlayerIDs.begin();
+}
+
+unsigned int GameState::getIndexOfComputerEnemy(unsigned int playerID) const
+{
+	assert(!isHumanPlayerID(playerID));
+	vector<unsigned int>::const_iterator position = find(m_originalComputerEnemyIDs.begin(), m_originalComputerEnemyIDs.end(), playerID);
+	return position - m_originalComputerEnemyIDs.begin();
+}
+
 const std::vector<const PlayerState *> &GameState::getAllPlayers() const
 {
 	return m_playersConst;

@@ -31,6 +31,9 @@ namespace Common
 		std::vector<unsigned int> getAllNotDestroyedPlayerIDs() const;
 		std::vector<unsigned int> getAllNotDestroyedHumanPlayerIDs() const;
 		std::vector<unsigned int> getAllNotDestroyedComputerEnemyIDs() const;
+		bool isHumanPlayerID(unsigned int playerID) const;
+		unsigned int getIndexOfHumanPlayer(unsigned int playerID) const;
+		unsigned int getIndexOfComputerEnemy(unsigned int playerID) const;
 		const std::vector<const PlayerState*>& getAllPlayers() const;
 		std::vector<const WallState*> getAllChangedWalls() const;
 		size_t getWallCount() const;
