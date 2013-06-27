@@ -50,6 +50,11 @@ namespace Common
 		 CPPUNIT_TEST(isPlayersAlive_OnePlayerNotDestroyed_resultIsTrue);
 		 CPPUNIT_TEST(isPlayersAlive_OnePlayerIsDestroyed_resultIsFalse);
 		 CPPUNIT_TEST(isPlayersAlive_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse);
+		 CPPUNIT_TEST(constructor_twoHumanPlayersAndThreeComputerEnemies_playerCountIs5);
+		 CPPUNIT_TEST(constructor_twoHumanPlayersAndThreeComputerEnemies_twoHumanPlayerIDs);
+		 CPPUNIT_TEST(constructor_twoHumanPlayersAndThreeComputerEnemies_threeComputerEnemyIDs);
+		 CPPUNIT_TEST(getAllNotDestroyedHumanPlayerIDs_oneOfTwoHumanPlayersDestroyed_resultSizeIs1);
+		 CPPUNIT_TEST(getAllNotDestroyedComputerEnemyIDs_oneOfThreeComputerEnemiesDestroyed_resultSizeIs2);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -92,6 +97,11 @@ namespace Common
 		 void isPlayersAlive_OnePlayerNotDestroyed_resultIsTrue();
 		 void isPlayersAlive_OnePlayerIsDestroyed_resultIsFalse();
 		 void isPlayersAlive_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse();
+		 void constructor_twoHumanPlayersAndThreeComputerEnemies_playerCountIs5();
+		 void constructor_twoHumanPlayersAndThreeComputerEnemies_twoHumanPlayerIDs();
+		 void constructor_twoHumanPlayersAndThreeComputerEnemies_threeComputerEnemyIDs();
+		 void getAllNotDestroyedHumanPlayerIDs_oneOfTwoHumanPlayersDestroyed_resultSizeIs1();
+		 void getAllNotDestroyedComputerEnemyIDs_oneOfThreeComputerEnemiesDestroyed_resultSizeIs2();
 
 	private:
 		 UniqueIdCreator m_playerIDCreator;
