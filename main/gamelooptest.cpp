@@ -147,22 +147,6 @@ void GameLoopTest::getFramesPerSecond_running_60()
 	delete gameLoop;
 }
 
-void GameLoopTest::percentageOfTimeNotSleeping_running_0()
-{
-	InputFetcherStub inputFetcher;
-	GameEngineStub gameEngine;
-	GraphicDrawerStub graphicDrawer;
-	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
-
-	gameLoop->start();
-	usleep(1000*100);
-
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, gameLoop->percentageOfTimeNotSleeping(), 0.1);
-	gameLoop->stop();
-	gameLoop->waitTillFinished();
-	delete gameLoop;
-}
-
 void GameLoopTest::pause_gameAlreadyRunSomeExecutionsAndWaitOf100ms_callsToMocksDidnotIncrease()
 {
 	InputFetcherMock inputFetcher;

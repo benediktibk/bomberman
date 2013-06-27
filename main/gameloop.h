@@ -28,11 +28,10 @@ namespace Main
 		void pause();
 		bool isPaused();
 		unsigned int getFramesPerSecond();
-		double percentageOfTimeNotSleeping();
 		std::vector<unsigned int> getPlayerInformation();
 
 	private:
-		void catchPlayerInformation(std::vector<unsigned int> playerIDs);
+		void catchPlayerInformation(const std::vector<unsigned int> &playerIDs);
 
 	protected:
 		virtual void execute();
@@ -51,7 +50,6 @@ namespace Main
 		const double m_minimumTimeStep;
 		unsigned int m_framesPerSecond;
 		Threading::Mutex m_performanceInformationMutex;
-		double m_percentageOfTimeNotSleeping;
 		Threading::Signal m_start;
 		GameEngine::ComputerEnemyInputFetcher m_computerEnemyInputFetcher;
 		Threading::Mutex m_playerInformationMutex;

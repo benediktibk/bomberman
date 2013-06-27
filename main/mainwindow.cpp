@@ -109,22 +109,13 @@ void MainWindow::updateUserInfo()
 
 void MainWindow::updateStatusBar()
 {
-	QString messageTemplate = QString("%1 fps");
-
-	if (!m_enableOpenGL)
-		messageTemplate += QString(", %2\% of time calculating");
-
 	if(!m_gameStarted)
 		return;
 
+	QString messageTemplate = QString("%1 fps");
 	double framesPerSecond = m_gameLoop->getFramesPerSecond();
-	double percentageOfTimeNotSleeping = m_gameLoop->percentageOfTimeNotSleeping() * 100;
 	QString framesPerSecondString = QString().setNum(framesPerSecond, 'f', 0);
-	QString percentageOfTimeNotSleepingString = QString().setNum(percentageOfTimeNotSleeping, 'f', 0);
 	QString completeMessage(messageTemplate.arg(framesPerSecondString));
-
-	if (!m_enableOpenGL)
-		completeMessage = completeMessage.arg(percentageOfTimeNotSleepingString);
 
 	m_ui->statusBar->showMessage(completeMessage);
 }
