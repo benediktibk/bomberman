@@ -4,27 +4,28 @@
 #include "common/wallstate.h"
 
 class QGraphicsScene;
-class QGraphicsSvgItem;
+class QGraphicsItem;
 
 namespace Graphic
 {
-class SvgRenderer;
-class Wall
-{
-public:
-	Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::WallState &state);
-	Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::Point &position, double pixelPerMeter);
-	~Wall();
+	class SvgRenderer;
 
-	void update(const Common::WallState &state, double pixelPerMeter);
+	class Wall
+	{
+	public:
+		Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::WallState &state);
+		Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::Point &position, double pixelPerMeter);
+		~Wall();
 
-private:
-	void createSVGItem(Common::WallState::WallType wallType, SvgRenderer &renderer);
-	void updateInternal(const Common::Point &position, double width, double height, double pixelPerMeter);
+		void update(const Common::WallState &state, double pixelPerMeter);
 
-private:
-	QGraphicsSvgItem *m_svgItem;
-};
+	private:
+		void createSVGItem(Common::WallState::WallType wallType, SvgRenderer &renderer);
+		void updateInternal(const Common::Point &position, double width, double height, double pixelPerMeter);
+
+	private:
+		QGraphicsItem *m_svgItem;
+	};
 }
 
 #endif

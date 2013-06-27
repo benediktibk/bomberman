@@ -4,7 +4,7 @@
 #include <vector>
 
 class QGraphicsScene;
-class QGraphicsSvgItem;
+class QGraphicsItem;
 
 namespace Common
 {
@@ -30,12 +30,12 @@ namespace Graphic
 
 	private:
 		SvgRenderer *m_renderer;
-		QGraphicsSvgItem *m_center;
-		QGraphicsSvgItem *m_upperEnd;
-		QGraphicsSvgItem *m_lowerEnd;
-		QGraphicsSvgItem *m_leftEnd;
-		QGraphicsSvgItem *m_rightEnd;
-		std::vector<QGraphicsSvgItem*> m_middleParts;
+		QGraphicsItem *m_center;
+		QGraphicsItem *m_upperEnd;
+		QGraphicsItem *m_lowerEnd;
+		QGraphicsItem *m_leftEnd;
+		QGraphicsItem *m_rightEnd;
+		std::vector<QGraphicsItem*> m_middleParts;
 	};
 }
 

@@ -35,7 +35,7 @@ ExplodedBomb::~ExplodedBomb()
 	delete m_lowerEnd;
 	delete m_rightEnd;
 
-	for (vector<QGraphicsSvgItem*>::iterator i = m_middleParts.begin(); i != m_middleParts.end(); ++i)
+	for (vector<QGraphicsItem*>::iterator i = m_middleParts.begin(); i != m_middleParts.end(); ++i)
 		delete *i;
 	m_middleParts.clear();
 }
@@ -109,7 +109,7 @@ void ExplodedBomb::createFlamesToTheRight(QGraphicsScene &scene, const Common::E
 
 	for (unsigned int i = 1; i < destructionRange; ++i)
 	{
-		QGraphicsSvgItem *item = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
+		QGraphicsItem *item = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
 		item->setRotation(-90);
 		Point position(state.getPosition() + Point(i, (-1)*dimension));
 		position *= pixelPerMeter;
@@ -128,7 +128,7 @@ void ExplodedBomb::createFlamesToTheLeft(QGraphicsScene &scene, const Common::Ex
 
 	for (unsigned int i = 1; i < destructionRange; ++i)
 	{
-		QGraphicsSvgItem *item = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
+		QGraphicsItem *item = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
 		item->setRotation(90);
 		Point position(state.getPosition() + Point((-1.0)*i + dimension, 0));
 		position *= pixelPerMeter;
@@ -147,7 +147,7 @@ void ExplodedBomb::createFlamesToTheUpper(QGraphicsScene &scene, const Common::E
 
 	for (unsigned int i = 1; i < destructionRange; ++i)
 	{
-		QGraphicsSvgItem *item = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
+		QGraphicsItem *item = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
 		Point position(state.getPosition() + Point(0, i));
 		position *= pixelPerMeter;
 		position.switchIntoQtCoordinates();
@@ -165,7 +165,7 @@ void ExplodedBomb::createFlamesToTheLower(QGraphicsScene &scene, const Common::E
 
 	for (unsigned int i = 1; i < destructionRange; ++i)
 	{
-		QGraphicsSvgItem *item = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
+		QGraphicsItem *item = new QGraphicsSvgItem(QString("resources/graphics/explosion_flame.svg"));
 		item->setRotation(180);
 		Point position(state.getPosition() + Point(dimension, (-1)*(dimension + i)));
 		position *= pixelPerMeter;

@@ -2,7 +2,7 @@
 #define GRAPHIC_POWERUP_H
 
 class QGraphicsScene;
-class QGraphicsSvgItem;
+class QGraphicsItem;
 
 namespace Common
 {
@@ -23,7 +23,7 @@ namespace Graphic
 
 	private:
 		void createSvgItem(const Common::PowerUpState &state, SvgRenderer &renderer);
-		QGraphicsSvgItem *m_svgItem;
+		QGraphicsItem *m_svgItem;
 	};
 }
 

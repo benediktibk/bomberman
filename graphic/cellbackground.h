@@ -4,25 +4,26 @@
 #include "common/point.h"
 
 class QGraphicsScene;
-class QGraphicsSvgItem;
+class QGraphicsItem;
 
 
 namespace Graphic
 {
 	class SvgRenderer;
-    class CellBackground
-    {
-    public:
+
+	class CellBackground
+	{
+	public:
 		CellBackground(QGraphicsScene &scene, SvgRenderer &renderer);
 		CellBackground(QGraphicsScene &scene, SvgRenderer &renderer, const Common::Point &position, double pixelPerMeter);
-        ~CellBackground();
+		~CellBackground();
 
-        void update(const Common::Point &position, double pixelPerMeter);
+		void update(const Common::Point &position, double pixelPerMeter);
 
-    private:
-        void updateInternal(const Common::Point &position, double width, double height, double pixelPerMeter);
-        QGraphicsSvgItem *m_svgItem;
-    };
+	private:
+		void updateInternal(const Common::Point &position, double width, double height, double pixelPerMeter);
+		QGraphicsItem *m_svgItem;
+	};
 }
 
 #endif
