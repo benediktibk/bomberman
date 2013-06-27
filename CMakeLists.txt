@@ -82,6 +82,11 @@ set(GRAPHICS
 	powerup_range.svg
 	powerup_speed.svg
 )
+set(SOUNDS
+        bomb.wav
+        gotitem.wav
+        placed.wav
+)
 
 foreach(file ${LEVELS})
 	file(	COPY
@@ -100,6 +105,13 @@ foreach(file ${GRAPHICS})
 			${CMAKE_CURRENT_SOURCE_DIR}/resources/graphics/${file}
 			DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/graphics/)
 endforeach()
+
+foreach(file ${SOUNDS})
+        file(	COPY
+                        ${CMAKE_CURRENT_SOURCE_DIR}/resources/sounds/${file}
+                        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/sounds/)
+endforeach()
+
 
 add_custom_target(
 	testcoverage
