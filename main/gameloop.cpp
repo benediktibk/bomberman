@@ -133,13 +133,11 @@ void GameLoop::execute()
 			m_start.reset();
 		}
 
+		run = !isStopped();
+
 		if(gameState.getAllNotDestroyedPlayerIDs().size() <= 1)
 			run = false;
 
-		m_stoppedMutex.lock();
-		if (m_stopped)
-			run = false;
-		m_stoppedMutex.unlock();
 	}
 }
 
@@ -167,6 +165,15 @@ void GameLoop::updateFPS()
 	m_performanceInformationMutex.lock();
 	m_framesPerSecond = 1/m_movingAverageOfTimeStep;
 	m_performanceInformationMutex.unlock();
+}
+
+bool GameLoop::isStopped()
+{
+	bool result;
+	m_stoppedMutex.lock();
+	result = m_stopped;
+	m_stoppedMutex.unlock();
+	return result;
 }
 
 vector<unsigned int> GameLoop::getPlayerInformation()

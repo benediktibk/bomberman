@@ -34,6 +34,7 @@ namespace Main
 		void catchPlayerInformation(const std::vector<unsigned int> &playerIDs);
 		void updateMovingAverageOfTime(double time);
 		void updateFPS();
+		bool isStopped();
 
 	protected:
 		virtual void execute();
