@@ -21,8 +21,7 @@ namespace Graphic
 		void update(const Common::PowerUpState &state, double pixelPerMeter);
 
 	private:
-		void createSvgItem(const Common::PowerUpState &state, SvgRenderer &renderer);
-		QGraphicsItem *m_svgItem;
+		QGraphicsItem *m_graphicItem;
 	};
 }
 

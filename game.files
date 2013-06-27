@@ -272,8 +272,6 @@ gameengine/computerenemyinputfetcher.h
 gameengine/computerenemyinputfetcher.cpp
 graphic/powerup.h
 graphic/powerup.cpp
-graphic/cellbackground.h
-graphic/cellbackground.cpp
 common/powerupmaxvelocitystate.cpp
 common/powerupmaxvelocitystate.h
 common/powerupmaxvelocitystatetest.cpp

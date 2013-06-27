@@ -5,7 +5,6 @@
 #include "graphic/powerup.h"
 #include "graphic/explodedbomb.h"
 #include "graphic/point.h"
-#include "graphic/cellbackground.h"
 #include "graphic/svgrenderer.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>

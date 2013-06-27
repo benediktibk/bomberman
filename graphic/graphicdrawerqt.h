@@ -17,7 +17,6 @@ namespace Graphic
 	class Wall;
 	class Bomb;
 	class PowerUp;
-	class CellBackground;
 	class ExplodedBomb;
 
 	class GraphicDrawerQt :
@@ -78,7 +77,6 @@ namespace Graphic
 		std::vector<Wall*> m_borderWalls;
 		const double m_minimumViewDistance;
 		const double m_minimumViewDistanceInPixel;
-		std::vector<CellBackground*> m_cellBackgrounds;
 		bool m_responsibleForOnePlayer;
 		unsigned int m_playerIDResponsibleFor;
 		bool m_responsibilityValid;

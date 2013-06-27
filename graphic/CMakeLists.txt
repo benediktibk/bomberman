@@ -14,7 +14,6 @@ set(GRAPHIC_SRC
 	wall.cpp
 	point.cpp
 	powerup.cpp
-	cellbackground.cpp
 	explodedbomb.cpp
 	svgrenderer.cpp
 )

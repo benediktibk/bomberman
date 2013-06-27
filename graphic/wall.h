@@ -24,7 +24,7 @@ namespace Graphic
 		void updateInternal(const Common::Point &position, double pixelPerMeter);
 
 	private:
-		QGraphicsItem *m_svgItem;
+		QGraphicsItem *m_graphicItem;
 	};
 }
 
