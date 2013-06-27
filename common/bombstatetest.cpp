@@ -52,14 +52,6 @@ void BombStateTest::setDestroyed_empty_hasChanged()
 	CPPUNIT_ASSERT(bomb.hasChanged());
 }
 
-void BombStateTest::getBombHeight_heightIs1()
-{
-	UniqueIdCreator id;
-	BombState bomb(id, 0, Point(), 1);
-
-	CPPUNIT_ASSERT_EQUAL(1.0, bomb.getHeight());
-}
-
 void BombStateTest::constructor_playerIDIs5_playerIDIs5()
 {
 	UniqueIdCreator id;
@@ -68,10 +60,10 @@ void BombStateTest::constructor_playerIDIs5_playerIDIs5()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)5, bomb.getPlayerID());
 }
 
-void BombStateTest::getBombWidth_widthIs1()
+void BombStateTest::getDimension_empty_1()
 {
 	UniqueIdCreator id;
 	BombState bomb(id, 0, Point(), 1);
 
-	CPPUNIT_ASSERT_EQUAL(1.0, bomb.getWidth());
+	CPPUNIT_ASSERT_EQUAL(1.0, bomb.getDimension());
 }

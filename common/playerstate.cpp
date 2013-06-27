@@ -13,8 +13,7 @@ PlayerState::PlayerState(UniqueIdCreator &creator) :
 	m_speed(2),
 	m_maximumSpeed(5),
 	m_speedIncreasement(1.0/2),
-	m_width(1),
-	m_height(1),
+	m_dimension(1),
 	m_playerId(creator.getId()),
 	m_creatorId(creator),
 	m_destructionRangeOfNewBombs(1),
@@ -144,24 +143,9 @@ bool PlayerState::isMoving() const
 	return m_direction != PlayerDirectionNone;
 }
 
-double PlayerState::getHeight() const
+double PlayerState::getDimension() const
 {
-	return m_height;
-}
-
-void PlayerState::setWidth(double value)
-{
-	m_width = value;
-}
-
-void PlayerState::setHeight(double value)
-{
-	m_height = value;
-}
-
-double PlayerState::getWidth() const
-{
-	return m_width;
+	return m_dimension;
 }
 
 void PlayerState::setMaxBombs(unsigned int maxBombs)
@@ -200,7 +184,7 @@ bool PlayerState::canPlayerPlaceBomb() const
 
 Point PlayerState::getCenterPosition() const
 {
-	return m_position + Point(m_width/2,m_height/2);
+	return m_position + Point(m_dimension/2,m_dimension/2);
 }
 
 void PlayerState::doNotCollideWith(const BombState *bomb)

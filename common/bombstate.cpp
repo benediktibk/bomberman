@@ -7,8 +7,7 @@ BombState::BombState(UniqueIdCreator &creator, unsigned int playerID, const Poin
 	m_playerID(playerID),
 	m_position(position),
 	m_lifeTime(initialLifeTime()),
-	m_width(1.0),
-	m_height(1.0),
+	m_dimension(1),
 	m_destructionRange(destructionRange),
 	m_bombId(creator.getId()),
 	m_creatorId(creator)
@@ -47,11 +46,6 @@ unsigned int BombState::getID() const
 	return m_bombId;
 }
 
-double BombState::getHeight() const
-{
-	return m_height;
-}
-
 unsigned int BombState::getPlayerID() const
 {
 	return m_playerID;
@@ -62,9 +56,9 @@ double BombState::initialLifeTime()
 	return 3;
 }
 
-double BombState::getWidth() const
+double BombState::getDimension() const
 {
-	return m_width;
+	return m_dimension;
 }
 
 void BombState::shouldBeDestroyed()

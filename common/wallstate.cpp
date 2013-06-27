@@ -7,8 +7,7 @@ WallState::WallState(UniqueIdCreator &creator, WallState::WallType wallType, con
 	m_wallId(creator.getId()),
 	m_creatorId(creator),
 	m_wallType(wallType),
-	m_width(1),
-	m_height(1)
+	m_dimension(1)
 { }
 
 WallState::~WallState()
@@ -34,14 +33,9 @@ void WallState::shouldBeDestroyed()
 WallState::WallType WallState::getWallType() const
 {
 	return m_wallType;
- }
-
-double WallState::getHeight() const
-{
-	return m_height;
 }
 
-double WallState::getWidth() const
+double WallState::getDimension() const
 {
-	return m_width;
+	return m_dimension;
 }

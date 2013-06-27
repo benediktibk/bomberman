@@ -69,13 +69,7 @@ const RouterGridField& RouterGrid::getField(const GridPoint &position) const
 void RouterGrid::updatePlayerFlags()
 {
 	removePlayerFlags();
-	vector<GridPoint> playerFields = getAllPlayerFields();
-
-	for (vector<GridPoint>::const_iterator i = playerFields.begin(); i != playerFields.end(); ++i)
-	{
-		RouterGridField &field = getFieldInternal(*i);
-		field.setPlayer(true);
-	}
+	setPlayerFlags();
 }
 
 RouterGridField& RouterGrid::getFieldInternal(const GridPoint &position)
@@ -89,9 +83,24 @@ RouterGridField& RouterGrid::getFieldInternal(const GridPoint &position)
 
 void RouterGrid::removePlayerFlags()
 {
-	for (unsigned int x = 0; x < m_width; ++x)
-		for (unsigned int y = 0; y < m_height; ++y)
-			m_fields[y][x].setPlayer(false);
+	for (vector<GridPoint>::const_iterator i = m_playerFields.begin(); i != m_playerFields.end(); ++i)
+	{
+		const GridPoint &position = *i;
+		m_fields[position.getY()][position.getX()].setPlayer(false);
+	}
+
+	m_playerFields.clear();
+}
+
+void RouterGrid::setPlayerFlags()
+{
+	m_playerFields = getAllPlayerFields();
+
+	for (vector<GridPoint>::const_iterator i = m_playerFields.begin(); i != m_playerFields.end(); ++i)
+	{
+		RouterGridField &field = getFieldInternal(*i);
+		field.setPlayer(true);
+	}
 }
 
 vector<GridPoint> RouterGrid::getAllPlayerFields() const

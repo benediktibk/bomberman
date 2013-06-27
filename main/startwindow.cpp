@@ -2,6 +2,7 @@
 #include "ui_startwindow.h"
 #include "mainwindow.h"
 #include <QStandardItemModel>
+#include <QMessageBox>
 
 using namespace std;
 using namespace Main;
@@ -14,6 +15,7 @@ StartWindow::StartWindow(bool enableOpenGL) :
 	connectButtons();
 	createTableView();
 	createSilder();
+	createComboBox();
 	if(enableOpenGL)
 		m_ui->openGlCheckBox->setChecked(true);
 	m_ui->singleRadioButton->setChecked(true);
@@ -27,6 +29,8 @@ void StartWindow::connectButtons()
 	connect(m_ui->closeGameButton, SIGNAL(clicked()), this, SLOT(closeGameClicked()));
 	connect(m_ui->singleRadioButton, SIGNAL(clicked()), this, SLOT(updateSilder()));
 	connect(m_ui->multiRadioButton, SIGNAL(clicked()), this, SLOT(updateSilder()));
+	connect(m_ui->controlButton, SIGNAL(clicked()), this, SLOT(controlClicked()));
+	connect(m_ui->readMeButton, SIGNAL(clicked()), this, SLOT(readMeClicked()));
 }
 
 void StartWindow::createTableView()
@@ -60,6 +64,13 @@ void StartWindow::createSilder()
 	m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->model()->index(0,3)).toInt()-1);
 }
 
+void StartWindow::createComboBox()
+{
+	m_ui->difficultyComboBox->addItem("easy");
+	m_ui->difficultyComboBox->addItem("medium");
+	m_ui->difficultyComboBox->addItem("hard");
+}
+
 void StartWindow::exitClicked()
 {
 	emit closeGameSignal();
@@ -77,7 +88,7 @@ void StartWindow::startClicked()
 	{
 		string showString = "You are playing " + m_levelList.getTextInField(0, m_ui->levelTableView->selectionModel()->selectedIndexes().first().row());
 		m_ui->infoLabel->setText(QString(showString.c_str()));
-		emit startGameSignal(m_ui->openGlCheckBox->isChecked(), m_selectedLevel.c_str());
+		emit startGameSignal(m_ui->openGlCheckBox->isChecked(), m_selectedLevel.c_str(), 1, m_ui->playerCountHorizontalSlider->value());
 	}
 }
 
@@ -111,4 +122,24 @@ void StartWindow::updateSilder()
 		m_ui->playerCountHorizontalSlider->setValue(0);
 	}
 
+}
+
+void StartWindow::readMeClicked()
+{
+	QMessageBox messageBox;
+	messageBox.setWindowTitle("README");
+	QSpacerItem* horizontalSpacer = new QSpacerItem(600, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+	QGridLayout* layout = (QGridLayout*)messageBox.layout();
+	layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
+	messageBox.setText("C++ Project, Group 1, SS2013");
+	messageBox.setDetailedText(Common::CSVParser("testfiles/README").getTextInFile().c_str());
+	messageBox.exec();
+}
+
+void StartWindow::controlClicked()
+{
+	QMessageBox messageBox;
+	messageBox.setWindowTitle("Control");
+	messageBox.setText("Player 1: \nPlayer 2:");
+	messageBox.exec();
 }

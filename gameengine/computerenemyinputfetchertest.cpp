@@ -139,7 +139,7 @@ void ComputerEnemyInputFetcherTest::createInputFetcher(const LevelDefinition &le
 	m_ownPlayer = 0;
 
 	m_grid = new Grid(level.getHeight(), level.getWidth());
-	m_gameState = new GameState(level, level.getPlayerStartPositionCount(), *m_playerIdCreator, *m_wallIdCreator);
+	m_gameState = new GameState(level, level.getPlayerStartPositionCount(), 0, *m_playerIdCreator, *m_wallIdCreator);
 	m_ownPlayer = &(m_gameState->getFirstPlayerState());
 	if (level.getPlayerStartPositionCount() > 1)
 		m_otherPlayer = &(m_gameState->getSecondPlayerState());

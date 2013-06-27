@@ -22,7 +22,7 @@ InputState ComputerEnemyInputFetcher::getInputState()
 {
 	m_inputState.setSpaceKeyNotPressed();
 
-	if (!m_gameState.isPlayerAlife(m_playerID))
+	if (!m_gameState.isPlayerAlive(m_playerID))
 		return m_inputState;
 
 	const PlayerState &player = m_gameState.getPlayerStateById(m_playerID);

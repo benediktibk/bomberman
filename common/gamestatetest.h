@@ -33,7 +33,7 @@ namespace Common
 		 CPPUNIT_TEST(getAllChangedPowerUps_onePowerUpAdedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1);
 		 CPPUNIT_TEST(resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged);
 		 CPPUNIT_TEST(resetChangedFlags_oneExplodedBombAdded_noChangedExplodedBombs);
-		 CPPUNIT_TEST(getAllPossiblePlayerIDs_onePlayerCreated_resultSizeIs1);
+		 CPPUNIT_TEST(getAllNotDestroyedPlayerIDs_onePlayerCreated_resultSizeIs1);
 		 CPPUNIT_TEST(constructor_3players_playerCountIs3);
 		 CPPUNIT_TEST(constructor_threePlayersOnDifferentPositions_allPlayersHaveDifferentPositions);
 		 CPPUNIT_TEST(setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBombWithNoLifeTime_resultSizeIs1);
@@ -47,9 +47,18 @@ namespace Common
 		 CPPUNIT_TEST(getAllPowerUpsWithDestroyedFlag_twoPowerUpsAddedOneDestroyed_resultIs1);
 		 CPPUNIT_TEST(reduceAllBombsLifeTime_oneExplodedBomb_explodedBombsLifeTimeDecreased);
 		 CPPUNIT_TEST(removeAllObjectsWithDestroyedFlag_oneDestroyedExplodedBomb_explodedBombCountIs0);
-		 CPPUNIT_TEST(isPlayersAlife_OnePlayerNotDestroyed_resultIsTrue);
-		 CPPUNIT_TEST(isPlayersAlife_OnePlayerIsDestroyed_resultIsFalse);
-		 CPPUNIT_TEST(isPlayersAlife_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse);
+		 CPPUNIT_TEST(isPlayersAlive_OnePlayerNotDestroyed_resultIsTrue);
+		 CPPUNIT_TEST(isPlayersAlive_OnePlayerIsDestroyed_resultIsFalse);
+		 CPPUNIT_TEST(isPlayersAlive_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse);
+		 CPPUNIT_TEST(constructor_twoHumanPlayersAndThreeComputerEnemies_playerCountIs5);
+		 CPPUNIT_TEST(constructor_twoHumanPlayersAndThreeComputerEnemies_twoHumanPlayerIDs);
+		 CPPUNIT_TEST(constructor_twoHumanPlayersAndThreeComputerEnemies_threeComputerEnemyIDs);
+		 CPPUNIT_TEST(getAllNotDestroyedHumanPlayerIDs_oneOfTwoHumanPlayersDestroyed_resultSizeIs1);
+		 CPPUNIT_TEST(getAllNotDestroyedComputerEnemyIDs_oneOfThreeComputerEnemiesDestroyed_resultSizeIs2);
+		 CPPUNIT_TEST(isHumanPlayerID_humanPlayerID_true);
+		 CPPUNIT_TEST(isHumanPlayerID_computerEnemyID_false);
+		 CPPUNIT_TEST(getIndexOfHumanPlayer_humanPlayerID_smallerThanHumanPlayerCount);
+		 CPPUNIT_TEST(getIndexOfComputerEnemy_computerEnemyID_smallerThanEnemyCount);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -75,7 +84,7 @@ namespace Common
 		 void getAllChangedPowerUps_onePowerUpAdedAndChangedFlagsResetAndAnotherOneAdded_resultSizeIs1();
 		 void resetChangedFlags_onePowerUpAdded_powerUpIsNotChanged();
 		 void resetChangedFlags_oneExplodedBombAdded_noChangedExplodedBombs();
-		 void getAllPossiblePlayerIDs_onePlayerCreated_resultSizeIs1();
+		 void getAllNotDestroyedPlayerIDs_onePlayerCreated_resultSizeIs1();
 		 void constructor_3players_playerCountIs3();
 		 void constructor_threePlayersOnDifferentPositions_allPlayersHaveDifferentPositions();
 		 void setAllBombsWithNoLifeTimeDestroyedAndAddExplodedBombs_oneBombWithNoLifeTime_resultSizeIs1();
@@ -89,9 +98,18 @@ namespace Common
 		 void getAllPowerUpsWithDestroyedFlag_twoPowerUpsAddedOneDestroyed_resultIs1();
 		 void reduceAllBombsLifeTime_oneExplodedBomb_explodedBombsLifeTimeDecreased();
 		 void removeAllObjectsWithDestroyedFlag_oneDestroyedExplodedBomb_explodedBombCountIs0();
-		 void isPlayersAlife_OnePlayerNotDestroyed_resultIsTrue();
-		 void isPlayersAlife_OnePlayerIsDestroyed_resultIsFalse();
-		 void isPlayersAlife_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse();
+		 void isPlayersAlive_OnePlayerNotDestroyed_resultIsTrue();
+		 void isPlayersAlive_OnePlayerIsDestroyed_resultIsFalse();
+		 void isPlayersAlive_OnePlayerNotDestroyedAskForPlayerNotInList_resultIsFalse();
+		 void constructor_twoHumanPlayersAndThreeComputerEnemies_playerCountIs5();
+		 void constructor_twoHumanPlayersAndThreeComputerEnemies_twoHumanPlayerIDs();
+		 void constructor_twoHumanPlayersAndThreeComputerEnemies_threeComputerEnemyIDs();
+		 void getAllNotDestroyedHumanPlayerIDs_oneOfTwoHumanPlayersDestroyed_resultSizeIs1();
+		 void getAllNotDestroyedComputerEnemyIDs_oneOfThreeComputerEnemiesDestroyed_resultSizeIs2();
+		 void isHumanPlayerID_humanPlayerID_true();
+		 void isHumanPlayerID_computerEnemyID_false();
+		 void getIndexOfHumanPlayer_humanPlayerID_smallerThanHumanPlayerCount();
+		 void getIndexOfComputerEnemy_computerEnemyID_smallerThanEnemyCount();
 
 	private:
 		 UniqueIdCreator m_playerIDCreator;

@@ -7,6 +7,7 @@
 
 using namespace Common;
 using namespace Main;
+using namespace std;
 
 GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, GraphicDrawer &graphicDrawer) :
 	m_inputFetcher(inputFetcher),
@@ -17,10 +18,16 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 	m_onceStarted(false),
 	m_maximumFramesPerSecond(60),
 	m_minimumTimeStep(1.0/m_maximumFramesPerSecond),
+	m_weightOfOldAverage(9.0/10),
+	m_weightOfNewTime(1 - m_weightOfOldAverage),
+	m_movingAverageOfTimeStep(m_minimumTimeStep),
 	m_framesPerSecond(0),
-	m_percentageOfTimeNotSleeping(0),
-	m_computerEnemyInputFetcher(m_gameEngine.getGrid(), m_gameEngine.getGameState(), m_gameEngine.getAllPossiblePlayerIDs()[1])
+	m_computerEnemyInputFetcher()
 {
+	const GameState &gameState = m_gameEngine.getGameState();
+	vector<unsigned int> computerEnemyIDs = gameState.getAllNotDestroyedComputerEnemyIDs();
+	for (size_t i = 0; i < computerEnemyIDs.size(); ++i)
+		m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcher(m_gameEngine.getGrid(), gameState, computerEnemyIDs[i]));
 	setConstructionFinished();
 }
 
@@ -29,6 +36,10 @@ GameLoop::~GameLoop()
 	stop();
 	if (m_onceStarted)
 		waitTillFinished();
+
+	for (vector<GameEngine::ComputerEnemyInputFetcher*>::iterator i = m_computerEnemyInputFetcher.begin(); i != m_computerEnemyInputFetcher.end(); ++i)
+		delete *i;
+	m_computerEnemyInputFetcher.clear();
 }
 
 void GameLoop::start()
@@ -63,19 +74,11 @@ bool GameLoop::isPaused()
 	return paused;
 }
 
-unsigned int GameLoop::getFramesPerSecond()
+double GameLoop::getFramesPerSecond()
 {
-	unsigned int result;
+	double result;
 	m_performanceInformationMutex.lock();
 	result = m_framesPerSecond;
-	m_performanceInformationMutex.unlock();
-	return result;
-}
-
-double GameLoop::percentageOfTimeNotSleeping()
-{
-	m_performanceInformationMutex.lock();
-	double result = m_percentageOfTimeNotSleeping;
 	m_performanceInformationMutex.unlock();
 	return result;
 }
@@ -87,34 +90,27 @@ void GameLoop::execute()
 	m_start.wait();
 	m_start.reset();
 	StopWatch watch;
-	StopWatch watchRealCalculatingTime;
-	double realCalculatingTime = 0;
-	std::vector<unsigned int> playerIDs = m_gameEngine.getAllPossiblePlayerIDs();
+	const Common::GameState &gameState = m_gameEngine.getGameState();
+	vector<unsigned int> computerEnemyIDs = gameState.getAllNotDestroyedComputerEnemyIDs();
+	vector<unsigned int> playerIDs = gameState.getAllNotDestroyedPlayerIDs();
     //m_inputFetcher.setPlayerIDs(playerIDs);
 
 	while (run)
 	{
 		double timeWithoutWait = watch.getTimeAndRestart();
-		double timeWaited = 0;
-		double time = 0;
+		double time = timeWithoutWait;
+		double timeToWait = m_minimumTimeStep - timeWithoutWait;
 
-		if (timeWithoutWait < m_minimumTimeStep)
+		if (timeToWait > 0)
 		{
 			StopWatch watchForWait;
 			watchForWait.restart();
-			usleep((m_minimumTimeStep - timeWithoutWait)*1000000);
-			timeWaited=(m_minimumTimeStep - timeWithoutWait);
-			time = timeWaited + timeWithoutWait;
+			usleep(timeToWait*1000000);
+			time += timeToWait;
 		}
-		else
-			time = timeWithoutWait;
 
-		m_performanceInformationMutex.lock();
-		m_framesPerSecond = static_cast<unsigned int>(1/time);
-		m_percentageOfTimeNotSleeping = realCalculatingTime/time;
-		m_performanceInformationMutex.unlock();
-
-		watchRealCalculatingTime.restart();
+		updateMovingAverageOfTime(time);
+		updateFPS();
 
 		/*!
 		 * @todo Remove this code and feed the input states direct into
@@ -123,43 +119,23 @@ void GameLoop::execute()
 		 */
 
 		// begin of temporary code
-		std::map<unsigned int, InputState> inputStates;
+		map<unsigned int, InputState> inputStates;
 		inputStates[playerIDs.front()] = m_inputFetcher.getInputState(); 
-		inputStates[playerIDs.back()] = m_computerEnemyInputFetcher.getInputState();
+		for (size_t i = 0; i < computerEnemyIDs.size(); ++i)
+			inputStates[computerEnemyIDs[i]] = m_computerEnemyInputFetcher[i]->getInputState();
         m_gameEngine.updateGameState(inputStates, time);
         // allPlayerInputFetcher input(m_inputFetcher,m_computerEnemyInputFetcherVECTOR);
 		// end of temporary code
 
-		/*!
-		 * @todo catchPlayerInformation should only get PlayerIDs of local Players, not all.
-		 */
+		m_graphicDrawer.draw(gameState);
 
-		catchPlayerInformation(m_gameEngine.getAllPossiblePlayerIDs());
-
-		m_graphicDrawer.draw(m_gameEngine.getGameState());
-		realCalculatingTime = watchRealCalculatingTime.getTimeAndRestart();
-
-		m_pausedMutex.lock();
-		bool pause = m_paused;
-		m_pausedMutex.unlock();
-
-		if (pause)
-		{
-			m_start.wait();
-			m_start.reset();
-		}
-
-		if(m_gameEngine.getAllPossiblePlayerIDs().size() <= 1)
-			run = false;
-
-		m_stoppedMutex.lock();
-		if (m_stopped)
-			run = false;
-		m_stoppedMutex.unlock();
+		catchPlayerInformation(gameState.getAllNotDestroyedHumanPlayerIDs());
+		pauseIfNecessary();
+		run = !isStopped() && !gameState.isGameFinished();
 	}
 }
 
-void GameLoop::catchPlayerInformation(std::vector<unsigned int> playerIDs)
+void GameLoop::catchPlayerInformation(const vector<unsigned int> &playerIDs)
 {
 	m_playerInformationMutex.lock();
 	m_playerInformation.clear();
@@ -173,11 +149,43 @@ void GameLoop::catchPlayerInformation(std::vector<unsigned int> playerIDs)
 	m_playerInformationMutex.unlock();
 }
 
-std::vector<unsigned int> GameLoop::getPlayerInformation()
+void GameLoop::updateMovingAverageOfTime(double time)
+{
+	m_movingAverageOfTimeStep = m_movingAverageOfTimeStep*m_weightOfOldAverage + time*m_weightOfNewTime;
+}
+
+void GameLoop::updateFPS()
+{
+	m_performanceInformationMutex.lock();
+	m_framesPerSecond = 1/m_movingAverageOfTimeStep;
+	m_performanceInformationMutex.unlock();
+}
+
+bool GameLoop::isStopped()
+{
+	m_stoppedMutex.lock();
+	bool result = m_stopped;
+	m_stoppedMutex.unlock();
+	return result;
+}
+
+vector<unsigned int> GameLoop::getPlayerInformation()
 {
 	m_playerInformationMutex.lock();
-	std::vector<unsigned int> result;
-	result = m_playerInformation;
+	vector<unsigned int> result = m_playerInformation;
 	m_playerInformationMutex.unlock();
 	return result;
+}
+
+void GameLoop::pauseIfNecessary()
+{
+	m_pausedMutex.lock();
+	bool pause = m_paused;
+	m_pausedMutex.unlock();
+
+	if (pause)
+	{
+		m_start.wait();
+		m_start.reset();
+	}
 }

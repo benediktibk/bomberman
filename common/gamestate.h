@@ -19,7 +19,7 @@ namespace Common
 	class GameState
 	{
 	public:
-		GameState(const LevelDefinition &level, unsigned int playerCount, UniqueIdCreator &playerIDCreator, UniqueIdCreator &wallIDCreator);
+		GameState(const LevelDefinition &level, unsigned int humanPlayerCount, unsigned int computerEnemyCount, UniqueIdCreator &playerIDCreator, UniqueIdCreator &wallIDCreator);
 		~GameState();
 
 		PlayerState& getFirstPlayerState();
@@ -28,7 +28,13 @@ namespace Common
 		const PlayerState& getSecondPlayerState() const;
 		PlayerState& getPlayerStateById(unsigned int playerId);
 		const PlayerState& getPlayerStateById(unsigned int playerId) const;
-		std::vector<unsigned int> getAllPossiblePlayerIDs() const;
+		std::vector<unsigned int> getAllNotDestroyedPlayerIDs() const;
+		std::vector<unsigned int> getAllNotDestroyedHumanPlayerIDs() const;
+		std::vector<unsigned int> getAllNotDestroyedComputerEnemyIDs() const;
+		bool isHumanPlayerID(unsigned int playerID) const;
+		unsigned int getIndexOfHumanPlayer(unsigned int playerID) const;
+		unsigned int getIndexOfComputerEnemy(unsigned int playerID) const;
+		bool isGameFinished() const;
 		const std::vector<const PlayerState*>& getAllPlayers() const;
 		std::vector<const WallState*> getAllChangedWalls() const;
 		size_t getWallCount() const;
@@ -61,7 +67,7 @@ namespace Common
 		std::vector<const WallState*> getAllWallsWithDestroyedFlag() const;
 		std::vector<const PowerUpState*> getAllPowerUpsWithDestroyedFlag() const;
 		size_t getExplodedBombCount() const;
-		bool isPlayerAlife(unsigned int playerId) const;
+		bool isPlayerAlive(unsigned int playerId) const;
 
 	private:
 		void eraseBomb(size_t position);
@@ -85,6 +91,10 @@ namespace Common
 		std::map<const ExplodedBombState*, const BombState*> m_explodedBombToBomb;
 		unsigned int m_height;
 		unsigned int m_width;
+		unsigned int m_originalHumanPlayerCount;
+		unsigned int m_originalComputerEnemyCount;
+		std::vector<unsigned int> m_originalHumanPlayerIDs;
+		std::vector<unsigned int> m_originalComputerEnemyIDs;
 	};
 }
 

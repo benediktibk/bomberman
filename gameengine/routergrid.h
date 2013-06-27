@@ -30,6 +30,7 @@ namespace GameEngine
 	private:
 		RouterGridField& getFieldInternal(const Common::GridPoint &position);
 		void removePlayerFlags();
+		void setPlayerFlags();
 		std::vector<Common::GridPoint> getAllPlayerFields() const;
 
 	private:
@@ -39,6 +40,7 @@ namespace GameEngine
 		unsigned int m_height;
 		GridFieldMatrix m_fields;
 		unsigned int m_ownPlayerId;
+		std::vector<Common::GridPoint> m_playerFields;
 	};
 }
 

@@ -10,7 +10,7 @@ GameEngineMock::GameEngineMock() :
 {
 	m_level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	m_level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 0);
-	m_state = new GameState(m_level, 2, m_idCreator, m_idCreator);
+	m_state = new GameState(m_level, 2, 0, m_idCreator, m_idCreator);
 }
 
 GameEngineMock::~GameEngineMock()
@@ -31,11 +31,6 @@ const GameState &GameEngineMock::getGameState() const
 Grid &GameEngineMock::getGrid()
 {
 	return m_grid;
-}
-
-vector<unsigned int> GameEngineMock::getAllPossiblePlayerIDs() const
-{
-	return m_state->getAllPossiblePlayerIDs();
 }
 
 unsigned int GameEngineMock::getCallsToUpdateGameState() const

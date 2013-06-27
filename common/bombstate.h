@@ -21,8 +21,7 @@ namespace Common
 		double getLifeTime() const;
 		unsigned int getDestructionRange() const;
 		unsigned int getID() const;
-		double getWidth() const;
-		double getHeight() const;
+		double getDimension() const;
 		unsigned int getPlayerID() const;
 
 	public:
@@ -40,8 +39,7 @@ namespace Common
 		const unsigned int m_playerID;
 		const Point m_position;
 		double m_lifeTime;
-		const double m_width;
-		const double m_height;
+		const double m_dimension;
 		const unsigned int m_destructionRange;
 		const unsigned int m_bombId;
 		UniqueIdCreator &m_creatorId;

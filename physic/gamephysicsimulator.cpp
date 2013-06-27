@@ -35,7 +35,7 @@ GamePhysicSimulator::~GamePhysicSimulator()
 
 void GamePhysicSimulator::simulateStep(GameState &game, double time)
 {
-	vector<unsigned int> playerIDs = game.getAllPossiblePlayerIDs();
+	vector<unsigned int> playerIDs = game.getAllNotDestroyedPlayerIDs();
 
 	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
 	{

@@ -2,59 +2,72 @@
 #define GRAPHIC_SVGRENDERER_H
 
 #include "common/powerupstate.h"
+#include <vector>
+#include <string>
 
-class QGraphicsSvgItem;
-class QSvgRenderer;
+class QGraphicsItem;
+class QPixmap;
+
+namespace Common
+{
+	class GameState;
+}
 
 namespace Graphic
 {
-class SvgRenderer
-{
-public:
-	SvgRenderer(const double pixelPerMeter);
-	QGraphicsSvgItem *getNewPlayerStandingItem();
-	QGraphicsSvgItem *getNewPlayerMovingLeftItem();
-	QGraphicsSvgItem *getNewPlayerMovingUpItem();
-	QGraphicsSvgItem *getNewPlayerMovingRightItem();
-	QGraphicsSvgItem *getNewPlayerMovingDownItem();
-	QGraphicsSvgItem *getNewBombItem();
-	QGraphicsSvgItem *getNewSolidWallItem();
-	QGraphicsSvgItem *getNewLooseWallItem();
-	QGraphicsSvgItem *getNewPowerUpItem(Common::PowerUpType powerUpType = Common::PowerUpTypeNone);
-	QGraphicsSvgItem *getNewCellBackgroundItem();
-	QGraphicsSvgItem *getNewExplodedBombCenterItem();
-	QGraphicsSvgItem *getNewExplodedBombFlameItem();
-	QGraphicsSvgItem *getNewExplodedBombEndItem();
-	~SvgRenderer();
+	class SvgRenderer
+	{
+	public:
+		SvgRenderer(const double pixelPerMeter, const Common::GameState &gameState);
+		~SvgRenderer();
 
-private:
-	void renderPlayerItems();
-	void renderBombItem();
-	void renderWallItems();
-	void renderPowerUpItems();
-	void renderExplodedBombItems();
-	void renderCellBackgroundItem();
+		QGraphicsItem* getNewPlayerStandingItem(unsigned int playerID, double dimension);
+		QGraphicsItem* getNewPlayerMovingLeftItem(unsigned int playerId, double dimension);
+		QGraphicsItem* getNewPlayerMovingUpItem(unsigned int playerId, double dimension);
+		QGraphicsItem* getNewPlayerMovingRightItem(unsigned int playerId, double dimension);
+		QGraphicsItem* getNewPlayerMovingDownItem(unsigned int playerId, double dimension);
+		QGraphicsItem* getNewBombItem(double dimension);
+		QGraphicsItem* getNewSolidWallItem(double dimension);
+		QGraphicsItem* getNewLooseWallItem(double dimension);
+		QGraphicsItem* getNewPowerUpItem(Common::PowerUpType powerUpType, double dimension);
+		QGraphicsItem* getNewExplodedBombCenterItem(double dimension);
+		QGraphicsItem* getNewExplodedBombFlameItem(double dimension);
+		QGraphicsItem* getNewExplodedBombEndItem(double dimension);
 
-private:
-	const double m_pixelPerMeter;
-	QSvgRenderer *m_playerStandingRenderer;
-	QSvgRenderer *m_playerMovingLeftRenderer;
-	QSvgRenderer *m_playerMovingUpRenderer;
-	QSvgRenderer *m_playerMovingRightRenderer;
-	QSvgRenderer *m_playerMovingDownRenderer;
-	QSvgRenderer *m_bombRenderer;
-	QSvgRenderer *m_wallSolidRenderer;
-	QSvgRenderer *m_wallLooseRenderer;
-	QSvgRenderer *m_powerUpRenderer;
-	QSvgRenderer *m_powerUpMaxBombRenderer;
-	QSvgRenderer *m_powerUpMaxVelocityRenderer;
-	QSvgRenderer *m_powerUpMaxBombRangeRenderer;
-	QSvgRenderer *m_cellBackgroundRenderer;
-	QSvgRenderer *m_explodedBombCenterRenderer;
-	QSvgRenderer *m_explodedBombFlameRenderer;
-	QSvgRenderer *m_explodedBombEndRenderer;
+	private:
+		void renderPlayerItems();
+		void renderBombItem();
+		void renderWallItems();
+		void renderPowerUpItems();
+		void renderExplodedBombItems();
+		void clearPixmapList(std::vector<QPixmap*> &list);
+		QGraphicsItem* getNewGraphicsItemFromRenderer(const std::vector<QPixmap*> &list, unsigned int index, double dimension) const;
+		QPixmap* createPixmapFromSvg(const std::string &file) const;
 
-};
+	private:
+		const double m_pixelPerMeter;
+		const Common::GameState &m_gameState;
+		std::vector<QPixmap*> m_humanPlayerStanding;
+		std::vector<QPixmap*> m_computerEnemyStanding;
+		std::vector<QPixmap*> m_humanPlayerMovingLeft;
+		std::vector<QPixmap*> m_computerEnemyMovingLeft;
+		std::vector<QPixmap*> m_humanPlayerMovingUp;
+		std::vector<QPixmap*> m_computerEnemyMovingUp;
+		std::vector<QPixmap*> m_humanPlayerMovingRight;
+		std::vector<QPixmap*> m_computerEnemyMovingRight;
+		std::vector<QPixmap*> m_humanPlayerMovingDown;
+		std::vector<QPixmap*> m_computerEnemyMovingDown;
+		QPixmap *m_bomb;
+		QPixmap *m_wallSolid;
+		QPixmap *m_wallLoose;
+		QPixmap *m_powerUp;
+		QPixmap *m_powerUpMaxBomb;
+		QPixmap *m_powerUpMaxVelocity;
+		QPixmap *m_powerUpMaxBombRange;
+		QPixmap *m_explodedBombCenter;
+		QPixmap *m_explodedBombFlame;
+		QPixmap *m_explodedBombEnd;
+	};
 }
 
 #endif

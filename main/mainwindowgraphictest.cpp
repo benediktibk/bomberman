@@ -55,7 +55,8 @@ void MainWindowGraphicTest::drawState1()
 	UniqueIdCreator playerIDCreator;
 	UniqueIdCreator bombIDCreator;
 	LevelDefinition level;
-	GameState gameState(level, 1, playerIDCreator, wallIDCreator);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	GameState gameState(level, 1, 0, playerIDCreator, wallIDCreator);
 	WallState *wallOne = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(3, 4));
 	WallState *wallTwo = new WallState(wallIDCreator, WallState::WallTypeSolid, Point(2, 3));
 	WallState *wallThree = new WallState(wallIDCreator, WallState::WallTypeLoose, Point(1, 5));
@@ -75,11 +76,16 @@ void MainWindowGraphicTest::drawState2()
 {
 	UniqueIdCreator wallIDCreator;
 	UniqueIdCreator playerIDCreator;
-	LevelDefinition level;
+	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 1, 1);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 2, 2);
-	GameState gameState(level, 3, playerIDCreator, wallIDCreator);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 3);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 5, 5);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 6, 6);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 7, 7);
+	GameState gameState(level, 3, 4, playerIDCreator, wallIDCreator);
 
 	drawState(gameState);
 }
@@ -90,7 +96,7 @@ void MainWindowGraphicTest::drawState3()
 	UniqueIdCreator playerIDCreator;
 	UniqueIdCreator powerUpIDCreator;
 	LevelDefinition level;
-	GameState gameState(level, 1, playerIDCreator, wallIDCreator);
+	GameState gameState(level, 1, 0, playerIDCreator, wallIDCreator);
 
 	PowerUpState *powerUp = new PowerUpState(powerUpIDCreator, Point(0, 1));
 	gameState.addPowerUp(powerUp);
@@ -105,7 +111,7 @@ void MainWindowGraphicTest::drawState4()
 	UniqueIdCreator bombIDCreator;
 	LevelDefinition level(10, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	GameState gameState(level, 1, playerIDCreator, wallIDCreator);
+	GameState gameState(level, 1, 0, playerIDCreator, wallIDCreator);
 	BombState *bomb = new BombState(bombIDCreator, 0, Point(4, 4), 4);
 
 	gameState.addBomb(bomb);
@@ -124,7 +130,7 @@ void MainWindowGraphicTest::drawState(const GameState &game)
 {
 	delete m_drawer;
 	m_drawer = new Graphic::GraphicDrawerQt(*(m_ui->graphicsView), false);
-	vector<unsigned int> playerIDs = game.getAllPossiblePlayerIDs();
+	vector<unsigned int> playerIDs = game.getAllNotDestroyedPlayerIDs();
 	m_drawer->setResponsibleForPlayers(playerIDs);
 	m_drawer->draw(game);
 }

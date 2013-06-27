@@ -29,8 +29,7 @@ namespace Common
 		unsigned int getDestructionRangeDown() const;
 		void setDestroyedIfNoLifeTimeLeft();
 		const Point& getPosition() const;
-		double getWidth() const;
-		double getHeight() const;
+		double getDimension() const;
 
 	public:
 		static double initialLifeTime();
@@ -48,8 +47,7 @@ namespace Common
 		unsigned int m_destructionRangeUp;
 		unsigned int m_destructionRangeRight;
 		unsigned int m_destructionRangeDown;
-		double m_height;
-		double m_width;
+		const double m_dimension;
 	};
 }
 

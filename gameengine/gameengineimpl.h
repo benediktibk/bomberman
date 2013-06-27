@@ -22,13 +22,12 @@ namespace GameEngine
 			public Common::GameEngine
 	{
 	public:
-		GameEngineImpl(const Common::LevelDefinition &level, unsigned int playerCount);
+		GameEngineImpl(const Common::LevelDefinition &level, unsigned int humanPlayerCount, unsigned int computerEnemyCount);
 		virtual ~GameEngineImpl();
 
 		virtual void updateGameState(const std::map<unsigned int, Common::InputState> &inputStates, double time);
 		virtual Common::Grid &getGrid();
 		virtual const Common::GameState& getGameState() const;
-		virtual std::vector<unsigned int> getAllPossiblePlayerIDs() const;
 		Common::GameState& getGameState();
 		double getTimeTillOnePlayerReachesGridPoint() const;
 		double getTimeTillPlayerReachesGridPoint(const Common::PlayerState &player) const;

@@ -60,7 +60,7 @@ void MainWindow::draw(const Common::GameState &gameState)
 	m_gameStartMutex.unlock();
 }
 
-void MainWindow::startGame(bool enableOpenGL, const char* levelname)
+void MainWindow::startGame(bool enableOpenGL, const char* levelname, unsigned int humanPlayerCount, unsigned int computerEnemyCount)
 {
 	m_ui->pauseButton->setText(tr("pause"));
 	m_gameStartMutex.lock();
@@ -75,7 +75,8 @@ void MainWindow::startGame(bool enableOpenGL, const char* levelname)
 		emit levelBuildingNotCorectSignal();
 		return;
 	}
-	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, 2);
+
+	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, humanPlayerCount, computerEnemyCount);
 	m_gameLoop = new GameLoop(*this, *m_gameEngine, *this);
 	m_enableOpenGL = enableOpenGL;
 	m_gameStartMutex.lock();
@@ -83,9 +84,8 @@ void MainWindow::startGame(bool enableOpenGL, const char* levelname)
 	m_gameStartMutex.unlock();
 
 	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), m_enableOpenGL);
-	vector<unsigned int> playerIDs = m_gameEngine->getAllPossiblePlayerIDs();
-	vector<unsigned int> playerIDsToShow;
-	playerIDsToShow.push_back(playerIDs.front());
+	const Common::GameState &gameState = m_gameEngine->getGameState();
+	vector<unsigned int> playerIDsToShow = gameState.getAllNotDestroyedHumanPlayerIDs();
 	setResponsibleForPlayers(playerIDsToShow);
 
 	m_gameLoop->start();
@@ -108,22 +108,13 @@ void MainWindow::updateUserInfo()
 
 void MainWindow::updateStatusBar()
 {
-	QString messageTemplate = QString("%1 fps");
-
-	if (!m_enableOpenGL)
-		messageTemplate += QString(", %2\% of time calculating");
-
 	if(!m_gameStarted)
 		return;
 
+	QString messageTemplate = QString("%1 fps");
 	double framesPerSecond = m_gameLoop->getFramesPerSecond();
-	double percentageOfTimeNotSleeping = m_gameLoop->percentageOfTimeNotSleeping() * 100;
-	QString framesPerSecondString = QString().setNum(framesPerSecond, 'f', 0);
-	QString percentageOfTimeNotSleepingString = QString().setNum(percentageOfTimeNotSleeping, 'f', 0);
+	QString framesPerSecondString = QString().setNum(framesPerSecond, 'f', 1);
 	QString completeMessage(messageTemplate.arg(framesPerSecondString));
-
-	if (!m_enableOpenGL)
-		completeMessage = completeMessage.arg(percentageOfTimeNotSleepingString);
 
 	m_ui->statusBar->showMessage(completeMessage);
 }

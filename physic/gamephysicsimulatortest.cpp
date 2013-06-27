@@ -11,7 +11,7 @@ void GamePhysicSimulatorTest::simulateStep_movePlayerTowardsWall_playerCollidesW
 	LevelDefinition level(5, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 3, 0);
-	GameState gameState(level, 1, m_playerIDCreator, m_wallIDCreator);
+	GameState gameState(level, 1, 0, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &player = gameState.getFirstPlayerState();
 	GamePhysicSimulator simulator(level);
 	player.setDirectionRight();
@@ -28,7 +28,7 @@ void GamePhysicSimulatorTest::simulateStep_movePlayerTowardsBomb_playerCollidesW
 {
 	LevelDefinition level(5, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-	GameState gameState(level, 1, m_playerIDCreator, m_wallIDCreator);
+	GameState gameState(level, 1, 0, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &player = gameState.getFirstPlayerState();
 	GamePhysicSimulator simulator(level);
 	player.setDirectionRight();
@@ -48,7 +48,7 @@ void GamePhysicSimulatorTest::simulateStep_twoPlayersAndOneMovesTowardsTheOther_
 	LevelDefinition level(5, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 0);
-	GameState gameState(level, 2, m_playerIDCreator, m_wallIDCreator);
+	GameState gameState(level, 2, 0, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &playerOne = gameState.getFirstPlayerState();
 	PlayerState &playerTwo = gameState.getSecondPlayerState();
 	GamePhysicSimulator simulator(level);
@@ -69,7 +69,7 @@ void GamePhysicSimulatorTest::simulateStep_twoPlayersAndOneMovesTowardsTheOther_
 	LevelDefinition level(5, 10);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 3, 0);
-	GameState gameState(level, 2, m_playerIDCreator, m_wallIDCreator);
+	GameState gameState(level, 2, 0, m_playerIDCreator, m_wallIDCreator);
 	PlayerState &playerOne = gameState.getFirstPlayerState();
 	PlayerState &playerTwo = gameState.getSecondPlayerState();
 	GamePhysicSimulator simulator(level);
