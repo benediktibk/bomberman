@@ -137,14 +137,15 @@ void GameLoopTest::getFramesPerSecond_running_60()
 	GameEngineStub gameEngine;
 	GraphicDrawerStub graphicDrawer;
 	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
-
 	gameLoop->start();
 	usleep(1000*100);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(60, gameLoop->getFramesPerSecond(), 1);
+	double framesPerSecond = gameLoop->getFramesPerSecond();
+
 	gameLoop->stop();
 	gameLoop->waitTillFinished();
 	delete gameLoop;
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(60, framesPerSecond, 1);
 }
 
 void GameLoopTest::pause_gameAlreadyRunSomeExecutionsAndWaitOf100ms_callsToMocksDidnotIncrease()

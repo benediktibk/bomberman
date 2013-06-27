@@ -169,6 +169,11 @@ unsigned int GameState::getIndexOfComputerEnemy(unsigned int playerID) const
 	return position - m_originalComputerEnemyIDs.begin();
 }
 
+bool GameState::isGameFinished() const
+{
+	return m_players.size() <= 1;
+}
+
 const std::vector<const PlayerState *> &GameState::getAllPlayers() const
 {
 	return m_playersConst;

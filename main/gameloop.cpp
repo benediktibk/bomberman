@@ -18,6 +18,9 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 	m_onceStarted(false),
 	m_maximumFramesPerSecond(60),
 	m_minimumTimeStep(1.0/m_maximumFramesPerSecond),
+	m_weightOfOldAverage(9.0/10),
+	m_weightOfNewTime(1 - m_weightOfOldAverage),
+	m_movingAverageOfTimeStep(m_minimumTimeStep),
 	m_framesPerSecond(0),
 	m_computerEnemyInputFetcher(m_gameEngine.getGrid(), m_gameEngine.getGameState(), m_gameEngine.getGameState().getSecondPlayerState().getId())
 {
@@ -63,9 +66,9 @@ bool GameLoop::isPaused()
 	return paused;
 }
 
-unsigned int GameLoop::getFramesPerSecond()
+double GameLoop::getFramesPerSecond()
 {
-	unsigned int result;
+	double result;
 	m_performanceInformationMutex.lock();
 	result = m_framesPerSecond;
 	m_performanceInformationMutex.unlock();
@@ -85,21 +88,19 @@ void GameLoop::execute()
 	while (run)
 	{
 		double timeWithoutWait = watch.getTimeAndRestart();
-		double timeWaited = 0;
 		double time = timeWithoutWait;
+		double timeToWait = m_minimumTimeStep - timeWithoutWait;
 
-		if (timeWithoutWait < m_minimumTimeStep)
+		if (timeToWait > 0)
 		{
 			StopWatch watchForWait;
 			watchForWait.restart();
-			timeWaited = m_minimumTimeStep - timeWithoutWait;
-			usleep(timeWaited*1000000);
-			time += timeWaited;
+			usleep(timeToWait*1000000);
+			time += timeToWait;
 		}
 
-		m_performanceInformationMutex.lock();
-		m_framesPerSecond = static_cast<unsigned int>(1/time);
-		m_performanceInformationMutex.unlock();
+		updateMovingAverageOfTime(time);
+		updateFPS();
 
 		/*!
 		 * @todo Remove this code and feed the input states direct into
@@ -114,31 +115,11 @@ void GameLoop::execute()
 		m_gameEngine.updateGameState(inputStates, time);
 		// end of temporary code
 
-		/*!
-		 * @todo catchPlayerInformation should only get PlayerIDs of local Players, not all.
-		 */
-
-		catchPlayerInformation(gameState.getAllNotDestroyedHumanPlayerIDs());
-
 		m_graphicDrawer.draw(gameState);
 
-		m_pausedMutex.lock();
-		bool pause = m_paused;
-		m_pausedMutex.unlock();
-
-		if (pause)
-		{
-			m_start.wait();
-			m_start.reset();
-		}
-
-		if(gameState.getAllNotDestroyedPlayerIDs().size() <= 1)
-			run = false;
-
-		m_stoppedMutex.lock();
-		if (m_stopped)
-			run = false;
-		m_stoppedMutex.unlock();
+		catchPlayerInformation(gameState.getAllNotDestroyedHumanPlayerIDs());
+		pauseIfNecessary();
+		run = !isStopped() && !gameState.isGameFinished();
 	}
 }
 
@@ -156,11 +137,43 @@ void GameLoop::catchPlayerInformation(const vector<unsigned int> &playerIDs)
 	m_playerInformationMutex.unlock();
 }
 
+void GameLoop::updateMovingAverageOfTime(double time)
+{
+	m_movingAverageOfTimeStep = m_movingAverageOfTimeStep*m_weightOfOldAverage + time*m_weightOfNewTime;
+}
+
+void GameLoop::updateFPS()
+{
+	m_performanceInformationMutex.lock();
+	m_framesPerSecond = 1/m_movingAverageOfTimeStep;
+	m_performanceInformationMutex.unlock();
+}
+
+bool GameLoop::isStopped()
+{
+	m_stoppedMutex.lock();
+	bool result = m_stopped;
+	m_stoppedMutex.unlock();
+	return result;
+}
+
 vector<unsigned int> GameLoop::getPlayerInformation()
 {
 	m_playerInformationMutex.lock();
-	vector<unsigned int> result;
-	result = m_playerInformation;
+	vector<unsigned int> result = m_playerInformation;
 	m_playerInformationMutex.unlock();
 	return result;
+}
+
+void GameLoop::pauseIfNecessary()
+{
+	m_pausedMutex.lock();
+	bool pause = m_paused;
+	m_pausedMutex.unlock();
+
+	if (pause)
+	{
+		m_start.wait();
+		m_start.reset();
+	}
 }
