@@ -3,50 +3,46 @@
 #include "graphic/point.h"
 #include "graphic/svgrenderer.h"
 #include <QGraphicsScene>
-#include <QtSvg/QGraphicsSvgItem>
+#include <QGraphicsItem>
 #include <assert.h>
 
 using namespace Graphic;
 
 Wall::Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::WallState &state)
 {
-	createSVGItem(state.getWallType(), renderer);
-	scene.addItem(m_svgItem);
+	createSVGItem(state.getWallType(), renderer, state.getDimension());
+	scene.addItem(m_graphicItem);
 }
 
-Wall::Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::Point &position, double pixelPerMeter)
+Wall::Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::Point &position, double pixelPerMeter, double dimension)
 {
-	createSVGItem(Common::WallState::WallTypeSolid, renderer);
-	updateInternal(position, 1, 1, pixelPerMeter);
-	scene.addItem(m_svgItem);
+	createSVGItem(Common::WallState::WallTypeSolid, renderer, dimension);
+	updateInternal(position, pixelPerMeter);
+	scene.addItem(m_graphicItem);
 }
 
 Wall::~Wall()
 {
-	delete m_svgItem;
+	delete m_graphicItem;
 }
 
 void Wall::update(const Common::WallState &state, double pixelPerMeter)
 {
-	updateInternal(state.getPosition(), state.getWidth(), state.getHeight(), pixelPerMeter);
+	updateInternal(state.getPosition(), pixelPerMeter);
 }
 
-void Wall::createSVGItem(Common::WallState::WallType wallType, SvgRenderer &renderer)
+void Wall::createSVGItem(Common::WallState::WallType wallType, SvgRenderer &renderer, double dimension)
 {
 	if (wallType == Common::WallState::WallTypeSolid)
-		m_svgItem = renderer.getNewSolidWallItem();
+		m_graphicItem = renderer.getNewSolidWallItem(dimension);
 	else
-		m_svgItem = renderer.getNewLooseWallItem();
-	m_svgItem->setZValue(1);
+		m_graphicItem = renderer.getNewLooseWallItem(dimension);
+	m_graphicItem->setZValue(1);
 }
 
-void Wall::updateInternal(const Common::Point &position, double width, double height, double pixelPerMeter)
+void Wall::updateInternal(const Common::Point &position, double pixelPerMeter)
 {
-	assert(width == height);
-	(void)(width); //! necessary to avoid warning in release build
 	Point positionScaled(position*pixelPerMeter);
 	positionScaled.switchIntoQtCoordinates();
-
-	m_svgItem->setScale(0.001*pixelPerMeter*height);
-	m_svgItem->setPos(positionScaled.toQPoint());
+	m_graphicItem->setPos(positionScaled.toQPoint());
 }

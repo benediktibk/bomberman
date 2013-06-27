@@ -16,10 +16,9 @@ Player::Player(PhysicSimulator &simulator, const PlayerState &player) :
 	m_staticObject(0),
 	m_field1(0),
 	m_field2(0),
-	m_width(player.getWidth()),
-	m_height(player.getHeight()),
-	m_physicalWidth(m_width),
-	m_physicalHeight(m_height),
+	m_dimension(player.getDimension()),
+	m_physicalWidth(m_dimension),
+	m_physicalHeight(m_dimension),
 	m_movingIntoX(false),
 	m_movingIntoY(false),
 	m_collisionGroup((-1)*(player.getId() + 1))
@@ -46,9 +45,9 @@ Point Player::getPosition() const
 	Point objectPosition = m_object->getPosition();
 
 	if (m_movingIntoX)
-		return objectPosition - Point(0, m_height/4);
+		return objectPosition - Point(0, m_dimension/4);
 	else if (m_movingIntoY)
-		return objectPosition - Point(m_width/4, 0);
+		return objectPosition - Point(m_dimension/4, 0);
 	else
 		return objectPosition;
 }
@@ -68,24 +67,24 @@ void Player::applyLinearVelocity(double velocityIntoX, double velocityIntoY)
 
 	if (velocityIntoX != 0)
 	{
-		m_physicalWidth = m_width;
-		m_physicalHeight = m_height/2;
+		m_physicalWidth = m_dimension;
+		m_physicalHeight = m_dimension/2;
 		m_movingIntoX = true;
 		m_movingIntoY = false;
-		newPosition = oldPosition + Point(0, m_height/4);
+		newPosition = oldPosition + Point(0, m_dimension/4);
 	}
 	else if (velocityIntoY != 0)
 	{
-		m_physicalWidth = m_width/2;
-		m_physicalHeight = m_height;
+		m_physicalWidth = m_dimension/2;
+		m_physicalHeight = m_dimension;
 		m_movingIntoX = false;
 		m_movingIntoY = true;
-		newPosition = oldPosition + Point(m_width/4, 0);
+		newPosition = oldPosition + Point(m_dimension/4, 0);
 	}
 	else
 	{
-		m_physicalHeight = m_height;
-		m_physicalWidth = m_width;
+		m_physicalHeight = m_dimension;
+		m_physicalWidth = m_dimension;
 		m_movingIntoX = false;
 		m_movingIntoY = false;
 		newPosition = oldPosition;
@@ -119,14 +118,9 @@ double Player::getVelocityY() const
 		return 0;
 }
 
-double Player::getWidth() const
+double Player::getDimension() const
 {
-	return m_width;
-}
-
-double Player::getHeight() const
-{
-	return m_height;
+	return m_dimension;
 }
 
 double Player::getPhysicalWidth() const

@@ -28,12 +28,11 @@ namespace Physic
 		void applyLinearVelocity(double velocityIntoX, double velocityIntoY);
 		double getVelocityX() const;
 		double getVelocityY() const;
-		double getWidth() const;
-		double getHeight() const;
+		double getDimension() const;
 		double getPhysicalWidth() const;
 		double getPhysicalHeight() const;
 		bool isMoving() const;
-        void updateObstacle();
+		void updateObstacle();
 
 	private:
 		void updateObjectToPhysicalDimensions(const Common::Point &position, int16_t collisionGroup);
@@ -43,15 +42,14 @@ namespace Physic
 		PhysicalObject *m_object;
 		DynamicObject *m_dynamicObject;
 		StaticObject *m_staticObject;
-        StaticObject *m_field1;
-        StaticObject *m_field2;
-		double m_width;
-		double m_height;
+		StaticObject *m_field1;
+		StaticObject *m_field2;
+		const double m_dimension;
 		double m_physicalWidth;
 		double m_physicalHeight;
 		bool m_movingIntoX;
 		bool m_movingIntoY;
-       int16_t m_collisionGroup;
+	   int16_t m_collisionGroup;
 	};
 }
 

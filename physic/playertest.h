@@ -20,14 +20,13 @@ class PlayerTest :
 	 CPPUNIT_TEST(destructor_empty_bodyCountOfSimulatorIs0);
 	 CPPUNIT_TEST(getPosition_positionSetTo2And3_2And3);
 	 CPPUNIT_TEST(getCenterPosition_positionSetTo2And3WithHeightAndWidth2_3And4);
-	 CPPUNIT_TEST(constructor_heightSetTo2_heightIs2);
-	 CPPUNIT_TEST(constructor_widthSetTo4_widthIs4);
-	 CPPUNIT_TEST(getPhysicalHeight_notMovingAndHeight4_4);
-	 CPPUNIT_TEST(getPhysicalWidth_notMovingAndWidth2_2);
-	 CPPUNIT_TEST(getPhysicalHeight_movingIntoXAndHeight4_2);
-	 CPPUNIT_TEST(getPhysicalHeight_movingIntoYAndHeight4_4);
-	 CPPUNIT_TEST(getPhysicalWidth_movingIntoXAndWidth6_6);
-	 CPPUNIT_TEST(getPhysicalWidth_movingIntoYAndWith6_3);
+	 CPPUNIT_TEST(constructor_dimensionSetTo1_dimensionIs1);
+	 CPPUNIT_TEST(getPhysicalHeight_notMovingAndDimension1_1);
+	 CPPUNIT_TEST(getPhysicalWidth_notMovingAndDimension1_1);
+	 CPPUNIT_TEST(getPhysicalHeight_movingIntoXAndDimension1_05);
+	 CPPUNIT_TEST(getPhysicalHeight_movingIntoYAndDimension1_1);
+	 CPPUNIT_TEST(getPhysicalWidth_movingIntoXAndDimension1_1);
+	 CPPUNIT_TEST(getPhysicalWidth_movingIntoYAndDimension1_05);
 	 CPPUNIT_TEST(applyLinearVelocity_4And0_velocityXIs4);
 	 CPPUNIT_TEST(applyLinearVelocity_0And5_velocityYIs5);
 	 CPPUNIT_TEST(getPosition_movingIntoX_correctPosition);
@@ -36,7 +35,7 @@ class PlayerTest :
 	 CPPUNIT_TEST(getCenterPosition_movingIntoY_correctPosition);
 	 CPPUNIT_TEST(getVelocityX_notMoving_0);
 	 CPPUNIT_TEST(getVelocityY_notMoving_0);
-     CPPUNIT_TEST(getCenterPosition_movingIntoYIntoOtherPlayer_correctPosition);
+	 CPPUNIT_TEST(getCenterPosition_movingIntoYIntoOtherPlayer_correctPosition);
 	 CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -48,14 +47,13 @@ private:
 	 void destructor_empty_bodyCountOfSimulatorIs0();
 	 void getPosition_positionSetTo2And3_2And3();
 	 void getCenterPosition_positionSetTo2And3WithHeightAndWidth2_3And4();
-	 void constructor_heightSetTo2_heightIs2();
-	 void constructor_widthSetTo4_widthIs4();
-	 void getPhysicalHeight_notMovingAndHeight4_4();
-	 void getPhysicalWidth_notMovingAndWidth2_2();
-	 void getPhysicalHeight_movingIntoXAndHeight4_2();
-	 void getPhysicalHeight_movingIntoYAndHeight4_4();
-	 void getPhysicalWidth_movingIntoXAndWidth6_6();
-	 void getPhysicalWidth_movingIntoYAndWith6_3();
+	 void constructor_dimensionSetTo1_dimensionIs1();
+	 void getPhysicalHeight_notMovingAndDimension1_1();
+	 void getPhysicalWidth_notMovingAndDimension1_1();
+	 void getPhysicalHeight_movingIntoXAndDimension1_05();
+	 void getPhysicalHeight_movingIntoYAndDimension1_1();
+	 void getPhysicalWidth_movingIntoXAndDimension1_1();
+	 void getPhysicalWidth_movingIntoYAndDimension1_05();
 	 void applyLinearVelocity_4And0_velocityXIs4();
 	 void applyLinearVelocity_0And5_velocityYIs5();
 	 void getPosition_movingIntoX_correctPosition();
@@ -64,12 +62,12 @@ private:
 	 void getCenterPosition_movingIntoY_correctPosition();
 	 void getVelocityX_notMoving_0();
 	 void getVelocityY_notMoving_0();
-     void getCenterPosition_movingIntoYIntoOtherPlayer_correctPosition();
+	 void getCenterPosition_movingIntoYIntoOtherPlayer_correctPosition();
 
 private:
 	 Common::UniqueIdCreator *m_playerIDCreator;
 	 Common::PlayerState *m_playerOneState;
-     Common::PlayerState *m_playerTwoState;
+	 Common::PlayerState *m_playerTwoState;
 };
 }
 

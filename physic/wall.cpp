@@ -6,7 +6,7 @@ using namespace Physic;
 using namespace Common;
 
 Wall::Wall(PhysicSimulator &simulator, const WallState &wall) :
-	m_object(new StaticObject(simulator, wall.getPosition(), wall.getWidth(), wall.getHeight()))
+	m_object(new StaticObject(simulator, wall.getPosition(), wall.getDimension(), wall.getDimension()))
 { }
 
 Wall::~Wall()

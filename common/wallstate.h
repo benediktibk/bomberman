@@ -25,8 +25,7 @@ public:
 	const Point& getPosition() const;
 	WallType getWallType() const;
 	unsigned int getId() const;
-	double getWidth() const;
-	double getHeight() const;
+	double getDimension() const;
 
 private:
 	// forbid copies
@@ -41,8 +40,7 @@ private:
 	const unsigned int m_wallId;
 	UniqueIdCreator &m_creatorId;
 	const WallType m_wallType;
-	double m_width;
-	double m_height;
+	const double m_dimension;
 };
 }
 

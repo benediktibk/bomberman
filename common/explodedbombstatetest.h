@@ -19,8 +19,7 @@ namespace Common
 		CPPUNIT_TEST(constructor_bombWithDestructionRange3_maximumDestructionRangeIs3);
 		CPPUNIT_TEST(setDestroyedIfNoLifeTimeLeft_lifeTimeGreaterZero_notDestroyed);
 		CPPUNIT_TEST(setDestroyedIfNoLifeTimeLeft_lifeTimeSmallerZero_destroyed);
-		CPPUNIT_TEST(constructor_bombWithCertainHeight_heightIsTheSame);
-		CPPUNIT_TEST(constructor_bombWithCertainWidth_widthIsTheSame);
+		CPPUNIT_TEST(constructor_bombWithCertainDimension_dimensionIsTheSame);
 		CPPUNIT_TEST(constructor_maximumDestructionRange3_destructionRangeLeftIs3);
 		CPPUNIT_TEST(constructor_maximumDestructionRange3_destructionRangeUpIs3);
 		CPPUNIT_TEST(constructor_maximumDestructionRange3_destructionRangeRightIs3);
@@ -43,8 +42,7 @@ namespace Common
 		void constructor_bombWithDestructionRange3_maximumDestructionRangeIs3();
 		void setDestroyedIfNoLifeTimeLeft_lifeTimeGreaterZero_notDestroyed();
 		void setDestroyedIfNoLifeTimeLeft_lifeTimeSmallerZero_destroyed();
-		void constructor_bombWithCertainHeight_heightIsTheSame();
-		void constructor_bombWithCertainWidth_widthIsTheSame();
+		void constructor_bombWithCertainDimension_dimensionIsTheSame();
 		void constructor_maximumDestructionRange3_destructionRangeLeftIs3();
 		void constructor_maximumDestructionRange3_destructionRangeUpIs3();
 		void constructor_maximumDestructionRange3_destructionRangeRightIs3();

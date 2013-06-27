@@ -19,6 +19,7 @@ public:
 	std::string getTextInField(unsigned int x, unsigned int y) const;
 	bool isFileCorrect() const;
 	bool couldOpenFile() const;
+	std::string getTextInFile() const;
 
 private:
 	void parseFile();

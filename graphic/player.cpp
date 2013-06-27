@@ -9,11 +9,11 @@ using namespace Graphic;
 using namespace Common;
 
 Player::Player(QGraphicsScene &scene, SvgRenderer &renderer, const PlayerState &state) :
-	m_standing(renderer.getNewPlayerStandingItem(state.getId())),
-	m_movingLeft(renderer.getNewPlayerMovingLeftItem(state.getId())),
-	m_movingUp(renderer.getNewPlayerMovingUpItem(state.getId())),
-	m_movingRight(renderer.getNewPlayerMovingRightItem(state.getId())),
-	m_movingDown(renderer.getNewPlayerMovingDownItem(state.getId()))
+	m_standing(renderer.getNewPlayerStandingItem(state.getId(), state.getDimension())),
+	m_movingLeft(renderer.getNewPlayerMovingLeftItem(state.getId(), state.getDimension())),
+	m_movingUp(renderer.getNewPlayerMovingUpItem(state.getId(), state.getDimension())),
+	m_movingRight(renderer.getNewPlayerMovingRightItem(state.getId(), state.getDimension())),
+	m_movingDown(renderer.getNewPlayerMovingDownItem(state.getId(), state.getDimension()))
 {
 	m_standing->setZValue(2);
 	m_movingLeft->setZValue(2);
@@ -46,11 +46,6 @@ void Player::update(const PlayerState &state, double pixelPerMeter)
 	position.switchIntoQtCoordinates();
 	QPointF qtPosition = position.toQPoint();
 
-	m_standing->setScale(0.001*pixelPerMeter*state.getWidth());
-	m_movingLeft->setScale(0.001*pixelPerMeter*state.getWidth());
-	m_movingUp->setScale(0.001*pixelPerMeter*state.getWidth());
-	m_movingRight->setScale(0.001*pixelPerMeter*state.getWidth());
-	m_movingDown->setScale(0.001*pixelPerMeter*state.getWidth());
 	m_standing->setPos(qtPosition);
 	m_movingLeft->setPos(qtPosition);
 	m_movingUp->setPos(qtPosition);

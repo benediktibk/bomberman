@@ -5,7 +5,6 @@
 #include "graphic/powerup.h"
 #include "graphic/explodedbomb.h"
 #include "graphic/point.h"
-#include "graphic/cellbackground.h"
 #include "graphic/svgrenderer.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -197,7 +196,7 @@ void GraphicDrawerQt::drawBomb(const BombState *bombState)
 		Bomb* bomb = 0;
 
 		if (!bombFound)
-			bomb = new Bomb(*m_scene, *m_svgRenderer);
+			bomb = new Bomb(*m_scene, *m_svgRenderer, *bombState);
 		else
 			bomb = bombPosition->second;
 
@@ -313,8 +312,8 @@ void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
 	QPolygonF maximumPlayerMovementInScenePolygon = m_view.mapToScene(maximumPlayerMovement);
 	QRectF maximumPlayerMovementInScene = maximumPlayerMovementInScenePolygon.boundingRect();
 	Point playerPosition(player.getPosition()*m_pixelPerMeter);
-	playerPosition.setX(playerPosition.getX() + player.getWidth()/2*m_pixelPerMeter);
-	playerPosition.setY(playerPosition.getY() - player.getHeight()/2*m_pixelPerMeter);
+	playerPosition.setX(playerPosition.getX() + player.getDimension()/2*m_pixelPerMeter);
+	playerPosition.setY(playerPosition.getY() - player.getDimension()/2*m_pixelPerMeter);
 	playerPosition.switchIntoQtCoordinates();
 	QPointF centerOfView(maximumPlayerMovementInScene.center());
 	QPointF positionToCenterOn(centerOfView);
@@ -376,44 +375,33 @@ void GraphicDrawerQt::drawBorderWalls(unsigned int width, unsigned int height)
 void GraphicDrawerQt::drawLeftBorderWalls(unsigned int height)
 {
 	for (unsigned int y = 0; y < height; ++y)
-		m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(-1, y), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(-1, y), m_pixelPerMeter, 1));
 }
 
 void GraphicDrawerQt::drawRightBorderWalls(unsigned int width, unsigned int height)
 {
 	for (unsigned int y = 0; y < height; ++y)
-		m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(width, y), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(width, y), m_pixelPerMeter, 1));
 }
 
 void GraphicDrawerQt::drawUpperBorderWalls(unsigned int width, unsigned int height)
 {
 	for (unsigned int x = 0; x < width; ++x)
-		m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(x, height), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(x, height), m_pixelPerMeter, 1));
 }
 
 void GraphicDrawerQt::drawLowerBorderWalls(unsigned int width)
 {
 	for (unsigned int x = 0; x < width; ++x)
-		m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(x, -1), m_pixelPerMeter));
+		m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(x, -1), m_pixelPerMeter, 1));
 }
 
 void GraphicDrawerQt::drawEdgeBorderWalls(unsigned int width, unsigned int height)
 {
-	m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(-1, -1), m_pixelPerMeter));
-	m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(-1, height), m_pixelPerMeter));
-	m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(width, -1), m_pixelPerMeter));
-	m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(width, height), m_pixelPerMeter));
-}
-
-void GraphicDrawerQt::drawCellBackgrounds(unsigned int width, unsigned int height)
-{
-	for (unsigned int x = 0; x < width; ++x)
-	{
-		for (unsigned int y = 0; y < height; ++y)
-		{
-			m_cellBackgrounds.push_back(new CellBackground(*m_scene, *m_svgRenderer, Point(x, y), m_pixelPerMeter));
-		}
-	}
+	m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(-1, -1), m_pixelPerMeter, 1));
+	m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(-1, height), m_pixelPerMeter, 1));
+	m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(width, -1), m_pixelPerMeter, 1));
+	m_borderWalls.push_back(new Wall(*m_scene, *m_svgRenderer, Point(width, height), m_pixelPerMeter, 1));
 }
 
 void GraphicDrawerQt::deleteWalls()

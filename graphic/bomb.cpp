@@ -7,16 +7,9 @@
 
 using namespace Graphic;
 
-Bomb::Bomb(QGraphicsScene &scene) :
-	m_svgItem(new QGraphicsSvgItem(QString("resources/graphics/bomb_planted.svg")))
+Bomb::Bomb(QGraphicsScene &scene, SvgRenderer &renderer, const Common::BombState &state)
 {
-	m_svgItem->setZValue(1);
-	scene.addItem(m_svgItem);
-}
-
-Bomb::Bomb(QGraphicsScene &scene, SvgRenderer &renderer)
-{
-	m_svgItem = renderer.getNewBombItem();
+	m_svgItem = renderer.getNewBombItem(state.getDimension());
 	scene.addItem(m_svgItem);
 }
 
@@ -29,7 +22,5 @@ void Bomb::update(const Common::BombState &state, double pixelPerMeter)
 {
 	Point position(state.getPosition()*pixelPerMeter);
 	position.switchIntoQtCoordinates();
-
-	m_svgItem->setScale(0.001*pixelPerMeter*state.getHeight());
 	m_svgItem->setPos(position.toQPoint());
 }

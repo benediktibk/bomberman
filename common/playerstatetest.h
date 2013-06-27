@@ -33,8 +33,7 @@ namespace Common
 		CPPUNIT_TEST(getSpeedIntoX_notMoving_0);
 		CPPUNIT_TEST(getSpeedIntoY_notMoving_0);
 		CPPUNIT_TEST(constructor_idCreator_isNotMoving);
-		CPPUNIT_TEST(constructor_idCreator_widthIs1);
-		CPPUNIT_TEST(constructor_idCreator_heightIs1);
+		CPPUNIT_TEST(constructor_idCreator_dimensionIs1);
 		CPPUNIT_TEST(getCenterPosition_positionIs3And4_35And45);
 		CPPUNIT_TEST(getSpeedIntoX_movingAndDirectionUp_0);
 		CPPUNIT_TEST(getSpeedIntoX_movingAndDirectionDown_0);
@@ -44,8 +43,6 @@ namespace Common
 		CPPUNIT_TEST(getSpeedIntoY_movingAndDirectionDown_minusMaximumSpeed);
 		CPPUNIT_TEST(getSpeedIntoY_movingAndDirectionLeft_0);
 		CPPUNIT_TEST(getSpeedIntoY_movingAndDirectionRight_0);
-		CPPUNIT_TEST(setHeight_5_heightIs5);
-		CPPUNIT_TEST(setWidth_5_widthIs5);
 		CPPUNIT_TEST(doNotCollideWith_validBomb_oneBombNotToCollideWith);
 		CPPUNIT_TEST(doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideWith);
 		CPPUNIT_TEST(removeBombFromDoNotCollideList_twoBombsAddedAndFirstOneExploded_oneBombNotToCollideWith);
@@ -81,8 +78,7 @@ namespace Common
 		void getSpeedIntoX_notMoving_0();
 		void getSpeedIntoY_notMoving_0();
 		void constructor_idCreator_isNotMoving();
-		void constructor_idCreator_widthIs1();
-		void constructor_idCreator_heightIs1();
+		void constructor_idCreator_dimensionIs1();
 		void getCenterPosition_positionIs3And4_35And45();
 		void getSpeedIntoX_movingAndDirectionUp_0();
 		void getSpeedIntoX_movingAndDirectionDown_0();
@@ -92,8 +88,6 @@ namespace Common
 		void getSpeedIntoY_movingAndDirectionDown_minusMaximumSpeed();
 		void getSpeedIntoY_movingAndDirectionLeft_0();
 		void getSpeedIntoY_movingAndDirectionRight_0();
-		void setHeight_5_heightIs5();
-		void setWidth_5_widthIs5();
 		void doNotCollideWith_validBomb_oneBombNotToCollideWith();
 		void doNotCollideWith_twoBombsRightBeside_twoBombsNotToCollideWith();
 		void removeBombFromDoNotCollideList_twoBombsAddedAndFirstOneExploded_oneBombNotToCollideWith();

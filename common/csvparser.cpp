@@ -80,3 +80,11 @@ bool CSVParser::couldOpenFile() const
 {
 	return m_couldOpenFile;
 }
+
+string CSVParser::getTextInFile() const
+{
+	string textInFile;
+	for (size_t i = 0; i < m_textInFile.size(); ++i)
+		textInFile += m_textInFile[i] + "\n";
+	return textInFile;
+}

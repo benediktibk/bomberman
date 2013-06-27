@@ -30,18 +30,10 @@ void WallStateTest::construct_solidWall_typeIsSolidWall()
 	CPPUNIT_ASSERT_EQUAL(WallState::WallTypeSolid, wall.getWallType());
 }
 
-void WallStateTest::getWallHeight_heightIs1()
+void WallStateTest::getDimension_empty_1()
 {
-    UniqueIdCreator id;
-    WallState wall(id, WallState::WallTypeLoose, Point());
+	UniqueIdCreator id;
+	WallState wall(id, WallState::WallTypeLoose, Point());
 
-    CPPUNIT_ASSERT_EQUAL(1.0, wall.getHeight());
-}
-
-void WallStateTest::getWallWidth_widthIs1()
-{
-    UniqueIdCreator id;
-    WallState wall(id, WallState::WallTypeLoose, Point());
-
-    CPPUNIT_ASSERT_EQUAL(1.0, wall.getWidth());
+	CPPUNIT_ASSERT_EQUAL(1.0, wall.getDimension());
 }
