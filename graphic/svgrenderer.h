@@ -12,11 +12,11 @@ class SvgRenderer
 {
 public:
 	SvgRenderer(const double pixelPerMeter);
-	QGraphicsSvgItem *getNewPlayerStandingItem();
-	QGraphicsSvgItem *getNewPlayerMovingLeftItem();
-	QGraphicsSvgItem *getNewPlayerMovingUpItem();
-	QGraphicsSvgItem *getNewPlayerMovingRightItem();
-	QGraphicsSvgItem *getNewPlayerMovingDownItem();
+	QGraphicsSvgItem *getNewPlayerStandingItem(unsigned int playerId = 0);
+	QGraphicsSvgItem *getNewPlayerMovingLeftItem(unsigned int playerId = 0);
+	QGraphicsSvgItem *getNewPlayerMovingUpItem(unsigned int playerId = 0);
+	QGraphicsSvgItem *getNewPlayerMovingRightItem(unsigned int playerId = 0);
+	QGraphicsSvgItem *getNewPlayerMovingDownItem(unsigned int playerId = 0);
 	QGraphicsSvgItem *getNewBombItem();
 	QGraphicsSvgItem *getNewSolidWallItem();
 	QGraphicsSvgItem *getNewLooseWallItem();

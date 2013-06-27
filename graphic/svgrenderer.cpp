@@ -113,38 +113,133 @@ void SvgRenderer::renderCellBackgroundItem()
 	m_cellBackgroundRenderer = new QSvgRenderer(QString("resources/graphics/bg_cell_pattern.svg"));
 }
 
-QGraphicsSvgItem* SvgRenderer::getNewPlayerStandingItem()
+QGraphicsSvgItem* SvgRenderer::getNewPlayerStandingItem(unsigned int playerId)
 {
 	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-	player->setSharedRenderer(m_playerStandingRenderer_1);
+
+	switch (playerId)
+	{
+	case 0:
+		player->setSharedRenderer(m_playerStandingRenderer_1);
+		break;
+	case 1:
+		player->setSharedRenderer(m_playerStandingRenderer_2);
+		break;
+	case 2:
+		player->setSharedRenderer(m_playerStandingRenderer_3);
+		break;
+	case 3:
+		player->setSharedRenderer(m_playerStandingRenderer_4);
+		break;
+	default:
+		player->setSharedRenderer(m_playerStandingRenderer_1);
+		break;
+	}
+
 	return player;
 }
 
-QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingLeftItem()
+QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingLeftItem(unsigned int playerId)
 {
 	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-	player->setSharedRenderer(m_playerMovingLeftRenderer_1);
+
+	switch (playerId)
+	{
+	case 0:
+		player->setSharedRenderer(m_playerMovingLeftRenderer_1);
+		break;
+	case 1:
+		player->setSharedRenderer(m_playerMovingLeftRenderer_2);
+		break;
+	case 2:
+		player->setSharedRenderer(m_playerMovingLeftRenderer_3);
+		break;
+	case 3:
+		player->setSharedRenderer(m_playerMovingLeftRenderer_4);
+		break;
+	default:
+		player->setSharedRenderer(m_playerMovingLeftRenderer_1);
+		break;
+	}
+
 	return player;
 }
 
-QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingUpItem()
+QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingUpItem(unsigned int playerId)
 {
 	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-	player->setSharedRenderer(m_playerMovingUpRenderer_1);
+
+	switch (playerId)
+	{
+	case 0:
+		player->setSharedRenderer(m_playerMovingUpRenderer_1);
+		break;
+	case 1:
+		player->setSharedRenderer(m_playerMovingUpRenderer_2);
+		break;
+	case 2:
+		player->setSharedRenderer(m_playerMovingUpRenderer_3);
+		break;
+	case 3:
+		player->setSharedRenderer(m_playerMovingUpRenderer_4);
+		break;
+	default:
+		player->setSharedRenderer(m_playerMovingUpRenderer_1);
+		break;
+	}
+
 	return player;
 }
 
-QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingRightItem()
+QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingRightItem(unsigned int playerId)
 {
 	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-	player->setSharedRenderer(m_playerMovingRightRenderer_1);
+
+	switch (playerId)
+	{
+	case 0:
+		player->setSharedRenderer(m_playerMovingRightRenderer_1);
+		break;
+	case 1:
+		player->setSharedRenderer(m_playerMovingRightRenderer_2);
+		break;
+	case 2:
+		player->setSharedRenderer(m_playerMovingRightRenderer_3);
+		break;
+	case 3:
+		player->setSharedRenderer(m_playerMovingRightRenderer_4);
+		break;
+	default:
+		player->setSharedRenderer(m_playerMovingRightRenderer_1);
+		break;
+	}
+
 	return player;
 }
 
-QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingDownItem()
+QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingDownItem(unsigned int playerId)
 {
 	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-	player->setSharedRenderer(m_playerMovingDownRenderer_1);
+
+	switch (playerId)
+	{
+	case 0:
+		player->setSharedRenderer(m_playerMovingDownRenderer_1);
+		break;
+	case 1:
+		player->setSharedRenderer(m_playerMovingDownRenderer_2);
+		break;
+	case 2:
+		player->setSharedRenderer(m_playerMovingDownRenderer_3);
+		break;
+	case 3:
+		player->setSharedRenderer(m_playerMovingDownRenderer_4);
+		break;
+	default:
+		player->setSharedRenderer(m_playerMovingDownRenderer_1);
+		break;
+	}
+
 	return player;
 }
 
