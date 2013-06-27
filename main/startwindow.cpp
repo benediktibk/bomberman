@@ -88,7 +88,7 @@ void StartWindow::startClicked()
 	{
 		string showString = "You are playing " + m_levelList.getTextInField(0, m_ui->levelTableView->selectionModel()->selectedIndexes().first().row());
 		m_ui->infoLabel->setText(QString(showString.c_str()));
-		emit startGameSignal(m_ui->openGlCheckBox->isChecked(), m_selectedLevel.c_str());
+		emit startGameSignal(m_ui->openGlCheckBox->isChecked(), m_selectedLevel.c_str(), 1, m_ui->playerCountHorizontalSlider->value());
 	}
 }
 

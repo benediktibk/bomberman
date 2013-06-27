@@ -40,7 +40,7 @@ public:
 	virtual void draw(const Common::GameState &gameState);
 
 public slots:
-	void startGame(bool enableOpenGL, const char* levelname);
+	void startGame(bool enableOpenGL, const char* levelname, unsigned int humanPlayerCount, unsigned int computerEnemyCount);
 
 private slots:
 	void updateGui(const Common::GameState *gameState);
