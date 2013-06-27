@@ -3,10 +3,12 @@
 #include<QtMultimedia/QSound>
 namespace Sound
 {
-class SoundPlayer
-{
-
-};
+    class SoundPlayer
+    {
+    public:
+        SoundPlayer();
+        ~SoundPlayer();
+    };
 }
 
 #endif
