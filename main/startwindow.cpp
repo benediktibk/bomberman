@@ -27,6 +27,8 @@ void StartWindow::connectButtons()
 	connect(m_ui->closeGameButton, SIGNAL(clicked()), this, SLOT(closeGameClicked()));
 	connect(m_ui->singleRadioButton, SIGNAL(clicked()), this, SLOT(updateSilder()));
 	connect(m_ui->multiRadioButton, SIGNAL(clicked()), this, SLOT(updateSilder()));
+	connect(m_ui->controlButton, SIGNAL(clicked()), this, SLOT(controlClicked()));
+	connect(m_ui->readMeButton, SIGNAL(clicked()), this, SLOT(readMeClicked()));
 }
 
 void StartWindow::createTableView()
@@ -58,6 +60,11 @@ void StartWindow::createSilder()
 {
 	connect( m_ui->playerCountHorizontalSlider, SIGNAL( valueChanged(int)), this, SLOT(showHorizontalSliderValue()));
 	m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->model()->index(0,3)).toInt()-1);
+}
+
+void StartWindow::createComboBox()
+{
+
 }
 
 void StartWindow::exitClicked()
@@ -110,5 +117,15 @@ void StartWindow::updateSilder()
 		m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->selectionModel()->selectedIndexes().at(3)).toInt()-2);
 		m_ui->playerCountHorizontalSlider->setValue(0);
 	}
+
+}
+
+void StartWindow::readMeClicked()
+{
+
+}
+
+void StartWindow::controlClicked()
+{
 
 }

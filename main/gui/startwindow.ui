@@ -22,7 +22,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
     <item row="5" column="1">
-     <widget class="QPushButton" name="howToButton">
+     <widget class="QPushButton" name="controlButton">
       <property name="text">
        <string>Control</string>
       </property>
