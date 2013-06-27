@@ -12,8 +12,7 @@ ExplodedBombState::ExplodedBombState(const BombState &bomb) :
 	m_destructionRangeUp(m_maximumDestructionRange),
 	m_destructionRangeRight(m_maximumDestructionRange),
 	m_destructionRangeDown(m_maximumDestructionRange),
-	m_height(bomb.getDimension()),
-	m_width(bomb.getDimension())
+	m_dimension(bomb.getDimension())
 { }
 
 void ExplodedBombState::decreaseLifeTime(double time)
@@ -87,14 +86,9 @@ const Point &ExplodedBombState::getPosition() const
 	return m_position;
 }
 
-double ExplodedBombState::getWidth() const
+double ExplodedBombState::getDimension() const
 {
-	return m_width;
-}
-
-double ExplodedBombState::getHeight() const
-{
-	return m_height;
+	return m_dimension;
 }
 
 double ExplodedBombState::initialLifeTime()
