@@ -11,7 +11,9 @@ ComputerEnemyInputFetcher::ComputerEnemyInputFetcher(Grid &grid, const GameState
 	m_router(new Router(grid, gameState, playerID)),
 	m_gameState(gameState),
 	m_playerID(playerID)
-{ }
+{
+	m_inputStateWithID.insert(pair<unsigned int, InputState>(m_playerID, m_inputState));
+}
 
 ComputerEnemyInputFetcher::~ComputerEnemyInputFetcher()
 {
@@ -20,11 +22,26 @@ ComputerEnemyInputFetcher::~ComputerEnemyInputFetcher()
 
 InputState ComputerEnemyInputFetcher::getInputState()
 {
+	calculateInputState();
+	return m_inputState;
+}
+
+void ComputerEnemyInputFetcher::calculateInputState()
+{
+	m_inputState.setDownKeyNotPressed();
+	m_inputState.setUpKeyNotPressed();
+	m_inputState.setRightKeyNotPressed();
+	m_inputState.setLeftKeyNotPressed();
 	m_inputState.setSpaceKeyNotPressed();
 
 	if (!m_gameState.isPlayerAlive(m_playerID))
-		return m_inputState;
+		return;
 
+	calculateInputStateInternal();
+}
+
+void ComputerEnemyInputFetcher::calculateInputStateInternal()
+{
 	const PlayerState &player = m_gameState.getPlayerStateById(m_playerID);
 	GridPoint playerPosition = Grid::getTargetPoint(player);
 	m_router->updatePlayerFields();
@@ -33,14 +50,14 @@ InputState ComputerEnemyInputFetcher::getInputState()
 	if (routeToNotDangerousField.getDirection() != PlayerState::PlayerDirectionNone)
 	{
 		setInputStateIntoDirection(routeToNotDangerousField.getDirection());
-		return m_inputState;
+		return;
 	}
 
 	Route routeToPowerUp = m_router->getRouteToPowerUp(playerPosition);
 	if (routeToPowerUp.getDirection() != PlayerState::PlayerDirectionNone)
 	{
 		setInputStateIntoDirection(routeToPowerUp.getDirection());
-		return m_inputState;
+		return;
 	}
 
 	Route routeToPlayer = m_router->getRouteToPlayer(playerPosition);
@@ -55,17 +72,14 @@ InputState ComputerEnemyInputFetcher::getInputState()
 		if (closeEnoughForBombPlacement)
 		{
 			m_inputState.setSpaceKeyPressed();
-			return m_inputState;
+			return;
 		}
 		else if (routeToPlayer.getDistance() == 1)
-		{
-			setInputStateIntoDirection(PlayerState::PlayerDirectionNone);
-			return m_inputState;
-		}
+			return;
 		else
 		{
 			setInputStateIntoDirection(routeToPlayer.getDirection());
-			return m_inputState;
+			return;
 		}
 	}
 
@@ -81,22 +95,16 @@ InputState ComputerEnemyInputFetcher::getInputState()
 		if (closeEnoughForBombPlacement)
 		{
 			m_inputState.setSpaceKeyPressed();
-			return m_inputState;
+			return;
 		}
 		else if (routeToLooseWall.getDistance() == 1)
-		{
-			setInputStateIntoDirection(PlayerState::PlayerDirectionNone);
-			return m_inputState;
-		}
+			return;
 		else
 		{
 			setInputStateIntoDirection(routeToLooseWall.getDirection());
-			return m_inputState;
+			return;
 		}
 	}
-
-	setInputStateIntoDirection(PlayerState::PlayerDirectionNone);
-	return m_inputState;
 }
 
 void ComputerEnemyInputFetcher::setInputStateIntoDirection(PlayerState::PlayerDirection direction)
@@ -125,8 +133,9 @@ void ComputerEnemyInputFetcher::setInputStateIntoDirection(PlayerState::PlayerDi
 	}
 }
 
-std::map<unsigned int, InputState> ComputerEnemyInputFetcher::getInputStates()
+map<unsigned int, InputState> ComputerEnemyInputFetcher::getInputStates()
 {
-	std::map<unsigned int, InputState> result;
-	return result;
+	calculateInputState();
+	m_inputStateWithID[m_playerID] = m_inputState;
+	return m_inputStateWithID;
 }

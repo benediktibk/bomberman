@@ -28,6 +28,8 @@ namespace GameEngine
 		virtual Common::InputState getInputState();
 
 	private:
+		void calculateInputState();
+		virtual void calculateInputStateInternal();
 		void setInputStateIntoDirection(Common::PlayerState::PlayerDirection direction);
 
 	private:
@@ -35,6 +37,7 @@ namespace GameEngine
 		Router *m_router;
 		const Common::GameState &m_gameState;
 		unsigned int m_playerID;
+		std::map<unsigned int, Common::InputState> m_inputStateWithID;
 	};
 }
 
