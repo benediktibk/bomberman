@@ -312,8 +312,8 @@ void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
 	QPolygonF maximumPlayerMovementInScenePolygon = m_view.mapToScene(maximumPlayerMovement);
 	QRectF maximumPlayerMovementInScene = maximumPlayerMovementInScenePolygon.boundingRect();
 	Point playerPosition(player.getPosition()*m_pixelPerMeter);
-	playerPosition.setX(playerPosition.getX() + player.getWidth()/2*m_pixelPerMeter);
-	playerPosition.setY(playerPosition.getY() - player.getHeight()/2*m_pixelPerMeter);
+	playerPosition.setX(playerPosition.getX() + player.getDimension()/2*m_pixelPerMeter);
+	playerPosition.setY(playerPosition.getY() - player.getDimension()/2*m_pixelPerMeter);
 	playerPosition.switchIntoQtCoordinates();
 	QPointF centerOfView(maximumPlayerMovementInScene.center());
 	QPointF positionToCenterOn(centerOfView);

@@ -50,10 +50,7 @@ namespace Common
 		double getSpeedIntoY() const;
 		void setNotMoving();
 		bool isMoving() const;
-		double getWidth() const;
-		double getHeight() const;
-		void setWidth(double value);
-		void setHeight(double value);
+		double getDimension() const;
 		bool canPlayerPlaceBomb () const;
 		Point getCenterPosition() const;
 		void doNotCollideWith(const BombState *bomb);
@@ -76,8 +73,7 @@ namespace Common
 		double m_speed;
 		const double m_maximumSpeed;
 		const double m_speedIncreasement;
-		double m_width;
-		double m_height;
+		const double m_dimension;
 		unsigned int m_playerId;
 		UniqueIdCreator &m_creatorId;
 		std::vector<const Common::BombState*> m_bombsNotToCollideWith;

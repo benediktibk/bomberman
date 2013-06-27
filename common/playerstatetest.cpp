@@ -214,14 +214,14 @@ void PlayerStateTest::constructor_idCreator_widthIs1()
 {
 	PlayerState player(*m_playerIDCreator);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(1, player.getWidth(), 0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1, player.getDimension(), 0.0001);
 }
 
 void PlayerStateTest::constructor_idCreator_heightIs1()
 {
 	PlayerState player(*m_playerIDCreator);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(1, player.getHeight(), 0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(1, player.getDimension(), 0.0001);
 }
 
 void PlayerStateTest::getCenterPosition_positionIs3And4_35And45()
@@ -294,24 +294,6 @@ void PlayerStateTest::getSpeedIntoY_movingAndDirectionRight_0()
 	player.setDirectionRight();
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(0, player.getSpeedIntoY(), 0.0001);
-}
-
-void PlayerStateTest::setHeight_5_heightIs5()
-{
-	PlayerState player(*m_playerIDCreator);
-
-	player.setHeight(5);
-
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(5, player.getHeight(), 0.0001);
-}
-
-void PlayerStateTest::setWidth_5_widthIs5()
-{
-	PlayerState player(*m_playerIDCreator);
-
-	player.setWidth(5);
-
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(5, player.getWidth(), 0.0001);
 }
 
 void PlayerStateTest::doNotCollideWith_validBomb_oneBombNotToCollideWith()
