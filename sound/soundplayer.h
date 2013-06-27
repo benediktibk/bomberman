@@ -18,6 +18,8 @@ namespace Sound
         virtual void bombExplosion();
         virtual void bombPlaced();
         virtual void gotItem();
+        void removeFinishedSounds(std::vector<QSoundEffect*> &sounds);
+        void deleteVector(std::vector<QSoundEffect*> &sounds);
     private:
         std::vector<QSoundEffect*> m_bombExplosion;
         std::vector<QSoundEffect*> m_bombPlaced;

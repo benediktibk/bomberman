@@ -4,34 +4,63 @@
 using namespace Sound;
 using namespace std;
 
-SoundPlayer::SoundPlayer() :
-    m_bombExplosion(new QSoundEffect(0)),
-    m_bombPlaced(new QSoundEffect(0)),
-    m_gotItem(new QSoundEffect(0))
-{
-    m_bombExplosion->setSource(QUrl::fromLocalFile("resources/sounds/bomb.wav"));
-    m_bombPlaced->setSource(QUrl::fromLocalFile("resources/sounds/placed.wav"));
-    m_gotItem->setSource(QUrl::fromLocalFile("resources/sounds/gotitem.wav"));
-}
+SoundPlayer::SoundPlayer()
+{}
 
 SoundPlayer::~SoundPlayer()
 {
-    delete m_bombExplosion;
-    delete m_bombPlaced;
-    delete m_gotItem;
+    deleteVector(m_bombExplosion);
+    deleteVector(m_bombPlaced);
+    deleteVector(m_gotItem);
 }
 
 void SoundPlayer::bombExplosion()
 {
-    m_bombExplosion->play();
+    QSoundEffect *sound = new QSoundEffect;
+    sound->setSource(QUrl::fromLocalFile("resources/sounds/bomb.wav"));
+    removeFinishedSounds(m_bombExplosion);
+    m_bombExplosion.push_back(sound);
+    sound->play();
 }
 
 void SoundPlayer::bombPlaced()
 {
-    m_bombPlaced->play();
+    QSoundEffect *sound = new QSoundEffect;
+    sound->setSource(QUrl::fromLocalFile("resources/sounds/placed.wav"));
+    removeFinishedSounds(m_bombPlaced);
+    m_bombPlaced.push_back(sound);
+    sound->play();
 }
 
 void SoundPlayer::gotItem()
 {
-    m_gotItem->play();
+    QSoundEffect *sound = new QSoundEffect;
+    sound->setSource(QUrl::fromLocalFile("resources/sounds/gotitem.wav"));
+    removeFinishedSounds(m_gotItem);
+    m_gotItem.push_back(sound);
+    sound->play();
+}
+
+void SoundPlayer::removeFinishedSounds(vector<QSoundEffect*> &sounds)
+{
+    size_t i = 0;
+	while (i < sounds.size())
+	{
+        if (!sounds[i]->isPlaying())
+        {   
+            delete sounds[i];
+			sounds.erase(sounds.begin()+i);
+        }
+		else
+			i++;
+	}
+}
+
+void SoundPlayer::deleteVector(vector<QSoundEffect*> &sounds)
+{
+    for(vector<QSoundEffect*>::iterator i = sounds.begin();i != sounds.end(); ++i)
+    {
+        delete *i;
+    }
+    sounds.clear();
 }
