@@ -34,6 +34,7 @@ namespace Common
 		bool isHumanPlayerID(unsigned int playerID) const;
 		unsigned int getIndexOfHumanPlayer(unsigned int playerID) const;
 		unsigned int getIndexOfComputerEnemy(unsigned int playerID) const;
+		bool isGameFinished() const;
 		const std::vector<const PlayerState*>& getAllPlayers() const;
 		std::vector<const WallState*> getAllChangedWalls() const;
 		size_t getWallCount() const;

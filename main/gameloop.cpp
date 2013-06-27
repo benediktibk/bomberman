@@ -133,11 +133,7 @@ void GameLoop::execute()
 			m_start.reset();
 		}
 
-		run = !isStopped();
-
-		if(gameState.getAllNotDestroyedPlayerIDs().size() <= 1)
-			run = false;
-
+		run = !isStopped() && !gameState.isGameFinished();
 	}
 }
 
