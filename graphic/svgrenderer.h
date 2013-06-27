@@ -3,9 +3,10 @@
 
 #include "common/powerupstate.h"
 #include <vector>
+#include <string>
 
 class QGraphicsItem;
-class QSvgRenderer;
+class QPixmap;
 
 namespace Common
 {
@@ -39,32 +40,33 @@ namespace Graphic
 		void renderWallItems();
 		void renderPowerUpItems();
 		void renderExplodedBombItems();
-		void clearRendererList(std::vector<QSvgRenderer*> &list);
-		QGraphicsItem* getNewGraphicsItemFromRenderer(const std::vector<QSvgRenderer*> &list, unsigned int index, double dimension) const;
+		void clearPixmapList(std::vector<QPixmap*> &list);
+		QGraphicsItem* getNewGraphicsItemFromRenderer(const std::vector<QPixmap*> &list, unsigned int index, double dimension) const;
+		QPixmap* createPixmapFromSvg(const std::string &file) const;
 
 	private:
 		const double m_pixelPerMeter;
 		const Common::GameState &m_gameState;
-		std::vector<QSvgRenderer*> m_humanPlayerStanding;
-		std::vector<QSvgRenderer*> m_computerEnemyStanding;
-		std::vector<QSvgRenderer*> m_humanPlayerMovingLeft;
-		std::vector<QSvgRenderer*> m_computerEnemyMovingLeft;
-		std::vector<QSvgRenderer*> m_humanPlayerMovingUp;
-		std::vector<QSvgRenderer*> m_computerEnemyMovingUp;
-		std::vector<QSvgRenderer*> m_humanPlayerMovingRight;
-		std::vector<QSvgRenderer*> m_computerEnemyMovingRight;
-		std::vector<QSvgRenderer*> m_humanPlayerMovingDown;
-		std::vector<QSvgRenderer*> m_computerEnemyMovingDown;
-		QSvgRenderer *m_bombRenderer;
-		QSvgRenderer *m_wallSolidRenderer;
-		QSvgRenderer *m_wallLooseRenderer;
-		QSvgRenderer *m_powerUpRenderer;
-		QSvgRenderer *m_powerUpMaxBombRenderer;
-		QSvgRenderer *m_powerUpMaxVelocityRenderer;
-		QSvgRenderer *m_powerUpMaxBombRangeRenderer;
-		QSvgRenderer *m_explodedBombCenterRenderer;
-		QSvgRenderer *m_explodedBombFlameRenderer;
-		QSvgRenderer *m_explodedBombEndRenderer;
+		std::vector<QPixmap*> m_humanPlayerStanding;
+		std::vector<QPixmap*> m_computerEnemyStanding;
+		std::vector<QPixmap*> m_humanPlayerMovingLeft;
+		std::vector<QPixmap*> m_computerEnemyMovingLeft;
+		std::vector<QPixmap*> m_humanPlayerMovingUp;
+		std::vector<QPixmap*> m_computerEnemyMovingUp;
+		std::vector<QPixmap*> m_humanPlayerMovingRight;
+		std::vector<QPixmap*> m_computerEnemyMovingRight;
+		std::vector<QPixmap*> m_humanPlayerMovingDown;
+		std::vector<QPixmap*> m_computerEnemyMovingDown;
+		QPixmap *m_bomb;
+		QPixmap *m_wallSolid;
+		QPixmap *m_wallLoose;
+		QPixmap *m_powerUp;
+		QPixmap *m_powerUpMaxBomb;
+		QPixmap *m_powerUpMaxVelocity;
+		QPixmap *m_powerUpMaxBombRange;
+		QPixmap *m_explodedBombCenter;
+		QPixmap *m_explodedBombFlame;
+		QPixmap *m_explodedBombEnd;
 	};
 }
 

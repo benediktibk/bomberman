@@ -18,97 +18,106 @@ SvgRenderer::SvgRenderer(const double pixelPerMeter, const Common::GameState &ga
 
 SvgRenderer::~SvgRenderer()
 {
-	clearRendererList(m_humanPlayerStanding);
-	clearRendererList(m_computerEnemyStanding);
-	clearRendererList(m_humanPlayerMovingLeft);
-	clearRendererList(m_computerEnemyMovingLeft);
-	clearRendererList(m_humanPlayerMovingUp);
-	clearRendererList(m_computerEnemyMovingUp);
-	clearRendererList(m_humanPlayerMovingRight);
-	clearRendererList(m_computerEnemyMovingRight);
-	clearRendererList(m_humanPlayerMovingDown);
-	clearRendererList(m_computerEnemyMovingDown);
+	clearPixmapList(m_humanPlayerStanding);
+	clearPixmapList(m_computerEnemyStanding);
+	clearPixmapList(m_humanPlayerMovingLeft);
+	clearPixmapList(m_computerEnemyMovingLeft);
+	clearPixmapList(m_humanPlayerMovingUp);
+	clearPixmapList(m_computerEnemyMovingUp);
+	clearPixmapList(m_humanPlayerMovingRight);
+	clearPixmapList(m_computerEnemyMovingRight);
+	clearPixmapList(m_humanPlayerMovingDown);
+	clearPixmapList(m_computerEnemyMovingDown);
 
-	delete m_bombRenderer;
-	delete m_explodedBombCenterRenderer;
-	delete m_explodedBombFlameRenderer;
-	delete m_powerUpRenderer;
-	delete m_wallLooseRenderer;
-	delete m_wallSolidRenderer;
-	delete m_explodedBombEndRenderer;
-	delete m_powerUpMaxBombRangeRenderer;
-	delete m_powerUpMaxBombRenderer;
-	delete m_powerUpMaxVelocityRenderer;
+	delete m_bomb;
+	delete m_explodedBombCenter;
+	delete m_explodedBombFlame;
+	delete m_powerUp;
+	delete m_wallLoose;
+	delete m_wallSolid;
+	delete m_explodedBombEnd;
+	delete m_powerUpMaxBombRange;
+	delete m_powerUpMaxBomb;
+	delete m_powerUpMaxVelocity;
 }
 
 void SvgRenderer::renderPlayerItems()
 {
-	m_humanPlayerStanding.push_back(new QSvgRenderer(QString("resources/graphics/player_standing_1.svg")));
-	m_humanPlayerStanding.push_back(new QSvgRenderer(QString("resources/graphics/player_standing_2.svg")));
-	m_computerEnemyStanding.push_back(new QSvgRenderer(QString("resources/graphics/player_standing_3.svg")));
-	m_computerEnemyStanding.push_back(new QSvgRenderer(QString("resources/graphics/player_standing_4.svg")));
+	m_humanPlayerStanding.push_back(createPixmapFromSvg("resources/graphics/player_standing_1.svg"));
+	m_humanPlayerStanding.push_back(createPixmapFromSvg("resources/graphics/player_standing_2.svg"));
+	m_computerEnemyStanding.push_back(createPixmapFromSvg("resources/graphics/player_standing_3.svg"));
+	m_computerEnemyStanding.push_back(createPixmapFromSvg("resources/graphics/player_standing_4.svg"));
 
-	m_humanPlayerMovingLeft.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_left_1.svg")));
-	m_humanPlayerMovingLeft.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_left_2.svg")));
-	m_computerEnemyMovingLeft.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_left_3.svg")));
-	m_computerEnemyMovingLeft.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_left_4.svg")));
+	m_humanPlayerMovingLeft.push_back(createPixmapFromSvg("resources/graphics/player_moving_left_1.svg"));
+	m_humanPlayerMovingLeft.push_back(createPixmapFromSvg("resources/graphics/player_moving_left_2.svg"));
+	m_computerEnemyMovingLeft.push_back(createPixmapFromSvg("resources/graphics/player_moving_left_3.svg"));
+	m_computerEnemyMovingLeft.push_back(createPixmapFromSvg("resources/graphics/player_moving_left_4.svg"));
 
-	m_humanPlayerMovingUp.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_up_1.svg")));
-	m_humanPlayerMovingUp.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_up_2.svg")));
-	m_computerEnemyMovingUp.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_up_3.svg")));
-	m_computerEnemyMovingUp.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_up_4.svg")));
+	m_humanPlayerMovingUp.push_back(createPixmapFromSvg("resources/graphics/player_moving_up_1.svg"));
+	m_humanPlayerMovingUp.push_back(createPixmapFromSvg("resources/graphics/player_moving_up_2.svg"));
+	m_computerEnemyMovingUp.push_back(createPixmapFromSvg("resources/graphics/player_moving_up_3.svg"));
+	m_computerEnemyMovingUp.push_back(createPixmapFromSvg("resources/graphics/player_moving_up_4.svg"));
 
-	m_humanPlayerMovingRight.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_right_1.svg")));
-	m_humanPlayerMovingRight.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_right_2.svg")));
-	m_computerEnemyMovingRight.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_right_3.svg")));
-	m_computerEnemyMovingRight.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_right_4.svg")));
+	m_humanPlayerMovingRight.push_back(createPixmapFromSvg("resources/graphics/player_moving_right_1.svg"));
+	m_humanPlayerMovingRight.push_back(createPixmapFromSvg("resources/graphics/player_moving_right_2.svg"));
+	m_computerEnemyMovingRight.push_back(createPixmapFromSvg("resources/graphics/player_moving_right_3.svg"));
+	m_computerEnemyMovingRight.push_back(createPixmapFromSvg("resources/graphics/player_moving_right_4.svg"));
 
-	m_humanPlayerMovingDown.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_down_1.svg")));
-	m_humanPlayerMovingDown.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_down_2.svg")));
-	m_computerEnemyMovingDown.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_down_3.svg")));
-	m_computerEnemyMovingDown.push_back(new QSvgRenderer(QString("resources/graphics/player_moving_down_4.svg")));
+	m_humanPlayerMovingDown.push_back(createPixmapFromSvg("resources/graphics/player_moving_down_1.svg"));
+	m_humanPlayerMovingDown.push_back(createPixmapFromSvg("resources/graphics/player_moving_down_2.svg"));
+	m_computerEnemyMovingDown.push_back(createPixmapFromSvg("resources/graphics/player_moving_down_3.svg"));
+	m_computerEnemyMovingDown.push_back(createPixmapFromSvg("resources/graphics/player_moving_down_4.svg"));
 }
 
 void SvgRenderer::renderBombItem()
 {
-	m_bombRenderer = new QSvgRenderer(QString("resources/graphics/bomb_planted.svg"));
+	m_bomb = createPixmapFromSvg("resources/graphics/bomb_planted.svg");
 }
 
 void SvgRenderer::renderExplodedBombItems()
 {
-	m_explodedBombCenterRenderer = new QSvgRenderer(QString("resources/graphics/explosion_center.svg"));
-	m_explodedBombFlameRenderer = new QSvgRenderer(QString("resources/graphics/explosion_flame.svg"));
-	m_explodedBombEndRenderer = new QSvgRenderer(QString("resources/graphics/explosion_end.svg"));
+	m_explodedBombCenter = createPixmapFromSvg("resources/graphics/explosion_center.svg");
+	m_explodedBombFlame = createPixmapFromSvg("resources/graphics/explosion_flame.svg");
+	m_explodedBombEnd = createPixmapFromSvg("resources/graphics/explosion_end.svg");
 }
 
 void SvgRenderer::renderPowerUpItems()
 {
-	m_powerUpRenderer = new QSvgRenderer(QString("resources/graphics/powerup.svg"));
-	m_powerUpMaxBombRangeRenderer = new QSvgRenderer(QString("resources/graphics/powerup_range.svg"));
-	m_powerUpMaxBombRenderer = new QSvgRenderer(QString("resources/graphics/powerup_maxbombs.svg"));
-	m_powerUpMaxVelocityRenderer = new QSvgRenderer(QString("resources/graphics/powerup_speed.svg"));
+	m_powerUp = createPixmapFromSvg("resources/graphics/powerup.svg");
+	m_powerUpMaxBombRange = createPixmapFromSvg("resources/graphics/powerup_range.svg");
+	m_powerUpMaxBomb = createPixmapFromSvg("resources/graphics/powerup_maxbombs.svg");
+	m_powerUpMaxVelocity = createPixmapFromSvg("resources/graphics/powerup_speed.svg");
 }
 
 void SvgRenderer::renderWallItems()
 {
-	m_wallSolidRenderer = new QSvgRenderer(QString("resources/graphics/wall_solid.svg"));
-	m_wallLooseRenderer = new QSvgRenderer(QString("resources/graphics/wall_loose.svg"));
+	m_wallSolid = createPixmapFromSvg("resources/graphics/wall_solid.svg");
+	m_wallLoose = createPixmapFromSvg("resources/graphics/wall_loose.svg");
 }
 
-void SvgRenderer::clearRendererList(vector<QSvgRenderer*> &list)
+void SvgRenderer::clearPixmapList(vector<QPixmap*> &list)
 {
-	for (vector<QSvgRenderer*>::iterator i = list.begin(); i != list.end(); ++i)
+	for (vector<QPixmap*>::iterator i = list.begin(); i != list.end(); ++i)
 		delete *i;
 	list.clear();
 }
 
-QGraphicsItem *SvgRenderer::getNewGraphicsItemFromRenderer(const vector<QSvgRenderer*> &list, unsigned int index, double dimension) const
+QGraphicsItem *SvgRenderer::getNewGraphicsItemFromRenderer(const vector<QPixmap*> &list, unsigned int index, double /*dimension*/) const
 {
-	QGraphicsSvgItem *item = new QGraphicsSvgItem();
 	unsigned int realIndex = index % list.size();
-	item->setSharedRenderer(list.at(realIndex));
-	item->setScale(0.001*dimension*m_pixelPerMeter);
+	const QPixmap &pixmap = *(list.at(realIndex));
+	QGraphicsPixmapItem *item = new QGraphicsPixmapItem(pixmap);
+	//item->setScale(dimension*m_pixelPerMeter);
 	return item;
+}
+
+QPixmap* SvgRenderer::createPixmapFromSvg(const string &file) const
+{
+	QSvgRenderer renderer(QString(file.c_str()));
+	QImage image(m_pixelPerMeter, m_pixelPerMeter, QImage::Format_ARGB32);
+	QPainter painter(&image);
+	renderer.render(&painter);
+	return new QPixmap(QPixmap::fromImage(image));
 }
 
 QGraphicsItem* SvgRenderer::getNewPlayerStandingItem(unsigned int playerID, double dimension)
@@ -181,74 +190,68 @@ QGraphicsItem *SvgRenderer::getNewPlayerMovingDownItem(unsigned int playerID, do
 	}
 }
 
-QGraphicsItem* SvgRenderer::getNewBombItem(double dimension)
+QGraphicsItem* SvgRenderer::getNewBombItem(double /*dimension*/)
 {
-	QGraphicsSvgItem *bomb = new QGraphicsSvgItem();
-	bomb->setSharedRenderer(m_bombRenderer);
-	bomb->setScale(0.001*m_pixelPerMeter*dimension);
+	QGraphicsPixmapItem *bomb = new QGraphicsPixmapItem(*m_bomb);
+	//bomb->setScale(m_pixelPerMeter*dimension);
 	return bomb;
 }
 
-QGraphicsItem* SvgRenderer::getNewSolidWallItem(double dimension)
+QGraphicsItem* SvgRenderer::getNewSolidWallItem(double /*dimension*/)
 {
-	QGraphicsSvgItem *solidWall = new QGraphicsSvgItem();
-	solidWall->setSharedRenderer(m_wallSolidRenderer);
-	solidWall->setScale(0.001*m_pixelPerMeter*dimension);
+	QGraphicsPixmapItem *solidWall = new QGraphicsPixmapItem(*m_wallSolid);
+	//solidWall->setScale(m_pixelPerMeter*dimension);
 	return solidWall;
 }
 
-QGraphicsItem* SvgRenderer::getNewLooseWallItem(double dimension)
+QGraphicsItem* SvgRenderer::getNewLooseWallItem(double /*dimension*/)
 {
-	QGraphicsSvgItem *looseWall = new QGraphicsSvgItem();
-	looseWall->setSharedRenderer(m_wallLooseRenderer);
-	looseWall->setScale(0.001*m_pixelPerMeter*dimension);
+	QGraphicsPixmapItem *looseWall = new QGraphicsPixmapItem(*m_wallLoose);
+	//looseWall->setScale(m_pixelPerMeter*dimension);
 	return looseWall;
 }
 
-QGraphicsItem* SvgRenderer::getNewPowerUpItem(Common::PowerUpType powerUpType, double dimension)
+QGraphicsItem* SvgRenderer::getNewPowerUpItem(Common::PowerUpType powerUpType, double /*dimension*/)
 {
-	QGraphicsSvgItem *powerUp = new QGraphicsSvgItem();
+	QGraphicsPixmapItem *powerUp = 0;
 
 	switch (powerUpType)
 	{
 		case Common::PowerUpTypeMaxBomb:
-			powerUp->setSharedRenderer(m_powerUpMaxBombRenderer);
+			powerUp = new QGraphicsPixmapItem(*m_powerUpMaxBomb);
 			break;
 		case Common::PowerUpTypeMaxBombRange:
-			powerUp->setSharedRenderer(m_powerUpMaxBombRangeRenderer);
+			powerUp = new QGraphicsPixmapItem(*m_powerUpMaxBombRange);
 			break;
 		case Common::PowerUpTypeMaxVelocity:
-			powerUp->setSharedRenderer(m_powerUpMaxVelocityRenderer);
+			powerUp = new QGraphicsPixmapItem(*m_powerUpMaxVelocity);
 			break;
 		case Common::PowerUpTypeNone:
-			powerUp->setSharedRenderer(m_powerUpRenderer);
+			powerUp = new QGraphicsPixmapItem(*m_powerUp);
 			break;
 	}
 
-	powerUp->setScale(0.001*m_pixelPerMeter*dimension);
+	//powerUp->setScale(m_pixelPerMeter*dimension);
 	return powerUp;
 }
 
-QGraphicsItem* SvgRenderer::getNewExplodedBombCenterItem(double dimension)
+QGraphicsItem* SvgRenderer::getNewExplodedBombCenterItem(double /*dimension*/)
 {
-	QGraphicsSvgItem *explosionCenter = new QGraphicsSvgItem();
-	explosionCenter->setSharedRenderer(m_explodedBombCenterRenderer);
-	explosionCenter->setScale(0.001*m_pixelPerMeter*dimension);
+	QGraphicsPixmapItem *explosionCenter = new QGraphicsPixmapItem(*m_explodedBombCenter);
+	//explosionCenter->setScale(m_pixelPerMeter*dimension);
 	return explosionCenter;
 }
 
-QGraphicsItem* SvgRenderer::getNewExplodedBombFlameItem(double dimension)
+QGraphicsItem* SvgRenderer::getNewExplodedBombFlameItem(double /*dimension*/)
 {
-	QGraphicsSvgItem *explosionFlame = new QGraphicsSvgItem();
-	explosionFlame->setSharedRenderer(m_explodedBombFlameRenderer);
-	explosionFlame->setScale(0.001*m_pixelPerMeter*dimension);
+	QGraphicsPixmapItem *explosionFlame = new QGraphicsPixmapItem(*m_explodedBombFlame);
+	//explosionFlame->setScale(m_pixelPerMeter*dimension);
 	return explosionFlame;
 }
 
-QGraphicsItem* SvgRenderer::getNewExplodedBombEndItem(double dimension)
+QGraphicsItem* SvgRenderer::getNewExplodedBombEndItem(double /*dimension*/)
 {
-	QGraphicsSvgItem *explosionEnd = new QGraphicsSvgItem();
-	explosionEnd->setSharedRenderer(m_explodedBombEndRenderer);
-	explosionEnd->setScale(0.001*m_pixelPerMeter*dimension);
+	QGraphicsPixmapItem *explosionEnd = new QGraphicsPixmapItem(*m_explodedBombEnd);
+	//explosionEnd->setScale(m_pixelPerMeter*dimension);
 	return explosionEnd;
 }
