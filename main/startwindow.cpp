@@ -2,6 +2,7 @@
 #include "ui_startwindow.h"
 #include "mainwindow.h"
 #include <QStandardItemModel>
+#include <QMessageBox>
 
 using namespace std;
 using namespace Main;
@@ -14,6 +15,7 @@ StartWindow::StartWindow(bool enableOpenGL) :
 	connectButtons();
 	createTableView();
 	createSilder();
+	createComboBox();
 	if(enableOpenGL)
 		m_ui->openGlCheckBox->setChecked(true);
 	m_ui->singleRadioButton->setChecked(true);
@@ -64,7 +66,9 @@ void StartWindow::createSilder()
 
 void StartWindow::createComboBox()
 {
-
+	m_ui->difficultyComboBox->addItem("easy");
+	m_ui->difficultyComboBox->addItem("medium");
+	m_ui->difficultyComboBox->addItem("hard");
 }
 
 void StartWindow::exitClicked()
@@ -127,5 +131,7 @@ void StartWindow::readMeClicked()
 
 void StartWindow::controlClicked()
 {
-
+	QMessageBox msgBox;
+	msgBox.setText("Control");
+	msgBox.exec();
 }
