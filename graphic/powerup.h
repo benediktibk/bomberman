@@ -15,7 +15,6 @@ namespace Graphic
 	class PowerUp
 	{
 	public:
-		PowerUp(QGraphicsScene &scene, SvgRenderer &renderer);
 		PowerUp(QGraphicsScene &scene, SvgRenderer &renderer, const Common::PowerUpState &state, double pixelPerMeter);
 		~PowerUp();
 

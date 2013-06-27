@@ -7,13 +7,6 @@
 
 using namespace Graphic;
 
-Bomb::Bomb(QGraphicsScene &scene) :
-	m_svgItem(new QGraphicsSvgItem(QString("resources/graphics/bomb_planted.svg")))
-{
-	m_svgItem->setZValue(1);
-	scene.addItem(m_svgItem);
-}
-
 Bomb::Bomb(QGraphicsScene &scene, SvgRenderer &renderer)
 {
 	m_svgItem = renderer.getNewBombItem();

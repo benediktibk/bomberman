@@ -8,13 +8,6 @@
 using namespace Graphic;
 using namespace Common;
 
-PowerUp::PowerUp(QGraphicsScene &scene, SvgRenderer &renderer) :
-	m_svgItem(renderer.getNewPowerUpItem())
-{
-	m_svgItem->setZValue(0);
-	scene.addItem(m_svgItem);
-}
-
 PowerUp::PowerUp(QGraphicsScene &scene, SvgRenderer &renderer, const PowerUpState &state, double pixelPerMeter)
 {
 	createSvgItem(state, renderer);

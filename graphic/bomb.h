@@ -16,7 +16,6 @@ namespace Graphic
 	class Bomb
 	{
 	public:
-		Bomb(QGraphicsScene &scene);
 		Bomb(QGraphicsScene &scene, SvgRenderer &renderer);
 		~Bomb();
 
