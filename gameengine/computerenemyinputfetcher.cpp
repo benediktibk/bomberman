@@ -99,3 +99,8 @@ GridPoint ComputerEnemyInputFetcher::getPlayerPosition() const
 {
 	return Grid::getTargetPoint(m_player);
 }
+
+unsigned int ComputerEnemyInputFetcher::getPlayerID()
+{
+    return m_playerID;
+}

@@ -111,6 +111,7 @@ void GameLoop::execute()
 	const Common::GameState &gameState = m_gameEngine.getGameState();
 	vector<unsigned int> computerEnemyIDs = gameState.getAllNotDestroyedComputerEnemyIDs();
 	vector<unsigned int> playerIDs = gameState.getAllNotDestroyedPlayerIDs();
+    //m_inputFetcher.setPlayerIDs(playerIDs);
 
 	while (run)
 	{
@@ -137,10 +138,11 @@ void GameLoop::execute()
 
 		// begin of temporary code
 		map<unsigned int, InputState> inputStates;
-		inputStates[playerIDs.front()] = m_inputFetcher.getInputState();
+		inputStates[playerIDs.front()] = m_inputFetcher.getInputState(); 
 		for (size_t i = 0; i < computerEnemyIDs.size(); ++i)
 			inputStates[computerEnemyIDs[i]] = m_computerEnemyInputFetcher[i]->getInputState();
-		m_gameEngine.updateGameState(inputStates, time);
+        m_gameEngine.updateGameState(inputStates, time);
+        // allPlayerInputFetcher input(m_inputFetcher,m_computerEnemyInputFetcherVECTOR);
 		// end of temporary code
 
 		m_graphicDrawer.draw(gameState);

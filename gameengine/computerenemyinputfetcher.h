@@ -28,6 +28,7 @@ namespace GameEngine
 
 		virtual std::map<unsigned int, Common::InputState> getInputStates();
 		virtual Common::InputState getInputState();
+        unsigned int getPlayerID();
 
 	protected:
 		virtual void calculateInputStateInternal() = 0;
