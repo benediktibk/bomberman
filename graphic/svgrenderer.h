@@ -29,7 +29,6 @@ namespace Graphic
 		QGraphicsItem* getNewSolidWallItem(double dimension);
 		QGraphicsItem* getNewLooseWallItem(double dimension);
 		QGraphicsItem* getNewPowerUpItem(Common::PowerUpType powerUpType, double dimension);
-		QGraphicsItem* getNewCellBackgroundItem(double dimension);
 		QGraphicsItem* getNewExplodedBombCenterItem(double dimension);
 		QGraphicsItem* getNewExplodedBombFlameItem(double dimension);
 		QGraphicsItem* getNewExplodedBombEndItem(double dimension);
@@ -40,7 +39,6 @@ namespace Graphic
 		void renderWallItems();
 		void renderPowerUpItems();
 		void renderExplodedBombItems();
-		void renderCellBackgroundItem();
 		void clearRendererList(std::vector<QSvgRenderer*> &list);
 		QGraphicsItem* getNewGraphicsItemFromRenderer(const std::vector<QSvgRenderer*> &list, unsigned int index, double dimension) const;
 
@@ -64,7 +62,6 @@ namespace Graphic
 		QSvgRenderer *m_powerUpMaxBombRenderer;
 		QSvgRenderer *m_powerUpMaxVelocityRenderer;
 		QSvgRenderer *m_powerUpMaxBombRangeRenderer;
-		QSvgRenderer *m_cellBackgroundRenderer;
 		QSvgRenderer *m_explodedBombCenterRenderer;
 		QSvgRenderer *m_explodedBombFlameRenderer;
 		QSvgRenderer *m_explodedBombEndRenderer;

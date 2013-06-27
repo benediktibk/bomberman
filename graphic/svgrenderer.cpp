@@ -14,7 +14,6 @@ SvgRenderer::SvgRenderer(const double pixelPerMeter, const Common::GameState &ga
 	renderExplodedBombItems();
 	renderPowerUpItems();
 	renderWallItems();
-	renderCellBackgroundItem();
 }
 
 SvgRenderer::~SvgRenderer()
@@ -36,7 +35,6 @@ SvgRenderer::~SvgRenderer()
 	delete m_powerUpRenderer;
 	delete m_wallLooseRenderer;
 	delete m_wallSolidRenderer;
-	delete m_cellBackgroundRenderer;
 	delete m_explodedBombEndRenderer;
 	delete m_powerUpMaxBombRangeRenderer;
 	delete m_powerUpMaxBombRenderer;
@@ -95,11 +93,6 @@ void SvgRenderer::renderWallItems()
 {
 	m_wallSolidRenderer = new QSvgRenderer(QString("resources/graphics/wall_solid.svg"));
 	m_wallLooseRenderer = new QSvgRenderer(QString("resources/graphics/wall_loose.svg"));
-}
-
-void SvgRenderer::renderCellBackgroundItem()
-{
-	m_cellBackgroundRenderer = new QSvgRenderer(QString("resources/graphics/bg_cell_pattern.svg"));
 }
 
 void SvgRenderer::clearRendererList(vector<QSvgRenderer*> &list)
@@ -238,14 +231,6 @@ QGraphicsItem* SvgRenderer::getNewPowerUpItem(Common::PowerUpType powerUpType, d
 	powerUp->setScale(0.001*m_pixelPerMeter*dimension);
 
 	return powerUp;
-}
-
-QGraphicsItem* SvgRenderer::getNewCellBackgroundItem(double dimension)
-{
-	QGraphicsSvgItem *cellBG = new QGraphicsSvgItem();
-	cellBG->setSharedRenderer(m_cellBackgroundRenderer);
-	cellBG->setScale(0.001*m_pixelPerMeter*dimension);
-	return cellBG;
 }
 
 QGraphicsItem* SvgRenderer::getNewExplodedBombCenterItem(double dimension)
