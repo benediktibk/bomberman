@@ -408,3 +408,7 @@ resources/sounds/placed.wav
 common/soundplayer.h
 common/soundplayerstub.h
 common/soundplayerstub.cpp
+main/gui/mainwindowsoundtest.ui
+main/mainwindowsoundtest.h
+main/mainwindowsoundtest.cpp
+main/mainsoundtest.cpp

@@ -16,6 +16,7 @@ set(MAIN_SRC
 	mainwindowinputfetcher.cpp
 	mainwindowinputtest.cpp
 	mainwindowgraphictest.cpp
+	mainwindowsoundtest.cpp
 	startwindow.cpp
 )
 
@@ -28,6 +29,7 @@ set(MAIN_FORMS
 	gui/mainwindowinputtest.ui
 	gui/mainwindowgraphictest.ui
 	gui/startwindow.ui
+	gui/mainwindowsoundtest.ui
 )
 
 set(LIBRARIES
@@ -67,6 +69,7 @@ add_executable(graphictest maingraphictest.cpp ${MAIN_QT_SRC} ${MAIN_FORMS_MOC})
 add_executable(startwindowtest startwindowtest.cpp ${MAIN_QT_SRC} ${MAIN_FORMS_MOC})
 add_executable(regressiontest mainregressiontest.cpp)
 add_executable(testrunner testrunner.cpp testregistration.cpp)
+add_executable(soundtest mainsoundtest.cpp ${MAIN_QT_SRC} ${MAIN_FORMS_MOC})
 qt5_use_modules(main Widgets Gui Svg OpenGL Core Multimedia)
 qt5_use_modules(game Widgets Gui Svg OpenGL Core Multimedia)
 target_link_libraries(game ${LIBRARIES} boost_thread-mt)
@@ -79,3 +82,5 @@ qt5_use_modules(startwindowtest Widgets Gui Svg OpenGL Core Multimedia)
 target_link_libraries(startwindowtest ${LIBRARIES} boost_thread-mt)
 target_link_libraries(regressiontest ${LIBRARIES} boost_thread-mt commontest)
 target_link_libraries(testrunner ${LIBRARIES_TEST} ${LIBRARIES} ${CPPUNIT_LIBRARY} boost_thread-mt)
+qt5_use_modules(soundtest Widgets Gui Core Multimedia)
+target_link_libraries(soundtest ${LIBRARIES} boost_thread-mt)

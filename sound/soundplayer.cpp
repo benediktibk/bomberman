@@ -1,7 +1,6 @@
 #include "sound/soundplayer.h"
 #include <QtMultimedia/QSoundEffect>
 
-
 using namespace Sound;
 using namespace std;
 
