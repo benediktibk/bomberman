@@ -140,7 +140,7 @@ void GraphicDrawerQt::drawPlayer(const PlayerState *playerState)
 	}
 
 	if (!playerFound)
-		player = new Player(*m_scene, *m_svgRenderer);
+		player = new Player(*m_scene, *m_svgRenderer, *playerState);
 	else
 		player = playerPosition->second;
 
