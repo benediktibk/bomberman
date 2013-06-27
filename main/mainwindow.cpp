@@ -80,6 +80,7 @@ void MainWindow::startGame(bool enableOpenGL, const char* levelname, unsigned in
 
     m_soundPlayer = new Sound::SoundPlayer();
     m_gameEngine = new GameEngine::GameEngineImpl(*m_level, *m_soundPlayer, humanPlayerCount, computerEnemyCount);
+    m_gameLoop = new GameLoop(*this, *m_gameEngine,*this,computerEnemyLevel);
 	m_enableOpenGL = enableOpenGL;
 	m_gameStartMutex.lock();
 	m_gameStarted = true;
