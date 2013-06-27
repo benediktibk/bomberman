@@ -52,10 +52,25 @@ set(GRAPHICS
 	bg_cell_pattern.svg
 	bomb_planted.svg
 	player_standing.svg
+	player_standing_2.svg
+	player_standing_3.svg
+	player_standing_4.svg
 	player_moving_left.svg
+	player_moving_left_2.svg
+	player_moving_left_3.svg
+	player_moving_left_4.svg
 	player_moving_up.svg
+	player_moving_up_2.svg
+	player_moving_up_3.svg
+	player_moving_up_4.svg
 	player_moving_right.svg
+	player_moving_right_2.svg
+	player_moving_right_3.svg
+	player_moving_right_4.svg
 	player_moving_down.svg
+	player_moving_down_2.svg
+	player_moving_down_3.svg
+	player_moving_down_4.svg
 	wall_loose.svg
 	wall_solid.svg
 	explosion_center.svg

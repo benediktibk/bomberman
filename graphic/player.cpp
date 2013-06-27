@@ -8,12 +8,12 @@
 using namespace Graphic;
 using namespace Common;
 
-Player::Player(QGraphicsScene &scene, SvgRenderer &renderer) :
-	m_standing(renderer.getNewPlayerStandingItem()),
-	m_movingLeft(renderer.getNewPlayerMovingLeftItem()),
-	m_movingUp(renderer.getNewPlayerMovingUpItem()),
-	m_movingRight(renderer.getNewPlayerMovingRightItem()),
-	m_movingDown(renderer.getNewPlayerMovingDownItem())
+Player::Player(QGraphicsScene &scene, SvgRenderer &renderer, const PlayerState &state) :
+	m_standing(renderer.getNewPlayerStandingItem(state.getId())),
+	m_movingLeft(renderer.getNewPlayerMovingLeftItem(state.getId())),
+	m_movingUp(renderer.getNewPlayerMovingUpItem(state.getId())),
+	m_movingRight(renderer.getNewPlayerMovingRightItem(state.getId())),
+	m_movingDown(renderer.getNewPlayerMovingDownItem(state.getId()))
 {
 	m_standing->setZValue(2);
 	m_movingLeft->setZValue(2);

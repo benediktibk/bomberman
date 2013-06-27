@@ -12,11 +12,11 @@ class SvgRenderer
 {
 public:
 	SvgRenderer(const double pixelPerMeter);
-	QGraphicsSvgItem *getNewPlayerStandingItem();
-	QGraphicsSvgItem *getNewPlayerMovingLeftItem();
-	QGraphicsSvgItem *getNewPlayerMovingUpItem();
-	QGraphicsSvgItem *getNewPlayerMovingRightItem();
-	QGraphicsSvgItem *getNewPlayerMovingDownItem();
+	QGraphicsSvgItem *getNewPlayerStandingItem(unsigned int playerId = 0);
+	QGraphicsSvgItem *getNewPlayerMovingLeftItem(unsigned int playerId = 0);
+	QGraphicsSvgItem *getNewPlayerMovingUpItem(unsigned int playerId = 0);
+	QGraphicsSvgItem *getNewPlayerMovingRightItem(unsigned int playerId = 0);
+	QGraphicsSvgItem *getNewPlayerMovingDownItem(unsigned int playerId = 0);
 	QGraphicsSvgItem *getNewBombItem();
 	QGraphicsSvgItem *getNewSolidWallItem();
 	QGraphicsSvgItem *getNewLooseWallItem();
@@ -37,11 +37,32 @@ private:
 
 private:
 	const double m_pixelPerMeter;
-	QSvgRenderer *m_playerStandingRenderer;
-	QSvgRenderer *m_playerMovingLeftRenderer;
-	QSvgRenderer *m_playerMovingUpRenderer;
-	QSvgRenderer *m_playerMovingRightRenderer;
-	QSvgRenderer *m_playerMovingDownRenderer;
+
+	QSvgRenderer *m_playerStandingRenderer_1;
+	QSvgRenderer *m_playerStandingRenderer_2;
+	QSvgRenderer *m_playerStandingRenderer_3;
+	QSvgRenderer *m_playerStandingRenderer_4;
+
+	QSvgRenderer *m_playerMovingLeftRenderer_1;
+	QSvgRenderer *m_playerMovingLeftRenderer_2;
+	QSvgRenderer *m_playerMovingLeftRenderer_3;
+	QSvgRenderer *m_playerMovingLeftRenderer_4;
+
+	QSvgRenderer *m_playerMovingUpRenderer_1;
+	QSvgRenderer *m_playerMovingUpRenderer_2;
+	QSvgRenderer *m_playerMovingUpRenderer_3;
+	QSvgRenderer *m_playerMovingUpRenderer_4;
+
+	QSvgRenderer *m_playerMovingRightRenderer_1;
+	QSvgRenderer *m_playerMovingRightRenderer_2;
+	QSvgRenderer *m_playerMovingRightRenderer_3;
+	QSvgRenderer *m_playerMovingRightRenderer_4;
+
+	QSvgRenderer *m_playerMovingDownRenderer_1;
+	QSvgRenderer *m_playerMovingDownRenderer_2;
+	QSvgRenderer *m_playerMovingDownRenderer_3;
+	QSvgRenderer *m_playerMovingDownRenderer_4;
+
 	QSvgRenderer *m_bombRenderer;
 	QSvgRenderer *m_wallSolidRenderer;
 	QSvgRenderer *m_wallLooseRenderer;
