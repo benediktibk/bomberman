@@ -109,7 +109,7 @@ void SvgRenderer::clearRendererList(vector<QSvgRenderer*> &list)
 	list.clear();
 }
 
-QGraphicsSvgItem *SvgRenderer::getNewGraphicsItemFromRenderer(const vector<QSvgRenderer*> &list, unsigned int index) const
+QGraphicsItem *SvgRenderer::getNewGraphicsItemFromRenderer(const vector<QSvgRenderer*> &list, unsigned int index) const
 {
 	QGraphicsSvgItem *item = new QGraphicsSvgItem();
 	unsigned int realIndex = index % list.size();
@@ -117,7 +117,7 @@ QGraphicsSvgItem *SvgRenderer::getNewGraphicsItemFromRenderer(const vector<QSvgR
 	return item;
 }
 
-QGraphicsSvgItem* SvgRenderer::getNewPlayerStandingItem(unsigned int playerID)
+QGraphicsItem* SvgRenderer::getNewPlayerStandingItem(unsigned int playerID)
 {
 	if (m_gameState.isHumanPlayerID(playerID))
 	{
@@ -131,7 +131,7 @@ QGraphicsSvgItem* SvgRenderer::getNewPlayerStandingItem(unsigned int playerID)
 	}
 }
 
-QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingLeftItem(unsigned int playerID)
+QGraphicsItem *SvgRenderer::getNewPlayerMovingLeftItem(unsigned int playerID)
 {
 	if (m_gameState.isHumanPlayerID(playerID))
 	{
@@ -145,7 +145,7 @@ QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingLeftItem(unsigned int playerID)
 	}
 }
 
-QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingUpItem(unsigned int playerID)
+QGraphicsItem *SvgRenderer::getNewPlayerMovingUpItem(unsigned int playerID)
 {
 	if (m_gameState.isHumanPlayerID(playerID))
 	{
@@ -159,7 +159,7 @@ QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingUpItem(unsigned int playerID)
 	}
 }
 
-QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingRightItem(unsigned int playerID)
+QGraphicsItem *SvgRenderer::getNewPlayerMovingRightItem(unsigned int playerID)
 {
 	if (m_gameState.isHumanPlayerID(playerID))
 	{
@@ -173,7 +173,7 @@ QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingRightItem(unsigned int playerID
 	}
 }
 
-QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingDownItem(unsigned int playerID)
+QGraphicsItem *SvgRenderer::getNewPlayerMovingDownItem(unsigned int playerID)
 {
 	if (m_gameState.isHumanPlayerID(playerID))
 	{
@@ -187,28 +187,28 @@ QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingDownItem(unsigned int playerID)
 	}
 }
 
-QGraphicsSvgItem* SvgRenderer::getNewBombItem()
+QGraphicsItem* SvgRenderer::getNewBombItem()
 {
 	QGraphicsSvgItem *bomb = new QGraphicsSvgItem();
 	bomb->setSharedRenderer(m_bombRenderer);
 	return bomb;
 }
 
-QGraphicsSvgItem* SvgRenderer::getNewSolidWallItem()
+QGraphicsItem* SvgRenderer::getNewSolidWallItem()
 {
 	QGraphicsSvgItem *solidWall = new QGraphicsSvgItem();
 	solidWall->setSharedRenderer(m_wallSolidRenderer);
 	return solidWall;
 }
 
-QGraphicsSvgItem* SvgRenderer::getNewLooseWallItem()
+QGraphicsItem* SvgRenderer::getNewLooseWallItem()
 {
 	QGraphicsSvgItem *looseWall = new QGraphicsSvgItem();
 	looseWall->setSharedRenderer(m_wallLooseRenderer);
 	return looseWall;
 }
 
-QGraphicsSvgItem* SvgRenderer::getNewPowerUpItem(Common::PowerUpType powerUpType)
+QGraphicsItem* SvgRenderer::getNewPowerUpItem(Common::PowerUpType powerUpType)
 {
 	QGraphicsSvgItem *powerUp = new QGraphicsSvgItem();
 
@@ -234,28 +234,28 @@ QGraphicsSvgItem* SvgRenderer::getNewPowerUpItem(Common::PowerUpType powerUpType
 	return powerUp;
 }
 
-QGraphicsSvgItem* SvgRenderer::getNewCellBackgroundItem()
+QGraphicsItem* SvgRenderer::getNewCellBackgroundItem()
 {
 	QGraphicsSvgItem *cellBG = new QGraphicsSvgItem();
 	cellBG->setSharedRenderer(m_cellBackgroundRenderer);
 	return cellBG;
 }
 
-QGraphicsSvgItem* SvgRenderer::getNewExplodedBombCenterItem()
+QGraphicsItem* SvgRenderer::getNewExplodedBombCenterItem()
 {
 	QGraphicsSvgItem *explosionCenter = new QGraphicsSvgItem();
 	explosionCenter->setSharedRenderer(m_explodedBombCenterRenderer);
 	return explosionCenter;
 }
 
-QGraphicsSvgItem* SvgRenderer::getNewExplodedBombFlameItem()
+QGraphicsItem* SvgRenderer::getNewExplodedBombFlameItem()
 {
 	QGraphicsSvgItem *explosionFlame = new QGraphicsSvgItem();
 	explosionFlame->setSharedRenderer(m_explodedBombFlameRenderer);
 	return explosionFlame;
 }
 
-QGraphicsSvgItem* SvgRenderer::getNewExplodedBombEndItem()
+QGraphicsItem* SvgRenderer::getNewExplodedBombEndItem()
 {
 	QGraphicsSvgItem *explosionEnd = new QGraphicsSvgItem();
 	explosionEnd->setSharedRenderer(m_explodedBombEndRenderer);
