@@ -3,6 +3,8 @@
 
 #include "common/soundplayer.h"
 
+class QSound;
+
 namespace Sound
 {
     class SoundPlayer :
@@ -15,6 +17,7 @@ namespace Sound
         virtual void bombExplosion();
 
     private:
+        QSound *m_bombExplosion;
     };
 }
 

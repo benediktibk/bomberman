@@ -4,9 +4,9 @@
 using namespace Sound;
 using namespace std;
 
-SoundPlayer::SoundPlayer()
-{
-}
+SoundPlayer::SoundPlayer() :
+    m_bombExplosion(new QSound(QString("resources/sounds/bomb.wav")))
+{ }
 
 SoundPlayer::~SoundPlayer()
 {
@@ -14,6 +14,5 @@ SoundPlayer::~SoundPlayer()
 
 void SoundPlayer::bombExplosion()
 {
-    QSound bombsound(QString("resources/sounds/bomb.wav"));
-    bombsound.play();
+    m_bombExplosion->play();
 }

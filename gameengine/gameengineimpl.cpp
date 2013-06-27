@@ -408,8 +408,10 @@ void GameEngineImpl::removeAllObjectsWithDestroyedFlagFromGrid()
 {
 	vector<const BombState*> allBombsWithDestroyedFlag = m_gameState.getAllBombsWithDestroyedFlag();
 	for(size_t i = 0;i < allBombsWithDestroyedFlag.size();i++)
+    {
         m_grid->removeBomb(*allBombsWithDestroyedFlag[i]);
-
+        m_soundPlayer.bombExplosion();
+    }
 	vector<const WallState*> allWallsWithDestroyedFlag = m_gameState.getAllWallsWithDestroyedFlag();
 	for(size_t i = 0;i < allWallsWithDestroyedFlag.size();i++)
 	{

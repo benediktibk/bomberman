@@ -19,6 +19,7 @@ MainWindow::MainWindow() :
 	m_drawer(0),
 	m_level(0),
 	m_gameEngine(0),
+    m_soundPlayer(0),
 	m_gameLoop(0),
 	m_timerUserInfoUpdate(new QTimer(this)),
 	m_gameStarted(false)
