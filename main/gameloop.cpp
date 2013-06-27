@@ -118,7 +118,7 @@ void GameLoop::execute()
 		 * @todo catchPlayerInformation should only get PlayerIDs of local Players, not all.
 		 */
 
-		catchPlayerInformation(gameState.getAllNotDestroyedPlayerIDs());
+		catchPlayerInformation(gameState.getAllNotDestroyedHumanPlayerIDs());
 
 		m_graphicDrawer.draw(gameState);
 
