@@ -10,6 +10,8 @@ namespace Common
     {
     public:
         virtual void bombExplosion();
+        virtual void bombPlaced();
+        virtual void gotItem();
     };
 }
 

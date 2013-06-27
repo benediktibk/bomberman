@@ -7,7 +7,9 @@ namespace Common
     {
     public:
         virtual void bombExplosion() = 0;
-
+        virtual void bombPlaced() = 0;
+        virtual void gotItem() = 0;
+        
         virtual ~SoundPlayer() { }
     };
 }

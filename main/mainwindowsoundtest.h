@@ -27,7 +27,9 @@ namespace Main
         
     private slots:
         void bombExplosion();
-    
+        void bombPlaced();
+        void gotItem();
+        
     private:
         Ui::MainWindowSoundTest* m_ui;
         Sound::SoundPlayer *m_sound;
