@@ -16,7 +16,31 @@ SvgRenderer::SvgRenderer(const double pixelPerMeter) :
 
 SvgRenderer::~SvgRenderer()
 {
-	delete m_playerStandingRenderer;
+	delete m_playerStandingRenderer_1;
+	delete m_playerStandingRenderer_2;
+	delete m_playerStandingRenderer_3;
+	delete m_playerStandingRenderer_4;
+
+	delete m_playerMovingLeftRenderer_1;
+	delete m_playerMovingLeftRenderer_2;
+	delete m_playerMovingLeftRenderer_3;
+	delete m_playerMovingLeftRenderer_4;
+
+	delete m_playerMovingUpRenderer_1;
+	delete m_playerMovingUpRenderer_2;
+	delete m_playerMovingUpRenderer_3;
+	delete m_playerMovingUpRenderer_4;
+
+	delete m_playerMovingRightRenderer_1;
+	delete m_playerMovingRightRenderer_2;
+	delete m_playerMovingRightRenderer_3;
+	delete m_playerMovingRightRenderer_4;
+
+	delete m_playerMovingDownRenderer_1;
+	delete m_playerMovingDownRenderer_2;
+	delete m_playerMovingDownRenderer_3;
+	delete m_playerMovingDownRenderer_4;
+
 	delete m_bombRenderer;
 	delete m_explodedBombCenterRenderer;
 	delete m_explodedBombFlameRenderer;
@@ -32,11 +56,11 @@ SvgRenderer::~SvgRenderer()
 
 void SvgRenderer::renderPlayerItems()
 {
-	m_playerStandingRenderer = new QSvgRenderer(QString("resources/graphics/player_standing.svg"));
-	m_playerMovingLeftRenderer = new QSvgRenderer(QString("resources/graphics/player_moving_left.svg"));
-	m_playerMovingUpRenderer = new QSvgRenderer(QString("resources/graphics/player_moving_up.svg"));
-	m_playerMovingRightRenderer = new QSvgRenderer(QString("resources/graphics/player_moving_right.svg"));
-	m_playerMovingDownRenderer = new QSvgRenderer(QString("resources/graphics/player_moving_down.svg"));
+	m_playerStandingRenderer_1 = new QSvgRenderer(QString("resources/graphics/player_standing.svg"));
+	m_playerMovingLeftRenderer_1 = new QSvgRenderer(QString("resources/graphics/player_moving_left.svg"));
+	m_playerMovingUpRenderer_1 = new QSvgRenderer(QString("resources/graphics/player_moving_up.svg"));
+	m_playerMovingRightRenderer_1 = new QSvgRenderer(QString("resources/graphics/player_moving_right.svg"));
+	m_playerMovingDownRenderer_1 = new QSvgRenderer(QString("resources/graphics/player_moving_down.svg"));
 }
 
 void SvgRenderer::renderBombItem()
@@ -73,35 +97,35 @@ void SvgRenderer::renderCellBackgroundItem()
 QGraphicsSvgItem* SvgRenderer::getNewPlayerStandingItem()
 {
 	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-	player->setSharedRenderer(m_playerStandingRenderer);
+	player->setSharedRenderer(m_playerStandingRenderer_1);
 	return player;
 }
 
 QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingLeftItem()
 {
 	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-	player->setSharedRenderer(m_playerMovingLeftRenderer);
+	player->setSharedRenderer(m_playerMovingLeftRenderer_1);
 	return player;
 }
 
 QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingUpItem()
 {
 	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-	player->setSharedRenderer(m_playerMovingUpRenderer);
+	player->setSharedRenderer(m_playerMovingUpRenderer_1);
 	return player;
 }
 
 QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingRightItem()
 {
 	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-	player->setSharedRenderer(m_playerMovingRightRenderer);
+	player->setSharedRenderer(m_playerMovingRightRenderer_1);
 	return player;
 }
 
 QGraphicsSvgItem *SvgRenderer::getNewPlayerMovingDownItem()
 {
 	QGraphicsSvgItem *player = new QGraphicsSvgItem();
-	player->setSharedRenderer(m_playerMovingDownRenderer);
+	player->setSharedRenderer(m_playerMovingDownRenderer_1);
 	return player;
 }
 
