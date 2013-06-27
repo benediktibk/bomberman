@@ -27,7 +27,7 @@ namespace Main
 		void stop();
 		void pause();
 		bool isPaused();
-		unsigned int getFramesPerSecond();
+		double getFramesPerSecond();
 		std::vector<unsigned int> getPlayerInformation();
 
 	private:
@@ -48,7 +48,7 @@ namespace Main
 		const unsigned int m_maximumFramesPerSecond;
 		//! we need a minimum time step, otherwise the physic simulator has problems
 		const double m_minimumTimeStep;
-		unsigned int m_framesPerSecond;
+		double m_framesPerSecond;
 		Threading::Mutex m_performanceInformationMutex;
 		Threading::Signal m_start;
 		GameEngine::ComputerEnemyInputFetcher m_computerEnemyInputFetcher;

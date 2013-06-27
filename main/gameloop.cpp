@@ -63,9 +63,9 @@ bool GameLoop::isPaused()
 	return paused;
 }
 
-unsigned int GameLoop::getFramesPerSecond()
+double GameLoop::getFramesPerSecond()
 {
-	unsigned int result;
+	double result;
 	m_performanceInformationMutex.lock();
 	result = m_framesPerSecond;
 	m_performanceInformationMutex.unlock();
@@ -81,6 +81,9 @@ void GameLoop::execute()
 	StopWatch watch;
 	const Common::GameState &gameState = m_gameEngine.getGameState();
 	vector<unsigned int> playerIDs = gameState.getAllNotDestroyedPlayerIDs();
+	double movingAverageOfTime = m_minimumTimeStep;
+	const double weightOfOldAverage = 9.0/10;
+	const double weightOfNewTime = 1 - weightOfOldAverage;
 
 	while (run)
 	{
@@ -97,8 +100,10 @@ void GameLoop::execute()
 			time += timeWaited;
 		}
 
+		movingAverageOfTime = movingAverageOfTime*weightOfOldAverage + time*weightOfNewTime;
+
 		m_performanceInformationMutex.lock();
-		m_framesPerSecond = static_cast<unsigned int>(1/time);
+		m_framesPerSecond = 1/movingAverageOfTime;
 		m_performanceInformationMutex.unlock();
 
 		/*!

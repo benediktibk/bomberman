@@ -40,7 +40,7 @@ GameEngineImpl::~GameEngineImpl()
 	delete m_simulator;
 }
 
-void GameEngineImpl::updateGameState(const std::map<unsigned int, Common::InputState> &inputStates, double time)
+void GameEngineImpl::updateGameState(const map<unsigned int, Common::InputState> &inputStates, double time)
 {
 	assert(m_inputStates.size() == inputStates.size());
 	m_inputStates = inputStates;

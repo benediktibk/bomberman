@@ -113,7 +113,7 @@ void MainWindow::updateStatusBar()
 
 	QString messageTemplate = QString("%1 fps");
 	double framesPerSecond = m_gameLoop->getFramesPerSecond();
-	QString framesPerSecondString = QString().setNum(framesPerSecond, 'f', 0);
+	QString framesPerSecondString = QString().setNum(framesPerSecond, 'f', 1);
 	QString completeMessage(messageTemplate.arg(framesPerSecondString));
 
 	m_ui->statusBar->showMessage(completeMessage);
