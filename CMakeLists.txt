@@ -46,7 +46,7 @@ set(TESTFILES
 	testlevelonerowtoshort.csv
 	testlevelwrongtypeinfile.csv
 	testlevellist.csv
-	info.csv
+	README.csv
 )
 
 set(GRAPHICS

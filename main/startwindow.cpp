@@ -128,7 +128,11 @@ void StartWindow::readMeClicked()
 {
 	QMessageBox messageBox;
 	messageBox.setWindowTitle("README");
-	messageBox.setDetailedText(Common::CSVParser("testfiles/info").getTextInFile().c_str());
+	QSpacerItem* horizontalSpacer = new QSpacerItem(600, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
+	QGridLayout* layout = (QGridLayout*)messageBox.layout();
+	layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
+	messageBox.setText("C++ Project, Group 1, SS2013");
+	messageBox.setDetailedText(Common::CSVParser("testfiles/README").getTextInFile().c_str());
 	messageBox.exec();
 }
 
