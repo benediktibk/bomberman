@@ -370,7 +370,6 @@ resources/graphics/powerup_speed.svg
 resources/graphics/powerup_range.svg
 resources/graphics/powerup_maxbombs.svg
 resources/graphics/bomb_planted.gif
-resources/sounds/explosion.flac
 gameengine/routertest.cpp
 common/grid.cpp
 common/grid.h
