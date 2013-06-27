@@ -57,10 +57,29 @@ SvgRenderer::~SvgRenderer()
 void SvgRenderer::renderPlayerItems()
 {
 	m_playerStandingRenderer_1 = new QSvgRenderer(QString("resources/graphics/player_standing.svg"));
+	m_playerStandingRenderer_2 = new QSvgRenderer(QString("resources/graphics/player_standing_2.svg"));
+	m_playerStandingRenderer_3 = new QSvgRenderer(QString("resources/graphics/player_standing_3.svg"));
+	m_playerStandingRenderer_4 = new QSvgRenderer(QString("resources/graphics/player_standing_4.svg"));
+
 	m_playerMovingLeftRenderer_1 = new QSvgRenderer(QString("resources/graphics/player_moving_left.svg"));
+	m_playerMovingLeftRenderer_2 = new QSvgRenderer(QString("resources/graphics/player_moving_left_2.svg"));
+	m_playerMovingLeftRenderer_3 = new QSvgRenderer(QString("resources/graphics/player_moving_left_3.svg"));
+	m_playerMovingLeftRenderer_4 = new QSvgRenderer(QString("resources/graphics/player_moving_left_4.svg"));
+
 	m_playerMovingUpRenderer_1 = new QSvgRenderer(QString("resources/graphics/player_moving_up.svg"));
+	m_playerMovingUpRenderer_2 = new QSvgRenderer(QString("resources/graphics/player_moving_up_2.svg"));
+	m_playerMovingUpRenderer_3 = new QSvgRenderer(QString("resources/graphics/player_moving_up_3.svg"));
+	m_playerMovingUpRenderer_4 = new QSvgRenderer(QString("resources/graphics/player_moving_up_4.svg"));
+
 	m_playerMovingRightRenderer_1 = new QSvgRenderer(QString("resources/graphics/player_moving_right.svg"));
+	m_playerMovingRightRenderer_2 = new QSvgRenderer(QString("resources/graphics/player_moving_right_2.svg"));
+	m_playerMovingRightRenderer_3 = new QSvgRenderer(QString("resources/graphics/player_moving_right_3.svg"));
+	m_playerMovingRightRenderer_4 = new QSvgRenderer(QString("resources/graphics/player_moving_right_4.svg"));
+
 	m_playerMovingDownRenderer_1 = new QSvgRenderer(QString("resources/graphics/player_moving_down.svg"));
+	m_playerMovingDownRenderer_2 = new QSvgRenderer(QString("resources/graphics/player_moving_down_2.svg"));
+	m_playerMovingDownRenderer_3 = new QSvgRenderer(QString("resources/graphics/player_moving_down_3.svg"));
+	m_playerMovingDownRenderer_4 = new QSvgRenderer(QString("resources/graphics/player_moving_down_4.svg"));
 }
 
 void SvgRenderer::renderBombItem()
