@@ -385,6 +385,7 @@ void GameEngineImpl::addRandomPowerUpAtPosition(Point position)
 
 void GameEngineImpl::addPowerUpOfTypeAtPosition(PowerUpType powerUpType, Point position)
 {
+    m_soundPlayer.gotItem();
 	if (powerUpType == PowerUpTypeMaxBomb)
 	{
 		PowerUpMaxBombState *powerUp = new PowerUpMaxBombState(m_powerUpIds, position);

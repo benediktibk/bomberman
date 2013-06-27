@@ -1090,7 +1090,7 @@ void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWay
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(m_defaultTimeForOneField/2, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(m_defaultTimeForOneField/2, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.02);
 }
 
 void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayLeftToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
@@ -1122,7 +1122,7 @@ void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWay
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/2);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(m_defaultTimeForOneField/2, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.0001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(m_defaultTimeForOneField/2, m_gameEngine->getTimeTillOnePlayerReachesGridPoint(), 0.02);
 }
 
 void GameEngineImplTest::getTimeTillOnePlayerReachesGridPoint_playerMovedHalfWayDownToGridPoint_halfTimeToMoveBetweenTwoGridPoints()
