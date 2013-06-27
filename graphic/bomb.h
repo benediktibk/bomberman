@@ -16,7 +16,7 @@ namespace Graphic
 	class Bomb
 	{
 	public:
-		Bomb(QGraphicsScene &scene, SvgRenderer &renderer);
+		Bomb(QGraphicsScene &scene, SvgRenderer &renderer, const Common::BombState &state);
 		~Bomb();
 
 		void update(const Common::BombState &state, double pixelPerMeter);

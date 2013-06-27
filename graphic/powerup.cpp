@@ -24,13 +24,11 @@ void PowerUp::update(const PowerUpState &state, double pixelPerMeter)
 {
 	Point position(state.getPosition()*pixelPerMeter);
 	position.switchIntoQtCoordinates();
-
-	m_svgItem->setScale(0.001*pixelPerMeter*state.getHeight());
 	m_svgItem->setPos(position.toQPoint());
 }
 
 void PowerUp::createSvgItem(const PowerUpState &state, SvgRenderer &renderer)
 {
-	m_svgItem = renderer.getNewPowerUpItem(state.getPowerUpType());
+	m_svgItem = renderer.getNewPowerUpItem(state.getPowerUpType(), state.getWidth());
 	m_svgItem->setZValue(0);
 }

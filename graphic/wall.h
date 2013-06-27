@@ -14,14 +14,14 @@ namespace Graphic
 	{
 	public:
 		Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::WallState &state);
-		Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::Point &position, double pixelPerMeter);
+		Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::Point &position, double pixelPerMeter, double dimension);
 		~Wall();
 
 		void update(const Common::WallState &state, double pixelPerMeter);
 
 	private:
-		void createSVGItem(Common::WallState::WallType wallType, SvgRenderer &renderer);
-		void updateInternal(const Common::Point &position, double width, double height, double pixelPerMeter);
+		void createSVGItem(Common::WallState::WallType wallType, SvgRenderer &renderer, double dimension);
+		void updateInternal(const Common::Point &position, double pixelPerMeter);
 
 	private:
 		QGraphicsItem *m_svgItem;

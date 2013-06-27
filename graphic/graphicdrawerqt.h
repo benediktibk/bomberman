@@ -52,7 +52,6 @@ namespace Graphic
 		void drawUpperBorderWalls(unsigned int width, unsigned int height);
 		void drawLowerBorderWalls(unsigned int width);
 		void drawEdgeBorderWalls(unsigned int width, unsigned int height);
-		void drawCellBackgrounds(unsigned int width, unsigned int height);
 		void deleteWalls();
 		void deleteBombs();
 		void deletePowerUps();

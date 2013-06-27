@@ -7,9 +7,9 @@
 
 using namespace Graphic;
 
-Bomb::Bomb(QGraphicsScene &scene, SvgRenderer &renderer)
+Bomb::Bomb(QGraphicsScene &scene, SvgRenderer &renderer, const Common::BombState &state)
 {
-	m_svgItem = renderer.getNewBombItem();
+	m_svgItem = renderer.getNewBombItem(state.getWidth());
 	scene.addItem(m_svgItem);
 }
 
@@ -22,7 +22,5 @@ void Bomb::update(const Common::BombState &state, double pixelPerMeter)
 {
 	Point position(state.getPosition()*pixelPerMeter);
 	position.switchIntoQtCoordinates();
-
-	m_svgItem->setScale(0.001*pixelPerMeter*state.getHeight());
 	m_svgItem->setPos(position.toQPoint());
 }

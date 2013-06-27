@@ -10,14 +10,14 @@ using namespace Graphic;
 
 Wall::Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::WallState &state)
 {
-	createSVGItem(state.getWallType(), renderer);
+	createSVGItem(state.getWallType(), renderer, state.getWidth());
 	scene.addItem(m_svgItem);
 }
 
-Wall::Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::Point &position, double pixelPerMeter)
+Wall::Wall(QGraphicsScene &scene, SvgRenderer &renderer, const Common::Point &position, double pixelPerMeter, double dimension)
 {
-	createSVGItem(Common::WallState::WallTypeSolid, renderer);
-	updateInternal(position, 1, 1, pixelPerMeter);
+	createSVGItem(Common::WallState::WallTypeSolid, renderer, dimension);
+	updateInternal(position, pixelPerMeter);
 	scene.addItem(m_svgItem);
 }
 
@@ -28,25 +28,21 @@ Wall::~Wall()
 
 void Wall::update(const Common::WallState &state, double pixelPerMeter)
 {
-	updateInternal(state.getPosition(), state.getWidth(), state.getHeight(), pixelPerMeter);
+	updateInternal(state.getPosition(), pixelPerMeter);
 }
 
-void Wall::createSVGItem(Common::WallState::WallType wallType, SvgRenderer &renderer)
+void Wall::createSVGItem(Common::WallState::WallType wallType, SvgRenderer &renderer, double dimension)
 {
 	if (wallType == Common::WallState::WallTypeSolid)
-		m_svgItem = renderer.getNewSolidWallItem();
+		m_svgItem = renderer.getNewSolidWallItem(dimension);
 	else
-		m_svgItem = renderer.getNewLooseWallItem();
+		m_svgItem = renderer.getNewLooseWallItem(dimension);
 	m_svgItem->setZValue(1);
 }
 
-void Wall::updateInternal(const Common::Point &position, double width, double height, double pixelPerMeter)
+void Wall::updateInternal(const Common::Point &position, double pixelPerMeter)
 {
-	assert(width == height);
-	(void)(width); //! necessary to avoid warning in release build
 	Point positionScaled(position*pixelPerMeter);
 	positionScaled.switchIntoQtCoordinates();
-
-	m_svgItem->setScale(0.001*pixelPerMeter*height);
 	m_svgItem->setPos(positionScaled.toQPoint());
 }

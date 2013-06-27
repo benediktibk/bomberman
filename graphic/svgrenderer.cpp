@@ -109,106 +109,110 @@ void SvgRenderer::clearRendererList(vector<QSvgRenderer*> &list)
 	list.clear();
 }
 
-QGraphicsItem *SvgRenderer::getNewGraphicsItemFromRenderer(const vector<QSvgRenderer*> &list, unsigned int index) const
+QGraphicsItem *SvgRenderer::getNewGraphicsItemFromRenderer(const vector<QSvgRenderer*> &list, unsigned int index, double dimension) const
 {
 	QGraphicsSvgItem *item = new QGraphicsSvgItem();
 	unsigned int realIndex = index % list.size();
 	item->setSharedRenderer(list.at(realIndex));
+	item->setScale(0.001*dimension*m_pixelPerMeter);
 	return item;
 }
 
-QGraphicsItem* SvgRenderer::getNewPlayerStandingItem(unsigned int playerID)
+QGraphicsItem* SvgRenderer::getNewPlayerStandingItem(unsigned int playerID, double dimension)
 {
 	if (m_gameState.isHumanPlayerID(playerID))
 	{
 		unsigned int index = m_gameState.getIndexOfHumanPlayer(playerID);
-		return getNewGraphicsItemFromRenderer(m_humanPlayerStanding, index);
+		return getNewGraphicsItemFromRenderer(m_humanPlayerStanding, index, dimension);
 	}
 	else
 	{
 		unsigned int index = m_gameState.getIndexOfComputerEnemy(playerID);
-		return getNewGraphicsItemFromRenderer(m_computerEnemyStanding, index);
+		return getNewGraphicsItemFromRenderer(m_computerEnemyStanding, index, dimension);
 	}
 }
 
-QGraphicsItem *SvgRenderer::getNewPlayerMovingLeftItem(unsigned int playerID)
+QGraphicsItem *SvgRenderer::getNewPlayerMovingLeftItem(unsigned int playerID, double dimension)
 {
 	if (m_gameState.isHumanPlayerID(playerID))
 	{
 		unsigned int index = m_gameState.getIndexOfHumanPlayer(playerID);
-		return getNewGraphicsItemFromRenderer(m_humanPlayerMovingLeft, index);
+		return getNewGraphicsItemFromRenderer(m_humanPlayerMovingLeft, index, dimension);
 	}
 	else
 	{
 		unsigned int index = m_gameState.getIndexOfComputerEnemy(playerID);
-		return getNewGraphicsItemFromRenderer(m_computerEnemyMovingLeft, index);
+		return getNewGraphicsItemFromRenderer(m_computerEnemyMovingLeft, index, dimension);
 	}
 }
 
-QGraphicsItem *SvgRenderer::getNewPlayerMovingUpItem(unsigned int playerID)
+QGraphicsItem *SvgRenderer::getNewPlayerMovingUpItem(unsigned int playerID, double dimension)
 {
 	if (m_gameState.isHumanPlayerID(playerID))
 	{
 		unsigned int index = m_gameState.getIndexOfHumanPlayer(playerID);
-		return getNewGraphicsItemFromRenderer(m_humanPlayerMovingUp, index);
+		return getNewGraphicsItemFromRenderer(m_humanPlayerMovingUp, index, dimension);
 	}
 	else
 	{
 		unsigned int index = m_gameState.getIndexOfComputerEnemy(playerID);
-		return getNewGraphicsItemFromRenderer(m_computerEnemyMovingUp, index);
+		return getNewGraphicsItemFromRenderer(m_computerEnemyMovingUp, index, dimension);
 	}
 }
 
-QGraphicsItem *SvgRenderer::getNewPlayerMovingRightItem(unsigned int playerID)
+QGraphicsItem *SvgRenderer::getNewPlayerMovingRightItem(unsigned int playerID, double dimension)
 {
 	if (m_gameState.isHumanPlayerID(playerID))
 	{
 		unsigned int index = m_gameState.getIndexOfHumanPlayer(playerID);
-		return getNewGraphicsItemFromRenderer(m_humanPlayerMovingRight, index);
+		return getNewGraphicsItemFromRenderer(m_humanPlayerMovingRight, index, dimension);
 	}
 	else
 	{
 		unsigned int index = m_gameState.getIndexOfComputerEnemy(playerID);
-		return getNewGraphicsItemFromRenderer(m_computerEnemyMovingRight, index);
+		return getNewGraphicsItemFromRenderer(m_computerEnemyMovingRight, index, dimension);
 	}
 }
 
-QGraphicsItem *SvgRenderer::getNewPlayerMovingDownItem(unsigned int playerID)
+QGraphicsItem *SvgRenderer::getNewPlayerMovingDownItem(unsigned int playerID, double dimension)
 {
 	if (m_gameState.isHumanPlayerID(playerID))
 	{
 		unsigned int index = m_gameState.getIndexOfHumanPlayer(playerID);
-		return getNewGraphicsItemFromRenderer(m_humanPlayerMovingDown, index);
+		return getNewGraphicsItemFromRenderer(m_humanPlayerMovingDown, index, dimension);
 	}
 	else
 	{
 		unsigned int index = m_gameState.getIndexOfComputerEnemy(playerID);
-		return getNewGraphicsItemFromRenderer(m_computerEnemyMovingDown, index);
+		return getNewGraphicsItemFromRenderer(m_computerEnemyMovingDown, index, dimension);
 	}
 }
 
-QGraphicsItem* SvgRenderer::getNewBombItem()
+QGraphicsItem* SvgRenderer::getNewBombItem(double dimension)
 {
 	QGraphicsSvgItem *bomb = new QGraphicsSvgItem();
 	bomb->setSharedRenderer(m_bombRenderer);
+	bomb->setScale(0.001*m_pixelPerMeter*dimension);
 	return bomb;
 }
 
-QGraphicsItem* SvgRenderer::getNewSolidWallItem()
+QGraphicsItem* SvgRenderer::getNewSolidWallItem(double dimension)
 {
 	QGraphicsSvgItem *solidWall = new QGraphicsSvgItem();
 	solidWall->setSharedRenderer(m_wallSolidRenderer);
+	solidWall->setScale(0.001*m_pixelPerMeter*dimension);
 	return solidWall;
 }
 
-QGraphicsItem* SvgRenderer::getNewLooseWallItem()
+QGraphicsItem* SvgRenderer::getNewLooseWallItem(double dimension)
 {
 	QGraphicsSvgItem *looseWall = new QGraphicsSvgItem();
 	looseWall->setSharedRenderer(m_wallLooseRenderer);
+	looseWall->setScale(0.001*m_pixelPerMeter*dimension);
 	return looseWall;
 }
 
-QGraphicsItem* SvgRenderer::getNewPowerUpItem(Common::PowerUpType powerUpType)
+QGraphicsItem* SvgRenderer::getNewPowerUpItem(Common::PowerUpType powerUpType, double dimension)
 {
 	QGraphicsSvgItem *powerUp = new QGraphicsSvgItem();
 
@@ -231,33 +235,39 @@ QGraphicsItem* SvgRenderer::getNewPowerUpItem(Common::PowerUpType powerUpType)
 			break;
 	}
 
+	powerUp->setScale(0.001*m_pixelPerMeter*dimension);
+
 	return powerUp;
 }
 
-QGraphicsItem* SvgRenderer::getNewCellBackgroundItem()
+QGraphicsItem* SvgRenderer::getNewCellBackgroundItem(double dimension)
 {
 	QGraphicsSvgItem *cellBG = new QGraphicsSvgItem();
 	cellBG->setSharedRenderer(m_cellBackgroundRenderer);
+	cellBG->setScale(0.001*m_pixelPerMeter*dimension);
 	return cellBG;
 }
 
-QGraphicsItem* SvgRenderer::getNewExplodedBombCenterItem()
+QGraphicsItem* SvgRenderer::getNewExplodedBombCenterItem(double dimension)
 {
 	QGraphicsSvgItem *explosionCenter = new QGraphicsSvgItem();
 	explosionCenter->setSharedRenderer(m_explodedBombCenterRenderer);
+	explosionCenter->setScale(0.001*m_pixelPerMeter*dimension);
 	return explosionCenter;
 }
 
-QGraphicsItem* SvgRenderer::getNewExplodedBombFlameItem()
+QGraphicsItem* SvgRenderer::getNewExplodedBombFlameItem(double dimension)
 {
 	QGraphicsSvgItem *explosionFlame = new QGraphicsSvgItem();
 	explosionFlame->setSharedRenderer(m_explodedBombFlameRenderer);
+	explosionFlame->setScale(0.001*m_pixelPerMeter*dimension);
 	return explosionFlame;
 }
 
-QGraphicsItem* SvgRenderer::getNewExplodedBombEndItem()
+QGraphicsItem* SvgRenderer::getNewExplodedBombEndItem(double dimension)
 {
 	QGraphicsSvgItem *explosionEnd = new QGraphicsSvgItem();
 	explosionEnd->setSharedRenderer(m_explodedBombEndRenderer);
+	explosionEnd->setScale(0.001*m_pixelPerMeter*dimension);
 	return explosionEnd;
 }

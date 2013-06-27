@@ -20,19 +20,19 @@ namespace Graphic
 		SvgRenderer(const double pixelPerMeter, const Common::GameState &gameState);
 		~SvgRenderer();
 
-		QGraphicsItem* getNewPlayerStandingItem(unsigned int playerID);
-		QGraphicsItem* getNewPlayerMovingLeftItem(unsigned int playerId);
-		QGraphicsItem* getNewPlayerMovingUpItem(unsigned int playerId);
-		QGraphicsItem* getNewPlayerMovingRightItem(unsigned int playerId);
-		QGraphicsItem* getNewPlayerMovingDownItem(unsigned int playerId);
-		QGraphicsItem* getNewBombItem();
-		QGraphicsItem* getNewSolidWallItem();
-		QGraphicsItem* getNewLooseWallItem();
-		QGraphicsItem* getNewPowerUpItem(Common::PowerUpType powerUpType = Common::PowerUpTypeNone);
-		QGraphicsItem* getNewCellBackgroundItem();
-		QGraphicsItem* getNewExplodedBombCenterItem();
-		QGraphicsItem* getNewExplodedBombFlameItem();
-		QGraphicsItem* getNewExplodedBombEndItem();
+		QGraphicsItem* getNewPlayerStandingItem(unsigned int playerID, double dimension);
+		QGraphicsItem* getNewPlayerMovingLeftItem(unsigned int playerId, double dimension);
+		QGraphicsItem* getNewPlayerMovingUpItem(unsigned int playerId, double dimension);
+		QGraphicsItem* getNewPlayerMovingRightItem(unsigned int playerId, double dimension);
+		QGraphicsItem* getNewPlayerMovingDownItem(unsigned int playerId, double dimension);
+		QGraphicsItem* getNewBombItem(double dimension);
+		QGraphicsItem* getNewSolidWallItem(double dimension);
+		QGraphicsItem* getNewLooseWallItem(double dimension);
+		QGraphicsItem* getNewPowerUpItem(Common::PowerUpType powerUpType, double dimension);
+		QGraphicsItem* getNewCellBackgroundItem(double dimension);
+		QGraphicsItem* getNewExplodedBombCenterItem(double dimension);
+		QGraphicsItem* getNewExplodedBombFlameItem(double dimension);
+		QGraphicsItem* getNewExplodedBombEndItem(double dimension);
 
 	private:
 		void renderPlayerItems();
@@ -42,7 +42,7 @@ namespace Graphic
 		void renderExplodedBombItems();
 		void renderCellBackgroundItem();
 		void clearRendererList(std::vector<QSvgRenderer*> &list);
-		QGraphicsItem* getNewGraphicsItemFromRenderer(const std::vector<QSvgRenderer*> &list, unsigned int index) const;
+		QGraphicsItem* getNewGraphicsItemFromRenderer(const std::vector<QSvgRenderer*> &list, unsigned int index, double dimension) const;
 
 	private:
 		const double m_pixelPerMeter;

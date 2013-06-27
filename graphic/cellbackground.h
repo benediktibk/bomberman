@@ -14,8 +14,7 @@ namespace Graphic
 	class CellBackground
 	{
 	public:
-		CellBackground(QGraphicsScene &scene, SvgRenderer &renderer);
-		CellBackground(QGraphicsScene &scene, SvgRenderer &renderer, const Common::Point &position, double pixelPerMeter);
+		CellBackground(QGraphicsScene &scene, SvgRenderer &renderer, const Common::Point &position, double pixelPerMeter, double dimension);
 		~CellBackground();
 
 		void update(const Common::Point &position, double pixelPerMeter);

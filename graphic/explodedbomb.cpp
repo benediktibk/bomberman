@@ -42,9 +42,7 @@ ExplodedBomb::~ExplodedBomb()
 
 void ExplodedBomb::createCenterFlame(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter)
 {
-	double dimension = state.getHeight();
-	m_center = m_renderer->getNewExplodedBombCenterItem();
-	m_center->setScale(0.001*pixelPerMeter*dimension);
+	m_center = m_renderer->getNewExplodedBombCenterItem(state.getWidth());
 	Point centerPosition(state.getPosition());
 	centerPosition *= pixelPerMeter;
 	centerPosition.switchIntoQtCoordinates();
@@ -55,21 +53,16 @@ void ExplodedBomb::createCenterFlame(QGraphicsScene &scene, const Common::Explod
 
 void ExplodedBomb::createFlameEnds(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter)
 {
-	double dimension = state.getHeight();
+	double dimension = state.getWidth();
 
-	m_upperEnd = m_renderer->getNewExplodedBombEndItem();
-	m_lowerEnd = m_renderer->getNewExplodedBombEndItem();
-	m_leftEnd = m_renderer->getNewExplodedBombEndItem();
-	m_rightEnd = m_renderer->getNewExplodedBombEndItem();
+	m_upperEnd = m_renderer->getNewExplodedBombEndItem(dimension);
+	m_lowerEnd = m_renderer->getNewExplodedBombEndItem(dimension);
+	m_leftEnd = m_renderer->getNewExplodedBombEndItem(dimension);
+	m_rightEnd = m_renderer->getNewExplodedBombEndItem(dimension);
 
 	m_lowerEnd->setRotation(180);
 	m_leftEnd->setRotation(-90);
 	m_rightEnd->setRotation(90);
-
-	m_upperEnd->setScale(0.001*pixelPerMeter*dimension);
-	m_leftEnd->setScale(0.001*pixelPerMeter*dimension);
-	m_rightEnd->setScale(0.001*pixelPerMeter*dimension);
-	m_lowerEnd->setScale(0.001*pixelPerMeter*dimension);
 
 	Point rightEndPosition(state.getPosition() + Point((state.getDestructionRangeRight() + 1)*dimension, 0));
 	Point leftEndPosition(state.getPosition() + Point((-1.0)*(state.getDestructionRangeLeft())*dimension, (-1.0)*dimension));
@@ -104,18 +97,17 @@ void ExplodedBomb::createFlameEnds(QGraphicsScene &scene, const Common::Exploded
 
 void ExplodedBomb::createFlamesToTheRight(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter)
 {
-	double dimension = state.getHeight();
+	double dimension = state.getWidth();
 	unsigned int destructionRange = state.getDestructionRangeRight();
 
 	for (unsigned int i = 1; i < destructionRange; ++i)
 	{
-		QGraphicsItem *item = m_renderer->getNewExplodedBombFlameItem();
+		QGraphicsItem *item = m_renderer->getNewExplodedBombFlameItem(dimension);
 		item->setRotation(-90);
 		Point position(state.getPosition() + Point(i, (-1)*dimension));
 		position *= pixelPerMeter;
 		position.switchIntoQtCoordinates();
 		item->setPos(position.toQPoint());
-		item->setScale(0.001*pixelPerMeter*dimension);
 		scene.addItem(item);
 		m_middleParts.push_back(item);
 	}
@@ -123,18 +115,17 @@ void ExplodedBomb::createFlamesToTheRight(QGraphicsScene &scene, const Common::E
 
 void ExplodedBomb::createFlamesToTheLeft(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter)
 {
-	double dimension = state.getHeight();
+	double dimension = state.getWidth();
 	unsigned int destructionRange = state.getDestructionRangeLeft();
 
 	for (unsigned int i = 1; i < destructionRange; ++i)
 	{
-		QGraphicsItem *item = m_renderer->getNewExplodedBombFlameItem();
+		QGraphicsItem *item = m_renderer->getNewExplodedBombFlameItem(dimension);
 		item->setRotation(90);
 		Point position(state.getPosition() + Point((-1.0)*i + dimension, 0));
 		position *= pixelPerMeter;
 		position.switchIntoQtCoordinates();
 		item->setPos(position.toQPoint());
-		item->setScale(0.001*pixelPerMeter*dimension);
 		scene.addItem(item);
 		m_middleParts.push_back(item);
 	}
@@ -142,17 +133,16 @@ void ExplodedBomb::createFlamesToTheLeft(QGraphicsScene &scene, const Common::Ex
 
 void ExplodedBomb::createFlamesToTheUpper(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter)
 {
-	double dimension = state.getHeight();
+	double dimension = state.getWidth();
 	unsigned int destructionRange = state.getDestructionRangeUp();
 
 	for (unsigned int i = 1; i < destructionRange; ++i)
 	{
-		QGraphicsItem *item = m_renderer->getNewExplodedBombFlameItem();
+		QGraphicsItem *item = m_renderer->getNewExplodedBombFlameItem(dimension);
 		Point position(state.getPosition() + Point(0, i));
 		position *= pixelPerMeter;
 		position.switchIntoQtCoordinates();
 		item->setPos(position.toQPoint());
-		item->setScale(0.001*pixelPerMeter*dimension);
 		scene.addItem(item);
 		m_middleParts.push_back(item);
 	}
@@ -160,18 +150,17 @@ void ExplodedBomb::createFlamesToTheUpper(QGraphicsScene &scene, const Common::E
 
 void ExplodedBomb::createFlamesToTheLower(QGraphicsScene &scene, const Common::ExplodedBombState &state, double pixelPerMeter)
 {
-	double dimension = state.getHeight();
+	double dimension = state.getWidth();
 	unsigned int destructionRange = state.getDestructionRangeDown();
 
 	for (unsigned int i = 1; i < destructionRange; ++i)
 	{
-		QGraphicsItem *item = m_renderer->getNewExplodedBombFlameItem();
+		QGraphicsItem *item = m_renderer->getNewExplodedBombFlameItem(dimension);
 		item->setRotation(180);
 		Point position(state.getPosition() + Point(dimension, (-1)*(dimension + i)));
 		position *= pixelPerMeter;
 		position.switchIntoQtCoordinates();
 		item->setPos(position.toQPoint());
-		item->setScale(0.001*pixelPerMeter*dimension);
 		scene.addItem(item);
 		m_middleParts.push_back(item);
 	}
