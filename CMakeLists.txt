@@ -39,6 +39,7 @@ set(LEVELS
 	can_see_you.csv
 	battlefield.csv
 	jack_in_the_box.csv
+        arena_51.csv
 )
 
 set(TESTFILES
@@ -46,6 +47,7 @@ set(TESTFILES
 	testlevelonerowtoshort.csv
 	testlevelwrongtypeinfile.csv
 	testlevellist.csv
+	README.csv
 )
 
 set(GRAPHICS
