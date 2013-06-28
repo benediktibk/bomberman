@@ -12,11 +12,10 @@ namespace Common
 			public InputFetcher
 	{
 	public:
-	allPlayerInputFetcher(InputFetcher &input,std::vector<GameEngine::ComputerEnemyInputFetcher*> computer );
+	allPlayerInputFetcher(InputFetcher &input,std::vector<GameEngine::ComputerEnemyInputFetcher*> computer, size_t playerCount);
 
 	virtual void setAllPossiblePlayerIDs(const std::vector<unsigned int> &playerIDs);
 	virtual std::map<unsigned int, InputState> getInputStates();
-	void setGameMode(unsigned int playerCount);
 	void setAllPossiblePlayerIds(std::vector<unsigned int> allPossiblePlayerIds);
 	Common::InputState getInputStateByID( unsigned int playerID);
 

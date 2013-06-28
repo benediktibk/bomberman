@@ -6,10 +6,15 @@
 using namespace Common;
 using namespace std;
 
-allPlayerInputFetcher::allPlayerInputFetcher(InputFetcher &input, vector<GameEngine::ComputerEnemyInputFetcher*> computer):
+allPlayerInputFetcher::allPlayerInputFetcher(InputFetcher &input, vector<GameEngine::ComputerEnemyInputFetcher*> computer, size_t playerCount):
 	m_inputFetcher(input),
 	m_compInputFetcher(computer)
-{ }
+{ 
+    if(playerCount==1)
+        m_gameModeIsSinglePlayer = true;
+    if(playerCount==2)
+        m_gameModeIsSinglePlayer = false;
+}
 
 void allPlayerInputFetcher::setAllPossiblePlayerIDs(const std::vector<unsigned int> &/*playerIDs*/)
 { }
@@ -24,6 +29,10 @@ void allPlayerInputFetcher::setAllPossiblePlayerIds(vector<unsigned int> allPoss
 map<unsigned int, InputState> allPlayerInputFetcher::getInputStates()
 {
 	map<unsigned int, InputState> result = m_inputFetcher.getInputStates();
+    if(m_gameModeIsSinglePlayer == true)
+    {
+        result.erase(result.end());
+    }
 
 	for (vector<GameEngine::ComputerEnemyInputFetcher*>::iterator i = m_compInputFetcher.begin(); i != m_compInputFetcher.end(); ++i)
 	{
@@ -37,50 +46,6 @@ map<unsigned int, InputState> allPlayerInputFetcher::getInputStates()
 	return result;
 }
 
-void allPlayerInputFetcher::setGameMode(unsigned int humanPlayerCount)
-{
-	assert(humanPlayerCount>0);
-	if(humanPlayerCount==1)
-	{
-		m_gameModeIsSinglePlayer=true;
-		//m_inputStatePlayer1 = m_inputFetcher.getInputState();
-
-		for(vector<GameEngine::ComputerEnemyInputFetcher*>::const_iterator i = m_compInputFetcher.begin(); i != m_compInputFetcher.end(); ++i)
-		{
-			//m_computerInputStates.push_back((*i)->getInputState());
-			m_enemyIds.push_back((*i)->getPlayerID());
-		}
-
-		//ID der Player aus MainwindowInputFetcher übernommen
-		//ID anders implementieren
-		//ID auch auf Enemies
-		//Enemies in m_inputStates pushen
-		// klasse in Gameloop implementieren
-
-
-		// to do: id aus mainWindowInputfetcher holen wenn nur 1 player (getInputState())
-		// to do: ComputerEnemyInputfetcher als vecter als Argument dieser Klasse übergeben
-
-		m_inputStates[m_playerIds.front()] = m_inputStatePlayer1;
-
-		for(size_t i = 0; i< m_computerInputStates.size() ; i++ )
-		{
-			m_inputStates[m_enemyIds[i]] = m_computerInputStates[i];
-		}
-	}
-
-	if(humanPlayerCount>1) // in progress
-	{
-		m_gameModeIsSinglePlayer=false;
-		m_inputStates = m_inputFetcher.getInputStates();
-		for(vector<GameEngine::ComputerEnemyInputFetcher*>::const_iterator i = m_compInputFetcher.begin(); i != m_compInputFetcher.end(); ++i)
-		{
-			//m_computerInputStates.push_back((*i)->getInputState());
-			m_enemyIds.push_back((*i)->getPlayerID());
-		}
-	}
-
-}
 
 Common::InputState allPlayerInputFetcher::getInputStateByID(unsigned int playerID)
 {
