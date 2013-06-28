@@ -414,6 +414,8 @@ gameengine/computerenemyinputfetcherhard.h
 gameengine/computerenemyinputfetcherhard.cpp
 gameengine/computerenemyinputfetchereasy.h
 gameengine/computerenemyinputfetchereasy.cpp
+gameengine/computerenemyinputfetchermedium.h
+gameengine/computerenemyinputfetchermedium.cpp
 gameengine/computerenemylevel.h
 main/gui/mainwindowsoundtest.ui
 main/mainwindowsoundtest.h

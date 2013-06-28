@@ -4,6 +4,7 @@
 #include "common/graphicdrawer.h"
 #include "common/stopwatch.h"
 #include "gameengine/computerenemyinputfetchereasy.h"
+#include "gameengine/computerenemyinputfetchermedium.h"
 #include "gameengine/computerenemyinputfetcherhard.h"
 #include <unistd.h>
 #include <assert.h>
@@ -38,7 +39,7 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 			m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcherEasy(m_gameEngine.getGrid(), gameState));
 			break;
 		case ComputerEnemyLevelMedium:
-			assert(false);
+			m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcherMedium(m_gameEngine.getGrid(), gameState));
 			break;
 		case ComputerEnemyLevelHard:
 			m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcherHard(m_gameEngine.getGrid(), gameState));
