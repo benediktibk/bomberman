@@ -12,9 +12,7 @@ ComputerEnemyInputFetcher::ComputerEnemyInputFetcher(Grid &grid, const GameState
 	m_grid(grid),
 	m_gameState(gameState),
 	m_player(0)
-{
-	m_inputStateWithID.insert(pair<unsigned int, InputState>(m_playerID, m_inputState));
-}
+{ }
 
 ComputerEnemyInputFetcher::~ComputerEnemyInputFetcher()
 {
