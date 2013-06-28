@@ -266,7 +266,7 @@ void GameEngineImpl::updateBombs()
 		wallsInRange = m_grid->getLooseWallsInRange(bomb);
 		for(size_t j = 0; j < wallsInRange.size(); j++)
 			m_gameState.eraseWallById(wallsInRange[j]);
-
+            m_soundPlayer.wallDown();
 		vector<unsigned int> bombsInRange;
 		bombsInRange = m_grid->getBombsInRange(bomb);
 		for(size_t j = 0; j < bombsInRange.size(); j++)
