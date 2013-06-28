@@ -7,8 +7,8 @@ using namespace Common;
 
 ComputerEnemyInputFetcherEasy::ComputerEnemyInputFetcherEasy(Common::Grid &grid, const Common::GameState &gameState) :
 	ComputerEnemyInputFetcher(grid, gameState),
-	m_getAwayFromDangerousField(new RandomDecision(0.5)),
-	m_doSomething(new RandomDecision(0.1))
+	m_getAwayFromDangerousField(new RandomDecision(0.3)),
+	m_doSomething(new RandomDecision(0.05))
 { }
 
 ComputerEnemyInputFetcherEasy::~ComputerEnemyInputFetcherEasy()
@@ -33,17 +33,17 @@ void ComputerEnemyInputFetcherEasy::calculateInputStateInternal()
 	if (!m_doSomething->decide())
 		return;
 
-	Route routeToPlayer = router.getRouteToPlayer(playerPosition);
-	if (routeToPlayer.getDirection() != PlayerState::PlayerDirectionNone)
-	{
-		placeBombIfCloseEnough(routeToPlayer);
-		return;
-	}
-
 	Route routeToLooseWall = router.getRouteToLooseWall(playerPosition);
 	if (routeToLooseWall.getDirection() != PlayerState::PlayerDirectionNone)
 	{
 		placeBombIfCloseEnough(routeToLooseWall);
+		return;
+	}
+
+	Route routeToPlayer = router.getRouteToPlayer(playerPosition);
+	if (routeToPlayer.getDirection() != PlayerState::PlayerDirectionNone)
+	{
+		placeBombIfCloseEnough(routeToPlayer);
 		return;
 	}
 }
