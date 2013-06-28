@@ -6,6 +6,7 @@
 #include "threading/signal.h"
 #include "gameengine/computerenemylevel.h"
 #include <vector>
+#include "gameengine/allplayerinputfetcher.h"
 
 namespace Common
 {
@@ -18,6 +19,7 @@ namespace Common
 namespace GameEngine
 {
 	class ComputerEnemyInputFetcher;
+    class allPlayerInputFetcher;
 }
 
 namespace Main
@@ -47,6 +49,7 @@ namespace Main
 		virtual void execute();
 
 	private:
+        GameEngine::allPlayerInputFetcher* m_allInput;
 		Common::InputFetcher &m_inputFetcher;
 		Common::GameEngine &m_gameEngine;
 		Common::GraphicDrawer &m_graphicDrawer;

@@ -18,7 +18,6 @@ set(COMMON_SRC
 	powerupmaxvelocitystate.cpp
 	explodedbombstate.cpp
 	compare.cpp
-	allplayerinputfetcher.cpp
 	csvparser.cpp
 	powerupmaxbombrangestate.cpp
 	grid.cpp

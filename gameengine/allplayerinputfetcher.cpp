@@ -1,10 +1,12 @@
 #include "allplayerinputfetcher.h"
+
 #include <assert.h>
 #include <algorithm>
 #include <vector>
 
-using namespace Common;
+using namespace GameEngine;
 using namespace std;
+using namespace Common;
 
 allPlayerInputFetcher::allPlayerInputFetcher(InputFetcher &input, vector<GameEngine::ComputerEnemyInputFetcher*> computer, size_t playerCount):
 	m_inputFetcher(input),

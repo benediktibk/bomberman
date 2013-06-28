@@ -302,8 +302,6 @@ common/csvparsertest.h
 common/csvparsertest.cpp
 graphic/explodedbomb.h
 graphic/explodedbomb.cpp
-common/allplayerinputfetcher.h
-common/allplayerinputfetcher.cpp
 common/powerupmaxbombrangestate.cpp
 common/powerupmaxbombrangestate.h
 common/powerupmaxbombrangestatetest.h
@@ -419,3 +417,5 @@ main/gui/mainwindowsoundtest.ui
 main/mainwindowsoundtest.h
 main/mainwindowsoundtest.cpp
 main/mainsoundtest.cpp
+gameengine/allplayerinputfetcher.h
+gameengine/allplayerinputfetcher.cpp

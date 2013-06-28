@@ -1,4 +1,5 @@
 set(GAMEENGINE_SRC
+	allplayerinputfetcher.cpp	
 	gameengineimpl.cpp
 	computerenemyinputfetcher.cpp
 	computerenemyinputfetchereasy.cpp
@@ -18,7 +19,7 @@ set(GAMEENGINE_TEST_SRC
 	gameengineimpltest.cpp
 	routergridtest.cpp
 	routergridfieldtest.cpp
-        notdangerousandfreedecidertest.cpp
+    notdangerousandfreedecidertest.cpp
 	coveredbyplayerdecidertest.cpp
 	coveredbyloosewalldecidertest.cpp
 	freedecidertest.cpp
