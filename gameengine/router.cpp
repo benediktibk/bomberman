@@ -32,7 +32,17 @@ void Router::updatePlayerFields()
 Route Router::getRouteToPlayer(const Common::GridPoint &position)
 {
 	/// @todo should calculate aim, pretends a bomb at that place, checks if route out of dangerzone is possible.
-	return getRoute(NotDangerousAndFreeDecider(), CoveredByPlayerDecider(), position);
+	Route routeToCalculatedAim = getRoute(NotDangerousAndFreeDecider(), CoveredByPlayerDecider(), position);
+
+	m_grid->addBombToCalculatedForPositionCheck(routeToCalculatedAim.getTargetPosition());
+	Route flightPath = getRouteToNotDangerousField(routeToCalculatedAim.getTargetPosition());
+	m_grid->removeBombToCalculatedForPositionCheck(routeToCalculatedAim.getTargetPosition());
+
+	if (flightPath.getDistance() != 0)
+		return routeToCalculatedAim;
+
+	return Route(0, PlayerState::PlayerDirectionNone);
+
 }
 
 Route Router::getRouteToNotDangerousField(const Common::GridPoint &position)
@@ -43,7 +53,16 @@ Route Router::getRouteToNotDangerousField(const Common::GridPoint &position)
 Route Router::getRouteToLooseWall(const Common::GridPoint &position)
 {
 	/// @todo should calculate aim, pretends a bomb at that place, checks if route out of dangerzone is possible.
-	return getRoute(NotDangerousAndFreeDecider(), CoveredByLooseWallDecider(), position);
+	Route routeToCalculatedAim = getRoute(NotDangerousAndFreeDecider(), CoveredByLooseWallDecider(), position);
+
+	m_grid->addBombToCalculatedForPositionCheck(routeToCalculatedAim.getTargetPosition());
+	Route flightPath = getRouteToNotDangerousField(routeToCalculatedAim.getTargetPosition());
+	m_grid->removeBombToCalculatedForPositionCheck(routeToCalculatedAim.getTargetPosition());
+
+	if (flightPath.getDistance() != 0)
+		return routeToCalculatedAim;
+
+	return Route(0, PlayerState::PlayerDirectionNone);
 }
 
 Route Router::getRouteToPowerUp(const GridPoint &position)
