@@ -421,3 +421,7 @@ main/gui/mainwindowsoundtest.ui
 main/mainwindowsoundtest.h
 main/mainwindowsoundtest.cpp
 main/mainsoundtest.cpp
+threading/lock.h
+threading/lock.cpp
+threading/locktest.h
+threading/locktest.cpp

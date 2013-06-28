@@ -29,6 +29,7 @@
 #include "threading/threadtest.h"
 #include "threading/mutextest.h"
 #include "threading/signaltest.h"
+#include "threading/locktest.h"
 #include "gameengine/gameengineimpltest.h"
 #include "common/gridtest.h"
 #include "common/gridobservertest.h"
@@ -77,6 +78,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Physic::GamePhysicSimulatorTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Threading::ThreadTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Threading::MutexTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Threading::SignalTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Threading::LockTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::GameEngineImplTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::RouterGridFieldTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::RouterGridTest);

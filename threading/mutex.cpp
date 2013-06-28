@@ -22,3 +22,13 @@ void Mutex::unlock()
 {
 	m_mutex->unlock();
 }
+
+bool Mutex::isLocked()
+{
+	bool locked = !(m_mutex->try_lock());
+
+	if (locked)
+		m_mutex->unlock();
+
+	return locked;
+}

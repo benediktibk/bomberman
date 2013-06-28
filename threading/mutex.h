@@ -16,6 +16,7 @@ public:
 
 	void lock();
 	void unlock();
+	bool isLocked();
 
 private:
 	boost::mutex *m_mutex;
