@@ -330,6 +330,7 @@ void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &i
 		player.countBomb();
 		player.doNotCollideWith(bombPlaced);
 		player.setPlacedBombAlready(true);
+        m_soundPlayer.bombPlaced();
 	}
 
 	if (!input.isSpaceKeyPressed() && m_grid->isPlaceEmpty(player.getCenterPosition()))
@@ -342,7 +343,7 @@ void GameEngineImpl::playerGetsPowerUp()
 {
 	vector<unsigned int> playerIDs = m_gameState.getAllNotDestroyedPlayerIDs();
 	vector<unsigned int> powerUpIDs = m_gameState.getAllPossiblePowerUpIDs();
-
+    
 	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
 	{
 		PlayerState &player = m_gameState.getPlayerStateById(*i);
@@ -358,6 +359,7 @@ void GameEngineImpl::playerGetsPowerUp()
 
 				if(powerUpField == playerFields[0])
 				{
+                    m_soundPlayer.gotItem();
 					powerup->modifyPlayer(player);
 					m_gameState.erasePowerUpById(*j);
 				}
@@ -385,8 +387,7 @@ void GameEngineImpl::addRandomPowerUpAtPosition(Point position)
 
 void GameEngineImpl::addPowerUpOfTypeAtPosition(PowerUpType powerUpType, Point position)
 {
-    m_soundPlayer.gotItem();
-	if (powerUpType == PowerUpTypeMaxBomb)
+    if (powerUpType == PowerUpTypeMaxBomb)
 	{
 		PowerUpMaxBombState *powerUp = new PowerUpMaxBombState(m_powerUpIds, position);
 		addPowerUp(powerUp);
