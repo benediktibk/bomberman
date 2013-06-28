@@ -1,14 +1,13 @@
 #include "common/inputfetcherstub.h"
 
 using namespace Common;
+using namespace std;
 
-InputState InputFetcherStub::getInputState()
-{
-	return InputState();
-}
+void InputFetcherStub::setAllPossiblePlayerIDs(const vector<unsigned int> &)
+{ }
 
-std::map<unsigned int, InputState> InputFetcherStub::getInputStates()
+map<unsigned int, InputState> InputFetcherStub::getInputStates()
 {
-  std::map<unsigned int, InputState> result;
+  map<unsigned int, InputState> result;
   return result;
 }

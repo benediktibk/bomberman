@@ -19,17 +19,16 @@ namespace Main
 	public:
 		MainWindowInputFetcher();
 
-		void setAllPossiblePlayerIds(std::vector<unsigned int> allPossiblePlayerIds);
-
+		virtual void setAllPossiblePlayerIDs(const std::vector<unsigned int> &allPossiblePlayerIds);
 		virtual std::map<unsigned int, Common::InputState> getInputStates();
-		virtual Common::InputState getInputState();
+
 	protected:
 		virtual void keyPressEvent(QKeyEvent *event);
 		virtual void keyReleaseEvent(QKeyEvent *event);
 
 	private:
-		Common::InputState m_inputState;
-		Common::InputState m_inputStatePlayer2;
+		Common::InputState m_inputStatePlayerOne;
+		Common::InputState m_inputStatePlayerTwo;
 		Threading::Mutex m_inputStateMutex;
 		std::vector<unsigned int> m_playerIds;
 	};

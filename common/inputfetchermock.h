@@ -11,10 +11,11 @@ namespace Common
 	{
 	public:
 		InputFetcherMock();
-        virtual std::map<unsigned int, Common::InputState> getInputStates() ;        
-		virtual InputState getInputState();
 
-		unsigned int getCallsToGetInputState() const;
+		virtual void setAllPossiblePlayerIDs(const std::vector<unsigned int> &playerIDs);
+		virtual std::map<unsigned int, Common::InputState> getInputStates();
+
+		unsigned int getCallsToGetInputStates() const;
 
 	private:
 		unsigned int m_callsToGetInputState;

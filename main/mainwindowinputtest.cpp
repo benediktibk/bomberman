@@ -22,7 +22,7 @@ void MainWindowInputTest::inputStateCalled()
     allPlayerIds[0] = 0;
     allPlayerIds[1] = 1;
 
-    setAllPossiblePlayerIds(allPlayerIds);
+    setAllPossiblePlayerIDs(allPlayerIds);
     std::map<unsigned int, InputState> currentInputState;
     currentInputState = getInputStates();
 

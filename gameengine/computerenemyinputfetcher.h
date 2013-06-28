@@ -23,12 +23,12 @@ namespace GameEngine
 		public Common::InputFetcher
 	{
 	public:
-		ComputerEnemyInputFetcher(Common::Grid &grid, const Common::GameState &gameState, unsigned int playerID);
+		ComputerEnemyInputFetcher(Common::Grid &grid, const Common::GameState &gameState);
 		virtual ~ComputerEnemyInputFetcher();
 
+		virtual void setAllPossiblePlayerIDs(const std::vector<unsigned int> &allPossiblePlayerIds);
 		virtual std::map<unsigned int, Common::InputState> getInputStates();
-		virtual Common::InputState getInputState();
-        unsigned int getPlayerID();
+		unsigned int getPlayerID();
 
 	protected:
 		virtual void calculateInputStateInternal() = 0;
@@ -41,10 +41,11 @@ namespace GameEngine
 	private:
 		Common::InputState m_inputState;
 		Router *m_router;
+		Common::Grid &m_grid;
 		const Common::GameState &m_gameState;
 		unsigned int m_playerID;
 		std::map<unsigned int, Common::InputState> m_inputStateWithID;
-		const Common::PlayerState &m_player;
+		const Common::PlayerState *m_player;
 	};
 }
 
