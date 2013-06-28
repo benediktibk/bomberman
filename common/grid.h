@@ -45,9 +45,11 @@ namespace Common
 		unsigned getId(const GridPoint &position) const;
 		void addBombAtPlace(const BombState &bomb);
 		void addWallAtPlace(const WallState &wall);
+		void addBombForPositionCheck(const BombState &bomb);
 		void removeBomb(const BombState &bomb);
 		void removeWall(const WallState &wall);
 		void removePowerUp(const Common::PowerUpState &powerUp);
+		void removeBombForPositionCheck(const BombState &bomb);
 		void addPowerUpAtPlace(Common::PowerUpState &powerUp);
 		std::vector<unsigned int> getLooseWallsInRange(const BombState &bomb) const;
 		std::vector<unsigned int> getBombsInRange(const BombState &bomb) const;

@@ -108,6 +108,15 @@ void Grid::addWallAtPlace(const WallState &wall)
 	notifyObservers(position);
 }
 
+void Grid::addBombForPositionCheck(const BombState &bomb)
+{
+	GridPoint position(bomb.getPosition());
+	increaseOwnPositionDangerousCounter(bomb);
+	increaseHorizontalDangerousRange(bomb);
+	increaseVerticalDangerousRange(bomb);
+	notifyObservers(position);
+}
+
 void Grid::addPowerUpAtPlace(PowerUpState &powerUp)
 {
 	GridPoint position(powerUp.getPosition());
@@ -123,6 +132,15 @@ void Grid::removePowerUp(const PowerUpState &powerUp)
 	unsigned int index = getVectorIndex(position);
 	m_itemMatrix[index] = ItemFree;
 	m_idMatrix[index] = 0;
+	notifyObservers(position);
+}
+
+void Grid::removeBombForPositionCheck(const BombState &bomb)
+{
+	GridPoint position(bomb.getPosition());
+	decreaseOwnPositionDangerousCounter(bomb);
+	decreaseHorizontalDangerousRange(bomb);
+	decreaseVerticalDangerousRange(bomb);
 	notifyObservers(position);
 }
 
