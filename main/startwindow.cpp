@@ -58,6 +58,8 @@ void StartWindow::createTableView()
 	m_ui->levelTableView->setModel(model);
 
 	connect(m_ui->levelTableView, SIGNAL(clicked(QModelIndex)), this, SLOT(updateSilder()));
+	connect(m_ui->levelTableView, SIGNAL(entered(QModelIndex)), this, SLOT(updateSilder()));
+	connect(m_ui->levelTableView, SIGNAL(activated(QModelIndex)), this, SLOT(updateSilder()));
 }
 
 void StartWindow::createSilder()
@@ -81,6 +83,8 @@ void StartWindow::exitClicked()
 
 void StartWindow::startClicked()
 {
+	updateSilder();
+
 	if(m_ui->levelTableView->selectionModel()->hasSelection())
 		m_selectedLevel = m_levelList.getTextInField(4, m_ui->levelTableView->selectionModel()->selectedIndexes().first().row());
 
