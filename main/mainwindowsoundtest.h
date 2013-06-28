@@ -3,9 +3,9 @@
 
 #include <QMainWindow>
 
-namespace Sound 
+namespace Sound
 {
-    class SoundPlayer;
+	class SoundPlayer;
 }
 
 namespace Ui
@@ -13,27 +13,29 @@ namespace Ui
 	class MainWindowSoundTest;
 }
 
-namespace Main 
+namespace Main
 {
-    class MainWindowSoundTest : public QMainWindow
-    {
-        Q_OBJECT
-    public:
-        MainWindowSoundTest();
-        ~MainWindowSoundTest();
-        
-    private:
-        void connectSlots();
-        
-    private slots:
-        void bombExplosion();
-        void bombPlaced();
-        void gotItem();
-        void wallDown();
-    private:
-        Ui::MainWindowSoundTest* m_ui;
-        Sound::SoundPlayer *m_sound;
-    };
+	class MainWindowSoundTest : public QMainWindow
+	{
+		Q_OBJECT
+	public:
+		MainWindowSoundTest();
+		~MainWindowSoundTest();
+
+	private:
+		void connectSlots();
+
+	private slots:
+		void bombExplosion();
+		void bombPlaced();
+		void gotItem();
+		void wallDown();
+		void muteChanged();
+
+	private:
+		Ui::MainWindowSoundTest* m_ui;
+		Sound::SoundPlayer *m_sound;
+	};
 }
 
 #endif

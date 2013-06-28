@@ -115,7 +115,10 @@ void StartWindow::startClicked()
 		else
 			assert(false);
 
-		emit startGameSignal(m_ui->openGlCheckBox->isChecked(), m_selectedLevel.c_str(), humanPlayerCount, m_ui->playerCountHorizontalSlider->value(), computerEnemyLevel);
+		emit startGameSignal(
+					m_ui->openGlCheckBox->isChecked(), m_selectedLevel.c_str(),
+					humanPlayerCount, m_ui->playerCountHorizontalSlider->value(),
+					computerEnemyLevel, m_ui->muteCheckBox->isChecked());
 	}
 }
 

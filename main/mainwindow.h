@@ -16,7 +16,11 @@ namespace Common
 	class GraphicDrawer;
 	class GameState;
 	class GameEngine;
-    class SoundPlayer;
+}
+
+namespace Sound
+{
+	class SoundPlayer;
 }
 
 namespace Ui
@@ -42,12 +46,16 @@ public:
 	virtual void draw(const Common::GameState &gameState);
 
 public slots:
-	void startGame(bool enableOpenGL, const char* levelname, unsigned int humanPlayerCount, unsigned int computerEnemyCount, GameEngine::ComputerEnemyLevel computerEnemyLevel);
+	void startGame(
+			bool enableOpenGL, const char* levelname,
+			unsigned int humanPlayerCount, unsigned int computerEnemyCount,
+			GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute);
 
 private slots:
 	void updateGui(const Common::GameState *gameState);
 	void updateUserInfo();
 	void pauseButtonPushed();
+	void muteButtonPushed();
 	void closeGame();
 
 signals:
@@ -59,6 +67,8 @@ private:
 	void finishGame();
 	void updateStatusBar();
 	void updatePlayerStateInfo();
+	void updateMuteButtonLabel();
+	void updatePauseButtonLabel();
 
 	virtual void closeEvent(QCloseEvent *);
 
@@ -68,13 +78,13 @@ private:
 	Common::GraphicDrawer *m_drawer;
 	Common::LevelDefinition *m_level;
 	Common::GameEngine *m_gameEngine;
-    Common::SoundPlayer *m_soundPlayer;
+	Sound::SoundPlayer *m_soundPlayer;
 	GameLoop *m_gameLoop;
 	QTimer *m_timerUserInfoUpdate;
 	Threading::Signal m_guiUpdateFinished;
 	bool m_enableOpenGL;
 	bool m_gameStarted;
-    Threading::Mutex m_gameStartMutex;
+	Threading::Mutex m_gameStartMutex;
 };
 }
 

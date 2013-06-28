@@ -33,7 +33,10 @@ private slots:
 	void controlClicked();
 
 signals:
-	void startGameSignal(bool enableOpenGL, const char* levelname, unsigned int humanPlayerCount, unsigned int computerEnemyCount, GameEngine::ComputerEnemyLevel);
+	void startGameSignal(
+			bool enableOpenGL, const char* levelname,
+			unsigned int humanPlayerCount, unsigned int computerEnemyCount,
+			GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute);
 	void closeGameSignal();
 
 private:

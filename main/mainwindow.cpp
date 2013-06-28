@@ -19,7 +19,7 @@ MainWindow::MainWindow() :
 	m_drawer(0),
 	m_level(0),
 	m_gameEngine(0),
-    m_soundPlayer(0),
+	m_soundPlayer(0),
 	m_gameLoop(0),
 	m_timerUserInfoUpdate(new QTimer(this)),
 	m_gameStarted(false)
@@ -32,6 +32,8 @@ MainWindow::MainWindow() :
 				this, SLOT(updateUserInfo()));
 	connect(	m_ui->pauseButton, SIGNAL(clicked()),
 				this, SLOT(pauseButtonPushed()));
+	connect(	m_ui->muteButton, SIGNAL(clicked()),
+				this, SLOT(muteButtonPushed()));
 	m_timerUserInfoUpdate->start(m_statusBarUpdateTimeStep);
 }
 
@@ -62,7 +64,10 @@ void MainWindow::draw(const Common::GameState &gameState)
 	m_gameStartMutex.unlock();
 }
 
-void MainWindow::startGame(bool enableOpenGL, const char* levelname, unsigned int humanPlayerCount, unsigned int computerEnemyCount, GameEngine::ComputerEnemyLevel computerEnemyLevel)
+void MainWindow::startGame(
+		bool enableOpenGL, const char* levelname,
+		unsigned int humanPlayerCount, unsigned int computerEnemyCount,
+		GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute)
 {
 	m_ui->pauseButton->setText(tr("pause"));
 	m_gameStartMutex.lock();
@@ -78,9 +83,9 @@ void MainWindow::startGame(bool enableOpenGL, const char* levelname, unsigned in
 		return;
 	}
 
-    m_soundPlayer = new Sound::SoundPlayer();
-    m_gameEngine = new GameEngine::GameEngineImpl(*m_level, *m_soundPlayer, humanPlayerCount, computerEnemyCount);
-    m_gameLoop = new GameLoop(*this, *m_gameEngine,*this,computerEnemyLevel);
+	m_soundPlayer = new Sound::SoundPlayer(mute);
+	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, *m_soundPlayer, humanPlayerCount, computerEnemyCount);
+	m_gameLoop = new GameLoop(*this, *m_gameEngine,*this,computerEnemyLevel);
 	m_enableOpenGL = enableOpenGL;
 	m_gameStartMutex.lock();
 	m_gameStarted = true;
@@ -93,6 +98,8 @@ void MainWindow::startGame(bool enableOpenGL, const char* levelname, unsigned in
 
 	m_gameLoop->start();
 	show();
+	updatePauseButtonLabel();
+	updateMuteButtonLabel();
 }
 
 void MainWindow::updateGui(const Common::GameState *gameState)
@@ -144,6 +151,22 @@ void MainWindow::updatePlayerStateInfo()
 	m_ui->playerStateInfo->setText(messageString);
 }
 
+void MainWindow::updateMuteButtonLabel()
+{
+	if (m_soundPlayer->isMuted())
+		m_ui->muteButton->setText("unmute");
+	else
+		m_ui->muteButton->setText("mute");
+}
+
+void MainWindow::updatePauseButtonLabel()
+{
+	if (m_gameLoop->isPaused())
+		m_ui->pauseButton->setText("resume");
+	else
+		m_ui->pauseButton->setText("pause");
+}
+
 void MainWindow::closeEvent(QCloseEvent *)
 {
 	emit closeGameSignal();
@@ -155,7 +178,7 @@ void MainWindow::finishGame()
 	delete m_drawer;
 	delete m_level;
 	delete m_gameEngine;
-    delete m_soundPlayer;
+	delete m_soundPlayer;
 }
 
 void MainWindow::closeGame()
@@ -166,14 +189,20 @@ void MainWindow::closeGame()
 void MainWindow::pauseButtonPushed()
 {
 	if (m_gameLoop->isPaused())
-	{
 		m_gameLoop->start();
-		m_ui->pauseButton->setText("pause");
-	}
 	else
-	{
 		m_gameLoop->pause();
-		m_ui->pauseButton->setText("resume");
-	}
+
+	updatePauseButtonLabel();
+}
+
+void MainWindow::muteButtonPushed()
+{
+	if (m_soundPlayer->isMuted())
+		m_soundPlayer->setMuted(false);
+	else
+		m_soundPlayer->setMuted(true);
+
+	updateMuteButtonLabel();
 }
 
