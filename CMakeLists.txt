@@ -89,6 +89,7 @@ set(SOUNDS
         gotitem.wav
         placed.wav
 		background.wav
+		walldown.wav
 )
 
 foreach(file ${LEVELS})

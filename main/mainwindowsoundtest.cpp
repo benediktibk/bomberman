@@ -21,6 +21,7 @@ void MainWindowSoundTest::connectSlots()
     connect(m_ui->bombButton, SIGNAL(clicked()), this, SLOT(bombExplosion()));
     connect(m_ui->placeButton, SIGNAL(clicked()), this, SLOT(bombPlaced()));
     connect(m_ui->pickUpButton, SIGNAL(clicked()), this, SLOT(gotItem()));
+    connect(m_ui->wallDownButton, SIGNAL(clicked()), this, SLOT(wallDown()));
 }
 
 void MainWindowSoundTest::bombExplosion()
@@ -36,4 +37,9 @@ void MainWindowSoundTest::bombPlaced()
 void MainWindowSoundTest::gotItem()
 {
     m_sound->gotItem();
+}
+
+void MainWindowSoundTest::wallDown()
+{
+    m_sound->wallDown();
 }

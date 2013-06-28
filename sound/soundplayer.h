@@ -19,6 +19,7 @@ namespace Sound
         virtual void bombExplosion();
         virtual void bombPlaced();
         virtual void gotItem();
+        virtual void wallDown();
         void deleteVector(std::vector<QSoundEffect*> &sounds);
         void setUpSounds(std::vector<QSoundEffect*> &sounds, const std::string &source);
         
@@ -31,6 +32,8 @@ namespace Sound
         std::vector<QSoundEffect*> m_gotItem;
         unsigned int m_gotItemIndex;
         QSoundEffect *m_background;
+        std::vector<QSoundEffect*> m_wallDown;
+        unsigned int m_wallDownIndex;
     };
 }
 

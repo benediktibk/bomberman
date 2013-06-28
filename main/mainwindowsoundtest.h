@@ -29,7 +29,7 @@ namespace Main
         void bombExplosion();
         void bombPlaced();
         void gotItem();
-        
+        void wallDown();
     private:
         Ui::MainWindowSoundTest* m_ui;
         Sound::SoundPlayer *m_sound;

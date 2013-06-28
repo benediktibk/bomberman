@@ -10,3 +10,6 @@ void SoundPlayerStub::bombPlaced()
 
 void SoundPlayerStub::gotItem()
 { }
+
+void SoundPlayerStub::wallDown()
+{ }
