@@ -26,6 +26,8 @@ namespace GameEngine
 		unsigned int getHeight() const;
 		const RouterGridField& getField(const Common::GridPoint &position) const;
 		void updatePlayerFlags();
+		void addBombToCalculatedForPositionCheck(const Common::GridPoint &position);
+		void removeBombToCalculatedForPositionCheck(const Common::GridPoint &position);
 
 	private:
 		RouterGridField& getFieldInternal(const Common::GridPoint &position);
@@ -34,7 +36,7 @@ namespace GameEngine
 		std::vector<Common::GridPoint> getAllPlayerFields() const;
 
 	private:
-		const Common::Grid &m_grid;
+		Common::Grid &m_grid;
 		const Common::GameState &m_gameState;
 		unsigned int m_width;
 		unsigned int m_height;

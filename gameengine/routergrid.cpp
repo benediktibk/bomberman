@@ -72,6 +72,20 @@ void RouterGrid::updatePlayerFlags()
 	setPlayerFlags();
 }
 
+void RouterGrid::addBombToCalculatedForPositionCheck(const GridPoint &position)
+{
+	UniqueIdCreator id;
+	const BombState bomb(id, 0, position.getPointPosition(), m_gameState.getPlayerStateById(m_ownPlayerId).getDestructionRangeOfNewBombs());
+	m_grid.addBombForPositionCheck(bomb);
+}
+
+void RouterGrid::removeBombToCalculatedForPositionCheck(const GridPoint &position)
+{
+	UniqueIdCreator id;
+	const BombState bomb(id, 0, position.getPointPosition(), m_gameState.getPlayerStateById(m_ownPlayerId).getDestructionRangeOfNewBombs());
+	m_grid.removeBombForPositionCheck(bomb);
+}
+
 RouterGridField& RouterGrid::getFieldInternal(const GridPoint &position)
 {
 	assert(position.getX() < m_width);
