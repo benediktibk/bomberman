@@ -8,11 +8,15 @@ SoundPlayer::SoundPlayer() :
     m_soundBufferSize(10),
     m_bombExplosionIndex(0),
     m_bombPlacedIndex(0),
-    m_gotItemIndex(0)
+    m_gotItemIndex(0),
+    m_background(new QSoundEffect)
 {
     setUpSounds(m_bombExplosion, "resources/sounds/bomb.wav");
     setUpSounds(m_bombPlaced, "resources/sounds/placed.wav");
     setUpSounds(m_gotItem, "resources/sounds/gotitem.wav");
+    m_background->setSource(QUrl::fromLocalFile("resources/sounds/background.wav"));
+    m_background->setLoopCount(QSoundEffect::Infinite);
+    m_background->play();
 }
 
 SoundPlayer::~SoundPlayer()
@@ -20,6 +24,7 @@ SoundPlayer::~SoundPlayer()
     deleteVector(m_bombExplosion);
     deleteVector(m_bombPlaced);
     deleteVector(m_gotItem);
+    delete m_background;
 }
 
 void SoundPlayer::bombExplosion()

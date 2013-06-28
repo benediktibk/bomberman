@@ -30,6 +30,7 @@ namespace Sound
         unsigned int m_bombPlacedIndex;
         std::vector<QSoundEffect*> m_gotItem;
         unsigned int m_gotItemIndex;
+        QSoundEffect *m_background;
     };
 }
 

@@ -88,6 +88,7 @@ set(SOUNDS
         bomb.wav
         gotitem.wav
         placed.wav
+		background.wav
 )
 
 foreach(file ${LEVELS})
