@@ -21,7 +21,8 @@ std::map<unsigned int, InputState> MainWindowInputFetcher::getInputStates()
 	m_inputStateMutex.lock();
 	std::map<unsigned int, InputState> stateCopy;
 	stateCopy[m_playerIds.front()] = m_inputStatePlayerOne;
-	stateCopy[m_playerIds.back()] = m_inputStatePlayerTwo;
+	if (m_playerIds.size() > 1)
+		stateCopy[m_playerIds.back()] = m_inputStatePlayerTwo;
 	m_inputStateMutex.unlock();
 	return stateCopy;
 }
