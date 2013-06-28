@@ -28,7 +28,8 @@ SoundPlayer::~SoundPlayer()
 }
 
 void SoundPlayer::bombExplosion()
-{
+{   
+    m_bombExplosion[m_bombExplosionIndex];
     m_bombExplosion[m_bombExplosionIndex]->play();
     ++m_bombExplosionIndex;
     if (m_bombExplosionIndex >= m_soundBufferSize)
