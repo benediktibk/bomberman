@@ -8,7 +8,7 @@ using namespace Common;
 ComputerEnemyInputFetcherEasy::ComputerEnemyInputFetcherEasy(Common::Grid &grid, const Common::GameState &gameState) :
 	ComputerEnemyInputFetcher(grid, gameState),
 	m_getAwayFromDangerousField(new RandomDecision(0.3)),
-	m_doSomething(new RandomDecision(0.05))
+	m_doSomething(new RandomDecision(0.1))
 { }
 
 ComputerEnemyInputFetcherEasy::~ComputerEnemyInputFetcherEasy()
