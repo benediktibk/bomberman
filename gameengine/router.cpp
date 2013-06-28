@@ -270,6 +270,7 @@ Route Router::findWayBackToSourceFromTarget(const GridPoint &targetPosition) con
 
 bool Router::isFlightableBombPlace(const GridPoint &bombPlace)
 {
+	/// @todo Test this stuff!!!
 	m_grid->addBombToCalculatedForPositionCheck(bombPlace);
 	Route flightPath = getRouteToNotDangerousField(bombPlace);
 	m_grid->removeBombToCalculatedForPositionCheck(bombPlace);
