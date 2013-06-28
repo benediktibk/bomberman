@@ -64,6 +64,13 @@ void MainWindowInputFetcher::keyPressEvent(QKeyEvent *event)
 		m_inputStatePlayerTwo.setSpaceKeyPressed();
 		break;
 
+	case Key_P:
+		emit pauseButtonPressed();
+		break;
+	case Key_M:
+		emit muteButtonPressed();
+		break;
+
 	default:
 		QMainWindow::keyPressEvent(event);
 		break;

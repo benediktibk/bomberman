@@ -22,6 +22,10 @@ namespace Main
 		virtual void setAllPossiblePlayerIDs(const std::vector<unsigned int> &allPossiblePlayerIds);
 		virtual std::map<unsigned int, Common::InputState> getInputStates();
 
+	signals:
+		void pauseButtonPressed();
+		void muteButtonPressed();
+
 	protected:
 		virtual void keyPressEvent(QKeyEvent *event);
 		virtual void keyReleaseEvent(QKeyEvent *event);

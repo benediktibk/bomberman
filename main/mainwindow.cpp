@@ -34,6 +34,10 @@ MainWindow::MainWindow() :
 				this, SLOT(pauseButtonPushed()));
 	connect(	m_ui->muteButton, SIGNAL(clicked()),
 				this, SLOT(muteButtonPushed()));
+	connect(	this, SIGNAL(pauseButtonPressed()),
+				this, SLOT(pauseButtonPushed()));
+	connect(	this, SIGNAL(muteButtonPressed()),
+				this, SLOT(muteButtonPushed()));
 	m_timerUserInfoUpdate->start(m_statusBarUpdateTimeStep);
 }
 
@@ -85,7 +89,7 @@ void MainWindow::startGame(
 
 	m_soundPlayer = new Sound::SoundPlayer(mute);
 	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, *m_soundPlayer, humanPlayerCount, computerEnemyCount);
-	m_gameLoop = new GameLoop(*this, *m_gameEngine,*this,computerEnemyLevel);
+	m_gameLoop = new GameLoop(*this, *m_gameEngine, *this, computerEnemyLevel);
 	m_enableOpenGL = enableOpenGL;
 	m_gameStartMutex.lock();
 	m_gameStarted = true;
