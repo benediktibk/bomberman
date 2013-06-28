@@ -1,4 +1,5 @@
 set(GAMEENGINE_SRC
+	allplayerinputfetcher.cpp	
 	gameengineimpl.cpp
 	computerenemyinputfetcher.cpp
 	computerenemyinputfetchereasy.cpp

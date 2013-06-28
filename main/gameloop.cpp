@@ -48,9 +48,12 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 			break;
 		}
 	}
-
-	setConstructionFinished();
-}
+    
+    vector<unsigned int> playerIDs = gameState.getAllNotDestroyedPlayerIDs();
+    m_allInput = new GameEngine::allPlayerInputFetcher(m_inputFetcher,m_computerEnemyInputFetcher,playerIDs.size());
+    
+    setConstructionFinished();
+}   
 
 GameLoop::~GameLoop()
 {
@@ -135,26 +138,8 @@ void GameLoop::execute()
 
 		updateMovingAverageOfTime(time);
 		updateFPS();
-
-		/*!
-		 * @todo Remove this code and feed the input states direct into
-		 * the game engine, when the input fetcher supports it.
-		 * It should look like this: m_gameEngine.updateGameState(m_inputFetcher.getInputStates(), time);
-		 */
-
-		// begin of temporary code
-		map<unsigned int, InputState> inputStates = m_inputFetcher.getInputStates();
-
-		for (vector<GameEngine::ComputerEnemyInputFetcher*>::iterator i = m_computerEnemyInputFetcher.begin(); i != m_computerEnemyInputFetcher.end(); ++i)
-		{
-			GameEngine::ComputerEnemyInputFetcher &computerEnemy = **i;
-			map<unsigned int, InputState> resultPart = computerEnemy.getInputStates();
-
-			for (map<unsigned int, InputState>::const_iterator j = resultPart.begin(); j != resultPart.end(); ++j)
-				inputStates.insert(*j);
-		}
-		m_gameEngine.updateGameState(inputStates, time);
-		// end of temporary code
+        
+        m_gameEngine.updateGameState(m_allInput->getInputStates(),time);
 
 		m_graphicDrawer.draw(gameState);
 
