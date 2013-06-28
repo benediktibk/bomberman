@@ -1,10 +1,13 @@
-#include "mainwindowinputfetcher.h"
+#include "main/mainwindowinputfetcher.h"
+#include "threading/lock.h"
 #include <QKeyEvent>
 #include <assert.h>
 
 using namespace Common;
 using namespace Main;
+using namespace Threading;
 using namespace Qt;
+using namespace std;
 
 MainWindowInputFetcher::MainWindowInputFetcher() :
 	QMainWindow(0)
@@ -18,18 +21,19 @@ void MainWindowInputFetcher::setAllPossiblePlayerIDs(const std::vector<unsigned 
 
 std::map<unsigned int, InputState> MainWindowInputFetcher::getInputStates()
 {
-	m_inputStateMutex.lock();
-	std::map<unsigned int, InputState> stateCopy;
+	Lock lock(m_inputStateMutex);
+	map<unsigned int, InputState> stateCopy;
 	stateCopy[m_playerIds.front()] = m_inputStatePlayerOne;
+
 	if (m_playerIds.size() > 1)
 		stateCopy[m_playerIds.back()] = m_inputStatePlayerTwo;
-	m_inputStateMutex.unlock();
+
 	return stateCopy;
 }
 
 void MainWindowInputFetcher::keyPressEvent(QKeyEvent *event)
 {
-	m_inputStateMutex.lock();
+	Lock lock(m_inputStateMutex);
 	switch (event->key())
 	{
 	case Key_Up:
@@ -75,12 +79,11 @@ void MainWindowInputFetcher::keyPressEvent(QKeyEvent *event)
 		QMainWindow::keyPressEvent(event);
 		break;
 	}
-	m_inputStateMutex.unlock();
 }
 
 void MainWindowInputFetcher::keyReleaseEvent(QKeyEvent *event)
 {
-	m_inputStateMutex.lock();
+	Lock lock(m_inputStateMutex);
 	switch (event->key())
 	{
 	case Key_Up:
@@ -119,6 +122,5 @@ void MainWindowInputFetcher::keyReleaseEvent(QKeyEvent *event)
 		QMainWindow::keyPressEvent(event);
 		break;
 	}
-	m_inputStateMutex.unlock();
 }
 

@@ -6,6 +6,7 @@
 #include "gameengine/computerenemyinputfetchereasy.h"
 #include "gameengine/computerenemyinputfetchermedium.h"
 #include "gameengine/computerenemyinputfetcherhard.h"
+#include "threading/lock.h"
 #include <unistd.h>
 #include <assert.h>
 
@@ -13,6 +14,7 @@ using namespace Common;
 using namespace Main;
 using namespace std;
 using namespace GameEngine;
+using namespace Threading;
 
 GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, GraphicDrawer &graphicDrawer, GameEngine::ComputerEnemyLevel computerEnemyLevel) :
 	m_inputFetcher(inputFetcher),
@@ -80,9 +82,8 @@ void GameLoop::stop()
 
 void GameLoop::pause()
 {
-	m_pausedMutex.lock();
+	Lock lock(m_pausedMutex);
 	m_paused = true;
-	m_pausedMutex.unlock();
 }
 
 bool GameLoop::isPaused()
@@ -95,11 +96,8 @@ bool GameLoop::isPaused()
 
 double GameLoop::getFramesPerSecond()
 {
-	double result;
-	m_performanceInformationMutex.lock();
-	result = m_framesPerSecond;
-	m_performanceInformationMutex.unlock();
-	return result;
+	Lock lock(m_performanceInformationMutex);
+	return m_framesPerSecond;
 }
 
 void GameLoop::execute()
@@ -168,7 +166,7 @@ void GameLoop::execute()
 
 void GameLoop::catchPlayerInformation(const vector<unsigned int> &playerIDs)
 {
-	m_playerInformationMutex.lock();
+	Lock lock(m_playerInformationMutex);
 	m_playerInformation.clear();
 
 	for (size_t y = 0; y < playerIDs.size(); y++)
@@ -177,7 +175,6 @@ void GameLoop::catchPlayerInformation(const vector<unsigned int> &playerIDs)
 		m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getMaxBombs());
 		m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getDestructionRangeOfNewBombs());
 	}
-	m_playerInformationMutex.unlock();
 }
 
 void GameLoop::updateMovingAverageOfTime(double time)
@@ -187,25 +184,20 @@ void GameLoop::updateMovingAverageOfTime(double time)
 
 void GameLoop::updateFPS()
 {
-	m_performanceInformationMutex.lock();
+	Lock lock(m_performanceInformationMutex);
 	m_framesPerSecond = 1/m_movingAverageOfTimeStep;
-	m_performanceInformationMutex.unlock();
 }
 
 bool GameLoop::isStopped()
 {
-	m_stoppedMutex.lock();
-	bool result = m_stopped;
-	m_stoppedMutex.unlock();
-	return result;
+	Lock lock(m_stoppedMutex);
+	return m_stopped;
 }
 
 vector<unsigned int> GameLoop::getPlayerInformation()
 {
-	m_playerInformationMutex.lock();
-	vector<unsigned int> result = m_playerInformation;
-	m_playerInformationMutex.unlock();
-	return result;
+	Lock lock(m_playerInformationMutex);
+	return m_playerInformation;
 }
 
 void GameLoop::pauseIfNecessary()

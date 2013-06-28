@@ -1,16 +1,18 @@
 #include "main/mainwindow.h"
+#include "main/gameloop.h"
 #include "ui_mainwindow.h"
 #include "graphic/graphicdrawerqt.h"
 #include "common/gamestate.h"
-#include "main/gameloop.h"
 #include "gameengine/gameengineimpl.h"
 #include "sound/soundplayer.h"
+#include "threading/lock.h"
 #include <assert.h>
 #include <QtCore/QTimer>
 #include <QScrollBar>
 
 using namespace Main;
 using namespace Graphic;
+using namespace Threading;
 using namespace std;
 
 MainWindow::MainWindow() :
@@ -55,26 +57,21 @@ void MainWindow::setResponsibleForPlayers(const std::vector<unsigned int> &playe
 
 void MainWindow::draw(const Common::GameState &gameState)
 {
-	m_gameStartMutex.lock();
+	Lock startLock(m_gameStartMutex);
+
 	if (!m_gameStarted)
-	{
-		m_gameStartMutex.unlock();
 		return;
-	}
 
 	emit guiUpdateNecessary(&gameState);
 
-	m_gameFinishedMutex.lock();
-	if (m_gameFinished)
 	{
-		m_gameFinishedMutex.unlock();
-		m_gameStartMutex.unlock();
-		return;
+		Lock finishedLock(m_gameFinishedMutex);
+		if (m_gameFinished)
+			return;
 	}
-	m_gameFinishedMutex.unlock();
+
 	m_guiUpdateFinished.wait();
 	m_guiUpdateFinished.reset();
-	m_gameStartMutex.unlock();
 }
 
 void MainWindow::startGame(
@@ -122,14 +119,15 @@ void MainWindow::startGame(
 
 void MainWindow::updateGui(const Common::GameState *gameState)
 {
-	m_gameFinishedMutex.lock();
-	if (m_gameFinished)
 	{
-		m_gameFinishedMutex.unlock();
-		m_guiUpdateFinished.send();
-		return;
+		Lock lock(m_gameFinishedMutex);
+
+		if (m_gameFinished)
+		{
+			m_guiUpdateFinished.send();
+			return;
+		}
 	}
-	m_gameFinishedMutex.unlock();
 	m_drawer->draw(*gameState);
 	m_ui->graphicsView->viewport()->update();
 	m_guiUpdateFinished.send();
@@ -137,12 +135,12 @@ void MainWindow::updateGui(const Common::GameState *gameState)
 
 void MainWindow::updateUserInfo()
 {
-	m_gameFinishedMutex.lock();
-	bool shouldUpdate = m_gameStarted && !m_gameFinished;
-	m_gameFinishedMutex.unlock();
+	{
+		Lock lock(m_gameFinishedMutex);
 
-	if (!shouldUpdate)
-		return;
+		if (!m_gameStarted || m_gameFinished)
+			return;
+	}
 
 	updateStatusBar();
 	updatePlayerStateInfo();

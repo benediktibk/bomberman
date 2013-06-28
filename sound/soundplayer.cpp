@@ -1,5 +1,6 @@
 #include "sound/soundplayer.h"
 #include "threading/mutex.h"
+#include "threading/lock.h"
 #include <QtMultimedia/QSoundEffect>
 
 using namespace Sound;
@@ -28,75 +29,70 @@ SoundPlayer::SoundPlayer(bool mute) :
 
 SoundPlayer::~SoundPlayer()
 {
-	m_mutex->lock();
-	deleteVector(m_bombExplosion);
-	deleteVector(m_bombPlaced);
-	deleteVector(m_gotItem);
-	deleteVector(m_wallDown);
-	delete m_background;
-	m_mutex->unlock();
+	{
+		Lock lock(*m_mutex);
+		deleteVector(m_bombExplosion);
+		deleteVector(m_bombPlaced);
+		deleteVector(m_gotItem);
+		deleteVector(m_wallDown);
+		delete m_background;
+	}
+
 	delete m_mutex;
 }
 
 void SoundPlayer::bombExplosion()
 {
-	m_mutex->lock();
+	Lock lock(*m_mutex);
 	m_bombExplosion[m_bombExplosionIndex];
 	m_bombExplosion[m_bombExplosionIndex]->play();
 	++m_bombExplosionIndex;
 	if (m_bombExplosionIndex >= m_soundBufferSize)
 		m_bombExplosionIndex = 0;
-	m_mutex->unlock();
 }
 
 void SoundPlayer::bombPlaced()
 {
-	m_mutex->lock();
+	Lock lock(*m_mutex);
 	m_bombPlaced[m_bombPlacedIndex]->play();
 	++m_bombPlacedIndex;
 	if (m_bombPlacedIndex >= m_soundBufferSize)
 		m_bombPlacedIndex = 0;
-	m_mutex->unlock();
 }
 
 void SoundPlayer::gotItem()
 {
-	m_mutex->lock();
+	Lock lock(*m_mutex);
 	m_gotItem[m_gotItemIndex]->play();
 	++m_gotItemIndex;
 	if (m_gotItemIndex >= m_soundBufferSize)
 		m_gotItemIndex = 0;
-	m_mutex->unlock();
 }
 
 void SoundPlayer::wallDown()
 {
-	m_mutex->lock();
+	Lock lock(*m_mutex);
 	m_wallDown[m_wallDownIndex]->play();
 	++m_wallDownIndex;
 	if (m_wallDownIndex >= m_soundBufferSize)
 		m_wallDownIndex = 0;
-	m_mutex->unlock();
 }
 
 void SoundPlayer::setMuted(bool value)
 {
-	m_mutex->lock();
+	Lock lock(*m_mutex);
 	m_muted = value;
 	muteSounds(m_bombExplosion, value);
 	muteSounds(m_bombPlaced, value);
 	muteSounds(m_gotItem, value);
 	muteSounds(m_wallDown, value);
 	m_background->setMuted(value);
-	m_mutex->unlock();
 }
 
 bool SoundPlayer::isMuted() const
 {
-	m_mutex->lock();
-	bool result = m_muted;
-	m_mutex->unlock();
-	return result;
+	Lock lock(*m_mutex);
+	return m_muted;
 }
 
 void SoundPlayer::deleteVector(vector<QSoundEffect*> &sounds)
