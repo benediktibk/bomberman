@@ -409,7 +409,7 @@ resources/sounds/walldown.wav
 common/soundplayer.h
 common/soundplayerstub.h
 common/soundplayerstub.cpp
-resources/levels/world_war_1.csv
+resources/levels/world_at_war.csv
 gameengine/computerenemyinputfetcherhard.h
 gameengine/computerenemyinputfetcherhard.cpp
 gameengine/computerenemyinputfetchereasy.h

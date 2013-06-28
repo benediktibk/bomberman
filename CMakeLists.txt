@@ -40,7 +40,7 @@ set(LEVELS
 	battlefield.csv
 	jack_in_the_box.csv
 	arena_51.csv
-	world_war_1.csv
+	world_at_war.csv
 )
 
 set(TESTFILES
@@ -85,9 +85,9 @@ set(GRAPHICS
 	powerup_speed.svg
 )
 set(SOUNDS
-        bomb.wav
-        gotitem.wav
-        placed.wav
+		bomb.wav
+		gotitem.wav
+		placed.wav
 		background.wav
 		walldown.wav
 )
@@ -111,9 +111,9 @@ foreach(file ${GRAPHICS})
 endforeach()
 
 foreach(file ${SOUNDS})
-        file(	COPY
-                        ${CMAKE_CURRENT_SOURCE_DIR}/resources/sounds/${file}
-                        DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/sounds/)
+		file(	COPY
+						${CMAKE_CURRENT_SOURCE_DIR}/resources/sounds/${file}
+						DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/sounds/)
 endforeach()
 
 
