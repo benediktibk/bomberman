@@ -85,6 +85,8 @@ private:
 	bool m_enableOpenGL;
 	bool m_gameStarted;
 	Threading::Mutex m_gameStartMutex;
+	bool m_gameFinished;
+	Threading::Mutex m_gameFinishedMutex;
 };
 }
 

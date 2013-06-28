@@ -22,7 +22,8 @@ MainWindow::MainWindow() :
 	m_soundPlayer(0),
 	m_gameLoop(0),
 	m_timerUserInfoUpdate(new QTimer(this)),
-	m_gameStarted(false)
+	m_gameStarted(false),
+	m_gameFinished(false)
 {
 	m_ui->setupUi(this);
 
@@ -38,7 +39,6 @@ MainWindow::MainWindow() :
 				this, SLOT(pauseButtonPushed()));
 	connect(	this, SIGNAL(muteButtonPressed()),
 				this, SLOT(muteButtonPushed()));
-	m_timerUserInfoUpdate->start(m_statusBarUpdateTimeStep);
 }
 
 MainWindow::~MainWindow()
@@ -63,6 +63,15 @@ void MainWindow::draw(const Common::GameState &gameState)
 	}
 
 	emit guiUpdateNecessary(&gameState);
+
+	m_gameFinishedMutex.lock();
+	if (m_gameFinished)
+	{
+		m_gameFinishedMutex.unlock();
+		m_gameStartMutex.unlock();
+		return;
+	}
+	m_gameFinishedMutex.unlock();
 	m_guiUpdateFinished.wait();
 	m_guiUpdateFinished.reset();
 	m_gameStartMutex.unlock();
@@ -78,6 +87,10 @@ void MainWindow::startGame(
 	m_gameStarted = false;
 	m_gameStartMutex.unlock();
 	finishGame();
+	m_gameFinishedMutex.lock();
+	m_gameFinished = false;
+	m_gameFinishedMutex.unlock();
+	m_guiUpdateFinished.reset();
 
 	string levelpath = "levels/" + string(levelname);
 	m_level = new Common::LevelDefinition(Common::CSVParser(levelpath));
@@ -104,10 +117,19 @@ void MainWindow::startGame(
 	show();
 	updatePauseButtonLabel();
 	updateMuteButtonLabel();
+	m_timerUserInfoUpdate->start(m_statusBarUpdateTimeStep);
 }
 
 void MainWindow::updateGui(const Common::GameState *gameState)
 {
+	m_gameFinishedMutex.lock();
+	if (m_gameFinished)
+	{
+		m_gameFinishedMutex.unlock();
+		m_guiUpdateFinished.send();
+		return;
+	}
+	m_gameFinishedMutex.unlock();
 	m_drawer->draw(*gameState);
 	m_ui->graphicsView->viewport()->update();
 	m_guiUpdateFinished.send();
@@ -115,6 +137,13 @@ void MainWindow::updateGui(const Common::GameState *gameState)
 
 void MainWindow::updateUserInfo()
 {
+	m_gameFinishedMutex.lock();
+	bool shouldUpdate = m_gameStarted && !m_gameFinished;
+	m_gameFinishedMutex.unlock();
+
+	if (!shouldUpdate)
+		return;
+
 	updateStatusBar();
 	updatePlayerStateInfo();
 	m_timerUserInfoUpdate->start(m_statusBarUpdateTimeStep);
@@ -122,9 +151,6 @@ void MainWindow::updateUserInfo()
 
 void MainWindow::updateStatusBar()
 {
-	if(!m_gameStarted)
-		return;
-
 	QString messageTemplate = QString("%1 fps");
 	double framesPerSecond = m_gameLoop->getFramesPerSecond();
 	QString framesPerSecondString = QString().setNum(framesPerSecond, 'f', 1);
@@ -135,9 +161,7 @@ void MainWindow::updateStatusBar()
 
 void MainWindow::updatePlayerStateInfo()
 {
-	if (!m_gameStarted)
-		return;
-	std::vector<unsigned int> playerInformation = m_gameLoop->getPlayerInformation();
+	vector<unsigned int> playerInformation = m_gameLoop->getPlayerInformation();
 
 	if(playerInformation.size() % 3 != 0)
 		assert(false);
@@ -178,15 +202,25 @@ void MainWindow::closeEvent(QCloseEvent *)
 
 void MainWindow::finishGame()
 {
+	m_gameFinishedMutex.lock();
+	m_gameFinished = true;
+	m_guiUpdateFinished.send();
+	m_gameFinishedMutex.unlock();
 	delete m_gameLoop;
+	m_gameLoop = 0;
 	delete m_drawer;
+	m_drawer = 0;
 	delete m_level;
+	m_level = 0;
 	delete m_gameEngine;
+	m_gameEngine = 0;
 	delete m_soundPlayer;
+	m_soundPlayer = 0;
 }
 
 void MainWindow::closeGame()
 {
+	finishGame();
 	this->close();
 }
 
