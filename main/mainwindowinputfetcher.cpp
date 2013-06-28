@@ -1,5 +1,6 @@
 #include "mainwindowinputfetcher.h"
 #include <QKeyEvent>
+#include <assert.h>
 
 using namespace Common;
 using namespace Main;
@@ -9,28 +10,21 @@ MainWindowInputFetcher::MainWindowInputFetcher() :
 	QMainWindow(0)
 { }
 
-void MainWindowInputFetcher::setAllPossiblePlayerIds(std::vector<unsigned int> allPossiblePlayerIds)
+void MainWindowInputFetcher::setAllPossiblePlayerIDs(const std::vector<unsigned int> &allPossiblePlayerIds)
 {
-    for(size_t i = 0; i < allPossiblePlayerIds.size(); i++)
-        m_playerIds = allPossiblePlayerIds;
-}
-
-InputState MainWindowInputFetcher::getInputState()
-{
-	m_inputStateMutex.lock();
-	InputState stateCopy = m_inputState;
-	m_inputStateMutex.unlock();
-	return stateCopy;
+	assert(allPossiblePlayerIds.size() > 0 && allPossiblePlayerIds.size() < 3);
+	m_playerIds = allPossiblePlayerIds;
 }
 
 std::map<unsigned int, InputState> MainWindowInputFetcher::getInputStates()
 {
-    m_inputStateMutex.lock();
-    std::map<unsigned int, InputState> stateCopy;
-    stateCopy[m_playerIds.front()] = m_inputState;
-    stateCopy[m_playerIds.back()] = m_inputStatePlayer2;
-    m_inputStateMutex.unlock();
-    return stateCopy;
+	m_inputStateMutex.lock();
+	std::map<unsigned int, InputState> stateCopy;
+	stateCopy[m_playerIds.front()] = m_inputStatePlayerOne;
+	if (m_playerIds.size() > 1)
+		stateCopy[m_playerIds.back()] = m_inputStatePlayerTwo;
+	m_inputStateMutex.unlock();
+	return stateCopy;
 }
 
 void MainWindowInputFetcher::keyPressEvent(QKeyEvent *event)
@@ -39,36 +33,36 @@ void MainWindowInputFetcher::keyPressEvent(QKeyEvent *event)
 	switch (event->key())
 	{
 	case Key_Up:
-		m_inputState.setUpKeyPressed();
+		m_inputStatePlayerOne.setUpKeyPressed();
 		break;
 	case Key_Down:
-		m_inputState.setDownKeyPressed();
+		m_inputStatePlayerOne.setDownKeyPressed();
 		break;
 	case Key_Left:
-		m_inputState.setLeftKeyPressed();
+		m_inputStatePlayerOne.setLeftKeyPressed();
 		break;
 	case Key_Right:
-		m_inputState.setRightKeyPressed();
+		m_inputStatePlayerOne.setRightKeyPressed();
 		break;
 	case Key_Space:
-		m_inputState.setSpaceKeyPressed();
+		m_inputStatePlayerOne.setSpaceKeyPressed();
 		break;
 
-    case Key_W:
-        m_inputStatePlayer2.setUpKeyPressed();
-        break;
-    case Key_S:
-        m_inputStatePlayer2.setDownKeyPressed();
-        break;
-    case Key_A:
-        m_inputStatePlayer2.setLeftKeyPressed();
-        break;
-    case Key_D:
-        m_inputStatePlayer2.setRightKeyPressed();
-        break;
-    case Key_Q:
-        m_inputStatePlayer2.setSpaceKeyPressed();
-        break;
+	case Key_W:
+		m_inputStatePlayerTwo.setUpKeyPressed();
+		break;
+	case Key_S:
+		m_inputStatePlayerTwo.setDownKeyPressed();
+		break;
+	case Key_A:
+		m_inputStatePlayerTwo.setLeftKeyPressed();
+		break;
+	case Key_D:
+		m_inputStatePlayerTwo.setRightKeyPressed();
+		break;
+	case Key_Q:
+		m_inputStatePlayerTwo.setSpaceKeyPressed();
+		break;
 
 	default:
 		QMainWindow::keyPressEvent(event);
@@ -83,36 +77,36 @@ void MainWindowInputFetcher::keyReleaseEvent(QKeyEvent *event)
 	switch (event->key())
 	{
 	case Key_Up:
-		m_inputState.setUpKeyNotPressed();
+		m_inputStatePlayerOne.setUpKeyNotPressed();
 		break;
 	case Key_Down:
-		m_inputState.setDownKeyNotPressed();
+		m_inputStatePlayerOne.setDownKeyNotPressed();
 		break;
 	case Key_Left:
-		m_inputState.setLeftKeyNotPressed();
+		m_inputStatePlayerOne.setLeftKeyNotPressed();
 		break;
 	case Key_Right:
-		m_inputState.setRightKeyNotPressed();
+		m_inputStatePlayerOne.setRightKeyNotPressed();
 		break;
 	case Key_Space:
-		m_inputState.setSpaceKeyNotPressed();
+		m_inputStatePlayerOne.setSpaceKeyNotPressed();
 		break;
 
-    case Key_W:
-        m_inputStatePlayer2.setUpKeyNotPressed();
-        break;
-    case Key_S:
-        m_inputStatePlayer2.setDownKeyNotPressed();
-        break;
-    case Key_A:
-        m_inputStatePlayer2.setLeftKeyNotPressed();
-        break;
-    case Key_D:
-        m_inputStatePlayer2.setRightKeyNotPressed();
-        break;
-    case Key_Q:
-        m_inputStatePlayer2.setSpaceKeyNotPressed();
-        break;
+	case Key_W:
+		m_inputStatePlayerTwo.setUpKeyNotPressed();
+		break;
+	case Key_S:
+		m_inputStatePlayerTwo.setDownKeyNotPressed();
+		break;
+	case Key_A:
+		m_inputStatePlayerTwo.setLeftKeyNotPressed();
+		break;
+	case Key_D:
+		m_inputStatePlayerTwo.setRightKeyNotPressed();
+		break;
+	case Key_Q:
+		m_inputStatePlayerTwo.setSpaceKeyNotPressed();
+		break;
 
 	default:
 		QMainWindow::keyPressEvent(event);

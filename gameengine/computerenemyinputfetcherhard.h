@@ -9,7 +9,7 @@ namespace GameEngine
 			public ComputerEnemyInputFetcher
 	{
 	public:
-		ComputerEnemyInputFetcherHard(Common::Grid &grid, const Common::GameState &gameState, unsigned int playerID);
+		ComputerEnemyInputFetcherHard(Common::Grid &grid, const Common::GameState &gameState);
 
 	protected:
 		virtual void calculateInputStateInternal();

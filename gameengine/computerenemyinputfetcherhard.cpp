@@ -4,8 +4,8 @@
 using namespace GameEngine;
 using namespace Common;
 
-ComputerEnemyInputFetcherHard::ComputerEnemyInputFetcherHard(Common::Grid &grid, const Common::GameState &gameState, unsigned int playerID) :
-	ComputerEnemyInputFetcher(grid, gameState, playerID)
+ComputerEnemyInputFetcherHard::ComputerEnemyInputFetcherHard(Common::Grid &grid, const Common::GameState &gameState) :
+	ComputerEnemyInputFetcher(grid, gameState)
 { }
 
 void ComputerEnemyInputFetcherHard::calculateInputStateInternal()

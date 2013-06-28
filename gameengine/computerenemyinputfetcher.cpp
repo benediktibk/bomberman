@@ -7,11 +7,11 @@ using namespace Common;
 using namespace GameEngine;
 using namespace std;
 
-ComputerEnemyInputFetcher::ComputerEnemyInputFetcher(Grid &grid, const GameState &gameState, unsigned int playerID) :
-	m_router(new Router(grid, gameState, playerID)),
+ComputerEnemyInputFetcher::ComputerEnemyInputFetcher(Grid &grid, const GameState &gameState) :
+	m_router(0),
+	m_grid(grid),
 	m_gameState(gameState),
-	m_playerID(playerID),
-	m_player(gameState.getPlayerStateById(playerID))
+	m_player(0)
 {
 	m_inputStateWithID.insert(pair<unsigned int, InputState>(m_playerID, m_inputState));
 }
@@ -21,14 +21,17 @@ ComputerEnemyInputFetcher::~ComputerEnemyInputFetcher()
 	delete m_router;
 }
 
-InputState ComputerEnemyInputFetcher::getInputState()
+void ComputerEnemyInputFetcher::setAllPossiblePlayerIDs(const std::vector<unsigned int> &allPossiblePlayerIds)
 {
-	calculateInputState();
-	return m_inputState;
+	assert(allPossiblePlayerIds.size() == 1);
+	m_playerID = allPossiblePlayerIds.front();
+	m_router = new Router(m_grid, m_gameState, m_playerID);
+	m_player = &(m_gameState.getPlayerStateById(m_playerID));
 }
 
 void ComputerEnemyInputFetcher::calculateInputState()
 {
+	assert(m_router != 0);
 	m_inputState.setDownKeyNotPressed();
 	m_inputState.setUpKeyNotPressed();
 	m_inputState.setRightKeyNotPressed();
@@ -69,8 +72,8 @@ void ComputerEnemyInputFetcher::setInputStateIntoDirection(PlayerState::PlayerDi
 
 void ComputerEnemyInputFetcher::placeBombIfCloseEnough(const Route &route)
 {
-	Point realPosition = m_player.getPosition();
-	GridPoint targetPosition = Grid::getTargetPoint(m_player);
+	Point realPosition = m_player->getPosition();
+	GridPoint targetPosition = Grid::getTargetPoint(*m_player);
 	Point positionToTargetDifference = realPosition - targetPosition.getPointPosition();
 	bool closeEnoughForBombPlacement =	route.getDistance() <= 1 &&
 										abs(positionToTargetDifference.getX()) < 0.45 &&
@@ -97,10 +100,10 @@ Router& GameEngine::ComputerEnemyInputFetcher::getRouter()
 
 GridPoint ComputerEnemyInputFetcher::getPlayerPosition() const
 {
-	return Grid::getTargetPoint(m_player);
+	return Grid::getTargetPoint(*m_player);
 }
 
 unsigned int ComputerEnemyInputFetcher::getPlayerID()
 {
-    return m_playerID;
+	return m_playerID;
 }

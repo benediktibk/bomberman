@@ -19,7 +19,7 @@ void GameLoopTest::constructor_notStarted_inputFetcherGotNoCallsToGetInputState(
 
 	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer, GameEngine::ComputerEnemyLevelEasy);
 
-	CPPUNIT_ASSERT_EQUAL((unsigned int)0, inputFetcher.getCallsToGetInputState());
+	CPPUNIT_ASSERT_EQUAL((unsigned int)0, inputFetcher.getCallsToGetInputStates());
 	gameLoop->start();
 	gameLoop->stop();
 	delete gameLoop;
@@ -79,7 +79,7 @@ void GameLoopTest::execute_runSomeExecutions_inputFetcherGotAsMuchCallsAsGameEng
 	gameLoop->stop();
 	gameLoop->waitTillFinished();
 
-	CPPUNIT_ASSERT_EQUAL(inputFetcher.getCallsToGetInputState(), gameEngine.getCallsToUpdateGameState());
+	CPPUNIT_ASSERT_EQUAL(inputFetcher.getCallsToGetInputStates(), gameEngine.getCallsToUpdateGameState());
 	delete gameLoop;
 }
 
@@ -159,14 +159,14 @@ void GameLoopTest::pause_gameAlreadyRunSomeExecutionsAndWaitOf100ms_callsToMocks
 	usleep(1000*100);
 	gameLoop->pause();
 	usleep(1000*100);
-	unsigned int previousCallsToGetInputState = inputFetcher.getCallsToGetInputState();
+	unsigned int previousCallsToGetInputState = inputFetcher.getCallsToGetInputStates();
 	unsigned int previousCallsToUpdateGameState = gameEngine->getCallsToUpdateGameState();
 	unsigned int previousCallsToDraw = graphicDrawer.getCallsToDraw();
 	usleep(1000*100);
 	gameLoop->stop();
 	gameLoop->waitTillFinished();
 
-	CPPUNIT_ASSERT_EQUAL(previousCallsToGetInputState, inputFetcher.getCallsToGetInputState());
+	CPPUNIT_ASSERT_EQUAL(previousCallsToGetInputState, inputFetcher.getCallsToGetInputStates());
 	CPPUNIT_ASSERT_EQUAL(previousCallsToUpdateGameState, gameEngine->getCallsToUpdateGameState());
 	CPPUNIT_ASSERT_EQUAL(previousCallsToDraw, graphicDrawer.getCallsToDraw());
 	delete gameLoop;

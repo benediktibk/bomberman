@@ -10,8 +10,8 @@ namespace Common
 			public InputFetcher
 	{
 	public:
-        virtual std::map<unsigned int, Common::InputState> getInputStates() ;
-		virtual InputState getInputState();
+		virtual void setAllPossiblePlayerIDs(const std::vector<unsigned int> &playerIDs);
+		virtual std::map<unsigned int, Common::InputState> getInputStates() ;
 	};
 }
 

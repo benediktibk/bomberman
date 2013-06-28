@@ -35,17 +35,17 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 		switch (computerEnemyLevel)
 		{
 		case ComputerEnemyLevelEasy:
-			m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcherEasy(m_gameEngine.getGrid(), gameState, computerEnemyIDs[i]));
+			m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcherEasy(m_gameEngine.getGrid(), gameState));
 			break;
 		case ComputerEnemyLevelMedium:
 			assert(false);
 			break;
 		case ComputerEnemyLevelHard:
-			m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcherHard(m_gameEngine.getGrid(), gameState, computerEnemyIDs[i]));
+			m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcherHard(m_gameEngine.getGrid(), gameState));
 			break;
 		}
+	}
 
-		}
 	setConstructionFinished();
 }
 
@@ -110,8 +110,15 @@ void GameLoop::execute()
 	StopWatch watch;
 	const Common::GameState &gameState = m_gameEngine.getGameState();
 	vector<unsigned int> computerEnemyIDs = gameState.getAllNotDestroyedComputerEnemyIDs();
-	vector<unsigned int> playerIDs = gameState.getAllNotDestroyedPlayerIDs();
-    //m_inputFetcher.setPlayerIDs(playerIDs);
+	vector<unsigned int> humanPlayerIDs = gameState.getAllNotDestroyedHumanPlayerIDs();
+
+	m_inputFetcher.setAllPossiblePlayerIDs(humanPlayerIDs);
+	for (size_t i = 0; i < computerEnemyIDs.size(); ++i)
+	{
+		vector<unsigned int> playerIDs;
+		playerIDs.push_back(computerEnemyIDs[i]);
+		m_computerEnemyInputFetcher[i]->setAllPossiblePlayerIDs(playerIDs);
+	}
 
 	while (run)
 	{
@@ -137,12 +144,17 @@ void GameLoop::execute()
 		 */
 
 		// begin of temporary code
-		map<unsigned int, InputState> inputStates;
-		inputStates[playerIDs.front()] = m_inputFetcher.getInputState(); 
-		for (size_t i = 0; i < computerEnemyIDs.size(); ++i)
-			inputStates[computerEnemyIDs[i]] = m_computerEnemyInputFetcher[i]->getInputState();
-        m_gameEngine.updateGameState(inputStates, time);
-        // allPlayerInputFetcher input(m_inputFetcher,m_computerEnemyInputFetcherVECTOR);
+		map<unsigned int, InputState> inputStates = m_inputFetcher.getInputStates();
+
+		for (vector<GameEngine::ComputerEnemyInputFetcher*>::iterator i = m_computerEnemyInputFetcher.begin(); i != m_computerEnemyInputFetcher.end(); ++i)
+		{
+			GameEngine::ComputerEnemyInputFetcher &computerEnemy = **i;
+			map<unsigned int, InputState> resultPart = computerEnemy.getInputStates();
+
+			for (map<unsigned int, InputState>::const_iterator j = resultPart.begin(); j != resultPart.end(); ++j)
+				inputStates.insert(*j);
+		}
+		m_gameEngine.updateGameState(inputStates, time);
 		// end of temporary code
 
 		m_graphicDrawer.draw(gameState);

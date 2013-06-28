@@ -5,8 +5,8 @@
 using namespace GameEngine;
 using namespace Common;
 
-ComputerEnemyInputFetcherEasy::ComputerEnemyInputFetcherEasy(Common::Grid &grid, const Common::GameState &gameState, unsigned int playerID) :
-	ComputerEnemyInputFetcher(grid, gameState, playerID),
+ComputerEnemyInputFetcherEasy::ComputerEnemyInputFetcherEasy(Common::Grid &grid, const Common::GameState &gameState) :
+	ComputerEnemyInputFetcher(grid, gameState),
 	m_getAwayFromDangerousField(new RandomDecision(0.5)),
 	m_doSomething(new RandomDecision(0.1))
 { }

@@ -15,7 +15,8 @@ void ComputerEnemyInputFetcherHardTest::getInputState_movingToFieldRightBesidePl
 	m_ownPlayer->setPosition(Point(1.7, 0));
 	m_ownPlayer->setDirectionLeft();
 
-	InputState input = m_inputFetcher->getInputState();
+	map<unsigned int, InputState> inputs = m_inputFetcher->getInputStates();
+	InputState input = inputs.begin()->second;
 
 	CPPUNIT_ASSERT(!input.isSpaceKeyPressed());
 }
@@ -26,7 +27,8 @@ void ComputerEnemyInputFetcherHardTest::getInputState_movingToFieldRightBesidePl
 	m_ownPlayer->setPosition(Point(1.3, 0));
 	m_ownPlayer->setDirectionLeft();
 
-	InputState input = m_inputFetcher->getInputState();
+	map<unsigned int, InputState> inputs = m_inputFetcher->getInputStates();
+	InputState input = inputs.begin()->second;
 
 	CPPUNIT_ASSERT(input.isSpaceKeyPressed());
 }
@@ -40,7 +42,8 @@ void ComputerEnemyInputFetcherHardTest::getInputState_movingToFieldRightBesideLo
 	m_ownPlayer->setPosition(Point(1.3, 1));
 	m_ownPlayer->setDirectionLeft();
 
-	InputState input = m_inputFetcher->getInputState();
+	map<unsigned int, InputState> inputs = m_inputFetcher->getInputStates();
+	InputState input = inputs.begin()->second;
 
 	CPPUNIT_ASSERT(!input.isSpaceKeyPressed());
 }
@@ -54,7 +57,8 @@ void ComputerEnemyInputFetcherHardTest::getInputState_movingToFieldRightBesideLo
 	m_ownPlayer->setPosition(Point(1.7, 1));
 	m_ownPlayer->setDirectionRight();
 
-	InputState input = m_inputFetcher->getInputState();
+	map<unsigned int, InputState> inputs = m_inputFetcher->getInputStates();
+	InputState input = inputs.begin()->second;
 
 	CPPUNIT_ASSERT(input.isSpaceKeyPressed());
 }
@@ -78,7 +82,8 @@ void ComputerEnemyInputFetcherHardTest::getInputState_onDangerousFieldAndShortes
 	m_ownPlayer->setPosition(Point(3, 3));
 	m_otherPlayer->setPosition(Point(5, 3));
 
-	InputState input = m_inputFetcher->getInputState();
+	map<unsigned int, InputState> inputs = m_inputFetcher->getInputStates();
+	InputState input = inputs.begin()->second;
 
 	CPPUNIT_ASSERT(input.isLeftKeyPressed());
 }
@@ -93,7 +98,8 @@ void ComputerEnemyInputFetcherHardTest::getInputState_looseWallRightAndOtherPlay
 	m_ownPlayer->setPosition(Point(3, 3));
 	m_otherPlayer->setPosition(Point(3, 5));
 
-	InputState input = m_inputFetcher->getInputState();
+	map<unsigned int, InputState> inputs = m_inputFetcher->getInputStates();
+	InputState input = inputs.begin()->second;
 
 	CPPUNIT_ASSERT(input.isUpKeyPressed());
 }
@@ -105,7 +111,8 @@ void ComputerEnemyInputFetcherHardTest::getInputState_looseWallRight_rightKeyPre
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 5, 3);
 	createInputFetcher(level);
 
-	InputState input = m_inputFetcher->getInputState();
+	map<unsigned int, InputState> inputs = m_inputFetcher->getInputStates();
+	InputState input = inputs.begin()->second;
 
 	CPPUNIT_ASSERT(input.isRightKeyPressed());
 }
@@ -122,7 +129,8 @@ void ComputerEnemyInputFetcherHardTest::getInputState_powerUpOnDangerousField_no
 	m_gameState->addPowerUp(powerUp);
 	m_grid->addPowerUpAtPlace(*powerUp);
 
-	InputState input = m_inputFetcher->getInputState();
+	map<unsigned int, InputState> inputs = m_inputFetcher->getInputStates();
+	InputState input = inputs.begin()->second;
 
 	CPPUNIT_ASSERT(!input.isMovementButtonPressed());
 }
@@ -146,7 +154,10 @@ void ComputerEnemyInputFetcherHardTest::createInputFetcher(const LevelDefinition
 	vector<const WallState*> walls = m_gameState->getAllChangedWalls();
 	for (vector<const WallState*>::const_iterator i = walls.begin(); i != walls.end(); ++i)
 		m_grid->addWallAtPlace(**i);
-	m_inputFetcher = new ComputerEnemyInputFetcherHard(*m_grid, *m_gameState, m_ownPlayer->getId());
+	m_inputFetcher = new ComputerEnemyInputFetcherHard(*m_grid, *m_gameState);
+	vector<unsigned int> playerIDs;
+	playerIDs.push_back(m_ownPlayer->getId());
+	m_inputFetcher->setAllPossiblePlayerIDs(playerIDs);
 }
 
 void ComputerEnemyInputFetcherHardTest::setUp()
