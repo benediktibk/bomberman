@@ -31,14 +31,13 @@ void Router::updatePlayerFields()
 
 Route Router::getRouteToPlayer(const Common::GridPoint &position)
 {
-	/// @todo should calculate aim, pretends a bomb at that place, checks if route out of dangerzone is possible.
 	Route routeToCalculatedAim = getRoute(NotDangerousAndFreeDecider(), CoveredByPlayerDecider(), position);
 
 	m_grid->addBombToCalculatedForPositionCheck(routeToCalculatedAim.getTargetPosition());
 	Route flightPath = getRouteToNotDangerousField(routeToCalculatedAim.getTargetPosition());
 	m_grid->removeBombToCalculatedForPositionCheck(routeToCalculatedAim.getTargetPosition());
 
-	if (flightPath.getDistance() != 0)
+	if (flightPath.getDirection() != PlayerState::PlayerDirectionNone)
 		return routeToCalculatedAim;
 
 	return Route(0, PlayerState::PlayerDirectionNone);
@@ -52,14 +51,13 @@ Route Router::getRouteToNotDangerousField(const Common::GridPoint &position)
 
 Route Router::getRouteToLooseWall(const Common::GridPoint &position)
 {
-	/// @todo should calculate aim, pretends a bomb at that place, checks if route out of dangerzone is possible.
 	Route routeToCalculatedAim = getRoute(NotDangerousAndFreeDecider(), CoveredByLooseWallDecider(), position);
 
 	m_grid->addBombToCalculatedForPositionCheck(routeToCalculatedAim.getTargetPosition());
 	Route flightPath = getRouteToNotDangerousField(routeToCalculatedAim.getTargetPosition());
 	m_grid->removeBombToCalculatedForPositionCheck(routeToCalculatedAim.getTargetPosition());
 
-	if (flightPath.getDistance() != 0)
+	if (flightPath.getDirection() != PlayerState::PlayerDirectionNone)
 		return routeToCalculatedAim;
 
 	return Route(0, PlayerState::PlayerDirectionNone);
@@ -218,6 +216,7 @@ Route Router::findWayBackToSourceFromTarget(const GridPoint &targetPosition) con
 	unsigned int distanceToTarget = (*m_distances)[targetPosition.getY()][targetPosition.getX()];
 	unsigned int lastDistance = distanceToTarget;
 	GridPoint position = targetPosition;
+	GridPoint playersTargetPosition;
 
 	while (lastDistance != 1)
 	{
@@ -270,7 +269,9 @@ Route Router::findWayBackToSourceFromTarget(const GridPoint &targetPosition) con
 				position.setY(position.getY() + 1);
 			}
 		}
+		if (lastDistance == distanceToTarget-1)
+			playersTargetPosition = position;
 	}
 
-	return Route(distanceToTarget - 1, lastDirection, targetPosition);
+	return Route(distanceToTarget - 1, lastDirection, playersTargetPosition);
 }

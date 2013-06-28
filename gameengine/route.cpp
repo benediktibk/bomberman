@@ -2,10 +2,10 @@
 
 using namespace GameEngine;
 
-Route::Route(unsigned int distance, Common::PlayerState::PlayerDirection direction, const Common::GridPoint target) :
+Route::Route(unsigned int distance, Common::PlayerState::PlayerDirection direction, const Common::GridPoint playerTarget) :
 	m_distance(distance),
 	m_direction(direction),
-	m_targetPosition(target)
+	m_playerTargetPosition(playerTarget)
 { }
 
 unsigned int Route::getDistance() const
@@ -20,5 +20,5 @@ Common::PlayerState::PlayerDirection Route::getDirection() const
 
 const Common::GridPoint Route::getTargetPosition() const
 {
-	return m_targetPosition;
+	return m_playerTargetPosition;
 }

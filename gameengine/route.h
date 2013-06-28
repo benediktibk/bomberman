@@ -9,7 +9,7 @@ namespace GameEngine
 	class Route
 	{
 	public:
-		Route(unsigned int distance, Common::PlayerState::PlayerDirection direction, const Common::GridPoint target = Common::GridPoint(0,0));
+		Route(unsigned int distance, Common::PlayerState::PlayerDirection direction, const Common::GridPoint playerTarget = Common::GridPoint(0,0));
 
 		unsigned int getDistance() const;
 		Common::PlayerState::PlayerDirection getDirection() const;
@@ -18,7 +18,7 @@ namespace GameEngine
 	private:
 		unsigned int m_distance;
 		Common::PlayerState::PlayerDirection m_direction;
-		const Common::GridPoint m_targetPosition;
+		const Common::GridPoint m_playerTargetPosition;
 	};
 }
 
