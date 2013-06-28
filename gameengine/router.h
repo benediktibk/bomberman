@@ -51,6 +51,7 @@ namespace GameEngine
 		Common::GridPoint findTargetPositionInLastFront(
 				const std::vector<Common::GridPoint> &lastFront, const RouterGridFieldDecider &target) const;
 		Route findWayBackToSourceFromTarget(const Common::GridPoint &targetPosition) const;
+		bool isFlightableBombPlace(const Common::GridPoint &bombPlace);
 
 	private:
 		RouterGrid *m_grid;

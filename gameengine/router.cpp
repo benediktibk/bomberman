@@ -33,11 +33,7 @@ Route Router::getRouteToPlayer(const Common::GridPoint &position)
 {
 	Route routeToCalculatedAim = getRoute(NotDangerousAndFreeDecider(), CoveredByPlayerDecider(), position);
 
-	m_grid->addBombToCalculatedForPositionCheck(routeToCalculatedAim.getTargetPosition());
-	Route flightPath = getRouteToNotDangerousField(routeToCalculatedAim.getTargetPosition());
-	m_grid->removeBombToCalculatedForPositionCheck(routeToCalculatedAim.getTargetPosition());
-
-	if (flightPath.getDirection() != PlayerState::PlayerDirectionNone)
+	if (isFlightableBombPlace(routeToCalculatedAim.getTargetPosition()))
 		return routeToCalculatedAim;
 
 	return Route(0, PlayerState::PlayerDirectionNone);
@@ -53,11 +49,7 @@ Route Router::getRouteToLooseWall(const Common::GridPoint &position)
 {
 	Route routeToCalculatedAim = getRoute(NotDangerousAndFreeDecider(), CoveredByLooseWallDecider(), position);
 
-	m_grid->addBombToCalculatedForPositionCheck(routeToCalculatedAim.getTargetPosition());
-	Route flightPath = getRouteToNotDangerousField(routeToCalculatedAim.getTargetPosition());
-	m_grid->removeBombToCalculatedForPositionCheck(routeToCalculatedAim.getTargetPosition());
-
-	if (flightPath.getDirection() != PlayerState::PlayerDirectionNone)
+	if (isFlightableBombPlace(routeToCalculatedAim.getTargetPosition()))
 		return routeToCalculatedAim;
 
 	return Route(0, PlayerState::PlayerDirectionNone);
@@ -274,4 +266,13 @@ Route Router::findWayBackToSourceFromTarget(const GridPoint &targetPosition) con
 	}
 
 	return Route(distanceToTarget - 1, lastDirection, playersTargetPosition);
+}
+
+bool Router::isFlightableBombPlace(const GridPoint &bombPlace)
+{
+	m_grid->addBombToCalculatedForPositionCheck(bombPlace);
+	Route flightPath = getRouteToNotDangerousField(bombPlace);
+	m_grid->removeBombToCalculatedForPositionCheck(bombPlace);
+
+	return (flightPath.getDirection() != PlayerState::PlayerDirectionNone);
 }
