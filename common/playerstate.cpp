@@ -9,14 +9,14 @@ using namespace std;
 PlayerState::PlayerState(UniqueIdCreator &creator) :
 	m_direction(PlayerDirectionNone),
 	m_placedBombCount(0),
-	m_maxBombs(3),
-	m_speed(6),
+	m_maxBombs(1),
+	m_speed(2),
 	m_maximumSpeed(5),
 	m_speedIncreasement(1.0/2),
 	m_dimension(1),
 	m_playerId(creator.getId()),
 	m_creatorId(creator),
-	m_destructionRangeOfNewBombs(10),
+	m_destructionRangeOfNewBombs(1),
 	m_placedBombAlready(false)
 {}
 
