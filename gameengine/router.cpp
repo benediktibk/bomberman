@@ -31,6 +31,7 @@ void Router::updatePlayerFields()
 
 Route Router::getRouteToPlayer(const Common::GridPoint &position)
 {
+	/// @todo should calculate aim, pretends a bomb at that place, checks if route out of dangerzone is possible.
 	return getRoute(NotDangerousAndFreeDecider(), CoveredByPlayerDecider(), position);
 }
 
@@ -41,6 +42,7 @@ Route Router::getRouteToNotDangerousField(const Common::GridPoint &position)
 
 Route Router::getRouteToLooseWall(const Common::GridPoint &position)
 {
+	/// @todo should calculate aim, pretends a bomb at that place, checks if route out of dangerzone is possible.
 	return getRoute(NotDangerousAndFreeDecider(), CoveredByLooseWallDecider(), position);
 }
 
@@ -251,5 +253,5 @@ Route Router::findWayBackToSourceFromTarget(const GridPoint &targetPosition) con
 		}
 	}
 
-	return Route(distanceToTarget - 1, lastDirection);
+	return Route(distanceToTarget - 1, lastDirection, targetPosition);
 }
