@@ -161,8 +161,8 @@ void StartWindow::readMeClicked()
 	QSpacerItem* horizontalSpacer = new QSpacerItem(600, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
 	QGridLayout* layout = (QGridLayout*)messageBox.layout();
 	layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
-	messageBox.setText("C++ Project, Group 1, SS2013");
-	messageBox.setDetailedText(Common::CSVParser("testfiles/README").getTextInFile().c_str());
+	messageBox.setText(Common::CSVParser("testfiles/README").getTextInFile().c_str());
+	messageBox.setDetailedText(Common::CSVParser("testfiles/README_Details").getTextInFile().c_str());
 	messageBox.exec();
 }
 
@@ -170,6 +170,6 @@ void StartWindow::controlClicked()
 {
 	QMessageBox messageBox;
 	messageBox.setWindowTitle("Control");
-	messageBox.setText("Player 1: \nPlayer 2:");
+	messageBox.setText("Player 1:\trun:\tarrow keys \n\tbomb:\tspace\nPlayer 2:\trun:\tW A S D \n\tbomb:\tQ");
 	messageBox.exec();
 }

@@ -1,25 +1,15 @@
+C++ Project, Group 1, SS2013
+;
 This is a project of students of Electrical Engineering and Information Technology at Technical University of Munich (TUM).
 The Project is part of LDV's course Grundkurs C++.
-
-Written by:     
-
+;
+Written by:
+;
 -   Markus Hofbauer  
 -   Kevin Meyer  
 -   Benedikt Schmidt  
 -   Tommy Shau  
--   Florian Wirnshofer  
-  
+-   Florian Wirnshoferß
+;
 Find this project on bitbucket, our discussion board and the doxygen documentation.
-
----
-
-License
-------
-
-Links:
-http://www.tum.de
-http://www.ldv.ei.tum.de/en/homepage/
-http://www.ldv.ei.tum.de/en/lehre/grundkurs-c/
-https://bitbucket.org/grundkurscpp/game
-http://kevin-meyer.de/forum/
-http://kevin-meyer.de/docu/
+License and Links in Details
