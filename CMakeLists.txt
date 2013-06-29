@@ -48,8 +48,6 @@ set(TESTFILES
 	testlevelonerowtoshort.csv
 	testlevelwrongtypeinfile.csv
 	testlevellist.csv
-	README.csv
-	README_Details.csv
 )
 
 set(GRAPHICS
@@ -85,12 +83,18 @@ set(GRAPHICS
 	powerup_range.svg
 	powerup_speed.svg
 )
+
 set(SOUNDS
 		bomb.wav
 		gotitem.wav
 		placed.wav
 		background.wav
 		walldown.wav
+)
+
+set(README
+	README.csv
+	README_Details.csv
 )
 
 foreach(file ${LEVELS})
@@ -115,6 +119,12 @@ foreach(file ${SOUNDS})
 		file(	COPY
 						${CMAKE_CURRENT_SOURCE_DIR}/resources/sounds/${file}
 						DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/sounds/)
+endforeach()
+
+foreach(file ${README})
+		file(	COPY
+						${CMAKE_CURRENT_SOURCE_DIR}/resources/README/${file}
+						DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/main/bin/resources/README/)
 endforeach()
 
 

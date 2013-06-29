@@ -161,8 +161,8 @@ void StartWindow::readMeClicked()
 	QSpacerItem* horizontalSpacer = new QSpacerItem(600, 0, QSizePolicy::Minimum, QSizePolicy::Expanding);
 	QGridLayout* layout = (QGridLayout*)messageBox.layout();
 	layout->addItem(horizontalSpacer, layout->rowCount(), 0, 1, layout->columnCount());
-	messageBox.setText(Common::CSVParser("testfiles/README").getTextInFile().c_str());
-	messageBox.setDetailedText(Common::CSVParser("testfiles/README_Details").getTextInFile().c_str());
+	messageBox.setText(Common::CSVParser("README/README").getTextInFile().c_str());
+	messageBox.setDetailedText(Common::CSVParser("README/README_Details").getTextInFile().c_str());
 	messageBox.exec();
 }
 

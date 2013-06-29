@@ -426,3 +426,5 @@ gameengine/allplayerinputfetcher.cpp
 threading/locktest.h
 threading/locktest.cpp
 resources/testfiles/README_Details.csv
+resources/README/README.csv
+resources/README/README_Details.csv
