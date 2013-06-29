@@ -425,3 +425,4 @@ gameengine/allplayerinputfetcher.h
 gameengine/allplayerinputfetcher.cpp
 threading/locktest.h
 threading/locktest.cpp
+resources/levels/colosseum.csv

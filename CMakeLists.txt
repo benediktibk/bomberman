@@ -41,6 +41,7 @@ set(LEVELS
 	jack_in_the_box.csv
 	arena_51.csv
 	world_at_war.csv
+	colosseum.csv
 )
 
 set(TESTFILES
