@@ -31,11 +31,15 @@ namespace Sound
 
 	private:
 		void deleteVector(std::vector<QSoundEffect*> &sounds);
-		void setUpSounds(std::vector<QSoundEffect*> &sounds, const std::string &source);
+		void setUpSounds(std::vector<QSoundEffect*> &sounds, const std::string &source, unsigned int bufferSize);
 		void muteSounds(std::vector<QSoundEffect*> &sounds, bool value);
 
 	private:
-		const unsigned int m_soundBufferSize;
+		const unsigned int m_soundBombBufferSize;
+		const unsigned int m_soundPlacedBufferSize;
+        const unsigned int m_soundItemBufferSize;
+        const unsigned int m_soundWallBufferSize;
+        const unsigned int m_soundDeadBufferSize;
 		std::vector<QSoundEffect*> m_bombExplosion;
 		unsigned int m_bombExplosionIndex;
 		std::vector<QSoundEffect*> m_bombPlaced;

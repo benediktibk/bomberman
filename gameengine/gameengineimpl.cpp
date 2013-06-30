@@ -280,7 +280,11 @@ void GameEngineImpl::updateBombs()
 		vector<unsigned int> playersInRange;
 		playersInRange = m_grid->getPlayersInRange(bomb, m_gameState.getAllPlayers());
 		for(size_t j = 0; j < playersInRange.size(); j++)
+        {
 			m_gameState.erasePlayerById(playersInRange[j]);
+            m_soundPlayer.deadPlayer();
+        }
+            
 	}
 
 	for (vector<const BombState*>::const_iterator i = destroyedBombs.begin(); i != destroyedBombs.end(); ++i)
