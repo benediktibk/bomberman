@@ -8,7 +8,7 @@ using namespace Threading;
 using namespace std;
 
 SoundPlayer::SoundPlayer(bool mute) :
-	m_soundBufferSize(10),
+	m_soundBufferSize(5),
 	m_bombExplosionIndex(0),
 	m_bombPlacedIndex(0),
 	m_gotItemIndex(0),
