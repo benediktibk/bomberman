@@ -7,6 +7,7 @@
 #include "gameengine/computerenemylevel.h"
 #include <vector>
 #include "gameengine/allplayerinputfetcher.h"
+#include <QtCore/QObject>
 
 namespace Common
 {
@@ -25,7 +26,8 @@ namespace GameEngine
 namespace Main
 {
 	class GameLoop :
-			public Threading::Thread
+			public Threading::Thread,
+			public QObject
 	{
 	public:
 		GameLoop(Common::InputFetcher &inputFetcher, Common::GameEngine &gameEngine, Common::GraphicDrawer &graphicDrawer, GameEngine::ComputerEnemyLevel computerEnemyLevel);
