@@ -31,10 +31,6 @@ void allPlayerInputFetcher::setAllPossiblePlayerIds(vector<unsigned int> allPoss
 map<unsigned int, InputState> allPlayerInputFetcher::getInputStates()
 {
 	map<unsigned int, InputState> result = m_inputFetcher.getInputStates();
-    if(m_gameModeIsSinglePlayer == true)
-    {
-        result.erase(result.end());
-    }
 
 	for (vector<GameEngine::ComputerEnemyInputFetcher*>::iterator i = m_compInputFetcher.begin(); i != m_compInputFetcher.end(); ++i)
 	{
