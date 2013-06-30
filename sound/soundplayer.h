@@ -25,6 +25,7 @@ namespace Sound
 		virtual void bombPlaced();
 		virtual void gotItem();
 		virtual void wallDown();
+        virtual void deadPlayer();
 		void setMuted(bool value);
 		bool isMuted() const;
 
@@ -44,6 +45,8 @@ namespace Sound
 		QSoundEffect *m_background;
 		std::vector<QSoundEffect*> m_wallDown;
 		unsigned int m_wallDownIndex;
+        std::vector<QSoundEffect*> m_deadPlayer;
+		unsigned int m_deadPlayerIndex;
 		Threading::Mutex *m_mutex;
 		bool m_muted;
 	};

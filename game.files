@@ -404,6 +404,7 @@ resources/sounds/bomb.wav
 resources/sounds/gotitem.wav
 resources/sounds/placed.wav
 resources/sounds/walldown.wav
+resources/sounds/dead.wav
 common/soundplayer.h
 common/soundplayerstub.h
 common/soundplayerstub.cpp

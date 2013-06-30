@@ -23,6 +23,7 @@ void MainWindowSoundTest::connectSlots()
 	connect(m_ui->pickUpButton, SIGNAL(clicked()), this, SLOT(gotItem()));
 	connect(m_ui->wallDownButton, SIGNAL(clicked()), this, SLOT(wallDown()));
 	connect(m_ui->muteCheckBox, SIGNAL(clicked()), this, SLOT(muteChanged()));
+    connect(m_ui->deadButton, SIGNAL(clicked()), this, SLOT(deadPlayer()));
 }
 
 void MainWindowSoundTest::bombExplosion()
@@ -43,6 +44,11 @@ void MainWindowSoundTest::gotItem()
 void MainWindowSoundTest::wallDown()
 {
 	m_sound->wallDown();
+}
+
+void MainWindowSoundTest::deadPlayer()
+{
+	m_sound->deadPlayer();
 }
 
 void MainWindowSoundTest::muteChanged()

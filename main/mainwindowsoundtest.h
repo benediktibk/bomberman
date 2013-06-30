@@ -30,6 +30,7 @@ namespace Main
 		void bombPlaced();
 		void gotItem();
 		void wallDown();
+        void deadPlayer();
 		void muteChanged();
 
 	private:

@@ -10,6 +10,7 @@ namespace Common
         virtual void bombPlaced() = 0;
         virtual void gotItem() = 0;
         virtual void wallDown() = 0;
+        virtual void deadPlayer() = 0;
         virtual ~SoundPlayer() { }
     };
 }

@@ -13,3 +13,6 @@ void SoundPlayerStub::gotItem()
 
 void SoundPlayerStub::wallDown()
 { }
+
+void SoundPlayerStub::deadPlayer()
+{ }

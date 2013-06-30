@@ -91,6 +91,7 @@ set(SOUNDS
 		placed.wav
 		background.wav
 		walldown.wav
+		dead.wav
 )
 
 set(README

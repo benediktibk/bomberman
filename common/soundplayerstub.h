@@ -13,6 +13,7 @@ namespace Common
         virtual void bombPlaced();
         virtual void gotItem();
         virtual void wallDown();
+        virtual void deadPlayer();
     };
 }
 

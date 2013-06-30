@@ -14,6 +14,7 @@ SoundPlayer::SoundPlayer(bool mute) :
 	m_gotItemIndex(0),
 	m_background(new QSoundEffect),
 	m_wallDownIndex(0),
+    m_deadPlayerIndex(0),
 	m_mutex(new Mutex),
 	m_muted(mute)
 {
@@ -21,6 +22,7 @@ SoundPlayer::SoundPlayer(bool mute) :
 	setUpSounds(m_bombPlaced, "resources/sounds/placed.wav");
 	setUpSounds(m_gotItem, "resources/sounds/gotitem.wav");
 	setUpSounds(m_wallDown, "resources/sounds/walldown.wav");
+    setUpSounds(m_deadPlayer, "resources/sounds/dead.wav");
 	m_background->setSource(QUrl::fromLocalFile("resources/sounds/background.wav"));
 	m_background->setLoopCount(QSoundEffect::Infinite);
 	m_background->play();
@@ -35,6 +37,7 @@ SoundPlayer::~SoundPlayer()
 		deleteVector(m_bombPlaced);
 		deleteVector(m_gotItem);
 		deleteVector(m_wallDown);
+        deleteVector(m_deadPlayer);
 		delete m_background;
 	}
 
@@ -76,6 +79,15 @@ void SoundPlayer::wallDown()
 	++m_wallDownIndex;
 	if (m_wallDownIndex >= m_soundBufferSize)
 		m_wallDownIndex = 0;
+}
+
+void SoundPlayer::deadPlayer()
+{
+	Lock lock(*m_mutex);
+	m_deadPlayer[m_deadPlayerIndex]->play();
+	++m_deadPlayerIndex;
+	if (m_deadPlayerIndex >= m_soundBufferSize)
+		m_deadPlayerIndex = 0;
 }
 
 void SoundPlayer::setMuted(bool value)
