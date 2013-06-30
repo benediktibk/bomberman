@@ -57,9 +57,7 @@ void StartWindow::createTableView()
 	m_ui->levelTableView->setSelectionMode(QAbstractItemView::SingleSelection);
 	m_ui->levelTableView->setModel(model);
 
-	connect(m_ui->levelTableView, SIGNAL(clicked(QModelIndex)), this, SLOT(updateSilder()));
-	connect(m_ui->levelTableView, SIGNAL(entered(QModelIndex)), this, SLOT(updateSilder()));
-	connect(m_ui->levelTableView, SIGNAL(activated(QModelIndex)), this, SLOT(updateSilder()));
+	connect(m_ui->levelTableView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(updateSilder()));
 }
 
 void StartWindow::createSilder()
@@ -83,8 +81,6 @@ void StartWindow::exitClicked()
 
 void StartWindow::startClicked()
 {
-	updateSilder();
-
 	if(m_ui->levelTableView->selectionModel()->hasSelection())
 		m_selectedLevel = m_levelList.getTextInField(4, m_ui->levelTableView->selectionModel()->selectedIndexes().first().row());
 
@@ -149,7 +145,6 @@ void StartWindow::updateSilder()
 	{
 		m_ui->playerCountHorizontalSlider->setMinimum(0);
 		m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->selectionModel()->selectedIndexes().at(3)).toInt()-2);
-		m_ui->playerCountHorizontalSlider->setValue(0);
 	}
 
 }
