@@ -41,15 +41,16 @@ void StartWindow::createTableView()
 	model->setHorizontalHeaderItem(0, new QStandardItem(QString("Level")));
 	model->setHorizontalHeaderItem(1, new QStandardItem(QString("Height")));
 	model->setHorizontalHeaderItem(2, new QStandardItem(QString("Width")));
-	model->setHorizontalHeaderItem(3, new QStandardItem(QString("Maximum Player")));
+	model->setHorizontalHeaderItem(3, new QStandardItem(QString("Players")));
 
 	for (unsigned int row = 0; row < m_levelList.getHeightOfFile()-1; ++row)
 		for (unsigned int column = 0; column < 4; ++column)
 		{
 			QStandardItem *currentItem = new QStandardItem(QString(m_levelList.getTextInField(column, row).c_str()));
-			model->setItem(row, column, currentItem);
+			if(column > 0)
+				currentItem->setTextAlignment(Qt::AlignCenter);
+			model->setItem(row, column, currentItem);	
 		}
-
 
 	m_ui->levelTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	m_ui->levelTableView->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
