@@ -50,12 +50,14 @@ void StartWindow::createTableView()
 			model->setItem(row, column, currentItem);
 		}
 
+
 	m_ui->levelTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-	m_ui->levelTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 	m_ui->levelTableView->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 	m_ui->levelTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 	m_ui->levelTableView->setSelectionMode(QAbstractItemView::SingleSelection);
 	m_ui->levelTableView->setModel(model);
+	m_ui->levelTableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+	m_ui->levelTableView->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Stretch);
 
 	connect(m_ui->levelTableView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(updateSilder()));
 }
