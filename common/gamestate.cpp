@@ -573,7 +573,7 @@ string GameState::getWinnerOfGame() const
 {
 	if(getAllNotDestroyedPlayerIDs().size() == 0)
 		return "Draw";
-	if (!isHumanPlayerID(getAllNotDestroyedPlayerIDs().front()))
+	if (getAllNotDestroyedHumanPlayerIDs().size() == 0)
 			return "You LOOSE!!!";
 	else
 	{
