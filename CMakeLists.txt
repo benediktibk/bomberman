@@ -42,7 +42,6 @@ set(LEVELS
 	arena_51.csv
 	world_at_war.csv
 	colosseum.csv
-	ldv.csv
 )
 
 set(TESTFILES
