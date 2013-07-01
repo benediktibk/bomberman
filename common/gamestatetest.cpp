@@ -685,3 +685,12 @@ void GameStateTest::getIndexOfComputerEnemy_computerEnemyID_smallerThanEnemyCoun
 
 	CPPUNIT_ASSERT(state.getIndexOfComputerEnemy(playerIDs.front()) < 4);
 }
+
+void GameStateTest::getWinnerOfGame_humanPlayerID_theWinnerIsPlayer1()
+{
+	LevelDefinition level;
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	GameState state(level, 1, 0, m_playerIDCreator, m_wallIDCreator);
+
+	CPPUNIT_ASSERT_EQUAL((string)"The Winner is Player 1", state.getWinnerOfGame());
+}
