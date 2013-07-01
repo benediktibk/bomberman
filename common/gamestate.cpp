@@ -568,3 +568,18 @@ bool GameState::isPlayerAlive(unsigned int playerId) const
 
 	return false;
 }
+
+string GameState::getWinnerOfGame() const
+{
+	if(getAllNotDestroyedPlayerIDs().size() == 0)
+		return "Draw";
+	if (!isHumanPlayerID(getAllNotDestroyedPlayerIDs().front()))
+			return "The Winner is KI";
+	else
+	{
+		if (getIndexOfHumanPlayer(getAllNotDestroyedPlayerIDs().front()) == 0)
+			return "The Winner is Player 1";
+		else
+			return "The Winner is Player 2";
+	}
+}

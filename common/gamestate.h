@@ -68,6 +68,7 @@ namespace Common
 		std::vector<const PowerUpState*> getAllPowerUpsWithDestroyedFlag() const;
 		size_t getExplodedBombCount() const;
 		bool isPlayerAlive(unsigned int playerId) const;
+		std::string getWinnerOfGame() const;
 
 	private:
 		void eraseBomb(size_t position);

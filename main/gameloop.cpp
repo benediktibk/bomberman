@@ -147,7 +147,7 @@ void GameLoop::execute()
 		pauseIfNecessary();
 		run = !isStopped() && !gameState.isGameFinished();
 	}
-	emit winnerSignal();
+	emit winnerSignal(m_gameEngine.getGameState().getWinnerOfGame());
 }
 
 void GameLoop::catchPlayerInformation(const vector<unsigned int> &playerIDs)
