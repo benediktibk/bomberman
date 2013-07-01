@@ -147,6 +147,7 @@ void GameLoop::execute()
 		pauseIfNecessary();
 		run = !isStopped() && !gameState.isGameFinished();
 	}
+	emit winnerSignal();
 }
 
 void GameLoop::catchPlayerInformation(const vector<unsigned int> &playerIDs)

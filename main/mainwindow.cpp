@@ -110,6 +110,8 @@ void MainWindow::startGame(
 	vector<unsigned int> playerIDsToShow = gameState.getAllNotDestroyedHumanPlayerIDs();
 	setResponsibleForPlayers(playerIDsToShow);
 
+	connect(m_gameLoop, SIGNAL(winnerSignal()), this, SLOT(closeGame()));
+
 	m_gameLoop->start();
 	show();
 	updatePauseButtonLabel();

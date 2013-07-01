@@ -26,9 +26,11 @@ namespace GameEngine
 namespace Main
 {
 	class GameLoop :
-			public Threading::Thread,
-			public QObject
+			public QObject,
+			public Threading::Thread
 	{
+		Q_OBJECT
+
 	public:
 		GameLoop(Common::InputFetcher &inputFetcher, Common::GameEngine &gameEngine, Common::GraphicDrawer &graphicDrawer, GameEngine::ComputerEnemyLevel computerEnemyLevel);
 		virtual ~GameLoop();
@@ -46,6 +48,9 @@ namespace Main
 		void updateFPS();
 		bool isStopped();
 		void pauseIfNecessary();
+
+	signals:
+		void winnerSignal();
 
 	protected:
 		virtual void execute();
