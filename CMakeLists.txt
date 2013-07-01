@@ -43,6 +43,7 @@ set(LEVELS
 	world_at_war.csv
 	colosseum.csv
 	who_let_the_dogs_out.csv
+	ldv.csv
 )
 
 set(TESTFILES
