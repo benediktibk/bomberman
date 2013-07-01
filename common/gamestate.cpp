@@ -574,7 +574,7 @@ string GameState::getWinnerOfGame() const
 	if(getAllNotDestroyedPlayerIDs().size() == 0)
 		return "Draw";
 	if (!isHumanPlayerID(getAllNotDestroyedPlayerIDs().front()))
-			return "The Winner is KI";
+			return "You LOOSE!!!";
 	else
 	{
 		if (getIndexOfHumanPlayer(getAllNotDestroyedPlayerIDs().front()) == 0)

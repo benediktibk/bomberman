@@ -22,6 +22,9 @@ class StartWindow :
 public:
 	StartWindow(bool enableOpenGL);
 
+public slots:
+	void winnerOfGame(const char* winner);
+
 private slots:
 	void exitClicked();
 	void startClicked();

@@ -50,7 +50,7 @@ namespace Main
 		void pauseIfNecessary();
 
 	signals:
-		void winnerSignal(std::string winner);
+		void winnerSignal(const char* winner);
 
 	protected:
 		virtual void execute();

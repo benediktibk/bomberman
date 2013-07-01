@@ -110,7 +110,7 @@ void MainWindow::startGame(
 	vector<unsigned int> playerIDsToShow = gameState.getAllNotDestroyedHumanPlayerIDs();
 	setResponsibleForPlayers(playerIDsToShow);
 
-	connect(m_gameLoop, SIGNAL(winnerSignal(std::string)), this, SLOT(closeGame()));
+	connect(m_gameLoop, SIGNAL(winnerSignal(const char*)), this, SLOT(winnerOfGame(const char*)));
 
 	m_gameLoop->start();
 	show();
@@ -222,6 +222,12 @@ void MainWindow::closeGame()
 {
 	finishGame();
 	this->close();
+}
+
+void MainWindow::winnerOfGame(const char* winner)
+{
+	emit winnerOfGameSignal(winner);
+	closeGame();
 }
 
 void MainWindow::pauseButtonPushed()

@@ -168,3 +168,12 @@ void StartWindow::controlClicked()
 	messageBox.setText("Player 1:\trun:\tarrow keys \n\tbomb:\tspace\nPlayer 2:\trun:\tW A S D \n\tbomb:\tQ");
 	messageBox.exec();
 }
+
+void StartWindow::winnerOfGame(const char *winner)
+{
+	QMessageBox messageBox;
+	messageBox.setIcon(QMessageBox::Information);
+	messageBox.setWindowTitle("GAME OVER");
+	messageBox.setText(winner);
+	messageBox.exec();
+}

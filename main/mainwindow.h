@@ -57,11 +57,13 @@ private slots:
 	void pauseButtonPushed();
 	void muteButtonPushed();
 	void closeGame();
+	void winnerOfGame(const char *winner);
 
 signals:
 	void guiUpdateNecessary(const Common::GameState *gameState);
 	void levelBuildingNotCorectSignal();
 	void closeGameSignal();
+	void winnerOfGameSignal(const char* winner);
 
 private:
 	void finishGame();
