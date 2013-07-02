@@ -1,7 +1,7 @@
 #ifndef MAIN_MAINWINDOW_H
 #define MAIN_MAINWINDOW_H
 
-#include "mainwindowinputfetcher.h"
+#include "main/mainwindowinputfetcher.h"
 #include "common/leveldefinition.h"
 #include "common/graphicdrawer.h"
 #include "threading/signal.h"

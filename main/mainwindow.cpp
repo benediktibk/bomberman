@@ -24,6 +24,7 @@ MainWindow::MainWindow() :
 	m_gameEngine(0),
 	m_soundPlayer(0),
 	m_gameLoop(0),
+	m_allPlayerInputFetcher(0),
 	m_timerUserInfoUpdate(new QTimer(this)),
 	m_gameStarted(false),
 	m_gameFinished(false)
@@ -214,12 +215,12 @@ void MainWindow::finishGame()
 	m_drawer = 0;
 	delete m_level;
 	m_level = 0;
+	delete m_allPlayerInputFetcher;
+	m_allPlayerInputFetcher = 0;
 	delete m_gameEngine;
 	m_gameEngine = 0;
 	delete m_soundPlayer;
 	m_soundPlayer = 0;
-	delete m_allPlayerInputFetcher;
-	m_allPlayerInputFetcher = 0;
 }
 
 void MainWindow::closeGame()
