@@ -48,12 +48,11 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 			break;
 		}
 	}
-    
-    vector<unsigned int> playerIDs = gameState.getAllNotDestroyedPlayerIDs();
-    m_allInput = new GameEngine::allPlayerInputFetcher(m_inputFetcher,m_computerEnemyInputFetcher,playerIDs.size());
-    
-    setConstructionFinished();
-}   
+
+	m_allInput = new GameEngine::AllPlayerInputFetcher(m_inputFetcher, m_computerEnemyInputFetcher);
+
+	setConstructionFinished();
+}
 
 GameLoop::~GameLoop()
 {
@@ -138,8 +137,8 @@ void GameLoop::execute()
 
 		updateMovingAverageOfTime(time);
 		updateFPS();
-        
-        m_gameEngine.updateGameState(m_allInput->getInputStates(),time);
+
+		m_gameEngine.updateGameState(m_allInput->getInputStates(),time);
 
 		m_graphicDrawer.draw(gameState);
 

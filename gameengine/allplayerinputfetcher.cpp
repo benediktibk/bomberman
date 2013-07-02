@@ -1,5 +1,4 @@
-#include "allplayerinputfetcher.h"
-
+#include "gameengine/allplayerinputfetcher.h"
 #include <assert.h>
 #include <algorithm>
 #include <vector>
@@ -8,29 +7,17 @@ using namespace GameEngine;
 using namespace std;
 using namespace Common;
 
-allPlayerInputFetcher::allPlayerInputFetcher(InputFetcher &input, vector<GameEngine::ComputerEnemyInputFetcher*> computer, size_t playerCount):
-	m_inputFetcher(input),
+AllPlayerInputFetcher::AllPlayerInputFetcher(InputFetcher &humanInput, vector<GameEngine::ComputerEnemyInputFetcher*> computer):
+	m_humanInputFetcher(humanInput),
 	m_compInputFetcher(computer)
-{ 
-    if(playerCount==1)
-        m_gameModeIsSinglePlayer = true;
-    if(playerCount==2)
-        m_gameModeIsSinglePlayer = false;
-}
-
-void allPlayerInputFetcher::setAllPossiblePlayerIDs(const std::vector<unsigned int> &/*playerIDs*/)
 { }
 
-void allPlayerInputFetcher::setAllPossiblePlayerIds(vector<unsigned int> allPossiblePlayerIds)
-{
-	for(size_t i = 0; i < allPossiblePlayerIds.size(); i++)
-		m_playerIds = allPossiblePlayerIds;
-}
+void AllPlayerInputFetcher::setAllPossiblePlayerIDs(const std::vector<unsigned int> &/*playerIDs*/)
+{ }
 
-
-map<unsigned int, InputState> allPlayerInputFetcher::getInputStates()
+map<unsigned int, InputState> AllPlayerInputFetcher::getInputStates()
 {
-	map<unsigned int, InputState> result = m_inputFetcher.getInputStates();
+	map<unsigned int, InputState> result = m_humanInputFetcher.getInputStates();
 
 	for (vector<GameEngine::ComputerEnemyInputFetcher*>::iterator i = m_compInputFetcher.begin(); i != m_compInputFetcher.end(); ++i)
 	{
@@ -42,10 +29,4 @@ map<unsigned int, InputState> allPlayerInputFetcher::getInputStates()
 	}
 
 	return result;
-}
-
-
-Common::InputState allPlayerInputFetcher::getInputStateByID(unsigned int playerID)
-{
-	return m_inputStates.at(playerID);
 }
