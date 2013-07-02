@@ -1441,7 +1441,7 @@ void GameEngineImplTest::createGameEngine(const LevelDefinition &level, unsigned
 		delete m_gameEngine;
 	m_inputStates.clear();
 
-    m_gameEngine = new GameEngineImpl(level, *m_soundPlayer, humanPlayerCount, computerEnemyCount);
+	m_gameEngine = new GameEngineImpl(level, *m_soundPlayer, humanPlayerCount, computerEnemyCount);
 	const GameState &gameState = m_gameEngine->getGameState();
 	const PlayerState &firstPlayer = gameState.getFirstPlayerState();
 	vector<unsigned int> allPlayerIDs = gameState.getAllNotDestroyedPlayerIDs();
@@ -1474,7 +1474,7 @@ void GameEngineImplTest::setUp()
 {
 	LevelDefinition level;
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
-    m_soundPlayer = new SoundPlayerStub();
+	m_soundPlayer = new SoundPlayerStub();
 	createGameEngine(level, 1, 0);
 }
 
@@ -1483,8 +1483,8 @@ void GameEngineImplTest::tearDown()
 	m_inputStates.clear();
 	delete m_gameEngine;
 	m_gameEngine = 0;
-    delete m_soundPlayer;
-    m_soundPlayer = 0;
+	delete m_soundPlayer;
+	m_soundPlayer = 0;
 }
 
 
@@ -1526,4 +1526,22 @@ void GameEngineImplTest::updateGameState_AddTwoPowerUpsOneInRangeOfBombAndLetBom
 	m_gameEngine->updateGameState(m_inputStates, 0);
 
 	CPPUNIT_ASSERT_EQUAL((size_t)1, game.getPowerUpCount());
+}
+
+
+void GameEngine::GameEngineImplTest::updateGameState_playerOnlyHalfOnPowerUp_powerUpCountIs0()
+{
+	LevelDefinition level(4, 4);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	createGameEngine(level, 1, 0);
+	InputState input;
+
+	m_gameEngine->addPowerUpOfTypeAtPosition(PowerUpTypeMaxBomb, Point(1, 0));
+	input.setRightKeyPressed();
+	setFirstPlayerInput(input);
+	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/4);
+	m_gameEngine->updateGameState(m_inputStates, 0);
+
+	GameState &game = m_gameEngine->getGameState();
+	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getPowerUpCount());
 }

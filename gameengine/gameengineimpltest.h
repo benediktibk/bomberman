@@ -8,13 +8,13 @@
 
 namespace Common
 {
-    class SoundPlayerStub;
-    class LevelDefinition;
+	class SoundPlayerStub;
+	class LevelDefinition;
 }
 
 namespace GameEngine
 {
-    class GameEngineImpl;
+	class GameEngineImpl;
 
 	class GameEngineImplTest :
 			public CPPUNIT_NS::TestFixture
@@ -67,6 +67,7 @@ namespace GameEngine
 		CPPUNIT_TEST(updateGameState_bombExplodesWithBombInRange_explosionRangeGoesThroughBomb);
 		CPPUNIT_TEST(updateGameState_placeBombAndMoveOneFieldUpwards_playerIsOneFieldAboveTheBomb);
 		CPPUNIT_TEST(updateGameState_placeBombAndMoveOneFieldUpwardsAndSecondPlayer_playerIsOneFieldAboveTheBomb);
+		CPPUNIT_TEST(updateGameState_playerOnlyHalfOnPowerUp_powerUpCountIs0);
 		CPPUNIT_TEST(getHeight_HeightOfLevelDefinition_HeightOfGamestate);
 		CPPUNIT_TEST(getWidth_WidthOfLevelDefinition_WidthOfGamestate);
 		CPPUNIT_TEST(getWallCount_Create4x4LevelWith2Wall_WallCountIs2);
@@ -165,6 +166,7 @@ namespace GameEngine
 		void addPowerUp_powerUpCountIs1PlayerWalksOnPowerUp_powerUpCountIs0();
 		void getPosition_getpositionaftercollisionwithotherplayer();
 		void updateGameState_AddTwoPowerUpsOneInRangeOfBombAndLetBombExplode_powerUpCountIs1();
+		void updateGameState_playerOnlyHalfOnPowerUp_powerUpCountIs0();
 
 	private:
 		void createGameEngine(const Common::LevelDefinition &level, unsigned int playerCount, unsigned int computerEnemyCount);
@@ -177,7 +179,7 @@ namespace GameEngine
 		unsigned int m_firstPlayerID;
 		unsigned int m_secondPlayerID;
 		double m_defaultTimeForOneField;
-        Common::SoundPlayerStub *m_soundPlayer;
+		Common::SoundPlayerStub *m_soundPlayer;
 	};
 }
 
