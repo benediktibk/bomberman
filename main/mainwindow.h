@@ -30,67 +30,67 @@ namespace Ui
 
 namespace Main
 {
-class GameLoop;
+	class GameLoop;
 
-class MainWindow :
-		public MainWindowInputFetcher,
-		public Common::GraphicDrawer
-{
-	Q_OBJECT
+	class MainWindow :
+			public MainWindowInputFetcher,
+			public Common::GraphicDrawer
+	{
+		Q_OBJECT
 
-public:
-	MainWindow();
-	~MainWindow();
+	public:
+		MainWindow();
+		~MainWindow();
 
-	virtual void setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs);
-	virtual void draw(const Common::GameState &gameState);
+		virtual void setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs);
+		virtual void draw(const Common::GameState &gameState);
 
-public slots:
-	void startGame(
-			bool enableOpenGL, const char* levelname,
-			unsigned int humanPlayerCount, unsigned int computerEnemyCount,
-			GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute);
+	public slots:
+		void startGame(
+				bool enableOpenGL, const char* levelname,
+				unsigned int humanPlayerCount, unsigned int computerEnemyCount,
+				GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute);
 
-private slots:
-	void updateGui(const Common::GameState *gameState);
-	void updateUserInfo();
-	void pauseButtonPushed();
-	void muteButtonPushed();
-	void closeGame();
-	void winnerOfGame(const char *winner);
+	private slots:
+		void updateGui(const Common::GameState *gameState);
+		void updateUserInfo();
+		void pauseButtonPushed();
+		void muteButtonPushed();
+		void closeGame();
+		void winnerOfGame(const char *winner);
 
-signals:
-	void guiUpdateNecessary(const Common::GameState *gameState);
-	void levelBuildingNotCorectSignal();
-	void closeGameSignal();
-	void winnerOfGameSignal(const char* winner);
+	signals:
+		void guiUpdateNecessary(const Common::GameState *gameState);
+		void levelBuildingNotCorectSignal();
+		void closeGameSignal();
+		void winnerOfGameSignal(const char* winner);
 
-private:
-	void finishGame();
-	void updateStatusBar();
-	void updatePlayerStateInfo();
-	void updateMuteButtonLabel();
-	void updatePauseButtonLabel();
+	private:
+		void finishGame();
+		void updateStatusBar();
+		void updatePlayerStateInfo();
+		void updateMuteButtonLabel();
+		void updatePauseButtonLabel();
 
-	virtual void closeEvent(QCloseEvent *);
+		virtual void closeEvent(QCloseEvent *);
 
-private:
-	const unsigned int m_statusBarUpdateTimeStep;
-	Ui::MainWindow *m_ui;
-	Common::GraphicDrawer *m_drawer;
-	Common::LevelDefinition *m_level;
-	Common::GameEngine *m_gameEngine;
-	Sound::SoundPlayer *m_soundPlayer;
-	GameLoop *m_gameLoop;
-	InputFetcher *m_allPlayerInputFetcher;
-	QTimer *m_timerUserInfoUpdate;
-	Threading::Signal m_guiUpdateFinished;
-	bool m_enableOpenGL;
-	bool m_gameStarted;
-	Threading::Mutex m_gameStartMutex;
-	bool m_gameFinished;
-	Threading::Mutex m_gameFinishedMutex;
-};
+	private:
+		const unsigned int m_statusBarUpdateTimeStep;
+		Ui::MainWindow *m_ui;
+		Common::GraphicDrawer *m_drawer;
+		Common::LevelDefinition *m_level;
+		Common::GameEngine *m_gameEngine;
+		Sound::SoundPlayer *m_soundPlayer;
+		GameLoop *m_gameLoop;
+		InputFetcher *m_allPlayerInputFetcher;
+		QTimer *m_timerUserInfoUpdate;
+		Threading::Signal m_guiUpdateFinished;
+		bool m_enableOpenGL;
+		bool m_gameStarted;
+		Threading::Mutex m_gameStartMutex;
+		bool m_gameFinished;
+		Threading::Mutex m_gameFinishedMutex;
+	};
 }
 
 #endif
