@@ -110,7 +110,7 @@ void GameLoop::execute()
 		pauseIfNecessary();
 		run = !isStopped() && !gameState.isGameFinished();
 		if(gameState.isGameFinished())
-			emit winnerSignal(m_gameEngine.getGameState().getWinnerOfGame().c_str());
+			emit winnerSignal(gameState.getWinnerOfGame().c_str());
 	}
 }
 

@@ -572,14 +572,14 @@ bool GameState::isPlayerAlive(unsigned int playerId) const
 string GameState::getWinnerOfGame() const
 {
 	if(getAllNotDestroyedPlayerIDs().size() == 0)
-		return "Draw";
+		return "Draw!";
 	if (getAllNotDestroyedHumanPlayerIDs().size() == 0)
-			return "You LOOSE!!!";
+			return "You loose!";
 	else
 	{
 		if (getIndexOfHumanPlayer(getAllNotDestroyedPlayerIDs().front()) == 0)
-			return "The Winner is Player 1";
+			return "The winner is player 1!";
 		else
-			return "The Winner is Player 2";
+			return "The winner is player 2!";
 	}
 }

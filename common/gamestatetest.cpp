@@ -692,5 +692,5 @@ void GameStateTest::getWinnerOfGame_humanPlayerID_theWinnerIsPlayer1()
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, 0, m_playerIDCreator, m_wallIDCreator);
 
-	CPPUNIT_ASSERT_EQUAL((string)"The Winner is Player 1", state.getWinnerOfGame());
+	CPPUNIT_ASSERT_EQUAL(string("The winner is player 1!"), state.getWinnerOfGame());
 }
