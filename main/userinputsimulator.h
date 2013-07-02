@@ -1,7 +1,7 @@
 #ifndef MAIN_USERINPUTSIMULATOR_H
 #define MAIN_USERINPUTSIMULATOR_H
 
-#include <QtCore/QObject>
+#include "main/mainwindow.h"
 #include "common/randomdecision.h"
 #include "gameengine/computerenemylevel.h"
 
@@ -15,7 +15,7 @@ namespace Common
 namespace Main
 {
 	class UserInputSimulator :
-			public QObject
+			public MainWindow
 	{
 		Q_OBJECT
 
@@ -23,21 +23,13 @@ namespace Main
 		UserInputSimulator();
 		virtual ~UserInputSimulator();
 
-	signals:
-		void startGame(bool, const char*, unsigned int, unsigned int, GameEngine::ComputerEnemyLevel, bool);
-		void closeGame();
-
 	public slots:
 		void winnerOfGame(const char *winner);
 		void restartGame();
-		void possibleCloseGame();
 
 	private:
 		QTimer *m_timerForRestart;
-		QTimer *m_timerForPossibleClose;
 		const unsigned int m_maximumTimeToRunInMsec;
-		const unsigned int m_timeTillPossibleCloseGameInMsec;
-		Common::RandomDecision *m_closeGame;
 		Common::RandomDecision *m_enableOpenGL;
 	};
 }

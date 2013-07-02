@@ -7,23 +7,19 @@ using namespace Common;
 
 UserInputSimulator::UserInputSimulator() :
 	m_timerForRestart(new QTimer()),
-	m_timerForPossibleClose(new QTimer()),
 	m_maximumTimeToRunInMsec(120*1000),
-	m_timeTillPossibleCloseGameInMsec(5*1000),
-	m_closeGame(new RandomDecision(0.1)),
 	m_enableOpenGL(new RandomDecision(0.5))
 {
-	connect(m_timerForRestart, SIGNAL(timeout()), this, SLOT(restartGame()));
-	connect(m_timerForPossibleClose, SIGNAL(timeout()), this, SLOT(possibleCloseGame()));
-	m_timerForRestart->start(rand()%m_maximumTimeToRunInMsec);
-	m_timerForPossibleClose->start(m_timeTillPossibleCloseGameInMsec);
+	connect(	m_timerForRestart, SIGNAL(timeout()),
+				this, SLOT(restartGame()));
+	connect(	this, SIGNAL(winnerOfGameSignal(const char*)),
+				this, SLOT(winnerOfGame(const char*)));
+	restartGame();
 }
 
 UserInputSimulator::~UserInputSimulator()
 {
 	delete m_timerForRestart;
-	delete m_timerForPossibleClose;
-	delete m_closeGame;
 	delete m_enableOpenGL;
 }
 
@@ -32,17 +28,10 @@ void UserInputSimulator::restartGame()
 	unsigned int humanPlayerCount = 2;
 	bool enableOpenGL = m_enableOpenGL->decide();
 	unsigned int computerEnemyCount = rand()%99;
-	emit startGame(enableOpenGL, "World At War", humanPlayerCount, computerEnemyCount, GameEngine::ComputerEnemyLevelHard, true);
+	startGame(enableOpenGL, "world_at_war", humanPlayerCount, computerEnemyCount, GameEngine::ComputerEnemyLevelHard, true);
 	m_timerForRestart->start(rand()%m_maximumTimeToRunInMsec);
+	show();
 }
-
-void UserInputSimulator::possibleCloseGame()
-{
-	if (m_closeGame->decide())
-		emit closeGame();
-	m_timerForPossibleClose->start(m_timeTillPossibleCloseGameInMsec);
-}
-
 
 void UserInputSimulator::winnerOfGame(const char *)
 {

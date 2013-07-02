@@ -50,13 +50,13 @@ namespace Main
 				bool enableOpenGL, const char* levelname,
 				unsigned int humanPlayerCount, unsigned int computerEnemyCount,
 				GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute);
+		void closeGame();
 
 	private slots:
 		void updateGui(const Common::GameState *gameState);
 		void updateUserInfo();
 		void pauseButtonPushed();
 		void muteButtonPushed();
-		void closeGame();
 		void winnerOfGame(const char *winner);
 
 	signals:
