@@ -13,7 +13,7 @@ using namespace std;
 using namespace GameEngine;
 using namespace Threading;
 
-GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, GraphicDrawer &graphicDrawer, GameEngine::ComputerEnemyLevel computerEnemyLevel) :
+GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, GraphicDrawer &graphicDrawer) :
 	m_inputFetcher(inputFetcher),
 	m_gameEngine(gameEngine),
 	m_graphicDrawer(graphicDrawer),
@@ -27,9 +27,6 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 	m_movingAverageOfTimeStep(m_minimumTimeStep),
 	m_framesPerSecond(0)
 {
-	const GameState &gameState = m_gameEngine.getGameState();
-	m_allInput = new GameEngine::AllPlayerInputFetcher(m_inputFetcher, gameState, computerEnemyLevel, m_gameEngine.getGrid());
-
 	setConstructionFinished();
 }
 
@@ -86,7 +83,7 @@ void GameLoop::execute()
 	StopWatch watch;
 	const Common::GameState &gameState = m_gameEngine.getGameState();
 
-	m_allInput->setAllPossiblePlayerIDs(gameState.getAllNotDestroyedPlayerIDs());
+	m_inputFetcher.setAllPossiblePlayerIDs(gameState.getAllNotDestroyedPlayerIDs());
 
 	while (run)
 	{
@@ -105,7 +102,7 @@ void GameLoop::execute()
 		updateMovingAverageOfTime(time);
 		updateFPS();
 
-		m_gameEngine.updateGameState(m_allInput->getInputStates(),time);
+		m_gameEngine.updateGameState(m_inputFetcher.getInputStates(), time);
 
 		m_graphicDrawer.draw(gameState);
 

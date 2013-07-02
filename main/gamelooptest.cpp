@@ -17,7 +17,7 @@ void GameLoopTest::constructor_notStarted_inputFetcherGotNoCallsToGetInputState(
 	GameEngineStub gameEngine;
 	GraphicDrawerStub graphicDrawer;
 
-	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer, GameEngine::ComputerEnemyLevelEasy);
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, inputFetcher.getCallsToGetInputStates());
 	gameLoop->start();
@@ -31,7 +31,7 @@ void GameLoopTest::constructor_notStarted_gameEngineGotNoCallsToUpdateGameState(
 	GameEngineMock gameEngine;
 	GraphicDrawerStub graphicDrawer;
 
-	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer, GameEngine::ComputerEnemyLevelEasy);
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, gameEngine.getCallsToUpdateGameState());
 	gameLoop->start();
@@ -45,7 +45,7 @@ void GameLoopTest::constructor_notStarted_graphicDrawerGotNoCallsToDraw()
 	GameEngineStub gameEngine;
 	GraphicDrawerMock graphicDrawer;
 
-	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer, GameEngine::ComputerEnemyLevelEasy);
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, graphicDrawer.getCallsToDraw());
 	gameLoop->start();
@@ -59,7 +59,7 @@ void GameLoopTest::constructor_notStarted_graphicDrawerGotNoCallsToSetResponsibl
 	GameEngineStub gameEngine;
 	GraphicDrawerMock graphicDrawer;
 
-	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer, GameEngine::ComputerEnemyLevelEasy);
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, graphicDrawer.getCallsToSetResponsibleForPlayers());
 	gameLoop->start();
@@ -72,7 +72,7 @@ void GameLoopTest::execute_runSomeExecutions_inputFetcherGotAsMuchCallsAsGameEng
 	InputFetcherMock inputFetcher;
 	GameEngineMock gameEngine;
 	GraphicDrawerStub graphicDrawer;
-	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer, GameEngine::ComputerEnemyLevelEasy);
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
 
 	gameLoop->start();
 	usleep(1000*100);
@@ -88,7 +88,7 @@ void GameLoopTest::execute_runSomeExecutions_gameEngineGotAsMuchCallsAsGraphicDr
 	InputFetcherStub inputFetcher;
 	GameEngineMock gameEngine;
 	GraphicDrawerMock graphicDrawer;
-	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer, GameEngine::ComputerEnemyLevelEasy);
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
 
 	gameLoop->start();
 	usleep(1000*100);
@@ -104,7 +104,7 @@ void GameLoopTest::execute_runAround100ms_gameEngineGotAround6CallsToUpdateGameS
 	InputFetcherStub inputFetcher;
 	GameEngineMock gameEngine;
 	GraphicDrawerStub graphicDrawer;
-	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer, GameEngine::ComputerEnemyLevelEasy);
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
 
 	gameLoop->start();
 	usleep(1000*100);
@@ -120,7 +120,7 @@ void GameLoopTest::execute_runSomeExecutions_graphicDrawerGotNoCallsToSetRespons
 	InputFetcherStub inputFetcher;
 	GameEngineStub gameEngine;
 	GraphicDrawerMock graphicDrawer;
-	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer, GameEngine::ComputerEnemyLevelEasy);
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
 
 	gameLoop->start();
 	usleep(1000*100);
@@ -136,7 +136,7 @@ void GameLoopTest::getFramesPerSecond_running_60()
 	InputFetcherStub inputFetcher;
 	GameEngineStub gameEngine;
 	GraphicDrawerStub graphicDrawer;
-	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer, GameEngine::ComputerEnemyLevelEasy);
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
 	gameLoop->start();
 	usleep(1000*100);
 
@@ -153,7 +153,7 @@ void GameLoopTest::pause_gameAlreadyRunSomeExecutionsAndWaitOf100ms_callsToMocks
 	InputFetcherMock inputFetcher;
 	GameEngineMock *gameEngine = new GameEngineMock();
 	GraphicDrawerMock graphicDrawer;
-	GameLoop *gameLoop = new GameLoop(inputFetcher, *gameEngine, graphicDrawer, GameEngine::ComputerEnemyLevelEasy);
+	GameLoop *gameLoop = new GameLoop(inputFetcher, *gameEngine, graphicDrawer);
 
 	gameLoop->start();
 	usleep(1000*100);
@@ -178,7 +178,7 @@ void GameLoopTest::pause_gameAlreadyRunSomeExecutions_isPaused()
 	InputFetcherStub inputFetcher;
 	GameEngineStub gameEngine;
 	GraphicDrawerStub graphicDrawer;
-	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer, GameEngine::ComputerEnemyLevelEasy);
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
 	gameLoop->start();
 
 	usleep(1000*100);
@@ -195,7 +195,7 @@ void GameLoopTest::constructor_notStarted_notPaused()
 	GameEngineStub gameEngine;
 	GraphicDrawerStub graphicDrawer;
 
-	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer, GameEngine::ComputerEnemyLevelEasy);
+	GameLoop *gameLoop = new GameLoop(inputFetcher, gameEngine, graphicDrawer);
 
 	CPPUNIT_ASSERT(!gameLoop->isPaused());
 	gameLoop->start();

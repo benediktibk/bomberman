@@ -6,7 +6,6 @@
 #include "threading/signal.h"
 #include "gameengine/computerenemylevel.h"
 #include <vector>
-#include "gameengine/allplayerinputfetcher.h"
 #include <QtCore/QObject>
 
 namespace Common
@@ -15,12 +14,6 @@ namespace Common
 	class InputFetcher;
 	class GameState;
 	class GraphicDrawer;
-}
-
-namespace GameEngine
-{
-	class ComputerEnemyInputFetcher;
-	class AllPlayerInputFetcher;
 }
 
 namespace Main
@@ -32,7 +25,7 @@ namespace Main
 		Q_OBJECT
 
 	public:
-		GameLoop(Common::InputFetcher &inputFetcher, Common::GameEngine &gameEngine, Common::GraphicDrawer &graphicDrawer, GameEngine::ComputerEnemyLevel computerEnemyLevel);
+		GameLoop(Common::InputFetcher &inputFetcher, Common::GameEngine &gameEngine, Common::GraphicDrawer &graphicDrawer);
 		virtual ~GameLoop();
 
 		void start();
@@ -56,7 +49,6 @@ namespace Main
 		virtual void execute();
 
 	private:
-		GameEngine::AllPlayerInputFetcher* m_allInput;
 		Common::InputFetcher &m_inputFetcher;
 		Common::GameEngine &m_gameEngine;
 		Common::GraphicDrawer &m_graphicDrawer;

@@ -4,6 +4,7 @@
 #include "graphic/graphicdrawerqt.h"
 #include "common/gamestate.h"
 #include "gameengine/gameengineimpl.h"
+#include "gameengine/allplayerinputfetcher.h"
 #include "sound/soundplayer.h"
 #include "threading/lock.h"
 #include <assert.h>
@@ -99,14 +100,15 @@ void MainWindow::startGame(
 
 	m_soundPlayer = new Sound::SoundPlayer(mute);
 	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, *m_soundPlayer, humanPlayerCount, computerEnemyCount);
-	m_gameLoop = new GameLoop(*this, *m_gameEngine, *this, computerEnemyLevel);
+	const Common::GameState &gameState = m_gameEngine->getGameState();
+	m_allPlayerInputFetcher = new GameEngine::AllPlayerInputFetcher(*this, gameState, computerEnemyLevel, m_gameEngine->getGrid());
+	m_gameLoop = new GameLoop(*m_allPlayerInputFetcher, *m_gameEngine, *this);
 	m_enableOpenGL = enableOpenGL;
 	m_gameStartMutex.lock();
 	m_gameStarted = true;
 	m_gameStartMutex.unlock();
 
 	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), m_enableOpenGL);
-	const Common::GameState &gameState = m_gameEngine->getGameState();
 	vector<unsigned int> playerIDsToShow = gameState.getAllNotDestroyedHumanPlayerIDs();
 	setResponsibleForPlayers(playerIDsToShow);
 
@@ -216,6 +218,8 @@ void MainWindow::finishGame()
 	m_gameEngine = 0;
 	delete m_soundPlayer;
 	m_soundPlayer = 0;
+	delete m_allPlayerInputFetcher;
+	m_allPlayerInputFetcher = 0;
 }
 
 void MainWindow::closeGame()

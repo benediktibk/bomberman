@@ -82,6 +82,7 @@ private:
 	Common::GameEngine *m_gameEngine;
 	Sound::SoundPlayer *m_soundPlayer;
 	GameLoop *m_gameLoop;
+	InputFetcher *m_allPlayerInputFetcher;
 	QTimer *m_timerUserInfoUpdate;
 	Threading::Signal m_guiUpdateFinished;
 	bool m_enableOpenGL;
