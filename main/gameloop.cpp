@@ -3,9 +3,6 @@
 #include "common/gameengine.h"
 #include "common/graphicdrawer.h"
 #include "common/stopwatch.h"
-#include "gameengine/computerenemyinputfetchereasy.h"
-#include "gameengine/computerenemyinputfetchermedium.h"
-#include "gameengine/computerenemyinputfetcherhard.h"
 #include "threading/lock.h"
 #include <unistd.h>
 #include <assert.h>
@@ -28,28 +25,10 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 	m_weightOfOldAverage(9.0/10),
 	m_weightOfNewTime(1 - m_weightOfOldAverage),
 	m_movingAverageOfTimeStep(m_minimumTimeStep),
-	m_framesPerSecond(0),
-	m_computerEnemyInputFetcher()
+	m_framesPerSecond(0)
 {
 	const GameState &gameState = m_gameEngine.getGameState();
-	vector<unsigned int> computerEnemyIDs = gameState.getAllNotDestroyedComputerEnemyIDs();
-	for (size_t i = 0; i < computerEnemyIDs.size(); ++i)
-	{
-		switch (computerEnemyLevel)
-		{
-		case ComputerEnemyLevelEasy:
-			m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcherEasy(m_gameEngine.getGrid(), gameState));
-			break;
-		case ComputerEnemyLevelMedium:
-			m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcherMedium(m_gameEngine.getGrid(), gameState));
-			break;
-		case ComputerEnemyLevelHard:
-			m_computerEnemyInputFetcher.push_back(new GameEngine::ComputerEnemyInputFetcherHard(m_gameEngine.getGrid(), gameState));
-			break;
-		}
-	}
-
-	m_allInput = new GameEngine::AllPlayerInputFetcher(m_inputFetcher, m_computerEnemyInputFetcher);
+	m_allInput = new GameEngine::AllPlayerInputFetcher(m_inputFetcher, gameState, computerEnemyLevel, m_gameEngine.getGrid());
 
 	setConstructionFinished();
 }
@@ -59,10 +38,6 @@ GameLoop::~GameLoop()
 	stop();
 	if (m_onceStarted)
 		waitTillFinished();
-
-	for (vector<GameEngine::ComputerEnemyInputFetcher*>::iterator i = m_computerEnemyInputFetcher.begin(); i != m_computerEnemyInputFetcher.end(); ++i)
-		delete *i;
-	m_computerEnemyInputFetcher.clear();
 }
 
 void GameLoop::start()
@@ -110,16 +85,8 @@ void GameLoop::execute()
 	m_start.reset();
 	StopWatch watch;
 	const Common::GameState &gameState = m_gameEngine.getGameState();
-	vector<unsigned int> computerEnemyIDs = gameState.getAllNotDestroyedComputerEnemyIDs();
-	vector<unsigned int> humanPlayerIDs = gameState.getAllNotDestroyedHumanPlayerIDs();
 
-	m_inputFetcher.setAllPossiblePlayerIDs(humanPlayerIDs);
-	for (size_t i = 0; i < computerEnemyIDs.size(); ++i)
-	{
-		vector<unsigned int> playerIDs;
-		playerIDs.push_back(computerEnemyIDs[i]);
-		m_computerEnemyInputFetcher[i]->setAllPossiblePlayerIDs(playerIDs);
-	}
+	m_allInput->setAllPossiblePlayerIDs(gameState.getAllNotDestroyedPlayerIDs());
 
 	while (run)
 	{

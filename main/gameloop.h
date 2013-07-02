@@ -20,7 +20,7 @@ namespace Common
 namespace GameEngine
 {
 	class ComputerEnemyInputFetcher;
-    class AllPlayerInputFetcher;
+	class AllPlayerInputFetcher;
 }
 
 namespace Main
@@ -56,7 +56,7 @@ namespace Main
 		virtual void execute();
 
 	private:
-        GameEngine::AllPlayerInputFetcher* m_allInput;
+		GameEngine::AllPlayerInputFetcher* m_allInput;
 		Common::InputFetcher &m_inputFetcher;
 		Common::GameEngine &m_gameEngine;
 		Common::GraphicDrawer &m_graphicDrawer;
@@ -74,7 +74,6 @@ namespace Main
 		double m_framesPerSecond;
 		Threading::Mutex m_performanceInformationMutex;
 		Threading::Signal m_start;
-		std::vector<GameEngine::ComputerEnemyInputFetcher*> m_computerEnemyInputFetcher;
 		Threading::Mutex m_playerInformationMutex;
 		std::vector<unsigned int> m_playerInformation;
 	};
