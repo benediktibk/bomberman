@@ -25,7 +25,7 @@ UserInputSimulator::~UserInputSimulator()
 
 void UserInputSimulator::restartGame()
 {
-	unsigned int humanPlayerCount = 2;
+	unsigned int humanPlayerCount = rand()%2 + 1;
 	bool enableOpenGL = m_enableOpenGL->decide();
 	unsigned int computerEnemyCount = rand()%99;
 	startGame(enableOpenGL, "world_at_war", humanPlayerCount, computerEnemyCount, GameEngine::ComputerEnemyLevelHard, true);
