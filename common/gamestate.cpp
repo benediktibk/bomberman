@@ -450,16 +450,16 @@ vector<unsigned int> GameState::getAllPossiblePowerUpIDs()const
 	return result;
 }
 
-const PowerUpState* GameState::getPowerUpById(unsigned int powerUpId)
+const PowerUpState& GameState::getPowerUpById(unsigned int powerUpId)
 {
 	for(size_t i = 0; i < m_powerUps.size(); i++)
 	{
 		if(m_powerUps[i]->getId() == powerUpId)
-			return m_powerUps[i];
+			return *(m_powerUps[i]);
 	}
 
 	assert(false);
-	return m_powerUps[0];
+	return *(m_powerUps[0]);
 }
 
 void GameState::erasePowerUpById(unsigned int powerUpId)

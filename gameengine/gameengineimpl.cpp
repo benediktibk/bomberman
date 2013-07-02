@@ -24,8 +24,8 @@ GameEngineImpl::GameEngineImpl(const LevelDefinition &level, Common::SoundPlayer
 	m_firstGameStateUpdate(true),
 	m_simulator(new GamePhysicSimulator(level)),
 	m_levelWidth(level.getWidth()),
-    m_levelHeight(level.getHeight()),
-    m_soundPlayer(soundPlayer)
+	m_levelHeight(level.getHeight()),
+	m_soundPlayer(soundPlayer)
 {
 	vector<const WallState*> walls = m_gameState.getAllChangedWalls();
 
@@ -266,7 +266,7 @@ void GameEngineImpl::updateBombs()
 		wallsInRange = m_grid->getLooseWallsInRange(bomb);
 		for(size_t j = 0; j < wallsInRange.size(); j++)
 			m_gameState.eraseWallById(wallsInRange[j]);
-            m_soundPlayer.wallDown();
+			m_soundPlayer.wallDown();
 		vector<unsigned int> bombsInRange;
 		bombsInRange = m_grid->getBombsInRange(bomb);
 		for(size_t j = 0; j < bombsInRange.size(); j++)
@@ -280,11 +280,11 @@ void GameEngineImpl::updateBombs()
 		vector<unsigned int> playersInRange;
 		playersInRange = m_grid->getPlayersInRange(bomb, m_gameState.getAllPlayers());
 		for(size_t j = 0; j < playersInRange.size(); j++)
-        {
+		{
 			m_gameState.erasePlayerById(playersInRange[j]);
-            m_soundPlayer.deadPlayer();
-        }
-            
+			m_soundPlayer.deadPlayer();
+		}
+
 	}
 
 	for (vector<const BombState*>::const_iterator i = destroyedBombs.begin(); i != destroyedBombs.end(); ++i)
@@ -334,7 +334,7 @@ void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &i
 		player.countBomb();
 		player.doNotCollideWith(bombPlaced);
 		player.setPlacedBombAlready(true);
-        m_soundPlayer.bombPlaced();
+		m_soundPlayer.bombPlaced();
 	}
 
 	if (!input.isSpaceKeyPressed() && m_grid->isPlaceEmpty(player.getCenterPosition()))
@@ -346,27 +346,21 @@ void GameEngineImpl::placeBombForPlayer(PlayerState &player, const InputState &i
 void GameEngineImpl::playerGetsPowerUp()
 {
 	vector<unsigned int> playerIDs = m_gameState.getAllNotDestroyedPlayerIDs();
-	vector<unsigned int> powerUpIDs = m_gameState.getAllPossiblePowerUpIDs();
-    
+
 	for (vector<unsigned int>::const_iterator i = playerIDs.begin(); i != playerIDs.end(); ++i)
 	{
 		PlayerState &player = m_gameState.getPlayerStateById(*i);
 		vector<GridPoint> playerFields = m_grid->getPlayerFields(player);
 
-		if(playerFields.size() == 1)
+		for (vector<GridPoint>::const_iterator j = playerFields.begin(); j != playerFields.end(); ++j)
 		{
-			for(vector<unsigned int>::const_iterator j = powerUpIDs.begin(); j != powerUpIDs.end(); ++j)
+			if (m_grid->isPlaceCoveredByPowerUp(*j))
 			{
-				const PowerUpState *powerup = m_gameState.getPowerUpById(*j);
-				const Point powerUpPosition = powerup->getPosition();
-				GridPoint powerUpField(powerUpPosition);
-
-				if(powerUpField == playerFields[0])
-				{
-                    m_soundPlayer.gotItem();
-					powerup->modifyPlayer(player);
-					m_gameState.erasePowerUpById(*j);
-				}
+				unsigned int powerUpID = m_grid->getId(*j);
+				const PowerUpState &powerUp = m_gameState.getPowerUpById(powerUpID);
+				m_soundPlayer.gotItem();
+				powerUp.modifyPlayer(player);
+				m_gameState.erasePowerUpById(powerUpID);
 			}
 		}
 	}
@@ -391,7 +385,7 @@ void GameEngineImpl::addRandomPowerUpAtPosition(Point position)
 
 void GameEngineImpl::addPowerUpOfTypeAtPosition(PowerUpType powerUpType, Point position)
 {
-    if (powerUpType == PowerUpTypeMaxBomb)
+	if (powerUpType == PowerUpTypeMaxBomb)
 	{
 		PowerUpMaxBombState *powerUp = new PowerUpMaxBombState(m_powerUpIds, position);
 		addPowerUp(powerUp);
@@ -414,10 +408,10 @@ void GameEngineImpl::removeAllObjectsWithDestroyedFlagFromGrid()
 {
 	vector<const BombState*> allBombsWithDestroyedFlag = m_gameState.getAllBombsWithDestroyedFlag();
 	for(size_t i = 0;i < allBombsWithDestroyedFlag.size();i++)
-    {
-        m_grid->removeBomb(*allBombsWithDestroyedFlag[i]);
-        m_soundPlayer.bombExplosion();
-    }
+	{
+		m_grid->removeBomb(*allBombsWithDestroyedFlag[i]);
+		m_soundPlayer.bombExplosion();
+	}
 	vector<const WallState*> allWallsWithDestroyedFlag = m_gameState.getAllWallsWithDestroyedFlag();
 	for(size_t i = 0;i < allWallsWithDestroyedFlag.size();i++)
 	{

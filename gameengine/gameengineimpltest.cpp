@@ -1541,6 +1541,7 @@ void GameEngine::GameEngineImplTest::updateGameState_playerOnlyHalfOnPowerUp_pow
 	setFirstPlayerInput(input);
 	m_gameEngine->updateGameState(m_inputStates, m_defaultTimeForOneField/4);
 	m_gameEngine->updateGameState(m_inputStates, 0);
+	m_gameEngine->updateGameState(m_inputStates, 0);
 
 	GameState &game = m_gameEngine->getGameState();
 	CPPUNIT_ASSERT_EQUAL((size_t)0, game.getPowerUpCount());

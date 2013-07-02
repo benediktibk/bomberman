@@ -56,7 +56,7 @@ namespace Common
 		void eraseWallById(unsigned int wallId);
 		void setBombsLifeTimeToZeroIfPositive(unsigned int bombId);
 		std::vector<unsigned int> getAllPossiblePowerUpIDs() const;
-		const PowerUpState* getPowerUpById(unsigned int powerUpId);
+		const PowerUpState& getPowerUpById(unsigned int powerUpId);
 		void erasePowerUpById(unsigned int powerUpId);
 		void addPowerUp(PowerUpState* powerUp);
 		size_t getPowerUpCount() const;
