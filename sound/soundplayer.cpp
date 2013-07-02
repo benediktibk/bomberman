@@ -102,6 +102,7 @@ void SoundPlayer::setMuted(bool value)
 	muteSounds(m_bombPlaced, value);
 	muteSounds(m_gotItem, value);
 	muteSounds(m_wallDown, value);
+    muteSounds(m_deadPlayer, value);
 	m_background->setMuted(value);
 }
 
