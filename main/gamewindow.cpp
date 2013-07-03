@@ -9,7 +9,7 @@
 #include "threading/lock.h"
 #include <assert.h>
 #include <QtCore/QTimer>
-#include <QScrollBar>
+#include <QtWidgets/QScrollBar>
 
 using namespace Main;
 using namespace Graphic;
@@ -42,7 +42,7 @@ GameWindow::GameWindow() :
 				this, SLOT(pauseButtonPushed()));
 	connect(	this, SIGNAL(muteButtonPressed()),
 				this, SLOT(muteButtonPushed()));
-	connect(    m_ui->volumeHorizontalSlider, SIGNAL(sliderReleased()),
+	connect(    m_ui->volumeHorizontalSlider, SIGNAL(valueChanged(int)),
 				this, SLOT(volumeChanged()));
 	m_drawFinished.send();
 }
