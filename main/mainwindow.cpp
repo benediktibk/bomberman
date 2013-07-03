@@ -51,6 +51,7 @@ MainWindow::~MainWindow()
 {
 	m_guiUpdateFinished.send();
 	finishGame();
+	freeMemory();
 	delete m_ui;
 }
 
@@ -93,19 +94,21 @@ void MainWindow::startGame(
 		GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute)
 {
 	finishGame();
-	m_guiUpdateFinished.reset();
+	freeMemory();
 
 	if (!createLevel(levelName))
 		return;
 
-	createGameLoop(mute, humanPlayerCount, computerEnemyCount, computerEnemyLevel);
-	m_gameRunning = true;
+	createSoundPlayer(mute);
+	createGameEngine(humanPlayerCount, computerEnemyCount);
+	createAllPlayerInputFetcher(computerEnemyLevel);
+	createGameLoop();
 	createDrawer(enableOpenGL);
 
-	connect(m_gameLoop, SIGNAL(winnerSignal(int)), this, SLOT(winnerOfGame(int)));
-	m_ui->volumeHorizontalSlider->setValue(static_cast<int>(m_soundPlayer->getVolume()*(m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum())));
+	m_gameRunning = true;
 	m_drawFinished.send();
 	m_gameLoop->start();
+
 	show();
 	updatePauseButtonLabel();
 	updateMuteButtonLabel();
@@ -191,19 +194,11 @@ void MainWindow::finishGame()
 		m_gameLoop->stop();
 		m_gameLoop->waitTillFinished();
 	}
+
 	m_drawFinished.wait();
-	delete m_gameLoop;
-	m_gameLoop = 0;
-	delete m_drawer;
-	m_drawer = 0;
-	delete m_level;
-	m_level = 0;
-	delete m_allPlayerInputFetcher;
-	m_allPlayerInputFetcher = 0;
-	delete m_gameEngine;
-	m_gameEngine = 0;
-	delete m_soundPlayer;
-	m_soundPlayer = 0;
+	m_guiUpdateFinished.reset();
+
+	freeMemory();
 }
 
 void MainWindow::closeGame()
@@ -247,6 +242,7 @@ void MainWindow::volumeChanged()
 
 bool MainWindow::createLevel(const string &levelName)
 {
+	assert(m_level == 0);
 	string levelNameWithPath = "levels/" + string(levelName);
 	m_level = new Common::LevelDefinition(Common::CSVParser(levelNameWithPath));
 
@@ -259,19 +255,54 @@ bool MainWindow::createLevel(const string &levelName)
 		return true;
 }
 
-void MainWindow::createGameLoop(bool mute, unsigned int humanPlayerCount, unsigned int computerEnemyCount, GameEngine::ComputerEnemyLevel computerEnemyLevel)
+void MainWindow::createGameLoop()
 {
-	m_soundPlayer = new Sound::SoundPlayer(mute);
-	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, *m_soundPlayer, humanPlayerCount, computerEnemyCount);
-	const Common::GameState &gameState = m_gameEngine->getGameState();
-	m_allPlayerInputFetcher = new GameEngine::AllPlayerInputFetcher(*this, gameState, computerEnemyLevel, m_gameEngine->getGrid());
+	assert(m_gameLoop == 0);
 	m_gameLoop = new GameLoop(*m_allPlayerInputFetcher, *m_gameEngine, *this);
+	connect(m_gameLoop, SIGNAL(winnerSignal(int)), this, SLOT(winnerOfGame(int)));
 }
 
 void MainWindow::createDrawer(bool enableOpenGL)
 {
+	assert(m_drawer == 0);
 	const Common::GameState &gameState = m_gameEngine->getGameState();
 	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), enableOpenGL);
 	vector<unsigned int> playerIDsToShow = gameState.getAllNotDestroyedHumanPlayerIDs();
 	setResponsibleForPlayers(playerIDsToShow);
+}
+
+void MainWindow::createSoundPlayer(bool mute)
+{
+	assert(m_soundPlayer == 0);
+	m_soundPlayer = new Sound::SoundPlayer(mute);
+	m_ui->volumeHorizontalSlider->setValue(static_cast<int>(m_soundPlayer->getVolume()*(m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum())));
+}
+
+void MainWindow::createGameEngine(unsigned int humanPlayerCount, unsigned int computerEnemyCount)
+{
+	assert(m_gameEngine == 0);
+	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, *m_soundPlayer, humanPlayerCount, computerEnemyCount);
+}
+
+void MainWindow::createAllPlayerInputFetcher(GameEngine::ComputerEnemyLevel computerEnemyLevel)
+{
+	assert(m_allPlayerInputFetcher == 0);
+	const Common::GameState &gameState = m_gameEngine->getGameState();
+	m_allPlayerInputFetcher = new GameEngine::AllPlayerInputFetcher(*this, gameState, computerEnemyLevel, m_gameEngine->getGrid());
+}
+
+void MainWindow::freeMemory()
+{
+	delete m_gameLoop;
+	m_gameLoop = 0;
+	delete m_drawer;
+	m_drawer = 0;
+	delete m_level;
+	m_level = 0;
+	delete m_allPlayerInputFetcher;
+	m_allPlayerInputFetcher = 0;
+	delete m_gameEngine;
+	m_gameEngine = 0;
+	delete m_soundPlayer;
+	m_soundPlayer = 0;
 }

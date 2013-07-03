@@ -74,8 +74,12 @@ namespace Main
 		void updateMuteButtonLabel();
 		void updatePauseButtonLabel();
 		bool createLevel(const std::string &levelName);
-		void createGameLoop(bool mute, unsigned int humanPlayerCount, unsigned int computerEnemyCount, GameEngine::ComputerEnemyLevel computerEnemyLevel);
+		void createGameLoop();
 		void createDrawer(bool enableOpenGL);
+		void createSoundPlayer(bool mute);
+		void createGameEngine(unsigned int humanPlayerCount, unsigned int computerEnemyCount);
+		void createAllPlayerInputFetcher(GameEngine::ComputerEnemyLevel computerEnemyLevel);
+		void freeMemory();
 		virtual void closeEvent(QCloseEvent *);
 
 	private:
