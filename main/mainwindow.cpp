@@ -116,6 +116,7 @@ void MainWindow::startGame(
 	setResponsibleForPlayers(playerIDsToShow);
 
 	connect(m_gameLoop, SIGNAL(winnerSignal(const char*)), this, SLOT(winnerOfGame(const char*)));
+    m_ui->volumeHorizontalSlider->setValue(static_cast<int>(m_soundPlayer->getVolume()*(m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum())));
 
 	m_gameLoop->start();
 	show();
