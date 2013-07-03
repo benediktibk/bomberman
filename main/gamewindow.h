@@ -1,5 +1,5 @@
-#ifndef MAIN_MAINWINDOW_H
-#define MAIN_MAINWINDOW_H
+#ifndef MAIN_GAMEWINDOW_H
+#define MAIN_GAMEWINDOW_H
 
 #include "main/mainwindowinputfetcher.h"
 #include "common/leveldefinition.h"
@@ -7,6 +7,7 @@
 #include "threading/signal.h"
 #include "threading/mutex.h"
 #include "gameengine/computerenemylevel.h"
+#include <atomic>
 
 class QGraphicsView;
 class QTimer;
@@ -25,22 +26,22 @@ namespace Sound
 
 namespace Ui
 {
-	class MainWindow;
+	class GameWindow;
 }
 
 namespace Main
 {
 	class GameLoop;
 
-	class MainWindow :
+	class GameWindow :
 			public MainWindowInputFetcher,
 			public Common::GraphicDrawer
 	{
 		Q_OBJECT
 
 	public:
-		MainWindow();
-		~MainWindow();
+		GameWindow();
+		~GameWindow();
 
 		virtual void setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs);
 		virtual void draw(const Common::GameState &gameState);
@@ -58,7 +59,7 @@ namespace Main
 		void pauseButtonPushed();
 		void muteButtonPushed();
 		void winnerOfGame(int winner);
-        void volumeChanged();
+		void volumeChanged();
 
 	signals:
 		void guiUpdateNecessary(const Common::GameState *gameState);
@@ -72,12 +73,18 @@ namespace Main
 		void updatePlayerStateInfo();
 		void updateMuteButtonLabel();
 		void updatePauseButtonLabel();
-
+		bool createLevel(const std::string &levelName);
+		void createGameLoop();
+		void createDrawer(bool enableOpenGL);
+		void createSoundPlayer(bool mute);
+		void createGameEngine(unsigned int humanPlayerCount, unsigned int computerEnemyCount);
+		void createAllPlayerInputFetcher(GameEngine::ComputerEnemyLevel computerEnemyLevel);
+		void freeMemory();
 		virtual void closeEvent(QCloseEvent *);
 
 	private:
 		const unsigned int m_statusBarUpdateTimeStep;
-		Ui::MainWindow *m_ui;
+		Ui::GameWindow *m_ui;
 		Common::GraphicDrawer *m_drawer;
 		Common::LevelDefinition *m_level;
 		Common::GameEngine *m_gameEngine;
@@ -86,11 +93,9 @@ namespace Main
 		InputFetcher *m_allPlayerInputFetcher;
 		QTimer *m_timerUserInfoUpdate;
 		Threading::Signal m_guiUpdateFinished;
-		bool m_enableOpenGL;
-		bool m_gameStarted;
-		Threading::Mutex m_gameStartMutex;
-		bool m_gameFinished;
-		Threading::Mutex m_gameFinishedMutex;
+		bool m_gameRunning;
+		Threading::Mutex m_gameRunningMutex;
+		Threading::Signal m_drawFinished;
 	};
 }
 

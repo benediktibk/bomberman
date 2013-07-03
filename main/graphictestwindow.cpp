@@ -1,5 +1,5 @@
-#include "mainwindowgraphictest.h"
-#include "ui_mainwindowgraphictest.h"
+#include "main/graphictestwindow.h"
+#include "ui_graphictestwindow.h"
 #include "graphic/graphicdrawerqt.h"
 #include "common/uniqueidcreator.h"
 #include "common/leveldefinition.h"
@@ -8,8 +8,8 @@ using namespace Main;
 using namespace Common;
 using namespace std;
 
-MainWindowGraphicTest::MainWindowGraphicTest() :
-	m_ui(new Ui::MainWindowGraphicTest),
+GraphicTestWindow::GraphicTestWindow() :
+	m_ui(new Ui::GraphicTestWindow),
 	m_drawer(0)
 {
 	m_ui->setupUi(this);
@@ -18,12 +18,12 @@ MainWindowGraphicTest::MainWindowGraphicTest() :
 	selectGameState(0);
 }
 
-MainWindowGraphicTest::~MainWindowGraphicTest()
+GraphicTestWindow::~GraphicTestWindow()
 {
 	delete m_drawer;
 }
 
-void MainWindowGraphicTest::selectGameState(int index)
+void GraphicTestWindow::selectGameState(int index)
 {
 	switch(index + 1)
 	{
@@ -44,12 +44,12 @@ void MainWindowGraphicTest::selectGameState(int index)
 	}
 }
 
-void MainWindowGraphicTest::connectSlots()
+void GraphicTestWindow::connectSlots()
 {
 	connect(m_ui->comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(selectGameState(int)));
 }
 
-void MainWindowGraphicTest::drawState1()
+void GraphicTestWindow::drawState1()
 {
 	UniqueIdCreator wallIDCreator;
 	UniqueIdCreator playerIDCreator;
@@ -72,7 +72,7 @@ void MainWindowGraphicTest::drawState1()
 	drawState(gameState);
 }
 
-void MainWindowGraphicTest::drawState2()
+void GraphicTestWindow::drawState2()
 {
 	UniqueIdCreator wallIDCreator;
 	UniqueIdCreator playerIDCreator;
@@ -90,7 +90,7 @@ void MainWindowGraphicTest::drawState2()
 	drawState(gameState);
 }
 
-void MainWindowGraphicTest::drawState3()
+void GraphicTestWindow::drawState3()
 {
 	UniqueIdCreator wallIDCreator;
 	UniqueIdCreator playerIDCreator;
@@ -104,7 +104,7 @@ void MainWindowGraphicTest::drawState3()
 	drawState(gameState);
 }
 
-void MainWindowGraphicTest::drawState4()
+void GraphicTestWindow::drawState4()
 {
 	UniqueIdCreator wallIDCreator;
 	UniqueIdCreator playerIDCreator;
@@ -126,7 +126,7 @@ void MainWindowGraphicTest::drawState4()
 	drawState(gameState);
 }
 
-void MainWindowGraphicTest::drawState(const GameState &game)
+void GraphicTestWindow::drawState(const GameState &game)
 {
 	delete m_drawer;
 	m_drawer = new Graphic::GraphicDrawerQt(*(m_ui->graphicsView), false);

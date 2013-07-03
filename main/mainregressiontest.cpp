@@ -1,4 +1,4 @@
-#include "main/mainwindow.h"
+#include "main/gamewindow.h"
 #include "main/userinputsimulator.h"
 #include <QApplication>
 #include <QtCore/QObject>

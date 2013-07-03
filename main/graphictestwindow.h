@@ -1,5 +1,5 @@
-#ifndef MAIN_MAINWINDOWGRAPHICTEST_H
-#define MAIN_MAINWINDOWGRAPHICTEST_H
+#ifndef MAIN_GRAPHICTESTWINDOW_H
+#define MAIN_GRAPHICTESTWINDOW_H
 
 #include <QMainWindow>
 
@@ -12,7 +12,7 @@ namespace Common
 
 namespace Ui
 {
-	class MainWindowGraphicTest;
+	class GraphicTestWindow;
 }
 
 namespace Graphic
@@ -22,14 +22,14 @@ namespace Graphic
 
 namespace Main
 {
-	class MainWindowGraphicTest :
+	class GraphicTestWindow :
 			public QMainWindow
 	{
 		Q_OBJECT
 
 	public:
-		MainWindowGraphicTest();
-		~MainWindowGraphicTest();
+		GraphicTestWindow();
+		~GraphicTestWindow();
 
 	private slots:
 		void selectGameState(int index);
@@ -43,7 +43,7 @@ namespace Main
 		void drawState(const Common::GameState &game);
 
 	private:
-		Ui::MainWindowGraphicTest *m_ui;
+		Ui::GraphicTestWindow *m_ui;
 		Graphic::GraphicDrawerQt *m_drawer;
 	};
 }

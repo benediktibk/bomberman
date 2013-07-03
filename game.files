@@ -37,9 +37,9 @@ physic/physicsimulatortest.cpp
 threading/threadtest.h
 threading/threadtest.cpp
 main/testregistration.cpp
-main/mainwindow.h
-main/mainwindow.cpp
-main/gui/mainwindow.ui
+main/gamewindow.h
+main/gamewindow.cpp
+main/gui/gamewindow.ui
 threading/mutex.h
 threading/mutex.cpp
 threading/mutextest.h
@@ -159,9 +159,9 @@ main/mainwindowinputtest.cpp
 main/gui/mainwindowinputtest.ui
 main/maininputtest.cpp
 main/maingraphictest.cpp
-main/mainwindowgraphictest.h
-main/mainwindowgraphictest.cpp
-main/gui/mainwindowgraphictest.ui
+main/graphictestwindow.h
+main/graphictestwindow.cpp
+main/gui/graphictestwindow.ui
 common/point.h
 common/point.cpp
 common/pointtest.h

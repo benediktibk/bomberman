@@ -1,6 +1,6 @@
 #include <QApplication>
 #include <QtCore/QStringList>
-#include "mainwindow.h"
+#include "gamewindow.h"
 #include "startwindow.h"
 
 using namespace Main;
@@ -16,17 +16,17 @@ int main(int argc, char **argv)
 	else
 		enableOpenGL = false;
 
-	MainWindow mainWindow;
+	GameWindow gameWindow;
 	StartWindow startWindow(enableOpenGL);
 	QObject::connect(	&startWindow, SIGNAL(startGameSignal(bool, const char*, unsigned int, unsigned int, GameEngine::ComputerEnemyLevel, bool)),
-						&mainWindow, SLOT(startGame(bool, const char*, unsigned int, unsigned int, GameEngine::ComputerEnemyLevel, bool)));
+						&gameWindow, SLOT(startGame(bool, const char*, unsigned int, unsigned int, GameEngine::ComputerEnemyLevel, bool)));
 	QObject::connect(	&startWindow, SIGNAL(closeGameSignal()),
-						&mainWindow, SLOT(closeGame()));
-	QObject::connect(	&mainWindow, SIGNAL(levelBuildingNotCorectSignal()),
+						&gameWindow, SLOT(closeGame()));
+	QObject::connect(	&gameWindow, SIGNAL(levelBuildingNotCorectSignal()),
 						&startWindow, SLOT(levelBuildingNotCorrect()));
-	QObject::connect(	&mainWindow, SIGNAL(closeGameSignal()),
+	QObject::connect(	&gameWindow, SIGNAL(closeGameSignal()),
 						&startWindow, SLOT(closeGameClicked()));
-	QObject::connect(	&mainWindow, SIGNAL(winnerOfGameSignal(int)),
+	QObject::connect(	&gameWindow, SIGNAL(winnerOfGameSignal(int)),
 						&startWindow, SLOT(winnerOfGame(int)));
 	startWindow.show();
 	return application.exec();
