@@ -3,6 +3,7 @@
 #include <QtGui/QStandardItemModel>
 #include <QtWidgets/QMessageBox>
 #include <assert.h>
+#include <QtSvg/QtSvg>
 
 using namespace std;
 using namespace Main;
@@ -167,7 +168,7 @@ void StartWindow::controlClicked()
 {
 	QMessageBox messageBox;
 	messageBox.setWindowTitle("Control");
-	messageBox.setText("Player 1:\trun:\tarrow keys \n\tbomb:\tspace\nPlayer 2:\trun:\tW A S D \n\tbomb:\tQ");
+	messageBox.setText("Player 1:\trun:\tarrow keys \n\tbomb:\tspace\nPlayer 2:\trun:\tW A S D \n\tbomb:\tQ\nStetting:\tMute:\tM\n\tPause:\tP");
 	messageBox.exec();
 }
 
@@ -175,7 +176,12 @@ void StartWindow::winnerOfGame(int winner)
 {
 	QMessageBox messageBox;
 	messageBox.setWindowTitle("GAME OVER");
-	messageBox.setIcon(QMessageBox::Information);
+	QSvgRenderer renderer(QString("resources/graphics/player_standing_1.svg"));
+	QImage image(100, 100, QImage::Format_ARGB32);
+	image.fill(Qt::transparent);
+	QPainter painter(&image);
+	renderer.render(&painter);
+	messageBox.setIconPixmap(QPixmap(QPixmap::fromImage(image)));
 	Common::WinnerType winnerType = static_cast<Common::WinnerType>(winner);
 
 	switch (winnerType)
@@ -185,7 +191,6 @@ void StartWindow::winnerOfGame(int winner)
 			break;
 	case Common::WinnerTypeKI:
 		messageBox.setText(tr("You loose!"));
-		messageBox.setIcon(QMessageBox::Critical);
 			break;
 	case Common::WinnerTypePlayer1:
 		messageBox.setText(tr("The winner is Player 1!"));

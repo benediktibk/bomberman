@@ -437,3 +437,4 @@ common/winnertype.h
 main/gui/splashscreen.ui
 main/splashscreen.h
 main/splashscreen.cpp
+resources/graphics/background.svg
