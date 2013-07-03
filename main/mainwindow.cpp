@@ -6,6 +6,7 @@
 #include "gameengine/gameengineimpl.h"
 #include "gameengine/allplayerinputfetcher.h"
 #include "sound/soundplayer.h"
+#include "threading/lock.h"
 #include <assert.h>
 #include <QtCore/QTimer>
 #include <QScrollBar>
@@ -25,7 +26,7 @@ MainWindow::MainWindow() :
 	m_gameLoop(0),
 	m_allPlayerInputFetcher(0),
 	m_timerUserInfoUpdate(new QTimer(this)),
-	m_gameStarted(false)
+	m_gameRunning(false)
 {
 	m_ui->setupUi(this);
 
@@ -57,13 +58,23 @@ void MainWindow::setResponsibleForPlayers(const std::vector<unsigned int> &playe
 
 void MainWindow::draw(const Common::GameState &gameState)
 {
-	if (!m_gameStarted)
-		return;
+	{
+		Lock lock(m_gameRunningMutex);
+
+		if (!m_gameRunning)
+			return;
+	}
 
 	emit guiUpdateNecessary(&gameState);
 
 	m_guiUpdateFinished.wait();
-	m_guiUpdateFinished.reset();
+
+	{
+		Lock lock(m_gameRunningMutex);
+
+		if (m_gameRunning)
+			m_guiUpdateFinished.reset();
+	}
 }
 
 void MainWindow::startGame(
@@ -89,7 +100,7 @@ void MainWindow::startGame(
 	m_allPlayerInputFetcher = new GameEngine::AllPlayerInputFetcher(*this, gameState, computerEnemyLevel, m_gameEngine->getGrid());
 	m_gameLoop = new GameLoop(*m_allPlayerInputFetcher, *m_gameEngine, *this);
 	m_enableOpenGL = enableOpenGL;
-	m_gameStarted = true;
+	m_gameRunning = true;
 
 	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), m_enableOpenGL);
 	vector<unsigned int> playerIDsToShow = gameState.getAllNotDestroyedHumanPlayerIDs();
@@ -106,12 +117,6 @@ void MainWindow::startGame(
 
 void MainWindow::updateGui(const Common::GameState *gameState)
 {
-	if (!m_gameStarted)
-	{
-		m_guiUpdateFinished.send();
-		return;
-	}
-
 	m_drawer->draw(*gameState);
 	m_ui->graphicsView->viewport()->update();
 	m_guiUpdateFinished.send();
@@ -119,7 +124,7 @@ void MainWindow::updateGui(const Common::GameState *gameState)
 
 void MainWindow::updateUserInfo()
 {
-	if (!m_gameStarted)
+	if (!m_gameRunning)
 		return;
 
 	updateStatusBar();
@@ -180,10 +185,17 @@ void MainWindow::closeEvent(QCloseEvent *)
 
 void MainWindow::finishGame()
 {
-	m_gameStarted = false;
+	if (m_gameLoop != 0)
+	{
+		m_gameRunningMutex.lock();
+		m_gameRunning = false;
+		m_guiUpdateFinished.send();
+		m_gameRunningMutex.unlock();
+		m_gameLoop->stop();
+		m_gameLoop->waitTillFinished();
+	}
 	delete m_gameLoop;
 	m_gameLoop = 0;
-	m_guiUpdateFinished.send();
 	delete m_drawer;
 	m_drawer = 0;
 	delete m_level;

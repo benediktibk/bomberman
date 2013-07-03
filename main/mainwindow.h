@@ -5,6 +5,7 @@
 #include "common/leveldefinition.h"
 #include "common/graphicdrawer.h"
 #include "threading/signal.h"
+#include "threading/mutex.h"
 #include "gameengine/computerenemylevel.h"
 #include <atomic>
 
@@ -86,7 +87,8 @@ namespace Main
 		QTimer *m_timerUserInfoUpdate;
 		Threading::Signal m_guiUpdateFinished;
 		bool m_enableOpenGL;
-		std::atomic<bool> m_gameStarted;
+		std::atomic<bool> m_gameRunning;
+		Threading::Mutex m_gameRunningMutex;
 	};
 }
 
