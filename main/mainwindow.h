@@ -73,7 +73,9 @@ namespace Main
 		void updatePlayerStateInfo();
 		void updateMuteButtonLabel();
 		void updatePauseButtonLabel();
-
+		bool createLevel(const std::string &levelName);
+		void createGameLoop(bool mute, unsigned int humanPlayerCount, unsigned int computerEnemyCount, GameEngine::ComputerEnemyLevel computerEnemyLevel);
+		void createDrawer(bool enableOpenGL);
 		virtual void closeEvent(QCloseEvent *);
 
 	private:
@@ -87,7 +89,6 @@ namespace Main
 		InputFetcher *m_allPlayerInputFetcher;
 		QTimer *m_timerUserInfoUpdate;
 		Threading::Signal m_guiUpdateFinished;
-		bool m_enableOpenGL;
 		bool m_gameRunning;
 		Threading::Mutex m_gameRunningMutex;
 		Threading::Signal m_drawFinished;

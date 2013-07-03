@@ -88,33 +88,19 @@ void MainWindow::draw(const Common::GameState &gameState)
 }
 
 void MainWindow::startGame(
-		bool enableOpenGL, const char* levelname,
+		bool enableOpenGL, const char* levelName,
 		unsigned int humanPlayerCount, unsigned int computerEnemyCount,
 		GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute)
 {
-	m_ui->pauseButton->setText(tr("pause"));
 	finishGame();
 	m_guiUpdateFinished.reset();
 
-	string levelpath = "levels/" + string(levelname);
-	m_level = new Common::LevelDefinition(Common::CSVParser(levelpath));
-	if(!m_level->isLevelBuildingCorrect())
-	{
-		emit levelBuildingNotCorectSignal();
+	if (!createLevel(levelName))
 		return;
-	}
 
-	m_soundPlayer = new Sound::SoundPlayer(mute);
-	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, *m_soundPlayer, humanPlayerCount, computerEnemyCount);
-	const Common::GameState &gameState = m_gameEngine->getGameState();
-	m_allPlayerInputFetcher = new GameEngine::AllPlayerInputFetcher(*this, gameState, computerEnemyLevel, m_gameEngine->getGrid());
-	m_gameLoop = new GameLoop(*m_allPlayerInputFetcher, *m_gameEngine, *this);
-	m_enableOpenGL = enableOpenGL;
+	createGameLoop(mute, humanPlayerCount, computerEnemyCount, computerEnemyLevel);
 	m_gameRunning = true;
-
-	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), m_enableOpenGL);
-	vector<unsigned int> playerIDsToShow = gameState.getAllNotDestroyedHumanPlayerIDs();
-	setResponsibleForPlayers(playerIDsToShow);
+	createDrawer(enableOpenGL);
 
 	connect(m_gameLoop, SIGNAL(winnerSignal(int)), this, SLOT(winnerOfGame(int)));
 	m_ui->volumeHorizontalSlider->setValue(static_cast<int>(m_soundPlayer->getVolume()*(m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum())));
@@ -232,8 +218,6 @@ void MainWindow::winnerOfGame(int winner)
 	closeGame();
 }
 
-
-
 void MainWindow::pauseButtonPushed()
 {
 	if (m_gameLoop->isPaused())
@@ -254,10 +238,40 @@ void MainWindow::muteButtonPushed()
 	updateMuteButtonLabel();
 }
 
-
 void MainWindow::volumeChanged()
 {
 	double range = m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum();
 	double volume = m_ui->volumeHorizontalSlider->value()/range;
 	m_soundPlayer->setVolume(volume);
+}
+
+bool MainWindow::createLevel(const string &levelName)
+{
+	string levelNameWithPath = "levels/" + string(levelName);
+	m_level = new Common::LevelDefinition(Common::CSVParser(levelNameWithPath));
+
+	if(!m_level->isLevelBuildingCorrect())
+	{
+		emit levelBuildingNotCorectSignal();
+		return false;
+	}
+	else
+		return true;
+}
+
+void MainWindow::createGameLoop(bool mute, unsigned int humanPlayerCount, unsigned int computerEnemyCount, GameEngine::ComputerEnemyLevel computerEnemyLevel)
+{
+	m_soundPlayer = new Sound::SoundPlayer(mute);
+	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, *m_soundPlayer, humanPlayerCount, computerEnemyCount);
+	const Common::GameState &gameState = m_gameEngine->getGameState();
+	m_allPlayerInputFetcher = new GameEngine::AllPlayerInputFetcher(*this, gameState, computerEnemyLevel, m_gameEngine->getGrid());
+	m_gameLoop = new GameLoop(*m_allPlayerInputFetcher, *m_gameEngine, *this);
+}
+
+void MainWindow::createDrawer(bool enableOpenGL)
+{
+	const Common::GameState &gameState = m_gameEngine->getGameState();
+	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), enableOpenGL);
+	vector<unsigned int> playerIDsToShow = gameState.getAllNotDestroyedHumanPlayerIDs();
+	setResponsibleForPlayers(playerIDsToShow);
 }
