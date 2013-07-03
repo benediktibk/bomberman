@@ -154,9 +154,9 @@ physic/dynamicobject.h
 physic/dynamicobject.cpp
 main/mainwindowinputfetcher.cpp
 main/mainwindowinputfetcher.h
-main/mainwindowinputtest.h
-main/mainwindowinputtest.cpp
-main/gui/mainwindowinputtest.ui
+main/inputtestwindow.h
+main/inputtestwindow.cpp
+main/gui/inputtestwindow.ui
 main/maininputtest.cpp
 main/maingraphictest.cpp
 main/graphictestwindow.h

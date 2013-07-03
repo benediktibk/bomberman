@@ -1,15 +1,15 @@
 #include <QApplication>
-#include "mainwindowinputtest.h"
+#include "main/inputtestwindow.h"
 
 using namespace Main;
 
 int main(int argc, char **argv)
 {
-    QApplication a(argc, argv);
-    MainWindowInputTest mainWindowInputTest;
+	QApplication a(argc, argv);
+	InputTestWindow inputTestWindow;
 
-    mainWindowInputTest.show();
-    int result = a.exec();
+	inputTestWindow.show();
+	int result = a.exec();
 
-    return result;
+	return result;
 }

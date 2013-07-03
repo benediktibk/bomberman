@@ -78,6 +78,9 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
