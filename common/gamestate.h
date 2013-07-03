@@ -11,6 +11,7 @@
 #include "common/powerupmaxvelocitystate.h"
 #include "common/powerupmaxbombrangestate.h"
 #include "common/explodedbombstate.h"
+#include "common/winnertype.h"
 #include <vector>
 #include <map>
 
@@ -68,7 +69,7 @@ namespace Common
 		std::vector<const PowerUpState*> getAllPowerUpsWithDestroyedFlag() const;
 		size_t getExplodedBombCount() const;
 		bool isPlayerAlive(unsigned int playerId) const;
-		std::string getWinnerOfGame() const;
+		WinnerType getWinnerOfGame() const;
 
 	private:
 		void eraseBomb(size_t position);

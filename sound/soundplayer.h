@@ -28,11 +28,14 @@ namespace Sound
         virtual void deadPlayer();
 		void setMuted(bool value);
 		bool isMuted() const;
+        void setVolume(double value);
+        double getVolume() const;
 
 	private:
 		void deleteVector(std::vector<QSoundEffect*> &sounds);
 		void setUpSounds(std::vector<QSoundEffect*> &sounds, const std::string &source, unsigned int bufferSize);
 		void muteSounds(std::vector<QSoundEffect*> &sounds, bool value);
+        void changeVolume(std::vector<QSoundEffect*> &sounds, double value);
 
 	private:
 		const unsigned int m_soundBombBufferSize;
@@ -53,6 +56,7 @@ namespace Sound
 		unsigned int m_deadPlayerIndex;
 		Threading::Mutex *m_mutex;
 		bool m_muted;
+        double m_volume;
 	};
 }
 

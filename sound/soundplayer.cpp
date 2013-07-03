@@ -31,6 +31,7 @@ SoundPlayer::SoundPlayer(bool mute) :
 	m_background->setLoopCount(QSoundEffect::Infinite);
 	m_background->play();
 	setMuted(m_muted);
+    setVolume(0.75);
 }
 
 SoundPlayer::~SoundPlayer()
@@ -106,10 +107,28 @@ void SoundPlayer::setMuted(bool value)
 	m_background->setMuted(value);
 }
 
+void SoundPlayer::setVolume(double value)
+{
+	Lock lock(*m_mutex);
+	m_volume= value;
+	changeVolume(m_bombExplosion, value);
+	changeVolume(m_bombPlaced, value);
+	changeVolume(m_gotItem, value);
+	changeVolume(m_wallDown, value);
+    changeVolume(m_deadPlayer, value);
+	m_background->setVolume(value);
+}
+
 bool SoundPlayer::isMuted() const
 {
 	Lock lock(*m_mutex);
 	return m_muted;
+}
+
+double SoundPlayer::getVolume() const
+{
+	Lock lock(*m_mutex);
+	return m_volume;
 }
 
 void SoundPlayer::deleteVector(vector<QSoundEffect*> &sounds)
@@ -135,4 +154,10 @@ void SoundPlayer::muteSounds(vector<QSoundEffect*> &sounds, bool value)
 {
 	for (vector<QSoundEffect*>::iterator i = sounds.begin(); i != sounds.end(); ++i)
 		(*i)->setMuted(value);
+}
+
+void SoundPlayer::changeVolume(vector<QSoundEffect*> &sounds, double value)
+{
+	for (vector<QSoundEffect*>::iterator i = sounds.begin(); i != sounds.end(); ++i)
+        (*i)->setVolume(value);
 }

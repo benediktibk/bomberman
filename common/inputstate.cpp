@@ -105,3 +105,11 @@ bool InputState::isMoreThanOneMovementButtonPressed() const
 
 	return pressedButtons > 1;
 }
+void InputState::resetAllButtons()
+{
+     m_upKeyPressed = false;
+	 m_downKeyPressed = false;
+	 m_leftKeyPressed = false;
+	 m_rightKeyPressed = false;
+	 m_spaceKeyPressed = false;
+}

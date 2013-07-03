@@ -25,6 +25,7 @@ public:
 	bool isSpaceKeyPressed() const;
 	bool isMovementButtonPressed() const;
 	bool isMoreThanOneMovementButtonPressed() const;
+    void resetAllButtons();
 
 private:
 	bool m_upKeyPressed;
