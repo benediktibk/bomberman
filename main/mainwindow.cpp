@@ -9,7 +9,7 @@
 #include "threading/lock.h"
 #include <assert.h>
 #include <QtCore/QTimer>
-#include <QScrollBar>
+#include <QtWidgets/QScrollBar>
 
 using namespace Main;
 using namespace Graphic;
@@ -238,8 +238,6 @@ void MainWindow::winnerOfGame(int winner)
     closeGame();
 }
 
-
-
 void MainWindow::pauseButtonPushed()
 {
 	if (m_gameLoop->isPaused())
@@ -259,7 +257,6 @@ void MainWindow::muteButtonPushed()
 
 	updateMuteButtonLabel();
 }
-
 
 void MainWindow::volumeChanged()
 {
