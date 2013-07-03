@@ -112,7 +112,7 @@ void GameWindow::startGame(
 	m_drawFinished.send();
 	m_gameLoop->start();
 
-	show();
+	showMaximized();
 	updatePauseButtonLabel();
 	updateMuteButtonLabel();
 	m_timerUserInfoUpdate->start(m_statusBarUpdateTimeStep);
@@ -155,7 +155,7 @@ void GameWindow::updatePlayerStateInfo()
 	{
 		if (y!=0)
 			messageString += QString("  |  ");
-        messageString += QString(templateString.arg(QString().number(playerInformation[y].getPlayerId()), QString().number(playerInformation[y].getBombCounter()), QString().number(playerInformation[y].getRangeCounter()), QString().number(playerInformation[y].getSpeedCounter())));
+		messageString += QString(templateString.arg(QString().number(playerInformation[y].getPlayerId()), QString().number(playerInformation[y].getBombCounter()), QString().number(playerInformation[y].getRangeCounter()), QString().number(playerInformation[y].getSpeedCounter())));
 	}
 
 	m_ui->playerStateInfo->setText(messageString);
