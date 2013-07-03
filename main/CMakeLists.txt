@@ -15,7 +15,7 @@ set(MAIN_SRC
 	gamewindow.cpp
 	mainwindowinputfetcher.cpp
 	mainwindowinputtest.cpp
-	mainwindowgraphictest.cpp
+	graphictestwindow.cpp
 	mainwindowsoundtest.cpp
 	startwindow.cpp
 )
@@ -31,7 +31,7 @@ set(REGRESSION_SRC
 set(MAIN_FORMS
 	gui/gamewindow.ui
 	gui/mainwindowinputtest.ui
-	gui/mainwindowgraphictest.ui
+	gui/graphictestwindow.ui
 	gui/startwindow.ui
 	gui/mainwindowsoundtest.ui
 )

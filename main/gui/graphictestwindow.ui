@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindowGraphicTest</class>
- <widget class="QMainWindow" name="MainWindowGraphicTest">
+ <class>GraphicTestWindow</class>
+ <widget class="QMainWindow" name="GraphicTestWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
