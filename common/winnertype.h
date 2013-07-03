@@ -1,5 +1,5 @@
-#ifndef COMMON_WINNNERTYPE_H
-#define COMMON_WINNNERTYPE_H
+#ifndef COMMON_WINNERTYPE_H
+#define COMMON_WINNERTYPE_H
 
 namespace Common
 {
@@ -12,4 +12,4 @@ namespace Common
 	};
 }
 
-#endif // WINNNERTYPE_H
+#endif

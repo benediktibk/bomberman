@@ -569,17 +569,17 @@ bool GameState::isPlayerAlive(unsigned int playerId) const
 	return false;
 }
 
-string GameState::getWinnerOfGame() const
+WinnerType GameState::getWinnerOfGame() const
 {
 	if(getAllNotDestroyedPlayerIDs().size() == 0)
-		return "Draw!";
+		return WinnerTypeDraw;
 	if (getAllNotDestroyedHumanPlayerIDs().size() == 0)
-			return "You loose!";
+			return WinnerTypeKI;
 	else
 	{
 		if (getIndexOfHumanPlayer(getAllNotDestroyedPlayerIDs().front()) == 0)
-			return "The winner is player 1!";
+			return WinnerTypePlayer1;
 		else
-			return "The winner is player 2!";
+			return WinnerTypePlayer2;
 	}
 }

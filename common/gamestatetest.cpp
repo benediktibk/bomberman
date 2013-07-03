@@ -686,16 +686,16 @@ void GameStateTest::getIndexOfComputerEnemy_computerEnemyID_smallerThanEnemyCoun
 	CPPUNIT_ASSERT(state.getIndexOfComputerEnemy(playerIDs.front()) < 4);
 }
 
-void GameStateTest::getWinnerOfGame_humanPlayerID_theWinnerIsPlayer1()
+void GameStateTest::getWinnerOfGame_humanPlayerID_winnerTypePlayer1()
 {
 	LevelDefinition level;
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
 	GameState state(level, 1, 0, m_playerIDCreator, m_wallIDCreator);
 
-	CPPUNIT_ASSERT_EQUAL(string("The winner is player 1!"), state.getWinnerOfGame());
+	CPPUNIT_ASSERT_EQUAL(WinnerType(WinnerTypePlayer1), state.getWinnerOfGame());
 }
 
-void GameStateTest::getWinnerOfGame_twoHumanPlayerID_theWinnerIsPlayer2()
+void GameStateTest::getWinnerOfGame_twoHumanPlayerID_winnerTypePlayer2()
 {
 	LevelDefinition level;
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
@@ -704,10 +704,10 @@ void GameStateTest::getWinnerOfGame_twoHumanPlayerID_theWinnerIsPlayer2()
 	state.erasePlayerById(0);
 	state.removeAllObjectsWithDestroyedFlag();
 
-	CPPUNIT_ASSERT_EQUAL(string("The winner is player 2!"), state.getWinnerOfGame());
+	CPPUNIT_ASSERT_EQUAL(WinnerType(WinnerTypePlayer2), state.getWinnerOfGame());
 }
 
-void GameStateTest::getWinnerOfGame_humanPlayerIDAndComputerPlayerID_youLoose()
+void GameStateTest::getWinnerOfGame_humanPlayerIDAndComputerPlayerID_winnerTypeKI()
 {
 	LevelDefinition level;
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
@@ -716,10 +716,10 @@ void GameStateTest::getWinnerOfGame_humanPlayerIDAndComputerPlayerID_youLoose()
 	state.erasePlayerById(0);
 	state.removeAllObjectsWithDestroyedFlag();
 
-	CPPUNIT_ASSERT_EQUAL(string("You loose!"), state.getWinnerOfGame());
+	CPPUNIT_ASSERT_EQUAL(WinnerType(WinnerTypeKI), state.getWinnerOfGame());
 }
 
-void GameStateTest::getWinnerOfGame_humanPlayerIDAndComputerPlayerID_draw()
+void GameStateTest::getWinnerOfGame_humanPlayerIDAndComputerPlayerID_winnerTypeDraw()
 {
 	LevelDefinition level;
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
@@ -729,5 +729,5 @@ void GameStateTest::getWinnerOfGame_humanPlayerIDAndComputerPlayerID_draw()
 	state.erasePlayerById(1);
 	state.removeAllObjectsWithDestroyedFlag();
 
-	CPPUNIT_ASSERT_EQUAL(string("Draw!"), state.getWinnerOfGame());
+	CPPUNIT_ASSERT_EQUAL(WinnerType(WinnerTypeDraw), state.getWinnerOfGame());
 }

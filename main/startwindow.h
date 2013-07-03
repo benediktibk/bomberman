@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "common/csvparser.h"
 #include "gameengine/computerenemylevel.h"
+#include "common/winnertype.h"
 
 namespace Ui
 {
@@ -23,7 +24,7 @@ public:
 	StartWindow(bool enableOpenGL);
 
 public slots:
-	void winnerOfGame(const char* winner);
+	void winnerOfGame(int winner);
 
 private slots:
 	void exitClicked();

@@ -7,6 +7,7 @@
 #include "gameengine/computerenemylevel.h"
 #include <vector>
 #include <QtCore/QObject>
+#include "common/winnertype.h"
 
 namespace Common
 {
@@ -43,7 +44,7 @@ namespace Main
 		void pauseIfNecessary();
 
 	signals:
-		void winnerSignal(const char* winner);
+		void winnerSignal(int winner);
 
 	protected:
 		virtual void execute();

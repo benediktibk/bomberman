@@ -113,7 +113,7 @@ void MainWindow::startGame(
 	vector<unsigned int> playerIDsToShow = gameState.getAllNotDestroyedHumanPlayerIDs();
 	setResponsibleForPlayers(playerIDsToShow);
 
-	connect(m_gameLoop, SIGNAL(winnerSignal(const char*)), this, SLOT(winnerOfGame(const char*)));
+	connect(m_gameLoop, SIGNAL(winnerSignal(int)), this, SLOT(winnerOfGame(int)));
 
 	m_gameLoop->start();
 	show();
@@ -229,7 +229,7 @@ void MainWindow::closeGame()
 	this->close();
 }
 
-void MainWindow::winnerOfGame(const char* winner)
+void MainWindow::winnerOfGame(int winner)
 {
 	emit winnerOfGameSignal(winner);
 	closeGame();
