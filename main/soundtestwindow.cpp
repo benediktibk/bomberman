@@ -1,57 +1,58 @@
-#include "mainwindowsoundtest.h"
-#include "ui_mainwindowsoundtest.h"
+#include "main/soundtestwindow.h"
+#include "ui_soundtestwindow.h"
 #include "sound/soundplayer.h"
+
 using namespace Main;
 
-MainWindowSoundTest::MainWindowSoundTest() :
-	m_ui(new Ui::MainWindowSoundTest),
+SoundTestWindow::SoundTestWindow() :
+	m_ui(new Ui::SoundTestWindow),
 	m_sound(new Sound::SoundPlayer(false))
 {
 	m_ui->setupUi(this);
 	connectSlots();
 }
 
-MainWindowSoundTest::~MainWindowSoundTest()
+SoundTestWindow::~SoundTestWindow()
 {
 	delete m_sound;
 }
 
-void MainWindowSoundTest::connectSlots()
+void SoundTestWindow::connectSlots()
 {
 	connect(m_ui->bombButton, SIGNAL(clicked()), this, SLOT(bombExplosion()));
 	connect(m_ui->placeButton, SIGNAL(clicked()), this, SLOT(bombPlaced()));
 	connect(m_ui->pickUpButton, SIGNAL(clicked()), this, SLOT(gotItem()));
 	connect(m_ui->wallDownButton, SIGNAL(clicked()), this, SLOT(wallDown()));
 	connect(m_ui->muteCheckBox, SIGNAL(clicked()), this, SLOT(muteChanged()));
-    connect(m_ui->deadButton, SIGNAL(clicked()), this, SLOT(deadPlayer()));
+	connect(m_ui->deadButton, SIGNAL(clicked()), this, SLOT(deadPlayer()));
 }
 
-void MainWindowSoundTest::bombExplosion()
+void SoundTestWindow::bombExplosion()
 {
 	m_sound->bombExplosion();
 }
 
-void MainWindowSoundTest::bombPlaced()
+void SoundTestWindow::bombPlaced()
 {
 	m_sound->bombPlaced();
 }
 
-void MainWindowSoundTest::gotItem()
+void SoundTestWindow::gotItem()
 {
 	m_sound->gotItem();
 }
 
-void MainWindowSoundTest::wallDown()
+void SoundTestWindow::wallDown()
 {
 	m_sound->wallDown();
 }
 
-void MainWindowSoundTest::deadPlayer()
+void SoundTestWindow::deadPlayer()
 {
 	m_sound->deadPlayer();
 }
 
-void MainWindowSoundTest::muteChanged()
+void SoundTestWindow::muteChanged()
 {
 	m_sound->setMuted(m_ui->muteCheckBox->isChecked());
 }

@@ -152,8 +152,8 @@ physic/Box2D/Box2DConfig.cmake
 physic/Box2D/Box2D.h
 physic/dynamicobject.h
 physic/dynamicobject.cpp
-main/mainwindowinputfetcher.cpp
-main/mainwindowinputfetcher.h
+main/inputfetcherwindow.cpp
+main/inputfetcherwindow.h
 main/inputtestwindow.h
 main/inputtestwindow.cpp
 main/gui/inputtestwindow.ui
@@ -416,9 +416,9 @@ gameengine/computerenemyinputfetchereasy.cpp
 gameengine/computerenemyinputfetchermedium.h
 gameengine/computerenemyinputfetchermedium.cpp
 gameengine/computerenemylevel.h
-main/gui/mainwindowsoundtest.ui
-main/mainwindowsoundtest.h
-main/mainwindowsoundtest.cpp
+main/gui/soundtestwindow.ui
+main/soundtestwindow.h
+main/soundtestwindow.cpp
 main/mainsoundtest.cpp
 threading/lock.h
 threading/lock.cpp

@@ -1,7 +1,7 @@
 #ifndef MAIN_GAMEWINDOW_H
 #define MAIN_GAMEWINDOW_H
 
-#include "main/mainwindowinputfetcher.h"
+#include "main/inputfetcherwindow.h"
 #include "common/leveldefinition.h"
 #include "common/graphicdrawer.h"
 #include "threading/signal.h"
@@ -34,7 +34,7 @@ namespace Main
 	class GameLoop;
 
 	class GameWindow :
-			public MainWindowInputFetcher,
+			public InputFetcherWindow,
 			public Common::GraphicDrawer
 	{
 		Q_OBJECT

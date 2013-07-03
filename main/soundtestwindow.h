@@ -1,5 +1,5 @@
-#ifndef MAIN_MAINWINDOWSOUNDTEST_H
-#define MAIN_MAINWINDOWSOUNDTEST_H
+#ifndef MAIN_SOUNDTESTWINDOW_H
+#define MAIN_SOUNDTESTWINDOW_H
 
 #include <QMainWindow>
 
@@ -10,17 +10,18 @@ namespace Sound
 
 namespace Ui
 {
-	class MainWindowSoundTest;
+	class SoundTestWindow;
 }
 
 namespace Main
 {
-	class MainWindowSoundTest : public QMainWindow
+	class SoundTestWindow :
+			public QMainWindow
 	{
 		Q_OBJECT
 	public:
-		MainWindowSoundTest();
-		~MainWindowSoundTest();
+		SoundTestWindow();
+		~SoundTestWindow();
 
 	private:
 		void connectSlots();
@@ -30,11 +31,11 @@ namespace Main
 		void bombPlaced();
 		void gotItem();
 		void wallDown();
-        void deadPlayer();
+		void deadPlayer();
 		void muteChanged();
 
 	private:
-		Ui::MainWindowSoundTest* m_ui;
+		Ui::SoundTestWindow* m_ui;
 		Sound::SoundPlayer *m_sound;
 	};
 }

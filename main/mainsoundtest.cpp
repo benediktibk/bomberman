@@ -1,16 +1,15 @@
 #include <QApplication>
-#include "mainwindowsoundtest.h"
+#include "main/soundtestwindow.h"
 
 using namespace Main;
 
 int main(int argc, char **argv)
 {
-    QApplication a(argc, argv);
-    MainWindowSoundTest mainWindowSoundTest;
+	QApplication a(argc, argv);
+	SoundTestWindow mainWindow;
 
-    mainWindowSoundTest.show();
-    int result = a.exec();
+	mainWindow.show();
+	int result = a.exec();
 
-    return result;
+	return result;
 }
-

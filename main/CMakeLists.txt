@@ -13,10 +13,10 @@ find_package(Qt5Multimedia REQUIRED)
 set(MAIN_SRC
 	gameloop.cpp
 	gamewindow.cpp
-	mainwindowinputfetcher.cpp
+	inputfetcherwindow.cpp
 	inputtestwindow.cpp
 	graphictestwindow.cpp
-	mainwindowsoundtest.cpp
+	soundtestwindow.cpp
 	startwindow.cpp
 )
 
@@ -33,7 +33,7 @@ set(MAIN_FORMS
 	gui/inputtestwindow.ui
 	gui/graphictestwindow.ui
 	gui/startwindow.ui
-	gui/mainwindowsoundtest.ui
+	gui/soundtestwindow.ui
 )
 
 set(LIBRARIES

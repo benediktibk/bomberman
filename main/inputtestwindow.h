@@ -1,7 +1,7 @@
 #ifndef MAIN_INPUTTESTWINDOW_H
 #define MAIN_INPUTTESTWINDOW_H
 
-#include "main/mainwindowinputfetcher.h"
+#include "main/inputfetcherwindow.h"
 
 namespace Ui
 {
@@ -13,7 +13,7 @@ class QTimer;
 namespace Main
 {
 	class InputTestWindow :
-			public MainWindowInputFetcher
+			public InputFetcherWindow
 	{
 		Q_OBJECT
 

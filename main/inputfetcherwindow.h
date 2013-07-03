@@ -1,5 +1,5 @@
-#ifndef MAIN_MAINWINDOWINPUTFETCHER_H
-#define MAIN_MAINWINDOWINPUTFETCHER_H
+#ifndef MAIN_INPUTFETCHERWINDOW_H
+#define MAIN_INPUTFETCHERWINDOW_H
 
 #include <QMainWindow>
 #include "common/inputfetcher.h"
@@ -10,14 +10,14 @@
 
 namespace Main
 {
-	class MainWindowInputFetcher :
+	class InputFetcherWindow :
 		public QMainWindow,
 		public Common::InputFetcher
 	{
-	Q_OBJECT
+		Q_OBJECT
 
 	public:
-		MainWindowInputFetcher();
+		InputFetcherWindow();
 
 		virtual void setAllPossiblePlayerIDs(const std::vector<unsigned int> &allPossiblePlayerIds);
 		virtual std::map<unsigned int, Common::InputState> getInputStates();
