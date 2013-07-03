@@ -10,7 +10,7 @@
 #include <assert.h>
 #include <QtCore/QTimer>
 #include <QtWidgets/QScrollBar>
-#include <QKeyEvent>
+#include <QtGui/QKeyEvent>
 
 using namespace Main;
 using namespace Graphic;
