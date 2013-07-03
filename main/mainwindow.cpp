@@ -26,12 +26,13 @@ MainWindow::MainWindow() :
 	m_gameLoop(0),
 	m_allPlayerInputFetcher(0),
 	m_timerUserInfoUpdate(new QTimer(this)),
-	m_gameRunning(false)
+	m_gameRunning(false),
+	m_gameState(0)
 {
 	m_ui->setupUi(this);
 
-	connect(	this, SIGNAL(guiUpdateNecessary(const Common::GameState*)),
-				this, SLOT(updateGui(const Common::GameState*)));
+	connect(	this, SIGNAL(guiUpdateNecessary()),
+				this, SLOT(updateGui()));
 	connect(	m_timerUserInfoUpdate, SIGNAL(timeout()),
 				this, SLOT(updateUserInfo()));
 	connect(	m_ui->pauseButton, SIGNAL(clicked()),
@@ -65,7 +66,10 @@ void MainWindow::draw(const Common::GameState &gameState)
 			return;
 	}
 
-	emit guiUpdateNecessary(&gameState);
+	assert(&gameState == m_gameState);
+	(void)gameState; // make the compiler happy
+
+	emit guiUpdateNecessary();
 
 	m_guiUpdateFinished.wait();
 
@@ -99,6 +103,7 @@ void MainWindow::startGame(
 	const Common::GameState &gameState = m_gameEngine->getGameState();
 	m_allPlayerInputFetcher = new GameEngine::AllPlayerInputFetcher(*this, gameState, computerEnemyLevel, m_gameEngine->getGrid());
 	m_gameLoop = new GameLoop(*m_allPlayerInputFetcher, *m_gameEngine, *this);
+	m_gameState = &gameState;
 	m_enableOpenGL = enableOpenGL;
 	m_gameRunning = true;
 
@@ -115,9 +120,9 @@ void MainWindow::startGame(
 	m_timerUserInfoUpdate->start(m_statusBarUpdateTimeStep);
 }
 
-void MainWindow::updateGui(const Common::GameState *gameState)
+void MainWindow::updateGui()
 {
-	m_drawer->draw(*gameState);
+	m_drawer->draw(*m_gameState);
 	m_ui->graphicsView->viewport()->update();
 	m_guiUpdateFinished.send();
 }
@@ -206,6 +211,7 @@ void MainWindow::finishGame()
 	m_gameEngine = 0;
 	delete m_soundPlayer;
 	m_soundPlayer = 0;
+	m_gameState = 0;
 }
 
 void MainWindow::closeGame()
