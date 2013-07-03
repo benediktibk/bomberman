@@ -205,6 +205,8 @@ common/destroyablestatemock.cpp
 checkIncludeGuards.sh
 common/gridtest.h
 common/gridtest.cpp
+common/playerinormation.cpp
+common/playerinormation.h
 physic/dynamicobjecttest.h
 physic/dynamicobjecttest.cpp
 physic/staticobjecttest.h
@@ -434,3 +436,5 @@ resources/levels/who_let_the_dogs_out.csv
 main/userinputsimulator.h
 main/userinputsimulator.cpp
 common/winnertype.h
+common/playerinformation.cpp
+common/playerinformation.h

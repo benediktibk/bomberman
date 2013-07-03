@@ -21,7 +21,8 @@ set(COMMON_SRC
 	csvparser.cpp
 	powerupmaxbombrangestate.cpp
 	grid.cpp
-        gridobserver.cpp
+    gridobserver.cpp
+	playerinformation.cpp
 )
 
 set(COMMON_TEST_SRC

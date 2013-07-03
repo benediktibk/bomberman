@@ -8,6 +8,7 @@
 #include <vector>
 #include <QtCore/QObject>
 #include "common/winnertype.h"
+#include "common/playerinformation.h"
 
 namespace Common
 {
@@ -34,7 +35,7 @@ namespace Main
 		void pause();
 		bool isPaused();
 		double getFramesPerSecond();
-		std::vector<unsigned int> getPlayerInformation();
+		std::vector<Common::PlayerInformation> getPlayerInformation();
 
 	private:
 		void catchPlayerInformation(const std::vector<unsigned int> &playerIDs);
@@ -62,13 +63,13 @@ namespace Main
 		//! we need a minimum time step, otherwise the physic simulator has problems
 		const double m_minimumTimeStep;
 		const double m_weightOfOldAverage;
-		const double m_weightOfNewTime;
+		const double m_weightOfNewTime; 
 		double m_movingAverageOfTimeStep;
 		double m_framesPerSecond;
 		Threading::Mutex m_performanceInformationMutex;
 		Threading::Signal m_start;
 		Threading::Mutex m_playerInformationMutex;
-		std::vector<unsigned int> m_playerInformation;
+		std::vector<Common::PlayerInformation> m_playerInformation;
 	};
 }
 

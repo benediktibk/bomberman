@@ -10,6 +10,7 @@
 #include <assert.h>
 #include <QtCore/QTimer>
 #include <QtWidgets/QScrollBar>
+#include "common/playerinformation.h"
 
 using namespace Main;
 using namespace Graphic;
@@ -144,19 +145,15 @@ void GameWindow::updateStatusBar()
 
 void GameWindow::updatePlayerStateInfo()
 {
-	vector<unsigned int> playerInformation = m_gameLoop->getPlayerInformation();
-
-	if(playerInformation.size() % 3 != 0)
-		assert(false);
-
+	vector<Common::PlayerInformation> playerInformation = m_gameLoop->getPlayerInformation();
 	QString messageString("");
-	QString templateString("P%1 B:%2 R:%3");
+	QString templateString("P%1 B:%2 R:%3 S%4");
 
-	for(size_t y = 0; y < playerInformation.size() / 3; y++)
+	for(size_t y = 0; y < playerInformation.size(); y++)
 	{
 		if (y!=0)
 			messageString += QString("  |  ");
-		messageString += QString(templateString.arg(QString().number(playerInformation.at(y*3) + 1), QString().number(playerInformation.at(y*3+1)), QString().number(playerInformation.at(y*3+2))));
+        messageString += QString(templateString.arg(QString().number(playerInformation[y].getPlayerId()), QString().number(playerInformation[y].getBombCounter()), QString().number(playerInformation[y].getRangeCounter()), QString().number(playerInformation[y].getSpeedCounter())));
 	}
 
 	m_ui->playerStateInfo->setText(messageString);
