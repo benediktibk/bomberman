@@ -115,7 +115,7 @@ void MainWindow::startGame(
 	vector<unsigned int> playerIDsToShow = gameState.getAllNotDestroyedHumanPlayerIDs();
 	setResponsibleForPlayers(playerIDsToShow);
 
-	connect(m_gameLoop, SIGNAL(winnerSignal(const char*)), this, SLOT(winnerOfGame(const char*)));
+	connect(m_gameLoop, SIGNAL(winnerSignal(int)), this, SLOT(winnerOfGame(int)));
     m_ui->volumeHorizontalSlider->setValue(static_cast<int>(m_soundPlayer->getVolume()*(m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum())));
 
 	m_gameLoop->start();
@@ -232,7 +232,7 @@ void MainWindow::closeGame()
 	this->close();
 }
 
-void MainWindow::winnerOfGame(const char* winner)
+void MainWindow::winnerOfGame(int winner)
 {
 	emit winnerOfGameSignal(winner);
     closeGame();

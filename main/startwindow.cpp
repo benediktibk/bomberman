@@ -172,13 +172,29 @@ void StartWindow::controlClicked()
 	messageBox.exec();
 }
 
-void StartWindow::winnerOfGame(const char *winner)
+void StartWindow::winnerOfGame(int winner)
 {
 	QMessageBox messageBox;
-	messageBox.setIcon(QMessageBox::Information);
 	messageBox.setWindowTitle("GAME OVER");
-	if((string)winner == "You LOOSE!!!")
+	messageBox.setIcon(QMessageBox::Information);
+	Common::WinnerType winnerType = static_cast<Common::WinnerType>(winner);
+	switch (winnerType)
+	{
+	case Common::WinnerTypeDraw:
+		messageBox.setText(tr("Draw!"));
+			break;
+	case Common::WinnerTypeKI:
+		messageBox.setText(tr("You loose!"));
 		messageBox.setIcon(QMessageBox::Critical);
-	messageBox.setText(winner);
+			break;
+	case Common::WinnerTypePlayer1:
+		messageBox.setText(tr("The winner is Player 1!"));
+			break;
+	case Common::WinnerTypePlayer2:
+		messageBox.setText(tr("The winner is Player 2!"));
+			break;
+	default:
+		break;
+	}
 	messageBox.exec();
 }

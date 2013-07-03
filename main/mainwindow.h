@@ -57,14 +57,14 @@ namespace Main
 		void updateUserInfo();
 		void pauseButtonPushed();
 		void muteButtonPushed();
-		void winnerOfGame(const char *winner);
+		void winnerOfGame(int winner);
         void volumeChanged();
 
 	signals:
 		void guiUpdateNecessary(const Common::GameState *gameState);
 		void levelBuildingNotCorectSignal();
 		void closeGameSignal();
-		void winnerOfGameSignal(const char* winner);
+		void winnerOfGameSignal(int winner);
 
 	private:
 		void finishGame();
