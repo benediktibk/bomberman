@@ -45,7 +45,7 @@ namespace Common
 		double getSpeed() const;
 		void increaseSpeed();
 		void increaseMaximumBombRange(unsigned int number);
-		double getSpeedIncreasement() const;
+		double getSpeedIncrement() const;
 		double getSpeedIntoX() const;
 		double getSpeedIntoY() const;
 		void setNotMoving();
@@ -72,7 +72,7 @@ namespace Common
 		unsigned int m_maxBombs;
 		double m_speed;
 		const double m_maximumSpeed;
-		const double m_speedIncreasement;
+		const double m_speedIncrement;
 		const double m_dimension;
 		unsigned int m_playerId;
 		UniqueIdCreator &m_creatorId;
