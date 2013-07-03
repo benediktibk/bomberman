@@ -16,6 +16,8 @@ MainWindowInputFetcher::MainWindowInputFetcher() :
 void MainWindowInputFetcher::setAllPossiblePlayerIDs(const std::vector<unsigned int> &allPossiblePlayerIds)
 {
 	assert(allPossiblePlayerIds.size() > 0 && allPossiblePlayerIds.size() < 3);
+    m_inputStatePlayerOne.resetAllButtons();
+    m_inputStatePlayerTwo.resetAllButtons();
 	m_playerIds = allPossiblePlayerIds;
 }
 
