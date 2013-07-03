@@ -1,9 +1,9 @@
-#include "startwindow.h"
+#include "main/startwindow.h"
 #include "ui_startwindow.h"
-#include "gamewindow.h"
 #include <QtGui/QStandardItemModel>
 #include <QtWidgets/QMessageBox>
 #include <assert.h>
+#include <QtSvg/QtSvg>
 
 using namespace std;
 using namespace Main;
@@ -49,7 +49,7 @@ void StartWindow::createTableView()
 			QStandardItem *currentItem = new QStandardItem(QString(m_levelList.getTextInField(column, row).c_str()));
 			if(column > 0)
 				currentItem->setTextAlignment(Qt::AlignCenter);
-			model->setItem(row, column, currentItem);	
+			model->setItem(row, column, currentItem);
 		}
 
 	m_ui->levelTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -168,7 +168,7 @@ void StartWindow::controlClicked()
 {
 	QMessageBox messageBox;
 	messageBox.setWindowTitle("Control");
-	messageBox.setText("Player 1:\trun:\tarrow keys \n\tbomb:\tspace\nPlayer 2:\trun:\tW A S D \n\tbomb:\tQ");
+	messageBox.setText("Player 1:\trun:\tarrow keys \n\tbomb:\tspace\nPlayer 2:\trun:\tW A S D \n\tbomb:\tQ\nStetting:\tMute:\tM\n\tPause:\tP");
 	messageBox.exec();
 }
 
@@ -176,8 +176,14 @@ void StartWindow::winnerOfGame(int winner)
 {
 	QMessageBox messageBox;
 	messageBox.setWindowTitle("GAME OVER");
-	messageBox.setIcon(QMessageBox::Information);
+	QSvgRenderer renderer(QString("resources/graphics/player_standing_1.svg"));
+	QImage image(100, 100, QImage::Format_ARGB32);
+	image.fill(Qt::transparent);
+	QPainter painter(&image);
+	renderer.render(&painter);
+	messageBox.setIconPixmap(QPixmap(QPixmap::fromImage(image)));
 	Common::WinnerType winnerType = static_cast<Common::WinnerType>(winner);
+
 	switch (winnerType)
 	{
 	case Common::WinnerTypeDraw:
@@ -185,7 +191,6 @@ void StartWindow::winnerOfGame(int winner)
 			break;
 	case Common::WinnerTypeKI:
 		messageBox.setText(tr("You loose!"));
-		messageBox.setIcon(QMessageBox::Critical);
 			break;
 	case Common::WinnerTypePlayer1:
 		messageBox.setText(tr("The winner is Player 1!"));
@@ -196,5 +201,6 @@ void StartWindow::winnerOfGame(int winner)
 	default:
 		break;
 	}
+
 	messageBox.exec();
 }

@@ -11,6 +11,7 @@
 #include <QtCore/QTimer>
 #include <QtWidgets/QScrollBar>
 #include "common/playerinformation.h"
+#include <QtGui/QKeyEvent>
 
 using namespace Main;
 using namespace Graphic;
@@ -45,6 +46,7 @@ GameWindow::GameWindow() :
 				this, SLOT(muteButtonPushed()));
 	connect(    m_ui->volumeHorizontalSlider, SIGNAL(valueChanged(int)),
 				this, SLOT(volumeChanged()));
+	m_ui->graphicsView->installEventFilter(this);
 	m_drawFinished.send();
 }
 
@@ -302,4 +304,22 @@ void GameWindow::freeMemory()
 	m_gameEngine = 0;
 	delete m_soundPlayer;
 	m_soundPlayer = 0;
+}
+
+bool GameWindow::eventFilter(QObject *obj, QEvent *event)
+{
+	if (event->type() == QEvent::KeyPress)
+	{
+		QKeyEvent *keyEvent = dynamic_cast<QKeyEvent*>(event);
+		keyPressEvent(keyEvent);
+		return true;
+	}
+	else if (event->type() == QEvent::KeyRelease)
+	{
+		QKeyEvent *keyEvent = dynamic_cast<QKeyEvent*>(event);
+		keyReleaseEvent(keyEvent);
+		return true;
+	}
+	else
+		return QObject::eventFilter(obj, event);
 }

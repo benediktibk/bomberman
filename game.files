@@ -438,3 +438,7 @@ main/userinputsimulator.cpp
 common/winnertype.h
 common/playerinformation.cpp
 common/playerinformation.h
+main/gui/splashscreen.ui
+main/splashscreen.h
+main/splashscreen.cpp
+resources/graphics/background.svg

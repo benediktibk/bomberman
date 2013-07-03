@@ -1,7 +1,8 @@
 #include <QApplication>
 #include <QtCore/QStringList>
-#include "gamewindow.h"
-#include "startwindow.h"
+#include "main/gamewindow.h"
+#include "main/startwindow.h"
+#include "main/splashscreen.h"
 
 using namespace Main;
 
@@ -16,6 +17,7 @@ int main(int argc, char **argv)
 	else
 		enableOpenGL = false;
 
+	SplashScreen splashScreen;
 	GameWindow gameWindow;
 	StartWindow startWindow(enableOpenGL);
 	QObject::connect(	&startWindow, SIGNAL(startGameSignal(bool, const char*, unsigned int, unsigned int, GameEngine::ComputerEnemyLevel, bool)),
@@ -28,6 +30,8 @@ int main(int argc, char **argv)
 						&startWindow, SLOT(closeGameClicked()));
 	QObject::connect(	&gameWindow, SIGNAL(winnerOfGameSignal(int)),
 						&startWindow, SLOT(winnerOfGame(int)));
-	startWindow.show();
+	QObject::connect(	&splashScreen, SIGNAL(closed()),
+						&startWindow, SLOT(show()));
+	splashScreen.show();
 	return application.exec();
 }
