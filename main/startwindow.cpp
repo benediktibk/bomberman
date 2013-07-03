@@ -1,6 +1,5 @@
-#include "startwindow.h"
+#include "main/startwindow.h"
 #include "ui_startwindow.h"
-#include "gamewindow.h"
 #include <QtGui/QStandardItemModel>
 #include <QtWidgets/QMessageBox>
 #include <assert.h>
@@ -50,7 +49,7 @@ void StartWindow::createTableView()
 			QStandardItem *currentItem = new QStandardItem(QString(m_levelList.getTextInField(column, row).c_str()));
 			if(column > 0)
 				currentItem->setTextAlignment(Qt::AlignCenter);
-			model->setItem(row, column, currentItem);	
+			model->setItem(row, column, currentItem);
 		}
 
 	m_ui->levelTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -184,6 +183,7 @@ void StartWindow::winnerOfGame(int winner)
 	renderer.render(&painter);
 	messageBox.setIconPixmap(QPixmap(QPixmap::fromImage(image)));
 	Common::WinnerType winnerType = static_cast<Common::WinnerType>(winner);
+
 	switch (winnerType)
 	{
 	case Common::WinnerTypeDraw:
@@ -201,5 +201,6 @@ void StartWindow::winnerOfGame(int winner)
 	default:
 		break;
 	}
+
 	messageBox.exec();
 }
