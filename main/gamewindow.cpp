@@ -3,6 +3,7 @@
 #include "ui_gamewindow.h"
 #include "graphic/graphicdrawerqt.h"
 #include "common/gamestate.h"
+#include "common/playerinformation.h"
 #include "gameengine/gameengineimpl.h"
 #include "gameengine/allplayerinputfetcher.h"
 #include "sound/soundplayer.h"
@@ -10,8 +11,8 @@
 #include <assert.h>
 #include <QtCore/QTimer>
 #include <QtWidgets/QScrollBar>
-#include "common/playerinformation.h"
 #include <QtGui/QKeyEvent>
+#include <QtWidgets/QGraphicsView>
 
 using namespace Main;
 using namespace Graphic;
@@ -21,14 +22,17 @@ using namespace std;
 GameWindow::GameWindow() :
 	m_statusBarUpdateTimeStep(250),
 	m_ui(new Ui::GameWindow),
-	m_drawer(0),
+	m_drawerOne(0),
+	m_drawerTwo(0),
 	m_level(0),
 	m_gameEngine(0),
 	m_soundPlayer(0),
 	m_gameLoop(0),
 	m_allPlayerInputFetcher(0),
 	m_timerUserInfoUpdate(new QTimer(this)),
-	m_gameRunning(false)
+	m_gameRunning(false),
+	m_viewOne(0),
+	m_viewTwo(0)
 {
 	m_ui->setupUi(this);
 
@@ -46,7 +50,6 @@ GameWindow::GameWindow() :
 				this, SLOT(muteButtonPushed()));
 	connect(    m_ui->volumeHorizontalSlider, SIGNAL(valueChanged(int)),
 				this, SLOT(volumeChanged()));
-	m_ui->graphicsView->installEventFilter(this);
 	m_drawFinished.send();
 }
 
@@ -58,9 +61,23 @@ GameWindow::~GameWindow()
 	delete m_ui;
 }
 
-void GameWindow::setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs)
+void GameWindow::setResponsibleForPlayers(const vector<unsigned int> &playerIDs)
 {
-	m_drawer->setResponsibleForPlayers(playerIDs);
+	assert(playerIDs.size() == 1 || playerIDs.size() == 2);
+
+	if (playerIDs.size() == 1)
+		m_drawerOne->setResponsibleForPlayers(playerIDs);
+	else
+	{
+		vector<unsigned int> firstPart;
+		vector<unsigned int> secondPart;
+
+		firstPart.push_back(playerIDs.front());
+		secondPart.push_back(playerIDs.back());
+
+		m_drawerOne->setResponsibleForPlayers(firstPart);
+		m_drawerTwo->setResponsibleForPlayers(secondPart);
+	}
 }
 
 void GameWindow::draw(const Common::GameState &gameState)
@@ -106,7 +123,8 @@ void GameWindow::startGame(
 	createGameEngine(humanPlayerCount, computerEnemyCount);
 	createAllPlayerInputFetcher(computerEnemyLevel);
 	createGameLoop();
-	createDrawer(enableOpenGL);
+	createViews(humanPlayerCount);
+	createDrawers(enableOpenGL, humanPlayerCount);
 
 	m_gameRunning = true;
 	m_drawFinished.send();
@@ -120,8 +138,10 @@ void GameWindow::startGame(
 
 void GameWindow::updateGui(const Common::GameState *gameState)
 {
-	m_drawer->draw(*gameState);
-	m_ui->graphicsView->viewport()->update();
+	if (m_drawerOne != 0)
+		m_drawerOne->draw(*gameState);
+	if (m_drawerTwo != 0)
+		m_drawerTwo->draw(*gameState);
 	m_guiUpdateFinished.send();
 }
 
@@ -261,11 +281,17 @@ void GameWindow::createGameLoop()
 	connect(m_gameLoop, SIGNAL(winnerSignal(int)), this, SLOT(winnerOfGame(int)));
 }
 
-void GameWindow::createDrawer(bool enableOpenGL)
+void GameWindow::createDrawers(bool enableOpenGL, unsigned int humanPlayerCount)
 {
-	assert(m_drawer == 0);
+	assert(m_drawerOne == 0);
+	assert(m_drawerTwo == 0);
+	assert(humanPlayerCount == 1 || humanPlayerCount == 2);
+
+	m_drawerOne = new GraphicDrawerQt(*(m_viewOne), enableOpenGL);
+	if (humanPlayerCount == 2)
+		m_drawerTwo = new GraphicDrawerQt(*(m_viewTwo), enableOpenGL);
+
 	const Common::GameState &gameState = m_gameEngine->getGameState();
-	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), enableOpenGL);
 	vector<unsigned int> playerIDsToShow = gameState.getAllNotDestroyedHumanPlayerIDs();
 	setResponsibleForPlayers(playerIDsToShow);
 }
@@ -290,12 +316,39 @@ void GameWindow::createAllPlayerInputFetcher(GameEngine::ComputerEnemyLevel comp
 	m_allPlayerInputFetcher = new GameEngine::AllPlayerInputFetcher(*this, gameState, computerEnemyLevel, m_gameEngine->getGrid());
 }
 
+void GameWindow::createViews(unsigned int humanPlayerCount)
+{
+	assert(m_viewOne == 0);
+	assert(m_viewTwo == 0);
+	assert(humanPlayerCount == 1 || humanPlayerCount == 2);
+
+	m_viewOne = createView();
+	m_ui->viewLayout->addWidget(m_viewOne);
+
+	if (humanPlayerCount == 2)
+	{
+		m_viewTwo = createView();
+		m_ui->viewLayout->addWidget(m_viewTwo);
+	}
+}
+
+QGraphicsView* GameWindow::createView()
+{
+	QGraphicsView *view = new QGraphicsView();
+	view->setFocusPolicy(Qt::NoFocus);
+	view->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+	view->installEventFilter(this);
+	return view;
+}
+
 void GameWindow::freeMemory()
 {
 	delete m_gameLoop;
 	m_gameLoop = 0;
-	delete m_drawer;
-	m_drawer = 0;
+	delete m_drawerOne;
+	m_drawerOne = 0;
+	delete m_drawerTwo;
+	m_drawerTwo = 0;
 	delete m_level;
 	m_level = 0;
 	delete m_allPlayerInputFetcher;
@@ -304,6 +357,10 @@ void GameWindow::freeMemory()
 	m_gameEngine = 0;
 	delete m_soundPlayer;
 	m_soundPlayer = 0;
+	delete m_viewOne;
+	m_viewOne = 0;
+	delete m_viewTwo;
+	m_viewTwo = 0;
 }
 
 bool GameWindow::eventFilter(QObject *obj, QEvent *event)
