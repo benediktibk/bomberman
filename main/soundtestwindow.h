@@ -19,6 +19,7 @@ namespace Main
 			public QMainWindow
 	{
 		Q_OBJECT
+
 	public:
 		SoundTestWindow();
 		~SoundTestWindow();

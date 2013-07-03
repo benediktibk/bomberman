@@ -434,3 +434,6 @@ resources/levels/who_let_the_dogs_out.csv
 main/userinputsimulator.h
 main/userinputsimulator.cpp
 common/winnertype.h
+main/gui/splashscreen.ui
+main/splashscreen.h
+main/splashscreen.cpp

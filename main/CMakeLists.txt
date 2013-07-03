@@ -18,6 +18,7 @@ set(MAIN_SRC
 	graphictestwindow.cpp
 	soundtestwindow.cpp
 	startwindow.cpp
+	splashscreen.cpp
 )
 
 set(MAIN_TEST_SRC
@@ -34,6 +35,7 @@ set(MAIN_FORMS
 	gui/graphictestwindow.ui
 	gui/startwindow.ui
 	gui/soundtestwindow.ui
+	gui/splashscreen.ui
 )
 
 set(LIBRARIES

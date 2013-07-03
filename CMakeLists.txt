@@ -54,6 +54,7 @@ set(TESTFILES
 )
 
 set(GRAPHICS
+	background.svg
 	bg_cell_pattern.svg
 	bomb_planted.svg
 	player_standing_1.svg

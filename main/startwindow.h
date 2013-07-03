@@ -15,44 +15,45 @@ class QGraphicsView;
 
 namespace Main
 {
-class StartWindow :
-		public QMainWindow
-{
-	Q_OBJECT
+	class StartWindow :
+			public QMainWindow
+	{
+		Q_OBJECT
 
-public:
-	StartWindow(bool enableOpenGL);
+	public:
+		StartWindow(bool enableOpenGL);
 
-public slots:
-	void winnerOfGame(int winner);
+	public slots:
+		void winnerOfGame(int winner);
 
-private slots:
-	void exitClicked();
-	void startClicked();
-	void closeGameClicked();
-	void levelBuildingNotCorrect();
-	void showHorizontalSliderValue();
-	void updateSilder();
-	void readMeClicked();
-	void controlClicked();
+	private slots:
+		void exitClicked();
+		void startClicked();
+		void closeGameClicked();
+		void levelBuildingNotCorrect();
+		void showHorizontalSliderValue();
+		void updateSilder();
+		void readMeClicked();
+		void controlClicked();
 
-signals:
-	void startGameSignal(
-			bool enableOpenGL, const char* levelname,
-			unsigned int humanPlayerCount, unsigned int computerEnemyCount,
-			GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute);
-	void closeGameSignal();
+	signals:
+		void startGameSignal(
+				bool enableOpenGL, const char* levelname,
+				unsigned int humanPlayerCount, unsigned int computerEnemyCount,
+				GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute);
+		void closeGameSignal();
 
-private:
-	void connectButtons();
-	void createTableView();
-	void createSilder();
-	void createComboBox();
+	private:
+		void connectButtons();
+		void createTableView();
+		void createSilder();
+		void createComboBox();
 
-private:
-	Ui::StartWindow* m_ui;
-	std::string m_selectedLevel;
-	Common::CSVParser m_levelList;
-};
+	private:
+		Ui::StartWindow* m_ui;
+		std::string m_selectedLevel;
+		Common::CSVParser m_levelList;
+	};
 }
-#endif // STARTWINDOW_H
+
+#endif
