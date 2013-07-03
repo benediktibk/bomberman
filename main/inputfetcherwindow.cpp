@@ -1,6 +1,6 @@
 #include "main/inputfetcherwindow.h"
 #include "threading/lock.h"
-#include <QKeyEvent>
+#include <QtGui/QKeyEvent>
 #include <assert.h>
 
 using namespace Common;
@@ -66,7 +66,7 @@ void InputFetcherWindow::keyPressEvent(QKeyEvent *event)
 	case Key_D:
 		m_inputStatePlayerTwo.setRightKeyPressed();
 		break;
-	case Key_Q:
+	case Key_Tab:
 		m_inputStatePlayerTwo.setSpaceKeyPressed();
 		break;
 
@@ -116,7 +116,7 @@ void InputFetcherWindow::keyReleaseEvent(QKeyEvent *event)
 	case Key_D:
 		m_inputStatePlayerTwo.setRightKeyNotPressed();
 		break;
-	case Key_Q:
+	case Key_Tab:
 		m_inputStatePlayerTwo.setSpaceKeyNotPressed();
 		break;
 

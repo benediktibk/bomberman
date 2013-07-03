@@ -14,15 +14,16 @@ InputTestWindow::InputTestWindow() :
 	m_timer = new QTimer(this);
 	connect(m_timer, SIGNAL(timeout()), this, SLOT(inputStateCalled()));
 	m_timer->start(100);
-}
 
-void InputTestWindow::inputStateCalled()
-{
 	std::vector<unsigned int> allPlayerIds(2);
 	allPlayerIds[0] = 0;
 	allPlayerIds[1] = 1;
 
 	setAllPossiblePlayerIDs(allPlayerIds);
+}
+
+void InputTestWindow::inputStateCalled()
+{
 	std::map<unsigned int, InputState> currentInputState;
 	currentInputState = getInputStates();
 
