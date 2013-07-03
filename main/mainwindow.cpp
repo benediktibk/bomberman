@@ -43,7 +43,7 @@ MainWindow::MainWindow() :
 				this, SLOT(pauseButtonPushed()));
 	connect(	this, SIGNAL(muteButtonPressed()),
 				this, SLOT(muteButtonPushed()));
-    connect(    m_ui->volumeHorizontalSlider, SIGNAL(sliderReleased()),
+	connect(    m_ui->volumeHorizontalSlider, SIGNAL(valueChanged(int)),
                 this, SLOT(volumeChanged()));
 }
 
