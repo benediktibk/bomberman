@@ -60,6 +60,9 @@ namespace Common
 		 CPPUNIT_TEST(getIndexOfHumanPlayer_humanPlayerID_smallerThanHumanPlayerCount);
 		 CPPUNIT_TEST(getIndexOfComputerEnemy_computerEnemyID_smallerThanEnemyCount);
 		 CPPUNIT_TEST(getWinnerOfGame_humanPlayerID_theWinnerIsPlayer1);
+		 CPPUNIT_TEST(getWinnerOfGame_twoHumanPlayerID_theWinnerIsPlayer2);
+		 CPPUNIT_TEST(getWinnerOfGame_humanPlayerIDAndComputerPlayerID_youLoose);
+		 CPPUNIT_TEST(getWinnerOfGame_humanPlayerIDAndComputerPlayerID_draw);
 		 CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -112,6 +115,9 @@ namespace Common
 		 void getIndexOfHumanPlayer_humanPlayerID_smallerThanHumanPlayerCount();
 		 void getIndexOfComputerEnemy_computerEnemyID_smallerThanEnemyCount();
 		 void getWinnerOfGame_humanPlayerID_theWinnerIsPlayer1();
+		 void getWinnerOfGame_twoHumanPlayerID_theWinnerIsPlayer2();
+		 void getWinnerOfGame_humanPlayerIDAndComputerPlayerID_youLoose();
+		 void getWinnerOfGame_humanPlayerIDAndComputerPlayerID_draw();
 
 	private:
 		 UniqueIdCreator m_playerIDCreator;

@@ -177,7 +177,7 @@ void StartWindow::winnerOfGame(const char *winner)
 	QMessageBox messageBox;
 	messageBox.setIcon(QMessageBox::Information);
 	messageBox.setWindowTitle("GAME OVER");
-	if((string)winner == "You LOOSE!!!")
+	if((string)winner == "You loose!")
 		messageBox.setIcon(QMessageBox::Critical);
 	messageBox.setText(winner);
 	messageBox.exec();
