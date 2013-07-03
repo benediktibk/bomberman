@@ -28,7 +28,7 @@ UserInputSimulator::~UserInputSimulator()
 void UserInputSimulator::draw(const GameState &gameState)
 {
 	cout << "redraw requested";
-	MainWindow::draw(gameState);
+	GameWindow::draw(gameState);
 	cout << " - redraw finished" << endl;
 }
 

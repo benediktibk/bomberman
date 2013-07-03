@@ -12,7 +12,7 @@ find_package(Qt5Multimedia REQUIRED)
 
 set(MAIN_SRC
 	gameloop.cpp
-	mainwindow.cpp
+	gamewindow.cpp
 	mainwindowinputfetcher.cpp
 	mainwindowinputtest.cpp
 	mainwindowgraphictest.cpp
@@ -29,7 +29,7 @@ set(REGRESSION_SRC
 )
 
 set(MAIN_FORMS
-	gui/mainwindow.ui
+	gui/gamewindow.ui
 	gui/mainwindowinputtest.ui
 	gui/mainwindowgraphictest.ui
 	gui/startwindow.ui

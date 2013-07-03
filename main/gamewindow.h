@@ -1,5 +1,5 @@
-#ifndef MAIN_MAINWINDOW_H
-#define MAIN_MAINWINDOW_H
+#ifndef MAIN_GAMEWINDOW_H
+#define MAIN_GAMEWINDOW_H
 
 #include "main/mainwindowinputfetcher.h"
 #include "common/leveldefinition.h"
@@ -26,22 +26,22 @@ namespace Sound
 
 namespace Ui
 {
-	class MainWindow;
+	class GameWindow;
 }
 
 namespace Main
 {
 	class GameLoop;
 
-	class MainWindow :
+	class GameWindow :
 			public MainWindowInputFetcher,
 			public Common::GraphicDrawer
 	{
 		Q_OBJECT
 
 	public:
-		MainWindow();
-		~MainWindow();
+		GameWindow();
+		~GameWindow();
 
 		virtual void setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs);
 		virtual void draw(const Common::GameState &gameState);
@@ -84,7 +84,7 @@ namespace Main
 
 	private:
 		const unsigned int m_statusBarUpdateTimeStep;
-		Ui::MainWindow *m_ui;
+		Ui::GameWindow *m_ui;
 		Common::GraphicDrawer *m_drawer;
 		Common::LevelDefinition *m_level;
 		Common::GameEngine *m_gameEngine;

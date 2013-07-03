@@ -1,6 +1,6 @@
 #include "startwindow.h"
 #include "ui_startwindow.h"
-#include "mainwindow.h"
+#include "gamewindow.h"
 #include <QStandardItemModel>
 #include <QMessageBox>
 #include <assert.h>

@@ -1,6 +1,6 @@
-#include "main/mainwindow.h"
+#include "main/gamewindow.h"
 #include "main/gameloop.h"
-#include "ui_mainwindow.h"
+#include "ui_gamewindow.h"
 #include "graphic/graphicdrawerqt.h"
 #include "common/gamestate.h"
 #include "gameengine/gameengineimpl.h"
@@ -16,9 +16,9 @@ using namespace Graphic;
 using namespace Threading;
 using namespace std;
 
-MainWindow::MainWindow() :
+GameWindow::GameWindow() :
 	m_statusBarUpdateTimeStep(250),
-	m_ui(new Ui::MainWindow),
+	m_ui(new Ui::GameWindow),
 	m_drawer(0),
 	m_level(0),
 	m_gameEngine(0),
@@ -47,7 +47,7 @@ MainWindow::MainWindow() :
 	m_drawFinished.send();
 }
 
-MainWindow::~MainWindow()
+GameWindow::~GameWindow()
 {
 	m_guiUpdateFinished.send();
 	finishGame();
@@ -55,12 +55,12 @@ MainWindow::~MainWindow()
 	delete m_ui;
 }
 
-void MainWindow::setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs)
+void GameWindow::setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs)
 {
 	m_drawer->setResponsibleForPlayers(playerIDs);
 }
 
-void MainWindow::draw(const Common::GameState &gameState)
+void GameWindow::draw(const Common::GameState &gameState)
 {
 	m_drawFinished.reset();
 
@@ -88,7 +88,7 @@ void MainWindow::draw(const Common::GameState &gameState)
 	m_drawFinished.send();
 }
 
-void MainWindow::startGame(
+void GameWindow::startGame(
 		bool enableOpenGL, const char* levelName,
 		unsigned int humanPlayerCount, unsigned int computerEnemyCount,
 		GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute)
@@ -115,14 +115,14 @@ void MainWindow::startGame(
 	m_timerUserInfoUpdate->start(m_statusBarUpdateTimeStep);
 }
 
-void MainWindow::updateGui(const Common::GameState *gameState)
+void GameWindow::updateGui(const Common::GameState *gameState)
 {
 	m_drawer->draw(*gameState);
 	m_ui->graphicsView->viewport()->update();
 	m_guiUpdateFinished.send();
 }
 
-void MainWindow::updateUserInfo()
+void GameWindow::updateUserInfo()
 {
 	if (!m_gameRunning)
 		return;
@@ -132,7 +132,7 @@ void MainWindow::updateUserInfo()
 	m_timerUserInfoUpdate->start(m_statusBarUpdateTimeStep);
 }
 
-void MainWindow::updateStatusBar()
+void GameWindow::updateStatusBar()
 {
 	QString messageTemplate = QString("%1 fps");
 	double framesPerSecond = m_gameLoop->getFramesPerSecond();
@@ -142,7 +142,7 @@ void MainWindow::updateStatusBar()
 	m_ui->statusBar->showMessage(completeMessage);
 }
 
-void MainWindow::updatePlayerStateInfo()
+void GameWindow::updatePlayerStateInfo()
 {
 	vector<unsigned int> playerInformation = m_gameLoop->getPlayerInformation();
 
@@ -162,7 +162,7 @@ void MainWindow::updatePlayerStateInfo()
 	m_ui->playerStateInfo->setText(messageString);
 }
 
-void MainWindow::updateMuteButtonLabel()
+void GameWindow::updateMuteButtonLabel()
 {
 	if (m_soundPlayer->isMuted())
 		m_ui->muteButton->setText("unmute");
@@ -170,7 +170,7 @@ void MainWindow::updateMuteButtonLabel()
 		m_ui->muteButton->setText("mute");
 }
 
-void MainWindow::updatePauseButtonLabel()
+void GameWindow::updatePauseButtonLabel()
 {
 	if (m_gameLoop->isPaused())
 		m_ui->pauseButton->setText("resume");
@@ -178,12 +178,12 @@ void MainWindow::updatePauseButtonLabel()
 		m_ui->pauseButton->setText("pause");
 }
 
-void MainWindow::closeEvent(QCloseEvent *)
+void GameWindow::closeEvent(QCloseEvent *)
 {
 	emit closeGameSignal();
 }
 
-void MainWindow::finishGame()
+void GameWindow::finishGame()
 {
 	if (m_gameLoop != 0)
 	{
@@ -201,19 +201,19 @@ void MainWindow::finishGame()
 	freeMemory();
 }
 
-void MainWindow::closeGame()
+void GameWindow::closeGame()
 {
 	finishGame();
 	this->close();
 }
 
-void MainWindow::winnerOfGame(int winner)
+void GameWindow::winnerOfGame(int winner)
 {
 	emit winnerOfGameSignal(winner);
 	closeGame();
 }
 
-void MainWindow::pauseButtonPushed()
+void GameWindow::pauseButtonPushed()
 {
 	if (m_gameLoop->isPaused())
 		m_gameLoop->start();
@@ -223,7 +223,7 @@ void MainWindow::pauseButtonPushed()
 	updatePauseButtonLabel();
 }
 
-void MainWindow::muteButtonPushed()
+void GameWindow::muteButtonPushed()
 {
 	if (m_soundPlayer->isMuted())
 		m_soundPlayer->setMuted(false);
@@ -233,14 +233,14 @@ void MainWindow::muteButtonPushed()
 	updateMuteButtonLabel();
 }
 
-void MainWindow::volumeChanged()
+void GameWindow::volumeChanged()
 {
 	double range = m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum();
 	double volume = m_ui->volumeHorizontalSlider->value()/range;
 	m_soundPlayer->setVolume(volume);
 }
 
-bool MainWindow::createLevel(const string &levelName)
+bool GameWindow::createLevel(const string &levelName)
 {
 	assert(m_level == 0);
 	string levelNameWithPath = "levels/" + string(levelName);
@@ -255,14 +255,14 @@ bool MainWindow::createLevel(const string &levelName)
 		return true;
 }
 
-void MainWindow::createGameLoop()
+void GameWindow::createGameLoop()
 {
 	assert(m_gameLoop == 0);
 	m_gameLoop = new GameLoop(*m_allPlayerInputFetcher, *m_gameEngine, *this);
 	connect(m_gameLoop, SIGNAL(winnerSignal(int)), this, SLOT(winnerOfGame(int)));
 }
 
-void MainWindow::createDrawer(bool enableOpenGL)
+void GameWindow::createDrawer(bool enableOpenGL)
 {
 	assert(m_drawer == 0);
 	const Common::GameState &gameState = m_gameEngine->getGameState();
@@ -271,27 +271,27 @@ void MainWindow::createDrawer(bool enableOpenGL)
 	setResponsibleForPlayers(playerIDsToShow);
 }
 
-void MainWindow::createSoundPlayer(bool mute)
+void GameWindow::createSoundPlayer(bool mute)
 {
 	assert(m_soundPlayer == 0);
 	m_soundPlayer = new Sound::SoundPlayer(mute);
 	m_ui->volumeHorizontalSlider->setValue(static_cast<int>(m_soundPlayer->getVolume()*(m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum())));
 }
 
-void MainWindow::createGameEngine(unsigned int humanPlayerCount, unsigned int computerEnemyCount)
+void GameWindow::createGameEngine(unsigned int humanPlayerCount, unsigned int computerEnemyCount)
 {
 	assert(m_gameEngine == 0);
 	m_gameEngine = new GameEngine::GameEngineImpl(*m_level, *m_soundPlayer, humanPlayerCount, computerEnemyCount);
 }
 
-void MainWindow::createAllPlayerInputFetcher(GameEngine::ComputerEnemyLevel computerEnemyLevel)
+void GameWindow::createAllPlayerInputFetcher(GameEngine::ComputerEnemyLevel computerEnemyLevel)
 {
 	assert(m_allPlayerInputFetcher == 0);
 	const Common::GameState &gameState = m_gameEngine->getGameState();
 	m_allPlayerInputFetcher = new GameEngine::AllPlayerInputFetcher(*this, gameState, computerEnemyLevel, m_gameEngine->getGrid());
 }
 
-void MainWindow::freeMemory()
+void GameWindow::freeMemory()
 {
 	delete m_gameLoop;
 	m_gameLoop = 0;

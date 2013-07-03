@@ -1,7 +1,7 @@
 #ifndef MAIN_USERINPUTSIMULATOR_H
 #define MAIN_USERINPUTSIMULATOR_H
 
-#include "main/mainwindow.h"
+#include "main/gamewindow.h"
 #include "common/randomdecision.h"
 #include "gameengine/computerenemylevel.h"
 
@@ -15,7 +15,7 @@ namespace Common
 namespace Main
 {
 	class UserInputSimulator :
-			public MainWindow
+			public GameWindow
 	{
 		Q_OBJECT
 
