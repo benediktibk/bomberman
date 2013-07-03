@@ -6,7 +6,6 @@
 #include "gameengine/gameengineimpl.h"
 #include "gameengine/allplayerinputfetcher.h"
 #include "sound/soundplayer.h"
-#include "threading/lock.h"
 #include <assert.h>
 #include <QtCore/QTimer>
 #include <QScrollBar>
@@ -59,18 +58,13 @@ void MainWindow::setResponsibleForPlayers(const std::vector<unsigned int> &playe
 
 void MainWindow::draw(const Common::GameState &gameState)
 {
-	Lock startLock(m_gameStartMutex);
-
 	if (!m_gameStarted)
 		return;
 
 	emit guiUpdateNecessary(&gameState);
 
-	{
-		Lock finishedLock(m_gameFinishedMutex);
-		if (m_gameFinished)
-			return;
-	}
+	if (m_gameFinished)
+		return;
 
 	m_guiUpdateFinished.wait();
 	m_guiUpdateFinished.reset();
@@ -82,13 +76,9 @@ void MainWindow::startGame(
 		GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute)
 {
 	m_ui->pauseButton->setText(tr("pause"));
-	m_gameStartMutex.lock();
 	m_gameStarted = false;
-	m_gameStartMutex.unlock();
 	finishGame();
-	m_gameFinishedMutex.lock();
 	m_gameFinished = false;
-	m_gameFinishedMutex.unlock();
 	m_guiUpdateFinished.reset();
 
 	string levelpath = "levels/" + string(levelname);
@@ -105,9 +95,7 @@ void MainWindow::startGame(
 	m_allPlayerInputFetcher = new GameEngine::AllPlayerInputFetcher(*this, gameState, computerEnemyLevel, m_gameEngine->getGrid());
 	m_gameLoop = new GameLoop(*m_allPlayerInputFetcher, *m_gameEngine, *this);
 	m_enableOpenGL = enableOpenGL;
-	m_gameStartMutex.lock();
 	m_gameStarted = true;
-	m_gameStartMutex.unlock();
 
 	m_drawer = new GraphicDrawerQt(*(m_ui->graphicsView), m_enableOpenGL);
 	vector<unsigned int> playerIDsToShow = gameState.getAllNotDestroyedHumanPlayerIDs();
@@ -124,15 +112,12 @@ void MainWindow::startGame(
 
 void MainWindow::updateGui(const Common::GameState *gameState)
 {
+	if (m_gameFinished)
 	{
-		Lock lock(m_gameFinishedMutex);
-
-		if (m_gameFinished)
-		{
-			m_guiUpdateFinished.send();
-			return;
-		}
+		m_guiUpdateFinished.send();
+		return;
 	}
+
 	m_drawer->draw(*gameState);
 	m_ui->graphicsView->viewport()->update();
 	m_guiUpdateFinished.send();
@@ -140,12 +125,8 @@ void MainWindow::updateGui(const Common::GameState *gameState)
 
 void MainWindow::updateUserInfo()
 {
-	{
-		Lock lock(m_gameFinishedMutex);
-
-		if (!m_gameStarted || m_gameFinished)
-			return;
-	}
+	if (!m_gameStarted || m_gameFinished)
+		return;
 
 	updateStatusBar();
 	updatePlayerStateInfo();
@@ -205,10 +186,8 @@ void MainWindow::closeEvent(QCloseEvent *)
 
 void MainWindow::finishGame()
 {
-	m_gameFinishedMutex.lock();
 	m_gameFinished = true;
 	m_guiUpdateFinished.send();
-	m_gameFinishedMutex.unlock();
 	delete m_gameLoop;
 	m_gameLoop = 0;
 	delete m_drawer;
