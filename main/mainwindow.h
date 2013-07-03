@@ -54,15 +54,15 @@ namespace Main
 		void closeGame();
 
 	private slots:
-		void updateGui();
+		void updateGui(const Common::GameState *gameState);
 		void updateUserInfo();
 		void pauseButtonPushed();
 		void muteButtonPushed();
 		void winnerOfGame(int winner);
-        void volumeChanged();
+		void volumeChanged();
 
 	signals:
-		void guiUpdateNecessary();
+		void guiUpdateNecessary(const Common::GameState *gameState);
 		void levelBuildingNotCorectSignal();
 		void closeGameSignal();
 		void winnerOfGameSignal(int winner);
@@ -88,9 +88,9 @@ namespace Main
 		QTimer *m_timerUserInfoUpdate;
 		Threading::Signal m_guiUpdateFinished;
 		bool m_enableOpenGL;
-		std::atomic<bool> m_gameRunning;
+		bool m_gameRunning;
 		Threading::Mutex m_gameRunningMutex;
-		const Common::GameState *m_gameState;
+		Threading::Signal m_drawFinished;
 	};
 }
 

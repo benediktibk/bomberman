@@ -26,13 +26,12 @@ MainWindow::MainWindow() :
 	m_gameLoop(0),
 	m_allPlayerInputFetcher(0),
 	m_timerUserInfoUpdate(new QTimer(this)),
-	m_gameRunning(false),
-	m_gameState(0)
+	m_gameRunning(false)
 {
 	m_ui->setupUi(this);
 
-	connect(	this, SIGNAL(guiUpdateNecessary()),
-				this, SLOT(updateGui()));
+	connect(	this, SIGNAL(guiUpdateNecessary(const Common::GameState*)),
+				this, SLOT(updateGui(const Common::GameState*)));
 	connect(	m_timerUserInfoUpdate, SIGNAL(timeout()),
 				this, SLOT(updateUserInfo()));
 	connect(	m_ui->pauseButton, SIGNAL(clicked()),
@@ -43,8 +42,9 @@ MainWindow::MainWindow() :
 				this, SLOT(pauseButtonPushed()));
 	connect(	this, SIGNAL(muteButtonPressed()),
 				this, SLOT(muteButtonPushed()));
-    connect(    m_ui->volumeHorizontalSlider, SIGNAL(sliderReleased()),
-                this, SLOT(volumeChanged()));
+	connect(    m_ui->volumeHorizontalSlider, SIGNAL(sliderReleased()),
+				this, SLOT(volumeChanged()));
+	m_drawFinished.send();
 }
 
 MainWindow::~MainWindow()
@@ -61,17 +61,19 @@ void MainWindow::setResponsibleForPlayers(const std::vector<unsigned int> &playe
 
 void MainWindow::draw(const Common::GameState &gameState)
 {
+	m_drawFinished.reset();
+
 	{
 		Lock lock(m_gameRunningMutex);
 
 		if (!m_gameRunning)
+		{
+			m_drawFinished.send();
 			return;
+		}
 	}
 
-	assert(&gameState == m_gameState);
-	(void)gameState; // make the compiler happy
-
-	emit guiUpdateNecessary();
+	emit guiUpdateNecessary(&gameState);
 
 	m_guiUpdateFinished.wait();
 
@@ -81,6 +83,8 @@ void MainWindow::draw(const Common::GameState &gameState)
 		if (m_gameRunning)
 			m_guiUpdateFinished.reset();
 	}
+
+	m_drawFinished.send();
 }
 
 void MainWindow::startGame(
@@ -105,7 +109,6 @@ void MainWindow::startGame(
 	const Common::GameState &gameState = m_gameEngine->getGameState();
 	m_allPlayerInputFetcher = new GameEngine::AllPlayerInputFetcher(*this, gameState, computerEnemyLevel, m_gameEngine->getGrid());
 	m_gameLoop = new GameLoop(*m_allPlayerInputFetcher, *m_gameEngine, *this);
-	m_gameState = &gameState;
 	m_enableOpenGL = enableOpenGL;
 	m_gameRunning = true;
 
@@ -114,8 +117,8 @@ void MainWindow::startGame(
 	setResponsibleForPlayers(playerIDsToShow);
 
 	connect(m_gameLoop, SIGNAL(winnerSignal(int)), this, SLOT(winnerOfGame(int)));
-    m_ui->volumeHorizontalSlider->setValue(static_cast<int>(m_soundPlayer->getVolume()*(m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum())));
-
+	m_ui->volumeHorizontalSlider->setValue(static_cast<int>(m_soundPlayer->getVolume()*(m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum())));
+	m_drawFinished.send();
 	m_gameLoop->start();
 	show();
 	updatePauseButtonLabel();
@@ -123,9 +126,9 @@ void MainWindow::startGame(
 	m_timerUserInfoUpdate->start(m_statusBarUpdateTimeStep);
 }
 
-void MainWindow::updateGui()
+void MainWindow::updateGui(const Common::GameState *gameState)
 {
-	m_drawer->draw(*m_gameState);
+	m_drawer->draw(*gameState);
 	m_ui->graphicsView->viewport()->update();
 	m_guiUpdateFinished.send();
 }
@@ -202,6 +205,7 @@ void MainWindow::finishGame()
 		m_gameLoop->stop();
 		m_gameLoop->waitTillFinished();
 	}
+	m_drawFinished.wait();
 	delete m_gameLoop;
 	m_gameLoop = 0;
 	delete m_drawer;
@@ -214,7 +218,6 @@ void MainWindow::finishGame()
 	m_gameEngine = 0;
 	delete m_soundPlayer;
 	m_soundPlayer = 0;
-	m_gameState = 0;
 }
 
 void MainWindow::closeGame()
@@ -226,7 +229,7 @@ void MainWindow::closeGame()
 void MainWindow::winnerOfGame(int winner)
 {
 	emit winnerOfGameSignal(winner);
-    closeGame();
+	closeGame();
 }
 
 
@@ -254,7 +257,7 @@ void MainWindow::muteButtonPushed()
 
 void MainWindow::volumeChanged()
 {
-    double range = m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum();
-    double volume = m_ui->volumeHorizontalSlider->value()/range;
-    m_soundPlayer->setVolume(volume);
+	double range = m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum();
+	double volume = m_ui->volumeHorizontalSlider->value()/range;
+	m_soundPlayer->setVolume(volume);
 }

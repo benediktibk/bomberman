@@ -23,8 +23,11 @@ namespace Main
 		UserInputSimulator();
 		virtual ~UserInputSimulator();
 
+	public:
+		virtual void draw(const Common::GameState &gameState);
+
 	public slots:
-		void winnerOfGame(const char *winner);
+		void winnerOfGame(int winner);
 		void restartGame();
 
 	private:

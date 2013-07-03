@@ -1,9 +1,11 @@
 #include "main/userinputsimulator.h"
 #include <QtCore/QTimer>
 #include <stdlib.h>
+#include <iostream>
 
 using namespace Main;
 using namespace Common;
+using namespace std;
 
 UserInputSimulator::UserInputSimulator() :
 	m_timerForRestart(new QTimer()),
@@ -12,8 +14,8 @@ UserInputSimulator::UserInputSimulator() :
 {
 	connect(	m_timerForRestart, SIGNAL(timeout()),
 				this, SLOT(restartGame()));
-	connect(	this, SIGNAL(winnerOfGameSignal(const char*)),
-				this, SLOT(winnerOfGame(const char*)));
+	connect(	this, SIGNAL(winnerOfGameSignal(int)),
+				this, SLOT(winnerOfGame(int)));
 	restartGame();
 }
 
@@ -23,8 +25,16 @@ UserInputSimulator::~UserInputSimulator()
 	delete m_enableOpenGL;
 }
 
+void UserInputSimulator::draw(const GameState &gameState)
+{
+	cout << "redraw requested";
+	MainWindow::draw(gameState);
+	cout << " - redraw finished" << endl;
+}
+
 void UserInputSimulator::restartGame()
 {
+	cout << "restarting the game" << endl;
 	unsigned int humanPlayerCount = rand()%2 + 1;
 	bool enableOpenGL = m_enableOpenGL->decide();
 	unsigned int computerEnemyCount = rand()%99;
@@ -33,7 +43,8 @@ void UserInputSimulator::restartGame()
 	show();
 }
 
-void UserInputSimulator::winnerOfGame(const char *)
+void UserInputSimulator::winnerOfGame(int)
 {
+	cout << "game has finished by itself" << endl;
 	restartGame();
 }
