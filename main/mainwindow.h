@@ -58,6 +58,7 @@ namespace Main
 		void pauseButtonPushed();
 		void muteButtonPushed();
 		void winnerOfGame(const char *winner);
+        void volumeChanged();
 
 	signals:
 		void guiUpdateNecessary(const Common::GameState *gameState);

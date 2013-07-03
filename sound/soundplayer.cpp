@@ -31,6 +31,7 @@ SoundPlayer::SoundPlayer(bool mute) :
 	m_background->setLoopCount(QSoundEffect::Infinite);
 	m_background->play();
 	setMuted(m_muted);
+    setVolume(0.75);
 }
 
 SoundPlayer::~SoundPlayer()
