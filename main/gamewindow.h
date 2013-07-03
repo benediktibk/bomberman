@@ -44,6 +44,7 @@ namespace Main
 
 		virtual void setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs);
 		virtual void draw(const Common::GameState &gameState);
+		bool eventFilter(QObject *obj, QEvent *event);
 
 	public slots:
 		void startGame(

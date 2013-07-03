@@ -39,6 +39,9 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 	else
 		m_view.setViewport(new QWidget());
 
+	m_view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	m_view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	m_view.setFocusPolicy(Qt::NoFocus);
 	QSvgRenderer renderer(QString("resources/graphics/bg_cell_pattern.svg"));
 	QImage image(m_pixelPerMeter, m_pixelPerMeter, QImage::Format_ARGB32);
 	QPainter painter(&image);
