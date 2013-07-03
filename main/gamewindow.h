@@ -7,7 +7,6 @@
 #include "threading/signal.h"
 #include "threading/mutex.h"
 #include "gameengine/computerenemylevel.h"
-#include <atomic>
 
 class QGraphicsView;
 class QTimer;
