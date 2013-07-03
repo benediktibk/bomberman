@@ -25,8 +25,7 @@ MainWindow::MainWindow() :
 	m_gameLoop(0),
 	m_allPlayerInputFetcher(0),
 	m_timerUserInfoUpdate(new QTimer(this)),
-	m_gameStarted(false),
-	m_gameFinished(false)
+	m_gameStarted(false)
 {
 	m_ui->setupUi(this);
 
@@ -63,9 +62,6 @@ void MainWindow::draw(const Common::GameState &gameState)
 
 	emit guiUpdateNecessary(&gameState);
 
-	if (m_gameFinished)
-		return;
-
 	m_guiUpdateFinished.wait();
 	m_guiUpdateFinished.reset();
 }
@@ -76,9 +72,7 @@ void MainWindow::startGame(
 		GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute)
 {
 	m_ui->pauseButton->setText(tr("pause"));
-	m_gameStarted = false;
 	finishGame();
-	m_gameFinished = false;
 	m_guiUpdateFinished.reset();
 
 	string levelpath = "levels/" + string(levelname);
@@ -112,7 +106,7 @@ void MainWindow::startGame(
 
 void MainWindow::updateGui(const Common::GameState *gameState)
 {
-	if (m_gameFinished)
+	if (!m_gameStarted)
 	{
 		m_guiUpdateFinished.send();
 		return;
@@ -125,7 +119,7 @@ void MainWindow::updateGui(const Common::GameState *gameState)
 
 void MainWindow::updateUserInfo()
 {
-	if (!m_gameStarted || m_gameFinished)
+	if (!m_gameStarted)
 		return;
 
 	updateStatusBar();
@@ -186,10 +180,10 @@ void MainWindow::closeEvent(QCloseEvent *)
 
 void MainWindow::finishGame()
 {
-	m_gameFinished = true;
-	m_guiUpdateFinished.send();
+	m_gameStarted = false;
 	delete m_gameLoop;
 	m_gameLoop = 0;
+	m_guiUpdateFinished.send();
 	delete m_drawer;
 	m_drawer = 0;
 	delete m_level;

@@ -87,7 +87,6 @@ namespace Main
 		Threading::Signal m_guiUpdateFinished;
 		bool m_enableOpenGL;
 		std::atomic<bool> m_gameStarted;
-		std::atomic<bool> m_gameFinished;
 	};
 }
 
