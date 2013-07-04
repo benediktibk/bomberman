@@ -1,5 +1,4 @@
 showname;height;width;maxPlayer;filename
-Default level;10;15;2;defaultlevel
 Neighbourship;25;25;4;neighbourship
 Classic middle;21;21;4;classic_middle
 No place to hide;21;21;4;no_place_to_hide
@@ -11,3 +10,4 @@ World at War;50;50;100;world_at_war
 Colosseum;17;36;8;colosseum
 LDV;70;50;10;ldv
 Who let the dogs out;28;28;10;who_let_the_dogs_out
+Conflict;97;97;4;conflict

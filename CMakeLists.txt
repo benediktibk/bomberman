@@ -31,7 +31,7 @@ add_custom_target(
 	)
 
 set(LEVELS
-	defaultlevel.csv
+	conflict.csv
 	neighbourship.csv
 	levellist.csv
 	classic_middle.csv
@@ -89,12 +89,12 @@ set(GRAPHICS
 )
 
 set(SOUNDS
-		bomb.wav
-		gotitem.wav
-		placed.wav
-		background.wav
-		walldown.wav
-		dead.wav
+	bomb.wav
+	gotitem.wav
+	placed.wav
+	background.wav
+	walldown.wav
+	dead.wav
 )
 
 set(README
