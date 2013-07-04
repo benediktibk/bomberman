@@ -32,7 +32,7 @@ void SplashScreen::setBackgroundImage()
 {
 	QSvgRenderer renderer(QString("resources/graphics/background.svg"));
 	QImage image(width(), height(), QImage::Format_ARGB32);
-	image.fill(Qt::transparent);
+	image.fill(Qt::white);
 	QPainter painter(&image);
 	renderer.render(&painter);
 	QPixmap *pixmap = new QPixmap(QPixmap::fromImage(image));
