@@ -34,13 +34,13 @@ namespace Main
 		void stop();
 		void pause();
 		bool isPaused();
-		double getFramesPerSecond();
+		double getGameUpdatesPerSecond();
 		std::vector<Common::PlayerInformation> getPlayerInformation();
 
 	private:
 		void catchPlayerInformation(const std::vector<unsigned int> &playerIDs);
 		void updateMovingAverageOfTime(double time);
-		void updateFPS();
+		void updateGameUpdatesPerSecond();
 		bool isStopped();
 		void pauseIfNecessary();
 
@@ -59,13 +59,13 @@ namespace Main
 		bool m_stopped;
 		bool m_paused;
 		bool m_onceStarted;
-		const unsigned int m_maximumFramesPerSecond;
+		const unsigned int m_maximumGameUpdatesPerSecond;
 		//! we need a minimum time step, otherwise the physic simulator has problems
 		const double m_minimumTimeStep;
 		const double m_weightOfOldAverage;
-		const double m_weightOfNewTime; 
+		const double m_weightOfNewTime;
 		double m_movingAverageOfTimeStep;
-		double m_framesPerSecond;
+		double m_gameUpdatesPerSecond;
 		Threading::Mutex m_performanceInformationMutex;
 		Threading::Signal m_start;
 		Threading::Mutex m_playerInformationMutex;

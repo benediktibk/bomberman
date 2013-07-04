@@ -82,7 +82,7 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 	drawPowerUps(gameState.getAllChangedPowerUps());
 	drawExplodedBombs(gameState.getAllChangedExplodedBombs());
 	drawPlayers(gameState);
-	updateViewPorts();
+	//updateViewPorts();
 	m_firstRedraw = false;
 }
 

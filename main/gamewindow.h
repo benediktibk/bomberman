@@ -16,6 +16,7 @@ namespace Common
 	class GraphicDrawer;
 	class GameState;
 	class GameEngine;
+	class StopWatch;
 }
 
 namespace Sound
@@ -55,7 +56,8 @@ namespace Main
 
 	private slots:
 		void updateGui(const Common::GameState *gameState);
-		void updateUserInfo();
+		void updateViewPorts();
+		void updateStatusInformation();
 		void pauseButtonPushed();
 		void muteButtonPushed();
 		void winnerOfGame(int winner);
@@ -85,7 +87,7 @@ namespace Main
 		virtual void closeEvent(QCloseEvent *);
 
 	private:
-		const unsigned int m_statusBarUpdateTimeStep;
+		const double m_statusBarUpdateTimeStep;
 		Ui::GameWindow *m_ui;
 		Common::GraphicDrawer *m_drawer;
 		Common::LevelDefinition *m_level;
@@ -93,7 +95,8 @@ namespace Main
 		Sound::SoundPlayer *m_soundPlayer;
 		GameLoop *m_gameLoop;
 		InputFetcher *m_allPlayerInputFetcher;
-		QTimer *m_timerUserInfoUpdate;
+		QTimer *m_timerStatusInformationUpdate;
+		QTimer *m_timerUpdateViewPorts;
 		Threading::Signal m_guiUpdateFinished;
 		bool m_gameRunning;
 		Threading::Mutex m_gameRunningMutex;
@@ -101,6 +104,8 @@ namespace Main
 		QGraphicsView *m_viewOne;
 		QGraphicsView *m_viewTwo;
 		std::vector<QGraphicsView*> m_viewsAsVector;
+		Common::StopWatch *m_framesPerSecondWatch;
+		double m_timeForViewPortUpdates;
 	};
 }
 

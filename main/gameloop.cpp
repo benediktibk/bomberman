@@ -20,12 +20,12 @@ GameLoop::GameLoop(InputFetcher &inputFetcher, Common::GameEngine &gameEngine, G
 	m_stopped(false),
 	m_paused(false),
 	m_onceStarted(false),
-	m_maximumFramesPerSecond(60),
-	m_minimumTimeStep(1.0/m_maximumFramesPerSecond),
+	m_maximumGameUpdatesPerSecond(60),
+	m_minimumTimeStep(1.0/m_maximumGameUpdatesPerSecond),
 	m_weightOfOldAverage(9.0/10),
 	m_weightOfNewTime(1 - m_weightOfOldAverage),
 	m_movingAverageOfTimeStep(m_minimumTimeStep),
-	m_framesPerSecond(0)
+	m_gameUpdatesPerSecond(0)
 {
 	setConstructionFinished();
 }
@@ -68,10 +68,10 @@ bool GameLoop::isPaused()
 	return paused;
 }
 
-double GameLoop::getFramesPerSecond()
+double GameLoop::getGameUpdatesPerSecond()
 {
 	Lock lock(m_performanceInformationMutex);
-	return m_framesPerSecond;
+	return m_gameUpdatesPerSecond;
 }
 
 void GameLoop::execute()
@@ -100,7 +100,7 @@ void GameLoop::execute()
 		}
 
 		updateMovingAverageOfTime(time);
-		updateFPS();
+		updateGameUpdatesPerSecond();
 
 		watch.restart();
 		m_gameEngine.updateGameState(m_inputFetcher.getInputStates(), time);
@@ -137,10 +137,10 @@ void GameLoop::updateMovingAverageOfTime(double time)
 	m_movingAverageOfTimeStep = m_movingAverageOfTimeStep*m_weightOfOldAverage + time*m_weightOfNewTime;
 }
 
-void GameLoop::updateFPS()
+void GameLoop::updateGameUpdatesPerSecond()
 {
 	Lock lock(m_performanceInformationMutex);
-	m_framesPerSecond = 1/m_movingAverageOfTimeStep;
+	m_gameUpdatesPerSecond = 1/m_movingAverageOfTimeStep;
 }
 
 bool GameLoop::isStopped()

@@ -4,6 +4,7 @@
 #include "graphic/graphicdrawerqt.h"
 #include "common/gamestate.h"
 #include "common/playerinformation.h"
+#include "common/stopwatch.h"
 #include "gameengine/gameengineimpl.h"
 #include "gameengine/allplayerinputfetcher.h"
 #include "sound/soundplayer.h"
@@ -28,17 +29,20 @@ GameWindow::GameWindow() :
 	m_soundPlayer(0),
 	m_gameLoop(0),
 	m_allPlayerInputFetcher(0),
-	m_timerUserInfoUpdate(new QTimer(this)),
+	m_timerStatusInformationUpdate(new QTimer(this)),
+	m_timerUpdateViewPorts(new QTimer(this)),
 	m_gameRunning(false),
 	m_viewOne(0),
-	m_viewTwo(0)
+	m_viewTwo(0),
+	m_framesPerSecondWatch(new Common::StopWatch()),
+	m_timeForViewPortUpdates(0)
 {
 	m_ui->setupUi(this);
 
 	connect(	this, SIGNAL(guiUpdateNecessary(const Common::GameState*)),
 				this, SLOT(updateGui(const Common::GameState*)));
-	connect(	m_timerUserInfoUpdate, SIGNAL(timeout()),
-				this, SLOT(updateUserInfo()));
+	connect(	m_timerStatusInformationUpdate, SIGNAL(timeout()),
+				this, SLOT(updateStatusInformation()));
 	connect(	m_ui->pauseButton, SIGNAL(clicked()),
 				this, SLOT(pauseButtonPushed()));
 	connect(	m_ui->muteButton, SIGNAL(clicked()),
@@ -49,6 +53,8 @@ GameWindow::GameWindow() :
 				this, SLOT(muteButtonPushed()));
 	connect(    m_ui->volumeHorizontalSlider, SIGNAL(valueChanged(int)),
 				this, SLOT(volumeChanged()));
+	connect(	m_timerUpdateViewPorts, SIGNAL(timeout()),
+				this, SLOT(updateViewPorts()));
 	m_drawFinished.send();
 }
 
@@ -58,6 +64,9 @@ GameWindow::~GameWindow()
 	finishGame();
 	freeMemory();
 	delete m_ui;
+	m_ui = 0;
+	delete m_framesPerSecondWatch;
+	m_framesPerSecondWatch = 0;
 }
 
 void GameWindow::setResponsibleForPlayers(const vector<unsigned int> &playerIDs)
@@ -119,7 +128,9 @@ void GameWindow::startGame(
 	showMaximized();
 	updatePauseButtonLabel();
 	updateMuteButtonLabel();
-	m_timerUserInfoUpdate->start(m_statusBarUpdateTimeStep);
+	m_timerStatusInformationUpdate->start(m_statusBarUpdateTimeStep);
+	m_timeForViewPortUpdates = 0;
+	m_timerUpdateViewPorts->start(0);
 }
 
 void GameWindow::updateGui(const Common::GameState *gameState)
@@ -129,22 +140,36 @@ void GameWindow::updateGui(const Common::GameState *gameState)
 	m_guiUpdateFinished.send();
 }
 
-void GameWindow::updateUserInfo()
+void GameWindow::updateViewPorts()
+{
+	if (!m_gameRunning)
+		return;
+
+	for (vector<QGraphicsView*>::iterator i = m_viewsAsVector.begin(); i != m_viewsAsVector.end(); ++i)
+		(*i)->viewport()->update();
+	m_timerUpdateViewPorts->start(0);
+	double timeSinceLastViewPortUpdate = m_framesPerSecondWatch->getTimeAndRestart();
+	m_timeForViewPortUpdates = m_timeForViewPortUpdates*39.0/40 + timeSinceLastViewPortUpdate*1.0/40;
+}
+
+void GameWindow::updateStatusInformation()
 {
 	if (!m_gameRunning)
 		return;
 
 	updateStatusBar();
 	updatePlayerStateInfo();
-	m_timerUserInfoUpdate->start(m_statusBarUpdateTimeStep);
+	m_timerStatusInformationUpdate->start(m_statusBarUpdateTimeStep);
 }
 
 void GameWindow::updateStatusBar()
 {
-	QString messageTemplate = QString("%1 fps");
-	double framesPerSecond = m_gameLoop->getFramesPerSecond();
+	QString messageTemplate = QString("%1 frames per second, %2 game updates per second");
+	double framesPerSecond = 1.0/m_timeForViewPortUpdates;
 	QString framesPerSecondString = QString().setNum(framesPerSecond, 'f', 1);
-	QString completeMessage(messageTemplate.arg(framesPerSecondString));
+	double gameUpdatesPerSecond = m_gameLoop->getGameUpdatesPerSecond();
+	QString gameUpdatesPerSecondString = QString().setNum(gameUpdatesPerSecond, 'f', 1);
+	QString completeMessage(messageTemplate.arg(framesPerSecondString).arg(gameUpdatesPerSecondString));
 
 	m_ui->statusBar->showMessage(completeMessage);
 }

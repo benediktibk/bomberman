@@ -131,7 +131,7 @@ void GameLoopTest::execute_runSomeExecutions_graphicDrawerGotNoCallsToSetRespons
 	delete gameLoop;
 }
 
-void GameLoopTest::getFramesPerSecond_running_60()
+void GameLoopTest::getGameUpdatesPerSecond_running_60()
 {
 	InputFetcherStub inputFetcher;
 	GameEngineStub gameEngine;
@@ -140,7 +140,7 @@ void GameLoopTest::getFramesPerSecond_running_60()
 	gameLoop->start();
 	usleep(1000*100);
 
-	double framesPerSecond = gameLoop->getFramesPerSecond();
+	double framesPerSecond = gameLoop->getGameUpdatesPerSecond();
 
 	gameLoop->stop();
 	gameLoop->waitTillFinished();
