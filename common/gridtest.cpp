@@ -1567,6 +1567,248 @@ void GridTest::removeBomb_bombWithRange1AtPosition3And4_3And4IsNotDangerous()
 	CPPUNIT_ASSERT(!grid.isPlaceDangerous(GridPoint(3, 4)));
 }
 
+void GridTest::getAllFieldsBesideBombRange_range1AndNoObstacles_resultSizeIs8()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)8, result.size());
+}
+
+void GridTest::getAllFieldsBesideBombRange_range2AndNoObstacles_resultSizeIs16()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 2);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)16, result.size());
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndNoObstacles_resultContainsPositionTwoLeft()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(2, 5)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndNoObstacles_resultContainsPositionTwoAbove()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(4, 7)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndNoObstacles_resultContainsPositionTwoRight()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(6, 5)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndNoObstacles_resultContainsPositionTwoDown()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(4, 3)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndNoObstacles_resultContainsPositionLeftUpper()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(3, 6)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndNoObstacles_resultContainsPositionRightUpper()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(5, 6)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndNoObstacles_resultContainsPositionRightLower()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(6, 4)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndNoObstacles_resultContainsPositionLeftLower()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(3, 4)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range2AndNoObstacles_resultContainsPositionTwoLeftAndUpper()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 2);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(2, 6)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range2AndNoObstacles_resultContainsPositionTwoLeftAndLower()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 2);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(2, 4)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range2AndNoObstacles_resultContainsPositionTwoUpperAndLeft()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 2);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(3, 7)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range2AndNoObstacles_resultContainsPositionTwoUpperAndRight()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 2);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(5, 7)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range2AndNoObstacles_resultContainsPositionTwoRightAndUpper()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 2);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(6, 6)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range2AndNoObstacles_resultContainsPositionTwoRightAndLower()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 2);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(6, 4)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range2AndNoObstacles_resultContainsPositionTwoLowerAndLeft()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 2);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(3, 3)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range2AndNoObstacles_resultContainsPositionTwoLowerAndRight()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 2);
+
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(5, 3)) == 1);
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndPositionAtLeftWall_resultSizeIs5()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(0, 5), 1);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)5, result.size());
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndPositionAtRightWall_resultSizeIs5()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(9, 5), 1);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)5, result.size());
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndPositionAtLowerWall_resultSizeIs5()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 0), 1);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)5, result.size());
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndPositionAtUpperWall_resultSizeIs5()
+{
+	Grid grid(10, 10);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 9), 1);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)5, result.size());
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallLeft_resultSizeIs7()
+{
+	Grid grid(10, 10);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(3, 5));
+	grid.addWallAtPlace(wall);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)7, result.size());
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallAbove_resultSizeIs7()
+{
+	Grid grid(10, 10);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(4, 6));
+	grid.addWallAtPlace(wall);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)7, result.size());
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallRight_resultSizeIs7()
+{
+	Grid grid(10, 10);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(5, 5));
+	grid.addWallAtPlace(wall);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)7, result.size());
+}
+
+void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallBelow_resultSizeIs7()
+{
+	Grid grid(10, 10);
+	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(4, 4));
+	grid.addWallAtPlace(wall);
+
+	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
+
+	CPPUNIT_ASSERT_EQUAL((size_t)7, result.size());
+}
+
 void GridTest::setUp()
 {
 	m_powerUpIdCreator = new UniqueIdCreator();

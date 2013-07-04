@@ -572,6 +572,13 @@ unsigned int Grid::getColumns() const
 	return m_gridColumns;
 }
 
+vector<GridPoint> Grid::getAllFieldsBesideBombRange(const GridPoint &/*position*/, unsigned int maximumRange)
+{
+	assert(maximumRange > 0);
+	vector<GridPoint> result;
+	return result;
+}
+
 unsigned int Grid::getBombMaximumRangeLeft(const GridPoint &position) const
 {
 	unsigned int distanceToNextWall = getDistanceToNextWallLeft(position);

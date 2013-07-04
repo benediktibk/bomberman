@@ -68,6 +68,7 @@ namespace Common
 		size_t getObserverCount() const;
 		unsigned int getRows() const;
 		unsigned int getColumns() const;
+		std::vector<GridPoint> getAllFieldsBesideBombRange(const GridPoint &position, unsigned int maximumRange);
 
 	public:
 		static std::vector<GridPoint> getPlayerFields(const PlayerState &player);
