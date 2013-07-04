@@ -336,7 +336,7 @@ void PlayerStateTest::increaseSpeed_defaultSpeed_speedIncreased()
 
 	player.increaseSpeed();
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(initialSpeed + player.getSpeedIncreasement(), player.getSpeed(), 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(initialSpeed + player.getSpeedIncrement(), player.getSpeed(), 0.001);
 }
 
 void PlayerStateTest::setDestructionRangeOfNewBombs_4_destructionRangeIs4()
@@ -348,16 +348,16 @@ void PlayerStateTest::setDestructionRangeOfNewBombs_4_destructionRangeIs4()
 	CPPUNIT_ASSERT_EQUAL((unsigned int)4, player.getDestructionRangeOfNewBombs());
 }
 
-void PlayerStateTest::constructor_idCreator_speedIncreasementIs05()
+void PlayerStateTest::constructor_idCreator_speedIncrementIs05()
 {
 	PlayerState player(*m_playerIDCreator);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.5, player.getSpeedIncreasement(), 0.00001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(0.5, player.getSpeedIncrement(), 0.00001);
 }
 
-void PlayerStateTest::constructor_idCreator_speedIncreasementIsGreaterZero()
+void PlayerStateTest::constructor_idCreator_speedIncrementIsGreaterZero()
 {
 	PlayerState player(*m_playerIDCreator);
 
-	CPPUNIT_ASSERT(player.getSpeedIncreasement() > 0);
+	CPPUNIT_ASSERT(player.getSpeedIncrement() > 0);
 }

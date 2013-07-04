@@ -120,11 +120,14 @@ void GameLoop::catchPlayerInformation(const vector<unsigned int> &playerIDs)
 	m_playerInformation.clear();
 
 	for (size_t y = 0; y < playerIDs.size(); y++)
-	{
-		m_playerInformation.push_back(playerIDs.at(y));
-		m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getMaxBombs());
-		m_playerInformation.push_back(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getDestructionRangeOfNewBombs());
-	}
+	{   
+        Common::PlayerInformation player;
+        player.setPlayerId(playerIDs.at(y));
+        player.setRangeCounter(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getDestructionRangeOfNewBombs());
+        player.setBombCounter(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getMaxBombs());
+        player.setSpeedCounter(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getSpeed());
+        m_playerInformation.push_back(player);
+    }    
 }
 
 void GameLoop::updateMovingAverageOfTime(double time)
@@ -144,7 +147,7 @@ bool GameLoop::isStopped()
 	return m_stopped;
 }
 
-vector<unsigned int> GameLoop::getPlayerInformation()
+vector<Common::PlayerInformation> GameLoop::getPlayerInformation()
 {
 	Lock lock(m_playerInformationMutex);
 	return m_playerInformation;

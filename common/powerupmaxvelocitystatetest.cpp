@@ -16,7 +16,7 @@ void PowerUpMaxVelocityStateTest::modifyPlayer_maxSpeed_7()
 
 	increaseMaxVel.modifyPlayer(player);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(speed + player.getSpeedIncreasement(), player.getSpeed(), 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(speed + player.getSpeedIncrement(), player.getSpeed(), 0.001);
 }
 
 void PowerUpMaxVelocityStateTest::modifyPlayer_baseClass_maxSpeed_7()
@@ -29,7 +29,7 @@ void PowerUpMaxVelocityStateTest::modifyPlayer_baseClass_maxSpeed_7()
 
 	increaseMaxVel->modifyPlayer(player);
 
-	CPPUNIT_ASSERT_DOUBLES_EQUAL(speed + player.getSpeedIncreasement(), player.getSpeed(), 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL(speed + player.getSpeedIncrement(), player.getSpeed(), 0.001);
 }
 
 void PowerUpMaxVelocityStateTest::getPowerUpType_isMaxVelocity()
