@@ -13,7 +13,8 @@ CertainFieldAndNotDangerousDecider::CertainFieldAndNotDangerousDecider(const vec
 bool CertainFieldAndNotDangerousDecider::decide(const RouterGridField &field, const RouterGridField &, bool) const
 {
 	if (	count(m_possibleTargets.begin(), m_possibleTargets.end(), field.getPosition()) == 1 &&
-			!field.isDangerous())
+			!field.isDangerous() &&
+			field.isFree())
 		return true;
 	else
 		return false;

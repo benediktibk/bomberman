@@ -432,7 +432,7 @@ void RouterTest::canEscapeFromIfBombPlaced_wayBlockedByDangerousField_false()
 	m_grid->addBombAtPlace(*bomb);
 	m_router->updatePlayerFields();
 
-	CPPUNIT_ASSERT(m_router->canEscapeFromIfBombPlaced(GridPoint(0, 0), 5));
+	CPPUNIT_ASSERT(!m_router->canEscapeFromIfBombPlaced(GridPoint(0, 0), 5));
 }
 
 void RouterTest::canEscapeFromIfBombPlaced_noObstacles_true()

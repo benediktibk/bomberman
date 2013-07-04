@@ -156,6 +156,7 @@ void ComputerEnemyInputFetcherHardTest::getInputState_besideSaveFieldAsPossibleT
 	LevelDefinition level(13, 14);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 1);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 1, 1);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 0, 2);
 	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 1, 0);
 	createInputFetcher(level);
 	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(1, 2), 10);
