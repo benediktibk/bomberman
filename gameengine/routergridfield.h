@@ -1,11 +1,14 @@
 #ifndef GAMEENGINE_ROUTERGRIDFIELD_H
 #define GAMEENGINE_ROUTERGRIDFIELD_H
 
+#include "common/gridpoint.h"
+
 namespace GameEngine
 {
 	class RouterGridField
 	{
 	public:
+		RouterGridField(const Common::GridPoint &position);
 		RouterGridField();
 
 		bool isLooseWall() const;
@@ -22,6 +25,8 @@ namespace GameEngine
 		void setDangerous(bool value);
 		void setPowerUp(bool value);
 		void clear();
+		const Common::GridPoint& getPosition() const;
+		bool isValid() const;
 
 	private:
 		bool m_looseWall;
@@ -30,6 +35,8 @@ namespace GameEngine
 		bool m_player;
 		bool m_dangerous;
 		bool m_powerUp;
+		Common::GridPoint m_position;
+		bool m_valid;
 	};
 }
 

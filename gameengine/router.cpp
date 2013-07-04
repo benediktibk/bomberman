@@ -5,6 +5,8 @@
 #include "gameengine/coveredbypowerupdecider.h"
 #include "gameengine/freedecider.h"
 #include "gameengine/routergrid.h"
+#include "gameengine/certainfieldandnotdangerousdecider.h"
+#include "common/grid.h"
 #include <fstream>
 #include <assert.h>
 
@@ -45,6 +47,18 @@ Route Router::getRouteToLooseWall(const Common::GridPoint &position) const
 Route Router::getRouteToPowerUp(const GridPoint &position) const
 {
 	return getRoute(NotDangerousAndFreeDecider(), CoveredByPowerUpDecider(), position);
+}
+
+bool Router::canEscapeFromIfBombPlaced(const GridPoint &position, unsigned int bombRange) const
+{
+	const Grid &sourceGrid = m_grid->getGrid();
+	vector<GridPoint> targets = sourceGrid.getAllFieldsBesideBombRange(position, bombRange);
+	Route route = getRoute(NotDangerousAndFreeDecider(), CertainFieldAndNotDangerousDecider(targets), position);
+
+	if (route.getDirection() != PlayerState::PlayerDirectionNone)
+		return true;
+	else
+		return false;
 }
 
 void Router::writeDebuggingInformationToFile(DistanceMatrix &distances) const

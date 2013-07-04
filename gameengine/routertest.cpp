@@ -421,6 +421,29 @@ void RouterTest::getRouteToPowerUp_powerUpTwoFieldsLeftOfPlayer_directionIsLeft(
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionLeft, route.getDirection());
 }
 
+void RouterTest::canEscapeFromIfBombPlaced_wayBlockedByDangerousField_false()
+{
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 1, 1);
+	createRouter(level);
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(2, 2), 10);
+	m_gameState->addBomb(bomb);
+	m_grid->addBombAtPlace(*bomb);
+	m_router->updatePlayerFields();
+
+	CPPUNIT_ASSERT(m_router->canEscapeFromIfBombPlaced(GridPoint(0, 0), 5));
+}
+
+void RouterTest::canEscapeFromIfBombPlaced_noObstacles_true()
+{
+	LevelDefinition level(15, 10);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	createRouter(level);
+
+	CPPUNIT_ASSERT(m_router->canEscapeFromIfBombPlaced(GridPoint(0, 0), 5));
+}
+
 void RouterTest::setUp()
 {
 	m_playerIdCreator = new UniqueIdCreator();

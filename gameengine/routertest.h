@@ -48,6 +48,8 @@ namespace GameEngine
 		CPPUNIT_TEST(getRouteToPowerUp_powerUpThreeFieldsAbovePlayer_directionIsUp);
 		CPPUNIT_TEST(getRouteToPowerUp_powerUpTwoFieldsLeftOfPlayer_distanceIs2);
 		CPPUNIT_TEST(getRouteToLooseWall_looseWallTwoFieldsLeftOfPlayer_directionIsLeft);
+		CPPUNIT_TEST(canEscapeFromIfBombPlaced_wayBlockedByDangerousField_false);
+		CPPUNIT_TEST(canEscapeFromIfBombPlaced_noObstacles_true);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -82,6 +84,8 @@ namespace GameEngine
 		void getRouteToPowerUp_powerUpThreeFieldsAbovePlayer_directionIsUp();
 		void getRouteToPowerUp_powerUpTwoFieldsLeftOfPlayer_distanceIs2();
 		void getRouteToPowerUp_powerUpTwoFieldsLeftOfPlayer_directionIsLeft();
+		void canEscapeFromIfBombPlaced_wayBlockedByDangerousField_false();
+		void canEscapeFromIfBombPlaced_noObstacles_true();
 
 	private:
 		void createRouter(const Common::LevelDefinition &level);

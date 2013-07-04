@@ -572,7 +572,7 @@ unsigned int Grid::getColumns() const
 	return m_columns;
 }
 
-vector<GridPoint> Grid::getAllFieldsBesideBombRange(const GridPoint &position, unsigned int range)
+vector<GridPoint> Grid::getAllFieldsBesideBombRange(const GridPoint &position, unsigned int range) const
 {
 	assert(range > 0);
 	const unsigned int x = position.getX();

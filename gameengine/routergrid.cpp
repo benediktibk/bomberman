@@ -19,7 +19,10 @@ RouterGrid::RouterGrid(Grid &grid, const GameState &gameState, unsigned int play
 {
 	for (unsigned int x = 0; x < m_width; ++x)
 		for (unsigned int y = 0; y < m_height; ++y)
+		{
+			m_fields[y][x] = RouterGridField(GridPoint(x, y));
 			fieldHasChanged(GridPoint(x, y));
+		}
 }
 
 void RouterGrid::fieldHasChanged(const GridPoint &position)
@@ -84,6 +87,11 @@ void RouterGrid::removeBombToCalculatedForPositionCheck(const GridPoint &positio
 	UniqueIdCreator id;
 	const BombState bomb(id, 0, position.getPointPosition(), m_gameState.getPlayerStateById(m_ownPlayerId).getDestructionRangeOfNewBombs());
 	m_grid.removeBombForPositionCheck(bomb);
+}
+
+const Grid& RouterGrid::getGrid() const
+{
+	return m_grid;
 }
 
 RouterGridField& RouterGrid::getFieldInternal(const GridPoint &position)

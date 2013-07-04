@@ -3,11 +3,12 @@
 #include "gameengine/routergridfield.h"
 
 using namespace GameEngine;
+using namespace Common;
 
 void NotDangerousAndFreeDeciderTest::decide_dangerousField_false()
 {
-	RouterGridField field;
-	RouterGridField previousField;
+	RouterGridField field(GridPoint(4, 3));
+	RouterGridField previousField(GridPoint(4, 3));
 	NotDangerousAndFreeDecider decider;
 	field.setDangerous(true);
 
@@ -16,8 +17,8 @@ void NotDangerousAndFreeDeciderTest::decide_dangerousField_false()
 
 void NotDangerousAndFreeDeciderTest::decide_wallAtField_false()
 {
-	RouterGridField field;
-	RouterGridField previousField;
+	RouterGridField field(GridPoint(4, 3));
+	RouterGridField previousField(GridPoint(4, 3));
 	NotDangerousAndFreeDecider decider;
 	field.setLooseWall(true);
 
@@ -26,8 +27,8 @@ void NotDangerousAndFreeDeciderTest::decide_wallAtField_false()
 
 void NotDangerousAndFreeDeciderTest::decide_notDangerousAndFree_true()
 {
-	RouterGridField field;
-	RouterGridField previousField;
+	RouterGridField field(GridPoint(4, 3));
+	RouterGridField previousField(GridPoint(4, 3));
 	NotDangerousAndFreeDecider decider;
 
 	CPPUNIT_ASSERT(decider.decide(field, previousField, false));

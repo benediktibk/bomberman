@@ -28,6 +28,7 @@ namespace GameEngine
 		void updatePlayerFlags();
 		void addBombToCalculatedForPositionCheck(const Common::GridPoint &position);
 		void removeBombToCalculatedForPositionCheck(const Common::GridPoint &position);
+		const Common::Grid& getGrid() const;
 
 	private:
 		RouterGridField& getFieldInternal(const Common::GridPoint &position);

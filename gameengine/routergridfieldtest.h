@@ -30,6 +30,9 @@ namespace GameEngine
 		CPPUNIT_TEST(isFree_solidWallSet_false);
 		CPPUNIT_TEST(isFree_dangerousSet_true);
 		CPPUNIT_TEST(isFree_powerUpSet_true);
+		CPPUNIT_TEST(constructor_5And6_positionIs5And6);
+		CPPUNIT_TEST(constructor_5And6_isValid);
+		CPPUNIT_TEST(constructor_empty_notValid);
 		CPPUNIT_TEST_SUITE_END();
 
 	private:
@@ -53,6 +56,9 @@ namespace GameEngine
 		void isFree_solidWallSet_false();
 		void isFree_dangerousSet_true();
 		void isFree_powerUpSet_true();
+		void constructor_5And6_positionIs5And6();
+		void constructor_5And6_isValid();
+		void constructor_empty_notValid();
 	};
 }
 

@@ -43,6 +43,7 @@
 #include "gameengine/routetest.h"
 #include "gameengine/routertest.h"
 #include "gameengine/computerenemyinputfetcherhardtest.h"
+#include "gameengine/certainfieldandnotdangerousdecidertest.h"
 #include "main/gamelooptest.h"
 
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::InputStateTest);
@@ -90,4 +91,5 @@ CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::FreeDeciderTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::RouteTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::RouterTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::ComputerEnemyInputFetcherHardTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(GameEngine::CertainFieldAndNotDangerousDeciderTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Main::GameLoopTest);

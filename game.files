@@ -442,3 +442,7 @@ main/gui/splashscreen.ui
 main/splashscreen.h
 main/splashscreen.cpp
 resources/graphics/background.svg
+gameengine/certainfieldandnotdangerousdecider.h
+gameengine/certainfieldandnotdangerousdecider.cpp
+gameengine/certainfieldandnotdangerousdecidertest.h
+gameengine/certainfieldandnotdangerousdecidertest.cpp

@@ -32,6 +32,7 @@ namespace GameEngine
 		Route getRouteToNotDangerousField(const Common::GridPoint &position) const;
 		Route getRouteToLooseWall(const Common::GridPoint &position) const;
 		Route getRouteToPowerUp(const Common::GridPoint &position) const;
+		bool canEscapeFromIfBombPlaced(const Common::GridPoint &position, unsigned int bombRange) const;
 
 	private:
 		void writeDebuggingInformationToFile(DistanceMatrix &distances) const;
