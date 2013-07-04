@@ -88,7 +88,11 @@ void GameLoop::execute()
 
 	while (run)
 	{
-		double timeWithoutWait = watch.getTimeAndRestart() + timeForDrawing;
+		/*!
+		 * Do you wanna know why we have to subtract the time spent on drawing here? If you
+		 * find out, please tell me. - Benedikt Schmidt
+		 */
+		double timeWithoutWait = watch.getTimeAndRestart() - timeForDrawing;
 		double time = timeWithoutWait;
 		double timeToWait = m_minimumTimeStep - timeWithoutWait;
 
