@@ -23,7 +23,7 @@ namespace Graphic
 			public Common::GraphicDrawer
 	{
 	public:
-		GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL);
+		GraphicDrawerQt(const std::vector<QGraphicsView*> &views, bool enableOpenGL);
 		virtual ~GraphicDrawerQt();
 
 		virtual void setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs);
@@ -41,9 +41,9 @@ namespace Graphic
 		void drawPowerUp(const Common::PowerUpState *powerUp);
 		void drawExplodedBombs(const std::vector<const Common::ExplodedBombState*> &explodedBombs);
 		void drawExplodedBomb(const Common::ExplodedBombState *explodedBomb);
-		void updateViewArea();
-		void fitWholeAreaInView();
-		void updateViewPositionForPlayer(const Common::PlayerState &player);
+		void setSceneRectForViews();
+		void fitWholeAreaInView(QGraphicsView &view);
+		void updateViewPositionForPlayer(const Common::PlayerState &player, QGraphicsView &view);
 		void setViewPositionToTheCenterOfPlayer(const Common::PlayerState &player);
 		void drawBorderWalls(unsigned int width, unsigned int height);
 		void drawLeftBorderWalls(unsigned int height);
@@ -62,10 +62,20 @@ namespace Graphic
 		void deleteBorderWalls();
 		void deletePlayers();
 		QRectF calculateSceneRect(const Common::GameState &gameState);
-		void scale(double factor);
+		void scale(double factor, QGraphicsView &view);
+		void setScaleOfAllViewsToOne();
+		void configureView(QGraphicsView &view, bool enableOpenGL);
+		void configureViews(bool enableOpenGL);
+		void createBackgroundBrush();
+		void updateViewPorts();
+		void updateViewAreas(const Common::GameState &gameState);
+		void updateViewArea(unsigned int playerID, QGraphicsView &view, const Common::GameState &gameState);
+		void initializeScales();
 
 	private:
-		QGraphicsView &m_view;
+		std::vector<QGraphicsView*> m_views;
+		std::map<unsigned int, QGraphicsView*> m_playerIDToViewMap;
+		std::map<QGraphicsView*, double> m_currentScales;
 		QGraphicsScene *m_scene;
 		std::map<const Common::PlayerState*, Player*> m_players;
 		std::map<const Common::WallState*, Wall*> m_walls;
@@ -77,13 +87,10 @@ namespace Graphic
 		std::vector<Wall*> m_borderWalls;
 		const double m_minimumViewDistance;
 		const double m_minimumViewDistanceInPixel;
-		bool m_responsibleForOnePlayer;
-		unsigned int m_playerIDResponsibleFor;
 		bool m_responsibilityValid;
 		SvgRenderer *m_svgRenderer;
 		QBrush *m_backgroundBrush;
 		QRectF m_sceneRect;
-		double m_currentScale;
 		Common::Compare m_scaleCompare;
 		Common::Compare m_viewAreaCompare;
 	};

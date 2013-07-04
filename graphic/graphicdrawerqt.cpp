@@ -20,8 +20,8 @@ using namespace Common;
 using namespace std;
 using namespace Qt;
 
-GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
-	m_view(view),
+GraphicDrawerQt::GraphicDrawerQt(const vector<QGraphicsView*> &views, bool enableOpenGL) :
+	m_views(views),
 	m_scene(new QGraphicsScene()),
 	m_pixelPerMeter(40),
 	m_firstRedraw(true),
@@ -30,35 +30,17 @@ GraphicDrawerQt::GraphicDrawerQt(QGraphicsView &view, bool enableOpenGL) :
 	m_responsibilityValid(false),
 	m_svgRenderer(0),
 	m_backgroundBrush(0),
-	m_currentScale(1),
 	m_scaleCompare(0.01),
 	m_viewAreaCompare(2)
 {
-	if (enableOpenGL)
-		m_view.setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
-	else
-		m_view.setViewport(new QWidget());
-
-	m_view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	m_view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	m_view.setFocusPolicy(Qt::NoFocus);
-	QSvgRenderer renderer(QString("resources/graphics/bg_cell_pattern.svg"));
-	QImage image(m_pixelPerMeter, m_pixelPerMeter, QImage::Format_ARGB32);
-	QPainter painter(&image);
-	renderer.render(&painter);
-
-	QBrush *m_backgroundBrush = new QBrush(image);
-
-	m_view.setBackgroundBrush(*m_backgroundBrush);
-
-	m_view.setFocusPolicy(NoFocus);
-	m_view.setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
-	m_view.setScene(m_scene);
+	createBackgroundBrush();
+	configureViews(enableOpenGL);
+	initializeScales();
 }
 
 GraphicDrawerQt::~GraphicDrawerQt()
 {
-	scale(1);
+	setScaleOfAllViewsToOne();
 	deleteWalls();
 	deleteBombs();
 	deletePowerUps();
@@ -69,17 +51,14 @@ GraphicDrawerQt::~GraphicDrawerQt()
 	delete m_backgroundBrush;
 }
 
-void GraphicDrawerQt::setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs)
+void GraphicDrawerQt::setResponsibleForPlayers(const vector<unsigned int> &playerIDs)
 {
 	assert(playerIDs.size() > 0);
+	assert(playerIDs.size() == m_views.size());
 
-	if (playerIDs.size() == 1)
-	{
-		m_responsibleForOnePlayer = true;
-		m_playerIDResponsibleFor = playerIDs.front();
-	}
-	else
-		m_responsibleForOnePlayer = false;
+	m_playerIDToViewMap.clear();
+	for (unsigned int i = 0; i < playerIDs.size(); ++i)
+		m_playerIDToViewMap.insert(pair<unsigned int, QGraphicsView*>(playerIDs[i], m_views[i]));
 
 	m_responsibilityValid = true;
 }
@@ -94,23 +73,16 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 		m_svgRenderer = new SvgRenderer(m_pixelPerMeter, gameState);
 		drawBorderWalls(gameState.getWidth(), gameState.getHeight());
 		m_sceneRect = calculateSceneRect(gameState);
-		updateViewArea();
+		setSceneRectForViews();
 	}
 
-	if (m_responsibleForOnePlayer && gameState.isPlayerAlive(m_playerIDResponsibleFor))
-	{
-		const PlayerState &player = gameState.getPlayerStateById(m_playerIDResponsibleFor);
-		updateViewPositionForPlayer(player);
-	}
-	else
-		fitWholeAreaInView();
-
+	updateViewAreas(gameState);
 	drawWalls(gameState.getAllChangedWalls());
 	drawBombs(gameState.getAllChangedBombs());
 	drawPowerUps(gameState.getAllChangedPowerUps());
 	drawExplodedBombs(gameState.getAllChangedExplodedBombs());
 	drawPlayers(gameState);
-	m_view.viewport()->update();
+	updateViewPorts();
 	m_firstRedraw = false;
 }
 
@@ -264,26 +236,28 @@ void GraphicDrawerQt::drawExplodedBomb(const ExplodedBombState *explodedBombStat
 	}
 }
 
-void GraphicDrawerQt::updateViewArea()
+void GraphicDrawerQt::setSceneRectForViews()
 {
-	m_view.setSceneRect(m_sceneRect);
+	for (vector<QGraphicsView*>::iterator i = m_views.begin(); i != m_views.end(); ++i)
+		(*i)->setSceneRect(m_sceneRect);
 }
 
-void GraphicDrawerQt::fitWholeAreaInView()
+void GraphicDrawerQt::fitWholeAreaInView(QGraphicsView &view)
 {
-	double scaleX = m_view.width()/m_sceneRect.width();
-	double scaleY = m_view.height()/m_sceneRect.height();
+	double currentScale = m_currentScales.at(&view);
+	double scaleX = view.width()/m_sceneRect.width();
+	double scaleY = view.height()/m_sceneRect.height();
 	double scaleMax = min(scaleX, scaleY);
 
-	if (!m_scaleCompare.isFuzzyEqual(scaleMax, m_currentScale))
-		scale(scaleMax);
+	if (!m_scaleCompare.isFuzzyEqual(scaleMax, currentScale))
+		scale(scaleMax, view);
 }
 
-void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
+void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player, QGraphicsView &view)
 {
 	QRect maximumPlayerMovement;
-	unsigned int viewWidth = m_view.width();
-	unsigned int viewHeight = m_view.height();
+	unsigned int viewWidth = view.width();
+	unsigned int viewHeight = view.height();
 
 	if (viewWidth <= m_minimumViewDistanceInPixel*2)
 	{
@@ -313,7 +287,7 @@ void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
 		return;
 	}
 
-	QPolygonF maximumPlayerMovementInScenePolygon = m_view.mapToScene(maximumPlayerMovement);
+	QPolygonF maximumPlayerMovementInScenePolygon = view.mapToScene(maximumPlayerMovement);
 	QRectF maximumPlayerMovementInScene = maximumPlayerMovementInScenePolygon.boundingRect();
 	Point playerPosition(player.getPosition()*m_pixelPerMeter);
 	playerPosition.setX(playerPosition.getX() + player.getDimension()/2*m_pixelPerMeter);
@@ -355,7 +329,7 @@ void GraphicDrawerQt::updateViewPositionForPlayer(const PlayerState &player)
 		 */
 		positionToCenterOn.setX(positionToCenterOn.x() - 1);
 		positionToCenterOn.setY(positionToCenterOn.y() - 1);
-		m_view.centerOn(positionToCenterOn);
+		view.centerOn(positionToCenterOn);
 	}
 }
 
@@ -364,7 +338,8 @@ void GraphicDrawerQt::setViewPositionToTheCenterOfPlayer(const PlayerState &play
 	Common::Point playerPosition = player.getCenterPosition();
 	Graphic::Point qtPoint = playerPosition*m_pixelPerMeter;
 	qtPoint.switchIntoQtCoordinates();
-	m_view.centerOn(qtPoint.toQPoint());
+	QGraphicsView &view = *(m_playerIDToViewMap.at(player.getId()));
+	view.centerOn(qtPoint.toQPoint());
 }
 
 void GraphicDrawerQt::drawBorderWalls(unsigned int width, unsigned int height)
@@ -501,9 +476,75 @@ QRectF GraphicDrawerQt::calculateSceneRect(const GameState &gameState)
 	return QRectF(x, y, widthWithBordersInPixel, heightWithBordersInPixel);
 }
 
-void GraphicDrawerQt::scale(double factor)
+void GraphicDrawerQt::scale(double factor, QGraphicsView &view)
 {
-	double scaleBy = factor/m_currentScale;
-	m_view.scale(scaleBy, scaleBy);
-	m_currentScale = factor;
+	double currentScale = m_currentScales.at(&view);
+	double scaleBy = factor/currentScale;
+	view.scale(scaleBy, scaleBy);
+	m_currentScales.at(&view) = factor;
+}
+
+void GraphicDrawerQt::setScaleOfAllViewsToOne()
+{
+	for (vector<QGraphicsView*>::iterator i = m_views.begin(); i != m_views.end(); ++i)
+		scale(1, **i);
+}
+
+void GraphicDrawerQt::configureView(QGraphicsView &view, bool enableOpenGL)
+{
+	if (enableOpenGL)
+		view.setViewport(new QGLWidget(QGLFormat(QGL::SampleBuffers)));
+	else
+		view.setViewport(new QWidget());
+
+	view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	view.setFocusPolicy(Qt::NoFocus);
+	view.setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
+	view.setScene(m_scene);
+	view.setBackgroundBrush(*m_backgroundBrush);
+}
+
+void GraphicDrawerQt::configureViews(bool enableOpenGL)
+{
+	for (vector<QGraphicsView*>::iterator i = m_views.begin(); i != m_views.end(); ++i)
+		configureView(**i, enableOpenGL);
+}
+
+void GraphicDrawerQt::createBackgroundBrush()
+{
+	QSvgRenderer renderer(QString("resources/graphics/bg_cell_pattern.svg"));
+	QImage image(m_pixelPerMeter, m_pixelPerMeter, QImage::Format_ARGB32);
+	QPainter painter(&image);
+	renderer.render(&painter);
+	m_backgroundBrush = new QBrush(image);
+}
+
+void GraphicDrawerQt::updateViewPorts()
+{
+	for (vector<QGraphicsView*>::iterator i = m_views.begin(); i != m_views.end(); ++i)
+		(*i)->viewport()->update();
+}
+
+void GraphicDrawerQt::updateViewAreas(const GameState &gameState)
+{
+	for (map<unsigned int, QGraphicsView*>::iterator i = m_playerIDToViewMap.begin(); i != m_playerIDToViewMap.end(); ++i)
+		updateViewArea(i->first, *(i->second), gameState);
+}
+
+void GraphicDrawerQt::updateViewArea(unsigned int playerID, QGraphicsView &view, const GameState &gameState)
+{
+	if (gameState.isPlayerAlive(playerID))
+	{
+		const PlayerState &player = gameState.getPlayerStateById(playerID);
+		updateViewPositionForPlayer(player, view);
+	}
+	else
+		fitWholeAreaInView(view);
+}
+
+void GraphicDrawerQt::initializeScales()
+{
+	for (vector<QGraphicsView*>::iterator i = m_views.begin(); i != m_views.end(); ++i)
+		m_currentScales.insert(pair<QGraphicsView*, double>(*i, 1));
 }

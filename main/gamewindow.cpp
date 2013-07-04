@@ -22,8 +22,7 @@ using namespace std;
 GameWindow::GameWindow() :
 	m_statusBarUpdateTimeStep(250),
 	m_ui(new Ui::GameWindow),
-	m_drawerOne(0),
-	m_drawerTwo(0),
+	m_drawer(0),
 	m_level(0),
 	m_gameEngine(0),
 	m_soundPlayer(0),
@@ -64,20 +63,7 @@ GameWindow::~GameWindow()
 void GameWindow::setResponsibleForPlayers(const vector<unsigned int> &playerIDs)
 {
 	assert(playerIDs.size() == 1 || playerIDs.size() == 2);
-
-	if (playerIDs.size() == 1)
-		m_drawerOne->setResponsibleForPlayers(playerIDs);
-	else
-	{
-		vector<unsigned int> firstPart;
-		vector<unsigned int> secondPart;
-
-		firstPart.push_back(playerIDs.front());
-		secondPart.push_back(playerIDs.back());
-
-		m_drawerOne->setResponsibleForPlayers(firstPart);
-		m_drawerTwo->setResponsibleForPlayers(secondPart);
-	}
+	m_drawer->setResponsibleForPlayers(playerIDs);
 }
 
 void GameWindow::draw(const Common::GameState &gameState)
@@ -124,7 +110,7 @@ void GameWindow::startGame(
 	createAllPlayerInputFetcher(computerEnemyLevel);
 	createGameLoop();
 	createViews(humanPlayerCount);
-	createDrawers(enableOpenGL, humanPlayerCount);
+	createDrawer(enableOpenGL);
 
 	m_gameRunning = true;
 	m_drawFinished.send();
@@ -138,10 +124,8 @@ void GameWindow::startGame(
 
 void GameWindow::updateGui(const Common::GameState *gameState)
 {
-	if (m_drawerOne != 0)
-		m_drawerOne->draw(*gameState);
-	if (m_drawerTwo != 0)
-		m_drawerTwo->draw(*gameState);
+	if (m_drawer != 0)
+		m_drawer->draw(*gameState);
 	m_guiUpdateFinished.send();
 }
 
@@ -281,16 +265,11 @@ void GameWindow::createGameLoop()
 	connect(m_gameLoop, SIGNAL(winnerSignal(int)), this, SLOT(winnerOfGame(int)));
 }
 
-void GameWindow::createDrawers(bool enableOpenGL, unsigned int humanPlayerCount)
+void GameWindow::createDrawer(bool enableOpenGL)
 {
-	assert(m_drawerOne == 0);
-	assert(m_drawerTwo == 0);
-	assert(humanPlayerCount == 1 || humanPlayerCount == 2);
+	assert(m_drawer == 0);
 
-	m_drawerOne = new GraphicDrawerQt(*(m_viewOne), enableOpenGL);
-	if (humanPlayerCount == 2)
-		m_drawerTwo = new GraphicDrawerQt(*(m_viewTwo), enableOpenGL);
-
+	m_drawer = new GraphicDrawerQt(m_viewsAsVector, enableOpenGL);
 	const Common::GameState &gameState = m_gameEngine->getGameState();
 	vector<unsigned int> playerIDsToShow = gameState.getAllNotDestroyedHumanPlayerIDs();
 	setResponsibleForPlayers(playerIDsToShow);
@@ -320,15 +299,18 @@ void GameWindow::createViews(unsigned int humanPlayerCount)
 {
 	assert(m_viewOne == 0);
 	assert(m_viewTwo == 0);
+	assert(m_viewsAsVector.size() == 0);
 	assert(humanPlayerCount == 1 || humanPlayerCount == 2);
 
 	m_viewOne = createView();
 	m_ui->viewLayout->addWidget(m_viewOne);
+	m_viewsAsVector.push_back(m_viewOne);
 
 	if (humanPlayerCount == 2)
 	{
 		m_viewTwo = createView();
 		m_ui->viewLayout->addWidget(m_viewTwo);
+		m_viewsAsVector.push_back(m_viewTwo);
 	}
 }
 
@@ -345,10 +327,8 @@ void GameWindow::freeMemory()
 {
 	delete m_gameLoop;
 	m_gameLoop = 0;
-	delete m_drawerOne;
-	m_drawerOne = 0;
-	delete m_drawerTwo;
-	m_drawerTwo = 0;
+	delete m_drawer;
+	m_drawer = 0;
 	delete m_level;
 	m_level = 0;
 	delete m_allPlayerInputFetcher;
@@ -361,6 +341,7 @@ void GameWindow::freeMemory()
 	m_viewOne = 0;
 	delete m_viewTwo;
 	m_viewTwo = 0;
+	m_viewsAsVector.clear();
 }
 
 bool GameWindow::eventFilter(QObject *obj, QEvent *event)

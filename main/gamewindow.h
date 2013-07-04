@@ -75,7 +75,7 @@ namespace Main
 		void updatePauseButtonLabel();
 		bool createLevel(const std::string &levelName);
 		void createGameLoop();
-		void createDrawers(bool enableOpenGL, unsigned int humanPlayerCount);
+		void createDrawer(bool enableOpenGL);
 		void createSoundPlayer(bool mute);
 		void createGameEngine(unsigned int humanPlayerCount, unsigned int computerEnemyCount);
 		void createAllPlayerInputFetcher(GameEngine::ComputerEnemyLevel computerEnemyLevel);
@@ -87,8 +87,7 @@ namespace Main
 	private:
 		const unsigned int m_statusBarUpdateTimeStep;
 		Ui::GameWindow *m_ui;
-		Common::GraphicDrawer *m_drawerOne;
-		Common::GraphicDrawer *m_drawerTwo;
+		Common::GraphicDrawer *m_drawer;
 		Common::LevelDefinition *m_level;
 		Common::GameEngine *m_gameEngine;
 		Sound::SoundPlayer *m_soundPlayer;
@@ -101,6 +100,7 @@ namespace Main
 		Threading::Signal m_drawFinished;
 		QGraphicsView *m_viewOne;
 		QGraphicsView *m_viewTwo;
+		std::vector<QGraphicsView*> m_viewsAsVector;
 	};
 }
 

@@ -129,8 +129,12 @@ void GraphicTestWindow::drawState4()
 void GraphicTestWindow::drawState(const GameState &game)
 {
 	delete m_drawer;
-	m_drawer = new Graphic::GraphicDrawerQt(*(m_ui->graphicsView), false);
+	vector<QGraphicsView*> views;
+	views.push_back(m_ui->graphicsView);
+	m_drawer = new Graphic::GraphicDrawerQt(views, false);
 	vector<unsigned int> playerIDs = game.getAllNotDestroyedPlayerIDs();
-	m_drawer->setResponsibleForPlayers(playerIDs);
+	vector<unsigned int> firstPlayerID;
+	firstPlayerID.push_back(playerIDs.front());
+	m_drawer->setResponsibleForPlayers(firstPlayerID);
 	m_drawer->draw(game);
 }
