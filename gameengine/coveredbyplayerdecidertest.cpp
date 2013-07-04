@@ -17,7 +17,7 @@ void GameEngine::CoveredByPlayerDeciderTest::decide_defaultField_false()
 	createRouter(level);
 	RouterGridField field(GridPoint(4, 3));
 	RouterGridField previousField(GridPoint(4, 3));
-	CoveredByPlayerDecider decider(*m_router, 1, false);
+	CoveredByPlayerDecider decider(*m_router, 1, 1, 1, false);
 
 	CPPUNIT_ASSERT(!decider.decide(field, previousField, false));
 }
@@ -29,7 +29,7 @@ void GameEngine::CoveredByPlayerDeciderTest::decide_playerAtField_true()
 	createRouter(level);
 	RouterGridField field(GridPoint(4, 3));
 	RouterGridField previousField(GridPoint(4, 3));
-	CoveredByPlayerDecider decider(*m_router, 1, false);
+	CoveredByPlayerDecider decider(*m_router, 1, 1, 1, false);
 	field.setPlayer(true);
 
 	CPPUNIT_ASSERT(decider.decide(field, previousField, false));

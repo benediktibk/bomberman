@@ -29,9 +29,9 @@ void Router::updatePlayerFields()
 	m_grid->updatePlayerFlags();
 }
 
-Route Router::getRouteToPlayer(const Common::GridPoint &position, unsigned int bombRange, bool considerEscape) const
+Route Router::getRouteToPlayer(const Common::GridPoint &position, unsigned int bombRange, double speed, double bombLifeTime, bool considerEscape) const
 {
-	return getRoute(NotDangerousAndFreeDecider(), CoveredByPlayerDecider(*this, bombRange, considerEscape), position);
+	return getRoute(NotDangerousAndFreeDecider(), CoveredByPlayerDecider(*this, bombRange, speed, bombLifeTime, considerEscape), position);
 }
 
 Route Router::getRouteToNotDangerousField(const Common::GridPoint &position) const
@@ -39,9 +39,9 @@ Route Router::getRouteToNotDangerousField(const Common::GridPoint &position) con
 	return getRoute(FreeDecider(), NotDangerousAndFreeDecider(), position);
 }
 
-Route Router::getRouteToLooseWall(const Common::GridPoint &position, unsigned int bombRange, bool considerEscape) const
+Route Router::getRouteToLooseWall(const Common::GridPoint &position, unsigned int bombRange, double speed, double bombLifeTime, bool considerEscape) const
 {
-	return getRoute(NotDangerousAndFreeDecider(), CoveredByLooseWallDecider(*this, bombRange, considerEscape), position);
+	return getRoute(NotDangerousAndFreeDecider(), CoveredByLooseWallDecider(*this, bombRange, speed, bombLifeTime, considerEscape), position);
 }
 
 Route Router::getRouteToPowerUp(const GridPoint &position) const
@@ -49,16 +49,19 @@ Route Router::getRouteToPowerUp(const GridPoint &position) const
 	return getRoute(NotDangerousAndFreeDecider(), CoveredByPowerUpDecider(), position);
 }
 
-bool Router::canEscapeFromIfBombPlaced(const GridPoint &position, unsigned int bombRange) const
+bool Router::canEscapeFromIfBombPlaced(const GridPoint &position, unsigned int bombRange, double speed, double bombLifeTime) const
 {
 	const Grid &sourceGrid = m_grid->getGrid();
 	vector<GridPoint> targets = sourceGrid.getAllFieldsBesideBombRange(position, bombRange);
 	Route route = getRoute(NotDangerousAndFreeDecider(), CertainFieldAndNotDangerousDecider(targets), position);
 
-	if (route.getDirection() != PlayerState::PlayerDirectionNone)
-		return true;
-	else
+	if (route.getDirection() == PlayerState::PlayerDirectionNone)
 		return false;
+
+	if (route.getDistance() >= speed*bombLifeTime)
+		return false;
+
+	return true;
 }
 
 void Router::writeDebuggingInformationToFile(DistanceMatrix &distances) const

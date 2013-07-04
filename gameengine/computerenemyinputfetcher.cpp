@@ -106,6 +106,16 @@ unsigned int ComputerEnemyInputFetcher::getDestructionRangeOfNewBombs() const
 	return m_player->getDestructionRangeOfNewBombs();
 }
 
+double ComputerEnemyInputFetcher::getPlayerSpeed() const
+{
+	return m_player->getSpeed();
+}
+
+double ComputerEnemyInputFetcher::getBombLifeTime() const
+{
+	return BombState::initialLifeTime();
+}
+
 unsigned int ComputerEnemyInputFetcher::getPlayerID()
 {
 	return m_playerID;

@@ -17,7 +17,7 @@ void CoveredByLooseWallDeciderTest::decide_defaultField_false()
 	createRouter(level);
 	RouterGridField field(GridPoint(4, 3));
 	RouterGridField previousField(GridPoint(4, 4));
-	CoveredByLooseWallDecider decider(*m_router, 1, false);
+	CoveredByLooseWallDecider decider(*m_router, 1, 1, 1, false);
 
 	CPPUNIT_ASSERT(!decider.decide(field, previousField, true));
 }
@@ -29,7 +29,7 @@ void CoveredByLooseWallDeciderTest::decide_looseWallAtField_true()
 	createRouter(level);
 	RouterGridField field(GridPoint(4, 3));
 	RouterGridField previousField(GridPoint(4, 4));
-	CoveredByLooseWallDecider decider(*m_router, 1, false);
+	CoveredByLooseWallDecider decider(*m_router, 1, 1, 1, false);
 	field.setLooseWall(true);
 
 	CPPUNIT_ASSERT(decider.decide(field, previousField, true));
@@ -42,7 +42,7 @@ void CoveredByLooseWallDeciderTest::decide_looseWallButCanNotEscape_false()
 	createRouter(level);
 	RouterGridField field(GridPoint(0, 0));
 	RouterGridField previousField(GridPoint(1, 0));
-	CoveredByLooseWallDecider decider(*m_router, 10, true);
+	CoveredByLooseWallDecider decider(*m_router, 10, 100, 100, true);
 	field.setLooseWall(true);
 	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(3, 1), 10);
 	m_gameState->addBomb(bomb);

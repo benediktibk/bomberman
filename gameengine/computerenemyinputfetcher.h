@@ -38,6 +38,8 @@ namespace GameEngine
 		Router& getRouter();
 		Common::GridPoint getPlayerPosition() const;
 		unsigned int getDestructionRangeOfNewBombs() const;
+		double getPlayerSpeed() const;
+		double getBombLifeTime() const;
 
 	private:
 		Common::InputState m_inputState;

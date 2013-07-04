@@ -33,14 +33,14 @@ void ComputerEnemyInputFetcherEasy::calculateInputStateInternal()
 	if (!m_doSomething->decide())
 		return;
 
-	Route routeToLooseWall = router.getRouteToLooseWall(playerPosition, getDestructionRangeOfNewBombs(), false);
+	Route routeToLooseWall = router.getRouteToLooseWall(playerPosition, getDestructionRangeOfNewBombs(), getPlayerSpeed(), getBombLifeTime(), false);
 	if (routeToLooseWall.getDirection() != PlayerState::PlayerDirectionNone)
 	{
 		placeBombIfCloseEnough(routeToLooseWall);
 		return;
 	}
 
-	Route routeToPlayer = router.getRouteToPlayer(playerPosition, getDestructionRangeOfNewBombs(), false);
+	Route routeToPlayer = router.getRouteToPlayer(playerPosition, getDestructionRangeOfNewBombs(), getPlayerSpeed(), getBombLifeTime(), false);
 	if (routeToPlayer.getDirection() != PlayerState::PlayerDirectionNone)
 	{
 		placeBombIfCloseEnough(routeToPlayer);

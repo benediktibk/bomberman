@@ -28,11 +28,11 @@ namespace GameEngine
 		~Router();
 
 		void updatePlayerFields();
-		Route getRouteToPlayer(const Common::GridPoint &position, unsigned int bombRange, bool considerEscape) const;
+		Route getRouteToPlayer(const Common::GridPoint &position, unsigned int bombRange, double speed, double bombLifeTime, bool considerEscape) const;
 		Route getRouteToNotDangerousField(const Common::GridPoint &position) const;
-		Route getRouteToLooseWall(const Common::GridPoint &position, unsigned int bombRange, bool considerEscape) const;
+		Route getRouteToLooseWall(const Common::GridPoint &position, unsigned int bombRange, double speed, double bombLifeTime, bool considerEscape) const;
 		Route getRouteToPowerUp(const Common::GridPoint &position) const;
-		bool canEscapeFromIfBombPlaced(const Common::GridPoint &position, unsigned int bombRange) const;
+		bool canEscapeFromIfBombPlaced(const Common::GridPoint &position, unsigned int bombRange, double speed, double bombLifeTime) const;
 
 	private:
 		void writeDebuggingInformationToFile(DistanceMatrix &distances) const;
