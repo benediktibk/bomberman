@@ -105,8 +105,10 @@ namespace Main
 		QGraphicsView *m_viewTwo;
 		std::vector<QGraphicsView*> m_viewsAsVector;
 		Common::StopWatch *m_framesPerSecondWatch;
+		Common::StopWatch *m_waitingForUpdateSignalWatch;
 		double m_timeForViewPortUpdates;
 		double m_timeSpentOnDrawing;
+		double m_timeSpentOnWaitingForUpdateSignal;
 	};
 }
 

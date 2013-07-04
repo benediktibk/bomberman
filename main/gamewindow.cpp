@@ -35,8 +35,10 @@ GameWindow::GameWindow() :
 	m_viewOne(0),
 	m_viewTwo(0),
 	m_framesPerSecondWatch(new Common::StopWatch()),
+	m_waitingForUpdateSignalWatch(new Common::StopWatch()),
 	m_timeForViewPortUpdates(0),
-	m_timeSpentOnDrawing(0)
+	m_timeSpentOnDrawing(0),
+	m_timeSpentOnWaitingForUpdateSignal(0)
 {
 	m_ui->setupUi(this);
 
@@ -68,6 +70,8 @@ GameWindow::~GameWindow()
 	m_ui = 0;
 	delete m_framesPerSecondWatch;
 	m_framesPerSecondWatch = 0;
+	delete m_waitingForUpdateSignalWatch;
+	m_waitingForUpdateSignalWatch = 0;
 }
 
 void GameWindow::setResponsibleForPlayers(const vector<unsigned int> &playerIDs)
@@ -90,6 +94,7 @@ double GameWindow::draw(const Common::GameState &gameState)
 		}
 	}
 
+	m_waitingForUpdateSignalWatch->restart();
 	emit guiUpdateNecessary(&gameState);
 
 	m_guiUpdateFinished.wait();
@@ -102,7 +107,7 @@ double GameWindow::draw(const Common::GameState &gameState)
 	}
 
 	m_drawFinished.send();
-	return m_timeSpentOnDrawing;
+	return m_timeSpentOnDrawing + m_timeSpentOnWaitingForUpdateSignal;
 }
 
 void GameWindow::startGame(
@@ -137,6 +142,7 @@ void GameWindow::startGame(
 
 void GameWindow::updateGraphicScene(const Common::GameState *gameState)
 {
+	m_timeSpentOnWaitingForUpdateSignal = m_waitingForUpdateSignalWatch->getTimeAndRestart();
 	if (m_drawer != 0)
 		m_timeSpentOnDrawing = m_drawer->draw(*gameState);
 	m_guiUpdateFinished.send();
