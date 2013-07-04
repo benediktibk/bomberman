@@ -119,16 +119,19 @@ void GameLoop::execute()
 void GameLoop::catchPlayerInformation(const vector<unsigned int> &playerIDs)
 {
 	Lock lock(m_playerInformationMutex);
+	const Common::GameState &gameState = m_gameEngine.getGameState();
 	m_playerInformation.clear();
 
 	for (size_t y = 0; y < playerIDs.size(); y++)
 	{
-		Common::PlayerInformation player;
-		player.setPlayerId(playerIDs.at(y));
-		player.setRangeCounter(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getDestructionRangeOfNewBombs());
-		player.setBombCounter(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getMaxBombs());
-		player.setSpeedCounter(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getSpeed());
-		m_playerInformation.push_back(player);
+		unsigned int playerID = playerIDs[y];
+		Common::PlayerInformation playerInformation;
+		const Common::PlayerState &playerState = gameState.getPlayerStateById(playerID);
+		playerInformation.setPlayerId(playerID);
+		playerInformation.setRangeCounter(playerState.getDestructionRangeOfNewBombs());
+		playerInformation.setBombCounter(playerState.getMaxBombs());
+		playerInformation.setSpeedCounter(playerState.getSpeed());
+		m_playerInformation.push_back(playerInformation);
 	}
 }
 
