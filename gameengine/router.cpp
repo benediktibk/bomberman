@@ -14,13 +14,11 @@ using namespace std;
 using namespace boost;
 
 Router::Router(Grid &grid, const GameState &gameState, unsigned int playerID) :
-	m_grid(new RouterGrid(grid, gameState, playerID)),
-	m_distances(new DistanceMatrix(extents[m_grid->getHeight()][m_grid->getWidth()]))
+	m_grid(new RouterGrid(grid, gameState, playerID))
 { }
 
 Router::~Router()
 {
-	delete m_distances;
 	delete m_grid;
 }
 
@@ -29,38 +27,27 @@ void Router::updatePlayerFields()
 	m_grid->updatePlayerFlags();
 }
 
-Route Router::getRouteToPlayer(const Common::GridPoint &position)
+Route Router::getRouteToPlayer(const Common::GridPoint &position) const
 {
-	Route routeToCalculatedAim = getRoute(NotDangerousAndFreeDecider(), CoveredByPlayerDecider(), position);
-
-	if (isFlightableBombPlace(routeToCalculatedAim.getTargetPosition()))
-		return routeToCalculatedAim;
-
-	return Route(0, PlayerState::PlayerDirectionNone);
-
+	return getRoute(NotDangerousAndFreeDecider(), CoveredByPlayerDecider(), position);
 }
 
-Route Router::getRouteToNotDangerousField(const Common::GridPoint &position)
+Route Router::getRouteToNotDangerousField(const Common::GridPoint &position) const
 {
 	return getRoute(FreeDecider(), NotDangerousAndFreeDecider(), position);
 }
 
-Route Router::getRouteToLooseWall(const Common::GridPoint &position)
+Route Router::getRouteToLooseWall(const Common::GridPoint &position) const
 {
-	Route routeToCalculatedAim = getRoute(NotDangerousAndFreeDecider(), CoveredByLooseWallDecider(), position);
-
-	if (isFlightableBombPlace(routeToCalculatedAim.getTargetPosition()))
-		return routeToCalculatedAim;
-
-	return Route(0, PlayerState::PlayerDirectionNone);
+	return getRoute(NotDangerousAndFreeDecider(), CoveredByLooseWallDecider(), position);
 }
 
-Route Router::getRouteToPowerUp(const GridPoint &position)
+Route Router::getRouteToPowerUp(const GridPoint &position) const
 {
 	return getRoute(NotDangerousAndFreeDecider(), CoveredByPowerUpDecider(), position);
 }
 
-void Router::writeDebuggingInformationToFile() const
+void Router::writeDebuggingInformationToFile(DistanceMatrix &distances) const
 {
 	string fileName = "/var/tmp/ultimatebomberman_distances.csv";
 	fstream file(fileName.c_str(), ios_base::out);
@@ -76,73 +63,80 @@ void Router::writeDebuggingInformationToFile() const
 	{
 		file << y << ";";
 		for (unsigned int x = 0; x < width; ++x)
-			file << (*m_distances)[y][x] << ";";
+			file << distances[y][x] << ";";
 
 		file << endl;
 	}
 }
 
-Route Router::getRoute(const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target, const GridPoint &startPosition)
+Route Router::getRoute(const RouterGridFieldDecider &canWalkOn,
+					   const RouterGridFieldDecider &target,
+					   const GridPoint &startPosition) const
 {
 	const RouterGridField &startField = m_grid->getField(startPosition);
+
 	if (target.decide(startField, startField, false))
 		return Route(0, PlayerState::PlayerDirectionNone);
 
 	bool targetFound;
 	vector<FrontField> lastFront;
+	DistanceMatrix *distances = new DistanceMatrix(extents[m_grid->getHeight()][m_grid->getWidth()]);
 
-	initializeDistances();
-	calculateDistances(lastFront, startPosition, targetFound, canWalkOn, target);
+	initializeDistances(*distances);
+	calculateDistances(*distances, lastFront, startPosition, targetFound, canWalkOn, target);
 
 #ifndef NDEBUG
-	writeDebuggingInformationToFile();
+	writeDebuggingInformationToFile(*distances);
 #endif
 
 	if (!targetFound)
 		return Route(0, PlayerState::PlayerDirectionNone);
 
 	GridPoint targetPosition = findTargetPositionInLastFront(lastFront, target);
-	return findWayBackToSourceFromTarget(targetPosition);
+	Route result = findWayBackToSourceFromTarget(*distances, targetPosition);
+	delete distances;
+	return result;
 }
 
-void Router::initializeDistances()
+void Router::initializeDistances(DistanceMatrix &distances) const
 {
 	unsigned int height = m_grid->getHeight();
 	unsigned int width = m_grid->getWidth();
 
 	for (unsigned int x = 0; x < width; ++x)
 		for (unsigned int y = 0; y < height; ++y)
-			(*m_distances)[y][x] = 0;
+			distances[y][x] = 0;
 }
 
-void Router::updateDistanceForPosition(vector<FrontField> &lastFront, unsigned int actualDistance,
+void Router::updateDistanceForPosition(DistanceMatrix &distances,
+		vector<FrontField> &lastFront, unsigned int actualDistance,
 		const GridPoint &previousPosition, const GridPoint &newPosition, bool &targetFound,
-		const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target)
+		const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target) const
 {
 	const RouterGridField &newField = m_grid->getField(newPosition);
 	const RouterGridField &oldField = m_grid->getField(previousPosition);
 
-	if ((*m_distances)[newPosition.getY()][newPosition.getX()] == 0 && canWalkOn.decide(newField, oldField, true))
+	if (distances[newPosition.getY()][newPosition.getX()] == 0 && canWalkOn.decide(newField, oldField, true))
 	{
-		(*m_distances)[newPosition.getY()][newPosition.getX()] = actualDistance;
+		distances[newPosition.getY()][newPosition.getX()] = actualDistance;
 		lastFront.push_back(FrontField(newPosition, previousPosition));
 	}
 
 	if (target.decide(newField, oldField, true))
 	{
-		(*m_distances)[newPosition.getY()][newPosition.getX()] = actualDistance;
+		distances[newPosition.getY()][newPosition.getX()] = actualDistance;
 		lastFront.push_back(FrontField(newPosition, previousPosition));
 		targetFound = true;
 	}
 }
 
-void Router::calculateDistances(vector<FrontField> &lastFront,
+void Router::calculateDistances(DistanceMatrix &distances, vector<FrontField> &lastFront,
 		const GridPoint &startPosition, bool &targetFound,
-		const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target)
+		const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target) const
 {
 	lastFront.clear();
 	lastFront.push_back(FrontField(startPosition, startPosition));
-	(*m_distances)[startPosition.getY()][startPosition.getX()] = 1;
+	distances[startPosition.getY()][startPosition.getX()] = 1;
 	unsigned int distance = 1;
 	targetFound = false;
 
@@ -160,25 +154,25 @@ void Router::calculateDistances(vector<FrontField> &lastFront,
 			if (x > 0)
 			{
 				GridPoint newPosition(x - 1, y);
-				updateDistanceForPosition(newLastFront, distance, oldPosition, newPosition, targetFound, canWalkOn, target);
+				updateDistanceForPosition(distances, newLastFront, distance, oldPosition, newPosition, targetFound, canWalkOn, target);
 			}
 
 			if (y > 0)
 			{
 				GridPoint newPosition(x, y - 1);
-				updateDistanceForPosition(newLastFront, distance, oldPosition, newPosition, targetFound, canWalkOn, target);
+				updateDistanceForPosition(distances, newLastFront, distance, oldPosition, newPosition, targetFound, canWalkOn, target);
 			}
 
 			if (x < m_grid->getWidth() - 1)
 			{
 				GridPoint newPosition(x + 1, y);
-				updateDistanceForPosition(newLastFront, distance, oldPosition, newPosition, targetFound, canWalkOn, target);
+				updateDistanceForPosition(distances, newLastFront, distance, oldPosition, newPosition, targetFound, canWalkOn, target);
 			}
 
 			if (y < m_grid->getHeight() - 1)
 			{
 				GridPoint newPosition(x, y + 1);
-				updateDistanceForPosition(newLastFront, distance, oldPosition, newPosition, targetFound, canWalkOn, target);
+				updateDistanceForPosition(distances, newLastFront, distance, oldPosition, newPosition, targetFound, canWalkOn, target);
 			}
 		}
 
@@ -207,10 +201,10 @@ GridPoint Router::findTargetPositionInLastFront(const vector<FrontField> &lastFr
 	return targetPosition;
 }
 
-Route Router::findWayBackToSourceFromTarget(const GridPoint &targetPosition) const
+Route Router::findWayBackToSourceFromTarget(DistanceMatrix &distances, const GridPoint &targetPosition) const
 {
 	PlayerState::PlayerDirection lastDirection = PlayerState::PlayerDirectionNone;
-	unsigned int distanceToTarget = (*m_distances)[targetPosition.getY()][targetPosition.getX()];
+	unsigned int distanceToTarget = distances[targetPosition.getY()][targetPosition.getX()];
 	unsigned int lastDistance = distanceToTarget;
 	GridPoint position = targetPosition;
 	GridPoint playersTargetPosition;
@@ -221,7 +215,7 @@ Route Router::findWayBackToSourceFromTarget(const GridPoint &targetPosition) con
 
 		if (position.getX() > 0)
 		{
-			unsigned int newDistance = (*m_distances)[position.getY()][position.getX() - 1];
+			unsigned int newDistance = distances[position.getY()][position.getX() - 1];
 			if (newDistance == lastDistance - 1)
 			{
 				foundSmallerDistance = true;
@@ -233,7 +227,7 @@ Route Router::findWayBackToSourceFromTarget(const GridPoint &targetPosition) con
 
 		if (position.getY() > 0 && !foundSmallerDistance)
 		{
-			unsigned int newDistance = (*m_distances)[position.getY() - 1][position.getX()];
+			unsigned int newDistance = distances[position.getY() - 1][position.getX()];
 			if (newDistance == lastDistance - 1)
 			{
 				foundSmallerDistance = true;
@@ -245,7 +239,7 @@ Route Router::findWayBackToSourceFromTarget(const GridPoint &targetPosition) con
 
 		if (position.getX() < m_grid->getWidth() - 1 && !foundSmallerDistance)
 		{
-			unsigned int newDistance = (*m_distances)[position.getY()][position.getX() + 1];
+			unsigned int newDistance = distances[position.getY()][position.getX() + 1];
 			if (newDistance == lastDistance - 1)
 			{
 				foundSmallerDistance = true;
@@ -257,7 +251,7 @@ Route Router::findWayBackToSourceFromTarget(const GridPoint &targetPosition) con
 
 		if (position.getY() < m_grid->getHeight() - 1 && !foundSmallerDistance)
 		{
-			unsigned int newDistance = (*m_distances)[position.getY() + 1][position.getX()];
+			unsigned int newDistance = distances[position.getY() + 1][position.getX()];
 			if (newDistance == lastDistance - 1)
 			{
 				foundSmallerDistance = true;
@@ -271,14 +265,4 @@ Route Router::findWayBackToSourceFromTarget(const GridPoint &targetPosition) con
 	}
 
 	return Route(distanceToTarget - 1, lastDirection, playersTargetPosition);
-}
-
-bool Router::isFlightableBombPlace(const GridPoint &bombPlace)
-{
-	/// @todo Test this stuff!!!
-	m_grid->addBombToCalculatedForPositionCheck(bombPlace);
-	Route flightPath = getRouteToNotDangerousField(bombPlace);
-	m_grid->removeBombToCalculatedForPositionCheck(bombPlace);
-
-	return (flightPath.getDirection() != PlayerState::PlayerDirectionNone);
 }

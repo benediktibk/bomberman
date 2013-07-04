@@ -28,35 +28,33 @@ namespace GameEngine
 		~Router();
 
 		void updatePlayerFields();
-		Route getRouteToPlayer(const Common::GridPoint &position);
-		Route getRouteToNotDangerousField(const Common::GridPoint &position);
-		Route getRouteToLooseWall(const Common::GridPoint &position);
-		Route getRouteToPowerUp(const Common::GridPoint &position);
+		Route getRouteToPlayer(const Common::GridPoint &position) const;
+		Route getRouteToNotDangerousField(const Common::GridPoint &position) const;
+		Route getRouteToLooseWall(const Common::GridPoint &position) const;
+		Route getRouteToPowerUp(const Common::GridPoint &position) const;
 
 	private:
-		void writeDebuggingInformationToFile() const;
+		void writeDebuggingInformationToFile(DistanceMatrix &distances) const;
 
 	private:
 		Route getRoute(
 				const RouterGridFieldDecider &canWalkOn,
 				const RouterGridFieldDecider &target,
-				const Common::GridPoint &startPosition);
-		void initializeDistances();
-		void updateDistanceForPosition(std::vector<FrontField> &lastFront, unsigned int actualDistance,
+				const Common::GridPoint &startPosition) const;
+		void initializeDistances(DistanceMatrix &distances) const;
+		void updateDistanceForPosition(DistanceMatrix &distances, std::vector<FrontField> &lastFront, unsigned int actualDistance,
 				const Common::GridPoint &previousPosition, const Common::GridPoint &newPosition, bool &targetFound,
-				const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target);
-		void calculateDistances(
+				const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target) const;
+		void calculateDistances(DistanceMatrix &distances,
 				std::vector<FrontField> &lastFront,
 				const Common::GridPoint &startPosition, bool &targetFound,
-				const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target);
+				const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target) const;
 		Common::GridPoint findTargetPositionInLastFront(
 				const std::vector<FrontField> &lastFront, const RouterGridFieldDecider &target) const;
-		Route findWayBackToSourceFromTarget(const Common::GridPoint &targetPosition) const;
-		bool isFlightableBombPlace(const Common::GridPoint &bombPlace);
+		Route findWayBackToSourceFromTarget(DistanceMatrix &distances, const Common::GridPoint &targetPosition) const;
 
 	private:
 		RouterGrid *m_grid;
-		DistanceMatrix *m_distances;
 	};
 }
 
