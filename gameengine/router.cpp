@@ -39,9 +39,9 @@ Route Router::getRouteToNotDangerousField(const Common::GridPoint &position) con
 	return getRoute(FreeDecider(), NotDangerousAndFreeDecider(), position);
 }
 
-Route Router::getRouteToLooseWall(const Common::GridPoint &position) const
+Route Router::getRouteToLooseWall(const Common::GridPoint &position, unsigned int bombRange, bool considerEscape) const
 {
-	return getRoute(NotDangerousAndFreeDecider(), CoveredByLooseWallDecider(), position);
+	return getRoute(NotDangerousAndFreeDecider(), CoveredByLooseWallDecider(*this, bombRange, considerEscape), position);
 }
 
 Route Router::getRouteToPowerUp(const GridPoint &position) const

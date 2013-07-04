@@ -35,7 +35,7 @@ void ComputerEnemyInputFetcherHard::calculateInputStateInternal()
 		return;
 	}
 
-	Route routeToLooseWall = router.getRouteToLooseWall(playerPosition);
+	Route routeToLooseWall = router.getRouteToLooseWall(playerPosition, getDestructionRangeOfNewBombs(), true);
 	if (routeToLooseWall.getDirection() != PlayerState::PlayerDirectionNone)
 	{
 		placeBombIfCloseEnough(routeToLooseWall);

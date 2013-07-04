@@ -37,6 +37,7 @@ namespace GameEngine
 		void placeBombIfCloseEnough(const Route &route);
 		Router& getRouter();
 		Common::GridPoint getPlayerPosition() const;
+		unsigned int getDestructionRangeOfNewBombs() const;
 
 	private:
 		Common::InputState m_inputState;

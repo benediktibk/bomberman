@@ -262,7 +262,7 @@ void RouterTest::getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_distanceIs3
 	createRouter(level);
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToLooseWall(GridPoint(7, 3));
+	Route route = m_router->getRouteToLooseWall(GridPoint(7, 3), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)3, route.getDistance());
 }
@@ -275,7 +275,7 @@ void RouterTest::getRouteToLooseWall_looseWallThreeFieldsAbovePlayer_directionIs
 	createRouter(level);
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToLooseWall(GridPoint(7, 3));
+	Route route = m_router->getRouteToLooseWall(GridPoint(7, 3), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionUp, route.getDirection());
 }
@@ -288,7 +288,7 @@ void RouterTest::getRouteToLooseWall_looseWallTwoFieldsLeftOfPlayer_distanceIs2(
 	createRouter(level);
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5));
+	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, route.getDistance());
 }
@@ -301,7 +301,7 @@ void RouterTest::getRouteToLooseWall_looseWallTwoFieldsLeftOfPlayer_directionIsL
 	createRouter(level);
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5));
+	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionLeft, route.getDirection());
 }
@@ -314,7 +314,7 @@ void RouterTest::getRouteToLooseWall_looseWallTwoFieldsBelowOfPlayer_distanceIs2
 	createRouter(level);
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5));
+	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, route.getDistance());
 }
@@ -327,7 +327,7 @@ void RouterTest::getRouteToLooseWall_looseWallTwoFieldsBelowOfPlayer_directionIs
 	createRouter(level);
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5));
+	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionDown, route.getDirection());
 }
@@ -352,7 +352,7 @@ void RouterTest::getRouteToLooseWall_routeNeedsEveryDirectionToGetThroughTheMaze
 	createRouter(level);
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5));
+	Route route = m_router->getRouteToLooseWall(GridPoint(7, 5), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)8, route.getDistance());
 }
