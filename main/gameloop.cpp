@@ -82,31 +82,26 @@ void GameLoop::execute()
 	m_start.reset();
 	StopWatch watch;
 	const Common::GameState &gameState = m_gameEngine.getGameState();
-	double timeForGameStateUpdate = 0;
-	double timeForDrawing = 0;
 
 	m_inputFetcher.setAllPossiblePlayerIDs(gameState.getAllNotDestroyedPlayerIDs());
 
 	while (run)
 	{
-		double timeWithoutWait = timeForGameStateUpdate + timeForDrawing;
+		double timeWithoutWait = watch.getTimeAndRestart();
 		double time = timeWithoutWait;
 		double timeToWait = m_minimumTimeStep - timeWithoutWait;
 
 		if (timeToWait > 0)
 		{
 			usleep(timeToWait*1000000);
-			time += timeToWait;
+			time = m_minimumTimeStep;
 		}
 
 		updateMovingAverageOfTime(time);
 		updateGameUpdatesPerSecond();
 
-		watch.restart();
-		m_gameEngine.updateGameState(m_inputFetcher.getInputStates(), time);
-		timeForGameStateUpdate = watch.getTimeAndRestart();
+		m_gameEngine.updateGameState(m_inputFetcher.getInputStates(), m_movingAverageOfTimeStep);
 		m_graphicDrawer.draw(gameState);
-		timeForDrawing = watch.getTimeAndRestart();
 
 		catchPlayerInformation(gameState.getAllNotDestroyedHumanPlayerIDs());
 		pauseIfNecessary();
