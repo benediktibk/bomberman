@@ -82,19 +82,19 @@ void GameLoop::execute()
 	m_start.reset();
 	StopWatch watch;
 	const Common::GameState &gameState = m_gameEngine.getGameState();
+	double timeForGameStateUpdate = 0;
+	double timeForDrawing = 0;
 
 	m_inputFetcher.setAllPossiblePlayerIDs(gameState.getAllNotDestroyedPlayerIDs());
 
 	while (run)
 	{
-		double timeWithoutWait = watch.getTimeAndRestart();
+		double timeWithoutWait = timeForGameStateUpdate + timeForDrawing;
 		double time = timeWithoutWait;
 		double timeToWait = m_minimumTimeStep - timeWithoutWait;
 
 		if (timeToWait > 0)
 		{
-			StopWatch watchForWait;
-			watchForWait.restart();
 			usleep(timeToWait*1000000);
 			time += timeToWait;
 		}
@@ -102,9 +102,11 @@ void GameLoop::execute()
 		updateMovingAverageOfTime(time);
 		updateFPS();
 
+		watch.restart();
 		m_gameEngine.updateGameState(m_inputFetcher.getInputStates(), time);
-
+		timeForGameStateUpdate = watch.getTimeAndRestart();
 		m_graphicDrawer.draw(gameState);
+		timeForDrawing = watch.getTimeAndRestart();
 
 		catchPlayerInformation(gameState.getAllNotDestroyedHumanPlayerIDs());
 		pauseIfNecessary();
@@ -120,14 +122,14 @@ void GameLoop::catchPlayerInformation(const vector<unsigned int> &playerIDs)
 	m_playerInformation.clear();
 
 	for (size_t y = 0; y < playerIDs.size(); y++)
-	{   
-        Common::PlayerInformation player;
-        player.setPlayerId(playerIDs.at(y));
-        player.setRangeCounter(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getDestructionRangeOfNewBombs());
-        player.setBombCounter(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getMaxBombs());
-        player.setSpeedCounter(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getSpeed());
-        m_playerInformation.push_back(player);
-    }    
+	{
+		Common::PlayerInformation player;
+		player.setPlayerId(playerIDs.at(y));
+		player.setRangeCounter(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getDestructionRangeOfNewBombs());
+		player.setBombCounter(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getMaxBombs());
+		player.setSpeedCounter(m_gameEngine.getGameState().getPlayerStateById(playerIDs.at(y)).getSpeed());
+		m_playerInformation.push_back(player);
+	}
 }
 
 void GameLoop::updateMovingAverageOfTime(double time)
