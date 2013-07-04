@@ -135,6 +135,39 @@ void ComputerEnemyInputFetcherHardTest::getInputState_powerUpOnDangerousField_no
 	CPPUNIT_ASSERT(!input.isMovementButtonPressed());
 }
 
+void ComputerEnemyInputFetcherHardTest::getInputState_onSaveFieldAsPossibleTargetToBlowUpWallButCantEscapeDirect_spaceKeyNotPressed()
+{
+	LevelDefinition level(13, 14);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 1, 0);
+	createInputFetcher(level);
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(1, 1), 10);
+	m_gameState->addBomb(bomb);
+	m_grid->addBombAtPlace(*bomb);
+
+	map<unsigned int, InputState> inputs = m_inputFetcher->getInputStates();
+	InputState input = inputs.begin()->second;
+
+	CPPUNIT_ASSERT(!input.isSpaceKeyPressed());
+}
+
+void ComputerEnemyInputFetcherHardTest::getInputState_besideSaveFieldAsPossibleTargetToBlowUpWallButCantEscapeDirect_noMovementButtonPressed()
+{
+	LevelDefinition level(13, 14);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 1);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeSolidWall, 1, 1);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 1, 0);
+	createInputFetcher(level);
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(1, 2), 10);
+	m_gameState->addBomb(bomb);
+	m_grid->addBombAtPlace(*bomb);
+
+	map<unsigned int, InputState> inputs = m_inputFetcher->getInputStates();
+	InputState input = inputs.begin()->second;
+
+	CPPUNIT_ASSERT(!input.isMovementButtonPressed());
+}
+
 void ComputerEnemyInputFetcherHardTest::createInputFetcher(const LevelDefinition &level)
 {
 	delete m_inputFetcher;

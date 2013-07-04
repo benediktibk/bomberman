@@ -29,6 +29,8 @@ namespace GameEngine
 		CPPUNIT_TEST(getInputState_looseWallRightAndOtherPlayerUp_upKeyPressed);
 		CPPUNIT_TEST(getInputState_looseWallRight_rightKeyPressed);
 		CPPUNIT_TEST(getInputState_powerUpOnDangerousField_noMovementButtonPressed);
+		CPPUNIT_TEST(getInputState_onSaveFieldAsPossibleTargetToBlowUpWallButCantEscapeDirect_spaceKeyNotPressed);
+		CPPUNIT_TEST(getInputState_besideSaveFieldAsPossibleTargetToBlowUpWallButCantEscapeDirect_noMovementButtonPressed);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -44,6 +46,8 @@ namespace GameEngine
 		void getInputState_looseWallRightAndOtherPlayerUp_upKeyPressed();
 		void getInputState_looseWallRight_rightKeyPressed();
 		void getInputState_powerUpOnDangerousField_noMovementButtonPressed();
+		void getInputState_onSaveFieldAsPossibleTargetToBlowUpWallButCantEscapeDirect_spaceKeyNotPressed();
+		void getInputState_besideSaveFieldAsPossibleTargetToBlowUpWallButCantEscapeDirect_noMovementButtonPressed();
 
 	private:
 		void createInputFetcher(const Common::LevelDefinition &level);
