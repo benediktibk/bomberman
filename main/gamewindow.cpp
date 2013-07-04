@@ -337,8 +337,8 @@ void GameWindow::createViews(unsigned int humanPlayerCount)
 	}
 
 	/*!
-	 * The order of push-backs is important here, as it determines the left and right view and
-	 * which player is shown on which view.
+	 * The order of push-backs is important here, as it determines
+	 * which player is shown on the left and right view.
 	 */
 	if (humanPlayerCount == 2)
 		m_viewsAsVector.push_back(m_viewTwo);
