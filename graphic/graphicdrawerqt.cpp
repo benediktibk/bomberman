@@ -82,7 +82,6 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 	drawPowerUps(gameState.getAllChangedPowerUps());
 	drawExplodedBombs(gameState.getAllChangedExplodedBombs());
 	drawPlayers(gameState);
-	//updateViewPorts();
 	m_firstRedraw = false;
 }
 
@@ -497,10 +496,6 @@ void GraphicDrawerQt::configureView(QGraphicsView &view, bool enableOpenGL)
 	else
 		view.setViewport(new QWidget());
 
-	view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-	view.setFocusPolicy(Qt::NoFocus);
-	view.setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
 	view.setScene(m_scene);
 	view.setBackgroundBrush(*m_backgroundBrush);
 }
@@ -518,12 +513,6 @@ void GraphicDrawerQt::createBackgroundBrush()
 	QPainter painter(&image);
 	renderer.render(&painter);
 	m_backgroundBrush = new QBrush(image);
-}
-
-void GraphicDrawerQt::updateViewPorts()
-{
-	for (vector<QGraphicsView*>::iterator i = m_views.begin(); i != m_views.end(); ++i)
-		(*i)->viewport()->update();
 }
 
 void GraphicDrawerQt::updateViewAreas(const GameState &gameState)

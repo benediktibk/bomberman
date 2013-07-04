@@ -351,6 +351,9 @@ QGraphicsView* GameWindow::createView()
 	view->setFocusPolicy(Qt::NoFocus);
 	view->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 	view->installEventFilter(this);
+	view->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	view->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	view->setViewportUpdateMode(QGraphicsView::NoViewportUpdate);
 	return view;
 }
 

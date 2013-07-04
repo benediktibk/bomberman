@@ -67,7 +67,6 @@ namespace Graphic
 		void configureView(QGraphicsView &view, bool enableOpenGL);
 		void configureViews(bool enableOpenGL);
 		void createBackgroundBrush();
-		void updateViewPorts();
 		void updateViewAreas(const Common::GameState &gameState);
 		void updateViewArea(unsigned int playerID, QGraphicsView &view, const Common::GameState &gameState);
 		void initializeScales();
