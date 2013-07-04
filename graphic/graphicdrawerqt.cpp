@@ -74,6 +74,7 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 		drawBorderWalls(gameState.getWidth(), gameState.getHeight());
 		m_sceneRect = calculateSceneRect(gameState);
 		setSceneRectForViews();
+		centerViewsOnPlayer(gameState);
 	}
 
 	updateViewAreas(gameState);
@@ -536,4 +537,20 @@ void GraphicDrawerQt::initializeScales()
 {
 	for (vector<QGraphicsView*>::iterator i = m_views.begin(); i != m_views.end(); ++i)
 		m_currentScales.insert(pair<QGraphicsView*, double>(*i, 1));
+}
+
+void GraphicDrawerQt::centerViewsOnPlayer(const Common::GameState &gameState)
+{
+	for (map<unsigned int, QGraphicsView*>::iterator i = m_playerIDToViewMap.begin(); i != m_playerIDToViewMap.end(); ++i)
+	{
+		const Common::PlayerState &player = gameState.getPlayerStateById(i->first);
+		centerViewOnPlayer(*(i->second), player);
+	}
+}
+
+void GraphicDrawerQt::centerViewOnPlayer(QGraphicsView &view, const PlayerState &player)
+{
+	Point playerPosition(player.getPosition()*m_pixelPerMeter);
+	playerPosition.switchIntoQtCoordinates();
+	view.centerOn(playerPosition.toQPoint());
 }

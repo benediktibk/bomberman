@@ -70,6 +70,8 @@ namespace Graphic
 		void updateViewAreas(const Common::GameState &gameState);
 		void updateViewArea(unsigned int playerID, QGraphicsView &view, const Common::GameState &gameState);
 		void initializeScales();
+		void centerViewsOnPlayer(const Common::GameState &gameState);
+		void centerViewOnPlayer(QGraphicsView &view, const Common::PlayerState &player);
 
 	private:
 		std::vector<QGraphicsView*> m_views;
