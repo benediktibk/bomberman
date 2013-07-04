@@ -8,7 +8,7 @@ namespace GameEngine
 	class RouterGridFieldDecider
 	{
 	public:
-		virtual bool decide(const RouterGridField &field) const = 0;
+		virtual bool decide(const RouterGridField &field, const RouterGridField &previousField, bool previousFieldValid) const = 0;
 
 		virtual ~RouterGridFieldDecider() { }
 	};

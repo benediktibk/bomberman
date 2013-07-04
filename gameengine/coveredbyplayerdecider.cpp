@@ -3,7 +3,7 @@
 
 using namespace GameEngine;
 
-bool CoveredByPlayerDecider::decide(const RouterGridField &field) const
+bool CoveredByPlayerDecider::decide(const RouterGridField &field, const RouterGridField &, bool) const
 {
 	return field.isPlayer();
 }

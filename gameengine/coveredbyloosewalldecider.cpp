@@ -3,7 +3,7 @@
 
 using namespace GameEngine;
 
-bool CoveredByLooseWallDecider::decide(const RouterGridField &field) const
+bool CoveredByLooseWallDecider::decide(const RouterGridField &field, const RouterGridField &, bool) const
 {
 	return field.isLooseWall();
 }

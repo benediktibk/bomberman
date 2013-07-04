@@ -20,6 +20,8 @@ namespace GameEngine
 	{
 	private:
 		typedef boost::multi_array<unsigned int, 2> DistanceMatrix;
+		//! first element: actual position, second element: previous position
+		typedef std::pair<Common::GridPoint, Common::GridPoint> FrontField;
 
 	public:
 		Router(Common::Grid &grid, const Common::GameState &gameState, unsigned int playerID);
@@ -40,16 +42,15 @@ namespace GameEngine
 				const RouterGridFieldDecider &target,
 				const Common::GridPoint &startPosition);
 		void initializeDistances();
-		void updateDistanceForPosition(
-				std::vector<Common::GridPoint> &lastFront, unsigned int actualDistance,
-				const Common::GridPoint &position, bool &targetFound,
+		void updateDistanceForPosition(std::vector<FrontField> &lastFront, unsigned int actualDistance,
+				const Common::GridPoint &previousPosition, const Common::GridPoint &newPosition, bool &targetFound,
 				const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target);
 		void calculateDistances(
-				std::vector<Common::GridPoint> &lastFront,
+				std::vector<FrontField> &lastFront,
 				const Common::GridPoint &startPosition, bool &targetFound,
 				const RouterGridFieldDecider &canWalkOn, const RouterGridFieldDecider &target);
 		Common::GridPoint findTargetPositionInLastFront(
-				const std::vector<Common::GridPoint> &lastFront, const RouterGridFieldDecider &target) const;
+				const std::vector<FrontField> &lastFront, const RouterGridFieldDecider &target) const;
 		Route findWayBackToSourceFromTarget(const Common::GridPoint &targetPosition) const;
 		bool isFlightableBombPlace(const Common::GridPoint &bombPlace);
 

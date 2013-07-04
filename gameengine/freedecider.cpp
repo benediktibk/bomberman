@@ -3,7 +3,7 @@
 
 using namespace GameEngine;
 
-bool FreeDecider::decide(const RouterGridField &field) const
+bool FreeDecider::decide(const RouterGridField &field, const RouterGridField &, bool) const
 {
 	return field.isFree();
 }

@@ -3,7 +3,7 @@
 
 using namespace GameEngine;
 
-bool CoveredByPowerUpDecider::decide(const RouterGridField &field) const
+bool CoveredByPowerUpDecider::decide(const RouterGridField &field, const RouterGridField &, bool) const
 {
 	return field.isPowerUp() && !field.isDangerous();
 }

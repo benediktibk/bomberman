@@ -9,7 +9,7 @@ class CoveredByPowerUpDecider :
 		public RouterGridFieldDecider
 {
 public:
-	virtual bool decide(const RouterGridField &field) const;
+	virtual bool decide(const RouterGridField &field, const RouterGridField &previousField, bool previousFieldValid) const;
 };
 }
 

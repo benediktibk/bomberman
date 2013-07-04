@@ -3,7 +3,7 @@
 
 using namespace GameEngine;
 
-bool NotDangerousAndFreeDecider::decide(const RouterGridField &field) const
+bool NotDangerousAndFreeDecider::decide(const RouterGridField &field, const RouterGridField &, bool) const
 {
 	if (!field.isDangerous() && field.isFree())
 		return true;
