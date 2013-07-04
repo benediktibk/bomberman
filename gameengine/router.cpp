@@ -29,9 +29,9 @@ void Router::updatePlayerFields()
 	m_grid->updatePlayerFlags();
 }
 
-Route Router::getRouteToPlayer(const Common::GridPoint &position) const
+Route Router::getRouteToPlayer(const Common::GridPoint &position, unsigned int bombRange, bool considerEscape) const
 {
-	return getRoute(NotDangerousAndFreeDecider(), CoveredByPlayerDecider(), position);
+	return getRoute(NotDangerousAndFreeDecider(), CoveredByPlayerDecider(*this, bombRange, considerEscape), position);
 }
 
 Route Router::getRouteToNotDangerousField(const Common::GridPoint &position) const

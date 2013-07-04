@@ -33,7 +33,7 @@ void ComputerEnemyInputFetcherMedium::calculateInputStateInternal()
 	if (!m_doSomething->decide())
 		return;
 
-	Route routeToPlayer = router.getRouteToPlayer(playerPosition);
+	Route routeToPlayer = router.getRouteToPlayer(playerPosition, getDestructionRangeOfNewBombs(), false);
 	if (routeToPlayer.getDirection() != PlayerState::PlayerDirectionNone)
 	{
 		placeBombIfCloseEnough(routeToPlayer);

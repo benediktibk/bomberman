@@ -34,7 +34,7 @@ void RouterTest::getRouteToPlayer_secondPlayerTwoFieldsLeft_distanceIs2()
 	playerTwo.setPosition(Point(5, 4));
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToPlayer(GridPoint(7, 4));
+	Route route = m_router->getRouteToPlayer(GridPoint(7, 4), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)2, route.getDistance());
 }
@@ -49,7 +49,7 @@ void RouterTest::getRouteToPlayer_secondPlayerTwoFieldsLeft_directionIsLeft()
 	playerTwo.setPosition(Point(5, 4));
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToPlayer(GridPoint(7, 4));
+	Route route = m_router->getRouteToPlayer(GridPoint(7, 4), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionLeft, route.getDirection());
 }
@@ -73,7 +73,7 @@ void RouterTest::getRouteToPlayer_secondPlayerIsRightAndDirectWayBlocked_distanc
 	playerTwo.setPosition(Point(10, 5));
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToPlayer(GridPoint(5, 4));
+	Route route = m_router->getRouteToPlayer(GridPoint(5, 4), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)14, route.getDistance());
 }
@@ -90,7 +90,7 @@ void RouterTest::getRouteToPlayer_secondPlayerIsRightButRightAndBelowIsWall_dire
 	playerTwo.setPosition(Point(6, 5));
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToPlayer(GridPoint(4, 5));
+	Route route = m_router->getRouteToPlayer(GridPoint(4, 5), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionUp, route.getDirection());
 }
@@ -109,7 +109,7 @@ void RouterTest::getRouteToPlayer_noWayPossible_directionIsNone()
 	playerTwo.setPosition(Point(10, 8));
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToPlayer(GridPoint(5, 5));
+	Route route = m_router->getRouteToPlayer(GridPoint(5, 5), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionNone, route.getDirection());
 }
@@ -128,7 +128,7 @@ void RouterTest::getRouteToPlayer_noWayPossible_distanceIs0()
 	playerTwo.setPosition(Point(10, 8));
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToPlayer(GridPoint(5, 5));
+	Route route = m_router->getRouteToPlayer(GridPoint(5, 5), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, route.getDistance());
 }
@@ -146,7 +146,7 @@ void RouterTest::getRouteToPlayer_bombInTheWay_distanceIsWayAroundBomb()
 	m_grid->addBombAtPlace(*bomb);
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToPlayer(GridPoint(5, 5));
+	Route route = m_router->getRouteToPlayer(GridPoint(5, 5), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)9, route.getDistance());
 }
@@ -164,7 +164,7 @@ void RouterTest::getRouteToPlayer_wayBlockedByBomb_distanceIs0()
 	m_grid->addBombAtPlace(*bomb);
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToPlayer(GridPoint(5, 5));
+	Route route = m_router->getRouteToPlayer(GridPoint(5, 5), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, route.getDistance());
 }
@@ -182,7 +182,7 @@ void RouterTest::getRouteToPlayer_wayBlockedByBomb_directionIsNone()
 	m_grid->addBombAtPlace(*bomb);
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToPlayer(GridPoint(5, 5));
+	Route route = m_router->getRouteToPlayer(GridPoint(5, 5), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionNone, route.getDirection());
 }
@@ -199,7 +199,7 @@ void RouterTest::getRouteToPlayer_jailedByWallsAtBorder_distanceIs0()
 	playerTwo.setPosition(Point(10, 8));
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToPlayer(GridPoint(0, 0));
+	Route route = m_router->getRouteToPlayer(GridPoint(0, 0), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL((unsigned int)0, route.getDistance());
 }
@@ -216,7 +216,7 @@ void RouterTest::getRouteToPlayer_jailedByWallsAtBorder_directionIsNone()
 	playerTwo.setPosition(Point(10, 8));
 	m_router->updatePlayerFields();
 
-	Route route = m_router->getRouteToPlayer(GridPoint(0, 0));
+	Route route = m_router->getRouteToPlayer(GridPoint(0, 0), 1, false);
 
 	CPPUNIT_ASSERT_EQUAL(PlayerState::PlayerDirectionNone, route.getDirection());
 }

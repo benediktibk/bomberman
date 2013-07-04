@@ -28,7 +28,7 @@ namespace GameEngine
 		~Router();
 
 		void updatePlayerFields();
-		Route getRouteToPlayer(const Common::GridPoint &position) const;
+		Route getRouteToPlayer(const Common::GridPoint &position, unsigned int bombRange, bool considerEscape) const;
 		Route getRouteToNotDangerousField(const Common::GridPoint &position) const;
 		Route getRouteToLooseWall(const Common::GridPoint &position, unsigned int bombRange, bool considerEscape) const;
 		Route getRouteToPowerUp(const Common::GridPoint &position) const;
