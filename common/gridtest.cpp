@@ -1645,7 +1645,7 @@ void GridTest::getAllFieldsBesideBombRange_range1AndNoObstacles_resultContainsPo
 
 	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
 
-	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(6, 4)) == 1);
+	CPPUNIT_ASSERT(count(result.begin(), result.end(), GridPoint(5, 4)) == 1);
 }
 
 void GridTest::getAllFieldsBesideBombRange_range1AndNoObstacles_resultContainsPositionLeftLower()
@@ -1765,7 +1765,7 @@ void GridTest::getAllFieldsBesideBombRange_range1AndPositionAtUpperWall_resultSi
 	CPPUNIT_ASSERT_EQUAL((size_t)5, result.size());
 }
 
-void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallLeft_resultSizeIs7()
+void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallLeft_resultSizeIs8()
 {
 	Grid grid(10, 10);
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(3, 5));
@@ -1773,10 +1773,10 @@ void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallLeft_resultSizeIs7(
 
 	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
 
-	CPPUNIT_ASSERT_EQUAL((size_t)7, result.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)8, result.size());
 }
 
-void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallAbove_resultSizeIs7()
+void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallAbove_resultSizeIs8()
 {
 	Grid grid(10, 10);
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(4, 6));
@@ -1784,10 +1784,10 @@ void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallAbove_resultSizeIs7
 
 	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
 
-	CPPUNIT_ASSERT_EQUAL((size_t)7, result.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)8, result.size());
 }
 
-void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallRight_resultSizeIs7()
+void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallRight_resultSizeIs8()
 {
 	Grid grid(10, 10);
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(5, 5));
@@ -1795,10 +1795,10 @@ void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallRight_resultSizeIs7
 
 	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
 
-	CPPUNIT_ASSERT_EQUAL((size_t)7, result.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)8, result.size());
 }
 
-void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallBelow_resultSizeIs7()
+void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallBelow_resultSizeIs8()
 {
 	Grid grid(10, 10);
 	WallState wall(*m_wallIdCreator, WallState::WallTypeSolid, Point(4, 4));
@@ -1806,7 +1806,7 @@ void GridTest::getAllFieldsBesideBombRange_range1AndSolidWallBelow_resultSizeIs7
 
 	vector<GridPoint> result = grid.getAllFieldsBesideBombRange(GridPoint(4, 5), 1);
 
-	CPPUNIT_ASSERT_EQUAL((size_t)7, result.size());
+	CPPUNIT_ASSERT_EQUAL((size_t)8, result.size());
 }
 
 void GridTest::setUp()

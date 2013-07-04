@@ -159,10 +159,10 @@ namespace Common
 		CPPUNIT_TEST(getAllFieldsBesideBombRange_range1AndPositionAtRightWall_resultSizeIs5);
 		CPPUNIT_TEST(getAllFieldsBesideBombRange_range1AndPositionAtLowerWall_resultSizeIs5);
 		CPPUNIT_TEST(getAllFieldsBesideBombRange_range1AndPositionAtUpperWall_resultSizeIs5);
-		CPPUNIT_TEST(getAllFieldsBesideBombRange_range1AndSolidWallLeft_resultSizeIs7);
-		CPPUNIT_TEST(getAllFieldsBesideBombRange_range1AndSolidWallAbove_resultSizeIs7);
-		CPPUNIT_TEST(getAllFieldsBesideBombRange_range1AndSolidWallRight_resultSizeIs7);
-		CPPUNIT_TEST(getAllFieldsBesideBombRange_range1AndSolidWallBelow_resultSizeIs7);
+		CPPUNIT_TEST(getAllFieldsBesideBombRange_range1AndSolidWallLeft_resultSizeIs8);
+		CPPUNIT_TEST(getAllFieldsBesideBombRange_range1AndSolidWallAbove_resultSizeIs8);
+		CPPUNIT_TEST(getAllFieldsBesideBombRange_range1AndSolidWallRight_resultSizeIs8);
+		CPPUNIT_TEST(getAllFieldsBesideBombRange_range1AndSolidWallBelow_resultSizeIs8);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -317,10 +317,10 @@ namespace Common
 		void getAllFieldsBesideBombRange_range1AndPositionAtRightWall_resultSizeIs5();
 		void getAllFieldsBesideBombRange_range1AndPositionAtLowerWall_resultSizeIs5();
 		void getAllFieldsBesideBombRange_range1AndPositionAtUpperWall_resultSizeIs5();
-		void getAllFieldsBesideBombRange_range1AndSolidWallLeft_resultSizeIs7();
-		void getAllFieldsBesideBombRange_range1AndSolidWallAbove_resultSizeIs7();
-		void getAllFieldsBesideBombRange_range1AndSolidWallRight_resultSizeIs7();
-		void getAllFieldsBesideBombRange_range1AndSolidWallBelow_resultSizeIs7();
+		void getAllFieldsBesideBombRange_range1AndSolidWallLeft_resultSizeIs8();
+		void getAllFieldsBesideBombRange_range1AndSolidWallAbove_resultSizeIs8();
+		void getAllFieldsBesideBombRange_range1AndSolidWallRight_resultSizeIs8();
+		void getAllFieldsBesideBombRange_range1AndSolidWallBelow_resultSizeIs8();
 
 	private:
 		Common::UniqueIdCreator *m_powerUpIdCreator;

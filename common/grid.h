@@ -68,7 +68,7 @@ namespace Common
 		size_t getObserverCount() const;
 		unsigned int getRows() const;
 		unsigned int getColumns() const;
-		std::vector<GridPoint> getAllFieldsBesideBombRange(const GridPoint &position, unsigned int maximumRange);
+		std::vector<GridPoint> getAllFieldsBesideBombRange(const GridPoint &position, unsigned int range);
 
 	public:
 		static std::vector<GridPoint> getPlayerFields(const PlayerState &player);
@@ -95,8 +95,8 @@ namespace Common
 		void addRangesToMatrix(const std::vector<const BombState*> &horizontal, const std::vector<const BombState*> &vertical);
 
 	private:
-		unsigned int m_gridRows;
-		unsigned int m_gridColumns;
+		unsigned int m_rows;
+		unsigned int m_columns;
 		unsigned int m_numberOfItems;
 		std::vector<Item> m_itemMatrix;
 		std::vector<unsigned int> m_idMatrix;

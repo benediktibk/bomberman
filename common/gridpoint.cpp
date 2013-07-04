@@ -1,6 +1,8 @@
-#include "gridpoint.h"
+#include "common/gridpoint.h"
+#include "common/compare.h"
 #include <math.h>
-#include "compare.h"
+#include <limits>
+#include <assert.h>
 
 using namespace Common;
 using namespace std;
@@ -13,7 +15,11 @@ GridPoint::GridPoint() :
 GridPoint::GridPoint(unsigned int x, unsigned int y) :
 	m_x(x),
 	m_y(y)
-{ }
+{
+	//! try to detect overflows
+	assert(m_x < numeric_limits<unsigned int>::max()/2);
+	assert(m_y < numeric_limits<unsigned int>::max()/2);
+}
 
 GridPoint::GridPoint(const Point &point) :
 		m_x(static_cast<unsigned int>(point.getX())),
@@ -25,11 +31,16 @@ GridPoint::GridPoint(const Point &point) :
 
 	if (compare.isFuzzyEqual((m_y + 1), point.getY()))
 		++m_y;
+
+	//! try to detect overflows
+	assert(m_x < numeric_limits<unsigned int>::max()/2);
+	assert(m_y < numeric_limits<unsigned int>::max()/2);
 }
 
 void GridPoint::setX(unsigned int value)
 {
 	m_x = value;
+	assert(m_x < numeric_limits<unsigned int>::max()/2);
 }
 
 unsigned int GridPoint::getX() const
@@ -40,6 +51,7 @@ unsigned int GridPoint::getX() const
 void GridPoint::setY(unsigned int value)
 {
 	m_y = value;
+	assert(m_y < numeric_limits<unsigned int>::max()/2);
 }
 
 unsigned int GridPoint::getY() const

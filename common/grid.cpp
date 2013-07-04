@@ -13,9 +13,9 @@ using namespace Common;
 using namespace std;
 
 Grid::Grid(unsigned int rows, unsigned int cols) :
-	m_gridRows(rows),
-	m_gridColumns(cols),
-	m_numberOfItems(m_gridColumns*m_gridRows),
+	m_rows(rows),
+	m_columns(cols),
+	m_numberOfItems(m_columns*m_rows),
 	m_itemMatrix(m_numberOfItems, ItemFree),
 	m_idMatrix(m_numberOfItems, 0),
 	m_dangerousMatrix(m_numberOfItems, 0)
@@ -185,7 +185,7 @@ vector<unsigned int> Grid::getItemsInRange(const BombState &bomb, Grid::Item ite
 
 	for(int i = 1 ; i <= range ; ++i)
 	{
-		if((x + i) < static_cast<int>(m_gridColumns))
+		if((x + i) < static_cast<int>(m_columns))
 		{
 			if (m_itemMatrix[getVectorIndex(x + i, y)] == item && !isWallRightReached)
 				itemsInRange.push_back(m_idMatrix[getVectorIndex(x + i, y)]);
@@ -203,7 +203,7 @@ vector<unsigned int> Grid::getItemsInRange(const BombState &bomb, Grid::Item ite
 				isWallLeftReached = true;
 		}
 
-		if((y + i) < static_cast<int>(m_gridRows))
+		if((y + i) < static_cast<int>(m_rows))
 		{
 			if (m_itemMatrix[getVectorIndex(x, y + i)] == item && !isWallUpReached)
 				itemsInRange.push_back(m_idMatrix[getVectorIndex(x, y + i)]);
@@ -332,7 +332,7 @@ vector<const BombState*> Grid::getBombsOnHorizontalLine(const GridPoint &positio
 {
 	vector<const BombState*> result;
 
-	for (unsigned int x = 0; x < m_gridColumns; ++x)
+	for (unsigned int x = 0; x < m_columns; ++x)
 	{
 		GridPoint newPosition(x, position.getY());
 
@@ -350,7 +350,7 @@ vector<const BombState*> Grid::getBombsOnVerticalLine(const GridPoint &position)
 {
 	vector<const BombState*> result;
 
-	for (unsigned int y = 0; y < m_gridRows; ++y)
+	for (unsigned int y = 0; y < m_rows; ++y)
 	{
 		GridPoint newPosition(position.getX(), y);
 
@@ -381,19 +381,19 @@ vector<unsigned int> Grid::getPowerUpsInRange(const BombState &bomb) const
 
 unsigned int Grid::getVectorIndex(const GridPoint &position) const
 {
-	assert(position.getX() < m_gridColumns);
-	assert(position.getY() < m_gridRows);
+	assert(position.getX() < m_columns);
+	assert(position.getY() < m_rows);
 	unsigned int x = position.getX();
 	unsigned int y = position.getY();
-	unsigned int index = m_gridColumns*y+x;
+	unsigned int index = m_columns*y+x;
 	return index;
 }
 
 unsigned int Grid::getVectorIndex(unsigned int x,unsigned int y) const
 {
-	assert(x< m_gridColumns);
-	assert(y< m_gridRows);
-	unsigned int index = m_gridColumns*y+x;
+	assert(x< m_columns);
+	assert(y< m_rows);
+	unsigned int index = m_columns*y+x;
 	return index;
 }
 
@@ -504,7 +504,7 @@ unsigned int Grid::getDistanceToNextWallLeft(const GridPoint &position) const
 {
 	unsigned int distance;
 
-	for (distance = 1; position.getX() - distance < m_gridColumns; ++distance)
+	for (distance = 1; position.getX() - distance < m_columns; ++distance)
 		if (isPlaceCoveredByWall(position - GridPoint(distance, 0)))
 			return distance - 1;
 
@@ -515,7 +515,7 @@ unsigned int Grid::getDistanceToNextWallRight(const GridPoint &position) const
 {
 	unsigned int distance;
 
-	for (distance = 1; position.getX() + distance < m_gridColumns; ++distance)
+	for (distance = 1; position.getX() + distance < m_columns; ++distance)
 		if (isPlaceCoveredByWall(position + GridPoint(distance, 0)))
 			return distance - 1;
 
@@ -526,7 +526,7 @@ unsigned int Grid::getDistanceToNextWallUp(const GridPoint &position) const
 {
 	unsigned int distance;
 
-	for (distance = 1; position.getY() + distance < m_gridRows; ++distance)
+	for (distance = 1; position.getY() + distance < m_rows; ++distance)
 		if (isPlaceCoveredByWall(position + GridPoint(0, distance)))
 			return distance - 1;
 
@@ -537,7 +537,7 @@ unsigned int Grid::getDistanceToNextWallDown(const GridPoint &position) const
 {
 	unsigned int distance;
 
-	for (distance = 1; position.getY() - distance < m_gridRows; ++distance)
+	for (distance = 1; position.getY() - distance < m_rows; ++distance)
 		if (isPlaceCoveredByWall(position - GridPoint(0, distance)))
 			return distance - 1;
 
@@ -564,18 +564,71 @@ size_t Grid::getObserverCount() const
 
 unsigned int Grid::getRows() const
 {
-	return m_gridRows;
+	return m_rows;
 }
 
 unsigned int Grid::getColumns() const
 {
-	return m_gridColumns;
+	return m_columns;
 }
 
-vector<GridPoint> Grid::getAllFieldsBesideBombRange(const GridPoint &/*position*/, unsigned int maximumRange)
+vector<GridPoint> Grid::getAllFieldsBesideBombRange(const GridPoint &position, unsigned int range)
 {
-	assert(maximumRange > 0);
+	assert(range > 0);
+	const unsigned int x = position.getX();
+	const unsigned int y = position.getY();
 	vector<GridPoint> result;
+
+	//! add positions in the corners
+	if (x > 0 && y > 0)
+		result.push_back(GridPoint(x - 1, y - 1));
+	if (x > 0 && y < m_rows - 1)
+		result.push_back(GridPoint(x - 1, y + 1));
+	if (x < m_columns - 1 && y < m_rows - 1)
+		result.push_back(GridPoint(x + 1, y + 1));
+	if (x < m_columns - 1 && y > 0)
+		result.push_back(GridPoint(x + 1, y - 1));
+
+	//! add positions after the end of the destruction range
+	if (x > range)
+		result.push_back(GridPoint(x - range - 1, y));
+	if (y > range)
+		result.push_back(GridPoint(x, y - range - 1));
+	if (x < m_columns - range - 1)
+		result.push_back(GridPoint(x + range + 1, y));
+	if (y < m_rows - range - 1)
+		result.push_back(GridPoint(x, y + range + 1));
+
+	//! add positions between the corners and the end of the destruction range
+	for (unsigned int i = 2; i <= range && i <= x; ++i)
+	{
+		if (y > 0)
+			result.push_back(GridPoint(x - i, y - 1));
+		if (y < m_rows - 1)
+			result.push_back(GridPoint(x - i, y + 1));
+	}
+	for (unsigned int i = 2; i <= range && x + i < m_columns; ++i)
+	{
+		if (y > 0)
+			result.push_back(GridPoint(x + i, y - 1));
+		if (y < m_rows - 1)
+			result.push_back(GridPoint(x + i, y + 1));
+	}
+	for (unsigned int i = 2; i <= range && i <= y; ++i)
+	{
+		if (x > 0)
+			result.push_back(GridPoint(x - 1, y - i));
+		if (x < m_columns - 1)
+			result.push_back(GridPoint(x + 1, y - i));
+	}
+	for (unsigned int i = 2; i <= range && y + i < m_rows; ++i)
+	{
+		if (x > 0)
+			result.push_back(GridPoint(x - 1, y + i));
+		if (x < m_columns - 1)
+			result.push_back(GridPoint(x + 1, y + i));
+	}
+
 	return result;
 }
 
@@ -583,7 +636,7 @@ unsigned int Grid::getBombMaximumRangeLeft(const GridPoint &position) const
 {
 	unsigned int distanceToNextWall = getDistanceToNextWallLeft(position);
 
-	if (position.getX() - distanceToNextWall - 1 < m_gridColumns)
+	if (position.getX() - distanceToNextWall - 1 < m_columns)
 	{
 		GridPoint endPosition(position - GridPoint(distanceToNextWall + 1, 0));
 		unsigned int vectorIndex = getVectorIndex(endPosition);
@@ -600,7 +653,7 @@ unsigned int Grid::getBombMaximumRangeUp(const GridPoint &position) const
 {
 	unsigned int distanceToNextWall = getDistanceToNextWallUp(position);
 
-	if (position.getY() + distanceToNextWall + 1 < m_gridRows)
+	if (position.getY() + distanceToNextWall + 1 < m_rows)
 	{
 		GridPoint endPosition(position + GridPoint(0, distanceToNextWall + 1));
 		unsigned int vectorIndex = getVectorIndex(endPosition);
@@ -617,7 +670,7 @@ unsigned int Grid::getBombMaximumRangeRight(const GridPoint &position) const
 {
 	unsigned int distanceToNextWall = getDistanceToNextWallRight(position);
 
-	if (position.getX() + distanceToNextWall + 1 < m_gridColumns)
+	if (position.getX() + distanceToNextWall + 1 < m_columns)
 	{
 		GridPoint endPosition(position + GridPoint(distanceToNextWall + 1, 0));
 		unsigned int vectorIndex = getVectorIndex(endPosition);
@@ -634,7 +687,7 @@ unsigned int Grid::getBombMaximumRangeDown(const GridPoint &position) const
 {
 	unsigned int distanceToNextWall = getDistanceToNextWallDown(position);
 
-	if (position.getY() - distanceToNextWall - 1 < m_gridRows)
+	if (position.getY() - distanceToNextWall - 1 < m_rows)
 	{
 		GridPoint endPosition(position - GridPoint(0, distanceToNextWall + 1));
 		unsigned int vectorIndex = getVectorIndex(endPosition);
