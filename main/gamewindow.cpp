@@ -329,14 +329,20 @@ void GameWindow::createViews(unsigned int humanPlayerCount)
 
 	m_viewOne = createView();
 	m_ui->viewLayout->addWidget(m_viewOne);
-	m_viewsAsVector.push_back(m_viewOne);
 
 	if (humanPlayerCount == 2)
 	{
 		m_viewTwo = createView();
 		m_ui->viewLayout->addWidget(m_viewTwo);
-		m_viewsAsVector.push_back(m_viewTwo);
 	}
+
+	/*!
+	 * The order of push-backs is important here, as it determines the left and right view and
+	 * which player is shown on which view.
+	 */
+	if (humanPlayerCount == 2)
+		m_viewsAsVector.push_back(m_viewTwo);
+	m_viewsAsVector.push_back(m_viewOne);
 }
 
 QGraphicsView* GameWindow::createView()
