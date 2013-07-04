@@ -6,6 +6,7 @@
 #include "graphic/explodedbomb.h"
 #include "graphic/point.h"
 #include "graphic/svgrenderer.h"
+#include "common/stopwatch.h"
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QBrush>
@@ -63,8 +64,9 @@ void GraphicDrawerQt::setResponsibleForPlayers(const vector<unsigned int> &playe
 	m_responsibilityValid = true;
 }
 
-void GraphicDrawerQt::draw(const GameState &gameState)
+double GraphicDrawerQt::draw(const GameState &gameState)
 {
+	StopWatch stopWatch;
 	assert(m_responsibilityValid);
 
 	if (m_firstRedraw)
@@ -84,6 +86,8 @@ void GraphicDrawerQt::draw(const GameState &gameState)
 	drawExplodedBombs(gameState.getAllChangedExplodedBombs());
 	drawPlayers(gameState);
 	m_firstRedraw = false;
+
+	return stopWatch.getTimeAndRestart();
 }
 
 QGraphicsScene &GraphicDrawerQt::getScene()

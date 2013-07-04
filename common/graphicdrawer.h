@@ -9,7 +9,8 @@ namespace Common
 	{
 	public:
 		virtual void setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs) = 0;
-		virtual void draw(const GameState &gameState) = 0;
+		//! returns the time spent on waiting for another thread, which actually does the drawing
+		virtual double draw(const GameState &gameState) = 0;
 
 		virtual ~GraphicDrawer() { }
 	};

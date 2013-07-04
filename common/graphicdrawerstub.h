@@ -10,7 +10,7 @@ namespace Common
 	{
 	public:
 		virtual void setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs);
-		virtual void draw(const GameState &gameState);
+		virtual double draw(const GameState &gameState);
 	};
 }
 

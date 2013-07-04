@@ -35,12 +35,13 @@ GameWindow::GameWindow() :
 	m_viewOne(0),
 	m_viewTwo(0),
 	m_framesPerSecondWatch(new Common::StopWatch()),
-	m_timeForViewPortUpdates(0)
+	m_timeForViewPortUpdates(0),
+	m_timeSpentOnDrawing(0)
 {
 	m_ui->setupUi(this);
 
 	connect(	this, SIGNAL(guiUpdateNecessary(const Common::GameState*)),
-				this, SLOT(updateGui(const Common::GameState*)));
+				this, SLOT(updateGraphicScene(const Common::GameState*)));
 	connect(	m_timerStatusInformationUpdate, SIGNAL(timeout()),
 				this, SLOT(updateStatusInformation()));
 	connect(	m_ui->pauseButton, SIGNAL(clicked()),
@@ -75,7 +76,7 @@ void GameWindow::setResponsibleForPlayers(const vector<unsigned int> &playerIDs)
 	m_drawer->setResponsibleForPlayers(playerIDs);
 }
 
-void GameWindow::draw(const Common::GameState &gameState)
+double GameWindow::draw(const Common::GameState &gameState)
 {
 	m_drawFinished.reset();
 
@@ -85,7 +86,7 @@ void GameWindow::draw(const Common::GameState &gameState)
 		if (!m_gameRunning)
 		{
 			m_drawFinished.send();
-			return;
+			return 0;
 		}
 	}
 
@@ -101,6 +102,7 @@ void GameWindow::draw(const Common::GameState &gameState)
 	}
 
 	m_drawFinished.send();
+	return m_timeSpentOnDrawing;
 }
 
 void GameWindow::startGame(
@@ -133,10 +135,10 @@ void GameWindow::startGame(
 	m_timerUpdateViewPorts->start(0);
 }
 
-void GameWindow::updateGui(const Common::GameState *gameState)
+void GameWindow::updateGraphicScene(const Common::GameState *gameState)
 {
 	if (m_drawer != 0)
-		m_drawer->draw(*gameState);
+		m_timeSpentOnDrawing = m_drawer->draw(*gameState);
 	m_guiUpdateFinished.send();
 }
 

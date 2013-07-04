@@ -27,7 +27,7 @@ namespace Graphic
 		virtual ~GraphicDrawerQt();
 
 		virtual void setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs);
-		virtual void draw(const Common::GameState &gameState);
+		virtual double draw(const Common::GameState &gameState);
 		QGraphicsScene& getScene();
 
 	private:

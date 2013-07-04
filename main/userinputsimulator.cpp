@@ -25,11 +25,12 @@ UserInputSimulator::~UserInputSimulator()
 	delete m_enableOpenGL;
 }
 
-void UserInputSimulator::draw(const GameState &gameState)
+double UserInputSimulator::draw(const GameState &gameState)
 {
 	cout << "redraw requested";
-	GameWindow::draw(gameState);
+	double result = GameWindow::draw(gameState);
 	cout << " - redraw finished" << endl;
+	return result;
 }
 
 void UserInputSimulator::restartGame()

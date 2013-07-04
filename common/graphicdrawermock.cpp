@@ -12,9 +12,10 @@ void GraphicDrawerMock::setResponsibleForPlayers(const std::vector<unsigned int>
 	++m_callsToSetResponsibleForPlayers;
 }
 
-void GraphicDrawerMock::draw(const GameState &)
+double GraphicDrawerMock::draw(const GameState &)
 {
 	++m_callsToDraw;
+	return 0;
 }
 
 unsigned int GraphicDrawerMock::getCallsToDraw() const

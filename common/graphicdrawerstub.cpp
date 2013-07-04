@@ -5,5 +5,7 @@ using namespace Common;
 void GraphicDrawerStub::setResponsibleForPlayers(const std::vector<unsigned int> &)
 { }
 
-void GraphicDrawerStub::draw(const GameState &)
-{ }
+double GraphicDrawerStub::draw(const GameState &)
+{
+	return 0;
+}

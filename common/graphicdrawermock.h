@@ -12,7 +12,7 @@ namespace Common
 		GraphicDrawerMock();
 
 		virtual void setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs);
-		virtual void draw(const GameState &gameState);
+		virtual double draw(const GameState &gameState);
 
 		unsigned int getCallsToDraw() const;
 		unsigned int getCallsToSetResponsibleForPlayers() const;

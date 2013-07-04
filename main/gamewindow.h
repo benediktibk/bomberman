@@ -44,7 +44,7 @@ namespace Main
 		~GameWindow();
 
 		virtual void setResponsibleForPlayers(const std::vector<unsigned int> &playerIDs);
-		virtual void draw(const Common::GameState &gameState);
+		virtual double draw(const Common::GameState &gameState);
 		bool eventFilter(QObject *obj, QEvent *event);
 
 	public slots:
@@ -55,7 +55,7 @@ namespace Main
 		void closeGame();
 
 	private slots:
-		void updateGui(const Common::GameState *gameState);
+		void updateGraphicScene(const Common::GameState *gameState);
 		void updateViewPorts();
 		void updateStatusInformation();
 		void pauseButtonPushed();
@@ -106,6 +106,7 @@ namespace Main
 		std::vector<QGraphicsView*> m_viewsAsVector;
 		Common::StopWatch *m_framesPerSecondWatch;
 		double m_timeForViewPortUpdates;
+		double m_timeSpentOnDrawing;
 	};
 }
 

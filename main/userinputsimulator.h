@@ -24,7 +24,7 @@ namespace Main
 		virtual ~UserInputSimulator();
 
 	public:
-		virtual void draw(const Common::GameState &gameState);
+		virtual double draw(const Common::GameState &gameState);
 
 	public slots:
 		void winnerOfGame(int winner);
