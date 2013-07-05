@@ -121,7 +121,7 @@ void InputFetcherWindow::keyReleaseEvent(QKeyEvent *event)
 		break;
 
 	default:
-		QMainWindow::keyPressEvent(event);
+		QMainWindow::keyReleaseEvent(event);
 		break;
 	}
 }

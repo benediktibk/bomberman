@@ -1,7 +1,7 @@
 #ifndef MAIN_INPUTFETCHERWINDOW_H
 #define MAIN_INPUTFETCHERWINDOW_H
 
-#include <QMainWindow>
+#include <QtWidgets/QMainWindow>
 #include "common/inputfetcher.h"
 #include "common/inputstate.h"
 #include "threading/mutex.h"
