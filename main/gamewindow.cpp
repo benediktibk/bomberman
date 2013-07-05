@@ -271,8 +271,7 @@ void GameWindow::muteButtonPushed()
 
 void GameWindow::volumeChanged()
 {
-	double range = m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum();
-	double volume = m_ui->volumeHorizontalSlider->value()/range;
+	double volume = m_ui->volumeHorizontalSlider->value()/static_cast<double>(m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum());
 	m_soundPlayer->setVolume(volume);
 }
 

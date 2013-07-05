@@ -119,8 +119,7 @@ void StartWindow::startClicked()
 		else
 			assert(false);
 
-		double range = (m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum());
-		double volume = m_ui->volumeHorizontalSlider->value()/range;
+		double volume = m_ui->volumeHorizontalSlider->value()/static_cast<double>(m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum());
 		emit startGameSignal(
 					m_ui->openGlCheckBox->isChecked(), m_selectedLevel.c_str(),
 					humanPlayerCount, m_ui->playerCountHorizontalSlider->value(),
