@@ -51,7 +51,6 @@ namespace Main
 		void startGame(bool enableOpenGL, const char* levelname,
 				unsigned int humanPlayerCount, unsigned int computerEnemyCount,
 				GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute, double volume);
-		void closeGame();
 
 	private slots:
 		void updateGraphicScene(const Common::GameState *gameState);
@@ -61,6 +60,7 @@ namespace Main
 		void muteButtonPushed();
 		void winnerOfGame(int winner);
 		void volumeChanged();
+		void closeGame();
 
 	signals:
 		void guiUpdateNecessary(const Common::GameState *gameState);
