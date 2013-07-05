@@ -65,7 +65,7 @@ namespace Main
 	signals:
 		void guiUpdateNecessary(const Common::GameState *gameState);
 		void levelBuildingNotCorectSignal();
-		void closeGameSignal();
+		void closeGameSignal(bool oldMute, int oldVolume);
 		void winnerOfGameSignal(int winner);
 
 	private:
