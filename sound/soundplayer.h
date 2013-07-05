@@ -18,7 +18,7 @@ namespace Sound
 		public Common::SoundPlayer
 	{
 	public:
-		SoundPlayer(bool mute);
+		SoundPlayer(bool mute, double volume = 0.75);
 		virtual ~SoundPlayer();
 
 		virtual void bombExplosion();

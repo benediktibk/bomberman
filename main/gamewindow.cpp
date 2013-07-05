@@ -310,8 +310,7 @@ void GameWindow::createDrawer(bool enableOpenGL)
 void GameWindow::createSoundPlayer(bool mute, double volume)
 {
 	assert(m_soundPlayer == 0);
-	m_soundPlayer = new Sound::SoundPlayer(mute);
-	m_soundPlayer->setVolume(volume);
+	m_soundPlayer = new Sound::SoundPlayer(mute, volume);
 	m_ui->volumeHorizontalSlider->setValue(static_cast<int>(m_soundPlayer->getVolume()*(m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum())));
 }
 

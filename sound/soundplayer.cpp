@@ -7,7 +7,7 @@ using namespace Sound;
 using namespace Threading;
 using namespace std;
 
-SoundPlayer::SoundPlayer(bool mute) :
+SoundPlayer::SoundPlayer(bool mute, double volume) :
 	m_soundBombBufferSize(5),
     m_soundPlacedBufferSize(4),
     m_soundItemBufferSize(3),
@@ -31,7 +31,7 @@ SoundPlayer::SoundPlayer(bool mute) :
 	m_background->setLoopCount(QSoundEffect::Infinite);
 	m_background->play();
 	setMuted(m_muted);
-    setVolume(0.75);
+	setVolume(volume);
 }
 
 SoundPlayer::~SoundPlayer()
@@ -115,7 +115,7 @@ void SoundPlayer::setVolume(double value)
 	changeVolume(m_bombPlaced, value);
 	changeVolume(m_gotItem, value);
 	changeVolume(m_wallDown, value);
-    changeVolume(m_deadPlayer, value);
+	changeVolume(m_deadPlayer, value);
 	m_background->setVolume(value);
 }
 
