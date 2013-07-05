@@ -22,13 +22,16 @@ void ComputerEnemyInputFetcherHard::calculateInputStateInternal()
 	}
 
 	Route routeToPowerUp = router.getRouteToPowerUp(playerPosition);
-	if (routeToPowerUp.getDirection() != PlayerState::PlayerDirectionNone)
+	Route routeToPlayer = router.getRouteToPlayer(playerPosition, getDestructionRangeOfNewBombs(), getPlayerSpeed(), getBombLifeTime(), true);
+
+	bool playerIsMuchCloser = (routeToPowerUp.getDistance() > 2*routeToPlayer.getDistance()) && (routeToPlayer.getDirection() != PlayerState::PlayerDirectionNone);
+
+	if ((routeToPowerUp.getDirection() != PlayerState::PlayerDirectionNone) && !playerIsMuchCloser)
 	{
 		setInputStateIntoDirection(routeToPowerUp.getDirection());
 		return;
 	}
 
-	Route routeToPlayer = router.getRouteToPlayer(playerPosition, getDestructionRangeOfNewBombs(), getPlayerSpeed(), getBombLifeTime(), true);
 	if (routeToPlayer.getDirection() != PlayerState::PlayerDirectionNone)
 	{
 		placeBombIfCloseEnough(routeToPlayer);
