@@ -26,7 +26,7 @@ int main(int argc, char **argv)
 						&gameWindow, SLOT(closeGame()));
 	QObject::connect(	&gameWindow, SIGNAL(levelBuildingNotCorectSignal()),
 						&startWindow, SLOT(levelBuildingNotCorrect()));
-	QObject::connect(	&gameWindow, SIGNAL(closeGameSignal(bool, int)),
+	QObject::connect(	&gameWindow, SIGNAL(setSoundSettingsSignal(bool, int)),
 						&startWindow, SLOT(setSoundSettings(bool, int)));
 	QObject::connect(	&gameWindow, SIGNAL(winnerOfGameSignal(int)),
 						&startWindow, SLOT(winnerOfGame(int)));
