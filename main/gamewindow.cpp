@@ -216,7 +216,8 @@ void GameWindow::updatePauseButtonLabel()
 
 void GameWindow::closeEvent(QCloseEvent *)
 {
-	emit closeGameSignal();
+	emit setSoundSettingsSignal(m_soundPlayer->isMuted(), m_ui->volumeHorizontalSlider->value());
+	closeGame();
 }
 
 void GameWindow::finishGame()
@@ -246,7 +247,7 @@ void GameWindow::closeGame()
 void GameWindow::winnerOfGame(int winner)
 {
 	emit winnerOfGameSignal(winner);
-	closeGame();
+	this->close();
 }
 
 void GameWindow::pauseButtonPushed()

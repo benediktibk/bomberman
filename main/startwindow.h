@@ -30,7 +30,7 @@ namespace Main
 	private slots:
 		void exitClicked();
 		void startClicked();
-		void closeGameClicked();
+		void setSoundSettings(bool oldMute, int oldVoulume);
 		void levelBuildingNotCorrect();
 		void showHorizontalSliderValue();
 		void updateSilder();
