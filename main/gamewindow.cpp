@@ -113,7 +113,7 @@ double GameWindow::draw(const Common::GameState &gameState)
 void GameWindow::startGame(
 		bool enableOpenGL, const char* levelName,
 		unsigned int humanPlayerCount, unsigned int computerEnemyCount,
-		GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute)
+		GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute, double volume)
 {
 	finishGame();
 	freeMemory();
@@ -121,7 +121,7 @@ void GameWindow::startGame(
 	if (!createLevel(levelName))
 		return;
 
-	createSoundPlayer(mute);
+	createSoundPlayer(mute, volume);
 	createGameEngine(humanPlayerCount, computerEnemyCount);
 	createAllPlayerInputFetcher(computerEnemyLevel);
 	createGameLoop();
@@ -271,8 +271,7 @@ void GameWindow::muteButtonPushed()
 
 void GameWindow::volumeChanged()
 {
-	double range = m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum();
-	double volume = m_ui->volumeHorizontalSlider->value()/range;
+	double volume = m_ui->volumeHorizontalSlider->value()/static_cast<double>(m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum());
 	m_soundPlayer->setVolume(volume);
 }
 
@@ -308,10 +307,10 @@ void GameWindow::createDrawer(bool enableOpenGL)
 	setResponsibleForPlayers(playerIDsToShow);
 }
 
-void GameWindow::createSoundPlayer(bool mute)
+void GameWindow::createSoundPlayer(bool mute, double volume)
 {
 	assert(m_soundPlayer == 0);
-	m_soundPlayer = new Sound::SoundPlayer(mute);
+	m_soundPlayer = new Sound::SoundPlayer(mute, volume);
 	m_ui->volumeHorizontalSlider->setValue(static_cast<int>(m_soundPlayer->getVolume()*(m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum())));
 }
 
