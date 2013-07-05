@@ -17,7 +17,6 @@ private:
 
 private:
 	const double m_powerUpPropability;
-    PowerUpType m_powerUpType;
 };
 }
 
