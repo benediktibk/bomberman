@@ -247,8 +247,7 @@ void GameWindow::closeGame()
 void GameWindow::winnerOfGame(int winner)
 {
 	emit winnerOfGameSignal(winner);
-	emit setSoundSettingsSignal(m_soundPlayer->isMuted(), m_ui->volumeHorizontalSlider->value());
-	closeGame();
+	this->close();
 }
 
 void GameWindow::pauseButtonPushed()
