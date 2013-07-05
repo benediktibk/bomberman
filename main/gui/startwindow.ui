@@ -156,20 +156,6 @@
       </layout>
      </widget>
     </item>
-    <item row="5" column="3">
-     <widget class="QPushButton" name="closeGameButton">
-      <property name="text">
-       <string>Close Game</string>
-      </property>
-     </widget>
-    </item>
-    <item row="5" column="4">
-     <widget class="QPushButton" name="exitButton">
-      <property name="text">
-       <string>Exit</string>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="0" colspan="5">
      <widget class="QLabel" name="levelselectionLabel">
       <property name="text">
@@ -235,6 +221,13 @@ Levelselection</string>
         </widget>
        </item>
       </layout>
+     </widget>
+    </item>
+    <item row="5" column="3" colspan="2">
+     <widget class="QPushButton" name="exitButton">
+      <property name="text">
+       <string>Exit</string>
+      </property>
      </widget>
     </item>
    </layout>

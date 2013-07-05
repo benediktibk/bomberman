@@ -31,7 +31,6 @@ void StartWindow::connectButtons()
 {
 	connect(m_ui->exitButton, SIGNAL(clicked()), this, SLOT(exitClicked()));
 	connect(m_ui->startButton, SIGNAL(clicked()), this, SLOT(startClicked()));
-	connect(m_ui->closeGameButton, SIGNAL(clicked()), this, SLOT(closeGameClicked(bool, int)));
 	connect(m_ui->singleRadioButton, SIGNAL(clicked()), this, SLOT(updateSilder()));
 	connect(m_ui->multiRadioButton, SIGNAL(clicked()), this, SLOT(updateSilder()));
 	connect(m_ui->controlButton, SIGNAL(clicked()), this, SLOT(controlClicked()));
@@ -127,11 +126,10 @@ void StartWindow::startClicked()
 	}
 }
 
-void StartWindow::closeGameClicked(bool oldMute, int oldVoulume)
+void StartWindow::setSoundSettings(bool oldMute, int oldVoulume)
 {
 	m_ui->muteCheckBox->setChecked(oldMute);
 	m_ui->volumeHorizontalSlider->setValue(oldVoulume);
-	emit closeGameSignal();
 	m_ui->infoLabel->setText(tr("GAME OVER\nPlease select a level and press Start to play"));
 }
 
