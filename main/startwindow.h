@@ -22,6 +22,7 @@ namespace Main
 
 	public:
 		StartWindow(bool enableOpenGL);
+		virtual ~StartWindow();
 
 	public slots:
 		void winnerOfGame(int winner);

@@ -24,6 +24,9 @@ StartWindow::StartWindow(bool enableOpenGL) :
 	m_ui->levelTableView->selectRow(0);
 }
 
+StartWindow::~StartWindow()
+{ }
+
 void StartWindow::connectButtons()
 {
 	connect(m_ui->exitButton, SIGNAL(clicked()), this, SLOT(exitClicked()));

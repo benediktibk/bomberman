@@ -3,13 +3,16 @@
 #include <QtSvg/QtSvg>
 #include <QtCore/QTimer>
 #include <QKeyEvent>
+#include <assert.h>
 
 using namespace Main;
 using namespace Qt;
 
 SplashScreen::SplashScreen() :
 	m_ui(new Ui::SplashScreen()),
-	m_closeTimer(new QTimer())
+	m_closeTimer(new QTimer()),
+	m_backgroundImage(0),
+	m_backgroundPalette(0)
 {
 	m_ui->setupUi(this);
 	setWindowFlags(Qt::FramelessWindowHint);
@@ -26,19 +29,26 @@ SplashScreen::~SplashScreen()
 	m_ui = 0;
 	delete m_closeTimer;
 	m_closeTimer = 0;
+	delete m_backgroundPalette;
+	m_backgroundPalette = 0;
+	delete m_backgroundImage;
+	m_backgroundImage = 0;
 }
 
 void SplashScreen::setBackgroundImage()
 {
+	assert(m_backgroundImage == 0);
+	assert(m_backgroundPalette == 0);
+
 	QSvgRenderer renderer(QString("resources/graphics/background.svg"));
 	QImage image(width(), height(), QImage::Format_ARGB32);
 	image.fill(Qt::white);
 	QPainter painter(&image);
 	renderer.render(&painter);
-	QPixmap *pixmap = new QPixmap(QPixmap::fromImage(image));
-	QPalette* palette = new QPalette();
-	palette->setBrush(QPalette::Background,*(new QBrush(*(pixmap))));
-	setPalette(*palette);
+	m_backgroundImage = new QPixmap(QPixmap::fromImage(image));
+	m_backgroundPalette = new QPalette();
+	m_backgroundPalette->setBrush(QPalette::Background,*(new QBrush(*(m_backgroundImage))));
+	setPalette(*m_backgroundPalette);
 }
 
 void SplashScreen::moveToCenterOfScreen()

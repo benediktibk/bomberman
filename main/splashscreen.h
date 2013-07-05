@@ -4,6 +4,8 @@
 #include <QMainWindow>
 
 class QTimer;
+class QPixmap;
+class QPalette;
 
 namespace Ui
 {
@@ -38,6 +40,8 @@ namespace Main
 	private:
 		Ui::SplashScreen* m_ui;
 		QTimer *m_closeTimer;
+		QPixmap *m_backgroundImage;
+		QPalette *m_backgroundPalette;
 	};
 }
 
