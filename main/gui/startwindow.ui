@@ -21,21 +21,18 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="5" column="1">
-     <widget class="QPushButton" name="controlButton">
+    <item row="0" column="0">
+     <widget class="QLabel" name="levelselectionLabel">
       <property name="text">
-       <string>Control</string>
+       <string>Ultimate BOMBERMAN
+Levelselection</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
-    <item row="5" column="2">
-     <widget class="QPushButton" name="readMeButton">
-      <property name="text">
-       <string>README</string>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="0" colspan="5">
+    <item row="1" column="0" colspan="3">
      <widget class="QTableView" name="levelTableView">
       <property name="minimumSize">
        <size>
@@ -72,14 +69,63 @@
       </attribute>
      </widget>
     </item>
-    <item row="5" column="0">
-     <widget class="QPushButton" name="startButton">
-      <property name="text">
-       <string>Start</string>
+    <item row="2" column="0" colspan="2">
+     <widget class="QGroupBox" name="settingsGroupBox">
+      <property name="enabled">
+       <bool>true</bool>
       </property>
+      <property name="title">
+       <string>Settings</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="openGlCheckBox">
+         <property name="text">
+          <string>play with openGL</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QCheckBox" name="muteCheckBox">
+         <property name="text">
+          <string>Mute</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QSlider" name="volumeHorizontalSlider">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="tickPosition">
+          <enum>QSlider::NoTicks</enum>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="volumeLabel">
+         <property name="text">
+          <string>Volume</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QLabel" name="infoLabel">
+         <property name="text">
+          <string>Please select a level and press Start to play</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
      </widget>
     </item>
-    <item row="4" column="3" colspan="2">
+    <item row="2" column="2">
      <widget class="QGroupBox" name="playerGroupBox">
       <property name="title">
        <string>Player Settings</string>
@@ -156,77 +202,24 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="0" colspan="5">
-     <widget class="QLabel" name="levelselectionLabel">
+    <item row="3" column="0">
+     <widget class="QPushButton" name="startButton">
       <property name="text">
-       <string>Ultimate BOMBERMAN
-Levelselection</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignCenter</set>
+       <string>Start</string>
       </property>
      </widget>
     </item>
-    <item row="4" column="0" colspan="3">
-     <widget class="QGroupBox" name="settingsGroupBox">
-      <property name="enabled">
-       <bool>true</bool>
+    <item row="3" column="1">
+     <widget class="QPushButton" name="controlButton">
+      <property name="text">
+       <string> How To Play</string>
       </property>
-      <property name="title">
-       <string>Settings</string>
-      </property>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="openGlCheckBox">
-         <property name="text">
-          <string>play with openGL</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QCheckBox" name="muteCheckBox">
-         <property name="text">
-          <string>Mute</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QSlider" name="volumeHorizontalSlider">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="tickPosition">
-          <enum>QSlider::NoTicks</enum>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QLabel" name="volumeLabel">
-         <property name="text">
-          <string>Volume</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0" colspan="2">
-        <widget class="QLabel" name="infoLabel">
-         <property name="text">
-          <string>Please select a level and press Start to play</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
      </widget>
     </item>
-    <item row="5" column="3" colspan="2">
-     <widget class="QPushButton" name="exitButton">
+    <item row="3" column="2">
+     <widget class="QPushButton" name="readMeButton">
       <property name="text">
-       <string>Exit</string>
+       <string>README</string>
       </property>
      </widget>
     </item>
