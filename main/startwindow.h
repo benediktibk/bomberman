@@ -41,13 +41,13 @@ namespace Main
 		void startGameSignal(
 				bool enableOpenGL, const char* levelname,
 				unsigned int humanPlayerCount, unsigned int computerEnemyCount,
-				GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute);
+				GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute, double volume);
 		void closeGameSignal();
 
 	private:
 		void connectButtons();
 		void createTableView();
-		void createSilder();
+		void createSilders();
 		void createComboBox();
 
 	private:

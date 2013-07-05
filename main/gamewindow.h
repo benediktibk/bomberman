@@ -48,10 +48,9 @@ namespace Main
 		bool eventFilter(QObject *obj, QEvent *event);
 
 	public slots:
-		void startGame(
-				bool enableOpenGL, const char* levelname,
+		void startGame(bool enableOpenGL, const char* levelname,
 				unsigned int humanPlayerCount, unsigned int computerEnemyCount,
-				GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute);
+				GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute, double volume);
 		void closeGame();
 
 	private slots:
@@ -78,7 +77,7 @@ namespace Main
 		bool createLevel(const std::string &levelName);
 		void createGameLoop();
 		void createDrawer(bool enableOpenGL);
-		void createSoundPlayer(bool mute);
+		void createSoundPlayer(bool mute, double volume);
 		void createGameEngine(unsigned int humanPlayerCount, unsigned int computerEnemyCount);
 		void createAllPlayerInputFetcher(GameEngine::ComputerEnemyLevel computerEnemyLevel);
 		void createViews(unsigned int humanPlayerCount);

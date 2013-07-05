@@ -20,8 +20,8 @@ int main(int argc, char **argv)
 	SplashScreen splashScreen;
 	GameWindow gameWindow;
 	StartWindow startWindow(enableOpenGL);
-	QObject::connect(	&startWindow, SIGNAL(startGameSignal(bool, const char*, unsigned int, unsigned int, GameEngine::ComputerEnemyLevel, bool)),
-						&gameWindow, SLOT(startGame(bool, const char*, unsigned int, unsigned int, GameEngine::ComputerEnemyLevel, bool)));
+	QObject::connect(	&startWindow, SIGNAL(startGameSignal(bool, const char*, unsigned int, unsigned int, GameEngine::ComputerEnemyLevel, bool, double)),
+						&gameWindow, SLOT(startGame(bool, const char*, unsigned int, unsigned int, GameEngine::ComputerEnemyLevel, bool, double)));
 	QObject::connect(	&startWindow, SIGNAL(closeGameSignal()),
 						&gameWindow, SLOT(closeGame()));
 	QObject::connect(	&gameWindow, SIGNAL(levelBuildingNotCorectSignal()),

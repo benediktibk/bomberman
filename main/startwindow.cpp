@@ -16,7 +16,7 @@ StartWindow::StartWindow(bool enableOpenGL) :
 	m_ui->setupUi(this);
 	connectButtons();
 	createTableView();
-	createSilder();
+	createSilders();
 	createComboBox();
 	if(enableOpenGL)
 		m_ui->openGlCheckBox->setChecked(true);
@@ -66,10 +66,12 @@ void StartWindow::createTableView()
 	connect(m_ui->levelTableView->selectionModel(), SIGNAL(selectionChanged(QItemSelection,QItemSelection)), this, SLOT(updateSilder()));
 }
 
-void StartWindow::createSilder()
+void StartWindow::createSilders()
 {
 	connect( m_ui->playerCountHorizontalSlider, SIGNAL( valueChanged(int)), this, SLOT(showHorizontalSliderValue()));
 	m_ui->playerCountHorizontalSlider->setMaximum(m_ui->levelTableView->model()->data(m_ui->levelTableView->model()->index(0,3)).toInt()-1);
+
+	m_ui->volumeHorizontalSlider->setValue(0.75*(m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum()));
 }
 
 void StartWindow::createComboBox()
@@ -117,10 +119,12 @@ void StartWindow::startClicked()
 		else
 			assert(false);
 
+		double range = (m_ui->volumeHorizontalSlider->maximum() - m_ui->volumeHorizontalSlider->minimum());
+		double volume = m_ui->volumeHorizontalSlider->value()/range;
 		emit startGameSignal(
 					m_ui->openGlCheckBox->isChecked(), m_selectedLevel.c_str(),
 					humanPlayerCount, m_ui->playerCountHorizontalSlider->value(),
-					computerEnemyLevel, m_ui->muteCheckBox->isChecked());
+					computerEnemyLevel, m_ui->muteCheckBox->isChecked(), volume);
 	}
 }
 
