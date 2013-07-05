@@ -30,6 +30,7 @@ void PowerUpMaxVelocityStateTest::modifyPlayer_baseClass_maxSpeed_7()
 	increaseMaxVel->modifyPlayer(player);
 
 	CPPUNIT_ASSERT_DOUBLES_EQUAL(speed + player.getSpeedIncrement(), player.getSpeed(), 0.001);
+	delete increaseMaxVel;
 }
 
 void PowerUpMaxVelocityStateTest::getPowerUpType_isMaxVelocity()

@@ -8,16 +8,16 @@ using namespace Common;
 
 void PowerUpMaxBombRangeStateTest::modifyPlayer_maxBombRange_2()
 {
-    UniqueIdCreator id;
-    UniqueIdCreator idPlayer;
-    PowerUpMaxBombRangeState increaseMaxBomb(id, Point());
-    PlayerState player(idPlayer);
-    unsigned int maxBombRange = player.getDestructionRangeOfNewBombs();
+	UniqueIdCreator id;
+	UniqueIdCreator idPlayer;
+	PowerUpMaxBombRangeState increaseMaxBomb(id, Point());
+	PlayerState player(idPlayer);
+	unsigned int maxBombRange = player.getDestructionRangeOfNewBombs();
 
 
-    increaseMaxBomb.modifyPlayer(player);
+	increaseMaxBomb.modifyPlayer(player);
 
-    CPPUNIT_ASSERT_EQUAL(maxBombRange+1,player.getDestructionRangeOfNewBombs());
+	CPPUNIT_ASSERT_EQUAL(maxBombRange+1,player.getDestructionRangeOfNewBombs());
 }
 
 void PowerUpMaxBombRangeStateTest::modifyPlayer_baseClass_maxBombRangeIs2()
@@ -30,6 +30,7 @@ void PowerUpMaxBombRangeStateTest::modifyPlayer_baseClass_maxBombRangeIs2()
 	increaseMaxBomb->modifyPlayer(player);
 
 	CPPUNIT_ASSERT_EQUAL(static_cast<unsigned int>(2), player.getDestructionRangeOfNewBombs());
+	delete increaseMaxBomb;
 }
 
 void PowerUpMaxBombRangeStateTest::getPowerUpType_isMaxBombRange()
