@@ -448,3 +448,4 @@ gameengine/certainfieldandnotdangerousdecidertest.h
 gameengine/certainfieldandnotdangerousdecidertest.cpp
 resources/levels/classic_small.csv
 resources/levels/classic_large.csv
+resources/levels/classic_xtralarge.csv

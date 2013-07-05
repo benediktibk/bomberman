@@ -36,6 +36,7 @@ set(LEVELS
 	levellist.csv
 	classic_middle.csv
 	classic_large.csv
+	classic_xtralarge.csv
 	classic_small.csv
 	no_place_to_hide.csv
 	can_see_you.csv

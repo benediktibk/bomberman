@@ -1,8 +1,9 @@
 showname;height;width;maxPlayer;filename
 Neighbourship;25;25;4;neighbourship
-Classic Large;27;27;4;classic_large
-Classic Medium;21;21;4;classic_middle
 Classic Small;15;15;4;classic_small
+Classic Medium;21;21;4;classic_middle
+Classic Large;27;27;4;classic_large
+Classic Xtra Large;35;35;4;classic_xtralarge
 No place to hide;21;21;4;no_place_to_hide
 I can see you;28;28;4;can_see_you
 Battlefield;30;30;36;battlefield
