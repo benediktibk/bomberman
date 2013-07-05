@@ -1017,8 +1017,7 @@ void GameEngineImplTest::updateGameState_bombExplodesWithBombInRange_explosionRa
 
 	vector<const ExplodedBombState*> explodedBombs = gameState.getAllChangedExplodedBombs();
 	const ExplodedBombState &firstExplodedBomb = *(explodedBombs.front());
-	const ExplodedBombState &secondExplodedBomb = *(explodedBombs[1]);
-	CPPUNIT_ASSERT(5 == firstExplodedBomb.getDestructionRangeRight() || 5 == secondExplodedBomb.getDestructionRangeRight());
+	CPPUNIT_ASSERT(5 == firstExplodedBomb.getDestructionRangeRight());
 }
 
 void GameEngineImplTest::updateGameState_placeBombAndMoveOneFieldUpwards_playerIsOneFieldAboveTheBomb()
