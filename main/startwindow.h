@@ -28,7 +28,6 @@ namespace Main
 		void winnerOfGame(int winner);
 
 	private slots:
-		void exitClicked();
 		void startClicked();
 		void setSoundSettings(bool oldMute, int oldVoulume);
 		void levelBuildingNotCorrect();
@@ -42,7 +41,6 @@ namespace Main
 				bool enableOpenGL, const char* levelname,
 				unsigned int humanPlayerCount, unsigned int computerEnemyCount,
 				GameEngine::ComputerEnemyLevel computerEnemyLevel, bool mute, double volume);
-		void closeGameSignal();
 
 	private:
 		void connectButtons();

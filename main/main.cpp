@@ -22,8 +22,6 @@ int main(int argc, char **argv)
 	StartWindow startWindow(enableOpenGL);
 	QObject::connect(	&startWindow, SIGNAL(startGameSignal(bool, const char*, unsigned int, unsigned int, GameEngine::ComputerEnemyLevel, bool, double)),
 						&gameWindow, SLOT(startGame(bool, const char*, unsigned int, unsigned int, GameEngine::ComputerEnemyLevel, bool, double)));
-	QObject::connect(	&startWindow, SIGNAL(closeGameSignal()),
-						&gameWindow, SLOT(closeGame()));
 	QObject::connect(	&gameWindow, SIGNAL(levelBuildingNotCorectSignal()),
 						&startWindow, SLOT(levelBuildingNotCorrect()));
 	QObject::connect(	&gameWindow, SIGNAL(setSoundSettingsSignal(bool, int)),
