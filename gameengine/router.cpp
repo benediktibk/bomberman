@@ -107,7 +107,10 @@ Route Router::getRoute(const RouterGridFieldDecider &canWalkOn,
 #endif
 
 	if (!targetFound)
+	{
+		delete distances;
 		return Route(0, PlayerState::PlayerDirectionNone);
+	}
 
 	GridPoint targetPosition = findTargetPositionInLastFront(lastFront, target);
 	Route result = findWayBackToSourceFromTarget(*distances, targetPosition);
