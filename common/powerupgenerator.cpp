@@ -31,7 +31,7 @@ PowerUpType PowerUpGenerator::getRandomPowerUpType()
 
 bool PowerUpGenerator::createNewPowerup()
 {
-	RandomDecision decision(0.25);
+	RandomDecision decision(m_powerUpPropability);
 
 	return decision.decide();
 }
