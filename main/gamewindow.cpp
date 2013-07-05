@@ -186,7 +186,7 @@ void GameWindow::updatePlayerStateInfo()
 {
 	vector<Common::PlayerInformation> playerInformation = m_gameLoop->getPlayerInformation();
 	QString messageString("");
-	QString templateString("P%1 B:%2 R:%3 S%4");
+	QString templateString("P%1 B:%2 R:%3 S:%4");
 
 	for(size_t y = 0; y < playerInformation.size(); y++)
 	{
