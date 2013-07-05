@@ -116,6 +116,7 @@ void StartWindow::startClicked()
 					m_ui->openGlCheckBox->isChecked(), m_selectedLevel.c_str(),
 					humanPlayerCount, m_ui->playerCountHorizontalSlider->value(),
 					computerEnemyLevel, m_ui->muteCheckBox->isChecked(), volume);
+		hide();
 	}
 }
 
@@ -124,6 +125,7 @@ void StartWindow::setSoundSettings(bool oldMute, int oldVoulume)
 	m_ui->muteCheckBox->setChecked(oldMute);
 	m_ui->volumeHorizontalSlider->setValue(oldVoulume);
 	m_ui->infoLabel->setText(tr("GAME OVER\nPlease select a level and press Start to play"));
+	show();
 }
 
 void StartWindow::levelBuildingNotCorrect()

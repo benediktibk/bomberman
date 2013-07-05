@@ -74,6 +74,7 @@ void SplashScreen::setLabelColor()
 
 void SplashScreen::timeout()
 {
+	m_closeTimer->stop();
 	hide();
 	emit closed();
 }
