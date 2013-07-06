@@ -48,6 +48,7 @@ set(LEVELS
 	who_let_the_dogs_out.csv
 	ldv.csv
 	tetris.csv
+	tempelrun.csv
 )
 
 set(TESTFILES
