@@ -49,6 +49,7 @@ set(LEVELS
 	ldv.csv
 	tetris.csv
 	tempelrun.csv
+	pacman.csv
 )
 
 set(TESTFILES
