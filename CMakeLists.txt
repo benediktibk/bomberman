@@ -50,6 +50,7 @@ set(LEVELS
 	tetris.csv
 	tempelrun.csv
 	pacman.csv
+	tictactoe.csv
 )
 
 set(TESTFILES

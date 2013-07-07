@@ -10,9 +10,9 @@ public:
 	virtual ~ChangeableState();
 
 public:
-	void setChanged();
-	bool hasChanged();
-	void resetChanged();
+	virtual void setChanged();
+	virtual bool hasChanged();
+	virtual void resetChanged();
 
 private:
 	bool m_changed;

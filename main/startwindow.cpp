@@ -124,7 +124,7 @@ void StartWindow::setSoundSettings(bool oldMute, int oldVoulume)
 {
 	m_ui->muteCheckBox->setChecked(oldMute);
 	m_ui->volumeHorizontalSlider->setValue(oldVoulume);
-	m_ui->infoLabel->setText(tr("GAME OVER\nPlease select a level and press Start to play"));
+	m_ui->infoLabel->setText(tr("GAME OVER\nPlease select a level and press Start to play"));    
 	show();
 }
 
