@@ -60,8 +60,3 @@ double BombState::getDimension() const
 {
 	return m_dimension;
 }
-
-void BombState::shouldBeDestroyed()
-{
-	setChanged();
-}

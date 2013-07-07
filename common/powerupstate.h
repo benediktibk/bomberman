@@ -4,8 +4,7 @@
 #include "common/point.h"
 #include "common/uniqueidcreator.h"
 #include "common/playerstate.h"
-#include "common/changeablestate.h"
-#include "common/destroyablestate.h"
+#include "common/changedestroyablestate.h"
 
 namespace Common
 {
@@ -18,8 +17,7 @@ enum PowerUpType
     };
 
 class PowerUpState :
-        public ChangeableState,
-        public DestroyableState
+        public ChangeDestroyableState
 {
 public:
 	PowerUpState(UniqueIdCreator &creator, const Point &position, PowerUpType powerUpType = PowerUpTypeNone);
@@ -32,9 +30,6 @@ public:
 	PowerUpType getPowerUpType() const;
 
     virtual void modifyPlayer(PlayerState &player) const;
-
-protected:
-    virtual void shouldBeDestroyed();
 
 private:
     const Point m_position;

@@ -3,14 +3,12 @@
 
 #include "common/point.h"
 #include "common/uniqueidcreator.h"
-#include "common/changeablestate.h"
-#include "common/destroyablestate.h"
+#include "common/changedestroyablestate.h"
 
 namespace Common
 {
 	class BombState :
-			public ChangeableState,
-			public DestroyableState
+			public ChangeDestroyableState
 	{
 	public:
 		BombState(UniqueIdCreator &creator, unsigned int playerID, const Point &position, unsigned int destructionRange);
@@ -31,9 +29,6 @@ namespace Common
 		// forbid copies
 		BombState(const BombState &bomb);
 		void operator=(const BombState &bomb);
-
-	protected:
-		virtual void shouldBeDestroyed();
 
 	private:
 		const unsigned int m_playerID;

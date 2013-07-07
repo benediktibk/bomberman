@@ -93,5 +93,5 @@ double ExplodedBombState::getDimension() const
 
 double ExplodedBombState::initialLifeTime()
 {
-	return 10.0;
+	return 0.5;
 }
