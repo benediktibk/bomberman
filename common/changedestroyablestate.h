@@ -12,9 +12,14 @@ class ChangeDestroyableState :
 {
 public:
     ChangeDestroyableState();
+    virtual ~ChangeDestroyableState();
     
-    void setChangeAndDestroyed();
-    // wenn zerstört dann auch change
+    virtual void setChanged();
+	virtual bool hasChanged();
+	virtual void resetChanged();
+    
+    virtual bool isDestroyed() const;
+	virtual void setDestroyed();
     
 private:
     bool m_destroyed;
