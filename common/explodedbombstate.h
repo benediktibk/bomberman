@@ -2,16 +2,14 @@
 #define COMMON_EXPLODEDBOMBSTATE_H
 
 #include "common/point.h"
-#include "common/changeablestate.h"
-#include "common/destroyablestate.h"
+#include "common/changedestroyablestate.h"
 
 namespace Common
 {
 	class BombState;
 
 	class ExplodedBombState :
-			public ChangeableState,
-			public DestroyableState
+			public ChangeDestroyableState
 	{
 	public:
 		ExplodedBombState(const BombState &bomb);

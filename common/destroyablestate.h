@@ -9,8 +9,8 @@ public:
 	DestroyableState();
 	virtual ~DestroyableState();
 
-	bool isDestroyed() const;
-	void setDestroyed();
+	virtual bool isDestroyed() const;
+	virtual void setDestroyed();
 
 protected:
 	virtual void shouldBeDestroyed();

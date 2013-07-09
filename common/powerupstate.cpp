@@ -43,8 +43,3 @@ PowerUpType PowerUpState::getPowerUpType() const
 
 void PowerUpState::modifyPlayer(PlayerState& /*player*/) const
 { }
-
-void PowerUpState::shouldBeDestroyed()
-{
-    setChanged();
-}

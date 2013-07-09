@@ -205,8 +205,6 @@ common/destroyablestatemock.cpp
 checkIncludeGuards.sh
 common/gridtest.h
 common/gridtest.cpp
-common/playerinormation.cpp
-common/playerinormation.h
 physic/dynamicobjecttest.h
 physic/dynamicobjecttest.cpp
 physic/staticobjecttest.h
@@ -441,6 +439,8 @@ common/playerinformation.h
 main/gui/splashscreen.ui
 main/splashscreen.h
 main/splashscreen.cpp
+common/changedestroyablestate.h
+common/changedestroyablestate.cpp
 resources/graphics/background.svg
 gameengine/certainfieldandnotdangerousdecider.h
 gameengine/certainfieldandnotdangerousdecider.cpp
@@ -452,3 +452,6 @@ resources/levels/classic_xtralarge.csv
 resources/levels/tetris.csv
 resources/levels/tempelrun.csv
 resources/levels/pacman.csv
+resources/levels/the_cage.csv
+resources/levels/duel.csv
+resources/levels/tictactoe.csv

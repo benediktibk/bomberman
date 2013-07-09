@@ -3,14 +3,11 @@
 
 #include "common/point.h"
 #include "common/uniqueidcreator.h"
-#include "common/changeablestate.h"
-#include "common/destroyablestate.h"
-
+#include "common/changedestroyablestate.h"
 namespace Common
 {
 class WallState :
-		public ChangeableState,
-		public DestroyableState
+		public ChangeDestroyableState
 {
 public:
 	enum WallType
@@ -31,9 +28,6 @@ private:
 	// forbid copies
 	WallState(const WallState &wall);
 	void operator=(const WallState &wall);
-
-protected:
-	virtual void shouldBeDestroyed();
 
 private:
 	const Point m_position;

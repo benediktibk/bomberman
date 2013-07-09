@@ -25,10 +25,6 @@ unsigned int WallState::getId() const
 	return m_wallId;
 }
 
-void WallState::shouldBeDestroyed()
-{
-	setChanged();
-}
 
 WallState::WallType WallState::getWallType() const
 {
