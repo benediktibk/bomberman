@@ -30,8 +30,6 @@ int main(int argc, char **argv)
 						&startWindow, SLOT(winnerOfGame(int)));
 	QObject::connect(	&splashScreen, SIGNAL(closed()),
 						&startWindow, SLOT(show()));
-    //QObject::connect(   &gameWindow, SIGNAL(closeGameSignal())),
-      //                  &startWindow, SLOT(show())
 	splashScreen.show();
 	return application.exec();
 }
