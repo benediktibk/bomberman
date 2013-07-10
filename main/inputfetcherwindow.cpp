@@ -66,7 +66,7 @@ void InputFetcherWindow::keyPressEvent(QKeyEvent *event)
 	case Key_D:
 		m_inputStatePlayerTwo.setRightKeyPressed();
 		break;
-	case Key_Tab:
+	case Key_Q:
 		m_inputStatePlayerTwo.setSpaceKeyPressed();
 		break;
 
@@ -116,7 +116,7 @@ void InputFetcherWindow::keyReleaseEvent(QKeyEvent *event)
 	case Key_D:
 		m_inputStatePlayerTwo.setRightKeyNotPressed();
 		break;
-	case Key_Tab:
+	case Key_Q:
 		m_inputStatePlayerTwo.setSpaceKeyNotPressed();
 		break;
 

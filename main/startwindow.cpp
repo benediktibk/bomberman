@@ -169,7 +169,7 @@ void StartWindow::controlClicked()
 {
 	QMessageBox messageBox;
 	messageBox.setWindowTitle("Control");
-	messageBox.setText("Player 1:\trun:\tArrow keys \n\tbomb:\tSpace\nPlayer 2:\trun:\tW A S D \n\tbomb:\tTab\nStetting:\tMute:\tM\n\tPause:\tP");
+	messageBox.setText("Player 1:\trun:\tArrow keys \n\tbomb:\tSpace\nPlayer 2:\trun:\tW A S D \n\tbomb:\tQ\nStetting:\tMute:\tM\n\tPause:\tP");
 	messageBox.exec();
 }
 
