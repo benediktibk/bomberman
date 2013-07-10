@@ -36,6 +36,7 @@ namespace GameEngine
 		CPPUNIT_TEST(getInputState_besideSaveFieldAsPossibleTargetToBlowUpEnemyButToSlowToEscape_noMovementButtonPressed);
 		CPPUNIT_TEST(getInputState_onSaveFieldAsPossibleTargetToBlowUpWallButToSlowToEscape_spaceKeyNotPressed);
 		CPPUNIT_TEST(getInputState_onSaveFieldAsPossibleTargetToBlowUpEnemyButToSlowToEscape_spaceKeyNotPressed);
+		CPPUNIT_TEST(getInputState_onSaveFieldAsPossibleTargetToBlowUpWallButCanEscapeDirectBecauseOfBombWithRange1_spaceKeyNotPressed);
 		CPPUNIT_TEST_SUITE_END();
 
 	public:
@@ -58,6 +59,7 @@ namespace GameEngine
 		void getInputState_besideSaveFieldAsPossibleTargetToBlowUpEnemyButToSlowToEscape_noMovementButtonPressed();
 		void getInputState_onSaveFieldAsPossibleTargetToBlowUpWallButToSlowToEscape_spaceKeyNotPressed();
 		void getInputState_onSaveFieldAsPossibleTargetToBlowUpEnemyButToSlowToEscape_spaceKeyNotPressed();
+		void getInputState_onSaveFieldAsPossibleTargetToBlowUpWallButCanEscapeDirectBecauseOfBombWithRange1_spaceKeyNotPressed();
 
 	private:
 		void createInputFetcher(const Common::LevelDefinition &level);
