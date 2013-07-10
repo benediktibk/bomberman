@@ -18,6 +18,7 @@
 #include "common/randomdecisiontest.h"
 #include "common/powerupstatetest.h"
 #include "common/powerupmaxbombstatetest.h"
+#include "common/changeableanddestroyablestatetest.h"
 #include "physic/physicalobjecttest.h"
 #include "physic/dynamicobjecttest.h"
 #include "physic/staticobjecttest.h"
@@ -68,6 +69,7 @@ CPPUNIT_TEST_SUITE_REGISTRATION(Common::CompareTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::CSVParserTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::GridTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Common::GridObserverTest);
+CPPUNIT_TEST_SUITE_REGISTRATION(Common::ChangeableAndDestroyableStateTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::PhysicalObjectTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::DynamicObjectTest);
 CPPUNIT_TEST_SUITE_REGISTRATION(Physic::StaticObjectTest);

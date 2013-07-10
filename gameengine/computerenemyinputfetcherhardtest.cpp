@@ -295,6 +295,22 @@ void ComputerEnemyInputFetcherHardTest::getInputState_onSaveFieldAsPossibleTarge
 	CPPUNIT_ASSERT(!input.isSpaceKeyPressed());
 }
 
+void ComputerEnemyInputFetcherHardTest::getInputState_onSaveFieldAsPossibleTargetToBlowUpWallButCanEscapeDirectBecauseOfBombWithRange1_spaceKeyNotPressed()
+{
+	LevelDefinition level(13, 14);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypePlayer, 0, 0);
+	level.setObjectTypeAtPosition(LevelDefinition::ObjectTypeLooseWall, 1, 0);
+	createInputFetcher(level);
+	BombState *bomb = new BombState(*m_bombIdCreator, 0, Point(1, 2), 1);
+	m_gameState->addBomb(bomb);
+	m_grid->addBombAtPlace(*bomb);
+
+	map<unsigned int, InputState> inputs = m_inputFetcher->getInputStates();
+	InputState input = inputs.begin()->second;
+
+	CPPUNIT_ASSERT(!input.isSpaceKeyPressed());
+}
+
 void ComputerEnemyInputFetcherHardTest::createInputFetcher(const LevelDefinition &level)
 {
 	delete m_inputFetcher;

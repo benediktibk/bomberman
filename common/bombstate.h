@@ -3,12 +3,12 @@
 
 #include "common/point.h"
 #include "common/uniqueidcreator.h"
-#include "common/changedestroyablestate.h"
+#include "common/changeableanddestroyablestate.h"
 
 namespace Common
 {
 	class BombState :
-			public ChangeDestroyableState
+			public ChangeableAndDestroyableState
 	{
 	public:
 		BombState(UniqueIdCreator &creator, unsigned int playerID, const Point &position, unsigned int destructionRange);
