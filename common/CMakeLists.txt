@@ -10,7 +10,7 @@ set(COMMON_SRC
 	leveldefinition.cpp
 	changeablestate.cpp
 	destroyablestate.cpp
-	changedestroyablestate.cpp
+	changeableanddestroyablestate.cpp
 	gridpoint.cpp
 	powerupstate.cpp
 	powerupmaxbombstate.cpp
@@ -58,7 +58,8 @@ set(COMMON_TEST_SRC
 	gridobservermock.cpp
 	gridobserverstub.cpp
 	gridobservertest.cpp
-        soundplayerstub.cpp
+	soundplayerstub.cpp
+	changeableanddestroyablestatetest.cpp
 )
 
 add_library(common ${COMMON_SRC})

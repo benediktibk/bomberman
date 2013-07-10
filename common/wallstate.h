@@ -3,11 +3,11 @@
 
 #include "common/point.h"
 #include "common/uniqueidcreator.h"
-#include "common/changedestroyablestate.h"
+#include "common/changeableanddestroyablestate.h"
 namespace Common
 {
 class WallState :
-		public ChangeDestroyableState
+		public ChangeableAndDestroyableState
 {
 public:
 	enum WallType

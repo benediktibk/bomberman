@@ -285,7 +285,6 @@ common/compare.cpp
 common/comparetest.h
 common/comparetest.cpp
 resources/levels/levellist.csv
-resources/levels/defaultlevel.csv
 resources/graphics/wall_solid.svg
 resources/graphics/wall_loose.svg
 resources/graphics/powerup_v2.svg
@@ -430,7 +429,6 @@ resources/levels/colosseum.csv
 resources/levels/ldv.csv
 resources/README/README.csv
 resources/README/README_Details.csv
-resources/levels/who_let_the_dogs_out.csv
 main/userinputsimulator.h
 main/userinputsimulator.cpp
 common/winnertype.h
@@ -439,8 +437,8 @@ common/playerinformation.h
 main/gui/splashscreen.ui
 main/splashscreen.h
 main/splashscreen.cpp
-common/changedestroyablestate.h
-common/changedestroyablestate.cpp
+common/changeableanddestroyablestate.h
+common/changeableanddestroyablestate.cpp
 resources/graphics/background.svg
 gameengine/certainfieldandnotdangerousdecider.h
 gameengine/certainfieldandnotdangerousdecider.cpp
@@ -455,3 +453,5 @@ resources/levels/pacman.csv
 resources/levels/the_cage.csv
 resources/levels/duel.csv
 resources/levels/tictactoe.csv
+common/changeableanddestroyablestatetest.h
+common/changeableanddestroyablestatetest.cpp
