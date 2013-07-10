@@ -285,7 +285,6 @@ common/compare.cpp
 common/comparetest.h
 common/comparetest.cpp
 resources/levels/levellist.csv
-resources/levels/defaultlevel.csv
 resources/graphics/wall_solid.svg
 resources/graphics/wall_loose.svg
 resources/graphics/powerup_v2.svg
@@ -430,7 +429,6 @@ resources/levels/colosseum.csv
 resources/levels/ldv.csv
 resources/README/README.csv
 resources/README/README_Details.csv
-resources/levels/who_let_the_dogs_out.csv
 main/userinputsimulator.h
 main/userinputsimulator.cpp
 common/winnertype.h
