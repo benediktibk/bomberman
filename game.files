@@ -439,8 +439,8 @@ common/playerinformation.h
 main/gui/splashscreen.ui
 main/splashscreen.h
 main/splashscreen.cpp
-common/changedestroyablestate.h
-common/changedestroyablestate.cpp
+common/changeableanddestroyablestate.h
+common/changeableanddestroyablestate.cpp
 resources/graphics/background.svg
 gameengine/certainfieldandnotdangerousdecider.h
 gameengine/certainfieldandnotdangerousdecider.cpp

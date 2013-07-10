@@ -4,7 +4,7 @@
 #include "common/point.h"
 #include "common/uniqueidcreator.h"
 #include "common/playerstate.h"
-#include "common/changedestroyablestate.h"
+#include "common/changeableanddestroyablestate.h"
 
 namespace Common
 {
@@ -17,7 +17,7 @@ enum PowerUpType
     };
 
 class PowerUpState :
-        public ChangeDestroyableState
+        public ChangeableAndDestroyableState
 {
 public:
 	PowerUpState(UniqueIdCreator &creator, const Point &position, PowerUpType powerUpType = PowerUpTypeNone);
