@@ -455,3 +455,5 @@ resources/levels/pacman.csv
 resources/levels/the_cage.csv
 resources/levels/duel.csv
 resources/levels/tictactoe.csv
+common/changeableanddestroyablestatetest.h
+common/changeableanddestroyablestatetest.cpp
