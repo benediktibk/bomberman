@@ -11,9 +11,11 @@ class ChangeableAndDestroyableStateTest :
 {
 public:
 	CPPUNIT_TEST_SUITE(ChangeableAndDestroyableStateTest);
+	CPPUNIT_TEST(setDestroyed_wasNotChanged_isChanged);
 	CPPUNIT_TEST_SUITE_END();
 
 private:
+	void setDestroyed_wasNotChanged_isChanged();
 
 };
 }
